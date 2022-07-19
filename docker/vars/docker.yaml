@@ -5,8 +5,8 @@ wireguard_peers: s22,thinkpad-personal,thinkpad-work
 
 swag_css_filter: |
   proxy_set_header Accept-Encoding "";
-  sub_filter
-  '</head>'
-  '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/jackett/nord.css">
-  </head>';
-  sub_filter_once on;
+    sub_filter
+    '</head>'
+    '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/jackett/nord.css">
+    </head>';
+    sub_filter_once on;

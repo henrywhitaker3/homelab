@@ -1,13 +1,5 @@
 version: '3.4'
 services:
-    mariadb:
-        container_name: mariadb
-        image: mariadb:latest
-        volumes:
-            - {{ docker_data_dir }}/mariadb:/var/lib/mysql
-        networks:
-            homelab:
-
     wireguard:
         container_name: wireguard
         image: linuxserver/wireguard
@@ -56,8 +48,6 @@ services:
             - VALIDATION=dns
             - DNSPLUGIN=cloudflare
             - ONLY_SUBDOMAINS=false
-            - INFLUX_HOST=10.0.0.21
-            - INFLUX_DATABASE=geoip2influx
             - MAXMINDDB_LICENSE_KEY=${MAXMINDDB_LICENSE_KEY}
         cap_add: [ 'NET_ADMIN' ]
         networks:

@@ -29,10 +29,16 @@
         append: yes
 
     - name: Set docker facts
+      tags:
+        - docker
+        - nginx
+        - torrent
       set_fact:
         docker_data_dir: "/home/{{ ansible_user }}/data"
         docker_puid: "{{ ansible_user_uid }}"
         docker_pgid: "{{ ansible_user_uid }}"
+        swag_dns_config: "/home/{{ ansible_user }}/data/swag/dns-conf"
+        torrent_config_dir: "/home/{{ ansible_user }}/data/torrent/config/openvpn"
 
     - name: Copy docker compose over
       tags: docker
@@ -87,7 +93,7 @@
         - docker
         - nginx
       file:
-        path: "{{ docker_data_dir }}/swag/dns-conf"
+        path: "{{ swag_dns_config }}"
         state: directory
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
@@ -100,7 +106,38 @@
         - cloudflare
       copy:
         content: "{{ cloudflare_creds }}"
-        dest: "{{ docker_data_dir }}/swag/dns-conf/cloudflare.ini"
+        dest: "{{ swag_dns_config }}/cloudflare.ini"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: 0664
+
+    - name: Create torrent config dir
+      tags:
+        - docker
+        - torrent
+      file:
+        path: "{{ torrent_config_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0776
+
+    - name: Copy torrent config
+      tags:
+        - docker
+        - torrent
+      copy:
+        content: "{{ item.content }}"
+        dest: "{{ torrent_config_dir }}/{{ item.dest }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0776
+      loop:
+        - content: "{{ qbittorrent_vpn_config }}"
+          dest: config.ovpn
+        - content: "{{ qbittorrent_vpn_config }}"
+          dest: nordvpn.ovpn
+        - content: "{{ qbittorrent_vpn_creds }}"
+          dest: creds.conf
+      loop_control:
+        label: "{{ item.dest }}"
