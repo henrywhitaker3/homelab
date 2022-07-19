@@ -1,0 +1,44 @@
+---
+- name: Setup Docker host
+
+
+
+  vars_files:
+    - ../vars/main.yaml
+
+  pre_tasks:
+    - name: Update package cache
+      become: true
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+  roles:
+    - user
+    - docker
+
+  tasks:
+    - name: Add user to docker group
+      tags: docker
+      user:
+        name: henry
+        groups: docker
+        append: yes
+
+    - name: Copy docker compose over
+      tags: docker
+      copy:
+        src: files/docker-compose.yaml
+        dest: /home/henry/docker-compose.yaml
+        mode: 0755
+        owner: henry
+        group: henry
+
+    - name: Ensure data dir exists
+      tags: docker
+      file:
+        path: /home/henry/data
+        state: directory
+        owner: henry
+        group: henry
+        mode: 0750
