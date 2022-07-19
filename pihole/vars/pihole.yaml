@@ -1,0 +1,3 @@
+---
+pihole_ipv4: 10.0.0.137/24
+pihole_web_password: a499e54232270177599ad9388cdf9e6380800246fc561fed6f2f2ef1d70f689c

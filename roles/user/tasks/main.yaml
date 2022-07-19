@@ -1,0 +1,24 @@
+---
+- name: Set home directory
+  set_fact:
+    user_home_dir: "{{ lookup('env','HOME') }}"
+
+- name: Set current user
+  set_fact:
+    user: "{{ lookup('env','USER') }}"
+
+- name: Ensure ssh directory exists
+  file:
+    path: "{{ user_home_dir }}/.ssh"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0700
+
+- name: Copy authorized keys
+  copy:
+    content: "{{ user_authorized_keys }}"
+    dest: "{{ user_home_dir }}/.ssh/authorized_keys"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0700

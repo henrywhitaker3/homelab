@@ -1,0 +1,58 @@
+---
+- name: Configure pihole server
+
+  hosts: pihole
+
+  vars_files:
+    - ../vars/main.yaml
+    - vars/pihole.yaml
+
+  pre_tasks:
+    - name: Update package cache
+      become: true
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+  roles:
+    - user
+
+  tasks:
+    - name: Create pihole dir
+      become: true
+      tags:
+        - pihole
+      file:
+        path: /etc/pihole
+        owner: root
+        group: root
+        state: directory
+        mode: 0644
+
+    - name: Copy pihole setup vars
+      become: true
+      tags:
+        - pihole
+      template:
+        src: templates/setupVars.conf
+        dest: /etc/pihole/setupVars.conf
+        mode: 0666
+
+    - name: Does install script exist
+      tags: pihole
+      stat:
+        path: "/home/{{ ansible_user }}/pihole.sh"
+      register: install_script_exists
+
+    - name: Download pihole install script
+      tags: pihole
+      get_url:
+        url: https://install.pi-hole.net
+        dest: "/home/{{ ansible_user }}/pihole.sh"
+        mode: 0755
+      when: not install_script_exists.stat.exists
+
+    - name: Run install script
+      tags: pihole
+      become: true
+      shell: "/home/{{ ansible_user }}/pihole.sh --unattended"
