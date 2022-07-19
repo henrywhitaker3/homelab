@@ -4,3 +4,11 @@ pihole-01 ansible_host=10.0.0.2
 [pihole:vars]
 ansible_user=henry
 ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[docker]
+docker-01 ansible_host=10.1.0.2
+
+[docker:vars]
+# ansible_user=henry
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_user=vagrant

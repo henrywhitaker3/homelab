@@ -1,11 +1,11 @@
 ---
 - name: Set home directory
   set_fact:
-    user_home_dir: "{{ lookup('env','HOME') }}"
+    user_home_dir: "/home/{{ ansible_user }}"
 
 - name: Set current user
   set_fact:
-    user: "{{ lookup('env','USER') }}"
+    user: "{{ ansible_user }}"
 
 - name: Ensure ssh directory exists
   file:

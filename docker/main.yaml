@@ -1,7 +1,7 @@
 ---
 - name: Setup Docker host
 
-
+  hosts: docker
 
   vars_files:
     - ../vars/main.yaml
@@ -20,8 +20,9 @@
   tasks:
     - name: Add user to docker group
       tags: docker
+      become: true
       user:
-        name: henry
+        name: "{{ ansible_user}}"
         groups: docker
         append: yes
 
@@ -29,16 +30,28 @@
       tags: docker
       copy:
         src: files/docker-compose.yaml
-        dest: /home/henry/docker-compose.yaml
+        dest: "/home/{{ ansible_user }}/docker-compose.yaml"
         mode: 0755
-        owner: henry
-        group: henry
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
 
     - name: Ensure data dir exists
       tags: docker
       file:
-        path: /home/henry/data
+        path: "/home/{{ ansible_user }}/data"
         state: directory
-        owner: henry
-        group: henry
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
         mode: 0750
+
+    - name: Ensure nginx data dir exists
+      tags:
+        - docker
+        - nginx
+      file:
+        path: "/home/{{ ansible_user }}/data/swag/nginx/proxy-confs"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0755
+

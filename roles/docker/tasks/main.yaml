@@ -11,10 +11,15 @@
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 
-- name: Install docker
+- name: Install docker packages
   tags: docker
   become: true
   apt:
-    name: docker-ce
+    name: "{{ item }}"
     state: latest
     update_cache: true
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin
