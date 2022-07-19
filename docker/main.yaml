@@ -5,6 +5,8 @@
 
   vars_files:
     - ../vars/main.yaml
+    - vars/docker.yaml
+    - vars/docker_secrets.yaml
 
   pre_tasks:
     - name: Update package cache
@@ -26,10 +28,16 @@
         groups: docker
         append: yes
 
+    - name: Set docker facts
+      set_fact:
+        docker_data_dir: "/home/{{ ansible_user }}/data"
+        docker_puid: "{{ ansible_user_uid }}"
+        docker_pgid: "{{ ansible_user_uid }}"
+
     - name: Copy docker compose over
       tags: docker
-      copy:
-        src: files/docker-compose.yaml
+      template:
+        src: templates/docker-compose.yaml
         dest: "/home/{{ ansible_user }}/docker-compose.yaml"
         mode: 0755
         owner: "{{ ansible_user }}"
@@ -38,20 +46,61 @@
     - name: Ensure data dir exists
       tags: docker
       file:
-        path: "/home/{{ ansible_user }}/data"
+        path: "{{ docker_data_dir }}"
         state: directory
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: 0750
+
+    - name: Set nginx proxy confs dir
+      tags:
+        - docker
+        - nginx
+      set_fact:
+        nginx_proxy_confs: "{{ docker_data_dir }}/swag/nginx/proxy-confs"
 
     - name: Ensure nginx data dir exists
       tags:
         - docker
         - nginx
       file:
-        path: "/home/{{ ansible_user }}/data/swag/nginx/proxy-confs"
+        path: "{{ nginx_proxy_confs }}"
         state: directory
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: 0755
 
+    - name: Copy nginx proxy-confs
+      tags:
+        - docker
+        - nginx
+      template:
+        src: "{{ item }}"
+        dest: "{{ nginx_proxy_confs }}/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0664
+      with_fileglob: templates/proxy_confs/*.conf
+
+    - name: Create dns config directory
+      tags:
+        - docker
+        - nginx
+      file:
+        path: "{{ docker_data_dir }}/swag/dns-conf"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0775
+
+    - name: Copy cloudflare api creds
+      tags:
+        - docker
+        - nginx
+        - cloudflare
+      copy:
+        content: "{{ cloudflare_creds }}"
+        dest: "{{ docker_data_dir }}/swag/dns-conf/cloudflare.ini"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0664
