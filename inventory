@@ -1,5 +1,5 @@
 [pihole]
-pihole-01 ansible_host=10.0.0.137
+pihole-01 ansible_host=10.0.0.2
 
 [pihole:vars]
 ansible_user=henry
