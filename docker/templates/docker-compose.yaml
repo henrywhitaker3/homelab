@@ -276,6 +276,7 @@ services:
     nextcloud:
       container_name: nextcloud
       image: linuxserver/nextcloud:latest
+      restart: unless-stopped
       environment:
         - PUID={{ docker_puid }}
         - PGID={{ docker_puid }}
