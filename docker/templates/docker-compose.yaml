@@ -13,7 +13,7 @@ services:
             - TZ={{ docker_tz }}
             - SERVERURL=plexmox.com
             - SERVERPORT=51820
-            - PEERS=${WIREGUARD_PEERS}
+            - PEERS={{ wireguard_peers }}
             - PEERDNS=auto
         volumes:
             - {{ docker_data_dir }}/wireguard:/config
