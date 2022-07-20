@@ -1,0 +1,48 @@
+---
+- name: Install cifs packages
+  become: true
+  tags:
+    - cifs
+    - apt
+  apt:
+    name: cifs-utils
+    state: latest
+
+- name: Copy cifs credentials
+  become: true
+  tags:
+    - cifs
+  copy:
+    content: "{{ cifs_credentials }}"
+    dest: "{{ cifs_credentails_location }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0600
+
+- name: Create directory to mount cifs share
+  become: true
+  tags:
+    - cifs
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ cifs_mount_user }}"
+    group: "{{ cifs_mount_group }}"
+    mode: 0755
+    state: directory
+  loop: "{{ cifs_mounts }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Setup cifs mount
+  become: true
+  tags:
+    - cifs
+  mount:
+    fstype: cifs
+    src: "{{ item.src }}"
+    path: "{{ item.path }}"
+    opts: "users,x-systemd.automount,uid={{ cifs_mount_uid }},gid={{ cifs_mount_gid }},credentials={{ cifs_credentails_location }},workgroup=WORKGROUP"
+    state: mounted
+  loop: "{{ cifs_mounts }}"
+  loop_control:
+    label: "{{ item.path }}"

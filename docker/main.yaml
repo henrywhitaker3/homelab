@@ -21,6 +21,7 @@
   roles:
     - user
     - docker
+    - cifs
 
   tasks:
     - name: Set docker facts
@@ -141,60 +142,6 @@
           dest: creds.conf
       loop_control:
         label: "{{ item.dest }}"
-
-    - name: Set cifs facts
-      tags:
-        - docker
-        - cifs
-      set_fact:
-        cifs_mount_point: /plex
-        cifs_src: //10.0.0.9/plex
-        cifs_opts: users,x-systemd.automount,uid=1000,gid=1000,credentials=/home/henry/.smbcredentials,workgroup=WORKGROUP
-
-    - name: Install smb packages
-      become: true
-      tags:
-        - docker
-        - cifs
-      apt:
-        name: cifs-utils
-        state: latest
-
-    - name: Copy cifs credentials
-      become: true
-      tags:
-        - docker
-        - cifs
-      copy:
-        content: "{{ cifs_creds }}"
-        dest: "/home/{{ ansible_user }}/.smbcredentials"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: 0600
-
-    - name: Create directory to mount cifs share
-      become: true
-      tags:
-        - docker
-        - cifs
-      file:
-        path: "{{ cifs_mount_point }}"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: 0755
-        state: directory
-
-    - name: Setup cifs mount
-      become: true
-      tags:
-        - docker
-        - cifs
-      mount:
-        fstype: cifs
-        src: "{{ cifs_src }}"
-        path: "{{ cifs_mount_point }}"
-        opts: "{{ cifs_opts }}"
-        state: mounted
 
     - name: Setup crons
       tags:

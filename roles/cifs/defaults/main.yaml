@@ -1,0 +1,10 @@
+---
+cifs_mount_user: "{{ ansible_user }}"
+cifs_mount_group: "{{ ansible_user }}"
+cifs_mount_uid: "{{ ansible_user_uid }}"
+cifs_mount_gid: "{{ ansible_user_uid }}"
+
+cifs_credentials: ""
+cifs_credentails_location: "/home/{{ ansible_user }}/.smbcredentials"
+
+cifs_mounts: []
