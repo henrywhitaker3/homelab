@@ -304,5 +304,9 @@ volumes:
             type: none
             o: bind
             device: "/plex/Media/Music"
+
+    netdata_cache:
+    netdata_lib:
+
 networks:
     homelab:

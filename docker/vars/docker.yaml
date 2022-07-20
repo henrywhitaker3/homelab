@@ -3,6 +3,8 @@ docker_tz: Europe/London
 
 wireguard_peers: s22,thinkpad-personal,thinkpad-work
 
+netdata_bind_ip: 10.0.0.160
+
 swag_css_filter: |
   proxy_set_header Accept-Encoding "";
     sub_filter

@@ -28,6 +28,7 @@
         - docker
         - nginx
         - torrent
+        - compose
       set_fact:
         docker_data_dir: "/home/{{ ansible_user }}/data"
         docker_puid: "{{ ansible_user_uid }}"
@@ -36,7 +37,9 @@
         torrent_config_dir: "/home/{{ ansible_user }}/data/torrent/config/openvpn"
 
     - name: Copy docker compose over
-      tags: docker
+      tags:
+        - docker
+        - compose
       template:
         src: templates/docker-compose.yaml
         dest: "/home/{{ ansible_user }}/docker-compose.yaml"
@@ -250,3 +253,5 @@
           job: "ccd /home/henry && docker image prune"
       loop_control:
         label: "{{ item.name }}"
+
+    - import_tasks: tasks/netdata.yaml
