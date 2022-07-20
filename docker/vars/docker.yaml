@@ -13,8 +13,8 @@ swag_css_filter: |
     </head>';
     sub_filter_once on;
 
-cifs_mounts:
-  - src: //10.0.0.9/plex
+nfs_mounts:
+  - src: 10.0.0.9:/mnt/user/plex
     path: /plex
-  - src: //10.0.0.9/cloud
+  - src: 10.0.0.9:/mnt/user/cloud
     path: /cloud

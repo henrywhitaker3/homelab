@@ -1,0 +1,36 @@
+---
+- name: Install nfs utils
+  become: true
+  tags:
+    - nfs
+  apt:
+    name: nfs-common
+    state: latest
+
+- name: Create directory to mount nfs share
+  become: true
+  tags:
+    - nfs
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ nfs_mount_user }}"
+    group: "{{ nfs_mount_group }}"
+    mode: 0755
+    state: directory
+  loop: "{{ nfs_mounts }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Setup nfs mount
+  become: true
+  tags:
+    - nfs
+  mount:
+    fstype: nfs
+    src: "{{ item.src }}"
+    path: "{{ item.path }}"
+    opts: "noauto,x-systemd.automount,x-system:d.device-timeout=10,timeo=14,x-systemd.idle-timeout=1min"
+    state: mounted
+  loop: "{{ nfs_mounts }}"
+  loop_control:
+    label: "{{ item.path }}"

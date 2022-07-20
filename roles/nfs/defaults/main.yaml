@@ -1,0 +1,7 @@
+---
+nfs_mount_user: "{{ ansible_user }}"
+nfs_mount_group: "{{ ansible_user }}"
+nfs_mount_uid: "{{ ansible_user_uid }}"
+nfs_mount_gid: "{{ ansible_user_uid }}"
+
+nfs_mounts: []

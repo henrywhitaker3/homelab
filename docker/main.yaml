@@ -21,7 +21,7 @@
   roles:
     - user
     - docker
-    - cifs
+    - nfs
 
   tasks:
     - name: Set docker facts
