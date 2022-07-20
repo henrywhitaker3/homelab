@@ -16,3 +16,5 @@ swag_css_filter: |
 cifs_mounts:
   - src: //10.0.0.9/plex
     path: /plex
+  - src: //10.0.0.9/cloud
+    path: /cloud
