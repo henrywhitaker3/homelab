@@ -273,21 +273,6 @@ services:
                 max-file: "10"
                 max-size: "200k"
 
-    nextcloud:
-      container_name: nextcloud
-      image: linuxserver/nextcloud:latest
-      environment:
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_puid }}
-        - TZ={{ docker_tz }}
-      volumes:
-        - {{ docker_data_dir}}/nextcloud:/config
-        - cloud_data:/data
-      ports:
-        - 444:443
-      networks:
-        homelab:
-
 volumes:
     # plex_temp:
     #     driver: local
@@ -319,12 +304,6 @@ volumes:
             type: none
             o: bind
             device: "/plex/Media/Music"
-    cloud_data:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: "/cloud/docker/data"
 
     netdata_cache:
     netdata_lib:
