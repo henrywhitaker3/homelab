@@ -290,7 +290,7 @@ services:
         - plex_movies:/plex/Media/Movies
         - plex_tv:/plex/Media/TV Shows
         - plex_music:/plex/Media/Music
-        - plex_audiobooks:/plex/Media/Audibooks
+        - plex_audiobooks:/plex/Media/Audiobooks
       restart: unless-stopped
 
 volumes:
@@ -323,7 +323,7 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: "/plex/Media/Audibooks"
+            device: "/plex/Media/Audiobooks"
 
 networks:
     homelab:
