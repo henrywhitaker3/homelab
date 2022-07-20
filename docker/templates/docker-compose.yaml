@@ -48,7 +48,7 @@ services:
             - VALIDATION=dns
             - DNSPLUGIN=cloudflare
             - ONLY_SUBDOMAINS=false
-            - MAXMINDDB_LICENSE_KEY=${MAXMINDDB_LICENSE_KEY}
+            - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
         cap_add: [ 'NET_ADMIN' ]
         networks:
             homelab:
