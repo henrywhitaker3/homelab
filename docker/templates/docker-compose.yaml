@@ -273,13 +273,27 @@ services:
                 max-file: "10"
                 max-size: "200k"
 
+    plex:
+      container_name: plex
+      image: linuxserver/plex:latest
+      network_mode: host
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+        - VERSION=latest
+      devices:
+        - /dev/dri:/dev/dri
+      volumes:
+        - {{ docker_data_dir}}/plex:/config
+        - plex_movies:/volume1/TV
+        - plex_movies:/plex/Media/Movies
+        - plex_tv:/plex/Media/TV Shows
+        - plex_music:/plex/Media/Music
+        - plex_audiobooks:/plex/Media/Audibooks
+      restart: unless-stopped
+
 volumes:
-    # plex_temp:
-    #     driver: local
-    #     driver_opts:
-    #         type: nfs
-    #         o: addr=10.0.0.9,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
-    #         device: :/mnt/user/plex/temp
     plex_temp:
         driver: local
         driver_opts:
@@ -304,9 +318,12 @@ volumes:
             type: none
             o: bind
             device: "/plex/Media/Music"
-
-    netdata_cache:
-    netdata_lib:
+    plex_audiobooks:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: "/plex/Media/Audibooks"
 
 networks:
     homelab:
