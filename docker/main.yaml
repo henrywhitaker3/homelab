@@ -15,6 +15,9 @@
         update_cache: true
         cache_valid_time: 3600
 
+  handlers:
+    - import_tasks: handlers/main.yaml
+
   roles:
     - user
     - docker
@@ -40,6 +43,7 @@
         mode: 0755
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
+      notify: dc up
 
     - name: Ensure data dir exists
       tags: docker
@@ -79,6 +83,7 @@
         group: "{{ ansible_user }}"
         mode: 0664
       with_fileglob: templates/proxy_confs/*.conf
+      notify: restart nginx
 
     - name: Create dns config directory
       tags:

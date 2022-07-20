@@ -1,0 +1,12 @@
+---
+- name: restart nginx
+  tags:
+    - docker
+    - nginx
+  shell: "cd /home/{{ ansible_user }}/ && docker compose restart swag"
+
+- name: dc up
+  tags:
+    - docker
+    - nginx
+  shell: "cd /home/{{ ansible_user }}/ && docker compose up -d"
