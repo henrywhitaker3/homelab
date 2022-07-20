@@ -18,26 +18,6 @@
     - user
 
   tasks:
-    - name: Create pihole dir
-      become: true
-      tags:
-        - pihole
-      file:
-        path: /etc/pihole
-        owner: root
-        group: root
-        state: directory
-        mode: 0644
-
-    - name: Copy pihole setup vars
-      become: true
-      tags:
-        - pihole
-      template:
-        src: templates/setupVars.conf
-        dest: /etc/pihole/setupVars.conf
-        mode: 0666
-
     - name: Does install script exist
       tags: pihole
       stat:
@@ -49,10 +29,38 @@
       get_url:
         url: https://install.pi-hole.net
         dest: "/home/{{ ansible_user }}/pihole.sh"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
         mode: 0755
+      when: not install_script_exists.stat.exists
+
+    - name: Create pihole dir
+      become: true
+      tags:
+        - pihole
+      file:
+        path: /etc/pihole
+        owner: root
+        group: root
+        state: directory
+        mode: 0644
+      when: not install_script_exists.stat.exists
+
+    - name: Copy pihole setup vars
+      become: true
+      tags:
+        - pihole
+        - config
+      template:
+        src: templates/setupVars.conf
+        dest: /etc/pihole/setupVars.conf
+        owner: root
+        group: root
+        mode: 0666
       when: not install_script_exists.stat.exists
 
     - name: Run install script
       tags: pihole
       become: true
       shell: "/home/{{ ansible_user }}/pihole.sh --unattended"
+      when: not install_script_exists.stat.exists

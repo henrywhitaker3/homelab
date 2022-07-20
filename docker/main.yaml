@@ -20,14 +20,6 @@
     - docker
 
   tasks:
-    - name: Add user to docker group
-      tags: docker
-      become: true
-      user:
-        name: "{{ ansible_user}}"
-        groups: docker
-        append: yes
-
     - name: Set docker facts
       tags:
         - docker

@@ -23,3 +23,12 @@
     - docker-ce-cli
     - containerd.io
     - docker-compose-plugin
+
+- name: Add current user to docker group
+  tags: docker
+  become: true
+  user:
+    name: "{{ ansible_user}}"
+    groups: docker
+    append: yes
+  when: docker_add_user_to_group
