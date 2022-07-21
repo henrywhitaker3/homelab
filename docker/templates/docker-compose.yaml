@@ -3,7 +3,6 @@ services:
     wireguard:
         container_name: wireguard
         image: linuxserver/wireguard
-        container_name: wireguard
         cap_add:
           - NET_ADMIN
           - SYS_MODULE
