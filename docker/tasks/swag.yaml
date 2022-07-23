@@ -47,6 +47,23 @@
   loop: "{{ nginx_proxy_confs_list }}"
   notify: restart nginx
 
+- name: List conf files on server
+  tags:
+    - docker
+    - nginx
+  shell: "cd {{ nginx_proxy_confs }} && ls *.conf"
+  register: active_nginx_confs
+
+- name: Purge conf files not in git
+  tags:
+    - docker
+    - nginx
+  file:
+    name: "{{ nginx_proxy_confs }}/{{ item }}"
+    state: absent
+  when: item not in nginx_proxy_confs_list
+  with_items: "{{ active_nginx_confs.stdout_lines }}"
+
 - name: Create dns config directory
   tags:
     - docker
