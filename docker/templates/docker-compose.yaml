@@ -261,46 +261,8 @@ services:
         - /dev/dri:/dev/dri
       volumes:
         - {{ docker_data_dir}}/plex:/config
-        - plex:/plex
+        - /plex:/plex
       restart: unless-stopped
-
-volumes:
-    plex:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /plex
-    plex_temp:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /plex/temp
-    plex_tv:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: "/plex/Media/TV Shows"
-    plex_movies:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: "/plex/Media/Movies"
-    plex_music:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: "/plex/Media/Music"
-    plex_audiobooks:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: "/plex/Media/Audiobooks"
 
 networks:
     homelab:
