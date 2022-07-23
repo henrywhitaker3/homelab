@@ -1,10 +1,10 @@
 ---
-- name: Get list of active proxy configs
+- name: Get list of desired proxy configs
   tags:
     - docker
     - nginx
   command: "echo {{ item | basename }}"
-  register: nginx_proxy_confs
+  register: desired_nginx_proxy_confs
   with_fileglob: templates/proxy_confs/*.conf
   delegate_to: localhost
   changed_when: false
@@ -14,21 +14,21 @@
     - docker
     - nginx
   set_fact:
-    nginx_proxy_confs_list: "{{ nginx_proxy_confs.results | map(attribute='stdout') | list | flatten }}"
+    desired_nginx_proxy_confs_list: "{{ desired_nginx_proxy_confs.results | map(attribute='stdout') | list | flatten }}"
 
 - name: Set nginx proxy confs dir
   tags:
     - docker
     - nginx
   set_fact:
-    nginx_proxy_confs: "{{ docker_data_dir }}/swag/nginx/proxy-confs"
+    nginx_proxy_confs_dir: "{{ docker_data_dir }}/swag/nginx/proxy-confs"
 
 - name: Ensure nginx data dir exists
   tags:
     - docker
     - nginx
   file:
-    path: "{{ nginx_proxy_confs }}"
+    path: "{{ nginx_proxy_confs_dir }}"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -40,29 +40,31 @@
     - nginx
   template:
     src: "templates/proxy_confs/{{ item }}"
-    dest: "{{ nginx_proxy_confs }}/{{ item }}"
+    dest: "{{ nginx_proxy_confs_dir }}/{{ item }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0664
-  loop: "{{ nginx_proxy_confs_list }}"
+  loop: "{{ desired_nginx_proxy_confs_list }}"
   notify: restart nginx
 
-- name: List conf files on server
+- name: List active conf files
   tags:
     - docker
     - nginx
-  shell: "cd {{ nginx_proxy_confs }} && ls *.conf"
+  shell: "cd {{ nginx_proxy_confs_dir }} && ls *.conf"
   register: active_nginx_confs
+  changed_when: false
 
 - name: Purge conf files not in git
   tags:
     - docker
     - nginx
   file:
-    name: "{{ nginx_proxy_confs }}/{{ item }}"
+    name: "{{ nginx_proxy_confs_dir }}/{{ item }}"
     state: absent
-  when: item not in nginx_proxy_confs_list
+  when: item not in desired_nginx_proxy_confs_list
   with_items: "{{ active_nginx_confs.stdout_lines }}"
+  notify: restart nginx
 
 - name: Create dns config directory
   tags:
