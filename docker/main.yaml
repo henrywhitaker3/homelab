@@ -23,6 +23,7 @@
     - user
     - docker
     - cifs
+    - nfs
     - netdata
 
   tasks:
