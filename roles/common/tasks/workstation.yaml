@@ -1,0 +1,112 @@
+---
+- name: Add php repo
+  become: true
+  tags:
+    - apt
+    - common
+    - php
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Install php
+  become: true
+  tags:
+    - apt
+    - common
+    - php
+  apt:
+    name:
+      - "php{{ item }}"
+      - "php{{ item }}-zip"
+      - "php{{ item }}-fpm"
+      - "php{{ item }}-curl"
+      - "php{{ item }}-mcrypt"
+      - "php{{ item }}-xdebug"
+      - "php{{ item }}-redis"
+      - "php{{ item }}-opcache"
+      - "php{{ item }}-mysql"
+      - "php{{ item }}-sqlite3"
+      - "php{{ item }}-mbstring"
+      - "php{{ item }}-cli"
+    state: latest
+  loop: "{{ php_versions }}"
+
+- name: Install go
+  become: true
+  tags:
+    - apt
+    - common
+    - go
+  apt:
+    name: golang
+    state: latest
+
+- name: Install kubectl
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt:
+    name: kubectl
+    state: latest
+
+- name: Add helm gpg key
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt_key:
+    url: https://baltocdn.com/helm/signing.asc
+    state: present
+    file: /usr/share/keyrings/helm.gpg
+
+- name: Get DEB architecture
+  tags:
+    - apt
+    - common
+    - k8s
+  shell: dpkg --print-architecture
+  register: deb_architecture
+  changed_when: false
+
+- name: Add helm repo
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt_repository:
+    repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
+    state: present
+
+- name: Install helm
+  tags:
+    - apt
+    - common
+    - k8s
+  apt:
+    name: helm
+    state: latest
+
+- name: Add numix icon ppa
+  become: true
+  tags:
+    - apt
+    - common
+    - theme
+  apt_repository:
+    repo: ppa:numix/ppa
+    state: present
+
+- name: Install numix circle icons
+  become: true
+  tags:
+    - apt
+    - common
+    - theme
+  apt:
+    name: numix-icon-theme-circle
+    state: latest

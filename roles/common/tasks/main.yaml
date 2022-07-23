@@ -14,3 +14,6 @@
 - import_tasks: unattended-upgrades.yaml
 - import_tasks: dotfiles.yaml
   when: copy_dotfiles
+
+- import_tasks: workstation.yaml
+  when: installation_type == 'workstation'

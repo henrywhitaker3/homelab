@@ -4,7 +4,7 @@
     - common
     - dotfiles
   set_fact:
-    bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/standard.bashrc' }}"
+    bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/workstation.bashrc' }}"
 
 - name: Copy bashrc
   tags:

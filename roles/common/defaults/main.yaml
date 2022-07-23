@@ -5,7 +5,9 @@ unattended_upgrades_repos:
   - '"${distro_id}ESMApps:${distro_codename}-apps-security";'
   - '"${distro_id}ESM:${distro_codename}-infra-security";'
 
-# Can be either "server" or "standard"
+# Can be either "server" or "workstation"
 installation_type: "server"
 
 copy_dotfiles: true
+
+php_versions: [7.4, 8.0]
