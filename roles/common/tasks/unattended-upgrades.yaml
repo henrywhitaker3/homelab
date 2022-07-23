@@ -1,0 +1,32 @@
+---
+- name: Install and enable unattended upgrades
+  tags:
+    - common
+    - security
+  become: true
+  apt:
+    name: unattended-upgrades
+    state: present
+
+- name: Enabled unattended upgrades service
+  tags:
+    - common
+    - security
+  become: true
+  service:
+    name: unattended-upgrades
+    state: "{{ (unattended_upgrades_enabled == true) | ternary('started', 'stopped') }}"
+    enabled: "{{ (unattended_upgrades_enabled == true) | ternary(true, false) }}"
+
+- name: Copy default configuration
+  tags:
+    - common
+    - security
+  become: true
+  template:
+    src: templates/50unattended-upgrades
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart unattended-upgrades

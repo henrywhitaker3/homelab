@@ -1,0 +1,14 @@
+---
+- name: Install packages
+  become: true
+  tags:
+    - common
+    - apt
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - vim
+    - bashtop
+
+- import_tasks: unattended-upgrades.yaml

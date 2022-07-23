@@ -19,6 +19,7 @@
     - import_tasks: handlers/main.yaml
 
   roles:
+    - common
     - user
     - docker
     - nfs

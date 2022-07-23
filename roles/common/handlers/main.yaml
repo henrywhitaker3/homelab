@@ -1,0 +1,6 @@
+---
+- name: restart unattended-upgrades
+  become: true
+  service:
+    name: unattended-upgrades
+    state: restarted
