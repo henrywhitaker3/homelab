@@ -4,3 +4,8 @@ unattended_upgrades_repos:
   - '"${distro_id}:${distro_codename}-security";'
   - '"${distro_id}ESMApps:${distro_codename}-apps-security";'
   - '"${distro_id}ESM:${distro_codename}-infra-security";'
+
+# Can be either "server" or "standard"
+installation_type: "server"
+
+copy_dotfiles: true

@@ -1,0 +1,29 @@
+---
+- name: Decide if its a server or not
+  tags:
+    - common
+    - dotfiles
+  set_fact:
+    bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/standard.bashrc' }}"
+
+- name: Copy bashrc
+  tags:
+    - dotfiles
+    - common
+  template:
+    src: "{{ bashrc_template }}"
+    dest: "/home/{{ ansible_user }}/.bashrc"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
+
+- name: Copy bash aliases
+  tags:
+    - dotfiles
+    - common
+  template:
+    src: templates/.bash_aliases
+    dest: "/home/{{ ansible_user }}/.bash_aliases"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644

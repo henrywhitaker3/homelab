@@ -12,3 +12,5 @@
     - bashtop
 
 - import_tasks: unattended-upgrades.yaml
+- import_tasks: dotfiles.yaml
+  when: copy_dotfiles
