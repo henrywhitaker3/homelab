@@ -1,4 +1,21 @@
 ---
+- name: Get list of active proxy configs
+  tags:
+    - docker
+    - nginx
+  command: "echo {{ item | basename }}"
+  register: nginx_proxy_confs
+  with_fileglob: templates/proxy_confs/*.conf
+  delegate_to: localhost
+  changed_when: false
+
+- name: Flatten list of configs
+  tags:
+    - docker
+    - nginx
+  set_fact:
+    nginx_proxy_confs_list: "{{ nginx_proxy_confs.results | map(attribute='stdout') | list | flatten }}"
+
 - name: Set nginx proxy confs dir
   tags:
     - docker
@@ -22,12 +39,12 @@
     - docker
     - nginx
   template:
-    src: "{{ item }}"
-    dest: "{{ nginx_proxy_confs }}/"
+    src: "templates/proxy_confs/{{ item }}"
+    dest: "{{ nginx_proxy_confs }}/{{ item }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0664
-  with_fileglob: templates/proxy_confs/*.conf
+  loop: "{{ nginx_proxy_confs_list }}"
   notify: restart nginx
 
 - name: Create dns config directory
