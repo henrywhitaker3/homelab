@@ -117,6 +117,24 @@ services:
                 max-file: "10"
                 max-size: "200k"
 
+    prowlarr:
+        container_name: prowlarr
+        restart: unless-stopped
+        image: linuxserver/prowlarr:latest
+        volumes:
+            - {{ docker_data_dir }}/prowlarr:/config
+        environment:
+            - PUID={{ docker_puid }}
+            - PGID={{ docker_puid }}
+            - TZ={{ docker_tz }}
+        networks:
+            homelab:
+        logging:
+            driver: "json-file"
+            options:
+                max-file: "10"
+                max-size: "200k"
+
     monitorr:
         container_name: monitorr
         restart: unless-stopped
@@ -156,27 +174,6 @@ services:
         networks:
             homelab:
 
-    jackett:
-        container_name: jackett
-        restart: unless-stopped
-        image: linuxserver/jackett:latest
-        ports:
-            - 9117:9117
-        volumes:
-            - {{ docker_data_dir }}/jackett/config:/config
-        environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
-            - AUTO_UPDATE=true
-        networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
-
     overseerr:
         container_name: overseerr
         restart: unless-stopped
@@ -199,27 +196,6 @@ services:
         image: linuxserver/tautulli:latest
         volumes:
             - {{ docker_data_dir }}/tautulli:/config
-        environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
-        networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
-
-    nzbhydra2:
-        container_name: nzbhydra2
-        restart: unless-stopped
-        image: linuxserver/nzbhydra2:latest
-        volumes:
-            - {{ docker_data_dir }}/nzbhydra:/config
-            - /plex/temp:/downloads
-        ports:
-            - 5076:5076
         environment:
             - PUID={{ docker_puid }}
             - PGID={{ docker_puid }}
