@@ -8,7 +8,7 @@
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0776
+    mode: 0775
   notify: restart torrent
 
 - name: Copy torrent config
@@ -20,7 +20,7 @@
     dest: "{{ torrent_config_dir }}/{{ item.dest }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0776
+    mode: 0775
   loop:
     - content: "{{ qbittorrent_vpn_config }}"
       dest: config.ovpn
