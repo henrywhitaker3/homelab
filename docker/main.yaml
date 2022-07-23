@@ -22,7 +22,7 @@
     - common
     - user
     - docker
-    - nfs
+    - cifs
     - netdata
 
   tasks:

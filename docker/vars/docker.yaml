@@ -7,8 +7,8 @@ netdata_bind_ip: 10.0.0.160
 
 swag_css_theme: nord
 
-nfs_mounts:
-  - src: 10.0.0.9:/mnt/user/plex
+cifs_mounts:
+  - src: //10.0.0.9/plex
     path: /plex
-  - src: 10.0.0.9:/mnt/user/cloud
+  - src: //10.0.0.9/cloud
     path: /cloud
