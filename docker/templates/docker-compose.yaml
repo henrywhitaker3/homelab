@@ -120,7 +120,7 @@ services:
     prowlarr:
         container_name: prowlarr
         restart: unless-stopped
-        image: linuxserver/prowlarr:latest
+        image: linuxserver/prowlarr:develop
         volumes:
             - {{ docker_data_dir }}/prowlarr:/config
         environment:
