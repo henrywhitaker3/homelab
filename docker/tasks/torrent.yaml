@@ -1,0 +1,33 @@
+---
+- name: Create torrent config dir
+  tags:
+    - docker
+    - torrent
+  file:
+    path: "{{ torrent_config_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0776
+  notify: restart torrent
+
+- name: Copy torrent config
+  tags:
+    - docker
+    - torrent
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ torrent_config_dir }}/{{ item.dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0776
+  loop:
+    - content: "{{ qbittorrent_vpn_config }}"
+      dest: config.ovpn
+    - content: "{{ qbittorrent_vpn_config }}"
+      dest: nordvpn.ovpn
+    - content: "{{ qbittorrent_vpn_creds }}"
+      dest: creds.conf
+  loop_control:
+    label: "{{ item.dest }}"
+  notify: restart torrent

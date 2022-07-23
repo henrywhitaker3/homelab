@@ -1,0 +1,94 @@
+---
+- name: Set docker facts
+  tags:
+    - docker
+    - nginx
+    - torrent
+    - compose
+  set_fact:
+    docker_data_dir: "/home/{{ ansible_user }}/data"
+    docker_puid: "{{ ansible_user_uid }}"
+    docker_pgid: "{{ ansible_user_uid }}"
+    swag_dns_config: "/home/{{ ansible_user }}/data/swag/dns-conf"
+    torrent_config_dir: "/home/{{ ansible_user }}/data/torrent/config/openvpn"
+
+- name: Copy docker compose over
+  tags:
+    - docker
+    - compose
+  template:
+    src: templates/docker-compose.yaml
+    dest: "/home/{{ ansible_user }}/docker-compose.yaml"
+    mode: 0755
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  notify: dc up
+
+- name: Ensure data dir exists
+  tags: docker
+  file:
+    path: "{{ docker_data_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0750
+
+
+
+- name: Setup crons
+  tags:
+    - docker
+    - crons
+  cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    day: "{{ item.day }}"
+    month: "{{ item.month }}"
+    weekday: "{{ item.weekday }}"
+    job: "{{ item.job }}"
+  loop:
+    - name: "ping healthcheck"
+      minute: "*/2"
+      hour: "*"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "curl -fsS --retry 3 -o /dev/null {{ docker_healthcheck_url }}"
+    - name: "pull images"
+      minute: "0"
+      hour: "3"
+      day: "*"
+      month: "*"
+      weekday: "7"
+      job: "cd /home/henry && docker compose pull && docker compose up -d"
+    - name: "restart radarr"
+      minute: "0"
+      hour: "12"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "cd /home/henry && docker compose restart radarr"
+    - name: "restart sonarr"
+      minute: "0"
+      hour: "12"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "cd /home/henry && docker compose restart sonarr"
+    - name: "restart qbittorrent"
+      minute: "0"
+      hour: "12"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "cd /home/henry && docker compose restart qbittorrent"
+    - name: "docker prune images"
+      minute: "0"
+      hour: "4"
+      day: "*"
+      month: "*"
+      weekday: "1"
+      job: "ccd /home/henry && docker image prune"
+  loop_control:
+    label: "{{ item.name }}"

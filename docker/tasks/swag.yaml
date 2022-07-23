@@ -1,0 +1,54 @@
+---
+- name: Set nginx proxy confs dir
+  tags:
+    - docker
+    - nginx
+  set_fact:
+    nginx_proxy_confs: "{{ docker_data_dir }}/swag/nginx/proxy-confs"
+
+- name: Ensure nginx data dir exists
+  tags:
+    - docker
+    - nginx
+  file:
+    path: "{{ nginx_proxy_confs }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+
+- name: Copy nginx proxy-confs
+  tags:
+    - docker
+    - nginx
+  template:
+    src: "{{ item }}"
+    dest: "{{ nginx_proxy_confs }}/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0664
+  with_fileglob: templates/proxy_confs/*.conf
+  notify: restart nginx
+
+- name: Create dns config directory
+  tags:
+    - docker
+    - nginx
+  file:
+    path: "{{ swag_dns_config }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+
+- name: Copy cloudflare api creds
+  tags:
+    - docker
+    - nginx
+    - cloudflare
+  copy:
+    content: "{{ cloudflare_creds }}"
+    dest: "{{ swag_dns_config }}/cloudflare.ini"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0664

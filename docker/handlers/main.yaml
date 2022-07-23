@@ -11,3 +11,10 @@
     - docker
     - compose
   shell: "cd /home/{{ ansible_user }}/ && docker compose up -d --remove-orphans"
+
+- name: restart torrent
+  tags:
+    - docker
+    - compose
+    - torrent
+  shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
