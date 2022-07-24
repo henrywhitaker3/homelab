@@ -47,3 +47,24 @@
         - rke
       shell: "{{ rke_binary }} up"
       when: cluster_def_copy.changed
+
+    - name: Create .kube dir
+      tags:
+        - k8s
+        - rke
+      file:
+        path: "/home/{{ ansible_user }}/.kube"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0700
+
+    - name: Copy kubeconfig
+      tags:
+        - k8s
+        - rke
+      copy:
+        src: "/home/{{ ansible_user }}/kube_config_cluster.yml"
+        remote_src: true
+        dest: "/home/{{ ansible_user }}/.kube/config"
+        mode: 0700
