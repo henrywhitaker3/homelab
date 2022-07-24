@@ -1,11 +1,20 @@
 ---
+- name: Add apt signing keys
+  become: true
+  tags:
+    - common
+    - apt
+  apt_key:
+    url: https://azlux.fr/repo.gpg
+    keyring: /usr/share/keyrings/azlux-archive-keyring.gpg
+
 - name: Add repos
   become: true
   tags:
     - common
     - apt
   apt_repository:
-    repo: ppa:bashtop-monitor/bashtop
+    repo: deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ bullseye main
     state: present
 
 - name: Install packages
