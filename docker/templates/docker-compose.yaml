@@ -205,5 +205,25 @@ services:
         - /plex:/plex
       restart: unless-stopped
 
+    influxdb:
+      container_name: influxdb
+      image: influxdb:1.8
+      ports:
+        - 8086:8086
+      volumes:
+        - {{ docker_data_dir }}/influxdb:/var/lib/influxdb
+      restart: unless-stopped
+      networks:
+        homelab:
+
+    grafana:
+      container_name: grafana
+      image: grafana/grafana
+      volumes:
+        - {{ docker_data_dir }}/grafana:/var/lib/grafana
+      restart: unless-stopped
+      networks:
+        homelab:
+
 networks:
     homelab:
