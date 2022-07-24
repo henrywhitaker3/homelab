@@ -3,8 +3,32 @@
 
   hosts: k8s_admin
 
-  roles:
-    - common
-    - k8s_tools
+  vars_files:
+    - vars/admin.yaml
 
   tasks:
+    - name: Set rke facts
+      tags:
+        - k8s
+        - rke
+      set_fact:
+        rke_binary: "/home/{{ ansible_user }}/rke-{{ rke_version }}"
+
+    - name: Is rke already there?
+      tags:
+        - k8s
+        - rke
+      stat:
+        path: "{{ rke_binary }}"
+      register: rke_binary_exists
+
+    - name: Download rke binary
+      tags:
+        - k8s
+        - rke
+      get_url:
+        url: "https://github.com/rancher/rke/releases/download/{{ rke_version }}/rke_linux-amd64"
+        dest: "{{ rke_binary }}"
+        mode: 0755
+      when: not rke_binary_exists.stat.exists
+
