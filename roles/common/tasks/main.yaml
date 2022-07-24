@@ -1,4 +1,13 @@
 ---
+- name: Add repos
+  become: true
+  tags:
+    - common
+    - apt
+  apt_repository:
+    repo: ppa:bashtop-monitor/bashtop
+    state: present
+
 - name: Install packages
   become: true
   tags:
