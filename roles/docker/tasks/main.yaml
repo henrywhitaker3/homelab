@@ -4,12 +4,13 @@
   become: true
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /usr/share/keyrings/docker.gpg
 
 - name: Add docker repo
   tags: docker
   become: true
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable"
 
 - name: Install docker packages
   tags: docker
