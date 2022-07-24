@@ -1,0 +1,4 @@
+---
+- name: Setup k8s cluster
+
+  import_playbook: base.yaml

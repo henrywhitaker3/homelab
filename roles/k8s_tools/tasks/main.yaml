@@ -1,0 +1,69 @@
+---
+- name: Download kubernetes signing key
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+
+- name: Add kubernetes repo
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
+
+- name: Install kubectl
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt:
+    name: kubectl
+    state: latest
+
+- name: Add helm gpg key
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt_key:
+    url: https://baltocdn.com/helm/signing.asc
+    state: present
+    keyring: /usr/share/keyrings/helm.gpg
+
+- name: Get DEB architecture
+  tags:
+    - apt
+    - common
+    - k8s
+  shell: dpkg --print-architecture
+  register: deb_architecture
+  changed_when: false
+
+- name: Add helm repo
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt_repository:
+    repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
+    state: present
+
+- name: Install helm
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  apt:
+    name: helm
+    state: latest

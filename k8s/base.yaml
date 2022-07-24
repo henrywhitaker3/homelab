@@ -1,0 +1,10 @@
+---
+- name: Configure base setup for k8s hosts
+
+  hosts:
+    - k8s_admin
+    - k8s_nodes
+
+  roles:
+    - common
+    - k8s_tools

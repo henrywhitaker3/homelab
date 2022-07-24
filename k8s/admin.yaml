@@ -1,0 +1,10 @@
+---
+- name: Configure k8s admin server
+
+  hosts: k8s_admin
+
+  roles:
+    - common
+    - k8s_tools
+
+  tasks:
