@@ -18,17 +18,17 @@ Vagrant.configure("2") do |config|
 
     # k8s management server
     config.vm.define "k8s-admin" do |k8s_admin|
-        k8s_admin.vm.hostname = "docker-v.localhost"
+        k8s_admin.vm.hostname = "k8s-admin.localhost"
         k8s_admin.vm.network:private_network, ip:"10.1.0.5"
     end
     # k8s-01
     config.vm.define "k8s-01" do |k8s_01|
-        k8s_01.vm.hostname = "docker-v.localhost"
+        k8s_01.vm.hostname = "k8s-01.localhost"
         k8s_01.vm.network:private_network, ip:"10.1.0.6"
     end
     # k8s-02
     config.vm.define "k8s-02" do |k8s_02|
-        k8s_02.vm.hostname = "docker-v.localhost"
+        k8s_02.vm.hostname = "k8s-02.localhost"
         k8s_02.vm.network:private_network, ip:"10.1.0.7"
     end
 
