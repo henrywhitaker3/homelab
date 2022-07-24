@@ -1,0 +1,9 @@
+---
+- name: restart netdata
+  become: true
+  tags:
+    - netdata
+    - monitoring
+  service:
+    name: netdata
+    state: restarted
