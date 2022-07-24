@@ -12,6 +12,6 @@ nodes:
 {% endfor %}
 
 ingress:
-  provider: none
+  provider: nginx
 
 cluster_name: k8s
