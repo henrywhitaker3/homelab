@@ -2,154 +2,120 @@ version: '3.4'
 services:
     wireguard:
         container_name: wireguard
-        image: linuxserver/wireguard
+        image: weejewel/wg-easy
         cap_add:
           - NET_ADMIN
           - SYS_MODULE
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_pgid }}
-            - TZ={{ docker_tz }}
-            - SERVERURL=plexmox.com
-            - SERVERPORT=51820
-            - PEERS={{ wireguard_peers }}
-            - PEERDNS=auto
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_pgid }}
+          - TZ={{ docker_tz }}
+          - SERVERURL=plexmox.com
+          - SERVERPORT=51820
+          - PEERS={{ wireguard_peers }}
+          - PEERDNS=10.0.0.2
         volumes:
-            - {{ docker_data_dir }}/wireguard:/config
-            - /lib/modules:/lib/modules
+          - {{ docker_data_dir }}/wireguard:/config
+          - /lib/modules:/lib/modules
         ports:
-            - 51820:51820/udp
+          - 51820:51820/udp
         sysctls:
-            - net.ipv4.conf.all.src_valid_mark=1
+          - net.ipv4.conf.all.src_valid_mark=1
+          - net.ipv4.ip_forward=1
         restart: unless-stopped
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
 
     swag:
         container_name: swag
         restart: unless-stopped
         image: linuxserver/swag:latest
         ports:
-            - 443:443
-            - 80:80
+          - 443:443
+          - 80:80
         volumes:
-            - {{ docker_data_dir }}/swag:/config
-            - {{ docker_data_dir }}/organizr:/organizr:ro
+          - {{ docker_data_dir }}/swag:/config
+          - {{ docker_data_dir }}/organizr:/organizr:ro
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
-            - URL=plexmox.com
-            - SUBDOMAINS=wildcard
-            - VALIDATION=dns
-            - DNSPLUGIN=cloudflare
-            - ONLY_SUBDOMAINS=false
-            - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
+          - URL=plexmox.com
+          - SUBDOMAINS=wildcard
+          - VALIDATION=dns
+          - DNSPLUGIN=cloudflare
+          - ONLY_SUBDOMAINS=false
+          - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
         cap_add: [ 'NET_ADMIN' ]
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     organizr:
         container_name: organizr
         restart: unless-stopped
         image: organizr/organizr:latest
         volumes:
-            - {{ docker_data_dir }}/organizr:/config
+          - {{ docker_data_dir }}/organizr:/config
         environment:
-            - fpm=true
-            - branch=dev
-            - TZ={{ docker_tz }}
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_pgid }}
+          - fpm=true
+          - branch=dev
+          - TZ={{ docker_tz }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_pgid }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     radarr:
         container_name: radarr
         restart: unless-stopped
         image: linuxserver/radarr:nightly
         volumes:
-            - {{ docker_data_dir }}/radarr/v3:/config
-            - /plex/temp:/downloads
-            - /plex/Media/Movies:/movies
+          - {{ docker_data_dir }}/radarr/v3:/config
+          - /plex/temp:/downloads
+          - /plex/Media/Movies:/movies
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     sonarr:
         container_name: sonarr
         restart: unless-stopped
         image: linuxserver/sonarr:latest
         volumes:
-            - {{ docker_data_dir }}/sonarr:/config
-            - /plex/temp:/downloads
-            - "/plex/Media/TV Shows:/tv"
+          - {{ docker_data_dir }}/sonarr:/config
+          - /plex/temp:/downloads
+          - "/plex/Media/TV Shows:/tv"
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     prowlarr:
         container_name: prowlarr
         restart: unless-stopped
         image: linuxserver/prowlarr:develop
         volumes:
-            - {{ docker_data_dir }}/prowlarr:/config
+          - {{ docker_data_dir }}/prowlarr:/config
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     monitorr:
         container_name: monitorr
         restart: unless-stopped
         image: monitorr/monitorr:latest
         volumes:
-            - {{ docker_data_dir }}/monitorr:/app
+          - {{ docker_data_dir }}/monitorr:/app
         environment:
-            - TZ={{ docker_tz }}
+          - TZ={{ docker_tz }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     qbittorrent:
         container_name: qbittorrent
@@ -157,96 +123,74 @@ services:
         image: markusmcnugen/qbittorrentvpn:latest
         privileged: true
         volumes:
-            - {{ docker_data_dir }}/torrent/config:/config
-            - /plex/temp:/downloads
+          - {{ docker_data_dir }}/torrent/config:/config
+          - /plex/temp:/downloads
         environment:
-            - NAME_SERVERS=8.8.8.8,8.8.4.4
-            - LAN_NETWORK=10.0.0.0/24
-            - VPN_ENABLED=yes
+          - NAME_SERVERS=8.8.8.8,8.8.4.4
+          - LAN_NETWORK=10.0.0.0/24
+          - VPN_ENABLED=yes
         cap_add:
-            - NET_ADMIN
+          - NET_ADMIN
         healthcheck:
-                test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail -s --max-time 15 https://google.com > /dev/null || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'}"
-                interval: "60s"
-                timeout: "15s"
-                start_period: "30s"
-                retries: 0
+          test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail -s --max-time 15 https://google.com > /dev/null || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'}"
+          interval: "60s"
+          timeout: "15s"
+          start_period: "30s"
+          retries: 0
         networks:
-            homelab:
+          homelab:
 
     overseerr:
         container_name: overseerr
         restart: unless-stopped
         image: sctx/overseerr
         environment:
-            - TZ={{ docker_tz }}
+          - TZ={{ docker_tz }}
         volumes:
-            - {{ docker_data_dir }}/overseerr:/app/config
+        - {{ docker_data_dir }}/overseerr:/app/config
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     tautulli:
         container_name: tautulli
         restart: unless-stopped
         image: linuxserver/tautulli:latest
         volumes:
-            - {{ docker_data_dir }}/tautulli:/config
+          - {{ docker_data_dir }}/tautulli:/config
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     speedtest:
         container_name: speedtest
         restart: unless-stopped
         image: henrywhitaker3/speedtest-tracker:dev
-        ports:
-            - 8765:80
         volumes:
-            - {{ docker_data_dir }}/speedtest:/config
+          - {{ docker_data_dir }}/speedtest:/config
         environment:
-            - PUID={{ docker_puid }}
-            - PGID={{ docker_puid }}
-            - TZ={{ docker_tz }}
-            - BASE_PATH=/speedtest
-            - OOKLA_EULA_GDPR=true
+          - PUID={{ docker_puid }}
+          - PGID={{ docker_puid }}
+          - TZ={{ docker_tz }}
+          - BASE_PATH=/speedtest
+          - OOKLA_EULA_GDPR=true
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     mariadb:
         container_name: mariadb
         restart: unless-stopped
         image: mariadb
         ports:
-            - 3306:3306
+          - 3306:3306
         volumes:
-            - {{ docker_data_dir }}/mariadb:/var/lib/mysql
+          - {{ docker_data_dir }}/mariadb:/var/lib/mysql
         environment:
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+          - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         networks:
-            homelab:
-        logging:
-            driver: "json-file"
-            options:
-                max-file: "10"
-                max-size: "200k"
+          homelab:
 
     plex:
       container_name: plex
