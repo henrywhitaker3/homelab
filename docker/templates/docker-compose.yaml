@@ -210,6 +210,10 @@ services:
       image: influxdb:1.8
       ports:
         - 8086:8086
+      environment:
+        - INFLUXDB_DB=db0
+        - INFLUXDB_ADMIN_USER={{ influxdb.username }}
+        - INFLUXDB_ADMIN_PASSWORD={{ influxdb.password }}
       volumes:
         - {{ docker_data_dir }}/influxdb:/var/lib/influxdb
       restart: unless-stopped
@@ -222,6 +226,22 @@ services:
       volumes:
         - {{ docker_data_dir }}/grafana:/var/lib/grafana
       restart: unless-stopped
+      networks:
+        homelab:
+
+    chronograf:
+      container_name: chronograf
+      image: chronograf:latest
+      ports:
+        - '127.0.0.1:8888:8888'
+      volumes:
+        - {{ docker_data_dir }}/chronograf:/var/lib/chronograf
+      depends_on:
+        - influxdb
+      environment:
+        - INFLUXDB_URL=http://influxdb:8086
+        - INFLUXDB_USERNAME={{ influxdb.username }}
+        - INFLUXDB_PASSWORD={{ influxdb.password }}
       networks:
         homelab:
 
