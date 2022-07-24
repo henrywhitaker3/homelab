@@ -1,3 +1,4 @@
 ---
 - import_playbook: base.yaml
+- import_playbook: nodes.yaml
 - import_playbook: admin.yaml

@@ -1,0 +1,7 @@
+---
+- name: Configure k8s nodes
+
+  hosts: k8s_nodes
+
+  roles:
+    - docker
