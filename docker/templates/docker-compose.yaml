@@ -66,8 +66,7 @@ services:
         image: linuxserver/radarr:nightly
         volumes:
           - {{ docker_data_dir }}/radarr/v3:/config
-          - /plex/temp:/downloads
-          - /plex/Media/Movies:/movies
+          - /plex:/data
         environment:
           - PUID={{ docker_puid }}
           - PGID={{ docker_puid }}
@@ -81,8 +80,7 @@ services:
         image: linuxserver/sonarr:latest
         volumes:
           - {{ docker_data_dir }}/sonarr:/config
-          - /plex/temp:/downloads
-          - "/plex/Media/TV Shows:/tv"
+          - /plex:/data
         environment:
           - PUID={{ docker_puid }}
           - PGID={{ docker_puid }}
@@ -121,7 +119,7 @@ services:
         privileged: true
         volumes:
           - {{ docker_data_dir }}/torrent/config:/config
-          - /plex/temp:/downloads
+          - /plex/temp:/data/temp
         environment:
           - NAME_SERVERS=8.8.8.8,8.8.4.4
           - LAN_NETWORK=10.0.0.0/24
