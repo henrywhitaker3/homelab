@@ -1,23 +1,15 @@
 nodes:
-  - address: 10.1.0.6
-    internal_address: 10.1.0.6
+{% for host in groups['k8s_nodes'] %}
+  - address: {{ hostvars[host].ansible_host }}
+    internal_address: {{ hostvars[host].ansible_host }}
     user: {{ ansible_user }}
     port: 22
-    hostname_override: k8s-01
+    hostname_override: {{ host }}
     role:
       - controlplane
       - worker
       - etcd
-
-  - address: 10.1.0.7
-    internal_address: 10.1.0.7
-    user: {{ ansible_user }}
-    port: 22
-    hostname_override: k8s-02
-    role:
-      - controlplane
-      - worker
-      - etcd
+{% endfor %}
 
 ingress:
   provider: none
