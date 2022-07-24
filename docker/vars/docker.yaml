@@ -12,7 +12,6 @@ cifs_mounts:
     path: /plex
   - src: //10.0.0.9/cloud
     path: /cloud
-
-nfs_mounts:
-  - src: 10.0.0.9:/mnt/user/storage/docker
+  - src: //10.0.0.9/storage
     path: /backups
+
