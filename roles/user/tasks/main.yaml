@@ -16,9 +16,7 @@
     mode: 0700
 
 - name: Copy authorized keys
-  copy:
-    content: "{{ user_authorized_keys }}"
-    dest: "{{ user_home_dir }}/.ssh/authorized_keys"
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    mode: 0700
+  authorized_key:
+    user: "{{ ansible_user }}"
+    key: "{{ item }}"
+  loop: "{{ user_authorized_keys }}"

@@ -10,4 +10,5 @@
 
   roles:
     - common
+    - k8s_tools
     - docker
