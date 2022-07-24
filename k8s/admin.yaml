@@ -32,3 +32,18 @@
         mode: 0755
       when: not rke_binary_exists.stat.exists
 
+    - name: Copy over rke cluster definition
+      tags:
+        - k8s
+        - rke
+      template:
+        src: templates/cluster.yaml
+        dest: "/home/{{ ansible_user }}/cluster.yml"
+      register: cluster_def_copy
+
+    - name: Run rke up
+      tags:
+        - k8s
+        - rke
+      shell: "{{ rke_binary }} up"
+      when: cluster_def_copy.changed

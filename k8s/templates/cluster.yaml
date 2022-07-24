@@ -1,0 +1,25 @@
+nodes:
+  - address: 10.1.0.6
+    internal_address: 10.1.0.6
+    user: {{ ansible_user }}
+    port: 22
+    hostname_override: k8s-01
+    role:
+      - controlplane
+      - worker
+      - etcd
+
+  - address: 10.1.0.7
+    internal_address: 10.1.0.7
+    user: {{ ansible_user }}
+    port: 22
+    hostname_override: k8s-02
+    role:
+      - controlplane
+      - worker
+      - etcd
+
+ingress:
+  provider: none
+
+cluster_name: k8s
