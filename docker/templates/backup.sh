@@ -1,23 +1,18 @@
 #!/bin/bash
 
-echo Start healthcheck
-date
+echo $(date) - Start healthcheck
 curl -m 10 --retry 5 {{ healthchecks.backup }}/start
 echo ""
 
-echo Mounting backups directory
-date
+echo $(date) - Mounting backups directory
 mount 10.0.0.9:/mnt/user/storage/docker /backups
 
-echo Running rsync
-date
+echo $(date) - Running rsync
 rsync -avhH --delete --progress /home/{{ ansible_user }}/data /backups/
 
-echo Unmounting backups directory
-date
+echo $(date) - Unmounting backups directory
 umount /backups
 
-echo Finish healthcheck
-date
+echo $(date) - Finish healthcheck
 curl -m 10 --retry 5 {{ healthchecks.backup }}
 echo ""
