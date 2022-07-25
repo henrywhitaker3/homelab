@@ -3,6 +3,7 @@
 echo Start healthcheck
 date
 curl -m 10 --retry 5 {{ healthchecks.backup }}/start
+echo ""
 
 
 echo Mounting backups directory
