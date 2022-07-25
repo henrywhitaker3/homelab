@@ -11,3 +11,7 @@ rsync -avhH --delete --progress /home/{{ ansible_user }}/data /backups/
 echo Unmounting backups directory
 date
 umount /backups
+
+echo Pinging healthcheck
+date
+curl -m 10 --retry 5 {{ backup_healthcheck_url }}
