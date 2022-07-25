@@ -54,7 +54,7 @@
       day: "*"
       month: "*"
       weekday: "*"
-      job: "curl -fsS --retry 3 -o /dev/null {{ docker_healthcheck_url }}"
+      job: "curl -fsS --retry 3 -o /dev/null {{ healthchecks.heartbeat }}"
     - name: "pull images"
       minute: "0"
       hour: "3"

@@ -14,4 +14,4 @@ umount /backups
 
 echo Pinging healthcheck
 date
-curl -m 10 --retry 5 {{ backup_healthcheck_url }}
+curl -m 10 --retry 5 {{ healthchecks.backup }}
