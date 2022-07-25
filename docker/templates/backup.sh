@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo Start healthcheck
+date
+curl -m 10 --retry 5 {{ healthchecks.backup }}/start
+
+
 echo Mounting backups directory
 date
 mount 10.0.0.9:/mnt/user/storage/docker /backups
@@ -12,6 +17,6 @@ echo Unmounting backups directory
 date
 umount /backups
 
-echo Pinging healthcheck
+echo Finish healthcheck
 date
 curl -m 10 --retry 5 {{ healthchecks.backup }}
