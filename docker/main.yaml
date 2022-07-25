@@ -30,3 +30,4 @@
     - import_tasks: tasks/docker.yaml
     - import_tasks: tasks/swag.yaml
     - import_tasks: tasks/torrent.yaml
+    - import_tasks: tasks/backup.yaml

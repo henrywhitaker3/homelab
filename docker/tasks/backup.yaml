@@ -1,0 +1,34 @@
+---
+- name: Create backup directory
+  tags:
+    - backup
+  file:
+    path: /backups
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+    state: directory
+
+- name: Copy over backup script
+  tags:
+    - backup
+  template:
+    src: templates/backup.sh
+    dest: "/home/{{ ansible_user }}/backup.sh"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+
+- name: Enable backup cron
+  become: true
+  tags:
+    - backup
+  cron:
+    user: root
+    name: data dir backup
+    minute: "30"
+    hour: "4"
+    day: "*"
+    month: "*"
+    weekday: "7"
+    job: "/home/{{ ansible_user }}/backup.sh > /tmp/backup.log"
