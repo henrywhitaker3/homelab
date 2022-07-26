@@ -24,6 +24,9 @@ charts:
     chart: ingress-nginx
     repoUrl: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.2.0
+    values:
+      controller:
+        watchIngressWithoutClass: true
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
