@@ -7,7 +7,6 @@
 
   roles:
     - common
-    - k8s_tools
 
   vars_files:
     - vars/secrets.yaml

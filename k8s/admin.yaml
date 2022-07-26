@@ -3,6 +3,9 @@
 
   hosts: k8s_admin
 
+  roles:
+    - k8s_tools
+
   vars_files:
     - vars/admin.yaml
 
