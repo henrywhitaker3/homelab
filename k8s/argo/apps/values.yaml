@@ -59,6 +59,8 @@ charts:
           source: letsEncrypt
       letsEncrypt:
         email: henrywhitaker3@outlook.com
+        ingress:
+          class: nginx
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
