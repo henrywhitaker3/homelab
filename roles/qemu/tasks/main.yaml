@@ -1,0 +1,9 @@
+---
+- name: Install qemu guest agent
+  become: true
+  tags:
+    - apt
+    - qemu
+  apt:
+    name: qemu-guest-agent
+    state: latest
