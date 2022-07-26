@@ -141,7 +141,7 @@
         - k8s
         - argo
       pause:
-        seconds: 30
+        seconds: 45
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Install standalone manifests

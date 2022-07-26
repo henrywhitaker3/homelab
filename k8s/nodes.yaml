@@ -5,3 +5,33 @@
 
   roles:
     - docker
+
+  tasks:
+    - name: Set sysctl for pod networking
+      become: true
+      tags:
+        - nodes
+        - networking
+      sysctl:
+        name: "{{ item }}"
+        value: "1"
+        reload: true
+      loop:
+        - net.ipv4.ip_forward
+
+    - name: Add ipset
+      become: true
+      tags:
+        - nodes
+        - networking
+      apt:
+        name: ipset
+        state: latest
+      register: ipset_installed
+
+    - name: Reboot the node to load the ipset kernel
+      tags:
+        - nodes
+        - networking
+      reboot:
+      when: ipset_installed.changed
