@@ -30,3 +30,18 @@ charts:
       automated:
         prune: true
         selfHeal: true
+
+  - name: cert-manager
+    project: cluster
+    namespace: cert-manager
+    chart: cert-manager
+    repoUrl: https://charts.jetstack.io
+    targetRevision: 1.9.1
+    values:
+      installCRDs: true
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
