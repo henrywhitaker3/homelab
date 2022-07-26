@@ -14,11 +14,11 @@ ansible_ssh_private_key_file=~/.ssh/id_rsa
 # ansible_user=vagrant
 
 [k8s_admin]
-k8s-admin ansible_host=10.1.0.5
+k8s-admin ansible_host=10.0.0.20
 
 [k8s_nodes]
-k8s-01 ansible_host=10.1.0.6
-k8s-02 ansible_host=10.1.0.7
+k8s-01 ansible_host=10.0.0.21
+k8s-02 ansible_host=10.0.0.22
 
 [k8s_admin:vars]
 # ansible_user=henry
