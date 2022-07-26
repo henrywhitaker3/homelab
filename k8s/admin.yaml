@@ -126,7 +126,7 @@
       tags:
         - k8s
         - argo
-      shell: "helm -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
+      shell: "helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Delete helm labels from apps install
@@ -135,3 +135,19 @@
         - argo
       shell: "kubectl -n argo delete secret -l owner=helm,name=argocd"
       when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Wait a bit for the apps to install
+      tags:
+        - k8s
+        - argo
+      pause:
+        seconds: 30
+      when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Install standalone manifests
+      tags:
+        - k8s
+        - metallb
+      shell: "kubectl apply -f /home/{{ ansible_user }}/argo/standalone/"
+      register: apply_standalone_manifests
+      changed_when: "'created' in apply_standalone_manifests.stdout"
