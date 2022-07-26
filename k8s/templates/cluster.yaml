@@ -14,4 +14,11 @@ nodes:
 ingress:
   provider: none
 
+services:
+  kubeproxy:
+    extra_args:
+      proxy-mode: ipvs
+    extra_binds:
+      - "/lib/modules:/lib/modules:ro"
+
 cluster_name: k8s
