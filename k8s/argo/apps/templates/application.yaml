@@ -1,0 +1,34 @@
+{{- $global := . -}}
+
+{{- range .Values.applications.git }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .namespace }}
+  {{ if .project }}
+  project: {{ .project }}
+  {{ else }}
+  project: default
+  {{- end }}
+  source:
+    path: {{ .path }}
+    repoURL: {{ .repoUrl }}
+    targetRevision: {{ .targetRevision }}
+    helm:
+      valueFiles:
+      {{- if .valuesFile }}
+      - {{ .valuesFile }}
+      {{- else }}
+      - values.yaml
+      {{- end }}
+  syncPolicy:
+    {{- toYaml .syncPolicy | nindent 4 }}
+---
+{{- end }}

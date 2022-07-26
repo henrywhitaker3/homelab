@@ -71,3 +71,58 @@
         remote_src: true
         dest: "/home/{{ ansible_user }}/.kube/config"
         mode: 0700
+
+    - name: Copy argo over
+      tags:
+        - k8s
+        - argo
+      synchronize:
+        src: argo
+        dest: "/home/{{ ansible_user }}/"
+
+    - name: Create argo namespace
+      tags:
+        - k8s
+        - argo
+      shell: "kubectl create namespace argo"
+      register: argo_namespace_created
+      changed_when: "'created' in argo_namespace_created.stdout"
+      failed_when: false
+
+    - name: Is argo installed?
+      tags:
+        - k8s
+        - argo
+      shell: "helm -n argo status argo"
+      register: argo_helm_status
+      changed_when: false
+      failed_when: false
+
+    - name: Install argo controller
+      tags:
+        - k8s
+        - argo
+      shell: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml argo /home/{{ ansible_user }}/argo/argocd"
+      when: "'not found' in argo_helm_status.stderr"
+
+    - name: Is argo apps installed?
+      tags:
+        - k8s
+        - argo
+      shell: "kubectl -n argo get applications"
+      changed_when: false
+      register: argo_apps_status
+
+    - name: Install argo apps
+      tags:
+        - k8s
+        - argo
+      shell: "helm -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
+      when: "'No resources found in argo namespace.' in argo_apps_status.stdout"
+
+    - name: Delete helm labels from apps install
+      tags:
+        - k8s
+        - argo
+      shell: "kubectl -n argo delete secret -l owner=helm,name=argocd"
+      when: "'No resources found in argo namespace.' in argo_apps_status.stdout"

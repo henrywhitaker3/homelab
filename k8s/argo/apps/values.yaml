@@ -1,0 +1,26 @@
+projects:
+  - name: cluster
+    description: Things that make the cluster work
+  - name: apps
+    description: Our apps running in the cluster
+
+applications:
+  git: []
+  charts: []
+    # - name: metallb
+    #   project: cluster
+    #   namespace: metallb
+    #   chart: sealed-secrets
+    #   repoUrl: https://bitnami-labs.github.io/sealed-secrets
+    #   targetRevision: 2.1.1
+    #   values:
+    #     image:
+    #       registry: docker.io
+    #       repository: bitnami/sealed-secrets-controller
+    #   syncPolicy:
+    #     syncOptions:
+    #       - CreateNamespace=true
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+
