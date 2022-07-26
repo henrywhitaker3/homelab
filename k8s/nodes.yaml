@@ -30,6 +30,7 @@
       register: ipset_installed
 
     - name: Reboot the node to load the ipset kernel
+      become: true
       tags:
         - nodes
         - networking
