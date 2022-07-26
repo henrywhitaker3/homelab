@@ -17,4 +17,3 @@ charts:
       automated:
         prune: true
         selfHeal: true
-

@@ -114,6 +114,14 @@
       changed_when: false
       register: argo_apps_status
 
+    - name: Wait a bit for the install
+      tags:
+        - k8s
+        - argo
+      pause:
+        seconds: 30
+      when: "'No resources found' in argo_apps_status.stderr"
+
     - name: Install argo apps
       tags:
         - k8s
