@@ -6,7 +6,6 @@ resource "proxmox_vm_qemu" "pihole" {
   target_node = var.proxmox_default_node
 
   clone = var.ubuntu_8G
-  define_connection_info = false
 
   agent             = 1
   os_type           = "cloud-init"
