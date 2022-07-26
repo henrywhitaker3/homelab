@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: argo-repo
+  namespace: argo
+data:
+  project: YXBwcw==
+  type: Z2l0
+  url: aHR0cHM6Ly9naXRodWIuY29tL2hlbnJ5d2hpdGFrZXIzL2hvbWVsYWIuZ2l0
+type: Opaque
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -11,8 +26,8 @@ spec:
     namespace: argo
   project: cluster
   source:
-    path: apps/
-    repoURL: https://github.com/henrywhitaker3/homelab/k8s/argo/apps
+    path: k8s/argo/apps
+    repoURL: https://github.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
     helm:
       valueFiles:
@@ -21,4 +36,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-

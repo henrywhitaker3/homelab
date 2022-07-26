@@ -1,6 +1,6 @@
 {{- $global := . -}}
 
-{{- range .Values.applications.charts }}
+{{- range .Values.charts }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
