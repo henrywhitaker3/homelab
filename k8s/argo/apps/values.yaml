@@ -17,3 +17,16 @@ charts:
       automated:
         prune: true
         selfHeal: true
+
+  - name: ingress-nginx
+    project: cluster
+    namespace: ingress-nginx
+    chart: ingress-nginx
+    repoUrl: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.2.0
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
