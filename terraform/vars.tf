@@ -25,6 +25,11 @@ variable "proxmox_node_1" {
   default = "proxmox"
 }
 
+variable "ubuntu_8G" {
+  type = string
+  default = "ubuntu-cloud-8G"
+}
+
 variable "ubuntu_25G" {
   type = string
   default = "ubuntu-cloud-25G"
