@@ -147,7 +147,7 @@
     - name: Install standalone manifests
       tags:
         - k8s
-        - metallb
+        - standalone
       shell: "kubectl apply -f /home/{{ ansible_user }}/argo/standalone/"
       register: apply_standalone_manifests
       changed_when: "'created' in apply_standalone_manifests.stdout"
