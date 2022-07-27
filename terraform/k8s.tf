@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "k8s-admin" {
 
   name = "k8s-admin"
 
-  target_node = var.proxmox_default_node
+  target_node = var.proxmox_node_1
 
   clone = var.ubuntu_8G
 
@@ -32,7 +32,7 @@ resource "proxmox_vm_qemu" "k8s-nodes" {
 
   name = "k8s-0${count.index + 1}"
 
-  target_node = var.proxmox_default_node
+  target_node = var.proxmox_node_1
 
   clone = var.ubuntu_100G
 

@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "pihole" {
 
   name = "pihole"
 
-  target_node = var.proxmox_default_node
+  target_node = var.proxmox_node_1
 
   clone = var.ubuntu_8G
 

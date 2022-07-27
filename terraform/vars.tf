@@ -20,9 +20,14 @@ variable "proxmox_token" {
   sensitive = true
 }
 
-variable "proxmox_default_node" {
+variable "proxmox_node_1" {
   type    = string
   default = "proxmox-01"
+}
+
+variable "proxmox_node_2" {
+  type    = string
+  default = "proxmox-02"
 }
 
 variable "ubuntu_8G" {
