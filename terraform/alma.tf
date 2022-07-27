@@ -7,12 +7,12 @@ resource "proxmox_vm_qemu" "alma" {
 
   clone = var.alma_10G
 
-  agent             = 1
-  os_type           = "cloud-init"
-  cores             = 1
-  sockets           = "1"
-  cpu               = "host"
-  memory            = 512
+  agent   = 1
+  os_type = "cloud-init"
+  cores   = 1
+  sockets = "1"
+  cpu     = "host"
+  memory  = 512
 
   lifecycle {
     ignore_changes = [

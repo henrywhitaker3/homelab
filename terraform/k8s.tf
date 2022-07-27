@@ -7,12 +7,12 @@ resource "proxmox_vm_qemu" "k8s-admin" {
 
   clone = var.ubuntu_8G
 
-  agent             = 1
-  os_type           = "cloud-init"
-  cores             = 1
-  sockets           = "1"
-  cpu               = "host"
-  memory            = 512
+  agent   = 1
+  os_type = "cloud-init"
+  cores   = 1
+  sockets = "1"
+  cpu     = "host"
+  memory  = 512
 
   lifecycle {
     ignore_changes = [
@@ -36,12 +36,12 @@ resource "proxmox_vm_qemu" "k8s-nodes" {
 
   clone = var.ubuntu_100G
 
-  agent             = 1
-  os_type           = "cloud-init"
-  cores             = 2
-  sockets           = "1"
-  cpu               = "host"
-  memory            = 4096
+  agent   = 1
+  os_type = "cloud-init"
+  cores   = 2
+  sockets = "1"
+  cpu     = "host"
+  memory  = 4096
 
   lifecycle {
     ignore_changes = [
