@@ -39,3 +39,8 @@ variable "ubuntu_100G" {
   type = string
   default = "ubuntu-cloud-100G"
 }
+
+variable "alma_10G" {
+  type = string
+  default = "alma-cloud-10G"
+}
