@@ -48,25 +48,3 @@ charts:
       automated:
         prune: true
         selfHeal: true
-
-  - name: rancher
-    project: apps
-    namespace: cattle-system
-    chart: rancher
-    repoUrl: https://releases.rancher.com/server-charts/stable
-    targetRevision: 2.6.6
-    values:
-      hostname: rancher.plexmox.com
-      ingress:
-        tls:
-          source: letsEncrypt
-      letsEncrypt:
-        email: henrywhitaker3@outlook.com
-        ingress:
-          class: nginx
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        prune: true
-        selfHeal: true
