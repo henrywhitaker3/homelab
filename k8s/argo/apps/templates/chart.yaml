@@ -6,6 +6,8 @@ kind: Application
 metadata:
   name: {{ .name }}
   namespace: argo
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: {{ .namespace }}
