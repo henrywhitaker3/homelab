@@ -4,7 +4,7 @@ name: docker playbook
 
 steps:
 - name: docker playbook
-  image: ansible/ansible
+  image: henrywhitaker3/ansible-terraform
   when:
     branch:
       - main
