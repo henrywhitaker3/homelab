@@ -15,8 +15,12 @@ steps:
       from_secret: HOMELAB_SSH_PUBKEY
     KNOWN_HOSTS:
       from_secret: HOMELAB_KNOWN_HOSTS
+    VAULT_PASS:
+      from_secret: ANSIBLE_VAULT_PASS
   commands:
+    - echo $VAULT_PASS > ~/.vault_pass.txt
+
     - eval $(ssh-agent -s)
     - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
     - echo -e $KNOWN_HOSTS > ~/.ssh/known_hosts
-    - ansible-playbook docker/main.yaml
+    - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
