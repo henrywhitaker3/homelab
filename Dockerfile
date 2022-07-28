@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 
 ARG USER=abc
 ENV HOME=/home/$USER
