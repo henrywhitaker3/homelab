@@ -16,6 +16,9 @@ steps:
   commands:
     - echo $VAULT_PASS > ~/.vault_pass.txt
     - export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
+  volumes:
+    - name: ssh
+      path: /home/abc/.ssh
 
 - name: Setup SSH
   image: henrywhitaker3/ansible-terraform
@@ -44,6 +47,13 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
+  volumes:
+    - name: ssh
+      path: /home/abc/.ssh
+
+volumes:
+- name: ssh
+  temp: {}
 
 ---
 kind: pipeline
