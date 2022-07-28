@@ -56,10 +56,10 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: k8s playbook
+name: pihole playbook
 
 steps:
-- name: k8s playbook
+- name: pihole playbook
   image: henrywhitaker3/ansible-terraform
   when:
     branch:
