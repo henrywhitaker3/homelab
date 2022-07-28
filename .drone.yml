@@ -16,7 +16,8 @@ steps:
     KNOWN_HOSTS:
       from_secret: HOMELAB_KNOWN_HOSTS
   commands:
-    - echo -e $SSH_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - echo -e $SSH_KEY > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
     - echo -e $SSH_PUBKEY > ~/.ssh/id_rsa.pub
     - echo -e $KNOWN_HOSTS > ~/.ssh/known_hosts
     - ssh henry@10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
