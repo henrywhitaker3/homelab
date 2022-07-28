@@ -19,6 +19,4 @@ steps:
     - echo -e $SSH_KEY > ~/.ssh/id_rsa
     - echo -e $SSH_PUBKEY > ~/.ssh/id_rsa.pub
     - echo -e $KNOWN_HOSTS > ~/.ssh/known_hosts
-    - cat ~/.ssh/id_rsa
-    - cat ~/.ssh/known_hosts
-    - ssh 10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
+    - ssh henry@10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
