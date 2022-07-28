@@ -14,11 +14,12 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - echo $VAULT_PASS > ~/.vault_pass.txt
-    - export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
+    - mkdir .ansible
+    - echo $VAULT_PASS > ~/.ansible/vault_pass.txt
+    - export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible/vault_pass.txt
   volumes:
-    - name: ssh
-      path: /home/abc/.ssh
+    - name: ansible
+      path: /home/abc/.ansible
 
 - name: Setup SSH
   image: henrywhitaker3/ansible-terraform
@@ -34,6 +35,9 @@ steps:
     - eval $(ssh-agent -s)
     - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
     - ssh-keyscan -H 10.0.0.160 >> ~/.ssh/known_hosts
+  volumes:
+    - name: ssh
+      path: /home/abc/.ssh
 
 - name: Run playbook
   image: henrywhitaker3/ansible-terraform
@@ -46,13 +50,17 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
+    - ansible-playbook docker/main.yaml
   volumes:
     - name: ssh
       path: /home/abc/.ssh
+    - name: ansible
+      path: /home/abc/.ansible
 
 volumes:
 - name: ssh
+  temp: {}
+- name: ansible
   temp: {}
 
 ---
