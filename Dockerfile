@@ -5,7 +5,8 @@ ENV HOME=/home/$USER
 
 RUN apk add ansible \
             terraform \
-            openssh-client
+            openssh-client \
+            rsync
 
 RUN adduser -D $USER
 
