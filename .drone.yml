@@ -3,7 +3,7 @@ type: docker
 name: docker playbook
 
 steps:
-- name: Setup vault password
+- name: docker playbook
   image: henrywhitaker3/ansible-terraform
   when:
     branch:
@@ -15,47 +15,12 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - echo $VAULT_PASS > ~/.vault_pass.txt
-  volumes:
-    - name: home
-      path: /home/abc
 
-- name: Setup SSH
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
     - eval $(ssh-agent -s)
     - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
     - ssh-keyscan -H 10.0.0.160 >> ~/.ssh/known_hosts
-  volumes:
-    - name: home
-      path: /home/abc
 
-- name: Run playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
     - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
-  volumes:
-    - name: home
-      path: /home/abc
-
-volumes:
-- name: home
-  temp: {}
 
 ---
 kind: pipeline
