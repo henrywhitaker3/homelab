@@ -5,5 +5,8 @@ name: homelab pipeline
 steps:
 - name: echo
   image: alpine
+  when:
+    branch:
+      - main
   commands:
   - echo here
