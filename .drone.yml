@@ -10,6 +10,7 @@ steps:
       - main
   commands:
   - echo $HOMELAB_SSH_KEY > ~/.ssh/id_rsa
+  - echo "" >> ~/.ssh/id_rsa
   - echo $HOMELAB_KNOWN_HOSTS > ~/.ssh/known_hosts
   - ssh 10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
 
