@@ -80,6 +80,9 @@
         src: argo
         dest: "/home/{{ ansible_user }}/"
         delete: true
+        recursive: true
+        archive: false
+        checksum: true
 
     - name: Create argo namespace
       tags:
