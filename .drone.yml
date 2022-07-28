@@ -1,12 +1,12 @@
 kind: pipeline
 type: docker
-name: homelab pipeline
+name: docker playbook
 
 steps:
-- name: echo
-  image: alpine
+- name: docker playbook
+  image: ansible/ansible
   when:
     branch:
       - main
   commands:
-  - echo here
+  - echo $HOMELAB_SSH_KEY > ~/.ssh/id_rsa
