@@ -14,13 +14,10 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - echo $VAULT_PASS > ~/.vault_pass.txt
-
-    - eval $(ssh-agent -s)
-    - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
-    - ssh-keyscan -H 10.0.0.160 >> ~/.ssh/known_hosts
-
-    - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
+    - task drone-vault-pass
+    - task drone-ssh-up
+    - task drone-ssh-keyscan 10.0.0.160
+    - task drone-playbook docker/main.yaml
 
 ---
 kind: pipeline
@@ -39,15 +36,12 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - echo $VAULT_PASS > ~/.vault_pass.txt
-
-    - eval $(ssh-agent -s)
-    - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
-    - ssh-keyscan -H 10.0.0.20 >> ~/.ssh/known_hosts
-    - ssh-keyscan -H 10.0.0.21 >> ~/.ssh/known_hosts
-    - ssh-keyscan -H 10.0.0.22 >> ~/.ssh/known_hosts
-
-    - ansible-playbook --vault-password-file ~/.vault_pass.txt k8s/main.yaml
+    - task drone-vault-pass
+    - task drone-ssh-up
+    - task drone-ssh-keyscan 10.0.0.20
+    - task drone-ssh-keyscan 10.0.0.21
+    - task drone-ssh-keyscan 10.0.0.22
+    - task drone-playbook k8s/main.yaml
 ---
 kind: pipeline
 type: docker
@@ -65,10 +59,7 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - echo $VAULT_PASS > ~/.vault_pass.txt
-
-    - eval $(ssh-agent -s)
-    - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
-    - ssh-keyscan -H 10.0.0.2 >> ~/.ssh/known_hosts
-
-    - ansible-playbook --vault-password-file ~/.vault_pass.txt pihole/main.yaml
+    - task drone-vault-pass
+    - task drone-ssh-up
+    - task drone-ssh-keyscan 10.0.0.2
+    - task drone-playbook pihole/main.yaml

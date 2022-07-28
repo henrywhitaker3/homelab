@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  drone-ssh-up:
+    cmds:
+      - eval $(ssh-agent -s)
+      - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
+
+  drone-ssh-keyscan:
+    cmds:
+      - ssh-keyscan -H {{ .CLI_ARGS }} >> ~/.ssh/known_hosts
+
+  drone-vault-pass:
+    cmds:
+      - echo $VAULT_PASS > ~/.vault_pass.txt
+
+  drone-playbook:
+    cmds:
+      - ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .CLI_ARGS }}
