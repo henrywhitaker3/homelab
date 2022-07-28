@@ -48,7 +48,7 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - ansible-playbook --vault-password-file docker/main.yaml
+    - ansible-playbook --vault-password-file ~/.vault_pass.txt docker/main.yaml
   volumes:
     - name: home
       path: /home/abc
