@@ -19,4 +19,4 @@ steps:
     - eval $(ssh-agent -s)
     - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
     - echo -e $KNOWN_HOSTS > ~/.ssh/known_hosts
-    - ssh henry@10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
+    - ansible-playbook docker/main.yaml
