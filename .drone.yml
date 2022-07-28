@@ -8,9 +8,13 @@ steps:
   when:
     branch:
       - main
+  environment:
+    SSH_KEY:
+      from_secret: HOMELAB_SSH_KEY
+    KNOWN_HOSTS:
+      from_secret: HOMELAB_KNOWN_HOSTS
   commands:
-  - echo $HOMELAB_SSH_KEY > ~/.ssh/id_rsa
-  - cat ~/.ssh/id_rsa
-  - echo $HOMELAB_KNOWN_HOSTS > ~/.ssh/known_hosts
+  - echo $SSH_KEY > ~/.ssh/id_rsa
+  - echo $KNOWN_HOSTS > ~/.ssh/known_hosts
   - ssh 10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
 
