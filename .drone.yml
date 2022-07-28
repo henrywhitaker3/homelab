@@ -15,7 +15,8 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - task drone-vault-pass
-    - task drone-ssh-up
+    # - task drone-ssh-up
+    - eval $(ssh-agent -s)
     - task drone-ssh-keyscan 10.0.0.160
     - task drone-playbook docker/main.yaml
 
@@ -42,7 +43,9 @@ steps:
     - task drone-ssh-keyscan 10.0.0.21
     - task drone-ssh-keyscan 10.0.0.22
     - task drone-playbook k8s/main.yaml
+
 ---
+
 kind: pipeline
 type: docker
 name: pihole playbook

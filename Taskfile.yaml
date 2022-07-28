@@ -3,7 +3,6 @@ version: '3'
 tasks:
   drone-ssh-up:
     cmds:
-      - eval $(ssh-agent -s)
       - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
 
   drone-ssh-keyscan:
