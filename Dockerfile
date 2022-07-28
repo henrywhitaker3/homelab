@@ -4,7 +4,8 @@ ARG USER=abc
 ENV HOME=/home/$USER
 
 RUN apk add ansible \
-            terraform
+            terraform \
+            openssh-client
 
 RUN adduser -D $USER
 
