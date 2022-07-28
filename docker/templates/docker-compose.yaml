@@ -243,5 +243,21 @@ services:
       networks:
         homelab:
 
+    drone:
+      container_name: drone
+      restart: unless-stopped
+      image: drone/drone:2
+      volumes:
+        - {{ docker_data_dir }}/drone:/var/libe/drone
+      environment:
+        - DRONE_GITHUB_CLIENT_ID={{ drone.github.client_id }}
+        - DRONE_GITHUB_CLIENT_SECRET={{ drone.github.client_secret }}
+        - DRONE_RPC_SECRET={{ drone.rpc_secret }}
+        - DRONE_SERVER_HOST=drone.plexmox.com
+        - DRONE_SERVER_PROTO=https
+        - DRONE_USER_FILTER=henrywhitaker3
+      networks:
+        homelab:
+
 networks:
     homelab:
