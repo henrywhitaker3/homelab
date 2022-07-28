@@ -15,8 +15,8 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - task drone-vault-pass
-    # - task drone-ssh-up
-    - eval $(ssh-agent -s)
+    - task drone-ssh-agent
+    - task drone-ssh-key
     - task drone-ssh-keyscan 10.0.0.160
     - task drone-playbook docker/main.yaml
 

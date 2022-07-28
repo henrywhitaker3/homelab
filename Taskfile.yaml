@@ -1,7 +1,11 @@
 version: '3'
 
 tasks:
-  drone-ssh-up:
+  drone-ssh-agent:
+    cmds:
+      - eval $(ssh-agent -s)
+
+  drone-ssh-key:
     cmds:
       - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
 
