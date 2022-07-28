@@ -14,11 +14,11 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
+    - eval $(ssh-agent -s)
     - task drone-vault-pass
-    - task drone-ssh-agent
     - task drone-ssh-key
-    - task drone-ssh-keyscan 10.0.0.160
-    - task drone-playbook docker/main.yaml
+    - task drone-ssh-keyscan -- 10.0.0.160
+    - task drone-playbook -- docker/main.yaml
 
 ---
 kind: pipeline
@@ -37,12 +37,13 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
+    - eval $(ssh-agent -s)
     - task drone-vault-pass
-    - task drone-ssh-up
-    - task drone-ssh-keyscan 10.0.0.20
-    - task drone-ssh-keyscan 10.0.0.21
-    - task drone-ssh-keyscan 10.0.0.22
-    - task drone-playbook k8s/main.yaml
+    - task drone-ssh-key
+    - task drone-ssh-keyscan -- 10.0.0.20
+    - task drone-ssh-keyscan -- 10.0.0.21
+    - task drone-ssh-keyscan -- 10.0.0.22
+    - task drone-playbook -- k8s/main.yaml
 
 ---
 
@@ -62,7 +63,8 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
+    - eval $(ssh-agent -s)
     - task drone-vault-pass
-    - task drone-ssh-up
-    - task drone-ssh-keyscan 10.0.0.2
-    - task drone-playbook pihole/main.yaml
+    - task drone-ssh-key
+    - task drone-ssh-keyscan -- 10.0.0.2
+    - task drone-playbook -- pihole/main.yaml
