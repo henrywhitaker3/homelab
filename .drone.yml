@@ -10,3 +10,5 @@ steps:
       - main
   commands:
   - echo $HOMELAB_SSH_KEY > ~/.ssh/id_rsa
+  - ssh 10.0.0.160 echo $(whoami)@$(hostname) $(pwd)
+
