@@ -1,13 +1,22 @@
 ---
 - name: Set home directory
+  tags:
+    - ssh
+    - user
   set_fact:
     user_home_dir: "/home/{{ ansible_user }}"
 
 - name: Set current user
+  tags:
+    - ssh
+    - user
   set_fact:
     user: "{{ ansible_user }}"
 
 - name: Ensure ssh directory exists
+  tags:
+    - ssh
+    - user
   file:
     path: "{{ user_home_dir }}/.ssh"
     state: directory
@@ -16,6 +25,9 @@
     mode: 0700
 
 - name: Copy authorized keys
+  tags:
+    - ssh
+    - user
   authorized_key:
     user: "{{ ansible_user }}"
     key: "{{ item }}"
