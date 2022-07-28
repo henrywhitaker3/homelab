@@ -11,8 +11,6 @@ steps:
   environment:
     SSH_KEY:
       from_secret: HOMELAB_SSH_KEY
-    SSH_PUBKEY:
-      from_secret: HOMELAB_SSH_PUBKEY
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
@@ -37,8 +35,6 @@ steps:
   environment:
     SSH_KEY:
       from_secret: HOMELAB_SSH_KEY
-    SSH_PUBKEY:
-      from_secret: HOMELAB_SSH_PUBKEY
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
@@ -65,8 +61,6 @@ steps:
   environment:
     SSH_KEY:
       from_secret: HOMELAB_SSH_KEY
-    SSH_PUBKEY:
-      from_secret: HOMELAB_SSH_PUBKEY
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
