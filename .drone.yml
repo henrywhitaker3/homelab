@@ -14,7 +14,8 @@ steps:
     VAULT_PASS:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
-    - mkdir .ansible
+    - pwd
+    - mkdir ~/.ansible
     - echo $VAULT_PASS > ~/.ansible/vault_pass.txt
     - export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible/vault_pass.txt
   volumes:
