@@ -18,6 +18,7 @@ steps:
     - task drone-playbook PLAYBOOK=docker/main.yaml TARGET_IPS="10.0.0.160" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
+
 kind: pipeline
 type: docker
 name: k8s playbook
