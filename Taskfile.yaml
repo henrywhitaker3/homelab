@@ -4,14 +4,17 @@ tasks:
   drone-ssh-key:
     cmds:
       - echo "{{ .SSH_KEY }}" | tr -d '\r' | ssh-add -
+    silent: true
 
   drone-ssh-keyscan:
     cmds:
       - ssh-keyscan -H {{ .TARGET_IPS }} >> ~/.ssh/known_hosts
+    silent: true
 
   drone-vault-pass:
     cmds:
       - echo {{ .VAULT_PASS }} > ~/.vault_pass.txt
+    silent: true
 
   drone-playbook:
     deps: [drone-ssh-key, drone-ssh-keyscan, drone-vault-pass]
