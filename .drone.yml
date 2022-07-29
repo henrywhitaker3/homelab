@@ -64,4 +64,4 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=pihole/main.yaml TARGET_IPS="10.0.0.2" VAULT_PASS=${VAULT_PASS} SSH_KEY=${SSH_KEY}
+    - task drone-playbook PLAYBOOK=pihole/main.yaml TARGET_IPS="10.0.0.2" VAULT_PASS=$VAULT_PASS SSH_KEY=$SSH_KEY
