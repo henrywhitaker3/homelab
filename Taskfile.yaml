@@ -3,16 +3,17 @@ version: '3'
 tasks:
   drone-ssh-key:
     cmds:
-      - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
+      - echo "{{ .SSH_KEY }}" | tr -d '\r' | ssh-add -
 
   drone-ssh-keyscan:
     cmds:
-      - ssh-keyscan -H {{ .CLI_ARGS }} >> ~/.ssh/known_hosts
+      - ssh-keyscan -H {{ .TARGET_IPS }} >> ~/.ssh/known_hosts
 
   drone-vault-pass:
     cmds:
-      - echo $VAULT_PASS > ~/.vault_pass.txt
+      - echo {{ .VAULT_PASS }} > ~/.vault_pass.txt
 
   drone-playbook:
+    deps: [drone-ssh-key, drone-ssh-keyscan, drone-vault-pass]
     cmds:
-      - ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .CLI_ARGS }}
+      - ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .PLAYBOOK }}
