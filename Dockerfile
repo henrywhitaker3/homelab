@@ -7,7 +7,8 @@ RUN apk add ansible \
             terraform \
             openssh-client \
             rsync \
-            curl
+            curl \
+            kbd
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
