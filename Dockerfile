@@ -2,6 +2,8 @@ FROM alpine
 
 ARG USER=abc
 ENV HOME=/home/$USER
+ENV ANSIBLE_FORCE_COLOR=1
+ENV PY_COLORS=1
 
 RUN apk add ansible \
             terraform \
