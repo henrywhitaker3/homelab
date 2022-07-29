@@ -15,10 +15,7 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-vault-pass
-    - task drone-ssh-key
-    - task drone-ssh-keyscan -- 10.0.0.160
-    - task drone-playbook -- docker/main.yaml
+    - task drone-playbook PLAYBOOK=docker/main.yaml TARGET_IPS="10.0.0.160" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 kind: pipeline
@@ -38,12 +35,7 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-vault-pass
-    - task drone-ssh-key
-    - task drone-ssh-keyscan -- 10.0.0.20
-    - task drone-ssh-keyscan -- 10.0.0.21
-    - task drone-ssh-keyscan -- 10.0.0.22
-    - task drone-playbook -- k8s/main.yaml
+    - task drone-playbook PLAYBOOK=k8s/main.yaml TARGET_IPS="10.0.0.20 10.0.0.21 10.0.0.22" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
