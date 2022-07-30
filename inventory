@@ -29,3 +29,11 @@ haproxy-02 ansible_host=10.0.0.5
 
 [haproxy:vars]
 ansible_user=henry
+
+[galera]
+galera-1 ansible_host=10.0.0.16
+galera-2 ansible_host=10.0.0.17
+galera-3 ansible_host=10.0.0.18
+
+[galera:vars]
+ansible_user=henry
