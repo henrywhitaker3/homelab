@@ -58,3 +58,24 @@ steps:
   commands:
     - eval $(ssh-agent -s)
     - task drone-playbook PLAYBOOK=pihole/main.yaml TARGET_IPS="10.0.0.2" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+
+---
+
+kind: pipeline
+type: docker
+name: haproxy playbook
+
+steps:
+- name: haproxy playbook
+  image: henrywhitaker3/ansible-terraform
+  when:
+    branch:
+      - main
+  environment:
+    SSH_KEY:
+      from_secret: HOMELAB_SSH_KEY
+    VAULT_PASS:
+      from_secret: ANSIBLE_VAULT_PASS
+  commands:
+    - eval $(ssh-agent -s)
+    - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
