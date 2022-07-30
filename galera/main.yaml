@@ -24,4 +24,4 @@
     - name: Copy galera config
       template:
         src: templates/galera.cnf
-        dest: /etc/mysql/mariadb.d/60-galera.cnf
+        dest: /etc/mysql/mariadb.conf.d/60-galera.cnf
