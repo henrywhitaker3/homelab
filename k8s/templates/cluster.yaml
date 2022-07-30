@@ -22,3 +22,11 @@ services:
       - "/lib/modules:/lib/modules:ro"
 
 cluster_name: k8s
+
+authentication:
+  strategy: x509
+  sans:
+  {% for host in groups['k8s_nodes'] %}
+    - {{ hostvars[host].ansible_host }}
+  {% endfor %}
+    - k8s.lan

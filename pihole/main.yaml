@@ -46,7 +46,7 @@
         owner: root
         group: root
         state: directory
-        mode: 0644
+        mode: 0655
       when: not install_script_exists.stat.exists
 
     - name: Copy pihole setup vars

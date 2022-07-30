@@ -23,3 +23,9 @@ ansible_user=henry
 
 [k8s_nodes:vars]
 ansible_user=henry
+
+[haproxy]
+haproxy-01 ansible_host=10.0.0.4
+
+[haproxy:vars]
+ansible_user=henry

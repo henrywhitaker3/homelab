@@ -1,0 +1,70 @@
+---
+- name: Configure haproxy server
+
+  hosts: haproxy
+
+  vars_files:
+    - ../vars/main.yaml
+
+  roles:
+    - user
+    - common
+
+  vars:
+    - haproxy_version: "2.6"
+
+  handlers:
+    - name: restart haproxy
+      become: true
+      tags: haproxy
+      service:
+        name: haproxy
+        state: restarted
+
+  tasks:
+    - name: Add haproxy repo
+      become: true
+      tags:
+        - haproxy
+        - apt
+      apt_repository:
+        repo: "ppa:vbernat/haproxy-{{ haproxy_version }}"
+        state: present
+
+    - name: Install haproxy
+      become: true
+      tags:
+        - apt
+        - haproxy
+      apt:
+        name: "haproxy"
+        state: latest
+
+    - name: Create haproxy directory
+      become: true
+      tags: haproxy
+      file:
+        path: /etc/haproxy
+        owner: root
+        group: root
+        state: directory
+        mode: 0755
+
+    - name: Copy haproxy config
+      become: true
+      tags: haproxy
+      template:
+        src: templates/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart haproxy
+
+    - name: Enable and start haproxy
+      become: true
+      tags: haproxy
+      service:
+        name: haproxy
+        state: started
+        enabled: true

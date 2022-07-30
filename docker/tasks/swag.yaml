@@ -34,6 +34,18 @@
     group: "{{ ansible_user }}"
     mode: 0775
 
+- name: Copy nginx.conf
+  tags:
+    - docker
+    - nginx
+  template:
+    src: "templates/nginx.conf"
+    dest: "{{ docker_data_dir }}/swag/nginx/nginx.conf"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0664
+  notify: restart nginx
+
 - name: Copy nginx proxy-confs
   tags:
     - docker
