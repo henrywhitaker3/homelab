@@ -1,0 +1,27 @@
+---
+- name: Setup for galera cluster
+
+  become: true
+
+  hosts: galera
+
+  roles:
+    - user
+    - common
+
+  tasks:
+    - name: Install mariadb
+      apt:
+        name: mariadb-server-10.6
+        state: latest
+
+    - name: Stop mariadb
+      service:
+        name: mariadb
+        state: stopped
+        enabled: false
+
+    - name: Copy galera config
+      template:
+        src: templates/galera.cnf
+        dest: /etc/mysql/mariadb.d/60-galera.cnf

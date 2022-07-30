@@ -1,0 +1,13 @@
+[galera]
+# Mandatory settings
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+# Replace IP1, IP2 and IP3 with the local IP of each galera-mariadb server:
+wsrep_cluster_address="gcomm://10.0.0.16,10.0.0.17,10.0.0.18"
+binlog_format=row
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+#
+# Allow server to accept connections on all interfaces.
+#
+bind-address=0.0.0.0

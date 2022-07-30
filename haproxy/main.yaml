@@ -17,7 +17,7 @@
     - haproxy_stats_port: 8404
     - haproxy_stats_uri: /stats
     - haproxy_stats_refresh: 10s
-    - vip_ips: ["10.0.0.6"]
+    - vip_ips: ["10.0.0.6", "10.0.0.7"]
 
   handlers:
     - name: restart haproxy
