@@ -1,14 +1,22 @@
 nodes:
-{% for host in groups['k8s_nodes'] %}
+  - address: {{ hostvars[groups['k8s_nodes'][0]].ansible_host }}
+    internal_address: {{ hostvars[groups['k8s_nodes'][0]].ansible_host }}
+    user: {{ ansible_user }}
+    port: 22
+    hostname_override: {{ groups['k8s_nodes'][0] }}
+    role:
+      - controlplane
+      - worker
+      - etcd
+
+{% for host in groups['k8s_nodes'][1:] %}
   - address: {{ hostvars[host].ansible_host }}
     internal_address: {{ hostvars[host].ansible_host }}
     user: {{ ansible_user }}
     port: 22
     hostname_override: {{ host }}
     role:
-      - controlplane
       - worker
-      - etcd
 {% endfor %}
 
 ingress:
