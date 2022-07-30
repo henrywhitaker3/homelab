@@ -78,4 +78,4 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4 10.0.0.5" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
