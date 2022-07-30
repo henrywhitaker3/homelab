@@ -12,6 +12,10 @@
 
   vars:
     - haproxy_version: "2.6"
+    - haproxy_enabled_stats: false
+    - haproxy_stats_port: 8404
+    - haproxy_stats_uri: /stats
+    - haproxy_stats_refresh: 10s
 
   handlers:
     - name: restart haproxy
