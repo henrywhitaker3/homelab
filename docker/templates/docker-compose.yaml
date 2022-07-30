@@ -178,7 +178,7 @@ services:
       restart: unless-stopped
       image: drone/drone:2
       volumes:
-        - {{ docker_data_dir }}/drone:/var/libe/drone
+        - {{ docker_data_dir }}/drone:/var/lib/drone
       environment:
         - DRONE_GITHUB_CLIENT_ID={{ drone.github.client_id }}
         - DRONE_GITHUB_CLIENT_SECRET={{ drone.github.client_secret }}
