@@ -1,0 +1,33 @@
+---
+- name: Enable non local IP binding
+  become: true
+  tags: vip
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: "1"
+    state: present
+    reload: true
+
+- name: Install keepalived
+  become: true
+  tags: vip
+  apt:
+    name: keepalived
+    state: latest
+
+- name: Copy keepalived config
+  become: true
+  tags: vip
+  template:
+    src: templates/keepalived.conf
+    dest: /etc/keepalived/keepalived.conf
+    mode: 0644
+  notify: restart keepalived
+
+- name: Start and enable keepalived
+  become: true
+  tags: vip
+  service:
+    name: keepalived
+    state: started
+    enabled: true

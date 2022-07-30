@@ -1,0 +1,5 @@
+---
+vip_ips: []
+
+vip_auth_enabled: false
+vip_auth_pass: ""

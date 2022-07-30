@@ -9,7 +9,6 @@ docker-01 ansible_host=10.0.0.160
 
 [docker:vars]
 ansible_user=henry
-# ansible_user=vagrant
 
 [k8s_admin]
 k8s-admin ansible_host=10.0.0.20
@@ -26,6 +25,7 @@ ansible_user=henry
 
 [haproxy]
 haproxy-01 ansible_host=10.0.0.4
+haproxy-02 ansible_host=10.0.0.5
 
 [haproxy:vars]
 ansible_user=henry

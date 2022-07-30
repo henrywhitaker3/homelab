@@ -14,5 +14,6 @@ module "haproxy" {
   name = "haproxy"
   image = var.ubuntu_8G
   ip = 4
-  memory = 1024
+  memory = 512
+  instances = 2
 }

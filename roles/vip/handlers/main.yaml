@@ -1,0 +1,7 @@
+---
+- name: restart keepalived
+  become: true
+  tags: vip
+  service:
+    name: keepalived
+    state: restarted
