@@ -225,6 +225,7 @@ services:
       restart: unless-stopped
       volumes:
         - {{ docker_data_dir }}/promtail:/etc/promtail
+        - {{ docker_data_dir }}/swag/log:/logs/swag:ro
       command: --config.file=/etc/promtail/promtail-config.yaml
       networks:
         monitoring:

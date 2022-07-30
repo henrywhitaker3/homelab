@@ -9,11 +9,19 @@ clients:
   - url: http://loki:{{ loki_port }}/loki/api/v1/push
 
 scrape_configs:
-  # docker logs
-  - job_name: docker
-    pipeline_steps:
-      - docker: {}
+  # nginx logs
+  - job_name: swag
     static_configs:
-      - labels:
-          job: docker
-          __path__: /var/lib/docker/containers/*/*-json.log
+    - targets:
+      - localhost
+      labels:
+        job: swag
+        __path__: /logs/swag/nginx/*.log
+  # docker logs
+  # - job_name: docker
+  #   pipeline_steps:
+  #     - docker: {}
+  #   static_configs:
+  #     - labels:
+  #         job: docker
+  #         __path__: /var/lib/docker/containers/*/*-json.log
