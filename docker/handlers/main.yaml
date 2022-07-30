@@ -18,3 +18,24 @@
     - compose
     - torrent
   shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
+
+- name: restart loki
+  tags:
+    - docker
+    - compose
+    - monitoring
+  shell: "cd /home/{{ ansible_user }} && docker compose restart loki"
+
+- name: restart promtail
+  tags:
+    - docker
+    - compose
+    - monitoring
+  shell: "cd /home/{{ ansible_user }} && docker compose restart promtail"
+
+- name: restart docker
+  become: true
+  tags: docker
+  service:
+    name: docker
+    state: restarted

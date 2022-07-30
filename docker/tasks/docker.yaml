@@ -1,10 +1,33 @@
 ---
+- name: Install loki driver
+  become: true
+  tags:
+    - docker
+    - monitoring
+  shell: "docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions"
+  register: install_loki_driver
+  failed_when: false
+  changed_when: "'Installed plugin' in install_loki_driver.stdout"
+
+- name: Copy over docker daemon config
+  become: true
+  tags:
+    - docker
+  template:
+    src: templates/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart docker
+
 - name: Set docker facts
   tags:
     - docker
     - nginx
     - torrent
     - compose
+    - monitoring
   set_fact:
     docker_data_dir: "/home/{{ ansible_user }}/data"
     docker_puid: "{{ ansible_user_uid }}"
@@ -32,8 +55,6 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0750
-
-
 
 - name: Setup crons
   tags:

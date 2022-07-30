@@ -32,3 +32,4 @@
     - import_tasks: tasks/swag.yaml
     - import_tasks: tasks/torrent.yaml
     - import_tasks: tasks/backup.yaml
+    - import_tasks: tasks/monitoring.yaml

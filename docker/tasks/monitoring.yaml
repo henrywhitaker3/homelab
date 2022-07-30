@@ -1,0 +1,31 @@
+---
+- name: Create loki/promtail data directories
+  tags:
+    - docker
+    - monitoring
+  file:
+    path: "{{ docker_data_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - loki
+    - promtail
+
+- name: Copy over loki conifg
+  become: true
+  tags:
+    - docker
+    - monitoring
+  template:
+    src: templates/loki-config.yaml
+    dest: "{{ docker_data_dir }}/loki/loki-config.yaml"
+  notify: restart loki
+
+- name: Copy over promtail conifg
+  become: true
+  tags:
+    - docker
+    - monitoring
+  template:
+    src: templates/promtail-config.yaml
+    dest: "{{ docker_data_dir }}/promtail/promtail-config.yaml"
+  notify: restart promtail

@@ -10,3 +10,7 @@ swag_css_theme: nord
 cifs_mounts:
   - src: //10.0.0.9/plex
     path: /plex
+
+loki_version: 2.6.1
+
+loki_port: 3100

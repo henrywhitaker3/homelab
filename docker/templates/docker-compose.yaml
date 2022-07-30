@@ -1,191 +1,82 @@
 version: '3.4'
 services:
-    wireguard:
-        container_name: wireguard
-        restart: unless-stopped
-        image: weejewel/wg-easy
-        cap_add:
-          - NET_ADMIN
-          - SYS_MODULE
-        environment:
-          - WG_HOST=vpn.plexmox.com
-          - PASSWORD={{ wireguard_password }}
-          - WG_DEFAULT_DNS=10.0.0.2
-        volumes:
-          - {{ docker_data_dir }}/wireguard:/etc/wireguard
-        ports:
-          - 51820:51820/udp
-        sysctls:
-          - net.ipv4.conf.all.src_valid_mark=1
-          - net.ipv4.ip_forward=1
-        networks:
-          homelab:
-
-    swag:
-        container_name: swag
-        restart: unless-stopped
-        image: linuxserver/swag:latest
-        ports:
-          - 443:443
-          - 80:80
-        volumes:
-          - {{ docker_data_dir }}/swag:/config
-          - {{ docker_data_dir }}/organizr:/organizr:ro
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-          - URL=plexmox.com
-          - SUBDOMAINS=wildcard
-          - VALIDATION=dns
-          - DNSPLUGIN=cloudflare
-          - ONLY_SUBDOMAINS=false
-          - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
-        cap_add: [ 'NET_ADMIN' ]
-        networks:
-          homelab:
-
-    organizr:
-        container_name: organizr
-        restart: unless-stopped
-        image: organizr/organizr:latest
-        volumes:
-          - {{ docker_data_dir }}/organizr:/config
-        environment:
-          - fpm=true
-          - branch=dev
-          - TZ={{ docker_tz }}
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_pgid }}
-        networks:
-          homelab:
-
+    #-------------------------------------------#
+    # Media services
+    #-------------------------------------------#
     radarr:
-        container_name: radarr
-        restart: unless-stopped
-        image: linuxserver/radarr:nightly
-        volumes:
-          - {{ docker_data_dir }}/radarr/v3:/config
-          - /plex:/data
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-        networks:
-          homelab:
+      container_name: radarr
+      restart: unless-stopped
+      image: linuxserver/radarr:nightly
+      volumes:
+        - {{ docker_data_dir }}/radarr/v3:/config
+        - /plex:/data
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+      networks:
+        homelab:
 
     sonarr:
-        container_name: sonarr
-        restart: unless-stopped
-        image: linuxserver/sonarr:latest
-        volumes:
-          - {{ docker_data_dir }}/sonarr:/config
-          - /plex:/data
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-        networks:
-          homelab:
+      container_name: sonarr
+      restart: unless-stopped
+      image: linuxserver/sonarr:latest
+      volumes:
+        - {{ docker_data_dir }}/sonarr:/config
+        - /plex:/data
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+      networks:
+        homelab:
 
     prowlarr:
-        container_name: prowlarr
-        restart: unless-stopped
-        image: linuxserver/prowlarr:develop
-        volumes:
-          - {{ docker_data_dir }}/prowlarr:/config
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-        networks:
-          homelab:
-
-    monitorr:
-        container_name: monitorr
-        restart: unless-stopped
-        image: monitorr/monitorr:latest
-        volumes:
-          - {{ docker_data_dir }}/monitorr:/app
-        environment:
-          - TZ={{ docker_tz }}
-        networks:
-          homelab:
+      container_name: prowlarr
+      restart: unless-stopped
+      image: linuxserver/prowlarr:develop
+      volumes:
+        - {{ docker_data_dir }}/prowlarr:/config
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+      networks:
+        homelab:
 
     qbittorrent:
-        container_name: qbittorrent
-        restart: unless-stopped
-        image: markusmcnugen/qbittorrentvpn:latest
-        privileged: true
-        volumes:
-          - {{ docker_data_dir }}/torrent/config:/config
-          - /plex/temp:/data/temp
-        environment:
-          - NAME_SERVERS=8.8.8.8,8.8.4.4
-          - LAN_NETWORK=10.0.0.0/24
-          - VPN_ENABLED=yes
-        cap_add:
-          - NET_ADMIN
-        healthcheck:
-          test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail -s --max-time 15 https://google.com > /dev/null || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'}"
-          interval: "60s"
-          timeout: "15s"
-          start_period: "30s"
-          retries: 0
-        networks:
-          homelab:
+      container_name: qbittorrent
+      restart: unless-stopped
+      image: markusmcnugen/qbittorrentvpn:latest
+      privileged: true
+      volumes:
+        - {{ docker_data_dir }}/torrent/config:/config
+        - /plex/temp:/data/temp
+      environment:
+        - NAME_SERVERS=8.8.8.8,8.8.4.4
+        - LAN_NETWORK=10.0.0.0/24
+        - VPN_ENABLED=yes
+      cap_add:
+        - NET_ADMIN
+      healthcheck:
+        test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail -s --max-time 15 https://google.com > /dev/null || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'}"
+        interval: "60s"
+        timeout: "15s"
+        start_period: "30s"
+        retries: 0
+      networks:
+        homelab:
 
     overseerr:
-        container_name: overseerr
-        restart: unless-stopped
-        image: sctx/overseerr
-        environment:
-          - TZ={{ docker_tz }}
-        volumes:
-        - {{ docker_data_dir }}/overseerr:/app/config
-        networks:
-          homelab:
-
-    tautulli:
-        container_name: tautulli
-        restart: unless-stopped
-        image: linuxserver/tautulli:latest
-        volumes:
-          - {{ docker_data_dir }}/tautulli:/config
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-        networks:
-          homelab:
-
-    speedtest:
-        container_name: speedtest
-        restart: unless-stopped
-        image: henrywhitaker3/speedtest-tracker:dev
-        volumes:
-          - {{ docker_data_dir }}/speedtest:/config
-        environment:
-          - PUID={{ docker_puid }}
-          - PGID={{ docker_puid }}
-          - TZ={{ docker_tz }}
-          - BASE_PATH=/speedtest
-          - OOKLA_EULA_GDPR=true
-        networks:
-          homelab:
-
-    mariadb:
-        container_name: mariadb
-        restart: unless-stopped
-        image: mariadb
-        ports:
-          - 3306:3306
-        volumes:
-          - {{ docker_data_dir }}/mariadb:/var/lib/mysql
-        environment:
-          - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-        networks:
-          homelab:
+      container_name: overseerr
+      restart: unless-stopped
+      image: sctx/overseerr
+      environment:
+        - TZ={{ docker_tz }}
+      volumes:
+      - {{ docker_data_dir }}/overseerr:/app/config
+      networks:
+        homelab:
 
     plex:
       container_name: plex
@@ -203,46 +94,85 @@ services:
         - /plex:/plex
       restart: unless-stopped
 
-    influxdb:
-      container_name: influxdb
-      image: influxdb:1.8
-      ports:
-        - 8086:8086
-      environment:
-        - INFLUXDB_DB=db0
-        - INFLUXDB_ADMIN_USER={{ influxdb.username }}
-        - INFLUXDB_ADMIN_PASSWORD={{ influxdb.password }}
-      volumes:
-        - {{ docker_data_dir }}/influxdb:/var/lib/influxdb
+    #-------------------------------------------#
+    # General services
+    #-------------------------------------------#
+    wireguard:
+      container_name: wireguard
       restart: unless-stopped
-      networks:
-        homelab:
-
-    grafana:
-      container_name: grafana
-      image: grafana/grafana
-      volumes:
-        - {{ docker_data_dir }}/grafana:/var/lib/grafana
-      restart: unless-stopped
-      networks:
-        homelab:
-
-    chronograf:
-      container_name: chronograf
-      image: chronograf:latest
-      ports:
-        - '127.0.0.1:8888:8888'
-      volumes:
-        - {{ docker_data_dir }}/chronograf:/var/lib/chronograf
-      depends_on:
-        - influxdb
+      image: weejewel/wg-easy
+      cap_add:
+        - NET_ADMIN
+        - SYS_MODULE
       environment:
-        - INFLUXDB_URL=http://influxdb:8086
-        - INFLUXDB_USERNAME={{ influxdb.username }}
-        - INFLUXDB_PASSWORD={{ influxdb.password }}
+        - WG_HOST=vpn.plexmox.com
+        - PASSWORD={{ wireguard_password }}
+        - WG_DEFAULT_DNS=10.0.0.2
+      volumes:
+        - {{ docker_data_dir }}/wireguard:/etc/wireguard
+      ports:
+        - 51820:51820/udp
+      sysctls:
+        - net.ipv4.conf.all.src_valid_mark=1
+        - net.ipv4.ip_forward=1
       networks:
         homelab:
 
+    swag:
+      container_name: swag
+      restart: unless-stopped
+      image: linuxserver/swag:latest
+      ports:
+        - 443:443
+        - 80:80
+      volumes:
+        - {{ docker_data_dir }}/swag:/config
+        - {{ docker_data_dir }}/organizr:/organizr:ro
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+        - URL=plexmox.com
+        - SUBDOMAINS=wildcard
+        - VALIDATION=dns
+        - DNSPLUGIN=cloudflare
+        - ONLY_SUBDOMAINS=false
+        - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
+      cap_add: [ 'NET_ADMIN' ]
+      networks:
+        homelab:
+
+    mariadb:
+      container_name: mariadb
+      restart: unless-stopped
+      image: mariadb
+      ports:
+        - 3306:3306
+      volumes:
+        - {{ docker_data_dir }}/mariadb:/var/lib/mysql
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      networks:
+        homelab:
+
+    organizr:
+      container_name: organizr
+      restart: unless-stopped
+      image: organizr/organizr:latest
+      volumes:
+        - {{ docker_data_dir }}/organizr:/config
+      environment:
+        - fpm=true
+        - branch=dev
+        - TZ={{ docker_tz }}
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_pgid }}
+      networks:
+        homelab:
+
+    #-------------------------------------------#
+    # Automation services
+    #-------------------------------------------#
     drone:
       container_name: drone
       restart: unless-stopped
@@ -274,5 +204,81 @@ services:
       networks:
         homelab:
 
+    #-------------------------------------------#
+    # Montioring services
+    #-------------------------------------------#
+    loki:
+      container_name: loki
+      image: grafana/loki:{{ loki_version }}
+      restart: unless-stopped
+      ports:
+        - {{ loki_port }}:{{ loki_port }}
+      volumes:
+        - {{ docker_data_dir }}/loki:/etc/loki
+      command: --config.file=/etc/loki/loki-config.yaml
+      networks:
+        monitoring:
+
+    promtail:
+      container_name: promtail
+      image: grafana/promtail:{{ loki_version }}
+      restart: unless-stopped
+      volumes:
+        - {{ docker_data_dir }}/promtail:/etc/promtail
+      command: --config.file=/etc/promtail/promtail-config.yaml
+      networks:
+        monitoring:
+
+    grafana:
+      container_name: grafana
+      image: grafana/grafana
+      user: "{{ docker_puid }}"
+      volumes:
+        - {{ docker_data_dir }}/grafana:/var/lib/grafana
+      restart: unless-stopped
+      networks:
+        homelab:
+        monitoring:
+
+    speedtest:
+      container_name: speedtest
+      restart: unless-stopped
+      image: henrywhitaker3/speedtest-tracker:dev
+      volumes:
+        - {{ docker_data_dir }}/speedtest:/config
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+        - BASE_PATH=/speedtest
+        - OOKLA_EULA_GDPR=true
+      networks:
+        homelab:
+
+    monitorr:
+      container_name: monitorr
+      restart: unless-stopped
+      image: monitorr/monitorr:latest
+      volumes:
+        - {{ docker_data_dir }}/monitorr:/app
+      environment:
+        - TZ={{ docker_tz }}
+      networks:
+        homelab:
+
+    tautulli:
+      container_name: tautulli
+      restart: unless-stopped
+      image: linuxserver/tautulli:latest
+      volumes:
+        - {{ docker_data_dir }}/tautulli:/config
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+      networks:
+        homelab:
+
 networks:
     homelab:
+    monitoring:
