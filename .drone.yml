@@ -79,3 +79,24 @@ steps:
   commands:
     - eval $(ssh-agent -s)
     - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4 10.0.0.5" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+
+---
+
+kind: pipeline
+type: docker
+name: galera playbook
+
+steps:
+- name: galera playbook
+  image: henrywhitaker3/ansible-terraform
+  when:
+    branch:
+      - main
+  environment:
+    SSH_KEY:
+      from_secret: HOMELAB_SSH_KEY
+    VAULT_PASS:
+      from_secret: ANSIBLE_VAULT_PASS
+  commands:
+    - eval $(ssh-agent -s)
+    - task drone-playbook PLAYBOOK=galera/main.yaml TARGET_IPS="10.0.0.16 10.0.0.17 10.0.0.18" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
