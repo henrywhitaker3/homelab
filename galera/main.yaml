@@ -7,6 +7,7 @@
 
   vars_files:
     - vars/galera_secrets.yaml
+    - ../vars/main.yaml
 
   roles:
     - user

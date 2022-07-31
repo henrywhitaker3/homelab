@@ -32,6 +32,7 @@ docker
 k8s_admin
 k8s_nodes
 galera
+haproxy
 
 [multi:vars]
 ansible_user=henry
