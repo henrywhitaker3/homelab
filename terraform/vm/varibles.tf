@@ -9,7 +9,6 @@ variable "name" {
 
 variable "node" {
   type = string
-  default = "proxmox-01"
 }
 
 variable "image" {

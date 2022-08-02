@@ -30,22 +30,42 @@ variable "proxmox_node_2" {
   default = "proxmox-02"
 }
 
-variable "ubuntu_8G" {
+variable "ubuntu_8G_node_1" {
   type    = string
-  default = "ubuntu-cloud-8G"
+  default = "ubuntu-cloud-8G-node-1"
 }
 
-variable "ubuntu_25G" {
+variable "ubuntu_25G_node_1" {
   type    = string
-  default = "ubuntu-cloud-25G"
+  default = "ubuntu-cloud-25G-node-1"
 }
 
-variable "ubuntu_100G" {
+variable "ubuntu_100G_node_1" {
   type    = string
-  default = "ubuntu-cloud-100G"
+  default = "ubuntu-cloud-100G-node-1"
 }
 
-variable "alma_10G" {
+variable "alma_10G_node_1" {
   type    = string
-  default = "alma-cloud-10G"
+  default = "alma-cloud-10G-node-1"
+}
+
+variable "ubuntu_8G_node_2" {
+  type    = string
+  default = "ubuntu-cloud-8G-node-2"
+}
+
+variable "ubuntu_25G_node_2" {
+  type    = string
+  default = "ubuntu-cloud-25G-node-2"
+}
+
+variable "ubuntu_100G_node_2" {
+  type    = string
+  default = "ubuntu-cloud-100G-node-2"
+}
+
+variable "alma_10G_node_2" {
+  type    = string
+  default = "alma-cloud-10G-node-2"
 }
