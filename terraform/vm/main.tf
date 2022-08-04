@@ -3,9 +3,9 @@ resource "proxmox_vm_qemu" "vm" {
 
   name = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}"
 
-  target_node = var.node
+  target_node = "proxmox-0${var.node}"
 
-  clone = var.image
+  clone = "${var.image}-node-${var.node}"
 
   agent   = 1
   os_type = "cloud-init"

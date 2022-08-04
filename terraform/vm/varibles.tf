@@ -8,7 +8,7 @@ variable "name" {
 }
 
 variable "node" {
-  type = string
+  type = number
 }
 
 variable "image" {
