@@ -1,0 +1,19 @@
+---
+- name: Setup for mariadb
+
+  become: true
+
+  hosts: mariadb
+
+  vars_files:
+    - ../vars/main.yaml
+
+  roles:
+    - user
+    - common
+
+  tasks:
+    - name: Install mariadb
+      apt:
+        name: mariadb-server-10.6
+        state: latest

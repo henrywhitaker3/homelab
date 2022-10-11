@@ -23,6 +23,9 @@ k8s_workers
 haproxy-01 ansible_host=10.0.0.4
 haproxy-02 ansible_host=10.0.0.5
 
+[mariadb]
+mariadb ansible_host=10.0.0.10
+
 [galera_write]
 galera-1 ansible_host=10.0.0.16
 
@@ -41,6 +44,7 @@ k8s_admin
 k8s_nodes
 galera
 haproxy
+mariadb
 
 [multi:vars]
 ansible_user=henry

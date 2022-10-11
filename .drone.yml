@@ -84,7 +84,7 @@ steps:
 
 kind: pipeline
 type: docker
-name: galera playbook
+name: mariadb playbook
 
 steps:
 - name: galera playbook
@@ -99,4 +99,4 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=galera/main.yaml TARGET_IPS="10.0.0.16 10.0.0.17 10.0.0.18" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=mariadb/main.yaml TARGET_IPS="10.0.0.10" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
