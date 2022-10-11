@@ -13,6 +13,13 @@
     - user
     - common
 
+  handlers:
+    - name: restart mariadb
+      tags: mariadb
+      service:
+        name: mariadb
+        state: restarted
+
   tasks:
     - name: Install mariadb
       tags: mariadb
@@ -23,12 +30,25 @@
           - python3-mysqldb
         state: latest
 
+    - name: Copy mariadb config
+      tags: mariadb
+      template:
+        src: "templates/{{ item }}"
+        dest: "/etc/mysql/mariadb.conf.d/{{ item }}"
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - 50-server.cnf
+      notify: restart mariadb
+
     - name: Configure users
       tags: mariadb
       mysql_user:
         name: "{{ item.username }}"
         password: "{{ item.password }}"
         priv: '*.*:ALL,GRANT'
+        host: "{{ item.host }}"
         state: present
       loop: "{{ mariadb_users }}"
       loop_control:
