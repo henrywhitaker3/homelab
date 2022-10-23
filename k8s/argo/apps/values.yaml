@@ -54,10 +54,11 @@ charts:
     namespace: kube-system
     chart: sealed-secrets
     repoUrl: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 2.6.8
+    targetRevision: 2.6.9
     values:
-      image: docker.io
-      repository: bitnami/sealed-secrets-controller
+      image:
+        registry: docker.io
+        repository: bitnami/sealed-secrets-controller
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
