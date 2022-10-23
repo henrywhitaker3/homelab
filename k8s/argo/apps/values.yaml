@@ -48,3 +48,19 @@ charts:
       automated:
         prune: true
         selfHeal: true
+
+  - name: sealed-secrets-controller
+    project: cluster
+    namespace: kube-system
+    chart: sealed-secrets
+    repoUrl: https://bitnami-labs.github.io/sealed-secrets
+    targetRevision: 2.6.9
+    values:
+      image: docker.io
+      repository: bitnami/sealed-secrets-controller
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
