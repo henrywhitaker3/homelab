@@ -1,3 +1,8 @@
+variable "do_token" {
+  type      = string
+  sensitive = true
+}
+
 variable "proxmox_host" {
   type    = string
   default = "10.0.0.150"

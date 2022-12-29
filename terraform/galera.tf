@@ -1,11 +1,11 @@
 module "mariadb" {
   source = "./vm"
 
-  name = "mariadb"
-  image = var.ubuntu_100G
-  ip = 10
-  node = 2
-  cores = 2
+  name   = "mariadb"
+  image  = var.ubuntu_100G
+  ip     = 10
+  node   = 2
+  cores  = 2
   memory = 4096
 }
 

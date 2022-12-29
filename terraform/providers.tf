@@ -2,7 +2,12 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "2.7.4"
+      version = "2.9.11"
+    }
+
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "2.25.2"
     }
   }
 }
@@ -15,4 +20,8 @@ provider "proxmox" {
   pm_api_token_secret = var.proxmox_token
 
   pm_tls_insecure = true
+}
+
+provider "digitalocean" {
+  token = var.do_token
 }
