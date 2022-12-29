@@ -17,6 +17,9 @@
 
   handlers:
     - name: restart wireguard
+      tags:
+        - vpn
+        - wireguard
       become: true
       ansible.builtin.service:
         name: wg-quick@wg0.service
@@ -24,6 +27,9 @@
 
   tasks:
     - name: Enable non local IP binding
+      tags:
+        - vpn
+        - wireguard
       become: true
       ansible.posix.sysctl:
         name: "{{ item }}"
@@ -35,12 +41,18 @@
         - net.ipv4.ip_forward
 
     - name: Install wireguard
+      tags:
+        - vpn
+        - wireguard
       become: true
       ansible.builtin.apt:
         name: wireguard
         state: latest
 
     - name: Copy over server config
+      tags:
+        - vpn
+        - wireguard
       become: true
       ansible.builtin.template:
         src: templates/server.conf
@@ -51,6 +63,9 @@
       notify: restart wireguard
 
     - name: Start wireguard service
+      tags:
+        - vpn
+        - wireguard
       become: true
       ansible.builtin.service:
         name: wg-quick@wg0.service
