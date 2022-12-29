@@ -23,6 +23,10 @@ k8s_workers
 haproxy-01 ansible_host=10.0.0.4
 haproxy-02 ansible_host=10.0.0.5
 
+[vpn]
+vpn-01 ansible_host=10.0.0.11
+vpn-02 ansible_host=10.0.0.12
+
 [mariadb]
 mariadb ansible_host=10.0.0.10
 
@@ -45,6 +49,7 @@ k8s_nodes
 galera
 haproxy
 mariadb
+vpn
 
 [multi:vars]
 ansible_user=henry

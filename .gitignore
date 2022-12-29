@@ -37,3 +37,4 @@ override.tf.json
 terraform.rc
 
 k8s/argo/argocd/charts
+vpn/keygen.sh
