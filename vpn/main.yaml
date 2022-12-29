@@ -1,3 +1,5 @@
 ---
 - name: Configure vpn servers
   ansible.builtin.import_playbook: servers.yaml
+- name: Configure jump servers
+  ansible.builtin.import_playbook: jump.yaml

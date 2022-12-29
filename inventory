@@ -37,6 +37,9 @@ galera-1 ansible_host=10.0.0.16
 galera-2 ansible_host=10.0.0.17
 galera-3 ansible_host=10.0.0.18
 
+[jump]
+jump-1 ansible_host=167.71.137.12
+
 [galera:children]
 galera_read
 galera_write
@@ -50,6 +53,7 @@ galera
 haproxy
 mariadb
 vpn
+jump
 
 [multi:vars]
 ansible_user=henry
