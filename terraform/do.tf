@@ -14,7 +14,7 @@ resource "digitalocean_droplet" "jump" {
   size     = "s-1vcpu-1gb"
   image    = "ubuntu-22-04-x64"
   region   = "lon1"
-  vpc_uuid = digitalocean_vpc.jump_vpc
+  vpc_uuid = digitalocean_vpc.jump_vpc.id
   ssh_keys = [digitalocean_ssh_key.laptop.fingerprint]
 }
 
