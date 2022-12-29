@@ -21,6 +21,13 @@
         name: wg-quick@wg0.service
         state: restarted
 
+    - name: restart haproxy
+      become: true
+      tags: haproxy
+      service:
+        name: haproxy
+        state: restarted
+
   tasks:
     - name: Install wireguard
       tags:
@@ -51,5 +58,52 @@
       become: true
       ansible.builtin.service:
         name: wg-quick@wg0.service
+        state: started
+        enabled: true
+
+    - name: Add haproxy repo
+      become: true
+      tags:
+        - haproxy
+        - apt
+      apt_repository:
+        repo: "ppa:vbernat/haproxy-2.6"
+        state: present
+
+    - name: Install haproxy
+      become: true
+      tags:
+        - apt
+        - haproxy
+      apt:
+        name: "haproxy"
+        state: latest
+
+    - name: Create haproxy directory
+      become: true
+      tags: haproxy
+      file:
+        path: /etc/haproxy
+        owner: root
+        group: root
+        state: directory
+        mode: 0755
+
+    - name: Copy haproxy config
+      become: true
+      tags: haproxy
+      template:
+        src: templates/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart haproxy
+
+    - name: Enable and start haproxy
+      become: true
+      tags: haproxy
+      service:
+        name: haproxy
         state: started
         enabled: true
