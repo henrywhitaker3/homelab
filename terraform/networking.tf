@@ -35,7 +35,7 @@ module "vpn-1" {
   name   = "vpn-1"
   image  = var.ubuntu_8G
   ip     = 11
-  memory = 256
+  memory = 512
   node   = 1
 }
 
@@ -45,6 +45,6 @@ module "vpn-2" {
   name   = "vpn-2"
   image  = var.ubuntu_8G
   ip     = 12
-  memory = 256
+  memory = 512
   node   = 2
 }

@@ -13,6 +13,7 @@ resource "proxmox_vm_qemu" "vm" {
   sockets = "1"
   cpu     = "host"
   memory  = var.memory
+  onboot = true
 
   lifecycle {
     ignore_changes = [
