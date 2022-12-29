@@ -31,7 +31,7 @@
         - vpn
         - wireguard
       become: true
-      ansible.posix.sysctl:
+      sysctl:
         name: "{{ item }}"
         value: "1"
         state: present
