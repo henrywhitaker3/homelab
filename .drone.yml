@@ -99,7 +99,7 @@ steps:
       from_secret: ANSIBLE_VAULT_PASS
   commands:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=vpn/main.yaml TARGET_IPS="10.0.0.11 10.0.0.12" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=vpn/main.yaml TARGET_IPS="10.0.0.11 10.0.0.12 167.71.137.12" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
