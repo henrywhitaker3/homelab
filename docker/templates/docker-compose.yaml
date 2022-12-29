@@ -98,27 +98,6 @@ services:
     #-------------------------------------------#
     # General services
     #-------------------------------------------#
-    wireguard:
-      container_name: wireguard
-      restart: unless-stopped
-      image: weejewel/wg-easy
-      cap_add:
-        - NET_ADMIN
-        - SYS_MODULE
-      environment:
-        - WG_HOST=vpn.plexmox.com
-        - PASSWORD={{ wireguard_password }}
-        - WG_DEFAULT_DNS=10.0.0.2
-      volumes:
-        - {{ docker_data_dir }}/wireguard:/etc/wireguard
-      ports:
-        - 51820:51820/udp
-      sysctls:
-        - net.ipv4.conf.all.src_valid_mark=1
-        - net.ipv4.ip_forward=1
-      networks:
-        homelab:
-
     swag:
       container_name: swag
       restart: unless-stopped
