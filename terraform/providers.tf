@@ -9,6 +9,11 @@ terraform {
       source  = "digitalocean/digitalocean"
       version = "2.25.2"
     }
+
+    healthchecksio = {
+      source  = "kristofferahl/healthchecksio"
+      version = "1.9.0"
+    }
   }
 }
 
@@ -24,4 +29,8 @@ provider "proxmox" {
 
 provider "digitalocean" {
   token = var.do_token
+}
+
+provider "healthchecksio" {
+  api_key = var.healthchecksio_api_key
 }

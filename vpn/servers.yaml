@@ -72,3 +72,18 @@
         name: wg-quick@wg0.service
         state: started
         enabled: true
+
+    - name: Setup healthchecks
+      tags:
+        - vpn
+        - wireguard
+        - healthcheck
+      become: true
+      cron:
+        name: "ping healthcheck"
+        minute: "*"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "wg show wg0 && curl -fsS --retry 3 -o /dev/null {{ healthchecks[inventory_hostname] }}"

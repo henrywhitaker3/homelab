@@ -107,3 +107,36 @@
         name: haproxy
         state: started
         enabled: true
+
+    - name: Setup healthchecks
+      tags:
+        - vpn
+        - wireguard
+        - healthcheck
+      become: true
+      cron:
+        name: "{{ item.name }}"
+        minute: "{{ item.minute }}"
+        hour: "{{ item.hour }}"
+        day: "{{ item.day }}"
+        month: "{{ item.month }}"
+        weekday: "{{ item.weekday }}"
+        job: "{{ item.job }}"
+        user: root
+      loop:
+        - name: "lan check"
+          minute: "*"
+          hour: "*"
+          day: "*"
+          month: "*"
+          weekday: "*"
+          job: "ping -W 1 -c 1 10.0.0.160 && curl -fsS --retry 3 -o /dev/null {{ healthchecks.jump_lan }}"
+        - name: "vpn check"
+          minute: "*"
+          hour: "*"
+          day: "*"
+          month: "*"
+          weekday: "*"
+          job: "wg show wg0 && curl -fsS --retry 3 -o /dev/null {{ healthchecks.jump_conn }}"
+      loop_control:
+        label: "{{ item.name }}"

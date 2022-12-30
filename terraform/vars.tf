@@ -3,6 +3,11 @@ variable "do_token" {
   sensitive = true
 }
 
+variable "healthchecksio_api_key" {
+  type      = string
+  sensitive = true
+}
+
 variable "proxmox_host" {
   type    = string
   default = "10.0.0.150"
