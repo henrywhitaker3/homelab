@@ -20,12 +20,12 @@ k8s_control
 k8s_workers
 
 [haproxy]
-haproxy-01 ansible_host=10.0.0.4
-haproxy-02 ansible_host=10.0.0.5
+lb-1 ansible_host=10.0.0.4
+lb-2 ansible_host=10.0.0.5
 
 [vpn]
-vpn-01 ansible_host=10.0.0.11
-vpn-02 ansible_host=10.0.0.12
+vpn-1 ansible_host=10.0.0.11
+vpn-2 ansible_host=10.0.0.12
 
 [mariadb]
 mariadb ansible_host=10.0.0.10
