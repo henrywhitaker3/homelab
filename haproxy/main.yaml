@@ -12,7 +12,7 @@
     - vip
 
   vars:
-    - haproxy_version: "2.6"
+    - haproxy_version: "2.7"
     - haproxy_enabled_stats: true
     - haproxy_stats_port: 8404
     - haproxy_stats_uri: /stats

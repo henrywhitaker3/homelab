@@ -67,7 +67,7 @@
         - haproxy
         - apt
       apt_repository:
-        repo: "ppa:vbernat/haproxy-2.6"
+        repo: "ppa:vbernat/haproxy-2.7"
         state: present
 
     - name: Install haproxy
