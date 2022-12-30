@@ -46,6 +46,18 @@
     mode: 0664
   notify: restart nginx
 
+- name: Copy send_proxy.conf
+  tags:
+    - docker
+    - nginx
+  template:
+    src: "templates/send_proxy.conf"
+    dest: "{{ docker_data_dir }}/swag/nginx/send_proxy.conf"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0664
+  notify: restart nginx
+
 - name: Copy nginx proxy-confs
   tags:
     - docker
