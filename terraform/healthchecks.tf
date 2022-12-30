@@ -1,5 +1,6 @@
 resource "healthchecksio_check" "docker" {
   name = "Docker"
+  desc = "Docker host up/down"
 
   tags = [
     "docker"
@@ -12,25 +13,27 @@ resource "healthchecksio_check" "docker" {
 
 resource "healthchecksio_check" "docker_backup" {
   name = "Docker backup"
+  desc = "Weekly docker backup script"
 
   tags = [
     "docker",
     "backup"
   ]
 
-  grace    = 3600 # seconds
+  grace   = 3600 # seconds
   timeout = 604800
 }
 
 resource "healthchecksio_check" "speedtest" {
   name = "Speedtest"
 
-  grace    = 300 # seconds
+  grace   = 300 # seconds
   timeout = 14400
 }
 
 resource "healthchecksio_check" "jump_connection" {
   name = "Jump server vpn"
+  desc = "Checks the vpn interface is up"
 
   tags = [
     "vpn"
@@ -43,6 +46,7 @@ resource "healthchecksio_check" "jump_connection" {
 
 resource "healthchecksio_check" "jump_lan" {
   name = "Jump server lan access"
+  desc = "Checks the jump server has access to home lan"
 
   tags = [
     "vpn"
@@ -55,6 +59,7 @@ resource "healthchecksio_check" "jump_lan" {
 
 resource "healthchecksio_check" "vpn_1" {
   name = "VPN 1"
+  desc = "Checks the vpn interface is up"
 
   tags = [
     "vpn"
@@ -67,6 +72,7 @@ resource "healthchecksio_check" "vpn_1" {
 
 resource "healthchecksio_check" "vpn_2" {
   name = "VPN 2"
+  desc = "Checks the vpn interface is up"
 
   tags = [
     "vpn"
