@@ -32,7 +32,7 @@
         - vpn
         - wireguard
       become: true
-      sysctl:
+      ansible.posix.sysctl:
         name: "{{ item }}"
         value: "1"
         state: present
@@ -79,7 +79,7 @@
         - wireguard
         - healthcheck
       become: true
-      cron:
+      ansible.builtin.cron:
         name: "ping healthcheck"
         minute: "*"
         hour: "*"

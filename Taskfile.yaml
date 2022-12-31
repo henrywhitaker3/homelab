@@ -23,4 +23,4 @@ tasks:
 
   lint:
     cmds:
-      - ansible-lint {{ .PLAYBOOK }} -x 403 -x name[casing]
+      - ansible-lint {{ .PLAYBOOK }} -x 403 -x name[casing] -x yaml[line-length]
