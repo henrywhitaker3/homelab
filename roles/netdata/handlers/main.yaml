@@ -4,6 +4,6 @@
   tags:
     - netdata
     - monitoring
-  service:
+  ansible.builtin.service:
     name: netdata
     state: restarted

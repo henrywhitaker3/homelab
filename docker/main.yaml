@@ -12,13 +12,14 @@
   pre_tasks:
     - name: Update package cache
       become: true
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
       changed_when: false
 
   handlers:
-    - import_tasks: handlers/main.yaml
+    - name: Handlers
+      ansible.builtin.import_tasks: handlers/main.yaml
 
   roles:
     - common
@@ -28,8 +29,13 @@
     - netdata
 
   tasks:
-    - import_tasks: tasks/docker.yaml
-    - import_tasks: tasks/swag.yaml
-    - import_tasks: tasks/torrent.yaml
-    - import_tasks: tasks/backup.yaml
-    - import_tasks: tasks/monitoring.yaml
+    - name: Docker
+      ansible.builtin.import_tasks: tasks/docker.yaml
+    - name: Swag
+      ansible.builtin.import_tasks: tasks/swag.yaml
+    - name: Torrent
+      ansible.builtin.import_tasks: tasks/torrent.yaml
+    - name: Backup
+      ansible.builtin.import_tasks: tasks/backup.yaml
+    - name: Monitoring
+      ansible.builtin.import_tasks: tasks/monitoring.yaml

@@ -3,7 +3,7 @@
   tags:
     - docker
     - torrent
-  file:
+  ansible.builtin.file:
     path: "{{ torrent_config_dir }}"
     state: directory
     owner: "{{ ansible_user }}"
@@ -15,7 +15,7 @@
   tags:
     - docker
     - torrent
-  copy:
+  ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ torrent_config_dir }}/{{ item.dest }}"
     owner: "{{ ansible_user }}"

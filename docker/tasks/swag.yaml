@@ -3,7 +3,7 @@
   tags:
     - docker
     - nginx
-  command: "echo {{ item | basename }}"
+  ansible.builtin.command: "echo {{ item | basename }}"
   register: desired_nginx_proxy_confs
   with_fileglob: templates/proxy_confs/*.conf
   delegate_to: localhost
@@ -13,21 +13,21 @@
   tags:
     - docker
     - nginx
-  set_fact:
+  ansible.builtin.set_fact:
     desired_nginx_proxy_confs_list: "{{ desired_nginx_proxy_confs.results | map(attribute='stdout') | list | flatten }}"
 
 - name: Set nginx proxy confs dir
   tags:
     - docker
     - nginx
-  set_fact:
+  ansible.builtin.set_fact:
     nginx_proxy_confs_dir: "{{ docker_data_dir }}/swag/nginx/proxy-confs"
 
 - name: Ensure nginx data dir exists
   tags:
     - docker
     - nginx
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_proxy_confs_dir }}"
     state: directory
     owner: "{{ ansible_user }}"
@@ -38,7 +38,7 @@
   tags:
     - docker
     - nginx
-  template:
+  ansible.builtin.template:
     src: "templates/nginx.conf"
     dest: "{{ docker_data_dir }}/swag/nginx/nginx.conf"
     owner: "{{ ansible_user }}"
@@ -50,7 +50,7 @@
   tags:
     - docker
     - nginx
-  template:
+  ansible.builtin.template:
     src: "templates/send_proxy.conf"
     dest: "{{ docker_data_dir }}/swag/nginx/send_proxy.conf"
     owner: "{{ ansible_user }}"
@@ -62,7 +62,7 @@
   tags:
     - docker
     - nginx
-  template:
+  ansible.builtin.template:
     src: "templates/proxy_confs/{{ item }}"
     dest: "{{ nginx_proxy_confs_dir }}/{{ item }}"
     owner: "{{ ansible_user }}"
@@ -75,7 +75,7 @@
   tags:
     - docker
     - nginx
-  shell: "cd {{ nginx_proxy_confs_dir }} && ls *.conf"
+  ansible.builtin.shell: "cd {{ nginx_proxy_confs_dir }} && ls *.conf"
   register: active_nginx_confs
   changed_when: false
 
@@ -83,7 +83,7 @@
   tags:
     - docker
     - nginx
-  file:
+  ansible.builtin.file:
     name: "{{ nginx_proxy_confs_dir }}/{{ item }}"
     state: absent
   when: item not in desired_nginx_proxy_confs_list
@@ -94,7 +94,7 @@
   tags:
     - docker
     - nginx
-  file:
+  ansible.builtin.file:
     path: "{{ swag_dns_config }}"
     state: directory
     owner: "{{ ansible_user }}"
@@ -106,7 +106,7 @@
     - docker
     - nginx
     - cloudflare
-  copy:
+  ansible.builtin.copy:
     content: "{{ cloudflare_creds }}"
     dest: "{{ swag_dns_config }}/cloudflare.ini"
     owner: "{{ ansible_user }}"

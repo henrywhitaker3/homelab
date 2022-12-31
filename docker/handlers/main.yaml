@@ -4,38 +4,38 @@
     - docker
     - nginx
     - compose
-  shell: "cd /home/{{ ansible_user }}/ && docker compose restart swag"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }}/ && docker compose restart swag"
 
 - name: dc up
   tags:
     - docker
     - compose
-  shell: "cd /home/{{ ansible_user }}/ && docker compose up -d --remove-orphans"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }}/ && docker compose up -d --remove-orphans"
 
 - name: restart torrent
   tags:
     - docker
     - compose
     - torrent
-  shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
 
 - name: restart loki
   tags:
     - docker
     - compose
     - monitoring
-  shell: "cd /home/{{ ansible_user }} && docker compose restart loki"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart loki"
 
 - name: restart promtail
   tags:
     - docker
     - compose
     - monitoring
-  shell: "cd /home/{{ ansible_user }} && docker compose restart promtail"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart promtail"
 
 - name: restart docker
   become: true
   tags: docker
-  service:
+  ansible.builtin.service:
     name: docker
     state: restarted

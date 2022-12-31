@@ -3,9 +3,10 @@
   tags:
     - docker
     - monitoring
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ item }}"
     state: directory
+    mode: 0755
   loop:
     - loki
     - promtail
@@ -15,9 +16,10 @@
   tags:
     - docker
     - monitoring
-  template:
+  ansible.builtin.template:
     src: templates/loki-config.yaml
     dest: "{{ docker_data_dir }}/loki/loki-config.yaml"
+    mode: 0644
   notify: restart loki
 
 - name: Copy over promtail conifg
@@ -25,7 +27,8 @@
   tags:
     - docker
     - monitoring
-  template:
+  ansible.builtin.template:
     src: templates/promtail-config.yaml
     dest: "{{ docker_data_dir }}/promtail/promtail-config.yaml"
+    mode: 0644
   notify: restart promtail

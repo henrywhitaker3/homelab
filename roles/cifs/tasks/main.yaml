@@ -4,7 +4,7 @@
   tags:
     - cifs
     - apt
-  apt:
+  ansible.builtin.apt:
     name: cifs-utils
     state: latest
 
@@ -12,7 +12,7 @@
   become: true
   tags:
     - cifs
-  copy:
+  ansible.builtin.copy:
     content: "{{ cifs_credentials }}"
     dest: "{{ cifs_credentails_location }}"
     owner: "{{ ansible_user }}"
@@ -23,7 +23,7 @@
   become: true
   tags:
     - cifs
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ cifs_mount_user }}"
     group: "{{ cifs_mount_group }}"
@@ -37,7 +37,7 @@
   become: true
   tags:
     - cifs
-  mount:
+  ansible.posix.mount:
     fstype: cifs
     src: "{{ item.src }}"
     path: "{{ item.path }}"

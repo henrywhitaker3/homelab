@@ -4,7 +4,7 @@
   tags:
     - monitoring
     - netdata
-  file:
+  ansible.builtin.file:
     path: /etc/netdata
     state: directory
     owner: root
@@ -16,7 +16,7 @@
   tags:
     - monitoring
     - netdata
-  template:
+  ansible.builtin.template:
     src: templates/netdata.conf
     dest: /etc/netdata/netdata.conf
     owner: root
@@ -29,7 +29,7 @@
   tags:
     - monitoring
     - netdata
-  apt:
+  ansible.builtin.apt:
     name: netdata
     state: latest
 
@@ -37,7 +37,7 @@
   tags:
     - monitoring
     - netdata
-  service:
+  ansible.builtin.service:
     name: netdata
     state: started
     enabled: true

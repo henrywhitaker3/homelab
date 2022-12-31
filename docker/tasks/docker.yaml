@@ -4,7 +4,7 @@
   tags:
     - docker
     - monitoring
-  shell: "docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions"
+  ansible.builtin.command: "docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions"
   register: install_loki_driver
   failed_when: false
   changed_when: "'Installed plugin' in install_loki_driver.stdout"
@@ -13,7 +13,7 @@
   become: true
   tags:
     - docker
-  template:
+  ansible.builtin.template:
     src: templates/daemon.json
     dest: /etc/docker/daemon.json
     owner: root
@@ -28,7 +28,7 @@
     - torrent
     - compose
     - monitoring
-  set_fact:
+  ansible.builtin.set_fact:
     docker_data_dir: "/home/{{ ansible_user }}/data"
     docker_puid: "{{ ansible_user_uid }}"
     docker_pgid: "{{ ansible_user_uid }}"
@@ -39,7 +39,7 @@
   tags:
     - docker
     - compose
-  template:
+  ansible.builtin.template:
     src: templates/docker-compose.yaml
     dest: "/home/{{ ansible_user }}/docker-compose.yaml"
     mode: 0755
@@ -49,7 +49,7 @@
 
 - name: Ensure data dir exists
   tags: docker
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}"
     state: directory
     owner: "{{ ansible_user }}"
@@ -60,7 +60,7 @@
   tags:
     - docker
     - crons
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.name }}"
     minute: "{{ item.minute }}"
     hour: "{{ item.hour }}"

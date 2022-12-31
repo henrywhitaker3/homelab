@@ -2,7 +2,7 @@
 - name: Create backup directory
   tags:
     - backup
-  file:
+  ansible.builtin.file:
     path: /backups
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -12,7 +12,7 @@
 - name: Copy over backup script
   tags:
     - backup
-  template:
+  ansible.builtin.template:
     src: templates/backup.sh
     dest: "/home/{{ ansible_user }}/backup.sh"
     owner: "{{ ansible_user }}"
@@ -23,7 +23,7 @@
   become: true
   tags:
     - backup
-  cron:
+  ansible.builtin.cron:
     user: root
     name: data dir backup
     minute: "30"
