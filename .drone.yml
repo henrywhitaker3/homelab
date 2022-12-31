@@ -122,7 +122,7 @@
 #     - eval $(ssh-agent -s)
 #     - task drone-playbook PLAYBOOK=speakers/main.yaml TARGET_IPS="10.0.0.30" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
-# ---
+---
 
 kind: pipeline
 type: docker
