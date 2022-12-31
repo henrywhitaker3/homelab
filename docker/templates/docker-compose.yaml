@@ -187,29 +187,6 @@ services:
     #-------------------------------------------#
     # Montioring services
     #-------------------------------------------#
-    loki:
-      container_name: loki
-      image: grafana/loki:{{ loki_version }}
-      restart: unless-stopped
-      ports:
-        - {{ loki_port }}:{{ loki_port }}
-      volumes:
-        - {{ docker_data_dir }}/loki:/etc/loki
-      command: --config.file=/etc/loki/loki-config.yaml
-      networks:
-        monitoring:
-
-    promtail:
-      container_name: promtail
-      image: grafana/promtail:{{ loki_version }}
-      restart: unless-stopped
-      volumes:
-        - {{ docker_data_dir }}/promtail:/etc/promtail
-        - {{ docker_data_dir }}/swag/log:/logs/swag:ro
-      command: --config.file=/etc/promtail/promtail-config.yaml
-      networks:
-        monitoring:
-
     grafana:
       container_name: grafana
       image: grafana/grafana
