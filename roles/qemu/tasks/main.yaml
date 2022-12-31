@@ -4,6 +4,6 @@
   tags:
     - apt
     - qemu
-  apt:
+  ansible.builtin.apt:
     name: qemu-guest-agent
     state: latest

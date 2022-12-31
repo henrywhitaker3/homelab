@@ -10,7 +10,7 @@
   pre_tasks:
     - name: Update package cache
       become: true
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
       changed_when: false
@@ -23,13 +23,13 @@
   tasks:
     - name: Does install script exist
       tags: pihole
-      stat:
+      ansible.builtin.stat:
         path: "/home/{{ ansible_user }}/pihole.sh"
       register: install_script_exists
 
     - name: Download pihole install script
       tags: pihole
-      get_url:
+      ansible.builtin.get_url:
         url: https://install.pi-hole.net
         dest: "/home/{{ ansible_user }}/pihole.sh"
         owner: "{{ ansible_user }}"
@@ -41,7 +41,7 @@
       become: true
       tags:
         - pihole
-      file:
+      ansible.builtin.file:
         path: /etc/pihole
         owner: root
         group: root
@@ -54,7 +54,7 @@
       tags:
         - pihole
         - config
-      template:
+      ansible.builtin.template:
         src: templates/setupVars.conf
         dest: /etc/pihole/setupVars.conf
         owner: root
@@ -65,5 +65,5 @@
     - name: Run install script
       tags: pihole
       become: true
-      shell: "/home/{{ ansible_user }}/pihole.sh --unattended"
+      ansible.builtin.command: "/home/{{ ansible_user }}/pihole.sh --unattended"
       when: not install_script_exists.stat.exists

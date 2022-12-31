@@ -2,7 +2,7 @@
 - name: Enable non local IP binding
   become: true
   tags: vip
-  sysctl:
+  ansible.posix.sysctl:
     name: net.ipv4.ip_nonlocal_bind
     value: "1"
     state: present
@@ -11,14 +11,14 @@
 - name: Install keepalived
   become: true
   tags: vip
-  apt:
+  ansible.builtin.apt:
     name: keepalived
     state: latest
 
 - name: Copy keepalived config
   become: true
   tags: vip
-  template:
+  ansible.builtin.template:
     src: templates/keepalived.conf
     dest: /etc/keepalived/keepalived.conf
     mode: 0644
@@ -27,7 +27,7 @@
 - name: Start and enable keepalived
   become: true
   tags: vip
-  service:
+  ansible.builtin.service:
     name: keepalived
     state: started
     enabled: true

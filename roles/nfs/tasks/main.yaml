@@ -3,7 +3,7 @@
   become: true
   tags:
     - nfs
-  apt:
+  ansible.builtin.apt:
     name: nfs-common
     state: latest
 
@@ -11,7 +11,7 @@
   become: true
   tags:
     - nfs
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ nfs_mount_user }}"
     group: "{{ nfs_mount_group }}"
@@ -25,7 +25,7 @@
   become: true
   tags:
     - nfs
-  mount:
+  ansible.posix.mount:
     fstype: nfs
     src: "{{ item.src }}"
     path: "{{ item.path }}"
