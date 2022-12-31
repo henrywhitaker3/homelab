@@ -144,6 +144,7 @@ steps:
     - task drone-ssh-key SSH_KEY="$SSH_KEY"
     - task drone-ssh-keyscan TARGET_IPS="10.0.0.10"
 
+steps:
 - name: galera playbook
   image: henrywhitaker3/ansible-terraform
   when:
