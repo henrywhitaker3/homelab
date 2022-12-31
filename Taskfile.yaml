@@ -23,4 +23,4 @@ tasks:
 
   lint:
     cmds:
-      - ansible-lint {{ .PLAYBOOK }} -x 403
+      - ansible-lint --vault-password-file ~/.vault_pass.txt {{ .PLAYBOOK }} -x 403
