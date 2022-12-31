@@ -21,3 +21,6 @@ tasks:
     cmds:
       - ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .PLAYBOOK }}
 
+  lint:
+    cmds:
+      - ansible-lint {{ .PLAYBOOK }}

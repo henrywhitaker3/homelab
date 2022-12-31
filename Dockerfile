@@ -6,6 +6,7 @@ ENV ANSIBLE_FORCE_COLOR=1
 ENV PY_COLORS=1
 
 RUN apk add ansible \
+            ansible-lint \
             terraform \
             openssh-client \
             rsync \

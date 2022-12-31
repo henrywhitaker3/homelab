@@ -108,6 +108,14 @@ type: docker
 name: speakers playbook
 
 steps:
+- name: lint playbook
+  image: henrywhitaker3/ansible-terraform
+  when:
+    branch:
+      - main
+  commands:
+    - task lint PLAYBOOK=speakers/main.yaml
+
 - name: speakers playbook
   image: henrywhitaker3/ansible-terraform
   when:
