@@ -139,9 +139,6 @@ steps:
         from_secret: HOMELAB_SSH_KEY
       VAULT_PASS:
         from_secret: ANSIBLE_VAULT_PASS
-    volumes:
-      - name: ssh
-        path: ~/.ssh
     commands:
       - eval $(ssh-agent -s)
       - task drone-ssh-key SSH_KEY="$SSH_KEY"
@@ -155,8 +152,5 @@ steps:
     environment:
       VAULT_PASS:
         from_secret: ANSIBLE_VAULT_PASS
-    volumes:
-      - name: ssh
-        path: ~/.ssh
     commands:
       - task drone-playbook PLAYBOOK=mariadb/main.yaml  VAULT_PASS="$VAULT_PASS"
