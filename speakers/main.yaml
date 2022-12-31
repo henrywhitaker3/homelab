@@ -1,0 +1,73 @@
+---
+- name: Configure spotify connect speakers
+
+  hosts: speakers
+
+  roles:
+    - common
+    - user
+
+  vars_files:
+    - ../vars/main.yaml
+
+  handlers:
+    - name: restart raspotify
+      tags:
+        - spotify
+      become: true
+      service:
+        name: raspotify
+        state: restarted
+
+  tasks:
+    - name: Add raspotify signing key
+      tags:
+        - apt
+        - spotify
+      become: true
+      get_url:
+        url: https://dtcooper.github.io/raspotify/key.asc
+        dest: /usr/share/keyrings/raspotify_key.asc
+        mode: 0644
+
+    - name: Add raspotify repo
+      tags:
+        - apt
+        - spotify
+      become: true
+      apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/raspotify_key.asc] https://dtcooper.github.io/raspotify raspotify main
+        state: present
+
+    - name: Install raspotify
+      tags:
+        - apt
+        - spotify
+      become: true
+      apt:
+        name:
+          - raspotify
+          - libasound2-plugins
+          - asound-conf-wizard
+        state: latest
+
+    - name: Copy raspotify config
+      tags:
+        - spotify
+      become: true
+      template:
+        src: templates/raspotify.conf
+        dest: /etc/raspotify/conf
+        owner: root
+        group: root
+        mode: 0600
+      notify: restart raspotify
+
+    - name: Start raspotify service
+      tags:
+        - spotify
+      become: true
+      service:
+        name: raspotify
+        state: started
+        enabled: true
