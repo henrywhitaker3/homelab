@@ -23,4 +23,4 @@ tasks:
 
   lint:
     cmds:
-      - ansible-lint {{ .PLAYBOOK }}
+      - ansible-lint {{ .PLAYBOOK }} -x 403

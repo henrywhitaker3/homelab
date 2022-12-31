@@ -22,4 +22,7 @@ RUN mkdir $HOME/.ssh && \
     chown $USER:$USER $HOME/.ssh
 
 USER $USER
+
+RUN ansible-galaxy collection install ansible.posix
+
 WORKDIR $HOME
