@@ -129,28 +129,28 @@ type: docker
 name: mariadb playbook
 
 steps:
-  - name: start ssh
-    image: henrywhitaker3/ansible-terraform
-    when:
-      branch:
-        - main
-    environment:
-      SSH_KEY:
-        from_secret: HOMELAB_SSH_KEY
-      VAULT_PASS:
-        from_secret: ANSIBLE_VAULT_PASS
-    commands:
-      - eval $(ssh-agent -s)
-      - task drone-ssh-key SSH_KEY="$SSH_KEY"
-      - task drone-ssh-keyscan TARGET_IPS="10.0.0.10"
+- name: start ssh
+  image: henrywhitaker3/ansible-terraform
+  when:
+    branch:
+      - main
+  environment:
+    SSH_KEY:
+      from_secret: HOMELAB_SSH_KEY
+    VAULT_PASS:
+      from_secret: ANSIBLE_VAULT_PASS
+  commands:
+    - eval $(ssh-agent -s)
+    - task drone-ssh-key SSH_KEY="$SSH_KEY"
+    - task drone-ssh-keyscan TARGET_IPS="10.0.0.10"
 
-  - name: galera playbook
-    image: henrywhitaker3/ansible-terraform
-    when:
-      branch:
-        - main
-    environment:
-      VAULT_PASS:
-        from_secret: ANSIBLE_VAULT_PASS
-    commands:
-      - task drone-playbook PLAYBOOK=mariadb/main.yaml  VAULT_PASS="$VAULT_PASS"
+- name: galera playbook
+  image: henrywhitaker3/ansible-terraform
+  when:
+    branch:
+      - main
+  environment:
+    VAULT_PASS:
+      from_secret: ANSIBLE_VAULT_PASS
+  commands:
+    - task drone-playbook PLAYBOOK=mariadb/main.yaml  VAULT_PASS="$VAULT_PASS"
