@@ -38,13 +38,6 @@
   failed_when: false
   changed_when: false
 
-- name: Check if route to vpn network exists
-  tags:
-    - monitoring
-    - vpn
-  debug:
-    msg: "{{ vpn_network_exists }}"
-
 - name: Add route to vpn network
   become: true
   tags:
