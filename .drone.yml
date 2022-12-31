@@ -3,19 +3,27 @@ type: docker
 name: docker playbook
 
 steps:
-- name: docker playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=docker/main.yaml TARGET_IPS="10.0.0.160" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=docker/main.yaml
+
+  - name: docker playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=docker/main.yaml TARGET_IPS="10.0.0.160" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -24,19 +32,27 @@ type: docker
 name: k8s playbook
 
 steps:
-- name: k8s playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=k8s/main.yaml TARGET_IPS="10.0.0.20 10.0.0.21 10.0.0.22 10.0.0.23 10.0.0.24" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=k8s/main.yaml
+
+  - name: k8s playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=k8s/main.yaml TARGET_IPS="10.0.0.20 10.0.0.21 10.0.0.22 10.0.0.23 10.0.0.24" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -45,19 +61,27 @@ type: docker
 name: pihole playbook
 
 steps:
-- name: pihole playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=pihole/main.yaml TARGET_IPS="10.0.0.2" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=pihole/main.yaml
+
+  - name: pihole playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=pihole/main.yaml TARGET_IPS="10.0.0.2" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -66,19 +90,27 @@ type: docker
 name: haproxy playbook
 
 steps:
-- name: haproxy playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4 10.0.0.5" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=haproxy/main.yaml
+
+  - name: haproxy playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=haproxy/main.yaml TARGET_IPS="10.0.0.4 10.0.0.5" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -87,19 +119,27 @@ type: docker
 name: vpn playbook
 
 steps:
-- name: vpn playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=vpn/main.yaml TARGET_IPS="10.0.0.11 10.0.0.12 167.71.137.12" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=vpn/main.yaml
+
+  - name: vpn playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=vpn/main.yaml TARGET_IPS="10.0.0.11 10.0.0.12 167.71.137.12" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -108,27 +148,27 @@ type: docker
 name: speakers playbook
 
 steps:
-- name: lint playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  commands:
-    - task lint PLAYBOOK=speakers/main.yaml
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=speakers/main.yaml
 
-- name: speakers playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=speakers/main.yaml TARGET_IPS="10.0.0.30" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: speakers playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=speakers/main.yaml TARGET_IPS="10.0.0.30" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
 
 ---
 
@@ -137,16 +177,24 @@ type: docker
 name: mariadb playbook
 
 steps:
-- name: galera playbook
-  image: henrywhitaker3/ansible-terraform
-  when:
-    branch:
-      - main
-  environment:
-    SSH_KEY:
-      from_secret: HOMELAB_SSH_KEY
-    VAULT_PASS:
-      from_secret: ANSIBLE_VAULT_PASS
-  commands:
-    - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=mariadb/main.yaml TARGET_IPS="10.0.0.10" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+  - name: lint playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    commands:
+      - task lint PLAYBOOK=mariadb/main.yaml
+
+  - name: galera playbook
+    image: henrywhitaker3/ansible-terraform
+    when:
+      branch:
+        - main
+    environment:
+      SSH_KEY:
+        from_secret: HOMELAB_SSH_KEY
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
+    commands:
+      - eval $(ssh-agent -s)
+      - task drone-playbook PLAYBOOK=mariadb/main.yaml TARGET_IPS="10.0.0.10" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
