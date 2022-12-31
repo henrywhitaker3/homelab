@@ -17,7 +17,7 @@ tasks:
     silent: true
 
   drone-playbook:
-    deps: [drone-ssh-key, drone-ssh-keyscan, drone-vault-pass]
+    deps: [drone-vault-pass]
     cmds:
       - ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .PLAYBOOK }}
 
