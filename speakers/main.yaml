@@ -46,6 +46,10 @@
       become: true
       apt:
         name:
+          - libc6
+          - libasound2
+          - alsa-utils
+          - libpulse0
           - raspotify
           - libasound2-plugins
           - asound-conf-wizard
