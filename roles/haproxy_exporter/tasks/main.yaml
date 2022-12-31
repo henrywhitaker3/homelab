@@ -38,6 +38,7 @@
   ansible.builtin.get_url:
     url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_archive_name }}.tar.gz"
     dest: "{{ haproxy_exporter_download }}"
+    mode: 0777
 
 - name: Unarchive haproxy_exporter binary
   ansible.builtin.unarchive:
@@ -52,7 +53,7 @@
     - haproxy_exporter
     - monitoring
   ansible.builtin.copy:
-    src: "/tmp/{{ haproxy_archive_name}}/haproxy_exporter"
+    src: "/tmp/{{ haproxy_archive_name }}/haproxy_exporter"
     dest: "{{ haproxy_binary }}"
     remote_src: true
     owner: "{{ haproxy_exporter_user }}"
@@ -77,7 +78,7 @@
   tags:
     - haproxy_exporter
     - monitoring
-  systemd:
+  ansible.builtin.systemd:
     name: haproxy_exporter
     state: started
     enabled: true
