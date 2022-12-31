@@ -8,9 +8,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
-      - whoami
-      - cat ~/.bashrc
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=docker/main.yaml
 
   - name: run playbook
@@ -39,7 +41,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=k8s/main.yaml
 
   - name: run playbook
@@ -68,7 +74,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=pihole/main.yaml
 
   - name: run playbook
@@ -97,7 +107,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=haproxy/main.yaml
 
   - name: run playbook
@@ -126,7 +140,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=vpn/main.yaml
 
   - name: run playbook
@@ -155,7 +173,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=speakers/main.yaml
 
   - name: run playbook
@@ -184,7 +206,11 @@ steps:
     when:
       branch:
         - main
+    environment:
+      VAULT_PASS:
+        from_secret: ANSIBLE_VAULT_PASS
     commands:
+      - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
       - task lint PLAYBOOK=mariadb/main.yaml
 
   - name: run playbook
