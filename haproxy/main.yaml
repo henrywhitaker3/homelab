@@ -24,7 +24,7 @@
     - name: restart haproxy
       become: true
       tags: haproxy
-      service:
+      ansible.builtin.service:
         name: haproxy
         state: restarted
 
@@ -34,7 +34,7 @@
       tags:
         - haproxy
         - apt
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: "ppa:vbernat/haproxy-{{ haproxy_version }}"
         state: present
 
@@ -43,14 +43,14 @@
       tags:
         - apt
         - haproxy
-      apt:
+      ansible.builtin.apt:
         name: "haproxy"
         state: latest
 
     - name: Create haproxy directory
       become: true
       tags: haproxy
-      file:
+      ansible.builtin.file:
         path: /etc/haproxy
         owner: root
         group: root
@@ -60,7 +60,7 @@
     - name: Copy haproxy config
       become: true
       tags: haproxy
-      template:
+      ansible.builtin.template:
         src: templates/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
         owner: root
@@ -71,7 +71,7 @@
     - name: Enable and start haproxy
       become: true
       tags: haproxy
-      service:
+      ansible.builtin.service:
         name: haproxy
         state: started
         enabled: true
