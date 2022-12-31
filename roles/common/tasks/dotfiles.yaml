@@ -3,14 +3,14 @@
   tags:
     - common
     - dotfiles
-  set_fact:
+  ansible.builtin.set_fact:
     bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/workstation.bashrc' }}"
 
 - name: Copy bashrc
   tags:
     - dotfiles
     - common
-  template:
+  ansible.builtin.template:
     src: "{{ bashrc_template }}"
     dest: "/home/{{ ansible_user }}/.bashrc"
     owner: "{{ ansible_user }}"
@@ -21,7 +21,7 @@
   tags:
     - dotfiles
     - common
-  template:
+  ansible.builtin.template:
     src: templates/.bash_aliases
     dest: "/home/{{ ansible_user }}/.bash_aliases"
     owner: "{{ ansible_user }}"

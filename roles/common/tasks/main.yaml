@@ -4,7 +4,7 @@
   tags:
     - common
     - apt
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://azlux.fr/repo.gpg
     keyring: /usr/share/keyrings/azlux-archive-keyring.gpg
 
@@ -13,7 +13,7 @@
   tags:
     - common
     - apt
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ bullseye main
     state: present
 
@@ -22,16 +22,19 @@
   tags:
     - common
     - apt
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
   loop:
     - vim
     - bashtop
 
-- import_tasks: unattended-upgrades.yaml
-- import_tasks: dotfiles.yaml
+- name: Unattended upgrades
+  ansible.builtin.import_tasks: unattended-upgrades.yaml
+- name: Dotfiles
+  ansible.builtin.import_tasks: dotfiles.yaml
   when: copy_dotfiles
 
-- import_tasks: workstation.yaml
+- name: Workstation
+  ansible.builtin.import_tasks: workstation.yaml
   when: installation_type == 'workstation'

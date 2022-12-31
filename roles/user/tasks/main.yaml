@@ -3,21 +3,21 @@
   tags:
     - ssh
     - user
-  set_fact:
+  ansible.builtin.set_fact:
     user_home_dir: "/home/{{ ansible_user }}"
 
 - name: Set current user
   tags:
     - ssh
     - user
-  set_fact:
+  ansible.builtin.set_fact:
     user: "{{ ansible_user }}"
 
 - name: Ensure ssh directory exists
   tags:
     - ssh
     - user
-  file:
+  ansible.builtin.file:
     path: "{{ user_home_dir }}/.ssh"
     state: directory
     owner: "{{ user }}"
@@ -28,7 +28,7 @@
   tags:
     - ssh
     - user
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ ansible_user }}"
     key: "{{ item }}"
   loop: "{{ user_authorized_keys }}"

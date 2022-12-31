@@ -15,7 +15,7 @@
       tags:
         - spotify
       become: true
-      service:
+      ansible.builtin.service:
         name: raspotify
         state: restarted
 
@@ -25,7 +25,7 @@
         - apt
         - spotify
       become: true
-      get_url:
+      ansible.builtin.get_url:
         url: https://dtcooper.github.io/raspotify/key.asc
         dest: /usr/share/keyrings/raspotify_key.asc
         mode: 0644
@@ -35,7 +35,7 @@
         - apt
         - spotify
       become: true
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/raspotify_key.asc] https://dtcooper.github.io/raspotify raspotify main
         state: present
 
@@ -44,7 +44,7 @@
         - apt
         - spotify
       become: true
-      apt:
+      ansible.builtin.apt:
         name:
           - libc6
           - libasound2
@@ -59,7 +59,7 @@
       tags:
         - spotify
       become: true
-      template:
+      ansible.builtin.template:
         src: templates/raspotify.conf
         dest: /etc/raspotify/conf
         owner: root
@@ -71,7 +71,7 @@
       tags:
         - spotify
       become: true
-      service:
+      ansible.builtin.service:
         name: raspotify
         state: started
         enabled: true

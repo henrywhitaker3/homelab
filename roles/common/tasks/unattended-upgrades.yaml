@@ -4,7 +4,7 @@
     - common
     - security
   become: true
-  apt:
+  ansible.builtin.apt:
     name: unattended-upgrades
     state: present
 
@@ -13,17 +13,17 @@
     - common
     - security
   become: true
-  service:
+  ansible.builtin.service:
     name: unattended-upgrades
-    state: "{{ (unattended_upgrades_enabled == true) | ternary('started', 'stopped') }}"
-    enabled: "{{ (unattended_upgrades_enabled == true) | ternary(true, false) }}"
+    state: "{{ unattended_upgrades_enabled | ternary('started', 'stopped') }}"
+    enabled: "{{ unattended_upgrades_enabled | ternary(true, false) }}"
 
 - name: Copy default configuration
   tags:
     - common
     - security
   become: true
-  template:
+  ansible.builtin.template:
     src: templates/50unattended-upgrades
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: root
