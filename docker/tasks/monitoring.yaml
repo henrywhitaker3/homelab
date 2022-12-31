@@ -32,9 +32,18 @@
     - vpn
   become: true
   ansible.builtin.shell: set -o pipefail && ip route list | grep "10.8.0.100 via 10.0.0.13"
+  args:
+    executable: /usr/bin/bash
   register: vpn_network_exists
   failed_when: false
   changed_when: false
+
+- name: Check if route to vpn network exists
+  tags:
+    - monitoring
+    - vpn
+  debug:
+    msg: "{{ vpn_network_exists }}"
 
 - name: Add route to vpn network
   become: true

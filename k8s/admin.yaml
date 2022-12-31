@@ -132,6 +132,8 @@
         - argo
         -
       ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
+      args:
+        executable: /usr/bin/bash
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Delete helm labels from apps install
