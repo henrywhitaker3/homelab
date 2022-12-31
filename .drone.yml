@@ -11,7 +11,7 @@ steps:
     commands:
       - task lint PLAYBOOK=docker/main.yaml
 
-  - name: docker playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -40,7 +40,7 @@ steps:
     commands:
       - task lint PLAYBOOK=k8s/main.yaml
 
-  - name: k8s playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -69,7 +69,7 @@ steps:
     commands:
       - task lint PLAYBOOK=pihole/main.yaml
 
-  - name: pihole playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -98,7 +98,7 @@ steps:
     commands:
       - task lint PLAYBOOK=haproxy/main.yaml
 
-  - name: haproxy playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -127,7 +127,7 @@ steps:
     commands:
       - task lint PLAYBOOK=vpn/main.yaml
 
-  - name: vpn playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -156,7 +156,7 @@ steps:
     commands:
       - task lint PLAYBOOK=speakers/main.yaml
 
-  - name: speakers playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
@@ -185,7 +185,7 @@ steps:
     commands:
       - task lint PLAYBOOK=mariadb/main.yaml
 
-  - name: galera playbook
+  - name: run playbook
     image: henrywhitaker3/ansible-terraform
     when:
       branch:
