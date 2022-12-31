@@ -6,13 +6,21 @@
   roles:
     - docker
 
+  handlers:
+    - name: reboot node
+      become: true
+      tags:
+        - nodes
+        - networking
+      ansible.builtin.reboot:
+
   tasks:
     - name: Set sysctl for pod networking
       become: true
       tags:
         - nodes
         - networking
-      sysctl:
+      ansible.posix.sysctl:
         name: "{{ item }}"
         value: "1"
         reload: true
@@ -24,15 +32,7 @@
       tags:
         - nodes
         - networking
-      apt:
+      ansible.builtin.apt:
         name: ipset
         state: latest
-      register: ipset_installed
-
-    - name: Reboot the node to load the ipset kernel
-      become: true
-      tags:
-        - nodes
-        - networking
-      reboot:
-      when: ipset_installed.changed
+      notify: reboot node

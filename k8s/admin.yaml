@@ -9,19 +9,26 @@
   vars_files:
     - vars/admin.yaml
 
+  handlers:
+    - name: rke up
+      tags:
+        - k8s
+        - rke
+      ansible.builtin.command: "{{ rke_binary }} up"
+
   tasks:
     - name: Set rke facts
       tags:
         - k8s
         - rke
-      set_fact:
+      ansible.builtin.set_fact:
         rke_binary: "/home/{{ ansible_user }}/rke-{{ rke_version }}"
 
     - name: Is rke already there?
       tags:
         - k8s
         - rke
-      stat:
+      ansible.builtin.stat:
         path: "{{ rke_binary }}"
       register: rke_binary_exists
 
@@ -29,7 +36,7 @@
       tags:
         - k8s
         - rke
-      get_url:
+      ansible.builtin.get_url:
         url: "https://github.com/rancher/rke/releases/download/{{ rke_version }}/rke_linux-amd64"
         dest: "{{ rke_binary }}"
         mode: 0755
@@ -39,23 +46,17 @@
       tags:
         - k8s
         - rke
-      template:
+      ansible.builtin.template:
         src: templates/cluster.yaml
         dest: "/home/{{ ansible_user }}/cluster.yml"
-      register: cluster_def_copy
-
-    - name: Run rke up
-      tags:
-        - k8s
-        - rke
-      shell: "{{ rke_binary }} up"
-      when: cluster_def_copy.changed
+        mode: 0644
+      notify: rke up
 
     - name: Create .kube dir
       tags:
         - k8s
         - rke
-      file:
+      ansible.builtin.file:
         path: "/home/{{ ansible_user }}/.kube"
         state: directory
         owner: "{{ ansible_user }}"
@@ -66,7 +67,7 @@
       tags:
         - k8s
         - rke
-      copy:
+      ansible.builtin.copy:
         src: "/home/{{ ansible_user }}/kube_config_cluster.yml"
         remote_src: true
         dest: "/home/{{ ansible_user }}/.kube/config"
@@ -76,7 +77,7 @@
       tags:
         - k8s
         - argo
-      synchronize:
+      ansible.posix.synchronize:
         src: argo
         dest: "/home/{{ ansible_user }}/"
         delete: true
@@ -88,7 +89,7 @@
       tags:
         - k8s
         - argo
-      shell: "kubectl create namespace argo"
+      ansible.builtin.command: "kubectl create namespace argo"
       register: argo_namespace_created
       changed_when: "'created' in argo_namespace_created.stdout"
       failed_when: false
@@ -97,7 +98,7 @@
       tags:
         - k8s
         - argo
-      shell: "helm -n argo status argo"
+      ansible.builtin.command: "helm -n argo status argo"
       register: argo_helm_status
       changed_when: false
       failed_when: false
@@ -106,14 +107,14 @@
       tags:
         - k8s
         - argo
-      shell: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml argo /home/{{ ansible_user }}/argo/argocd"
+      ansible.builtin.command: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml argo /home/{{ ansible_user }}/argo/argocd"
       when: "'not found' in argo_helm_status.stderr"
 
     - name: Is argo apps installed?
       tags:
         - k8s
         - argo
-      shell: "kubectl -n argo get applications"
+      ansible.builtin.command: "kubectl -n argo get applications"
       changed_when: false
       register: argo_apps_status
 
@@ -121,7 +122,7 @@
       tags:
         - k8s
         - argo
-      pause:
+      ansible.builtin.pause:
         seconds: 30
       when: "'No resources found' in argo_apps_status.stderr"
 
@@ -129,21 +130,22 @@
       tags:
         - k8s
         - argo
-      shell: "helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
+        -
+      ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Delete helm labels from apps install
       tags:
         - k8s
         - argo
-      shell: "kubectl -n argo delete secret -l owner=helm,name=argocd"
+      ansible.builtin.command: "kubectl -n argo delete secret -l owner=helm,name=argocd"
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Wait a bit for the apps to install
       tags:
         - k8s
         - argo
-      pause:
+      ansible.builtin.pause:
         seconds: 45
       when: "'No resources found' in argo_apps_status.stderr"
 
@@ -151,6 +153,6 @@
       tags:
         - k8s
         - standalone
-      shell: "kubectl apply -f /home/{{ ansible_user }}/argo/standalone/"
+      ansible.builtin.command: "kubectl apply -f /home/{{ ansible_user }}/argo/standalone/"
       register: apply_standalone_manifests
       changed_when: "'created' in apply_standalone_manifests.stdout"

@@ -17,7 +17,7 @@
     - name: Copy private key to admin
       tags:
         - ssh
-      copy:
+      ansible.builtin.copy:
         content: "{{ admin_ssh.private_key }}"
         dest: "/home/{{ ansible_user }}/.ssh/id_rsa"
         owner: "{{ ansible_user }}"
@@ -28,7 +28,7 @@
     - name: Copy public key to nodes
       tags:
         - ssh
-      authorized_key:
+      ansible.posix.authorized_key:
         user: "{{ ansible_user }}"
         key: "{{ admin_ssh.public_key }}"
       when: inventory_hostname in groups['k8s_nodes']

@@ -1,4 +1,7 @@
 ---
-- import_playbook: base.yaml
-- import_playbook: nodes.yaml
-- import_playbook: admin.yaml
+- name: Configure base
+  ansible.builtin.import_playbook: base.yaml
+- name: Configure nodes
+  ansible.builtin.import_playbook: nodes.yaml
+- name: Configure admin
+  ansible.builtin.import_playbook: admin.yaml
