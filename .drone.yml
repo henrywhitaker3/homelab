@@ -9,8 +9,8 @@ steps:
       branch:
         - main
     commands:
-      - pwd
-      - echo $PATH
+      - whoami
+      - cat ~/.bashrc
       - task lint PLAYBOOK=docker/main.yaml
 
   - name: run playbook
