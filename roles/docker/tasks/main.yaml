@@ -29,7 +29,7 @@
   tags: docker
   become: true
   user:
-    name: "{{ ansible_user}}"
+    name: "{{ ansible_user }}"
     groups: docker
     append: yes
   when: docker_add_user_to_group
