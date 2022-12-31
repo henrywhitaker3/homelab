@@ -1,0 +1,45 @@
+---
+- name: Create prometheus data directories
+  tags:
+    - docker
+    - monitoring
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+  loop:
+    - "{{ docker_data_dir }}/prometheus"
+    - "{{ docker_data_dir }}/prometheus/config"
+    - "{{ docker_data_dir }}/prometheus/data"
+
+- name: Copy over prometheus config
+  tags:
+    - docker
+    - monitoring
+  ansible.builtin.template:
+    src: templates/prometheus.yml
+    dest: "{{ docker_data_dir }}/prometheus/config/prometheus.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0664
+  notify: restart prometheus
+
+- name: Check if route to vpn network exists
+  tags:
+    - monitoring
+    - vpn
+  become: true
+  ansible.builtin.shell: ip route list | grep "10.8.0.100 via 10.0.0.13"
+  register: vpn_network_exists
+  failed_when: false
+  changed_when: false
+
+- name: Add route to vpn network
+  become: true
+  tags:
+    - monitoring
+    - vpn
+  ansible.builtin.command: ip route add 10.8.0.100 via 10.0.0.13
+  when: vpn_network_exists.rc != 0

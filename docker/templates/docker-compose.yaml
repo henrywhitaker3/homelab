@@ -187,6 +187,23 @@ services:
     #-------------------------------------------#
     # Montioring services
     #-------------------------------------------#
+    prometheus:
+      image: prom/prometheus:v2.36.2
+      user: "1000:1000"
+      volumes:
+        - {{ docker_data_dir }}/prometheus/config:/etc/prometheus/
+        - {{ docker_data_dir }}/prometheus/data:/prometheus
+      command:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+        - '--storage.tsdb.path=/prometheus'
+        - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+        - '--web.console.templates=/usr/share/prometheus/consoles'
+      ports:
+        - 9090:9090
+      networks:
+        homelab:
+      restart: always
+
     grafana:
       container_name: grafana
       image: grafana/grafana

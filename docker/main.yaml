@@ -35,5 +35,7 @@
       ansible.builtin.import_tasks: tasks/swag.yaml
     - name: Torrent
       ansible.builtin.import_tasks: tasks/torrent.yaml
+    - name: Monitoring
+      ansible.builtin.import_tasks: tasks/monitoring.yaml
     - name: Backup
       ansible.builtin.import_tasks: tasks/backup.yaml

@@ -19,19 +19,12 @@
     - torrent
   ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
 
-- name: restart loki
+- name: restart prometheus
   tags:
     - docker
     - compose
     - monitoring
-  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart loki"
-
-- name: restart promtail
-  tags:
-    - docker
-    - compose
-    - monitoring
-  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart promtail"
+  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart prometheus"
 
 - name: restart docker
   become: true

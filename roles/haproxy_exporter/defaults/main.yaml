@@ -1,0 +1,22 @@
+---
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+haproxy_exporter_version: 0.14.0
+haproxy_exporter_user: haproxy_exporter
+haproxy_exporter_group: haproxy_exporter
+
+haproxy_binary: "/usr/bin/haproxy_exporter_{{ haproxy_exporter_version }}"
+
+haproxy_exporter_ssl_verify: false
+
+haproxy_exporter_listen_address: "localhost"
+haproxy_exporter_listen_port: 9101
+haproxy_exporter_log_level: "info"
+haproxy_exporter_pid_file: ""
+haproxy_exporter_scrape_uri: http://localhost:8404/stats?stats;csv
+haproxy_exporter_timeout: "5s"

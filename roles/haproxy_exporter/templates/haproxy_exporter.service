@@ -1,0 +1,25 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus HAProxy Exporter
+After=network.target
+
+[Service]
+Type=simple
+User={{ haproxy_exporter_user }}
+Group={{ haproxy_exporter_group }}
+Nice=-5
+ExecStart={{ haproxy_binary}} \
+{% if not haproxy_exporter_ssl_verify %}
+    --no-haproxy.ssl-verify \
+{% endif %}
+    --web.listen-address={{ haproxy_exporter_listen_address }}:{{ haproxy_exporter_listen_port }} \
+    --haproxy.scrape-uri={{ haproxy_exporter_scrape_uri }} \
+    --haproxy.timeout={{ haproxy_exporter_timeout }} \
+    --haproxy.pid-file={{ haproxy_exporter_pid_file }} \
+    --log.level={{ haproxy_exporter_log_level }}
+SyslogIdentifier=haproxy_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

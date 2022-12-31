@@ -1,0 +1,84 @@
+---
+- name: Set haproxy_exporter facts
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.set_fact:
+    haproxy_exporter_download: /tmp/haproxy_exporter.tar.gz
+    haproxy_archive_name: "haproxy_exporter-{{ haproxy_exporter_version }}.linux-{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+- name: Create haproxy_exporter group
+  become: true
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.group:
+    name: "{{ haproxy_exporter_group }}"
+    state: present
+    system: true
+
+- name: create haproxy_exporter user
+  become: true
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.user:
+    name: "{{ haproxy_exporter_user }}"
+    groups: "{{ haproxy_exporter_group }}"
+    append: true
+    createhome: false
+    shell: /usr/sbin/nologin
+    state: present
+    system: true
+
+- name: Download haproxy_exporter binary
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_archive_name }}.tar.gz"
+    dest: "{{ haproxy_exporter_download }}"
+
+- name: Unarchive haproxy_exporter binary
+  ansible.builtin.unarchive:
+    src: "{{ haproxy_exporter_download }}"
+    dest: /tmp
+    remote_src: true
+    creates: "{{ haproxy_binary }}"
+
+- name: Copy unarchived haproxy_exporter binary
+  become: true
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.copy:
+    src: "/tmp/{{ haproxy_archive_name}}/haproxy_exporter"
+    dest: "{{ haproxy_binary }}"
+    remote_src: true
+    owner: "{{ haproxy_exporter_user }}"
+    group: "{{ haproxy_exporter_group }}"
+    mode: 0750
+
+- name: Copy haproxy_exporter systemd service file
+  become: true
+  tags:
+    - haproxy_exporter
+    - monitoring
+  ansible.builtin.template:
+    src: haproxy_exporter.service
+    dest: /etc/systemd/system/haproxy_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart haproxy_exporter
+
+- name: Start and enable haproxy_exporter service
+  become: true
+  tags:
+    - haproxy_exporter
+    - monitoring
+  systemd:
+    name: haproxy_exporter
+    state: started
+    enabled: true
+    daemon_reload: true
