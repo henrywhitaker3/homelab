@@ -31,4 +31,15 @@
   ansible.posix.authorized_key:
     user: "{{ ansible_user }}"
     key: "{{ item }}"
+    state: present
   loop: "{{ user_authorized_keys }}"
+
+- name: Remove unauthorized keys
+  tags:
+    - ssh
+    - user
+  ansible.posix.authorized_key:
+    user: "{{ ansible_user }}"
+    key: "{{ item }}"
+    state: absent
+  loop: "{{ user_unauthorized_keys }}"
