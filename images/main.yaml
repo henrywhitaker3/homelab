@@ -1,0 +1,96 @@
+---
+- name: Generate VM templates
+
+  hosts: proxmox
+
+  vars_files:
+    - vars/main.yaml
+
+  vars:
+    template_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrIf/4nqWVI4A2G10rHav1X7951wG+5ZfmXiDYhwEik henry@laptop
+
+  tasks:
+    - name: Install dependencies
+      ansible.builtin.apt:
+        name: libguestfs-tools
+        state: present
+
+    - name: Download images
+      ansible.builtin.get_url:
+        url: "{{ images[item].location }}"
+        dest: "/tmp/{{ images[item].name }}"
+        mode: 0644
+      loop: "{{ images.keys() | list }}"
+
+    - name: Install qemu-guest-agent into images
+      ansible.builtin.command: virt-customize --install qemu-guest-agent -a "/tmp/{{ images[item].name }}" --truncate /etc/machine-id
+      changed_when: false
+      loop: "{{ images.keys() | list }}"
+
+    - name: Delete current vms
+      ansible.builtin.command:
+        cmd: "qm destroy {{ item.params.id + id_mod }} --purge"
+        removes: "/etc/pve/nodes/proxmox-0{{ proxmox_node }}/qemu-server/{{ item.params.id + id_mod }}.conf"
+      loop: "{{ templates }}"
+
+    - name: Create temporary vm
+      ansible.builtin.command:
+        cmd: "qm create {{ item.params.id + id_mod }} --memory 1024 --name {{ item.name }}-node-{{ proxmox_node }} -net0 virtio,bridge=vmbr0 --agent enabled=1"
+        creates: "/etc/pve/nodes/proxmox-0{{ proxmox_node }}/qemu-server/{{ item.params.id + id_mod }}.conf"
+      loop: "{{ templates }}"
+
+    - name: Import images to vm
+      ansible.builtin.command: qm importdisk {{ item.params.id + id_mod }} /tmp/{{ images[item.source].name }} local-lvm
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Mount disk
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-{{ item.params.id + id_mod }}-disk-0
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Mount coud-init drive
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --ide2 local-lvm:cloudinit
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Set boot drive
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --boot c --bootdisk scsi0
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Setup interfaces
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --serial0 socket --vga serial0
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Modify disk size
+      ansible.builtin.command: "qm resize {{ item.params.id + id_mod }} scsi0 +{{ item.params.size }}"
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Convert VM to template
+      ansible.builtin.command: "qm template {{ item.params.id + id_mod }}"
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Set cloud-init username
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --ciuser henry
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Copy SSH keys to temp file
+      ansible.builtin.copy:
+        content: "{{ template_ssh_key }}"
+        dest: /tmp/ssh_keys
+        mode: 0644
+
+    - name: Set cloud-init SSH keys
+      ansible.builtin.command: "qm set {{ item.params.id + id_mod }} --sshkeys /tmp/ssh_keys"
+      changed_when: true
+      loop: "{{ templates }}"
+
+    - name: Delete temp SSH key file
+      ansible.builtin.file:
+        path: /tmp/ssh_keys
+        state: absent

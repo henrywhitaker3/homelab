@@ -1,0 +1,30 @@
+---
+images:
+  ubuntu:
+    name: jammy-server-cloudimg-amd64.img
+    location: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+  alma:
+    name: alma9-generic-cloud.qcow2
+    location: https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2
+
+templates:
+  - name: ubuntu-cloud-8G
+    source: ubuntu
+    params:
+      id: 8000
+      size: 8G
+  - name: ubuntu-cloud-25G
+    source: ubuntu
+    params:
+      id: 9000
+      size: 25G
+  - name: ubuntu-cloud-100G
+    source: ubuntu
+    params:
+      id: 10000
+      size: 100G
+  - name: alma-cloud-10G
+    source: alma
+    params:
+      id: 12000
+      size: 1G

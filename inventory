@@ -43,6 +43,10 @@ jump-1 ansible_host=167.71.137.12
 [speakers]
 bedroom ansible_host=10.0.0.30
 
+[proxmox]
+proxmox-1 ansible_host=10.0.0.150 ansible_user=root proxmox_node=1 id_mod=0
+proxmox-2 ansible_host=10.0.0.152 ansible_user=root proxmox_node=2 id_mod=1
+
 [galera:children]
 galera_read
 galera_write
