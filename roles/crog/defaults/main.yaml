@@ -1,10 +1,10 @@
 ---
-healthcheck_version: 0.1.7
+crog_version: 0.1.8
 
-healthcheck_config_version: 1
+crog_config_version: 1
 
-healthcheck_timezone: UTC
+crog_timezone: UTC
 
-healthcheck_verbose: false
+crog_verbose: false
 
-healthcheck_actions: []
+crog_actions: []
