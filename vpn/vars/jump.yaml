@@ -2,14 +2,17 @@
 crog_actions:
   - name: LAN connection
     command: ping -W 1 -c 1 10.0.0.160
-    id: "{{ healthchecks.jump_lan }}"
     code: 0
     cron: "* * * * *"
+    when:
+      start: "{{ healthchecks.jump_lan }}/start"
+      success: "{{ healthchecks.jump_lan }}"
+      failure: "{{ healthchecks.jump_lan }}/fail"
   - name: VPN Interface Status
     command: wg show wg0
     code: 0
     cron: "* * * * *"
-    on:
+    when:
       start: "{{ healthchecks.jump_conn }}/start"
       success: "{{ healthchecks.jump_conn }}"
       failure: "{{ healthchecks.jump_conn }}/fail"

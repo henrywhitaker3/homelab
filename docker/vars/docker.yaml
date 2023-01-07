@@ -20,7 +20,7 @@ crog_actions:
     command: ping -W 1 -c 1 8.8.8.8
     code: 0
     cron: "* * * * *"
-    on:
+    when:
       start: "{{ healthchecks.heartbeat }}/start"
       success: "{{ healthchecks.heartbeat }}"
       failure: "{{ healthchecks.heartbeat }}/fail"

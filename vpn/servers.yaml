@@ -76,7 +76,6 @@
     - name: Define healthchecks
       tags:
         - healthcheck
-        - skip_ansible_lint
       become: true
       ansible.builtin.set_fact:
         crog_actions:
@@ -84,7 +83,7 @@
             command: wg show wg0
             code: 0
             cron: "* * * * *"
-            on:
+            when:
               start: "{{ healthchecks[inventory_hostname] }}/start"
               success: "{{ healthchecks[inventory_hostname] }}"
               failure: "{{ healthchecks[inventory_hostname] }}/fail"
