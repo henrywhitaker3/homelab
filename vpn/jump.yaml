@@ -11,8 +11,8 @@
 
   vars_files:
     - ../vars/main.yaml
-    - vars/jump.yaml
     - vars/vpn_secrets.yaml
+    - vars/jump.yaml
 
   handlers:
     - name: restart wireguard
