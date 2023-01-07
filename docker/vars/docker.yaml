@@ -32,3 +32,5 @@ crog_actions:
       start: "{{ healthchecks.backup }}/start"
       success: "{{ healthchecks.backup }}"
       failure: "{{ healthchecks.backup }}/fail"
+
+crog_verbose: true
