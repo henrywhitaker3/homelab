@@ -1,0 +1,10 @@
+---
+healthcheck_version: 0.1.6
+
+healthcheck_config_version: 1
+
+healthcheck_timezone: UTC
+
+healthcheck_verbose: false
+
+healthcheck_checks: []

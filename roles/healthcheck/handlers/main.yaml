@@ -1,0 +1,7 @@
+---
+- name: restart healthcheck
+  become: true
+  tags: healthcheck
+  ansible.builtin.service:
+    name: healthcheck
+    state: restarted

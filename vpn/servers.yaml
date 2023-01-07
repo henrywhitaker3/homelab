@@ -73,17 +73,19 @@
         state: started
         enabled: true
 
-    - name: Setup healthchecks
+    - name: Define healthchecks
       tags:
-        - vpn
-        - wireguard
         - healthcheck
       become: true
-      ansible.builtin.cron:
-        name: "ping healthcheck"
-        minute: "*"
-        hour: "*"
-        day: "*"
-        month: "*"
-        weekday: "*"
-        job: "wg show wg0 && curl -fsS --retry 3 -o /dev/null {{ healthchecks[inventory_hostname] }}"
+      ansible.builtin.set_fact:
+        healthcheck_checks:
+          - name: VPN Interface Status
+            command: wg show wg0
+            id: "{{ healthchecks[inventory_hostname] }}"
+            code: 0
+            cron: "* * * * *"
+
+    - name: Setup healthcheck service
+      tags: healthcheck
+      ansible.builtin.import_role:
+        name: healthcheck

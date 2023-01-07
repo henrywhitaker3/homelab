@@ -1,0 +1,8 @@
+version: {{ healthcheck_config_version }}
+
+timezone: {{ healthcheck_timezone }}
+
+verbose: {{ healthcheck_verbose }}
+
+checks:
+{{ healthcheck_checks | to_nice_yaml(indent=2) }}
