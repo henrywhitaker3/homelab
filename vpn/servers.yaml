@@ -75,7 +75,7 @@
 
     - name: Define healthchecks
       tags:
-        - healthcheck
+        - crog
       become: true
       ansible.builtin.set_fact:
         crog_actions:
