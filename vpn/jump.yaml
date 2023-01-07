@@ -7,7 +7,7 @@
     - user
     - common
     - haproxy_exporter
-    - healthcheck
+    - crog
 
   vars_files:
     - ../vars/main.yaml

@@ -1,5 +1,5 @@
 ---
-healthcheck_checks:
+crog_actions:
   - name: LAN connection
     command: ping -W 1 -c 1 10.0.0.160
     id: "{{ healthchecks.jump_lan }}"
@@ -7,8 +7,11 @@ healthcheck_checks:
     cron: "* * * * *"
   - name: VPN Interface Status
     command: wg show wg0
-    id: "{{ healthchecks.jump_conn }}"
     code: 0
     cron: "* * * * *"
+    on:
+      start: "{{ healthchecks.jump_conn }}/start"
+      success: "{{ healthchecks.jump_conn }}"
+      failure: "{{ healthchecks.jump_conn }}/fail"
 
 haproxy_exporter_listen_address: 10.8.0.100

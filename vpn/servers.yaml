@@ -76,16 +76,20 @@
     - name: Define healthchecks
       tags:
         - healthcheck
+        - skip_ansible_lint
       become: true
       ansible.builtin.set_fact:
-        healthcheck_checks:
+        crog_actions:
           - name: VPN Interface Status
             command: wg show wg0
-            id: "{{ healthchecks[inventory_hostname] }}"
             code: 0
             cron: "* * * * *"
+            on:
+              start: "{{ healthchecks[inventory_hostname] }}/start"
+              success: "{{ healthchecks[inventory_hostname] }}"
+              failure: "{{ healthchecks[inventory_hostname] }}/fail"
 
-    - name: Setup healthcheck service
-      tags: healthcheck
+    - name: Setup crog service
+      tags: crog
       ansible.builtin.import_role:
-        name: healthcheck
+        name: crog

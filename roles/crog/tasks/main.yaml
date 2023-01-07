@@ -1,0 +1,43 @@
+---
+- name: Get DEB architecture
+  tags: crog
+  ansible.builtin.command: dpkg --print-architecture
+  register: deb_architecture
+  changed_when: false
+
+- name: Set deb name
+  tags: crog
+  ansible.builtin.set_fact:
+    crog_deb: "crog_{{ crog_version }}_linux_{{ deb_architecture.stdout }}.deb"
+
+- name: Download crog package
+  tags: crog
+  ansible.builtin.get_url:
+    url: "https://github.com/henrywhitaker3/crog/releases/download/v{{ crog_version }}/{{ crog_deb }}"
+    dest: "/home/{{ ansible_user }}"
+    mode: 0755
+
+- name: Install crog
+  become: true
+  tags: crog
+  ansible.builtin.apt:
+    deb: "/home/{{ ansible_user }}/{{ crog_deb }}"
+
+- name: Copy over crog config
+  become: true
+  tags: crog
+  ansible.builtin.template:
+    src: templates/crog.yaml
+    dest: /etc/crog/crog.yaml
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart crog
+
+- name: Start crog service
+  become: true
+  tags: crog
+  ansible.builtin.service:
+    name: crog
+    state: started
+    enabled: true

@@ -1,0 +1,7 @@
+---
+- name: restart crog
+  become: true
+  tags: crog
+  ansible.builtin.service:
+    name: crog
+    state: restarted

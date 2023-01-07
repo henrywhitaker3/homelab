@@ -1,0 +1,8 @@
+version: {{ crog_config_version }}
+
+timezone: {{ crog_timezone }}
+
+verbose: {{ crog_verbose }}
+
+actions:
+{{ crog_actions | to_nice_yaml(indent=2) }}

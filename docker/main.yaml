@@ -9,14 +9,6 @@
     - vars/docker.yaml
     - vars/docker_secrets.yaml
 
-  vars:
-    healthcheck_checks:
-      - name: Heartbeat
-        command: ping -W 1 -c 1 8.8.8.8
-        code: 0
-        id: "{{ healthchecks.heartbeat }}"
-        cron: "* * * * *"
-
   pre_tasks:
     - name: Update package cache
       become: true
@@ -35,7 +27,7 @@
     - docker
     - cifs
     - netdata
-    - healthcheck
+    - crog
 
   tasks:
     - name: Docker

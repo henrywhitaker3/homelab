@@ -11,7 +11,7 @@
   roles:
     - common
     - user
-    - healthcheck
+    - crog
 
   handlers:
     - name: restart raspotify
