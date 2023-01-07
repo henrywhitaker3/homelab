@@ -3,12 +3,15 @@
 
   hosts: speakers
 
+  vars_files:
+    - ../vars/main.yaml
+    - vars/speakers_secrets.yaml
+    - vars/speakers.yaml
+
   roles:
     - common
     - user
-
-  vars_files:
-    - ../vars/main.yaml
+    - healthcheck
 
   handlers:
     - name: restart raspotify
