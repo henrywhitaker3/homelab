@@ -1,7 +1,7 @@
 ---
 crog_actions:
   - name: LAN connection
-    command: ping -W 1 -c 1 10.0.0.160
+    command: ping -W 2 -c 3 10.0.0.160
     code: 0
     cron: "* * * * *"
     when:
