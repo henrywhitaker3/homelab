@@ -18,3 +18,5 @@ crog_actions:
       failure: "{{ healthchecks.jump_conn }}/fail"
 
 haproxy_exporter_listen_address: 10.8.0.100
+
+crog_verbose: true
