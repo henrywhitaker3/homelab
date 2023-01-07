@@ -31,5 +31,5 @@
   user:
     name: "{{ ansible_user }}"
     groups: docker
-    append: yes
+    append: true
   when: docker_add_user_to_group

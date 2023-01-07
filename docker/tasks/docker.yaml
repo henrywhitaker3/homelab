@@ -47,13 +47,6 @@
     weekday: "{{ item.weekday }}"
     job: "{{ item.job }}"
   loop:
-    - name: "ping healthcheck"
-      minute: "*/2"
-      hour: "*"
-      day: "*"
-      month: "*"
-      weekday: "*"
-      job: "curl -fsS --retry 3 -o /dev/null {{ healthchecks.heartbeat }}"
     - name: "pull images"
       minute: "0"
       hour: "3"

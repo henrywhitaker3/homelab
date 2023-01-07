@@ -9,22 +9,9 @@
     - haproxy_exporter
     - healthcheck
 
-  vars:
-    - haproxy_exporter_listen_address: 10.8.0.100
-    - healthcheck_checks:
-      - name: LAN connection
-        command: ping -W 1 -c 1 10.0.0.160
-        id: "{{ healthchecks.jump_lan }}"
-        code: 0
-        cron: "* * * * *"
-      - name: VPN Interface Status
-        command: wg show wg0
-        id: "{{ healthchecks.jump_conn }}"
-        code: 0
-        cron: "* * * * *"
-
   vars_files:
     - ../vars/main.yaml
+    - vars/jump.yaml
     - vars/vpn_secrets.yaml
 
   handlers:
