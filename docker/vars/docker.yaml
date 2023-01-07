@@ -24,3 +24,11 @@ crog_actions:
       start: "{{ healthchecks.heartbeat }}/start"
       success: "{{ healthchecks.heartbeat }}"
       failure: "{{ healthchecks.heartbeat }}/fail"
+  - name: Backup
+    command: /home/{{ ansible_user }}/backup.sh
+    code: 0
+    cron: "30 4 * * 7"
+    when:
+      start: "{{ healthchecks.backup }}/start"
+      success: "{{ healthchecks.backup }}"
+      failure: "{{ healthchecks.backup }}/fail"

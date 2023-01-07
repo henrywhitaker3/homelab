@@ -18,17 +18,3 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0755
-
-- name: Enable backup cron
-  become: true
-  tags:
-    - backup
-  ansible.builtin.cron:
-    user: root
-    name: data dir backup
-    minute: "30"
-    hour: "4"
-    day: "*"
-    month: "*"
-    weekday: "7"
-    job: "/home/{{ ansible_user }}/backup.sh > /tmp/backup.log"
