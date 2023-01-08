@@ -27,7 +27,7 @@ crog_actions:
   - name: Backup
     command: /home/{{ ansible_user }}/backup.sh
     code: 0
-    cron: "30 4 * * 7"
+    cron: "30 4 * * 0"
     when:
       start: "{{ healthchecks.backup }}/start"
       success: "{{ healthchecks.backup }}"
