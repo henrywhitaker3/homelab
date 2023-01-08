@@ -6,8 +6,8 @@ resource "healthchecksio_check" "docker" {
     "docker"
   ]
 
-  grace    = 360 # seconds
-  schedule = "*/2 * * * *"
+  grace    = 60 # seconds
+  schedule = "* * * * *"
   timezone = "UTC"
 }
 
@@ -73,6 +73,32 @@ resource "healthchecksio_check" "vpn_1" {
 resource "healthchecksio_check" "vpn_2" {
   name = "VPN 2"
   desc = "Checks the vpn interface is up"
+
+  tags = [
+    "vpn"
+  ]
+
+  grace    = 60 # seconds
+  schedule = "* * * * *"
+  timezone = "UTC"
+}
+
+resource "healthchecksio_check" "lb_1" {
+  name = "LB 1"
+  desc = "Checks the lb host is up"
+
+  tags = [
+    "vpn"
+  ]
+
+  grace    = 60 # seconds
+  schedule = "* * * * *"
+  timezone = "UTC"
+}
+
+resource "healthchecksio_check" "lb_2" {
+  name = "LB 2"
+  desc = "Checks the lb host is up"
 
   tags = [
     "vpn"

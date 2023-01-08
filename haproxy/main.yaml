@@ -5,11 +5,14 @@
 
   vars_files:
     - ../vars/main.yaml
+    - vars/haproxy_secrets.yaml
+    - vars/haproxy.yaml
 
   roles:
     - user
     - common
     - vip
+    - crog
 
   vars:
     - haproxy_version: "2.7"
