@@ -10,7 +10,7 @@ charts:
     namespace: metallb
     chart: metallb
     repoUrl: https://metallb.github.io/metallb
-    targetRevision: 0.13.4
+    targetRevision: 0.13.7
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
