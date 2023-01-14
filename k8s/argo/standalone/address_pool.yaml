@@ -6,3 +6,12 @@ metadata:
 spec:
   addresses:
   - 10.0.0.25-10.0.0.27
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: lb-advertisment
+  namespace: metallb
+spec:
+  ipAddressPools:
+  - lb-addresses

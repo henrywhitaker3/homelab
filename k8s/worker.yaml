@@ -9,6 +9,12 @@
     - vars/k8s.yaml
     - vars/k8s_secrets.yaml
 
+  handlers:
+    - name: restart k3s
+      ansible.builtin.service:
+        name: k3s
+        state: restarted
+
   tasks:
     - name: Copy K3s service file
       register: k3s_service
@@ -18,6 +24,7 @@
         owner: root
         group: root
         mode: 0644
+      notify: restart k3s
 
     - name: Enable and check K3s service
       ansible.builtin.systemd:
