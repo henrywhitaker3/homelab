@@ -1,0 +1,27 @@
+---
+- name: Configure worker nodes
+
+  become: true
+
+  hosts: k8s_workers
+
+  vars_files:
+    - vars/k8s.yaml
+    - vars/k8s_secrets.yaml
+
+  tasks:
+    - name: Copy K3s service file
+      register: k3s_service
+      ansible.builtin.template:
+        src: "worker.service"
+        dest: "/etc/systemd/system/k3s.service"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable and check K3s service
+      ansible.builtin.systemd:
+        name: k3s
+        state: restarted
+        daemon_reload: true
+        enabled: true

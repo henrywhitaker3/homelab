@@ -1,34 +1,43 @@
 ---
-- name: Configure base setup for k8s hosts
+- name: Configure all nodes
 
-  hosts:
-    - k8s_admin
-    - k8s_nodes
+  become: true
 
-  roles:
-    - common
-    - user
+  hosts: k8s_nodes
 
   vars_files:
     - ../vars/main.yaml
-    - vars/secrets.yaml
+    - vars/k8s.yaml
+
+  roles:
+    - user
+    - common
 
   tasks:
-    - name: Copy private key to admin
-      tags:
-        - ssh
-      ansible.builtin.copy:
-        content: "{{ admin_ssh.private_key }}"
-        dest: "/home/{{ ansible_user }}/.ssh/id_rsa"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: 0600
-      when: inventory_hostname in groups['k8s_admin']
+    - name: Download k3s binary
+      ansible.builtin.get_url:
+        url: https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/k3s
+        checksum: sha256:https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/sha256sum-amd64.txt
+        dest: /usr/local/bin/k3s
+        owner: root
+        group: root
+        mode: 0755
 
-    - name: Copy public key to nodes
+    - name: Set sysctl for pod networking
+      become: true
       tags:
-        - ssh
-      ansible.posix.authorized_key:
-        user: "{{ ansible_user }}"
-        key: "{{ admin_ssh.public_key }}"
-      when: inventory_hostname in groups['k8s_nodes']
+        - nodes
+        - networking
+      ansible.posix.sysctl:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        reload: true
+      loop:
+        - name: net.ipv4.ip_forward
+          value: "1"
+        - name: net.ipv6.conf.all.forwarding
+          value: "1"
+        - name: net.ipv6.conf.all.accept_ra
+          value: "2"
+      loop_control:
+        label: "{{ item.name }}"

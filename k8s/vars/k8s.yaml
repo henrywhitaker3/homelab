@@ -1,0 +1,4 @@
+---
+k3s_version: v1.26.0+k3s2
+
+k3s_server_args: --disable servicelb --disable traefik --tls-san 10.0.0.6 --tls-san k8s.lan

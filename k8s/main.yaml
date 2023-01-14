@@ -1,7 +1,7 @@
 ---
 - name: Configure base
   ansible.builtin.import_playbook: base.yaml
-- name: Configure nodes
-  ansible.builtin.import_playbook: nodes.yaml
-- name: Configure admin
-  ansible.builtin.import_playbook: admin.yaml
+- name: Configure control plane
+  ansible.builtin.import_playbook: control.yaml
+- name: Configure workers
+  ansible.builtin.import_playbook: worker.yaml
