@@ -55,7 +55,7 @@
     - name: Enable and check K3s service
       ansible.builtin.systemd:
         name: k3s
-        state: restarted
+        state: started
         daemon_reload: true
         enabled: true
 
