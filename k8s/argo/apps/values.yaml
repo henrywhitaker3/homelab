@@ -74,12 +74,12 @@ charts:
     repoUrl: https://releases.rancher.com/server-charts/stable
     targetRevision: 2.7.0
     values:
-      hostname: rancher.voodoosms.com
+      hostname: rancher.plexmox.com
       ingress:
         tls:
           source: letsEncrypt
       letsEncrypt:
-        email: accounts@voodoosms.com
+        email: no-reply@plexmox.com
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
