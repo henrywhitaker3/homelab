@@ -17,7 +17,7 @@ module "k8s-control-2" {
   ip     = 21
   cores  = 2
   memory = 4096
-  node   = 1
+  node   = 2
 }
 
 module "k8s-worker-1" {
@@ -28,7 +28,7 @@ module "k8s-worker-1" {
   ip     = 22
   cores  = 2
   memory = 4096
-  node   = 2
+  node   = 1
 }
 
 module "k8s-worker-2" {

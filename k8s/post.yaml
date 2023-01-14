@@ -94,7 +94,7 @@
         - k8s
         - argo
       ansible.builtin.pause:
-        seconds: 45
+        seconds: 60
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Install standalone manifests
