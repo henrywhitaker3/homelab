@@ -13,6 +13,14 @@
     - user
     - common
 
+  handlers:
+    - name: reboot node
+      become: true
+      tags:
+        - nodes
+        - networking
+      ansible.builtin.reboot:
+
   tasks:
     - name: Download k3s binary
       ansible.builtin.get_url:
@@ -41,3 +49,13 @@
           value: "2"
       loop_control:
         label: "{{ item.name }}"
+
+    - name: Add ipset
+      become: true
+      tags:
+        - nodes
+        - networking
+      ansible.builtin.apt:
+        name: ipset
+        state: latest
+      notify: reboot node

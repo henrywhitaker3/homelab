@@ -27,6 +27,7 @@ charts:
     values:
       controller:
         watchIngressWithoutClass: true
+        replicaCount: 3
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
