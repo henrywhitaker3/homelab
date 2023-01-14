@@ -67,6 +67,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: longhorn
+    project: cluster
+    namespace: longhorn
+    chart: longhorn
+    repoUrl: https://charts.longhorn.io
+    targetRevision: 1.4.0
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
