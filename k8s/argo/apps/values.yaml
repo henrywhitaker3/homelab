@@ -23,7 +23,7 @@ charts:
     namespace: ingress-nginx
     chart: ingress-nginx
     repoUrl: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.2.0
+    targetRevision: 4.4.2
     values:
       controller:
         watchIngressWithoutClass: true
