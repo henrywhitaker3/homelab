@@ -67,23 +67,23 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: rancher
-    project: cluster
-    namespace: cattle-system
-    chart: rancher
-    repoUrl: https://releases.rancher.com/server-charts/stable
-    targetRevision: 2.7.0
-    values:
-      hostname: rancher.plexmox.com
-      ingress:
-        tls:
-          source: letsEncrypt
-      letsEncrypt:
-        email: no-reply@plexmox.com
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        prune: true
-        selfHeal: true
+  # - name: rancher
+  #   project: cluster
+  #   namespace: cattle-system
+  #   chart: rancher
+  #   repoUrl: https://releases.rancher.com/server-charts/stable
+  #   targetRevision: 2.7.0
+  #   values:
+  #     hostname: rancher.plexmox.com
+  #     ingress:
+  #       tls:
+  #         source: letsEncrypt
+  #     letsEncrypt:
+  #       email: no-reply@plexmox.com
+  #   syncPolicy:
+  #     syncOptions:
+  #       - CreateNamespace=true
+  #     automated:
+  #       prune: true
+  #       selfHeal: true
 
