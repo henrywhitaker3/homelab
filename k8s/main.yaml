@@ -5,3 +5,5 @@
   ansible.builtin.import_playbook: control.yaml
 - name: Configure workers
   ansible.builtin.import_playbook: worker.yaml
+- name: Run post installation
+  ansible.builtin.import_playbook: post.yaml

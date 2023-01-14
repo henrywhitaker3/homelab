@@ -1,13 +1,13 @@
 ---
 - name: Configure k8s admin server
 
-  hosts: k8s_admin
+  hosts: k8s-control-1
 
   roles:
     - k8s_tools
 
   vars_files:
-    - vars/admin.yaml
+    - vars/k8s.yaml
 
   tasks:
     - name: Copy argo over
@@ -26,6 +26,7 @@
       tags:
         - k8s
         - argo
+      become: true
       ansible.builtin.command: "kubectl create namespace argo"
       register: argo_namespace_created
       changed_when: "'created' in argo_namespace_created.stdout"
@@ -35,7 +36,10 @@
       tags:
         - k8s
         - argo
+      become: true
       ansible.builtin.command: "helm -n argo status argo"
+      environment:
+        KUBECONFIG: /etc/rancher/k3s/k3s.yaml
       register: argo_helm_status
       changed_when: false
       failed_when: false
@@ -44,13 +48,17 @@
       tags:
         - k8s
         - argo
+      become: true
       ansible.builtin.command: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml argo /home/{{ ansible_user }}/argo/argocd"
+      environment:
+        KUBECONFIG: /etc/rancher/k3s/k3s.yaml
       when: "'not found' in argo_helm_status.stderr"
 
     - name: Is argo apps installed?
       tags:
         - k8s
         - argo
+      become: true
       ansible.builtin.command: "kubectl -n argo get applications"
       changed_when: false
       register: argo_apps_status
@@ -67,7 +75,7 @@
       tags:
         - k8s
         - argo
-        -
+      become: true
       ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
       args:
         executable: /usr/bin/bash
@@ -77,6 +85,7 @@
       tags:
         - k8s
         - argo
+      become: true
       ansible.builtin.command: "kubectl -n argo delete secret -l owner=helm,name=argocd"
       when: "'No resources found' in argo_apps_status.stderr"
 
@@ -92,6 +101,7 @@
       tags:
         - k8s
         - standalone
+      become: true
       ansible.builtin.command: "kubectl apply -f /home/{{ ansible_user }}/argo/standalone/"
       register: apply_standalone_manifests
       changed_when: "'created' in apply_standalone_manifests.stdout"
