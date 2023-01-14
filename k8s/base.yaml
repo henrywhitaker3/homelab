@@ -59,3 +59,9 @@
         name: ipset
         state: latest
       notify: reboot node
+
+    - name: Install longhorn dependencies
+      become: true
+      ansible.builtin.apt:
+        name: open-iscsi
+        state: present
