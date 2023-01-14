@@ -8,11 +8,6 @@ variable "healthchecksio_api_key" {
   sensitive = true
 }
 
-variable "proxmox_host" {
-  type    = string
-  default = "10.0.0.150"
-}
-
 variable "proxmox_user" {
   type    = string
   default = "terraform"
@@ -30,32 +25,3 @@ variable "proxmox_token" {
   sensitive = true
 }
 
-variable "proxmox_node_1" {
-  type    = string
-  default = "proxmox-01"
-}
-
-variable "proxmox_node_2" {
-  type    = string
-  default = "proxmox-02"
-}
-
-variable "ubuntu_8G" {
-  type    = string
-  default = "ubuntu-cloud-8G"
-}
-
-variable "ubuntu_25G" {
-  type    = string
-  default = "ubuntu-cloud-25G"
-}
-
-variable "ubuntu_100G" {
-  type    = string
-  default = "ubuntu-cloud-100G"
-}
-
-variable "alma_10G" {
-  type    = string
-  default = "alma-cloud-10G"
-}

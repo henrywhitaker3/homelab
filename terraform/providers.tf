@@ -18,7 +18,7 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url = "https://${var.proxmox_host}:8006/api2/json"
+  pm_api_url = "https://${local.proxmox_host}:8006/api2/json"
 
   pm_api_token_id = "${var.proxmox_user}@pam!${var.proxmox_token_id}"
 
