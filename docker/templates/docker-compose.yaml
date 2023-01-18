@@ -109,6 +109,8 @@ services:
         - {{ docker_data_dir}}/jellyfin:/config
         - /plex:/data
       restart: unless-stopped
+      networks:
+        homelab:
 
     #-------------------------------------------#
     # General services
