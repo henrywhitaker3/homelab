@@ -95,6 +95,21 @@ services:
       restart: unless-stopped
       cpus: 8
 
+    jellyfin:
+      image: linuxserver/jellyfin:latest
+      container_name: jellyfin
+      environment:
+        - PUID={{ docker_puid }}
+        - PGID={{ docker_puid }}
+        - TZ={{ docker_tz }}
+        - JELLYFIN_PublishedServerUrl=jellyfin.plexmox.com
+      devices:
+        - /dev/dri:/dev/dri
+      volumes:
+        - {{ docker_data_dir}}/jellyfin:/config
+        - /plex:/data
+      restart: unless-stopped
+
     #-------------------------------------------#
     # General services
     #-------------------------------------------#
