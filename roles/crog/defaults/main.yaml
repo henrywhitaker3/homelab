@@ -1,5 +1,5 @@
 ---
-crog_version: 0.1.10
+crog_version: 0.2.0
 
 crog_config_version: 1
 
@@ -8,3 +8,9 @@ crog_timezone: UTC
 crog_verbose: false
 
 crog_actions: []
+
+crog_server_enabled: true
+
+corg_server_ip: ""
+
+corg_server_port: 9399
