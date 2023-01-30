@@ -11,6 +11,6 @@ crog_actions: []
 
 crog_server_enabled: true
 
-corg_server_ip: ""
+crog_server_ip: ""
 
-corg_server_port: 9399
+crog_server_port: 9399
