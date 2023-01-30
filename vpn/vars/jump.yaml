@@ -21,4 +21,4 @@ haproxy_exporter_listen_address: 10.8.0.100
 
 crog_verbose: true
 
-corg_server_ip: "10.8.0.100"
+crog_server_ip: "10.8.0.100"
