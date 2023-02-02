@@ -32,5 +32,29 @@ crog_actions:
       start: "{{ healthchecks.backup }}/start"
       success: "{{ healthchecks.backup }}"
       failure: "{{ healthchecks.backup }}/fail"
+  - name: Docker pull
+    command: docker compose -f /home/henry/docker-compose.yaml pull
+    code: 0
+    cron: "0 3 * * 7"
+  - name: Docker up
+    command: docker compose -f /home/henry/docker-compose.yaml up -d
+    code: 0
+    cron: "15 3 * * 7"
+  - name: Docker prune
+    command: docker image prune -f
+    code: 0
+    cron: "0 4 * * 1"
+  - name: Restart radarr
+    command: docker compose -f /home/henry/docker-compose.yaml restart radarr
+    code: 0
+    cron: "0 12 * * *"
+  - name: Restart sonarr
+    command: docker compose -f /home/henry/docker-compose.yaml restart sonarr
+    code: 0
+    cron: "0 12 * * *"
+  - name: Restart qbittorrent
+    command: docker compose -f /home/henry/docker-compose.yaml restart qbittorrent
+    code: 0
+    cron: "0 12 * * *"
 
 crog_verbose: true
