@@ -31,3 +31,27 @@
   loop_control:
     label: "{{ item.dest }}"
   notify: restart torrent
+
+- name: Create wg tunnel config dir
+  tags:
+    - docker
+    - torrent
+  ansible.builtin.file:
+    path: "{{ wireguard_tunnel_config_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+  notify: restart wg tunnel
+
+- name: Copy wireguard client config
+  tags:
+    - docker
+    - torrent
+  ansible.builtin.copy:
+    content: "{{ wireguard_tunnel }}"
+    dest: "{{ wireguard_tunnel_config_dir }}/wg0.conf"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0700
+  notify: restart wg tunnel

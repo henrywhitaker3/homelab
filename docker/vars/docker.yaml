@@ -52,9 +52,9 @@ crog_actions:
     command: docker compose -f /home/henry/docker-compose.yaml restart sonarr
     code: 0
     cron: "0 12 * * *"
-  - name: Restart qbittorrent
-    command: docker compose -f /home/henry/docker-compose.yaml restart qbittorrent
-    code: 0
-    cron: "0 12 * * *"
+  # - name: Restart qbittorrent
+  #   command: docker compose -f /home/henry/docker-compose.yaml restart qbittorrent
+  #   code: 0
+  #   cron: "0 12 * * *"
 
 crog_verbose: true

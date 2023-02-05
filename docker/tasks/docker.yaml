@@ -12,6 +12,7 @@
     docker_pgid: "{{ ansible_user_uid }}"
     swag_dns_config: "/home/{{ ansible_user }}/data/swag/dns-conf"
     torrent_config_dir: "/home/{{ ansible_user }}/data/torrent/config/openvpn"
+    wireguard_tunnel_config_dir: "/home/{{ ansible_user }}/data/wireguard-tunnel"
 
 - name: Copy docker compose over
   tags:
