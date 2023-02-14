@@ -39,13 +39,17 @@
     url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_archive_name }}.tar.gz"
     dest: "{{ haproxy_exporter_download }}"
     mode: 0777
+  register: exporter_download
 
 - name: Unarchive haproxy_exporter binary
+  tags:
+      - haproxy_exporter
+      - monitoring
   ansible.builtin.unarchive:
     src: "{{ haproxy_exporter_download }}"
     dest: /tmp
     remote_src: true
-    creates: "{{ haproxy_binary }}"
+  when: exporter_download.changed
 
 - name: Copy unarchived haproxy_exporter binary
   become: true
