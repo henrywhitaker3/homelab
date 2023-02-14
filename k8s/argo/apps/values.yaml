@@ -122,7 +122,7 @@ charts:
     targetRevision: 0.6.1
     values:
       env:
-        DRONE_SERVER_HOST: drone.drone.svc.cluster.local
+        DRONE_RPC_HOST: drone.drone.svc.cluster.local
       extraSecretNamesForEnvFrom:
         - drone-secrets
     syncPolicy:
