@@ -104,6 +104,9 @@ charts:
 
       extraSecretNamesForEnvFrom:
         - drone-secrets
+
+      env:
+        DRONE_SERVER_HOST: drone.plexmox.com
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
