@@ -8,6 +8,7 @@
 
   vars_files:
     - vars/k8s.yaml
+    - ../vars/secrets.yaml
 
   tasks:
     - name: Copy argo over
@@ -96,6 +97,19 @@
       ansible.builtin.pause:
         seconds: 60
       when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Template over standalone manifests
+      tags:
+        - k8s
+        - standalone
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "/home/{{ ansible_user }}/argo/standalone/{{ item | basename }}"
+        mode: 0664
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      with_fileglob:
+        - argo/standalone/*
 
     - name: Install standalone manifests
       tags:
