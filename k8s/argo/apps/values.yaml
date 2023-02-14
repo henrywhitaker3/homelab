@@ -121,6 +121,8 @@ charts:
     repoUrl: https://charts.drone.io
     targetRevision: 0.6.1
     values:
+      env:
+        DRONE_SERVER_HOST: drone.drone.svc.cluster.local
       extraSecretNamesForEnvFrom:
         - drone-secrets
     syncPolicy:
