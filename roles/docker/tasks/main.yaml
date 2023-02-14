@@ -2,20 +2,20 @@
 - name: Add docker gpg key
   tags: docker
   become: true
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     keyring: /usr/share/keyrings/docker.gpg
 
 - name: Add docker repo
   tags: docker
   become: true
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable"
 
 - name: Install docker packages
   tags: docker
   become: true
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
     update_cache: true
@@ -28,7 +28,7 @@
 - name: Add current user to docker group
   tags: docker
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user }}"
     groups: docker
     append: true

@@ -43,8 +43,8 @@
 
 - name: Unarchive haproxy_exporter binary
   tags:
-      - haproxy_exporter
-      - monitoring
+    - haproxy_exporter
+    - monitoring
   ansible.builtin.unarchive:
     src: "{{ haproxy_exporter_download }}"
     dest: /tmp
