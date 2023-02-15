@@ -121,8 +121,9 @@ charts:
     repoUrl: https://charts.drone.io
     targetRevision: 0.6.1
     values:
+      replicaCount: 4
       env:
-        DRONE_RPC_HOST: drone.drone.svc.cluster.local
+        DRONE_RPC_HOST: drone.plexmox.com
       extraSecretNamesForEnvFrom:
         - drone-secrets
       dind:
