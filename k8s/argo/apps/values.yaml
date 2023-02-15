@@ -124,6 +124,7 @@ charts:
       replicaCount: 4
       env:
         DRONE_RPC_HOST: drone.plexmox.com
+        DRONE_RPC_PROTO: https
       extraSecretNamesForEnvFrom:
         - drone-secrets
       dind:
