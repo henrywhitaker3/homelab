@@ -121,7 +121,7 @@ charts:
     repoUrl: https://charts.drone.io
     targetRevision: 0.6.1
     values:
-      replicaCount: 4
+      replicaCount: 2
       env:
         DRONE_RPC_HOST: drone.plexmox.com
         DRONE_RPC_PROTO: https
