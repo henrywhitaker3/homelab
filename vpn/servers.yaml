@@ -60,7 +60,7 @@
         dest: /etc/wireguard/wg0.conf
         owner: root
         group: root
-        mode: 0700
+        mode: "0700"
       notify: restart wireguard
 
     - name: Start wireguard service

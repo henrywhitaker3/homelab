@@ -8,7 +8,7 @@
   ansible.builtin.get_url:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
-    mode: 0644
+    mode: "0644"
 
 - name: Add kubernetes repo
   become: true

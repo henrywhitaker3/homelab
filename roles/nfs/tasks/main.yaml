@@ -15,7 +15,7 @@
     path: "{{ item.path }}"
     owner: "{{ nfs_mount_user }}"
     group: "{{ nfs_mount_group }}"
-    mode: 0755
+    mode: "0755"
     state: directory
   loop: "{{ nfs_mounts }}"
   loop_control:

@@ -19,7 +19,7 @@
       ansible.builtin.get_url:
         url: "{{ images[item].location }}"
         dest: "/tmp/{{ images[item].name }}"
-        mode: 0644
+        mode: "0644"
       loop: "{{ images.keys() | list }}"
 
     - name: Install qemu-guest-agent into images
@@ -83,7 +83,7 @@
       ansible.builtin.copy:
         content: "{{ template_ssh_key }}"
         dest: /tmp/ssh_keys
-        mode: 0644
+        mode: "0644"
 
     - name: Set cloud-init SSH keys
       ansible.builtin.command: "qm set {{ item.params.id + id_mod }} --sshkeys /tmp/ssh_keys"

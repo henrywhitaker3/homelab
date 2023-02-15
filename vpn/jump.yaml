@@ -51,7 +51,7 @@
         dest: /etc/wireguard/wg0.conf
         owner: root
         group: root
-        mode: 0700
+        mode: "0700"
       notify: restart wireguard
 
     - name: Start wireguard service
@@ -90,7 +90,7 @@
         owner: root
         group: root
         state: directory
-        mode: 0755
+        mode: "0755"
 
     - name: Copy haproxy config
       become: true
@@ -100,7 +100,7 @@
         dest: /etc/haproxy/haproxy.cfg
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
       notify: restart haproxy
 
     - name: Enable and start haproxy

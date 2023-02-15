@@ -47,7 +47,7 @@
       get_url:
         url: https://raw.githubusercontent.com/obissick/Galera-ClusterCheck/master/clustercheck
         dest: /usr/bin/clustercheck
-        mode: 0755
+        mode: "0755"
         force: false
       when: not clustercheck_exists.stat.exists
 

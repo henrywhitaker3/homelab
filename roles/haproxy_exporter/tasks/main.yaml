@@ -38,7 +38,7 @@
   ansible.builtin.get_url:
     url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_archive_name }}.tar.gz"
     dest: "{{ haproxy_exporter_download }}"
-    mode: 0777
+    mode: "0777"
   register: exporter_download
 
 - name: Unarchive haproxy_exporter binary
@@ -62,7 +62,7 @@
     remote_src: true
     owner: "{{ haproxy_exporter_user }}"
     group: "{{ haproxy_exporter_group }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy haproxy_exporter systemd service file
   become: true
@@ -74,7 +74,7 @@
     dest: /etc/systemd/system/haproxy_exporter.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify: restart haproxy_exporter
 
 - name: Start and enable haproxy_exporter service

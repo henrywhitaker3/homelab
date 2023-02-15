@@ -34,7 +34,7 @@
         dest: "/home/{{ ansible_user }}/pihole.sh"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
-        mode: 0755
+        mode: "0755"
       when: not install_script_exists.stat.exists
 
     - name: Create pihole dir
@@ -46,7 +46,7 @@
         owner: root
         group: root
         state: directory
-        mode: 0655
+        mode: "0655"
       when: not install_script_exists.stat.exists
 
     - name: Copy pihole setup vars
@@ -59,7 +59,7 @@
         dest: /etc/pihole/setupVars.conf
         owner: root
         group: root
-        mode: 0666
+        mode: "0666"
       when: not install_script_exists.stat.exists
 
     - name: Run install script

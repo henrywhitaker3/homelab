@@ -15,13 +15,13 @@
     - crog
 
   vars:
-    - haproxy_version: "2.7"
-    - haproxy_enabled_stats: true
-    - haproxy_stats_port: 8404
-    - haproxy_stats_uri: /stats
-    - haproxy_stats_refresh: 10s
-    - vip_ips: ["10.0.0.6", "10.0.0.7"]
-    - vip_priority_host: lb-1
+    haproxy_version: "2.7"
+    haproxy_enabled_stats: true
+    haproxy_stats_port: 8404
+    haproxy_stats_uri: /stats
+    haproxy_stats_refresh: 10s
+    vip_ips: ["10.0.0.6", "10.0.0.7"]
+    vip_priority_host: lb-1
 
   handlers:
     - name: restart haproxy
@@ -58,7 +58,7 @@
         owner: root
         group: root
         state: directory
-        mode: 0755
+        mode: "0755"
 
     - name: Copy haproxy config
       become: true
@@ -68,7 +68,7 @@
         dest: /etc/haproxy/haproxy.cfg
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
       notify: restart haproxy
 
     - name: Enable and start haproxy

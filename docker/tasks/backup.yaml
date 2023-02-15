@@ -6,7 +6,7 @@
     path: /backups
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0755
+    mode: "0755"
     state: directory
 
 - name: Copy over backup script
@@ -17,4 +17,4 @@
     dest: "/home/{{ ansible_user }}/backup.sh"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0755
+    mode: "0755"

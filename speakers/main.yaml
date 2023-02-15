@@ -31,7 +31,7 @@
       ansible.builtin.get_url:
         url: https://dtcooper.github.io/raspotify/key.asc
         dest: /usr/share/keyrings/raspotify_key.asc
-        mode: 0644
+        mode: "0644"
 
     - name: Add raspotify repo
       tags:
@@ -67,7 +67,7 @@
         dest: /etc/raspotify/conf
         owner: root
         group: root
-        mode: 0600
+        mode: "0600"
       notify: restart raspotify
 
     - name: Start raspotify service

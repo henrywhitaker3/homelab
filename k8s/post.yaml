@@ -105,7 +105,7 @@
       ansible.builtin.template:
         src: "{{ item }}"
         dest: "/home/{{ ansible_user }}/argo/standalone/{{ item | basename }}"
-        mode: 0664
+        mode: "0664"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
       with_fileglob:

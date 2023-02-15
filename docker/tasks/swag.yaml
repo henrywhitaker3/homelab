@@ -32,7 +32,7 @@
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0775
+    mode: "0775"
 
 - name: Copy nginx.conf
   tags:
@@ -43,7 +43,7 @@
     dest: "{{ docker_data_dir }}/swag/nginx/nginx.conf"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0664
+    mode: "0664"
   notify: restart nginx
 
 - name: Copy send_proxy.conf
@@ -55,7 +55,7 @@
     dest: "{{ docker_data_dir }}/swag/nginx/send_proxy.conf"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0664
+    mode: "0664"
   notify: restart nginx
 
 - name: Copy nginx proxy-confs
@@ -67,7 +67,7 @@
     dest: "{{ nginx_proxy_confs_dir }}/{{ item }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0664
+    mode: "0664"
   loop: "{{ desired_nginx_proxy_confs_list }}"
   notify: restart nginx
 
@@ -99,7 +99,7 @@
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0775
+    mode: "0775"
 
 - name: Copy cloudflare api creds
   tags:
@@ -111,4 +111,4 @@
     dest: "{{ swag_dns_config }}/cloudflare.ini"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0664
+    mode: "0664"

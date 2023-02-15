@@ -8,7 +8,7 @@
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0775
+    mode: "0775"
   loop:
     - "{{ docker_data_dir }}/prometheus"
     - "{{ docker_data_dir }}/prometheus/config"
@@ -23,7 +23,7 @@
     dest: "{{ docker_data_dir }}/prometheus/config/prometheus.yml"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0664
+    mode: "0664"
   notify: restart prometheus
 
 - name: Check if route to vpn network exists

@@ -22,7 +22,7 @@
     state: directory
     owner: "{{ user }}"
     group: "{{ user }}"
-    mode: 0700
+    mode: "0700"
 
 - name: Copy authorized keys
   tags:

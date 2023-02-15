@@ -9,7 +9,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: Copy netdata config
   become: true
@@ -21,7 +21,7 @@
     dest: /etc/netdata/netdata.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify: restart netdata
 
 - name: Install netdata

@@ -15,7 +15,7 @@
     dest: "/home/{{ ansible_user }}/.bashrc"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0644
+    mode: "0644"
 
 - name: Copy bash aliases
   tags:
@@ -26,4 +26,4 @@
     dest: "/home/{{ ansible_user }}/.bash_aliases"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0644
+    mode: "0644"

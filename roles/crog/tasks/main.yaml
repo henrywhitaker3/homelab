@@ -15,7 +15,7 @@
   ansible.builtin.get_url:
     url: "https://github.com/henrywhitaker3/crog/releases/download/v{{ crog_version }}/{{ crog_deb }}"
     dest: "/home/{{ ansible_user }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Install crog
   become: true
@@ -31,7 +31,7 @@
     dest: /etc/crog/crog.yaml
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify: restart crog
 
 - name: Start crog service
