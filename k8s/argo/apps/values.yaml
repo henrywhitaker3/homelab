@@ -114,6 +114,26 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: drone-runner
+    project: apps
+    namespace: drone
+    chart: drone-runner-docker
+    repoUrl: https://charts.drone.io
+    targetRevision: 0.6.1
+    values:
+      env:
+        DRONE_RPC_HOST: drone.drone.svc.cluster.local
+      extraSecretNamesForEnvFrom:
+        - drone-secrets
+      dind:
+        extraVolumeMounts: []
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
