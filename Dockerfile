@@ -5,7 +5,7 @@ ENV HOME=/home/$USER
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm-256color
 
-RUN apt-get update && apt-get install -y gnupg software-properties-common wget
+RUN apt-get update && apt-get install -y gnupg software-properties-common wget git
 
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
