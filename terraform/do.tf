@@ -18,10 +18,22 @@ resource "digitalocean_droplet" "jump" {
   ssh_keys = [digitalocean_ssh_key.laptop.fingerprint]
 }
 
+resource "digitalocean_droplet" "jump_k8s" {
+  name     = "jump-k8s"
+  size     = "s-1vcpu-1gb"
+  image    = "ubuntu-22-04-x64"
+  region   = "lon1"
+  vpc_uuid = digitalocean_vpc.jump_vpc.id
+  ssh_keys = [digitalocean_ssh_key.laptop.fingerprint]
+}
+
 resource "digitalocean_firewall" "web" {
   name = "only-22-80-and-443"
 
-  droplet_ids = [digitalocean_droplet.jump.id]
+  droplet_ids = [
+    digitalocean_droplet.jump.id,
+    digitalocean_droplet.jump_k8s.id
+  ]
 
   inbound_rule {
     protocol         = "tcp"

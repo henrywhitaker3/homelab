@@ -9,4 +9,4 @@ scrape_configs:
 
   - job_name: 'haproxy'
     static_configs:
-      - targets: ['10.8.0.100:9101']
+      - targets: ['10.8.0.100:9101', '10.8.0.150:9101']

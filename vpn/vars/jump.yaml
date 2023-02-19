@@ -1,24 +1,24 @@
 ---
 crog_actions:
   - name: LAN connection
-    command: ping -W 2 -c 3 10.0.0.160
+    command: ping -W 2 -c 3 {{ jump[inventory_hostname].backend }}
     code: 0
     cron: "* * * * *"
     when:
-      start: "{{ healthchecks.jump_lan }}/start"
-      success: "{{ healthchecks.jump_lan }}"
-      failure: "{{ healthchecks.jump_lan }}/fail"
+      start: "{{ healthchecks.jump[inventory_hostname].lan }}/start"
+      success: "{{ healthchecks.jump[inventory_hostname].lan }}"
+      failure: "{{ healthchecks.jump[inventory_hostname].lan }}/fail"
   - name: VPN Interface Status
     command: wg show wg0
     code: 0
     cron: "* * * * *"
     when:
-      start: "{{ healthchecks.jump_conn }}/start"
-      success: "{{ healthchecks.jump_conn }}"
-      failure: "{{ healthchecks.jump_conn }}/fail"
+      start: "{{ healthchecks.jump[inventory_hostname].conn }}/start"
+      success: "{{ healthchecks.jump[inventory_hostname].conn }}"
+      failure: "{{ healthchecks.jump[inventory_hostname].conn }}/fail"
 
-haproxy_exporter_listen_address: 10.8.0.100
+haproxy_exporter_listen_address: "{{ jump[inventory_hostname].ip }}"
 
 crog_verbose: true
 
-crog_server_ip: "10.8.0.100"
+crog_server_ip: "{{ jump[inventory_hostname].ip }}"

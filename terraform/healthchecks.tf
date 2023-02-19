@@ -57,6 +57,32 @@ resource "healthchecksio_check" "jump_lan" {
   timezone = "UTC"
 }
 
+resource "healthchecksio_check" "jump_k8s_connection" {
+  name = "K8s Jump server vpn"
+  desc = "Checks the vpn interface is up"
+
+  tags = [
+    "vpn"
+  ]
+
+  grace    = 60 # seconds
+  schedule = "* * * * *"
+  timezone = "UTC"
+}
+
+resource "healthchecksio_check" "jump_k8s_lan" {
+  name = "K8s Jump server lan access"
+  desc = "Checks the k8s jump server has access to home lan"
+
+  tags = [
+    "vpn"
+  ]
+
+  grace    = 60 # seconds
+  schedule = "* * * * *"
+  timezone = "UTC"
+}
+
 resource "healthchecksio_check" "vpn_1" {
   name = "VPN 1"
   desc = "Checks the vpn interface is up"
