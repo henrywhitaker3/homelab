@@ -1,7 +1,7 @@
 ---
 crog_actions:
   - name: LAN connection
-    command: ping -W 2 -c 3 {{ jump[inventory_hostname].backend }}
+    command: nc -z -w 2 {{ jump[inventory_hostname].backend }} 443
     code: 0
     cron: "* * * * *"
     when:
