@@ -28,6 +28,8 @@ charts:
       controller:
         watchIngressWithoutClass: true
         replicaCount: 3
+        config:
+          use-proxy-protocol: true
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
