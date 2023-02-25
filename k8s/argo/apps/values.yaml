@@ -154,7 +154,7 @@ charts:
           annotations: |
             kubernetes.io/tls-acme: "true"
             cert-manager.io/cluster-issuer: letsencrypt-prod
-            nginx.ingress.kubernetes.io/auth-url: "http://auth.plexmox.com/api/verify"
+            nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/verify"
             nginx.ingress.kubernetes.io/auth-signin: "https://consul.plexmox.com/"
           hosts:
             - host: consul.plexmox.com
