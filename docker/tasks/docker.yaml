@@ -6,6 +6,7 @@
     - torrent
     - compose
     - monitoring
+    - authelia
   ansible.builtin.set_fact:
     docker_data_dir: "/home/{{ ansible_user }}/data"
     docker_puid: "{{ ansible_user_uid }}"

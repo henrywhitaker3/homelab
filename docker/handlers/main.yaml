@@ -19,6 +19,11 @@
     - torrent
   ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart qbittorrent"
 
+- name: restart authelia
+  tags:
+    - authelia
+  ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose restart authelia"
+
 - name: restart wg tunnel
   tags:
     - docker

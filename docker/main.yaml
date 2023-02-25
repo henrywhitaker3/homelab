@@ -36,6 +36,8 @@
       ansible.builtin.import_tasks: tasks/swag.yaml
     - name: Torrent
       ansible.builtin.import_tasks: tasks/torrent.yaml
+    - name: Authelia
+      ansible.builtin.import_tasks: tasks/authelia.yaml
     - name: Monitoring
       ansible.builtin.import_tasks: tasks/monitoring.yaml
     - name: Backup

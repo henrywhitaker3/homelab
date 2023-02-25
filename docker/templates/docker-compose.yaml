@@ -195,8 +195,8 @@ services:
         - NET_ADMIN
         - SYS_MODULE
       environment:
-        - PUID=1000
-        - PGID=1000
+        - PUID={{ docker_puid}}
+        - PGID={{ docker_pgid}}
         - TZ={{ docker_tz }}
       volumes:
         - {{ docker_data_dir }}/wireguard-tunnel:/config
@@ -206,6 +206,28 @@ services:
       restart: unless-stopped
       networks:
         homelab:
+
+    authelia:
+      image: authelia/authelia
+      container_name: authelia
+      volumes:
+        - {{ docker_data_dir }}/authelia:/config
+      networks:
+        homelab:
+      restart: unless-stopped
+      environment:
+        - TZ={{ docker_tz }}
+
+    redis:
+      image: redis:alpine
+      container_name: redis
+      volumes:
+        - {{ docker_data_dir}}/redis:/data
+      networks:
+        homelab:
+      restart: unless-stopped
+      environment:
+        - TZ={{ docker_tz }}
 
     #-------------------------------------------#
     # Automation services
