@@ -1,0 +1,19 @@
+- name: Check if route to vpn network exists
+  become: true
+  tags:
+    - monitoring
+    - vpn
+  ansible.builtin.shell: set -o pipefail && ip route list | grep "{{ item }} via 10.0.0.13"
+  args:
+    executable: /usr/bin/bash
+  register: vpn_network_exists
+  failed_when: false
+  changed_when: false
+
+- name: Add route to vpn network
+  become: true
+  tags:
+    - monitoring
+    - vpn
+  ansible.builtin.command: ip route add {{ item }} via 10.0.0.13
+  when: vpn_network_exists.rc != 0

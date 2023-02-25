@@ -26,22 +26,12 @@
     mode: "0664"
   notify: restart prometheus
 
-- name: Check if route to vpn network exists
+- name: Add route to vpn hosts
   tags:
     - monitoring
     - vpn
-  become: true
-  ansible.builtin.shell: set -o pipefail && ip route list | grep "10.8.0.100 via 10.0.0.13"
-  args:
-    executable: /usr/bin/bash
-  register: vpn_network_exists
-  failed_when: false
-  changed_when: false
+  loop:
+    - 10.8.0.100
+    - 10.8.0.150
+  ansible.builtin.include_tasks: routes.yaml
 
-- name: Add route to vpn network
-  become: true
-  tags:
-    - monitoring
-    - vpn
-  ansible.builtin.command: ip route add 10.8.0.100 via 10.0.0.13
-  when: vpn_network_exists.rc != 0

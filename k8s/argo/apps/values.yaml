@@ -141,6 +141,31 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: consul
+    project: apps
+    namespace: consul
+    chart: consul
+    repoUrl: https://helm.releases.hashicorp.com
+    targetRevision: 1.0.4
+    values:
+      ui:
+        ingress:
+          enabled: true
+          hosts:
+            - host: consul.plexmox.com
+              paths:
+                - /
+          tls:
+            - hosts:
+              - consul.plexmox.com
+              secretName: consul-plexmox-com-tls
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
