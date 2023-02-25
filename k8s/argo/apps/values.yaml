@@ -156,8 +156,10 @@ charts:
             cert-manager.io/cluster-issuer: letsencrypt-prod
             nginx.ingress.kubernetes.io/auth-method: GET
             nginx.ingress.kubernetes.io/auth-url: http://auth.plexmox.com/api/verify
+            nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com?rm=$request_method
             nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-            nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+            nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Method $request_method;
           hosts:
             - host: consul.plexmox.com
               paths:
