@@ -34,4 +34,3 @@
     - 10.8.0.100
     - 10.8.0.150
   ansible.builtin.include_tasks: routes.yaml
-
