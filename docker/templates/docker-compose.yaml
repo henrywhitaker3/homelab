@@ -44,29 +44,6 @@ services:
       networks:
         homelab:
 
-    # qbittorrent:
-    #   container_name: qbittorrent
-    #   restart: unless-stopped
-    #   image: markusmcnugen/qbittorrentvpn:latest
-    #   privileged: true
-    #   volumes:
-    #     - {{ docker_data_dir }}/torrent/config:/config
-    #     - /plex/temp:/data/temp
-    #   environment:
-    #     - NAME_SERVERS=8.8.8.8,8.8.4.4
-    #     - LAN_NETWORK=10.0.0.0/24
-    #     - VPN_ENABLED=yes
-    #   cap_add:
-    #     - NET_ADMIN
-    #   healthcheck:
-    #     test: "${DOCKER_HEALTHCHECK_TEST:-curl --fail -s --max-time 15 https://google.com > /dev/null || bash -c 'kill -s 15 -1 && (sleep 10; kill -s 9 -1)'}"
-    #     interval: "60s"
-    #     timeout: "15s"
-    #     start_period: "30s"
-    #     retries: 0
-    #   networks:
-    #     homelab:
-
     transmission:
       image: linuxserver/transmission:latest
       container_name: transmission
@@ -222,10 +199,19 @@ services:
       image: redis:alpine
       container_name: redis
       volumes:
-        - {{ docker_data_dir}}/redis:/data
+        - {{ docker_data_dir }}/redis:/data
       networks:
         homelab:
       restart: unless-stopped
+      environment:
+        - TZ={{ docker_tz }}
+
+    firefox:
+      image: jlesage/firefox
+      volumes:
+        - {{ docker_data_dir }}/firefox:/config
+      networks:
+        homelab:
       environment:
         - TZ={{ docker_tz }}
 
