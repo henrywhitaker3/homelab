@@ -206,15 +206,6 @@ services:
       environment:
         - TZ={{ docker_tz }}
 
-    firefox:
-      image: jlesage/firefox
-      volumes:
-        - {{ docker_data_dir }}/firefox:/config
-      networks:
-        homelab:
-      environment:
-        - TZ={{ docker_tz }}
-
     #-------------------------------------------#
     # Automation services
     #-------------------------------------------#
