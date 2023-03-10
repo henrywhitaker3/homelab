@@ -77,6 +77,17 @@ charts:
     namespace: longhorn
     chart: longhorn
     repoUrl: https://charts.longhorn.io
+    values:
+      ingress:
+        enabled: true
+        host: longhorn.plexmox.com
+        tls: true
+        tlsSecret: longhorn-plexmox-com-tls
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
     targetRevision: 1.4.0
     syncPolicy:
       syncOptions:
