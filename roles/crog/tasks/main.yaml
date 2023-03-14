@@ -22,6 +22,14 @@
   tags: crog
   ansible.builtin.apt:
     deb: "/home/{{ ansible_user }}/{{ crog_deb }}"
+  register: crog_install
+
+- name: Run daemon-reload
+  become: true
+  tags: crog
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: crog_install.changed
 
 - name: Copy over crog config
   become: true
