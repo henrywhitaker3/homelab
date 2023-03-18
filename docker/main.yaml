@@ -28,6 +28,7 @@
     - cifs
     - netdata
     - crog
+    - node_exporter
 
   tasks:
     - name: Docker

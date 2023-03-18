@@ -19,6 +19,7 @@
     - qemu
     - common
     - user
+    - node_exporter
 
   tasks:
     - name: Does install script exist
@@ -66,4 +67,5 @@
       tags: pihole
       become: true
       ansible.builtin.command: "/home/{{ ansible_user }}/pihole.sh --unattended"
+      changed_when: true
       when: not install_script_exists.stat.exists

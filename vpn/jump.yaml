@@ -8,6 +8,7 @@
     - common
     - haproxy_exporter
     - crog
+    - node_exporter
 
   vars_files:
     - ../vars/main.yaml

@@ -12,6 +12,7 @@
   roles:
     - user
     - common
+    - node_exporter
 
   handlers:
     - name: reboot node

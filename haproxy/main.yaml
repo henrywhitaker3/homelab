@@ -13,6 +13,7 @@
     - common
     - vip
     - crog
+    - node_exporter
 
   vars:
     haproxy_version: "2.7"
