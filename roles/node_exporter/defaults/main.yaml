@@ -1,0 +1,23 @@
+---
+node_exporter_version: 1.5.0
+
+node_exporter_install_dir: /opt/node_exporter
+
+node_exporter_user: nodeexp
+
+node_exporter_group: nodeexp
+
+node_exporter_host: "{{ ansible_host }}"
+
+node_exporter_listen_address: "{{ node_exporter_host }}:9100"
+
+node_exporter_telemetry_path: /metrics
+
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"

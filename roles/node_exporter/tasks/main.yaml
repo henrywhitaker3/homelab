@@ -1,0 +1,82 @@
+---
+- name: Create node exporter group
+  tags: node_exporter
+  become: true
+  ansible.builtin.group:
+    name: "{{ node_exporter_group }}"
+    state: present
+    system: true
+
+- name: Create node exporter user
+  tags: node_exporter
+  become: true
+  ansible.builtin.user:
+    name: "{{ node_exporter_user }}"
+    groups: "{{ node_exporter_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+
+- name: Create node exporter directory
+  tags: node_exporter
+  become: true
+  ansible.builtin.file:
+    path: "{{ node_exporter_install_dir }}"
+    state: directory
+    owner: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
+    mode: "0755"
+
+- name: Download node exporter
+  tags: node_exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
+    dest: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: "0755"
+
+- name: Unpack node exporter
+  tags: node_exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter"
+
+- name: Move node export binary to install dir
+  tags: node_export
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter"
+    remote_src: true
+    dest: "{{ node_exporter_install_dir }}/node_exporter"
+    owner: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
+    mode: "0755"
+
+- name: Copy over service file
+  tags: node_exporter
+  become: true
+  ansible.builtin.template:
+    src: templates/node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: node_exporter_service_copied
+  notify: restart node exporter
+
+- name: Reload services
+  tags: node_exporter
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: node_exporter_service_copied
+
+- name: Start and enable node exporter
+  tags: node_exporter
+  become: true
+  ansible.builtin.service:
+    name: node_exporter
+    state: started
+    enabled: true

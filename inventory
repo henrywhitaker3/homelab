@@ -36,8 +36,8 @@ galera-2 ansible_host=10.0.0.17
 galera-3 ansible_host=10.0.0.18
 
 [jump]
-jump-1 ansible_host=167.71.137.12
-jump-k8s ansible_host=165.22.112.190
+jump-1 ansible_host=167.71.137.12 node_exporter_host=10.8.0.100
+jump-k8s ansible_host=165.22.112.190 node_exporter_host=10.8.0.150
 
 [speakers]
 bedroom ansible_host=10.0.0.30
@@ -60,6 +60,7 @@ mariadb
 vpn
 jump
 speakers
+test
 
 [multi:vars]
 ansible_user=henry

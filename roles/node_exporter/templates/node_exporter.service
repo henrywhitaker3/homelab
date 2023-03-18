@@ -1,0 +1,21 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus Node Exporter
+After=network-online.target
+
+[Service]
+Type=simple
+User={{ node_exporter_user }}
+Group={{ node_exporter_group }}
+ExecStart={{ node_exporter_install_dir }}/node_exporter \
+    --web.listen-address={{ node_exporter_listen_address }} \
+    --web.telemetry-path={{ node_exporter_telemetry_path }}
+SyslogIdentifier=node_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
