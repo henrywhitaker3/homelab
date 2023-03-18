@@ -44,6 +44,7 @@ haproxy
 vpn
 jump
 speakers
+proxmox
 
 [multi:vars]
 ansible_user=henry

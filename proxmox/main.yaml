@@ -1,0 +1,7 @@
+---
+- name: Configure proxmox servers
+
+  hosts: proxmox
+
+  roles:
+    - node_exporter
