@@ -25,16 +25,6 @@ lb-2 ansible_host=10.0.0.5
 vpn-1 ansible_host=10.0.0.11
 vpn-2 ansible_host=10.0.0.12
 
-[mariadb]
-mariadb-1 ansible_host=10.0.0.10
-
-[galera_write]
-galera-1 ansible_host=10.0.0.16
-
-[galera_read]
-galera-2 ansible_host=10.0.0.17
-galera-3 ansible_host=10.0.0.18
-
 [jump]
 jump-1 ansible_host=167.71.137.12 node_exporter_host=10.8.0.100
 jump-k8s ansible_host=165.22.112.190 node_exporter_host=10.8.0.150
@@ -46,21 +36,14 @@ bedroom ansible_host=10.0.0.30
 proxmox-1 ansible_host=10.0.0.150 ansible_user=root proxmox_node=1 id_mod=0
 proxmox-2 ansible_host=10.0.0.152 ansible_user=root proxmox_node=2 id_mod=1
 
-[galera:children]
-galera_read
-galera_write
-
 [multi:children]
 pihole
 docker
 k8s_nodes
-galera
 haproxy
-mariadb
 vpn
 jump
 speakers
-test
 
 [multi:vars]
 ansible_user=henry
