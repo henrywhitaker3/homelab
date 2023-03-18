@@ -12,7 +12,7 @@ module "pihole" {
 module "haproxy-1" {
   source = "./vm"
 
-  name   = "haproxy-1"
+  name   = "lb-1"
   image  = local.ubuntu_22_04_8G
   ip     = 4
   memory = 512
@@ -22,7 +22,7 @@ module "haproxy-1" {
 module "haproxy-2" {
   source = "./vm"
 
-  name   = "haproxy-2"
+  name   = "lb-2"
   image  = local.ubuntu_22_04_8G
   ip     = 5
   memory = 512

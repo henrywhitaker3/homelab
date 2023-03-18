@@ -28,3 +28,10 @@ resource "proxmox_vm_qemu" "vm" {
   ipconfig0 = "ip=10.0.0.${var.ip + count.index}/24,gw=10.0.0.1"
   nameserver = var.nameserver
 }
+
+resource "pihole_dns_record" "dns" {
+  count = var.instances
+
+  domain = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}.lab"
+  ip = "10.0.0.${var.ip + count.index}"
+}

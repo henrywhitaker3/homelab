@@ -14,6 +14,11 @@ terraform {
       source  = "kristofferahl/healthchecksio"
       version = "1.9.0"
     }
+
+    pihole = {
+      source = "ryanwholey/pihole"
+      version = "0.0.12"
+    }
   }
 }
 
@@ -33,4 +38,9 @@ provider "digitalocean" {
 
 provider "healthchecksio" {
   api_key = var.healthchecksio_api_key
+}
+
+provider "pihole" {
+  url       = var.pihole_url
+  api_token = var.pihole_api_token
 }
