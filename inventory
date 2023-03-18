@@ -1,40 +1,40 @@
 [pihole]
-pihole-01 ansible_host=10.0.0.2
+pihole.lab ansible_host=10.0.0.2
 
 [docker]
-docker-01 ansible_host=10.0.0.160
+docker.lab ansible_host=10.0.0.160
 
 [k8s_control]
-k8s-control-1 ansible_host=10.0.0.20
-k8s-control-2 ansible_host=10.0.0.21
-k8s-control-3 ansible_host=10.0.0.22
+k8s-control-1.lab ansible_host=10.0.0.20
+k8s-control-2.lab ansible_host=10.0.0.21
+k8s-control-3.lab ansible_host=10.0.0.22
 
 [k8s_workers]
-k8s-worker-1 ansible_host=10.0.0.23
-k8s-worker-2 ansible_host=10.0.0.24
+k8s-worker-1.lab ansible_host=10.0.0.23
+k8s-worker-2.lab ansible_host=10.0.0.24
 
 [k8s_nodes:children]
 k8s_control
 k8s_workers
 
 [haproxy]
-lb-1 ansible_host=10.0.0.4
-lb-2 ansible_host=10.0.0.5
+lb-1.lab ansible_host=10.0.0.4
+lb-2.lab ansible_host=10.0.0.5
 
 [vpn]
-vpn-1 ansible_host=10.0.0.11
-vpn-2 ansible_host=10.0.0.12
+vpn-1.lab ansible_host=10.0.0.11
+vpn-2.lab ansible_host=10.0.0.12
 
 [jump]
-jump-1 ansible_host=167.71.137.12 node_exporter_host=10.8.0.100
-jump-k8s ansible_host=165.22.112.190 node_exporter_host=10.8.0.150
+jump.lab ansible_host=167.71.137.12 node_exporter_host=10.8.0.100
+jump-k8s.lab ansible_host=165.22.112.190 node_exporter_host=10.8.0.150
 
 [speakers]
-bedroom ansible_host=10.0.0.30
+bedroom.lab ansible_host=10.0.0.30
 
 [proxmox]
-proxmox-1 ansible_host=10.0.0.150 ansible_user=root proxmox_node=1 id_mod=0
-proxmox-2 ansible_host=10.0.0.152 ansible_user=root proxmox_node=2 id_mod=1
+proxmox-1.lab ansible_host=10.0.0.150 ansible_user=root proxmox_node=1 id_mod=0
+proxmox-2.lab ansible_host=10.0.0.152 ansible_user=root proxmox_node=2 id_mod=1
 
 [multi:children]
 pihole
