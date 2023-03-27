@@ -5,3 +5,5 @@ vip_auth_enabled: false
 vip_auth_pass: ""
 
 vip_priority_host: ""
+
+vip_router_id: 1
