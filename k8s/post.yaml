@@ -1,7 +1,7 @@
 ---
 - name: Configure k8s admin server
 
-  hosts: k8s-control-1
+  hosts: k8s-control-1.lab
 
   roles:
     - k8s_tools
