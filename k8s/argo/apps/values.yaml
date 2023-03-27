@@ -152,36 +152,6 @@ charts:
         prune: true
         selfHeal: true
 
-  # - name: consul
-  #   project: apps
-  #   namespace: consul
-  #   chart: consul
-  #   repoUrl: https://helm.releases.hashicorp.com
-  #   targetRevision: 1.0.4
-  #   values:
-  #     ui:
-  #       ingress:
-  #         enabled: true
-  #         annotations: |
-  #           kubernetes.io/tls-acme: "true"
-  #           cert-manager.io/cluster-issuer: letsencrypt-prod
-  #           nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
-  #           nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
-  #         hosts:
-  #           - host: consul.plexmox.com
-  #             paths:
-  #               - /
-  #         tls:
-  #           - hosts:
-  #             - consul.plexmox.com
-  #             secretName: consul-plexmox-com-tls
-  #   syncPolicy:
-  #     syncOptions:
-  #       - CreateNamespace=true
-  #     automated:
-  #       prune: true
-  #       selfHeal: true
-
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
