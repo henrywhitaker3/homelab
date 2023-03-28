@@ -15,6 +15,8 @@ argo-cd:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
       # -- Additional ingress labels
       labels: {}
       # -- Defines which ingress controller will implement the resource
