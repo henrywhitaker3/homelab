@@ -118,8 +118,8 @@ charts:
             hosts:
               - drone.plexmox.com
 
-        updateStrategy:
-          type: Recreate
+      updateStrategy:
+        type: Recreate
 
       extraSecretNamesForEnvFrom:
         - drone-secrets
