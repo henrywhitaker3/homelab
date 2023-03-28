@@ -240,6 +240,21 @@ services:
       networks:
         homelab:
 
+    rundeck:
+      container_name: rundeck
+      restart: unless-stopped
+      image: rundeck/rundeck:4.11.0
+      volumes:
+        - {{ docker_data_dir }}/rundeck:/home/rundeck/server/data
+      environment:
+        - RUNDECK_DATABASE_DRIVER=org.mariadb.jdbc.Driver
+        - RUNDECK_DATABASE_USERNAME={{ rundeck.db.username }}
+        - RUNDECK_DATABASE_PASSWORD={{ rundeck.db.password }}
+        - RUNDECK_DATABASE_URL={{ rundeck.db.url }}
+        - RUNDECK_GRAILS_URL=https://rundeck.plexmox.com
+      networks:
+        homelab:
+
     #-------------------------------------------#
     # Montioring services
     #-------------------------------------------#
