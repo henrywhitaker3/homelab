@@ -237,8 +237,6 @@ services:
         - DRONE_RPC_SECRET={{ drone.rpc_secret }}
         - DRONE_RUNNER_CAPACITY=4
         - DRONE_RUNNER_NAME=docker
-      networks:
-        homelab:
 
     rundeck:
       container_name: rundeck
