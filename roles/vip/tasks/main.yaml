@@ -15,6 +15,18 @@
     name: keepalived
     state: latest
 
+- name: Copy over check script
+  become: true
+  tags: vip
+  ansible.builtin.copy:
+    content: "{{ vip_check_script }}"
+    dest: "{{ vip_check_script_location }}"
+    owner: root
+    group: root
+    mode: "0755"
+  when: vip_check_script_enabled
+  notify: restart keepalived
+
 - name: Copy keepalived config
   become: true
   tags: vip

@@ -7,3 +7,12 @@ vip_auth_pass: ""
 vip_priority_host: ""
 
 vip_router_id: 1
+
+vip_check_script_enabled: false
+
+vip_check_script: ""
+vip_check_script_location: "/etc/keepalived/vip_check.sh"
+
+vip_check_rise: 2
+vip_check_fall: 2
+vip_check_interval: 2
