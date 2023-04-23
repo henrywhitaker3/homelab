@@ -11,3 +11,11 @@ lint:
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
     - task lint PLAYBOOK=$PLAYBOOK
+
+deploy:
+  stage: deploy
+  script:
+    - echo Deploying $PLAYBOOK
+  parallel:
+    matrix:
+      - PLAYBOOK: [docker/main.yaml]
