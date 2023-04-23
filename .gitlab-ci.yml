@@ -32,6 +32,8 @@ ansible play:
     - task drone-playbook PLAYBOOK=$PLAYBOOK VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
   only:
     - main
+  environment:
+    name: "$PLAYBOOK"
 
 
 #############
