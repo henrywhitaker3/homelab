@@ -1,5 +1,6 @@
 stages:
   - lint
+  - deploy
 
 image: henrywhitaker3/ansible-terraform
 
