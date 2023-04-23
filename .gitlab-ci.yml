@@ -17,12 +17,9 @@ image: henrywhitaker3/ansible-terraform
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - $PLAYBOOK/main.yaml
+        - $PLAYBOOK/*
         - $PLAYBOOK/**/*
         - roles/**/*
-    - if: $CI_COMMIT_BRANCH == "main"
-      changes:
-        - $PLAYBOOK/*
 
 ansible lint:
   stage: stage
