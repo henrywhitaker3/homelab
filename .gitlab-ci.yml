@@ -13,6 +13,15 @@ image: henrywhitaker3/ansible-terraform
   parallel:
     matrix:
       - PLAYBOOK: [docker, vpn, k8s, haproxy, speakers, pihole]
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - $PLAYBOOK/*
+        - roles/**/*
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - $PLAYBOOK/*
 
 ansible lint:
   stage: stage
@@ -20,8 +29,6 @@ ansible lint:
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
     - task lint PLAYBOOK=$PLAYBOOK/main.yaml
-  only:
-    - main
 
 ansible play:
   stage: deploy
@@ -29,8 +36,6 @@ ansible play:
   script:
     - eval $(ssh-agent -s)
     - task drone-playbook PLAYBOOK=$PLAYBOOK/main.yaml VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
-  only:
-    - main
   environment:
     name: "$PLAYBOOK"
 
