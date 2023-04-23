@@ -82,12 +82,15 @@ tf deploy:
 ##########
 # Docker #
 ##########
-build:
+build docker image:
   stage: deploy
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.2
+    entrypoint: [""]
   script:
-    - echo $DOCKER_TOKEN | docker login --username henrywhitaker3 --password-stdin
-    - docker build . -f Dockerfile --tag henrywhitaker3/ansible-terraform
-    - docker push henrywhitaker3/ansible-terraform
+    - |
+        echo "{\"auths\": {\"https://index.docker.io/v1/\": {\"auth\": \"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "henrywhitaker3/ansible-terraform:latest"
