@@ -26,12 +26,12 @@ variable "proxmox_token" {
 }
 
 variable "pihole_url" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "pihole_api_token" {
-  type = string
-  default = ""
+  type      = string
+  default   = ""
   sensitive = true
 }
