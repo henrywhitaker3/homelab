@@ -17,7 +17,7 @@ image: henrywhitaker3/ansible-terraform
 
 ansible lint:
   stage: lint
-  extends: .playbook
+  extends: .playbooks
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
     - task lint PLAYBOOK=k8s/main.yaml
