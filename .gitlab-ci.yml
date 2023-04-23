@@ -78,3 +78,16 @@ tf deploy:
   only:
     - main
   when: manual
+
+##########
+# Docker #
+##########
+build:
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - echo $DOCKER_TOKEN | docker login --username henrywhitaker3 --password-stdin
+    - docker build . -f Dockerfile --tag henrywhitaker3/ansible-terraform
+    - docker push henrywhitaker3/ansible-terraform
