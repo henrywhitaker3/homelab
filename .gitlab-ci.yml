@@ -52,6 +52,10 @@ ansible play:
           -backend-config="lock_method=POST" \
           -backend-config="unlock_method=DELETE" \
           -backend-config="retry_wait_min=5"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - terraform/*
 
 tf plan:
   stage: stage
@@ -62,8 +66,6 @@ tf plan:
   artifacts:
     paths:
       - terraform/planfile
-  only:
-    - main
 
 tf deploy:
   stage: deploy
@@ -75,8 +77,6 @@ tf deploy:
     - tf plan
   environment:
     name: infra
-  only:
-    - main
   when: manual
 
 ##########
