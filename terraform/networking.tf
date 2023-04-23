@@ -48,3 +48,13 @@ module "vpn-2" {
   memory = 512
   node   = 2
 }
+
+module "lunar" {
+  source = "./vm"
+
+  name   = "lunar"
+  image  = local.ubuntu_23_04_8G
+  ip     = 55
+  memory = 512
+  node   = 2
+}
