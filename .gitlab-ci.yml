@@ -21,7 +21,9 @@ ansible lint:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
     - task lint PLAYBOOK=$PLAYBOOK/main.yaml
   only:
-    - main
+    variables:
+      - CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'main'
+      - $CI_COMMIT_MESSAGE =~ /^infra .*$/
 
 ansible play:
   stage: deploy
@@ -30,7 +32,9 @@ ansible play:
     - eval $(ssh-agent -s)
     - task drone-playbook PLAYBOOK=$PLAYBOOK/main.yaml VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
   only:
-    - main
+    variables:
+      - CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'main'
+      - $CI_COMMIT_MESSAGE =~ /^play .*$/
   environment:
     name: "$PLAYBOOK"
 
@@ -63,7 +67,9 @@ tf plan:
     paths:
       - terraform/planfile
   only:
-    - main
+    variables:
+      - CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'main'
+      - $CI_COMMIT_MESSAGE =~ /^infra .*$/
 
 tf deploy:
   stage: deploy
@@ -76,5 +82,7 @@ tf deploy:
   environment:
     name: infra
   only:
-    - main
+    variables:
+      - CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'main'
+      - $CI_COMMIT_MESSAGE =~ /^infra .*$/
   when: manual
