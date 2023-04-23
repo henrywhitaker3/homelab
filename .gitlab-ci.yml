@@ -85,7 +85,7 @@ tf deploy:
 build docker image:
   stage: deploy
   image:
-    name: gcr.io/kaniko-project/executor:v1.9.2
+    name: gcr.io/kaniko-project/executor:v1.9.2-debug
     entrypoint: [""]
   script:
     - |
