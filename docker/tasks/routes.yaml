@@ -17,3 +17,4 @@
     - vpn
   ansible.builtin.command: ip route add {{ item }} via 10.0.0.13
   when: vpn_network_exists.rc != 0
+  changed_when: vpn_network_exists.rc != 0
