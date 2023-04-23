@@ -22,7 +22,7 @@ ansible lint:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
     - task lint PLAYBOOK=k8s/main.yaml
   only:
-    - merge_request
+    - main
 
 ansible play:
   stage: deploy
@@ -62,7 +62,6 @@ tf plan:
     paths:
       - terraform/planfile
   only:
-    - merge_request
     - main
 
 tf deploy:
