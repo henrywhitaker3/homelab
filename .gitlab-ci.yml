@@ -72,6 +72,9 @@ tf init:
       -backend-config="lock_method=POST" \
       -backend-config="unlock_method=DELETE" \
       -backend-config="retry_wait_min=5"
+  only:
+    - merge_request
+    - main
 
 tf validate:
   stage: lint
@@ -80,6 +83,8 @@ tf validate:
     - .terraform:cache:pull
   script:
     - terraform validate
+  only:
+    - merge_request
 
 tf plan:
   stage: plan
@@ -91,6 +96,9 @@ tf plan:
   artifacts:
     paths:
       - terraform/planfile
+  only:
+    - merge_request
+    - main
 
 tf deploy:
   stage: deploy
@@ -103,3 +111,6 @@ tf deploy:
     - tf plan
   environment:
     name: home
+  only:
+    - main
+  when: manual
