@@ -6,7 +6,7 @@ image: henrywhitaker3/ansible-terraform
 .playbooks:
   parallel:
     matrix:
-      PLAYBOOK: [docker/main.yaml, vpn/main.yaml, k8s/main.yaml, haproxy/main.yaml, speakers/main.yaml, proxmox/main.yaml, pihole/main.yaml]
+      - PLAYBOOK: [docker/main.yaml, vpn/main.yaml, k8s/main.yaml, haproxy/main.yaml, speakers/main.yaml, proxmox/main.yaml, pihole/main.yaml]
 
 ansible lint:
   stage: lint
