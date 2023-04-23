@@ -93,4 +93,5 @@ build docker image:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "henrywhitaker3/ansible-terraform:latest"
-  when: manual
+  rules:
+    - if: $BUILD_DOCKER_IMAGES=true && $CI_COMMIT_BRANCH == 'main'
