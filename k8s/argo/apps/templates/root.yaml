@@ -27,7 +27,7 @@ spec:
   project: cluster
   source:
     path: k8s/argo/apps
-    repoURL: https://github.com/henrywhitaker3/homelab.git
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
     helm:
       valueFiles:
