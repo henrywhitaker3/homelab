@@ -12,14 +12,14 @@ image: henrywhitaker3/ansible-terraform
     ANSIBLE_CONFIG: ./ansible.cfg
   parallel:
     matrix:
-      - PLAYBOOK: [docker/main.yaml, vpn/main.yaml, k8s/main.yaml, haproxy/main.yaml, speakers/main.yaml, pihole/main.yaml]
+      - PLAYBOOK: [docker, vpn, k8s, haproxy, speakers, pihole]
 
 ansible lint:
   stage: stage
   extends: .playbooks
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
-    - task lint PLAYBOOK=$PLAYBOOK
+    - task lint PLAYBOOK=$PLAYBOOK/main.yaml
   only:
     - main
 
@@ -28,7 +28,7 @@ ansible play:
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=$PLAYBOOK VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=$PLAYBOOK/main.yaml VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
   only:
     - main
   environment:
@@ -74,7 +74,7 @@ tf deploy:
   dependencies:
     - tf plan
   environment:
-    name: home
+    name: infra
   only:
     - main
   when: manual
