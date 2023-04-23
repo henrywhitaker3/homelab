@@ -88,8 +88,7 @@ build docker image:
     name: gcr.io/kaniko-project/executor:v1.9.2-debug
     entrypoint: [""]
   script:
-    - |
-        echo "{\"auths\": {\"https://index.docker.io/v1/\": {\"auth\": \"$DOCKER_TOKEN\"}}}" > /kaniko/.docker/config.json
+    - echo $DOCKER_TOKEN | base64 -d > /kaniko/.docker/config.json
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
