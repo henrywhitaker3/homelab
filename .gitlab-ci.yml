@@ -1,6 +1,5 @@
 stages:
-  - lint
-  - plan
+  - stage
   - deploy
 
 image: henrywhitaker3/ansible-terraform
@@ -16,7 +15,7 @@ image: henrywhitaker3/ansible-terraform
       - PLAYBOOK: [docker/main.yaml, vpn/main.yaml, k8s/main.yaml, haproxy/main.yaml, speakers/main.yaml, pihole/main.yaml]
 
 ansible lint:
-  stage: lint
+  stage: stage
   extends: .playbooks
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
@@ -55,7 +54,7 @@ ansible play:
           -backend-config="retry_wait_min=5"
 
 tf plan:
-  stage: plan
+  stage: stage
   extends:
     - .terraform:base
   script:
