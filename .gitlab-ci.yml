@@ -17,7 +17,8 @@ image: henrywhitaker3/ansible-terraform
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - $PLAYBOOK/*
+        - $PLAYBOOK/main.yaml
+        - $PLAYBOOK/**/*
         - roles/**/*
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
