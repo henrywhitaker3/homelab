@@ -1,7 +1,10 @@
 stages:
   - lint
 
+image: henrywhitaker3/ansible-terraform
+
 lint:
+  stage: lint
   parallel:
     matrix:
       - PLAYBOOK: [docker/main.yaml]
