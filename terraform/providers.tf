@@ -20,6 +20,9 @@ terraform {
       version = "0.0.12"
     }
   }
+
+  backend "http" {
+  }
 }
 
 provider "proxmox" {
