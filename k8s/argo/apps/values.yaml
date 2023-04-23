@@ -155,6 +155,24 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: gitlab-runner
+    project: apps
+    namespace: gitlab-runner
+    chart: gitlab-runner
+    repoUrl: https://charts.gitlab.io
+    targetRevision: 0.52.0
+    values:
+      concurrent: 10
+
+      runners:
+        secret: gitlab-runner-secret
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
