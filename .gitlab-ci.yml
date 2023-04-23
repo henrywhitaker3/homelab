@@ -63,15 +63,16 @@ tf init:
     - .terraform:base
     - .terraform:cache:push
   script:
-    - terraform init \
-      -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state" \
-      -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
-      -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
-      -backend-config="username=henrywhitaker3" \
-      -backend-config="password=$GITLAB_ACCESS_TOKEN" \
-      -backend-config="lock_method=POST" \
-      -backend-config="unlock_method=DELETE" \
-      -backend-config="retry_wait_min=5"
+    - |
+      terraform init \
+          -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state" \
+          -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
+          -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
+          -backend-config="username=henrywhitaker3" \
+          -backend-config="password=$TERRAFORM_ACCESS_TOKEN" \
+          -backend-config="lock_method=POST" \
+          -backend-config="unlock_method=DELETE" \
+          -backend-config="retry_wait_min=5"
   only:
     - merge_request
     - main
