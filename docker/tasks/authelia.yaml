@@ -36,3 +36,7 @@
     owner: root
     group: root
   notify: restart authelia
+
+- name: debug
+  debug:
+    msg: "hello"
