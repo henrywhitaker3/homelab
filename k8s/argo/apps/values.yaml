@@ -163,7 +163,7 @@ charts:
     targetRevision: 0.52.0
     values:
       concurrent: 10
-
+      gitlabUrl: https://gitlab.com
       runners:
         secret: gitlab-runner-secret
     syncPolicy:
