@@ -94,4 +94,4 @@ build docker image:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "henrywhitaker3/ansible-terraform:latest"
   rules:
-    - if: $BUILD_DOCKER_IMAGES=true && $CI_COMMIT_BRANCH == 'main'
+    - if: $BUILD_DOCKER_IMAGES == "true" && $CI_COMMIT_BRANCH == "main"
