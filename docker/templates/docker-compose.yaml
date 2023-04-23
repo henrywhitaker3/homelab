@@ -207,22 +207,6 @@ services:
         - TZ={{ docker_tz }}
 
     #-------------------------------------------#
-    # Automation services
-    #-------------------------------------------#
-    drone_runner:
-      container_name: drone_runner
-      restart: unless-stopped
-      image: drone/drone-runner-docker:1
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-      environment:
-        - DRONE_RPC_HOST=drone.plexmox.com
-        - DRONE_RPC_PROTO=https
-        - DRONE_RPC_SECRET={{ drone.rpc_secret }}
-        - DRONE_RUNNER_CAPACITY=4
-        - DRONE_RUNNER_NAME=docker
-
-    #-------------------------------------------#
     # Montioring services
     #-------------------------------------------#
     prometheus:
