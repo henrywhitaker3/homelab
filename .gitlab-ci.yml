@@ -15,7 +15,7 @@ lint:
 deploy:
   stage: deploy
   script:
-    - echo Deploying $PLAYBOOK
+    - echo Deploying $PLAYBOOK to lan
   parallel:
     matrix:
       - PLAYBOOK: [docker/main.yaml]
