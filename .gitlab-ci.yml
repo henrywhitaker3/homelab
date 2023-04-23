@@ -1,5 +1,4 @@
 stages:
-  - init
   - lint
   - plan
   - deploy
@@ -42,27 +41,6 @@ ansible play:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   before_script:
     - cd terraform
-
-.terraform:cache:push:
-  cache:
-    key: TF_CACHE
-    paths:
-      - terraform/.terraform
-    policy: push
-
-.terraform:cache:pull:
-  cache:
-    key: TF_CACHE
-    paths:
-      - terraform/.terraform
-    policy: pull
-
-tf init:
-  stage: init
-  extends:
-    - .terraform:base
-    - .terraform:cache:push
-  script:
     - |
       terraform init \
           -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state" \
@@ -73,25 +51,11 @@ tf init:
           -backend-config="lock_method=POST" \
           -backend-config="unlock_method=DELETE" \
           -backend-config="retry_wait_min=5"
-  only:
-    - merge_request
-    - main
-
-tf validate:
-  stage: lint
-  extends:
-    - .terraform:base
-    - .terraform:cache:pull
-  script:
-    - terraform validate
-  only:
-    - merge_request
 
 tf plan:
   stage: plan
   extends:
     - .terraform:base
-    - .terraform:cache:pull
   script:
     - terraform plan -out planfile
   artifacts:
@@ -105,7 +69,6 @@ tf deploy:
   stage: deploy
   extends:
     - .terraform:base
-    - .terraform:cache:pull
   script:
     - terraform apply -auto-approve planfile
   dependencies:
