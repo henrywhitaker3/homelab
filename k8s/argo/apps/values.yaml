@@ -166,6 +166,8 @@ charts:
       gitlabUrl: https://gitlab.com
       runners:
         secret: gitlab-runner-secret
+      rbac:
+        create: true
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
