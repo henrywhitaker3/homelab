@@ -20,7 +20,7 @@ ansible lint:
   extends: .playbooks
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
-    - task lint PLAYBOOK=k8s/main.yaml
+    - task lint PLAYBOOK=$PLAYBOOK
   only:
     - main
 
@@ -29,7 +29,7 @@ ansible play:
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=docker/main.yaml TARGET_IPS="10.0.0.160" VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=$PLAYBOOK VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
   only:
     - main
 
