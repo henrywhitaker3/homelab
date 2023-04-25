@@ -59,6 +59,8 @@ ansible play:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
         - terraform/*
+    - if: $SKIP_TERRAFORM == "true"
+      when: never
 
 tf plan:
   stage: stage
@@ -98,3 +100,5 @@ build docker image:
       --destination "henrywhitaker3/ansible-terraform:latest"
   rules:
     - if: ($BUILD_DOCKER_IMAGES == "true") && $CI_COMMIT_BRANCH == "main"
+    - if: $SKIP_DOCKER_IMAGES == "true"
+      when: never
