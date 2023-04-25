@@ -92,12 +92,13 @@
         remote_src: true
         owner: "{{ ansible_user }}"
         mode: "0600"
+      changed_when: false
 
     - name: Configure kubectl cluster to {{ endpoint_url }}
       ansible.builtin.command: >-
         k3s kubectl config set-cluster default
           --server={{ endpoint_url }}
           --kubeconfig /home/{{ ansible_user }}/.kube/config
-      changed_when: true
+      changed_when: false
       vars:
         endpoint_url: https://10.0.0.6:6443
