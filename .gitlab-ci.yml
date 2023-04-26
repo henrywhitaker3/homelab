@@ -56,7 +56,7 @@ ansible play:
           -backend-config="unlock_method=DELETE" \
           -backend-config="retry_wait_min=5"
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "main" && $SKIP_TERRAFORM != "true"
       changes:
         - terraform/*
     - if: $SKIP_TERRAFORM == "true"
