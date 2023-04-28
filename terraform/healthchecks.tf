@@ -21,7 +21,8 @@ resource "healthchecksio_check" "docker_backup" {
   ]
 
   grace   = 3600 # seconds
-  timeout = 604800
+  schedule = "30 4 * * *"
+  timezone = "UTC"
 }
 
 resource "healthchecksio_check" "speedtest" {
