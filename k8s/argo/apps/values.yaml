@@ -10,7 +10,7 @@ charts:
     namespace: metallb
     chart: metallb
     repoUrl: https://metallb.github.io/metallb
-    targetRevision: 0.13.7
+    targetRevision: 0.13.9
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
@@ -45,7 +45,7 @@ charts:
     namespace: cert-manager
     chart: cert-manager
     repoUrl: https://charts.jetstack.io
-    targetRevision: 1.9.1
+    targetRevision: 1.11.1
     values:
       installCRDs: true
     syncPolicy:
@@ -60,7 +60,7 @@ charts:
     namespace: kube-system
     chart: sealed-secrets
     repoUrl: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 2.6.9
+    targetRevision: 2.8.2
     values:
       image:
         registry: docker.io
@@ -88,7 +88,7 @@ charts:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
           nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
-    targetRevision: 1.4.0
+    targetRevision: 1.4.1
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
@@ -116,22 +116,22 @@ charts:
         prune: true
         selfHeal: true
 
-  # - name: rancher
-  #   project: cluster
-  #   namespace: cattle-system
-  #   chart: rancher
-  #   repoUrl: https://releases.rancher.com/server-charts/stable
-  #   targetRevision: 2.7.1
-  #   values:
-  #     hostname: rancher.plexmox.com
-  #     ingress:
-  #       tls:
-  #         source: letsEncrypt
-  #     letsEncrypt:
-  #       email: no-reply@plexmox.com
-  #   syncPolicy:
-  #     syncOptions:
-  #       - CreateNamespace=true
-  #     automated:
-  #       prune: true
-  #       selfHeal: true
+  - name: rancher
+    project: cluster
+    namespace: cattle-system
+    chart: rancher
+    repoUrl: https://releases.rancher.com/server-charts/stable
+    targetRevision: 2.7.3
+    values:
+      hostname: rancher.plexmox.com
+      ingress:
+        tls:
+          source: letsEncrypt
+      letsEncrypt:
+        email: no-reply@plexmox.com
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
