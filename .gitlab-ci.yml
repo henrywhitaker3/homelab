@@ -20,6 +20,8 @@ image: henrywhitaker3/ansible-terraform
         - $PLAYBOOK/*
         - $PLAYBOOK/**/*
         - roles/**/*
+    - if: $SKIP_ANSIBLE == "true"
+      when: never
 
 ansible lint:
   stage: stage
