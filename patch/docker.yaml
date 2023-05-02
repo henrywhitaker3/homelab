@@ -1,0 +1,33 @@
+---
+- name: Patch docker
+
+  hosts: docker
+
+  serial: 1
+
+  tasks:
+    - name: Stop running containers
+      ansible.builtin.command:
+        chdir: "/home/{{ ansible_user }}"
+        cmd: docker compose down
+      changed_when: true
+
+    - name: Apt upgrade
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+
+    - name: Reboot server
+      become: true
+      ansible.builtin.reboot:
+
+    - name: Start up containers
+      ansible.builtin.command:
+        chdir: "/home/{{ ansible_user }}"
+        cmd: docker compose up -d
+      changed_when: true
+      retries: 15
+      delay: 5
+      register: dc_up
+      until: dc_up.rc == 0

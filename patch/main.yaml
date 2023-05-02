@@ -1,0 +1,11 @@
+---
+- name: Patch docker
+  ansible.builtin.import_playbook: docker.yaml
+- name: Patch pihole
+  ansible.builtin.import_playbook: pihole.yaml
+- name: Patch ha servers
+  ansible.builtin.import_playbook: ha.yaml
+- name: Patch generic ubuntu servers
+  ansible.builtin.import_playbook: generic.yaml
+- name: Patch k8s nodes
+  ansible.builtin.import_playbook: k8s.yaml

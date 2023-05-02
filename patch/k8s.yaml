@@ -1,0 +1,59 @@
+---
+- name: Patch k8s nodes
+
+  hosts: k8s_nodes
+
+  serial: 1
+
+  tasks:
+    - name: Get node name
+      ansible.builtin.command:
+        cmd: cat /etc/hostname
+      register: node_name
+      changed_when: false
+
+    - name: Cordon node
+      ansible.builtin.command:
+        cmd: "kubectl cordon {{ node_name.stdout }}"
+      changed_when: true
+      delegate_to: localhost
+
+    - name: Drain node
+      ansible.builtin.command:
+        cmd: "kubectl drain --ignore-daemonsets --delete-emptydir-data {{ node_name.stdout }}"
+      changed_when: true
+      delegate_to: localhost
+
+    - name: Stop k3s service
+      become: true
+      ansible.builtin.service:
+        name: k3s
+        state: stopped
+
+    - name: Apt upgrade
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+
+    - name: Reboot node
+      become: true
+      ansible.builtin.reboot:
+        reboot_timeout: 3600
+
+    - name: Start k3s service
+      become: true
+      ansible.builtin.service:
+        name: k3s
+        state: started
+        enabled: true
+      register: k3s_service
+      until: k3s_service.status.ActiveState == "active"
+      retries: 15
+      delay: 5
+
+    - name: Uncordon node
+      ansible.builtin.command:
+        cmd: "kubectl uncordon {{ node_name.stdout }}"
+      changed_when: true
+      delegate_to: localhost

@@ -1,0 +1,32 @@
+---
+- name: Patch HA servers
+
+  hosts:
+    - vpn
+    - haproxy
+
+  serial: 1
+
+  tasks:
+    - name: Stop keepalived
+      become: true
+      ansible.builtin.service:
+        name: keepalived
+        state: stopped
+
+    - name: Apt upgrade
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+
+    - name: Reboot server
+      become: true
+      ansible.builtin.reboot:
+
+    - name: Start keepalived
+      become: true
+      ansible.builtin.service:
+        name: keepalived
+        state: started
+        enabled: true

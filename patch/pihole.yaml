@@ -1,0 +1,23 @@
+---
+- name: Patch pihole
+
+  hosts: pihole
+
+  serial: 1
+
+  tasks:
+    - name: Update pihole
+      become: true
+      ansible.builtin.command:
+        cmd: pihole -up
+      changed_when: true
+
+    - name: Apt upgrade
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+
+    - name: Reboot server
+      become: true
+      ansible.builtin.reboot:
