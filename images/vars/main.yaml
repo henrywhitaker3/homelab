@@ -16,6 +16,16 @@ templates:
     params:
       id: 18000
       size: 8G
+  - name: ubuntu-23.04-cloud-25G
+    source: ubuntu-23.04
+    params:
+      id: 19000
+      size: 25G
+  - name: ubuntu-23.04-cloud-100G
+    source: ubuntu-23.04
+    params:
+      id: 20000
+      size: 100G
   - name: ubuntu-22.04-cloud-8G
     source: ubuntu-22.04
     params:

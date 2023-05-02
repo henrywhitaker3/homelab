@@ -1,7 +1,9 @@
 ---
 - name: Patch generic ubuntu server
 
-  hosts: jump
+  hosts:
+    - jump
+    - speakers
 
   serial: 1
 
