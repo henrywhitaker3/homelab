@@ -12,7 +12,13 @@ image: henrywhitaker3/ansible-terraform
     ANSIBLE_CONFIG: ./ansible.cfg
   parallel:
     matrix:
-      - PLAYBOOK: [docker, vpn, k8s, haproxy, speakers, pihole]
+      - PLAYBOOK:
+        - docker
+        - vpn
+        - k8s
+        - haproxy
+        - speakers
+        - pihole
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main"
@@ -20,6 +26,7 @@ image: henrywhitaker3/ansible-terraform
         - $PLAYBOOK/*
         - $PLAYBOOK/**/*
         - roles/**/*
+        - inventory
     - if: $SKIP_ANSIBLE == "true"
       when: never
 
