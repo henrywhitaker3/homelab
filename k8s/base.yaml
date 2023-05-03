@@ -32,6 +32,12 @@
         group: root
         mode: "0755"
 
+    - name: Setup k3s bash completion
+      become: true
+      ansible.builtin.shell:
+        cmd: k3s completion bash > /etc/bash_completion.d/k3s
+        creates: /etc/bash_completion.d/k3s
+
     - name: Set sysctl for pod networking
       become: true
       tags:
