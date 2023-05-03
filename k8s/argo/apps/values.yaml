@@ -122,6 +122,8 @@ charts:
     chart: descheduler
     repoUrl: https://kubernetes-sigs.github.io/descheduler
     targetRevision: 0.26.1
+    values:
+      schedule: "*/10 * * * *"
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
