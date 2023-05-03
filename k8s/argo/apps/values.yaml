@@ -116,6 +116,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: descheduler
+    project: cluster
+    namespace: kube-system
+    chart: descheduler
+    repoUrl: https://kubernetes-sigs.github.io/descheduler
+    targetRevision: 0.26.1
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
