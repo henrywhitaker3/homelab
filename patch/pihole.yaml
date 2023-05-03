@@ -18,6 +18,12 @@
         update_cache: true
         upgrade: true
 
+    - name: Check if reboot required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
     - name: Reboot server
       become: true
       ansible.builtin.reboot:
+      when: reboot_required.stat.exists

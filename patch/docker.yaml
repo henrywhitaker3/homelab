@@ -18,9 +18,21 @@
         update_cache: true
         upgrade: true
 
+    - name: Check if reboot required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
     - name: Reboot server
       become: true
       ansible.builtin.reboot:
+      when: reboot_required.stat.exists
+
+    - name: Pull latest images
+      ansible.builtin.command:
+        chdir: "/home/{{ ansible_user }}"
+        cmd: docker compose pull
+      changed_when: true
 
     - name: Start up containers
       ansible.builtin.command:

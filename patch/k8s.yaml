@@ -36,10 +36,16 @@
         update_cache: true
         upgrade: true
 
+    - name: Check if reboot required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
     - name: Reboot node
       become: true
       ansible.builtin.reboot:
         reboot_timeout: 3600
+      when: reboot_required.stat.exists
 
     - name: Start k3s service
       become: true
