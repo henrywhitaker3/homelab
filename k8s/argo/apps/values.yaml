@@ -150,6 +150,11 @@ charts:
     path: smb
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
+    values:
+      creds:
+        secretName: smb-creds
+        namespace: kube-system
+      host: //10.0.0.9/pvcs
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
