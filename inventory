@@ -12,6 +12,7 @@ k8s-control-3.lab ansible_host=10.0.0.22
 [k8s_workers]
 k8s-worker-1.lab ansible_host=10.0.0.23
 k8s-worker-2.lab ansible_host=10.0.0.24
+k8s-worker-3.lab ansible_host=10.0.0.28
 
 [k8s_nodes:children]
 k8s_control

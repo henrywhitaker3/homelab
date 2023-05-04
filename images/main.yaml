@@ -7,7 +7,9 @@
     - vars/main.yaml
 
   vars:
-    template_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrIf/4nqWVI4A2G10rHav1X7951wG+5ZfmXiDYhwEik henry@laptop
+    template_ssh_key: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrIf/4nqWVI4A2G10rHav1X7951wG+5ZfmXiDYhwEik henry@laptop
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
 
   tasks:
     - name: Install dependencies
