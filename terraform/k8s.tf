@@ -52,3 +52,14 @@ module "k8s-worker-2" {
   memory = 4096
   node   = 1
 }
+
+module "k8s-worker-3" {
+  source = "./vm"
+
+  name   = "k8s-worker-3"
+  image  = local.ubuntu_22_04_100G
+  ip     = 28
+  cores  = 2
+  memory = 4096
+  node   = 2
+}
