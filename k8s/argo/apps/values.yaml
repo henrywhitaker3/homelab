@@ -144,6 +144,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: smb-storage-class
+    project: cluster
+    namespace: kube-system
+    chart: smb
+    repoUrl: https://gitlab.com/henrywhitaker3/charts
+    targetRevision: main
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
