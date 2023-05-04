@@ -18,7 +18,12 @@ spec:
   project: default
   {{- end }}
   source:
+    {{- if .chart }}
     chart: {{ .chart }}
+    {{- end }}
+    {{- if .path }}
+    path: {{ .path }}
+    {{- end }}
     repoURL: {{ .repoUrl }}
     targetRevision: {{ .targetRevision }}
     {{- if .values }}

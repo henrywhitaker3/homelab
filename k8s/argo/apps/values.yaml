@@ -147,9 +147,9 @@ charts:
   - name: smb-storage-class
     project: cluster
     namespace: kube-system
-    chart: smb
-    repoUrl: https://gitlab.com/henrywhitaker3/charts
-    targetRevision: main
+    path: smb
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
