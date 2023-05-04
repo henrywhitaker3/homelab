@@ -131,6 +131,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: smb-provisioner
+    project: cluster
+    namespace: kube-system
+    chart: csi-driver-smb
+    repoUrl: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+    targetRevision: 1.9.0
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
