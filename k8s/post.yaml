@@ -8,6 +8,7 @@
 
   vars_files:
     - vars/k8s.yaml
+    - vars/k8s_secrets.yaml
     - ../vars/secrets.yaml
 
   tasks:
