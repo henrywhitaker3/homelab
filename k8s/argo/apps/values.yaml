@@ -162,6 +162,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: misc
+    project: cluster
+    namespace: default
+    path: misc
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
