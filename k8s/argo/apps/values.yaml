@@ -131,6 +131,22 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: connect
+    project: cluster
+    namespace: 1password
+    chart: connect
+    repoUrl: https://1password.github.io/connect-helm-charts
+    targetRevision: 1.5.7
+    values:
+      opertator:
+        create: true
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   - name: smb-provisioner
     project: cluster
     namespace: kube-system
