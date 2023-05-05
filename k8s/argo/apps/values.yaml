@@ -55,23 +55,6 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: sealed-secrets-controller
-    project: cluster
-    namespace: kube-system
-    chart: sealed-secrets
-    repoUrl: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 2.8.2
-    values:
-      image:
-        registry: docker.io
-        repository: bitnami/sealed-secrets-controller
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        prune: true
-        selfHeal: true
-
   - name: longhorn
     project: cluster
     namespace: longhorn
