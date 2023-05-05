@@ -136,7 +136,7 @@ charts:
     namespace: 1password
     chart: connect
     repoUrl: https://1password.github.io/connect-helm-charts
-    targetRevision: 1.5.7
+    targetRevision: 1.10.0
     values:
       opertator:
         create: true
