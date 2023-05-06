@@ -183,6 +183,7 @@ charts:
     values:
       nameOverride: sonarr
       fullnameOverride: sonarr
+      replicaCount: 0
       image:
         repository: linuxserver/sonarr
         tag: 3.0.10
