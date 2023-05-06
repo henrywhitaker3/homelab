@@ -65,16 +65,16 @@ services:
       #   - 51413:51413/udp
       restart: unless-stopped
 
-    overseerr:
-      container_name: overseerr
-      restart: unless-stopped
-      image: sctx/overseerr
-      environment:
-        - TZ={{ docker_tz }}
-      volumes:
-      - {{ docker_data_dir }}/overseerr:/app/config
-      networks:
-        homelab:
+    # overseerr:
+    #   container_name: overseerr
+    #   restart: unless-stopped
+    #   image: sctx/overseerr
+    #   environment:
+    #     - TZ={{ docker_tz }}
+    #   volumes:
+    #   - {{ docker_data_dir }}/overseerr:/app/config
+    #   networks:
+    #     homelab:
 
     plex:
       container_name: plex
