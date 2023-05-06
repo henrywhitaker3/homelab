@@ -150,20 +150,20 @@ services:
       networks:
         homelab:
 
-    organizr:
-      container_name: organizr
-      restart: unless-stopped
-      image: organizr/organizr:latest
-      volumes:
-        - {{ docker_data_dir }}/organizr:/config
-      environment:
-        - fpm=true
-        - branch=dev
-        - TZ={{ docker_tz }}
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_pgid }}
-      networks:
-        homelab:
+    # organizr:
+    #   container_name: organizr
+    #   restart: unless-stopped
+    #   image: organizr/organizr:latest
+    #   volumes:
+    #     - {{ docker_data_dir }}/organizr:/config
+    #   environment:
+    #     - fpm=true
+    #     - branch=dev
+    #     - TZ={{ docker_tz }}
+    #     - PUID={{ docker_puid }}
+    #     - PGID={{ docker_pgid }}
+    #   networks:
+    #     homelab:
 
     wireguard:
       container_name: wireguard
