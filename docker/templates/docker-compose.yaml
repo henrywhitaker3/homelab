@@ -3,19 +3,19 @@ services:
     #-------------------------------------------#
     # Media services
     #-------------------------------------------#
-    radarr:
-      container_name: radarr
-      restart: unless-stopped
-      image: linuxserver/radarr:nightly
-      volumes:
-        - {{ docker_data_dir }}/radarr/v3:/config
-        - /plex:/data
-      environment:
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_puid }}
-        - TZ={{ docker_tz }}
-      networks:
-        homelab:
+    # radarr:
+    #   container_name: radarr
+    #   restart: unless-stopped
+    #   image: linuxserver/radarr:nightly
+    #   volumes:
+    #     - {{ docker_data_dir }}/radarr/v3:/config
+    #     - /plex:/data
+    #   environment:
+    #     - PUID={{ docker_puid }}
+    #     - PGID={{ docker_puid }}
+    #     - TZ={{ docker_tz }}
+    #   networks:
+    #     homelab:
 
     # sonarr:
     #   container_name: sonarr
