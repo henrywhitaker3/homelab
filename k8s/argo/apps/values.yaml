@@ -208,6 +208,8 @@ charts:
         enabled: true
         mountPath: /config
       depoymentStrategy: Recreate
+      probes:
+        initialDelaySeconds: 60
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
