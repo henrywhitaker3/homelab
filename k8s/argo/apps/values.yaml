@@ -211,6 +211,10 @@ charts:
       depoymentStrategy: Recreate
       probes:
         initialDelaySeconds: 60
+      config:
+        PUID: 1000
+        GUID: 1000
+        TZ:  Europe/London
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
