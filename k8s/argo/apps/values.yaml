@@ -181,6 +181,8 @@ charts:
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
     values:
+      nameOverride: sonarr
+      fullnameOverride: sonarr
       image:
         repository: linuxserver/sonarr
         tag: 3.0.10
