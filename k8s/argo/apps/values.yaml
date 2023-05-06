@@ -77,14 +77,7 @@ charts:
         - CreateNamespace=true
       automated:
         prune: true
-        selfHecal
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-        - secretName: chart-example-tls
-          hosts:
-            - chart-example.localal: true
+        selfHeal: true
 
   - name: gitlab-runner
     project: apps
