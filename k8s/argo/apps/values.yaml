@@ -219,7 +219,7 @@ charts:
       depoymentStrategy: Recreate
 
       probes:
-        initialDelaySeconds: 60
+        initialDelaySeconds: 30
 
       config:
         PUID: "1000"
