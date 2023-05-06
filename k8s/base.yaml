@@ -13,6 +13,7 @@
     - user
     - common
     - node_exporter
+    - cifs
 
   handlers:
     - name: reboot node
