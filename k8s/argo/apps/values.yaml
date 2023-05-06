@@ -208,7 +208,7 @@ charts:
       pvc:
         enabled: true
         mountPath: /config
-        storageClassName: smb-retain
+        storageClassName: longhorn
       depoymentStrategy: Recreate
       probes:
         initialDelaySeconds: 60
