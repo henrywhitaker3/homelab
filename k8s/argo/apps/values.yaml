@@ -176,7 +176,7 @@ charts:
 
   - name: sonarr
     project: apps
-    namespace: default
+    namespace: media
     path: generic
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
