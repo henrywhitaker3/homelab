@@ -200,10 +200,10 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: overseer
+  - name: overseerr
     project: apps
     namespace: media
-    path: overseer
+    path: overseerr
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
     syncPolicy:
