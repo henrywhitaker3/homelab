@@ -77,7 +77,14 @@ charts:
         - CreateNamespace=true
       automated:
         prune: true
-        selfHeal: true
+        selfHecal
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+        - secretName: chart-example-tls
+          hosts:
+            - chart-example.localal: true
 
   - name: gitlab-runner
     project: apps
@@ -167,6 +174,44 @@ charts:
     path: misc
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
+  - name: sonarr
+    project: cluster
+    namespace: default
+    path: generic
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    values:
+      image:
+        repository: linuxserver/sonarr
+        tag: 3.0.10
+      service:
+        port: 8989
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+        hosts:
+          - host: sonarr2.plexmox.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+        - secretName: sonarr2-plexmox-com-tls
+          hosts:
+            - sonarr2.plexmox.com
+      pvc:
+        enabled: true
+        mountPath: /config
+      depoymentStrategy: Recreate
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
