@@ -265,18 +265,18 @@ services:
       networks:
         homelab:
 
-    tautulli:
-      container_name: tautulli
-      restart: unless-stopped
-      image: linuxserver/tautulli:latest
-      volumes:
-        - {{ docker_data_dir }}/tautulli:/config
-      environment:
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_puid }}
-        - TZ={{ docker_tz }}
-      networks:
-        homelab:
+    # tautulli:
+    #   container_name: tautulli
+    #   restart: unless-stopped
+    #   image: linuxserver/tautulli:latest
+    #   volumes:
+    #     - {{ docker_data_dir }}/tautulli:/config
+    #   environment:
+    #     - PUID={{ docker_puid }}
+    #     - PGID={{ docker_puid }}
+    #     - TZ={{ docker_tz }}
+    #   networks:
+    #     homelab:
 
 networks:
     homelab:
