@@ -265,6 +265,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: speedtest
+    project: apps
+    namespace: misc
+    path: speedtest
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system

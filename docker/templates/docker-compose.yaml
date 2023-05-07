@@ -3,47 +3,6 @@ services:
     #-------------------------------------------#
     # Media services
     #-------------------------------------------#
-    # radarr:
-    #   container_name: radarr
-    #   restart: unless-stopped
-    #   image: linuxserver/radarr:nightly
-    #   volumes:
-    #     - {{ docker_data_dir }}/radarr/v3:/config
-    #     - /plex:/data
-    #   environment:
-    #     - PUID={{ docker_puid }}
-    #     - PGID={{ docker_puid }}
-    #     - TZ={{ docker_tz }}
-    #   networks:
-    #     homelab:
-
-    # sonarr:
-    #   container_name: sonarr
-    #   restart: unless-stopped
-    #   image: linuxserver/sonarr:latest
-    #   volumes:
-    #     - {{ docker_data_dir }}/sonarr:/config
-    #     - /plex:/data
-    #   environment:
-    #     - PUID={{ docker_puid }}
-    #     - PGID={{ docker_puid }}
-    #     - TZ={{ docker_tz }}
-    #   networks:
-    #     homelab:
-
-    # prowlarr:
-    #   container_name: prowlarr
-    #   restart: unless-stopped
-    #   image: linuxserver/prowlarr:develop
-    #   volumes:
-    #     - {{ docker_data_dir }}/prowlarr:/config
-    #   environment:
-    #     - PUID={{ docker_puid }}
-    #     - PGID={{ docker_puid }}
-    #     - TZ={{ docker_tz }}
-    #   networks:
-    #     homelab:
-
     transmission:
       image: linuxserver/transmission:latest
       container_name: transmission
@@ -64,17 +23,6 @@ services:
       #   - 51413:51413
       #   - 51413:51413/udp
       restart: unless-stopped
-
-    # overseerr:
-    #   container_name: overseerr
-    #   restart: unless-stopped
-    #   image: sctx/overseerr
-    #   environment:
-    #     - TZ={{ docker_tz }}
-    #   volumes:
-    #   - {{ docker_data_dir }}/overseerr:/app/config
-    #   networks:
-    #     homelab:
 
     plex:
       container_name: plex
@@ -238,45 +186,6 @@ services:
       networks:
         homelab:
         monitoring:
-
-    speedtest:
-      container_name: speedtest
-      restart: unless-stopped
-      image: henrywhitaker3/speedtest-tracker:dev
-      volumes:
-        - {{ docker_data_dir }}/speedtest:/config
-      environment:
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_puid }}
-        - TZ={{ docker_tz }}
-        - BASE_PATH=/speedtest
-        - OOKLA_EULA_GDPR=true
-      networks:
-        homelab:
-
-    # monitorr:
-    #   container_name: monitorr
-    #   restart: unless-stopped
-    #   image: monitorr/monitorr:latest
-    #   volumes:
-    #     - {{ docker_data_dir }}/monitorr:/app
-    #   environment:
-    #     - TZ={{ docker_tz }}
-    #   networks:
-    #     homelab:
-
-    # tautulli:
-    #   container_name: tautulli
-    #   restart: unless-stopped
-    #   image: linuxserver/tautulli:latest
-    #   volumes:
-    #     - {{ docker_data_dir }}/tautulli:/config
-    #   environment:
-    #     - PUID={{ docker_puid }}
-    #     - PGID={{ docker_puid }}
-    #     - TZ={{ docker_tz }}
-    #   networks:
-    #     homelab:
 
 networks:
     homelab:
