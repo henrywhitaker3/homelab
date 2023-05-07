@@ -254,16 +254,16 @@ services:
       networks:
         homelab:
 
-    monitorr:
-      container_name: monitorr
-      restart: unless-stopped
-      image: monitorr/monitorr:latest
-      volumes:
-        - {{ docker_data_dir }}/monitorr:/app
-      environment:
-        - TZ={{ docker_tz }}
-      networks:
-        homelab:
+    # monitorr:
+    #   container_name: monitorr
+    #   restart: unless-stopped
+    #   image: monitorr/monitorr:latest
+    #   volumes:
+    #     - {{ docker_data_dir }}/monitorr:/app
+    #   environment:
+    #     - TZ={{ docker_tz }}
+    #   networks:
+    #     homelab:
 
     # tautulli:
     #   container_name: tautulli
