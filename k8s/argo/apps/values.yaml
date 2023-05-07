@@ -23,7 +23,7 @@ charts:
     namespace: ingress-nginx
     chart: ingress-nginx
     repoUrl: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.6.0
+    targetRevision: 4.6.1
     values:
       controller:
         kind: DaemonSet
