@@ -226,6 +226,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: prowlarr
+    project: apps
+    namespace: media
+    path: prowlarr
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
