@@ -280,7 +280,7 @@ charts:
 
   - name: transmission
     project: apps
-    namespace: misc
+    namespace: media
     path: transmission
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: HEAD
