@@ -31,18 +31,18 @@ services:
     #   networks:
     #     homelab:
 
-    prowlarr:
-      container_name: prowlarr
-      restart: unless-stopped
-      image: linuxserver/prowlarr:develop
-      volumes:
-        - {{ docker_data_dir }}/prowlarr:/config
-      environment:
-        - PUID={{ docker_puid }}
-        - PGID={{ docker_puid }}
-        - TZ={{ docker_tz }}
-      networks:
-        homelab:
+    # prowlarr:
+    #   container_name: prowlarr
+    #   restart: unless-stopped
+    #   image: linuxserver/prowlarr:develop
+    #   volumes:
+    #     - {{ docker_data_dir }}/prowlarr:/config
+    #   environment:
+    #     - PUID={{ docker_puid }}
+    #     - PGID={{ docker_puid }}
+    #     - TZ={{ docker_tz }}
+    #   networks:
+    #     homelab:
 
     transmission:
       image: linuxserver/transmission:latest
