@@ -3,26 +3,26 @@ services:
     #-------------------------------------------#
     # Media services
     #-------------------------------------------#
-    transmission:
-      image: linuxserver/transmission:latest
-      container_name: transmission
-      environment:
-        - PUID=1000
-        - PGID=1000
-        - TZ={{ docker_tz }}
-        # - TRANSMISSION_WEB_HOME=/transmission/
-      volumes:
-        - {{ docker_data_dir }}/transmission:/config
-        - /plex/temp:/downloads
-        - /plex/watch:/watch
-      network_mode: service:wireguard
-      depends_on:
-        - wireguard
-      # ports:
-      #   - 9091:9091
-      #   - 51413:51413
-      #   - 51413:51413/udp
-      restart: unless-stopped
+    # transmission:
+    #   image: linuxserver/transmission:latest
+    #   container_name: transmission
+    #   environment:
+    #     - PUID=1000
+    #     - PGID=1000
+    #     - TZ={{ docker_tz }}
+    #     # - TRANSMISSION_WEB_HOME=/transmission/
+    #   volumes:
+    #     - {{ docker_data_dir }}/transmission:/config
+    #     - /plex/temp:/downloads
+    #     - /plex/watch:/watch
+    #   network_mode: service:wireguard
+    #   depends_on:
+    #     - wireguard
+    #   # ports:
+    #   #   - 9091:9091
+    #   #   - 51413:51413
+    #   #   - 51413:51413/udp
+    #   restart: unless-stopped
 
     plex:
       container_name: plex
