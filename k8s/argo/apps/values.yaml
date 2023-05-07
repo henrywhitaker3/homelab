@@ -213,6 +213,19 @@ charts:
         prune: true
         selfHeal: true
 
+  - name: organizr
+    project: apps
+    namespace: media
+    path: organizr
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: true
+        selfHeal: true
+
   # - name: rancher
   #   project: cluster
   #   namespace: cattle-system
