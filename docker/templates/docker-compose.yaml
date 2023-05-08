@@ -119,28 +119,6 @@ services:
       networks:
         homelab:
 
-    authelia:
-      image: authelia/authelia
-      container_name: authelia
-      volumes:
-        - {{ docker_data_dir }}/authelia:/config
-      networks:
-        homelab:
-      restart: unless-stopped
-      environment:
-        - TZ={{ docker_tz }}
-
-    redis:
-      image: redis:alpine
-      container_name: redis
-      volumes:
-        - {{ docker_data_dir }}/redis:/data
-      networks:
-        homelab:
-      restart: unless-stopped
-      environment:
-        - TZ={{ docker_tz }}
-
     #-------------------------------------------#
     # Montioring services
     #-------------------------------------------#
