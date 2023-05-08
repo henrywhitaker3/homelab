@@ -52,14 +52,15 @@
     - nginx
   ansible.builtin.template:
     src: "templates/{{ item }}"
-    dest: "{{ docker_data_dir }}/swag/nginx/{{ send_proxy.conf }}"
+    dest: "{{ docker_data_dir }}/swag/nginx/{{ item }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0664"
   notify: restart nginx
   loop:
     - send_proxy.conf
-    - authelia-k8s.conf
+    - authelia-k8s-server.conf
+    - authelia-k8s-location.conf
 
 - name: Copy nginx proxy-confs
   tags:
