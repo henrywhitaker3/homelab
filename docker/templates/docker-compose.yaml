@@ -3,27 +3,6 @@ services:
     #-------------------------------------------#
     # Media services
     #-------------------------------------------#
-    # transmission:
-    #   image: linuxserver/transmission:latest
-    #   container_name: transmission
-    #   environment:
-    #     - PUID=1000
-    #     - PGID=1000
-    #     - TZ={{ docker_tz }}
-    #     # - TRANSMISSION_WEB_HOME=/transmission/
-    #   volumes:
-    #     - {{ docker_data_dir }}/transmission:/config
-    #     - /plex/temp:/downloads
-    #     - /plex/watch:/watch
-    #   network_mode: service:wireguard
-    #   depends_on:
-    #     - wireguard
-    #   # ports:
-    #   #   - 9091:9091
-    #   #   - 51413:51413
-    #   #   - 51413:51413/udp
-    #   restart: unless-stopped
-
     plex:
       container_name: plex
       image: linuxserver/plex:latest
@@ -82,40 +61,6 @@ services:
         - ONLY_SUBDOMAINS=false
         - MAXMINDDB_LICENSE_KEY={{ maxmind_license_key }}
       cap_add: [ 'NET_ADMIN' ]
-      networks:
-        homelab:
-
-    mariadb:
-      container_name: mariadb
-      restart: unless-stopped
-      image: mariadb
-      ports:
-        - 3306:3306
-      volumes:
-        - {{ docker_data_dir }}/mariadb:/var/lib/mysql
-      environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      networks:
-        homelab:
-
-    wireguard:
-      container_name: wireguard
-      image: linuxserver/wireguard:latest
-      cap_add:
-        - NET_ADMIN
-        - SYS_MODULE
-      environment:
-        - PUID={{ docker_puid}}
-        - PGID={{ docker_pgid}}
-        - TZ={{ docker_tz }}
-      volumes:
-        - {{ docker_data_dir }}/wireguard-tunnel:/config
-        - /lib/modules:/lib/modules #optional
-      sysctls:
-        - net.ipv4.conf.all.src_valid_mark=1
-      ports:
-        - 9091:9091
-      restart: unless-stopped
       networks:
         homelab:
 

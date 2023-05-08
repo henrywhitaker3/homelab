@@ -44,25 +44,5 @@ crog_actions:
     command: docker image prune -f
     code: 0
     cron: "0 4 * * 1"
-  - name: Restart radarr
-    command: docker compose -f /home/henry/docker-compose.yaml restart radarr
-    code: 0
-    cron: "0 12 * * *"
-  - name: Restart sonarr
-    command: docker compose -f /home/henry/docker-compose.yaml restart sonarr
-    code: 0
-    cron: "0 12 * * *"
-  - name: Check mullvad tunnel
-    command: docker compose -f /home/henry/docker-compose.yaml exec wireguard ping -W 1 -c 3 8.8.8.8
-    code: 0
-    cron: "* * * * *"
-    when:
-      start: "{{ healthchecks.mullvad }}/start"
-      success: "{{ healthchecks.mullvad }}"
-      failure: "{{ healthchecks.mullvad }}/fail"
-  # - name: Restart qbittorrent
-  #   command: docker compose -f /home/henry/docker-compose.yaml restart qbittorrent
-  #   code: 0
-  #   cron: "0 12 * * *"
 
 crog_verbose: true

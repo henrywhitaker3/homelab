@@ -135,16 +135,3 @@ resource "healthchecksio_check" "lb_2" {
   schedule = "* * * * *"
   timezone = "UTC"
 }
-
-resource "healthchecksio_check" "mullvad" {
-  name = "Mullvad Tunnel"
-  desc = "Checks the mullvad vpn tunnel is up"
-
-  tags = [
-    "vpn"
-  ]
-
-  grace    = 60 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-}
