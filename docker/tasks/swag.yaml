@@ -59,8 +59,6 @@
   notify: restart nginx
   loop:
     - send_proxy.conf
-    - authelia-k8s-server.conf
-    - authelia-k8s-location.conf
 
 - name: Copy nginx proxy-confs
   tags:
