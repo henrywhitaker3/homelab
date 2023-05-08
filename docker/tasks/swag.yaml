@@ -46,17 +46,20 @@
     mode: "0664"
   notify: restart nginx
 
-- name: Copy send_proxy.conf
+- name: Copy extra config
   tags:
     - docker
     - nginx
   ansible.builtin.template:
-    src: "templates/send_proxy.conf"
-    dest: "{{ docker_data_dir }}/swag/nginx/send_proxy.conf"
+    src: "templates/{{ item }}"
+    dest: "{{ docker_data_dir }}/swag/nginx/{{ send_proxy.conf }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0664"
   notify: restart nginx
+  loop:
+    - send_proxy.conf
+    - authelia-k8s.conf
 
 - name: Copy nginx proxy-confs
   tags:
