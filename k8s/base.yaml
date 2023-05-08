@@ -71,5 +71,7 @@
     - name: Install longhorn dependencies
       become: true
       ansible.builtin.apt:
-        name: open-iscsi
+        name:
+          - open-iscsi
+          - nfs-common
         state: present
