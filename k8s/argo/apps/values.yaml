@@ -272,7 +272,7 @@ charts:
         - CreateNamespace=true
       automated:
         prune: true
-        selfHeal: true
+        selfHeal: false
 
   - name: speedtest
     project: apps
