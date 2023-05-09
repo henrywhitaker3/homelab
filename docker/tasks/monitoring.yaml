@@ -25,12 +25,3 @@
     group: "{{ ansible_user }}"
     mode: "0664"
   notify: restart prometheus
-
-- name: Add route to vpn hosts
-  tags:
-    - monitoring
-    - vpn
-  loop:
-    - 10.8.0.100
-    - 10.8.0.150
-  ansible.builtin.include_tasks: routes.yaml

@@ -46,3 +46,9 @@ crog_actions:
     cron: "0 4 * * 1"
 
 crog_verbose: true
+
+vpn_route_via: "10.0.0.13"
+
+vpn_route_destinations:
+  - 10.8.0.100
+  - 10.8.0.150

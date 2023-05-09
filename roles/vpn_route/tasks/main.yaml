@@ -1,0 +1,5 @@
+---
+- name: Configure vpn routes
+  tags: vpn_route
+  ansible.builtin.include_tasks: add_route.yaml
+  loop: "{{ vpn_route_destinations }}"

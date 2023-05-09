@@ -29,6 +29,7 @@
     - netdata
     - crog
     - node_exporter
+    - vpn_route
 
   tasks:
     - name: Docker
