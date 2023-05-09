@@ -13,6 +13,7 @@
     - common
     - node_exporter
     - cifs
+    - vpn_route
 
   handlers:
     - name: reboot node
