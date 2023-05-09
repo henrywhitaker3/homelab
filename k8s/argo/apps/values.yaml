@@ -107,6 +107,14 @@ charts:
     targetRevision: 0.26.1
     values:
       schedule: "*/10 * * * *"
+      deschedulerPolicy:
+        strategies:
+          LowNodeUtilization:
+            params:
+              nodeResourceUtilizationThresholds:
+                cpu: 20
+                mem: 20
+                pods: 10
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
