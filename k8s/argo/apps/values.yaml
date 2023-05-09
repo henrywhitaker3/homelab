@@ -114,7 +114,7 @@ charts:
               nodeResourceUtilizationThresholds:
                 thresholds:
                   cpu: 20
-                  mem: 20
+                  memory: 20
                   pods: 10
     syncPolicy:
       syncOptions:
