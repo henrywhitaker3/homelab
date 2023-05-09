@@ -339,19 +339,19 @@ charts:
         prune: true
         selfHeal: true
 
-  # - name: kube-prometheus-stack
-  #   project: apps
-  #   namespace: monitoring
-  #   path: prometheus
-  #   repoUrl: https://gitlab.com/henrywhitaker3/charts.git
-  #   targetRevision: HEAD
-  #   syncPolicy:
-  #     syncOptions:
-  #       - CreateNamespace=true
-  #       - Replace=true
-  #     automated:
-  #       prune: true
-  #       selfHeal: true
+  - name: kube-prometheus-stack
+    project: apps
+    namespace: monitoring
+    path: prometheus
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+        # - Replace=true
+      automated:
+        prune: true
+        selfHeal: true
 
   # - name: rancher
   #   project: cluster
