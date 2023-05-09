@@ -106,7 +106,7 @@ charts:
     repoUrl: https://kubernetes-sigs.github.io/descheduler
     targetRevision: 0.26.1
     values:
-      schedule: "*/10 * * * *"
+      schedule: "*/5 * * * *"
       deschedulerPolicy:
         strategies:
           LowNodeUtilization:
