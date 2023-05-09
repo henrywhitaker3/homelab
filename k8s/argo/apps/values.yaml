@@ -112,9 +112,10 @@ charts:
           LowNodeUtilization:
             params:
               nodeResourceUtilizationThresholds:
-                cpu: 20
-                mem: 20
-                pods: 10
+                threshholds:
+                  cpu: 20
+                  mem: 20
+                  pods: 10
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
