@@ -348,7 +348,7 @@ charts:
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
-        # - Replace=true
+        - Replace=true
       automated:
         prune: true
         selfHeal: true
