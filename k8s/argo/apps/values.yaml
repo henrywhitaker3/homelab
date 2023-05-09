@@ -339,7 +339,7 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: prometheus
+  - name: kube-prometheus-stack
     project: apps
     namespace: monitoring
     path: prometheus
@@ -348,6 +348,7 @@ charts:
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
+        - Replace=true
       automated:
         prune: true
         selfHeal: true
