@@ -112,7 +112,7 @@ charts:
           LowNodeUtilization:
             params:
               nodeResourceUtilizationThresholds:
-                threshholds:
+                thresholds:
                   cpu: 20
                   mem: 20
                   pods: 10
