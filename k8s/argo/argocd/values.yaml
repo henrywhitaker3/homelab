@@ -6,11 +6,12 @@ argo-cd:
       appResyncPeriod: 60
     metrics:
       enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8082
 
-    podAnnotations:
-      prometheus.io/scrape: true
-      prometheus.io/path: /metrics
-      prometheus.io/port: 8082
 
   server:
     ingress:
