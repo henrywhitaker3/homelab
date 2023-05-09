@@ -12,6 +12,14 @@ argo-cd:
           prometheus.io/path: /metrics
           prometheus.io/port: 8082
 
+  redis:
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 9192
 
   server:
     ingress:
@@ -51,3 +59,29 @@ argo-cd:
         - type: helm
           name: argo-cd
           url: https://argoproj.github.io/argo-helm
+
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8083
+
+  repoServer:
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8084
+
+  applicationSet:
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8085
