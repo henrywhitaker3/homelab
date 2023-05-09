@@ -3,7 +3,15 @@ argo-cd:
     enabled: false
   controller:
     args:
-      appResyncPeriod: 90
+      appResyncPeriod: 60
+    metrics:
+      enabled: true
+
+    podAnnotations:
+      prometheus.io/scrape: true
+      prometheus.io/path: /metrics
+      prometheus.io/port: 8082
+
   server:
     ingress:
       # -- Enable an ingress resource for the Argo CD server
