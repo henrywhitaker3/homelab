@@ -1,30 +1,3 @@
-resource "healthchecksio_check" "docker" {
-  name = "Docker"
-  desc = "Docker host up/down"
-
-  tags = [
-    "docker"
-  ]
-
-  grace    = 60 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-}
-
-resource "healthchecksio_check" "docker_backup" {
-  name = "Docker backup"
-  desc = "Weekly docker backup script"
-
-  tags = [
-    "docker",
-    "backup"
-  ]
-
-  grace   = 3600 # seconds
-  schedule = "30 4 * * *"
-  timezone = "UTC"
-}
-
 resource "healthchecksio_check" "speedtest" {
   name = "Speedtest"
 
