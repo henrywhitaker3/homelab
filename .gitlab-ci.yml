@@ -13,7 +13,6 @@ image: henrywhitaker3/ansible-terraform
   parallel:
     matrix:
       - PLAYBOOK:
-        - docker
         - vpn
         - k8s
         - haproxy
