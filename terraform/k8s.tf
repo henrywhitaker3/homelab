@@ -20,17 +20,6 @@ module "k8s-control-2" {
   node   = 2
 }
 
-module "k8s-control-3" {
-  source = "./vm"
-
-  name   = "k8s-control-3"
-  image  = local.ubuntu_22_04_100G
-  ip     = 22
-  cores  = 2
-  memory = 8192
-  node   = 2
-}
-
 module "k8s-worker-1" {
   source = "./vm"
 
@@ -59,6 +48,17 @@ module "k8s-worker-3" {
   name   = "k8s-worker-3"
   image  = local.ubuntu_22_04_100G
   ip     = 28
+  cores  = 2
+  memory = 8192
+  node   = 2
+}
+
+module "k8s-worker-4" {
+  source = "./vm"
+
+  name   = "k8s-worker-4"
+  image  = local.ubuntu_22_04_100G
+  ip     = 22
   cores  = 2
   memory = 8192
   node   = 2
