@@ -27,7 +27,6 @@ vpn-1.lab ansible_host=10.0.0.11
 vpn-2.lab ansible_host=10.0.0.12
 
 [jump]
-jump.lab ansible_host=167.71.137.12 node_exporter_host=10.8.0.100
 jump-k8s.lab ansible_host=165.22.112.190 node_exporter_host=10.8.0.150
 
 [speakers]
