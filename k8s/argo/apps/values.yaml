@@ -99,7 +99,7 @@ charts:
   - name: smb-provisioner
     project: cluster
     namespace: kube-system
-    chart: smb-provisioner
+    path: smb-provisioner
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
     targetRevision: 1.9.0
     syncPolicy:
