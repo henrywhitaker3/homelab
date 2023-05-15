@@ -8,9 +8,9 @@ charts:
   - name: metallb
     project: cluster
     namespace: metallb
-    chart: metallb
-    repoUrl: https://metallb.github.io/metallb
-    targetRevision: 0.13.9
+    path: metallb
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
