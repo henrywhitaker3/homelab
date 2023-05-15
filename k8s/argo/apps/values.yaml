@@ -43,11 +43,9 @@ charts:
   - name: cert-manager
     project: cluster
     namespace: cert-manager
-    chart: cert-manager
-    repoUrl: https://charts.jetstack.io
-    targetRevision: 1.11.1
-    values:
-      installCRDs: true
+    path: cert-manager
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
