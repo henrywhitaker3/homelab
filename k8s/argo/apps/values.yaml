@@ -60,16 +60,9 @@ charts:
   - name: gitlab-runner
     project: apps
     namespace: gitlab-runner
-    chart: gitlab-runner
-    repoUrl: https://charts.gitlab.io
-    targetRevision: 0.52.0
-    values:
-      concurrent: 10
-      gitlabUrl: https://gitlab.com
-      runners:
-        secret: gitlab-runner-secret
-      rbac:
-        create: true
+    path: gitlab-runner
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
