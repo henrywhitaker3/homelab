@@ -73,20 +73,9 @@ charts:
   - name: descheduler
     project: cluster
     namespace: kube-system
-    chart: descheduler
-    repoUrl: https://kubernetes-sigs.github.io/descheduler
-    targetRevision: 0.26.1
-    values:
-      schedule: "*/5 * * * *"
-      deschedulerPolicy:
-        strategies:
-          LowNodeUtilization:
-            params:
-              nodeResourceUtilizationThresholds:
-                thresholds:
-                  cpu: 20
-                  memory: 20
-                  pods: 10
+    path: descheduler
+    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
