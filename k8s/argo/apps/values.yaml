@@ -101,7 +101,7 @@ charts:
     namespace: kube-system
     path: smb-provisioner
     repoUrl: https://gitlab.com/henrywhitaker3/charts.git
-    targetRevision: 1.9.0
+    targetRevision: HEAD
     syncPolicy:
       syncOptions:
         - CreateNamespace=true
