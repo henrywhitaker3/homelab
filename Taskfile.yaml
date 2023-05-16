@@ -28,3 +28,9 @@ tasks:
   lint:debug:
     cmds:
       - docker run --rm -v $(pwd):/drone/src -it henrywhitaker3/ansible-terraform bash
+
+  install:argo:
+    cmds:
+      - helm dependency update k8s/argo/argocd
+      - helm dependency build k8s/argo/argocd
+      - helm upgrade --install -n argo -f k8s/argo/argocd/values.yaml argo k8s/argo/argocd/
