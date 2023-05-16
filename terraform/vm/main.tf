@@ -34,4 +34,6 @@ resource "pihole_dns_record" "dns" {
 
   domain = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}.lab"
   ip = "10.0.0.${var.ip + count.index}"
+
+  depends_on = [ proxmox_vm_qemu.vm ]
 }
