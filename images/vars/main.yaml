@@ -11,21 +11,6 @@ images:
     location: https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2
 
 templates:
-  - name: ubuntu-23.04-cloud-8G
-    source: ubuntu-23.04
-    params:
-      id: 18000
-      size: 8G
-  - name: ubuntu-23.04-cloud-25G
-    source: ubuntu-23.04
-    params:
-      id: 19000
-      size: 25G
-  - name: ubuntu-23.04-cloud-100G
-    source: ubuntu-23.04
-    params:
-      id: 20000
-      size: 100G
   - name: ubuntu-22.04-cloud-8G
     source: ubuntu-22.04
     params:
@@ -41,6 +26,11 @@ templates:
     params:
       id: 10000
       size: 100G
+  - name: ubuntu-22.04-cloud-200G
+    source: ubuntu-22.04
+    params:
+      id: 11000
+      size: 200G
   - name: alma-9-cloud-10G
     source: alma-9
     params:
