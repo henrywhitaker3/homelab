@@ -109,19 +109,6 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: smb-storage-class
-    project: cluster
-    namespace: kube-system
-    path: smb
-    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
-    targetRevision: HEAD
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        prune: true
-        selfHeal: true
-
   - name: sonarr
     project: apps
     namespace: media
