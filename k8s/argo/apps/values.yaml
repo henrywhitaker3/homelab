@@ -187,19 +187,6 @@ charts:
         prune: true
         selfHeal: true
 
-  - name: monitorr
-    project: apps
-    namespace: media
-    path: monitorr
-    repoUrl: https://gitlab.com/henrywhitaker3/charts.git
-    targetRevision: HEAD
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        prune: true
-        selfHeal: false
-
   - name: speedtest
     project: apps
     namespace: misc
