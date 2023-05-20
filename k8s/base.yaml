@@ -14,6 +14,7 @@
     - node_exporter
     - cifs
     - vpn_route
+    - crog
 
   handlers:
     - name: reboot node
