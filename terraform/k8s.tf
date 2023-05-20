@@ -47,7 +47,7 @@ module "k8s-worker-3" {
 
   name   = "k8s-worker-3"
   image  = local.ubuntu_22_04_200G
-  ip     = 28
+  ip     = 31
   cores  = 2
   memory = 8192
   node   = 2
