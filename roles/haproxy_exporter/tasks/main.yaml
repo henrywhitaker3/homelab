@@ -5,7 +5,7 @@
     - monitoring
   ansible.builtin.set_fact:
     haproxy_exporter_download: /tmp/haproxy_exporter.tar.gz
-    haproxy_archive_name: "haproxy_exporter-{{ haproxy_exporter_version }}.linux-{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+    haproxy_exporter_archive_name: "haproxy_exporter-{{ haproxy_exporter_version }}.linux-{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
 
 - name: Create haproxy_exporter group
   become: true
@@ -36,10 +36,10 @@
     - haproxy_exporter
     - monitoring
   ansible.builtin.get_url:
-    url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_archive_name }}.tar.gz"
+    url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ haproxy_exporter_version }}/{{ haproxy_exporter_archive_name }}.tar.gz"
     dest: "{{ haproxy_exporter_download }}"
     mode: "0777"
-  register: exporter_download
+  register: haproxy_exporter_exporter_download
 
 - name: Unarchive haproxy_exporter binary
   tags:
@@ -49,7 +49,7 @@
     src: "{{ haproxy_exporter_download }}"
     dest: /tmp
     remote_src: true
-  when: exporter_download.changed
+  when: haproxy_exporter_exporter_download.changed
 
 - name: Copy unarchived haproxy_exporter binary
   become: true
@@ -57,7 +57,7 @@
     - haproxy_exporter
     - monitoring
   ansible.builtin.copy:
-    src: "/tmp/{{ haproxy_archive_name }}/haproxy_exporter"
+    src: "/tmp/{{ haproxy_exporter_archive_name }}/haproxy_exporter"
     dest: "{{ haproxy_binary }}"
     remote_src: true
     owner: "{{ haproxy_exporter_user }}"
