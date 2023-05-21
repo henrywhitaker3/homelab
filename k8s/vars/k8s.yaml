@@ -15,9 +15,10 @@ vpn_route_destinations:
   - 10.8.0.100
   - 10.8.0.150
 
+crog_verbose: true
 crog_actions:
   - name: Heartbeat
-    command: ping -W 1 -c 1 8.8.8.8
+    command: ping -W 1 -c 3 10.0.0.1
     cron: "* * * * *"
     when:
       start: "{{ healthchecks[inventory_hostname] }}/start"
