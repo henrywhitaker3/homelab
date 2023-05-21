@@ -2,13 +2,13 @@
 - name: Get DEB architecture
   tags: crog
   ansible.builtin.command: dpkg --print-architecture
-  register: deb_architecture
+  register: crog_deb_architecture
   changed_when: false
 
 - name: Set deb name
   tags: crog
   ansible.builtin.set_fact:
-    crog_deb: "crog_{{ crog_version }}_linux_{{ deb_architecture.stdout }}.deb"
+    crog_deb: "crog_{{ crog_version }}_linux_{{ crog_deb_architecture.stdout }}.deb"
 
 - name: Download crog package
   tags: crog

@@ -54,6 +54,7 @@
       ansible.builtin.command: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/argo/argocd/values.yaml argo /home/{{ ansible_user }}/argo/argocd"
       environment:
         KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+      changed_when: true
       when: "'not found' in argo_helm_status.stderr"
 
     - name: Is argo apps installed?
@@ -81,6 +82,7 @@
       ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/argo/apps/values.yaml template /home/{{ ansible_user }}/argo/apps | kubectl apply -f -"
       args:
         executable: /usr/bin/bash
+      changed_when: true
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Delete helm labels from apps install
@@ -89,6 +91,7 @@
         - argo
       become: true
       ansible.builtin.command: "kubectl -n argo delete secret -l owner=helm,name=argocd"
+      changed_when: true
       when: "'No resources found' in argo_apps_status.stderr"
 
     - name: Wait a bit for the apps to install

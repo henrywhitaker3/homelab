@@ -46,7 +46,7 @@
     - common
     - k8s
   ansible.builtin.command: dpkg --print-architecture
-  register: deb_architecture
+  register: k8s_tools_deb_architecture
   changed_when: false
 
 - name: Add helm repo
@@ -56,7 +56,7 @@
     - common
     - k8s
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
+    repo: "deb [arch={{ k8s_tools_deb_architecture.stdout }} signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
     state: present
 
 - name: Install helm

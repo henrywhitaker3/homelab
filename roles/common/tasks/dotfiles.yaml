@@ -4,14 +4,14 @@
     - common
     - dotfiles
   ansible.builtin.set_fact:
-    bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/workstation.bashrc' }}"
+    common_bashrc_template: "{{ 'templates/server.bashrc' if installation_type == 'server' else 'templates/workstation.bashrc' }}"
 
 - name: Copy bashrc
   tags:
     - dotfiles
     - common
   ansible.builtin.template:
-    src: "{{ bashrc_template }}"
+    src: "{{ common_bashrc_template }}"
     dest: "/home/{{ ansible_user }}/.bashrc"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"

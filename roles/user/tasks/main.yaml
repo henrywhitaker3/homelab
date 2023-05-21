@@ -11,7 +11,7 @@
     - ssh
     - user
   ansible.builtin.set_fact:
-    user: "{{ ansible_user }}"
+    user_user: "{{ ansible_user }}"
 
 - name: Ensure ssh directory exists
   tags:
@@ -20,8 +20,8 @@
   ansible.builtin.file:
     path: "{{ user_home_dir }}/.ssh"
     state: directory
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: "{{ user_user }}"
+    group: "{{ user_user }}"
     mode: "0700"
 
 - name: Copy authorized keys
