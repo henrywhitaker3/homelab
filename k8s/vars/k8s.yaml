@@ -18,8 +18,9 @@ vpn_route_destinations:
 crog_verbose: true
 crog_actions:
   - name: Heartbeat
-    command: ping -W 1 -c 3 10.0.0.1
+    command: ping -W 1 -c 1 10.0.0.1
     cron: "* * * * *"
+    tries: 3
     when:
       start: "{{ healthchecks[inventory_hostname] }}/start"
       success: "{{ healthchecks[inventory_hostname] }}"
