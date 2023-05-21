@@ -26,6 +26,8 @@ image: henrywhitaker3/ansible-terraform
         - $PLAYBOOK/**/*
         - roles/**/*
         - inventory
+        - .gitlab-ci.yml
+        - .ansible-lint
     - if: $SKIP_ANSIBLE == "true"
       when: never
 
@@ -67,6 +69,7 @@ ansible play:
     - if: $CI_COMMIT_BRANCH == "main" && $SKIP_TERRAFORM != "true"
       changes:
         - terraform/*
+        - .gitlab-ci.yml
     - if: $SKIP_TERRAFORM == "true"
       when: never
 

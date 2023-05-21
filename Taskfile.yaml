@@ -23,7 +23,7 @@ tasks:
 
   lint:
     cmds:
-      - ansible-lint {{ .PLAYBOOK }} -x 403 -x name[casing] -x yaml[line-length] -x yaml[truthy] -x no-handler
+      - ansible-lint {{ .PLAYBOOK }}
 
   lint:debug:
     cmds:

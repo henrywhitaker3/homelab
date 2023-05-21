@@ -1,0 +1,7 @@
+skip_list:
+  - "403"
+  - name[casing]
+  - yaml[line-length]
+  - yaml[truthy]
+  - no-handler
+  - latest[git]
