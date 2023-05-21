@@ -45,7 +45,7 @@
       become: true
       ansible.builtin.shell:
         cmd: k3s crictl completion bash > /etc/bash_completion.d/crictl
-        creates: /etc/bash_completion.d/k3s
+        creates: /etc/bash_completion.d/crictl
 
     - name: Set sysctl for pod networking
       become: true
