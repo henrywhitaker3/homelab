@@ -24,6 +24,12 @@
         - networking
       ansible.builtin.reboot:
 
+    - name: restart multipath
+      become: true
+      ansible.builtin.service:
+        name: multipathd
+        state: restarted
+
   tasks:
     - name: Download k3s binary
       become: true
@@ -77,3 +83,14 @@
           - open-iscsi
           - nfs-common
         state: present
+
+    - name: Add onghorn multipath blacklist
+      become: true
+      ansible.builtin.blockinfile:
+        path: /etc/multipath.conf
+        block: |
+          blacklist {
+              devnode "^sd[a-z0-9]+"
+          }
+        state: present
+      notify: restart multipath
