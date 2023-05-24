@@ -86,7 +86,7 @@ resource "healthchecksio_check" "k8s_control" {
 }
 
 resource "healthchecksio_check" "k8s_worker" {
-  count = 4
+  count = 2
 
   name = "k8s-worker-${count.index + 1}"
   desc = "Checks the k8s worker node is up"

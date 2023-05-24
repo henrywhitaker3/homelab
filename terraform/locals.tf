@@ -7,5 +7,6 @@ locals {
   ubuntu_22_04_25G  = "ubuntu-22.04-cloud-25G"
   ubuntu_22_04_100G = "ubuntu-22.04-cloud-100G"
   ubuntu_22_04_200G = "ubuntu-22.04-cloud-200G"
+  ubuntu_22_04_300G = "ubuntu-22.04-cloud-300G"
   alma_9_10G        = "alma-9-cloud-10G"
 }
