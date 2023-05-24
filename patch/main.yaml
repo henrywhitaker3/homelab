@@ -1,6 +1,4 @@
 ---
-- name: Patch docker
-  ansible.builtin.import_playbook: docker.yaml
 - name: Patch pihole
   ansible.builtin.import_playbook: pihole.yaml
 - name: Patch ha servers
