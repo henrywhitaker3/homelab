@@ -84,7 +84,7 @@
           - nfs-common
         state: present
 
-    - name: Add onghorn multipath blacklist
+    - name: Add longhorn multipath blacklist
       become: true
       ansible.builtin.blockinfile:
         path: /etc/multipath.conf
