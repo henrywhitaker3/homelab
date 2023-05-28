@@ -32,16 +32,20 @@
       changed_when: "'created' in argo_namespace_created.stdout"
       failed_when: false
 
-    - name: Install argocd
+    - name: Add helm repo
       tags:
         - k8s
         - argo
       become: true
-      ansible.builtin.command: "helm upgrade --install -n argo -f /home/{{ ansible_user }}/charts/argocd/values.yaml argo /home/{{ ansible_user }}/charts/argocd"
-      environment:
-        KUBECONFIG: /etc/rancher/k3s/k3s.yaml
-      changed_when: true
-      when: charts_clone.changed
+      kubernetes.core.helm:
+        release_name: argo
+        namespace: argo
+        create_namespace: true
+        chart_ref: "/home/{{ ansible_user }}/charts/argocd"
+        values_files:
+          - "/home/{{ ansible_user }}/charts/argocd/values.yaml"
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        dependency_update: true
 
     - name: Is argo apps installed?
       tags:

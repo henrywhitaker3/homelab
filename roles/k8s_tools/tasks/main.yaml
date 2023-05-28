@@ -68,3 +68,15 @@
   ansible.builtin.apt:
     name: helm
     state: latest
+
+- name: Install helm diff
+  become: true
+  tags:
+    - apt
+    - common
+    - k8s
+  ansible.builtin.command:
+    cmd: helm plugin install https://github.com/databus23/helm-diff
+  register: k8s_tools_helm_diff_install
+  changed_when: "'Installed plugin' in k8s_tools_helm_diff_install.stdout"
+  failed_when: false
