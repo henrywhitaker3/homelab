@@ -6,7 +6,7 @@ pihole.lab ansible_host=10.0.0.2
 [k8s_control]
 k8s-control-1.lab ansible_host=10.0.0.20
 k8s-control-2.lab ansible_host=10.0.0.21
-k8s-control-3.lab ansible_host=10.0.0.160
+k8s-control-3.lab ansible_host=10.0.0.24
 
 [k8s_workers]
 k8s-worker-1.lab ansible_host=10.0.0.23
