@@ -41,6 +41,18 @@
         group: root
         mode: "0755"
 
+    - name: Copy over k3s scripts
+      become: true
+      ansible.builtin.template:
+        src: "templates/{{ item }}"
+        dest: "/usr/local/bin/{{ item }}"
+        owner: root
+        group: root
+        mode: "0755"
+      loop:
+        - k3s-uninstall.sh
+        - k3s-killall.sh
+
     - name: Setup k3s bash completion
       become: true
       ansible.builtin.shell:
