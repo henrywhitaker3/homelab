@@ -16,12 +16,21 @@
         state: restarted
 
   tasks:
+    - name: Copy over k3s config
+      ansible.builtin.template:
+        src: templates/config.yaml
+        dest: /etc/rancher/k3s/config.yaml
+        owner: root
+        group: root
+        mode: "0600"
+      notify: restart k3s
+
     - name: Init cluster
       ansible.builtin.command:
         cmd: "systemd-run -p RestartSec=2 \
                           -p Restart=on-failure \
                           --unit=k3s-init \
-                          k3s server --cluster-init --token {{ k3s_token }} {{ k3s_server_args | default('') }}"
+                          k3s server --cluster-init --config /etc/rancher/k3s/config.yaml {{ k3s_server_args | default('') }}"
         creates: "/etc/systemd/system/k3s.service"
       when: ansible_host == hostvars[groups['k8s_control'][0]]['ansible_host']
 
@@ -30,7 +39,7 @@
         cmd: "systemd-run -p RestartSec=2 \
                           -p Restart=on-failure \
                           --unit=k3s-init \
-                          k3s server --server https://{{ hostvars[groups['k8s_control'][0]]['ansible_host'] }}:6443 --token {{ k3s_token }} {{ k3s_server_args | default('') }}"
+                          k3s server --server https://{{ hostvars[groups['k8s_control'][0]]['ansible_host'] }}:6443 --config /etc/rancher/k3s/config.yaml {{ k3s_server_args | default('') }}"
         creates: "/etc/systemd/system/k3s.service"
       when: ansible_host != hostvars[groups['k8s_control'][0]]['ansible_host']
 
