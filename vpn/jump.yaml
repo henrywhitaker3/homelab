@@ -6,7 +6,6 @@
   roles:
     - user
     - common
-    - haproxy_exporter
     - crog
     - node_exporter
 

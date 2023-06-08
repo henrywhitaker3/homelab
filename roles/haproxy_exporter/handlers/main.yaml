@@ -1,9 +1,0 @@
----
-- name: restart haproxy_exporter
-  become: true
-  tags:
-    - haproxy_exporter
-    - monitoring
-  ansible.builtin.service:
-    name: haproxy_exporter
-    state: restarted

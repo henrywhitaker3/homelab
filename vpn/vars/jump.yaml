@@ -17,8 +17,6 @@ crog_actions:
       success: "{{ healthchecks.jump[inventory_hostname].conn }}"
       failure: "{{ healthchecks.jump[inventory_hostname].conn }}/fail"
 
-haproxy_exporter_listen_address: "{{ jump[inventory_hostname].ip }}"
-
 crog_verbose: true
 
 crog_server_ip: "{{ jump[inventory_hostname].ip }}"
