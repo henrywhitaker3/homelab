@@ -26,6 +26,7 @@ kubelet-arg:
 flannel-backend: "{{ k3s_flannel_backend }}"
 
 disable-kube-proxy: {{ k3s_disable_kube_proxy }}
+disable-network-policy: {{ k3s_disable_network_policy }}
 
 cluster-cidr: "{{ k3s_cluster_cidr }}"
 service-cidr: "{{ k3s_service_cidr }}"
