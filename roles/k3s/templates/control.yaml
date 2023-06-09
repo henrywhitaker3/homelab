@@ -23,6 +23,27 @@ kubelet-arg:
 {% endfor %}
 {% endif %}
 
+{% if k3s_kube_apiserver_args is defined and k3s_kube_apiserver_args %}
+kube-apiserver-arg:
+{% for arg in k3s_kube_apiserver_args %}
+  - {{ arg }}
+{% endfor %}
+{% endif %}
+
+{% if k3s_kube_scheduler_args is defined and k3s_kube_scheduler_args %}
+kube-scheduler-arg:
+{% for arg in k3s_kube_scheduler_args %}
+  - {{ arg }}
+{% endfor %}
+{% endif %}
+
+{% if k3s_kube_controller_manager_args is defined and k3s_kube_controller_manager_args %}
+kube-controller-manager-arg:
+{% for arg in k3s_kube_controller_manager_args %}
+  - {{ arg }}
+{% endfor %}
+{% endif %}
+
 flannel-backend: "{{ k3s_flannel_backend }}"
 
 disable-kube-proxy: {{ k3s_disable_kube_proxy }}

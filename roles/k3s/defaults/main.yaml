@@ -9,6 +9,12 @@ k3s_agent_args: ""
 
 k3s_kubelet_args: []
 
+k3s_kube_apiserver_args: []
+
+k3s_kube_scheduler_args: []
+
+k3s_kube_controller_manager_args: []
+
 k3s_server_url: ""
 
 k3s_tls_san: []
