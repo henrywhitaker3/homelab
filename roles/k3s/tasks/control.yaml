@@ -19,31 +19,6 @@
     creates: "/etc/systemd/system/k3s.service"
   when: (k3s_control_primary is defined and not k3s_control_primary) or (k3s_control_primary is undefined)
 
-- name: Count number of control plane nodes
-  ansible.builtin.set_fact:
-    k3s_control_plane_count: "{{ k3s_control_idx }}"
-  loop: "{{ ansible_play_hosts }}"
-  loop_control:
-    index_var: k3s_control_idx
-
-- name: Verify that all nodes actually joined
-  become: "{{ k3s_become }}"
-  ansible.builtin.command:
-    cmd: k3s kubectl get nodes -l "node-role.kubernetes.io/master=true" -o=jsonpath="{.items[*].metadata.name}"
-  register: k3s_nodes
-  until: k3s_nodes.rc == 0 and (k3s_nodes.stdout.split() | length) == (k3s_control_plane_count - 1)
-  retries: "{{ retry_count | default(20) }}"
-  delay: 10
-  when: k3s_flannel_backend != "none"
-  changed_when: false
-
-- name: Kill the temporary service used for initialization
-  become: "{{ k3s_become }}"
-  ansible.builtin.systemd:
-    name: k3s-init
-    state: stopped
-  failed_when: false
-
 - name: Copy K3s service file
   become: "{{ k3s_become }}"
   register: k3s_service
@@ -54,6 +29,32 @@
     group: root
     mode: "0644"
   notify: restart k3s
+
+- name: Set initaial number of control plane nodes
+  ansible.builtin.set_fact:
+    k3s_control_plane_count: 0
+
+- name: Count number of control plane nodes
+  ansible.builtin.set_fact:
+    k3s_control_plane_count: "{{ k3s_control_plane_count | int + 1 }}"
+  loop: "{{ ansible_play_hosts }}"
+
+- name: Verify that all nodes actually joined
+  become: "{{ k3s_become }}"
+  ansible.builtin.command:
+    cmd: k3s kubectl get nodes -l "node-role.kubernetes.io/master=true" -o=jsonpath="{.items[*].metadata.name}"
+  register: k3s_nodes
+  until: k3s_nodes.rc == 0 and (k3s_nodes.stdout.split() | length) == (k3s_control_plane_count | int)
+  retries: "{{ retry_count | default(20) }}"
+  delay: 10
+  changed_when: false
+
+- name: Kill the temporary service used for initialization
+  become: "{{ k3s_become }}"
+  ansible.builtin.systemd:
+    name: k3s-init
+    state: stopped
+  failed_when: false
 
 - name: Enable and check K3s service
   become: "{{ k3s_become }}"
