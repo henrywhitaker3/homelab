@@ -1,0 +1,24 @@
+token: "{{ k3s_token }}"
+
+{% if k3s_tls_san is defined and k3s_tls_san %}
+tls-san:
+{% for san in k3s_tls_san %}
+  - {{ san }}
+{% endfor %}
+{% endif %}
+
+{% if k3s_disable is defined and k3s_disable %}
+disable:
+{% for option in k3s_disable %}
+  - {{ option }}
+{% endfor %}
+{% endif %}
+
+etcd-expose-metrics: {{ k3s_expose_etcd_metrics }}
+
+{% if k3s_kubelet_args is defined and k3s_kubelet_args %}
+kubelet-arg:
+{% for arg in k3s_kubelet_args %}
+  - {{ arg }}
+{% endfor %}
+{% endif %}

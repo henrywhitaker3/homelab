@@ -16,6 +16,23 @@
         state: restarted
 
   tasks:
+    - name: Create k3s config directory
+      ansible.builtin.file:
+        path: /etc/rancher/k3s
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Copy over k3s config
+      ansible.builtin.template:
+        src: templates/worker.yaml
+        dest: /etc/rancher/k3s/config.yaml
+        owner: root
+        group: root
+        mode: "0600"
+      notify: restart k3s
+
     - name: Copy K3s service file
       register: k3s_service
       ansible.builtin.template:

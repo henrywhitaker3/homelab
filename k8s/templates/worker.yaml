@@ -1,0 +1,10 @@
+token: "{{ k3s_token }}"
+
+server: "{{ k3s_server_url }}"
+
+{% if k3s_kubelet_args is defined and k3s_kubelet_args %}
+kubelet-arg:
+{% for arg in k3s_kubelet_args %}
+  - {{ arg }}
+{% endfor %}
+{% endif %}
