@@ -22,3 +22,5 @@ kubelet-arg:
   - {{ arg }}
 {% endfor %}
 {% endif %}
+
+flannel-backend: "{{ k3s_flannel_backend }}"
