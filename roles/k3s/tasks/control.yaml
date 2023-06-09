@@ -34,6 +34,7 @@
   until: k3s_nodes.rc == 0 and (k3s_nodes.stdout.split() | length) == (k3s_control_plane_count - 1)
   retries: "{{ retry_count | default(20) }}"
   delay: 10
+  when: k3s_flannel_backend != "none"
   changed_when: false
 
 - name: Kill the temporary service used for initialization
