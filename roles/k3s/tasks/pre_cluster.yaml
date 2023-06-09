@@ -1,0 +1,79 @@
+---
+- name: Download k3s binary
+  become: "{{ k3s_become }}"
+  ansible.builtin.get_url:
+    url: https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/k3s
+    checksum: sha256:https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/sha256sum-amd64.txt
+    dest: /usr/local/bin/k3s
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy over k3s scripts
+  become: "{{ k3s_become }}"
+  ansible.builtin.template:
+    src: "templates/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - k3s-uninstall.sh
+    - k3s-killall.sh
+
+- name: Setup k3s bash completion
+  become: "{{ k3s_become }}"
+  ansible.builtin.shell:
+    cmd: k3s completion bash > /etc/bash_completion.d/k3s
+    creates: /etc/bash_completion.d/k3s
+
+- name: Set sysctl for pod networking
+  become: "{{ k3s_become }}"
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    reload: true
+  loop:
+    - name: net.ipv4.ip_forward
+      value: "1"
+    - name: net.ipv6.conf.all.forwarding
+      value: "1"
+    - name: net.ipv6.conf.all.accept_ra
+      value: "2"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Add ipset
+  become: "{{ k3s_become }}"
+  ansible.builtin.apt:
+    name: ipset
+    state: latest
+  notify: reboot node
+
+- name: Install longhorn dependencies
+  become: "{{ k3s_become }}"
+  ansible.builtin.apt:
+    name:
+      - open-iscsi
+      - nfs-common
+    state: present
+
+- name: Add longhorn multipath blacklist
+  become: "{{ k3s_become }}"
+  ansible.builtin.blockinfile:
+    path: /etc/multipath.conf
+    block: |
+      blacklist {
+          devnode "^sd[a-z0-9]+"
+      }
+    state: present
+  notify: restart multipath
+
+- name: Create k3s config directory
+  become: "{{ k3s_become }}"
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"

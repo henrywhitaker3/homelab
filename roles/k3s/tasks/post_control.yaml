@@ -1,0 +1,40 @@
+---
+- name: Create kubectl symlink
+  become: "{{ k3s_become }}"
+  ansible.builtin.file:
+    src: /usr/local/bin/k3s
+    dest: /usr/local/bin/kubectl
+    state: link
+
+- name: Create crictl symlink
+  become: "{{ k3s_become }}"
+  ansible.builtin.file:
+    src: /usr/local/bin/k3s
+    dest: /usr/local/bin/crictl
+    state: link
+
+- name: Create directory .kube
+  become: "{{ k3s_become }}"
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "0750"
+
+- name: Copy config file to user home directory
+  become: "{{ k3s_become }}"
+  ansible.builtin.copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "/home/{{ ansible_user }}/.kube/config"
+    remote_src: true
+    owner: "{{ ansible_user }}"
+    mode: "0600"
+  changed_when: false
+
+- name: Configure kubectl cluster to {{ k3s_server_url }}
+  become: "{{ k3s_become }}"
+  ansible.builtin.command: >-
+    k3s kubectl config set-cluster default
+      --server={{ k3s_server_url }}
+      --kubeconfig /home/{{ ansible_user }}/.kube/config
+  changed_when: false

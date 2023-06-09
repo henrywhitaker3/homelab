@@ -1,0 +1,19 @@
+---
+- name: reboot node
+  become: "{{ k3s_become }}"
+  tags:
+    - nodes
+    - networking
+  ansible.builtin.reboot:
+
+- name: restart multipath
+  become: "{{ k3s_become }}"
+  ansible.builtin.service:
+    name: multipathd
+    state: restarted
+
+- name: restart k3s
+  become: "{{ k3s_become }}"
+  ansible.builtin.service:
+    name: k3s
+    state: restarted

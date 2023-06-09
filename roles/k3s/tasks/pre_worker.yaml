@@ -1,0 +1,10 @@
+---
+- name: Copy over k3s config
+  become: "{{ k3s_become }}"
+  ansible.builtin.template:
+    src: templates/worker.yaml
+    dest: /etc/rancher/k3s/config.yaml
+    owner: root
+    group: root
+    mode: "0600"
+  notify: restart k3s

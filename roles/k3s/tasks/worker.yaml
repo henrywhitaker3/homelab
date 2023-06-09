@@ -1,0 +1,29 @@
+---
+- name: Copy over k3s config
+  become: "{{ k3s_become }}"
+  ansible.builtin.template:
+    src: templates/worker.yaml
+    dest: /etc/rancher/k3s/config.yaml
+    owner: root
+    group: root
+    mode: "0600"
+  notify: restart k3s
+
+- name: Copy K3s service file
+  become: "{{ k3s_become }}"
+  register: k3s_service
+  ansible.builtin.template:
+    src: "worker.service"
+    dest: "/etc/systemd/system/k3s.service"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart k3s
+
+- name: Enable and check K3s service
+  become: "{{ k3s_become }}"
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    daemon_reload: true
+    enabled: true

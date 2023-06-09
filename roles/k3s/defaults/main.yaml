@@ -1,0 +1,18 @@
+---
+k3s_version: v1.27.2+k3s1
+
+k3s_become: true
+
+k3s_server_args: ""
+
+k3s_agent_args: ""
+
+k3s_kubelet_args: []
+
+k3s_server_url: ""
+
+k3s_tls_san: []
+
+k3s_disable: []
+
+k3s_expose_etcd_metrics: false

@@ -1,0 +1,56 @@
+---
+- name: Initialise cluster
+  become: "{{ k3s_become }}"
+  ansible.builtin.command:
+    cmd: "systemd-run -p RestartSec=2 \
+                      -p Restart=on-failure \
+                      --unit=k3s-init \
+                      k3s server --cluster-init --config /etc/rancher/k3s/config.yaml {{ k3s_server_args | default('') }}"
+    creates: "/etc/systemd/system/k3s.service"
+  when: k3s_control_primary is defined and k3s_control_primary
+
+- name: Join other nodes
+  become: "{{ k3s_become }}"
+  ansible.builtin.command:
+    cmd: "systemd-run -p RestartSec=2 \
+                      -p Restart=on-failure \
+                      --unit=k3s-init \
+                      k3s server --server {{ k3s_server_url }} --config /etc/rancher/k3s/config.yaml {{ k3s_server_args | default('') }}"
+    creates: "/etc/systemd/system/k3s.service"
+  when: (k3s_control_primary is defined and not k3s_control_primary) or (k3s_control_primary is undefined)
+
+- name: Verify that all nodes actually joined
+  become: "{{ k3s_become }}"
+  ansible.builtin.command:
+    cmd: k3s kubectl get nodes -l "node-role.kubernetes.io/master=true" -o=jsonpath="{.items[*].metadata.name}"
+  register: nodes
+  until: nodes.rc == 0 and (nodes.stdout.split() | length) == (groups['k8s_control'] | length)
+  retries: "{{ retry_count | default(20) }}"
+  delay: 10
+  changed_when: false
+
+- name: Kill the temporary service used for initialization
+  become: "{{ k3s_become }}"
+  ansible.builtin.systemd:
+    name: k3s-init
+    state: stopped
+  failed_when: false
+
+- name: Copy K3s service file
+  become: "{{ k3s_become }}"
+  register: k3s_service
+  ansible.builtin.template:
+    src: "control.service"
+    dest: "/etc/systemd/system/k3s.service"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart k3s
+
+- name: Enable and check K3s service
+  become: "{{ k3s_become }}"
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    daemon_reload: true
+    enabled: true
