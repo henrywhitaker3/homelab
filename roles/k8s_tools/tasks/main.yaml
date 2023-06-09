@@ -29,6 +29,12 @@
     name: kubectl
     state: latest
 
+- name: Setup kubectl completion
+  become: true
+  ansible.builtin.shell:
+    cmd: kubectl completion bash > /etc/bash_completion.d/kubectl
+  changed_when: false
+
 - name: Add helm gpg key
   become: true
   tags:
