@@ -21,6 +21,7 @@ k3s_disable:
   - servicelb
   - traefik
   - local-storage
+  - metrics-server
 
 k3s_expose_etcd_metrics: true
 
