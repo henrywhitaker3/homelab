@@ -36,7 +36,7 @@
 
 - name: Count number of control plane nodes
   ansible.builtin.set_fact:
-    k3s_control_plane_count: "{{ k3s_control_plane_count | int + 1 }}"
+    k3s_control_plane_count: "{{ (k3s_control_plane_count | int + 1) if hostvars[item].k3s_control_plane is defined and hostvars[item].k3s_control_plane else (k3s_control_plane_count | int + 0) }}"
   loop: "{{ ansible_play_hosts }}"
 
 - name: Verify that all nodes actually joined
