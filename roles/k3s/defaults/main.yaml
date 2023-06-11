@@ -1,6 +1,8 @@
 ---
 k3s_version: v1.27.2+k3s1
 
+k3s_state: installed
+
 k3s_become: true
 
 k3s_server_args: ""

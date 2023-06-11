@@ -1,32 +1,8 @@
 ---
-- name: Run pre cluster tasks
-  ansible.builtin.import_tasks: pre_cluster.yaml
+- name: Install and setup cluster
+  ansible.builtin.import_tasks: state_installed.yaml
+  when: k3s_state == "installed"
 
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
-
-- name: Run pre control plane tasks
-  ansible.builtin.import_tasks: pre_control.yaml
-  when: k3s_control_plane is defined and k3s_control_plane
-
-- name: Run control plane tasks
-  ansible.builtin.import_tasks: control.yaml
-  when: k3s_control_plane is defined and k3s_control_plane
-
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
-
-- name: Run pre worker node tasks
-  ansible.builtin.import_tasks: pre_worker.yaml
-  when: k3s_control_plane is undefined or not k3s_control_plane
-
-- name: Run worker node tasks
-  ansible.builtin.import_tasks: worker.yaml
-  when: k3s_control_plane is undefined or not k3s_control_plane
-
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
-
-- name: Run post control tasks
-  ansible.builtin.import_tasks: post_control.yaml
-  when: k3s_control_plane is defined and k3s_control_plane
+- name: Upgrade cluster
+  ansible.builtin.import_tasks: state_upgraded.yaml
+  when: k3s_state == "upgraded"

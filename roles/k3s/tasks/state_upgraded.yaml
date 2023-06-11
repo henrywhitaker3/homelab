@@ -1,0 +1,9 @@
+---
+- name: Download k3s
+  ansible.builtin.import_tasks: task_download.yaml
+
+- name: Restart k3s to use new version
+  throttle: 1
+  ansible.builtin.service:
+    name: k3s
+    state: restarted
