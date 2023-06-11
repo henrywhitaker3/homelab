@@ -11,13 +11,13 @@
     - vars/k8s.yaml
 
   roles:
-    # - user
-    # - common
-    # - node_exporter
-    # - cifs
-    # - vpn_route
-    # - crog
+    - user
+    - common
+    - node_exporter
+    - cifs
+    - vpn_route
+    - crog
     - k3s
 
-# - name: Run post installation
-#   ansible.builtin.import_playbook: post.yaml
+- name: Run post installation
+  ansible.builtin.import_playbook: post.yaml
