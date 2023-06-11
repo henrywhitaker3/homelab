@@ -32,7 +32,7 @@
       changed_when: "'created' in argo_namespace_created.stdout"
       failed_when: false
 
-    - name: Add helm repo
+    - name: Install argocd
       tags:
         - k8s
         - argo
