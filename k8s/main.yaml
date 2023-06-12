@@ -1,8 +1,6 @@
 ---
 - name: Configure k8s cluster
 
-  become: true
-
   hosts: k8s_nodes
 
   vars_files:
