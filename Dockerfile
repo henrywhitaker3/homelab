@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 
+ARG SOPS_VERSION=3.7.3
 ARG USER=abc
 ENV HOME=/home/$USER
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,7 +20,12 @@ RUN apt-get update && apt-get install -y python3 \
             curl \
             openssh-client \
             rsync \
-            kbd
+            kbd \
+            age
+
+RUN wget https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
+    && chmod 0755 /usr/local/bin/sops \
+    && chown root:root /usr/local/bin/sops
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
@@ -33,6 +39,5 @@ USER $USER
 
 RUN pip3 install ansible ansible-lint
 ENV PATH="/home/abc/.local/bin:$PATH"
-ENV ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
 
 WORKDIR $HOME
