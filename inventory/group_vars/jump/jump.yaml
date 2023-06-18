@@ -1,0 +1,21 @@
+crog_actions:
+  - name: LAN connection
+    command: nc -z -w 2 {{ jump[inventory_hostname].backend }} 443
+    code: 0
+    cron: "* * * * *"
+    when:
+      start: "{{ healthchecks.jump[inventory_hostname].lan }}/start"
+      success: "{{ healthchecks.jump[inventory_hostname].lan }}"
+      failure: "{{ healthchecks.jump[inventory_hostname].lan }}/fail"
+  - name: VPN Interface Status
+    command: wg show wg0
+    code: 0
+    cron: "* * * * *"
+    when:
+      start: "{{ healthchecks.jump[inventory_hostname].conn }}/start"
+      success: "{{ healthchecks.jump[inventory_hostname].conn }}"
+      failure: "{{ healthchecks.jump[inventory_hostname].conn }}/fail"
+
+crog_verbose: true
+
+crog_server_ip: "{{ jump[inventory_hostname].ip }}"

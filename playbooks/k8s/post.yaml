@@ -1,0 +1,121 @@
+---
+- name: Configure k8s admin server
+
+  hosts: k8s-control-1.lab
+
+  roles:
+    - k8s_tools
+
+  tasks:
+    - name: Clone charts
+      tags:
+        - k8s
+        - argo
+      ansible.builtin.git:
+        repo: https://gitlab.com/henrywhitaker3/charts.git
+        dest: "/home/{{ ansible_user }}/charts"
+        version: HEAD
+      register: charts_clone
+
+    - name: Create argo namespace
+      tags:
+        - k8s
+        - argo
+      become: true
+      ansible.builtin.command: "kubectl create namespace argo"
+      register: argo_namespace_created
+      changed_when: "'created' in argo_namespace_created.stdout"
+      failed_when: false
+
+    - name: Install argocd
+      tags:
+        - k8s
+        - argo
+      become: true
+      kubernetes.core.helm:
+        release_name: argo
+        namespace: argo
+        create_namespace: true
+        chart_ref: "/home/{{ ansible_user }}/charts/argocd"
+        values_files:
+          - "/home/{{ ansible_user }}/charts/argocd/values.yaml"
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        dependency_update: true
+
+    - name: Is argo apps installed?
+      tags:
+        - k8s
+        - argo
+      become: true
+      ansible.builtin.command: "kubectl -n argo get applications"
+      changed_when: false
+      register: argo_apps_status
+
+    - name: Wait a bit for the install
+      tags:
+        - k8s
+        - argo
+      ansible.builtin.pause:
+        seconds: 30
+      when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Install argo apps
+      tags:
+        - k8s
+        - argo
+      become: true
+      ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/charts/apps/values.yaml template /home/{{ ansible_user }}/charts/apps | kubectl apply -f -"
+      args:
+        executable: /usr/bin/bash
+      changed_when: true
+      when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Delete helm labels from apps install
+      tags:
+        - k8s
+        - argo
+      become: true
+      ansible.builtin.command: "kubectl -n argo delete secret -l owner=helm,name=argocd"
+      changed_when: true
+      when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Wait a bit for the apps to install
+      tags:
+        - k8s
+        - argo
+      ansible.builtin.pause:
+        seconds: 60
+      when: "'No resources found' in argo_apps_status.stderr"
+
+    - name: Create standalone directory
+      tags:
+        - k8s
+        - standalone
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user }}/standalone"
+        state: directory
+        mode: "0755"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Template over standalone manifests
+      tags:
+        - k8s
+        - standalone
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "/home/{{ ansible_user }}/standalone/{{ item | basename }}"
+        mode: "0664"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      with_fileglob:
+        - standalone/*
+
+    - name: Install standalone manifests
+      tags:
+        - k8s
+        - standalone
+      become: true
+      ansible.builtin.command: "kubectl apply -f /home/{{ ansible_user }}/standalone/"
+      register: apply_standalone_manifests
+      changed_when: "'created' in apply_standalone_manifests.stdout"

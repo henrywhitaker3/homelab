@@ -1,0 +1,16 @@
+---
+- name: Configure k8s cluster
+
+  hosts: k3s
+
+  roles:
+    - user
+    - common
+    - node_exporter
+    - cifs
+    - vpn_route
+    - crog
+    - k3s
+
+- name: Run post installation
+  ansible.builtin.import_playbook: post.yaml

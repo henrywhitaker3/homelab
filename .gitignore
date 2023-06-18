@@ -36,5 +36,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-vpn/keygen.sh
+playbooks/vpn/keygen.sh
 .vscode/
