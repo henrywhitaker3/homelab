@@ -1,0 +1,9 @@
+crog_actions:
+  - name: Heartbeat
+    command: ping -W 1 -c 1 8.8.8.8
+    code: 0
+    cron: "* * * * *"
+    when:
+      start: "{{ healthchecks[inventory_hostname] }}/start"
+      success: "{{ healthchecks[inventory_hostname] }}"
+      failure: "{{ healthchecks[inventory_hostname] }}/fail"

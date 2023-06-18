@@ -22,8 +22,10 @@ image: henrywhitaker3/ansible-terraform
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - $PLAYBOOK/*
-        - $PLAYBOOK/**/*
+        - playbooks/$PLAYBOOK/*
+        - playbooks/$PLAYBOOK/**/*
+        - inventory/*
+        - inventory/**/*
         - roles/**/*
         - inventory
         - .gitlab-ci.yml
@@ -36,14 +38,14 @@ ansible lint:
   extends: .playbooks
   script:
     - task drone-vault-pass VAULT_PASS="$VAULT_PASS"
-    - task lint PLAYBOOK=$PLAYBOOK/main.yaml
+    - task lint PLAYBOOK=playbooks/$PLAYBOOK/main.yaml
 
 ansible play:
   stage: deploy
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task drone-playbook PLAYBOOK=$PLAYBOOK/main.yaml VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
+    - task drone-playbook PLAYBOOK=playbooks/$PLAYBOOK/main.yaml VAULT_PASS="$VAULT_PASS" SSH_KEY="$SSH_KEY"
   environment:
     name: "$PLAYBOOK"
 

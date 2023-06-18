@@ -1,0 +1,67 @@
+all:
+  children:
+    pihole:
+      hosts:
+        pihole.lab:
+          ansible_host: 10.0.0.2
+
+    vpn:
+      hosts:
+        vpn-1.lab:
+          ansible_host: 10.0.0.11
+        vpn-2.lab:
+          ansible_host: 10.0.0.12
+
+    haproxy:
+      hosts:
+        lb-1.lab:
+          ansible_host: 10.0.0.4
+        lb-2.lab:
+          ansible_host: 10.0.0.5
+
+    jump:
+      hosts:
+        jump-k8s.lab:
+          ansible_host: 165.22.112.190
+          node_exporter_host: 10.8.0.150
+
+    speakers:
+      hosts:
+        bedroom.lab:
+          ansible_host: 10.0.0.30
+          spotify_name: Bedroom
+
+    proxmox:
+      vars:
+        ansible_user: root
+      hosts:
+        proxmox-1.lab:
+          ansible_host: 10.0.0.150
+          proxmox_node: 1
+          id_mod: 0
+        proxmox-2.lab:
+          ansible_host: 10.0.0.152
+          proxmox_node: 2
+          id_mod: 1
+
+    k3s:
+      hosts:
+        k8s-control-1.lab:
+          ansible_host: 10.0.0.20
+          k3s_control_plane: true
+          k3s_control_primary: true
+
+        k8s-control-2.lab:
+          ansible_host: 10.0.0.21
+          k3s_control_plane: true
+
+        k8s-control-3.lab:
+          ansible_host: 10.0.0.24
+          k3s_control_plane: true
+
+        k8s-worker-1.lab:
+          ansible_host: 10.0.0.23
+
+        k8s-worker-2.lab:
+          ansible_host: 10.0.0.22
+
