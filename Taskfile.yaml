@@ -1,34 +1,9 @@
 version: '3'
 
+includes:
+  ci: taskfiles/CI.yaml
+
 tasks:
-  drone-ssh-key:
-    cmds:
-      - echo "{{ .SSH_KEY }}" | base64 -d | ssh-add -
-    silent: true
-
-  drone-ssh-keyscan:
-    cmds:
-      - ssh-keyscan -H {{ .TARGET_IPS }} >> ~/.ssh/known_hosts
-    silent: true
-
-  drone-vault-pass:
-    cmds:
-      - echo {{ .VAULT_PASS }} > ~/.vault_pass.txt
-    silent: true
-
-  drone-playbook:
-    deps: [drone-ssh-key, drone-vault-pass]
-    cmds:
-      - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --vault-password-file ~/.vault_pass.txt {{ .PLAYBOOK }}
-
-  lint:
-    cmds:
-      - ansible-lint {{ .PLAYBOOK }}
-
-  lint:debug:
-    cmds:
-      - docker run --rm -v $(pwd):/drone/src -it henrywhitaker3/ansible-terraform bash
-
   install:argo:
     cmds:
       - helm dependency update k8s/argo/argocd
@@ -38,8 +13,3 @@ tasks:
   k3s:upgrade:
     cmds:
       - ansible-playbook k8s/main.yaml --extra-vars "k3s_state=upgraded"
-
-  ansible:init:
-    cmds:
-      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
-      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force

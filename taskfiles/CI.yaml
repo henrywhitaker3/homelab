@@ -1,0 +1,31 @@
+version: "3"
+
+tasks:
+  ssh:key:
+    cmds:
+      - echo "{{ .SSH_KEY }}" | base64 -d | ssh-add -
+    silent: true
+
+  ssh:keyscan:
+    cmds:
+      - ssh-keyscan -H {{ .TARGET_IPS }} >> ~/.ssh/known_hosts
+    silent: true
+
+  age:key:
+    cmds:
+      - echo {{ .AGE_KEY }} > ~/.age.key
+
+  playbook:
+    deps: [age:key, ssh:key, init]
+    cmds:
+      - SOPS_AGE_KEY_FILE=~/.age.key ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook {{ .PLAYBOOK }}
+
+  lint:
+    deps: [init]
+    cmds:
+      - SOPS_AGE_KEY_FILE=~/.age.key ansible-lint {{ .PLAYBOOK }}
+
+  init:
+    cmds:
+      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
+      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
