@@ -64,7 +64,7 @@
         - k8s
         - argo
       become: true
-      ansible.builtin.shell: "set -o pipefail && helm -n argo -f /home/{{ ansible_user }}/charts/apps/values.yaml template /home/{{ ansible_user }}/charts/apps | kubectl apply -f -"
+      ansible.builtin.shell: "kubectl apply -f home/{{ ansible_user }}/charts/root"
       args:
         executable: /usr/bin/bash
       changed_when: true
