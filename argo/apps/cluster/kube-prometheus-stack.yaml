@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
-  project: apps
+  project: cluster
   source:
     path: argo/charts/kube-prometheus-stack
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
