@@ -19,16 +19,6 @@
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
 
-- name: Install kubectl
-  become: true
-  tags:
-    - apt
-    - common
-    - k8s
-  ansible.builtin.apt:
-    name: kubectl
-    state: latest
-
 - name: Setup kubectl completion
   become: true
   ansible.builtin.shell:
@@ -65,14 +55,17 @@
     repo: "deb [arch={{ k8s_tools_deb_architecture.stdout }} signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
     state: present
 
-- name: Install helm
+- name: Install packages
   become: true
   tags:
     - apt
     - common
     - k8s
   ansible.builtin.apt:
-    name: helm
+    name:
+      - kubectl
+      - helm
+      - python3-pip
     state: latest
 
 - name: Install helm diff
@@ -86,3 +79,15 @@
   register: k8s_tools_helm_diff_install
   changed_when: "'Installed plugin' in k8s_tools_helm_diff_install.stdout"
   failed_when: false
+
+- name: Install python packages
+  become: true
+  tags:
+    - pip
+    - k8s
+  ansible.builtin.pip:
+    name:
+      - openshift
+      - pyyaml
+      - kubernetes
+    state: present
