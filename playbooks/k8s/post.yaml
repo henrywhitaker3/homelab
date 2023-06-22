@@ -56,6 +56,7 @@
       kubernetes.core.k8s:
         src: "{{ item.path }}"
         state: present
+        apply: true
         kubeconfig: /etc/rancher/k3s/k3s.yaml
       with_items: "{{ argo_root_files.files }}"
       loop_control:
@@ -93,6 +94,7 @@
       kubernetes.core.k8s:
         src: "/home/{{ ansible_user }}/standalone/{{ item | basename }}"
         state: present
+        apply: true
         kubeconfig: /etc/rancher/k3s/k3s.yaml
       with_fileglob:
         - standalone/*
