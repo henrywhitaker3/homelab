@@ -7,13 +7,3 @@ type: Opaque
 data:
   runner-registration-token: {{ gitlab.runner.registration_token | b64encode }}
   runner-token: ""
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: chart-runner-secret
-  namespace: gitlab-runner
-type: Opaque
-data:
-  runner-registration-token: {{ chartsRunner | b64encode }}
-  runner-token: ""
