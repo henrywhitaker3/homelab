@@ -11,8 +11,8 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: charts/redeployer
-    repoURL: https://gitlab.com/henrywhitaker3/argo.git
+    path: argo/charts/redeployer
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
     automated:

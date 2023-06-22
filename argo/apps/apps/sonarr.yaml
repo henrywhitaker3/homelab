@@ -11,8 +11,8 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: charts/sonarr
-    repoURL: https://gitlab.com/henrywhitaker3/argo.git
+    path: argo/charts/sonarr
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
     automated:
