@@ -23,6 +23,8 @@ image: henrywhitaker3/ansible-terraform
         - speakers
         - pihole
   rules:
+    - if: $SKIP_ANSIBLE == "true"
+      when: never
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main" && $SKIP_ANSIBLE != "true"
       changes:
@@ -34,8 +36,6 @@ image: henrywhitaker3/ansible-terraform
         - ansible/inventory
         - .gitlab-ci.yml
         - .ansible-lint
-    - if: $SKIP_ANSIBLE == "true"
-      when: never
 
 ansible lint:
   stage: stage
@@ -71,12 +71,12 @@ ansible play:
           -backend-config="unlock_method=DELETE" \
           -backend-config="retry_wait_min=5"
   rules:
+    - if: $SKIP_TERRAFORM == "true"
+      when: never
     - if: $CI_COMMIT_BRANCH == "main" && $SKIP_TERRAFORM != "true"
       changes:
         - terraform/*
         - .gitlab-ci.yml
-    - if: $SKIP_TERRAFORM == "true"
-      when: never
 
 tf plan:
   stage: stage
