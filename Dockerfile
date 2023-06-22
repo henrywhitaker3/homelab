@@ -30,6 +30,10 @@ RUN wget https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
+
 RUN adduser --home $HOME --shell /bin/bash --disabled-password --gecos '' $USER
 
 RUN mkdir $HOME/.ssh && \
