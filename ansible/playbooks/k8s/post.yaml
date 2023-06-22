@@ -7,25 +7,27 @@
     - k8s_tools
 
   tasks:
-    - name: Clone argo
+    - name: Copy argocd over
       tags:
         - k8s
         - argo
-      ansible.builtin.git:
-        repo: https://gitlab.com/henrywhitaker3/argo.git
-        dest: "/home/{{ ansible_user }}/argo"
-        version: HEAD
-      register: argo_clone
+      ansible.builtin.copy:
+        src: ../../../argo/argocd
+        dest: "/home/{{ ansible_user }}/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0755"
 
-    - name: Create argo namespace
+    - name: Copy root over
       tags:
         - k8s
         - argo
-      become: true
-      ansible.builtin.command: "kubectl create namespace argo"
-      register: argo_namespace_created
-      changed_when: "'created' in argo_namespace_created.stdout"
-      failed_when: false
+      ansible.builtin.copy:
+        src: ../../../argo/root
+        dest: "/home/{{ ansible_user }}/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0755"
 
     - name: Install argocd
       tags:
@@ -36,16 +38,16 @@
         release_name: argo
         namespace: argo
         create_namespace: true
-        chart_ref: "/home/{{ ansible_user }}/argo/argocd"
+        chart_ref: "/home/{{ ansible_user }}/argocd"
         values_files:
-          - "/home/{{ ansible_user }}/argo/argocd/values.yaml"
+          - "/home/{{ ansible_user }}/argocd/values.yaml"
         kubeconfig: /etc/rancher/k3s/k3s.yaml
         dependency_update: true
         wait: true
 
     - name: Get argo root files
       ansible.builtin.find:
-        paths: "/home/{{ ansible_user }}/argo/root"
+        paths: "/home/{{ ansible_user }}/root"
       register: argo_root_files
 
     - name: Install argo root
