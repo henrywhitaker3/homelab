@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 ARG SOPS_VERSION=3.7.3
 ARG USER=abc
+
 ENV HOME=/home/$USER
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm-256color
