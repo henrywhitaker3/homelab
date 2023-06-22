@@ -11,10 +11,11 @@
     "dependencyDashboardTitle": "Renovate Dashboard",
     "suppressNotifications": ["prIgnoreNotification"],
     "rebaseWhen": "conflicted",
-    "helm-values": {
-      "fileMatch": [
-        "cluster/.+/helm-?release\\.ya?ml$"
-      ]
+    "argocd": {
+        "fileMatch": [
+            "argo/apps/apps/.+\\.yaml$",
+            "argo/apps/cluster/.+\\.yaml$"
+        ]
     },
     "packageRules": [
       {
