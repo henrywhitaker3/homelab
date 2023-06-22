@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-runner-secret
-  namespace: gitlab-runner
-type: Opaque
-data:
-  runner-registration-token: {{ gitlab.runner.registration_token | b64encode }}
-  runner-token: ""

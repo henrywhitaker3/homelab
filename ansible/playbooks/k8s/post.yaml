@@ -3,102 +3,39 @@
 
   hosts: k8s-control-1.lab
 
-  roles:
-    - k8s_tools
-
   tasks:
-    - name: Copy argocd over
-      tags:
-        - k8s
-        - argo
-      ansible.builtin.copy:
-        src: ../../../argo/argocd
-        dest: "/home/{{ ansible_user }}/"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: "0755"
-
-    - name: Copy root over
-      tags:
-        - k8s
-        - argo
-      ansible.builtin.copy:
-        src: ../../../argo/root
-        dest: "/home/{{ ansible_user }}/"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: "0755"
-
-    - name: Install argocd
-      tags:
-        - k8s
-        - argo
+    - name: Copy kubeconfig over locally
       become: true
-      kubernetes.core.helm:
-        release_name: argo
-        namespace: argo
-        create_namespace: true
-        chart_ref: "/home/{{ ansible_user }}/argocd"
-        values_files:
-          - "/home/{{ ansible_user }}/argocd/values.yaml"
-        kubeconfig: /etc/rancher/k3s/k3s.yaml
-        dependency_update: true
-        wait: true
+      ansible.builtin.fetch:
+        src: "/home/{{ ansible_user }}/.kube/config"
+        dest: /tmp/kubeconfig
+        flat: true
 
-    - name: Get argo root files
-      ansible.builtin.find:
-        paths: "/home/{{ ansible_user }}/root"
-      register: argo_root_files
+    - name: Run bootstrap actions locally
+      delegate_to: localhost
+      block:
+        - name: Set repo base dir
+          ansible.builtin.set_fact:
+            repo_base_dir: "{{ playbook_dir }}/../../../"
 
-    - name: Install argo root
-      tags:
-        - k8s
-        - argo
-      become: true
-      kubernetes.core.k8s:
-        src: "{{ item.path }}"
-        state: present
-        apply: true
-        kubeconfig: /etc/rancher/k3s/k3s.yaml
-      with_items: "{{ argo_root_files.files }}"
-      loop_control:
-        label: "{{ item.path }}"
+        - name: Bootstrap secrets
+          ansible.builtin.command:
+            cmd: task argo:bootstrap
+            chdir: "{{ repo_base_dir }}"
+          environment:
+            KUBECONFIG: /tmp/kubeconfig
+          register: bs_secrets
+          changed_when: "'configured' in bs_secrets.stdout"
 
-    - name: Create standalone directory
-      tags:
-        - k8s
-        - standalone
-      ansible.builtin.file:
-        path: "/home/{{ ansible_user }}/standalone"
-        state: directory
-        mode: "0755"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        - name: Install argocd
+          ansible.builtin.command:
+            cmd: task argo:install
+            chdir: "{{ repo_base_dir }}"
+          environment:
+            KUBECONFIG: /tmp/kubeconfig
+          changed_when: true
 
-    - name: Template over standalone manifests
-      tags:
-        - k8s
-        - standalone
-      ansible.builtin.template:
-        src: "{{ item }}"
-        dest: "/home/{{ ansible_user }}/standalone/{{ item | basename }}"
-        mode: "0664"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-      with_fileglob:
-        - standalone/*
-
-    - name: Install standalone manifests
-      tags:
-        - k8s
-        - standalone
-      become: true
-      kubernetes.core.k8s:
-        src: "/home/{{ ansible_user }}/standalone/{{ item | basename }}"
-        state: present
-        apply: true
-        kubeconfig: /etc/rancher/k3s/k3s.yaml
-      with_fileglob:
-        - standalone/*
-      loop_control:
-        label: "{{ item | basename }}"
+        - name: Remove local kubeconfig
+          ansible.builtin.file:
+            path: /tmp/kubeconfig
+            state: absent

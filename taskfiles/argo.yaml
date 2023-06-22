@@ -1,10 +1,15 @@
 version: "3"
 
 tasks:
-  update:
+  bootstrap:
+    cmds:
+      - ./scripts/bootstrap_secrets.sh
+
+  install:
     cmds:
       - helm dependency build argo/argocd
-      - helm upgrade --install -n argo -f argo/argocd/values.yaml argo argo/argocd/
+      - helm upgrade --install --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
+      - kubectl apply -f argo/root
 
   values:
     cmds:
