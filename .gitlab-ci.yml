@@ -6,7 +6,7 @@ stages:
   - stage
   - deploy
 
-image: henrywhitaker3/ansible-terraform
+image: henrywhitaker3/pipeline
 
 ###########
 # Ansible #
