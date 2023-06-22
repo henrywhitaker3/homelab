@@ -22,12 +22,12 @@ image: henrywhitaker3/ansible-terraform
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
-        - playbooks/$PLAYBOOK/*
-        - playbooks/$PLAYBOOK/**/*
-        - inventory/*
-        - inventory/**/*
-        - roles/**/*
-        - inventory
+        - ansible/playbooks/$PLAYBOOK/*
+        - ansible/playbooks/$PLAYBOOK/**/*
+        - ansible/inventory/*
+        - ansible/inventory/**/*
+        - ansible/roles/**/*
+        - ansible/inventory
         - .gitlab-ci.yml
         - .ansible-lint
     - if: $SKIP_ANSIBLE == "true"
@@ -38,17 +38,16 @@ ansible lint:
   extends: .playbooks
   script:
     - task ci:age:key AGE_KEY="$AGE_KEY"
-    - task ci:lint PLAYBOOK=playbooks/$PLAYBOOK/main.yaml
+    - task ci:lint PLAYBOOK=ansible/playbooks/$PLAYBOOK/main.yaml
 
 ansible play:
   stage: deploy
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task ci:playbook PLAYBOOK=playbooks/$PLAYBOOK/main.yaml AGE_KEY="$AGE_KEY" SSH_KEY="$SSH_KEY"
+    - task ci:playbook PLAYBOOK=ansible/playbooks/$PLAYBOOK/main.yaml AGE_KEY="$AGE_KEY" SSH_KEY="$SSH_KEY"
   environment:
     name: "$PLAYBOOK"
-
 
 #############
 # Terraform #
