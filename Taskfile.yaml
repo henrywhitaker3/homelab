@@ -2,14 +2,4 @@ version: '3'
 
 includes:
   ci: taskfiles/CI.yaml
-
-tasks:
-  install:argo:
-    cmds:
-      - helm dependency update k8s/argo/argocd
-      - helm dependency build k8s/argo/argocd
-      - helm upgrade --install -n argo -f k8s/argo/argocd/values.yaml argo k8s/argo/argocd/
-
-  k3s:upgrade:
-    cmds:
-      - ansible-playbook k8s/main.yaml --extra-vars "k3s_state=upgraded"
+  argo: taskfiles/argo.yaml

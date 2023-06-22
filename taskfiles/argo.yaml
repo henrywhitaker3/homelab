@@ -3,9 +3,14 @@ version: "3"
 tasks:
   update:
     cmds:
+      - helm dependency build k8s/argo/argocd
       - helm upgrade --install -n argo -f argo/argocd/values.yaml argo argo/argocd/
 
   patch:pvc:
       cmds:
         - |
           kubectl patch -n {{ .NAMESPACE }} pvc {{ .NAME }} --patch '{ "metadata": { "annotations": { "meta.helm.sh/release-namespace": "{{ .NAMESPACE }}", "meta.helm.sh/release-name": "{{ .NAME }}" }, "labels": { "app.kubernetes.io/managed-by": "Helm" } } }'
+
+  apps:
+    cmds:
+      - kubectl -n argo get applications
