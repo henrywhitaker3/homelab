@@ -4,3 +4,7 @@ tasks:
   upgrade:
     cmds:
       - ansible-playbook k8s/main.yaml --extra-vars "k3s_state=upgraded"
+
+  pull:
+    cmds:
+      - ansible -b -a "k3s crictl pull henrywhitaker3/pipeline:latest" k3s
