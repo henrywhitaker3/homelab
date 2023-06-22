@@ -34,6 +34,8 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
 RUN adduser --home $HOME --shell /bin/bash --disabled-password --gecos '' $USER
 
 RUN mkdir $HOME/.ssh && \
