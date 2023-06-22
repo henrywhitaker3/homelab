@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: argo-repo
+  namespace: argo
+stringData:
+  project: apps
+  type: git
+  url: https://gitlab.com/henrywhitaker3/homelab.git
+type: Opaque

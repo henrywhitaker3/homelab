@@ -1,0 +1,35 @@
+generic:
+  nameOverride: redis
+  fullnameOverride: redis
+
+  replicaCount: 1
+
+  image:
+    repository: redis
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    portName: redis
+    port: 6379
+
+    loadBalancer:
+      enabled: true
+      ip: "10.0.0.35"
+      externalTrafficPolicy: Local
+
+  ingress:
+    enabled: false
+
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 2Gi
+    accessModes:
+    - ReadWriteMany
+
+  probes:
+    type: tcpSocket
+    options:
+      port: redis

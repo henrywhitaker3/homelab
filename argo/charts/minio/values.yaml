@@ -1,0 +1,39 @@
+minio:
+  existingSecret: root-creds
+
+  consoleIngress:
+    enabled: true
+
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+
+    hosts:
+      - minio.plexmox.com
+
+    tls:
+      - secretName: minio-plexmox-com-tls
+        hosts:
+          - minio.plexmox.com
+
+  resources:
+    requests:
+      memory: 1Gi
+
+  replicas: 3
+
+  securityContext:
+    fsGroup: 1002
+    runAsUser: 1002
+    runAsGroup: 100
+
+  persistence:
+    enabled: true
+
+    storageClass: smb
+
+    size: 150Gi
+
+rootCredsPath: vaults/Infra/items/minio-root-creds

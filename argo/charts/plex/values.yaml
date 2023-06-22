@@ -1,0 +1,159 @@
+generic:
+  nameOverride: plex
+  fullnameOverride: plex
+
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/plex
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 32400
+
+    loadBalancer:
+      enabled: true
+      ip: "10.0.0.26"
+      externalTrafficPolicy: Local
+
+    additionalPorts:
+      - name: dlna
+        port: 1900
+        protocol: UDP
+        targetPort: dlna
+      - name: bonjour
+        port: 5353
+        protocol: UDP
+        targetPort: bonjour
+      - name: roku
+        port: 8324
+        protocol: TCP
+        targetPort: roku
+      - name: gdm1
+        port: 32410
+        protocol: UDP
+        targetPort: gdm1
+      - name: gdm2
+        port: 32412
+        protocol: UDP
+        targetPort: gdm2
+      - name: gdm3
+        port: 32413
+        protocol: UDP
+        targetPort: gdm3
+      - name: gdm4
+        port: 32414
+        protocol: UDP
+        targetPort: gdm4
+      - name: dlnat
+        port: 32469
+        protocol: TCP
+        targetPort: dlnat
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_set_header X-Plex-Client-Identifier $http_x_plex_client_identifier;
+        proxy_set_header X-Plex-Device $http_x_plex_device;
+        proxy_set_header X-Plex-Device-Name $http_x_plex_device_name;
+        proxy_set_header X-Plex-Platform $http_x_plex_platform;
+        proxy_set_header X-Plex-Platform-Version $http_x_plex_platform_version;
+        proxy_set_header X-Plex-Product $http_x_plex_product;
+        proxy_set_header X-Plex-Token $http_x_plex_token;
+        proxy_set_header X-Plex-Version $http_x_plex_version;
+        proxy_set_header X-Plex-Nocache $http_x_plex_nocache;
+        proxy_set_header X-Plex-Provides $http_x_plex_provides;
+        proxy_set_header X-Plex-Device-Vendor $http_x_plex_device_vendor;
+        proxy_set_header X-Plex-Model $http_x_plex_model;
+
+        real_ip_header proxy_protocol;
+    hosts:
+      - host: plex.plexmox.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: plex-plexmox-com-tls
+      hosts:
+        - plex.plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 50Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+    initialDelaySeconds: 20
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ:  Europe/London
+    VERSION: latest
+    ADVERTISE_IP: http://10.0.0.26:32400/
+
+  securityContext:
+    privileged: true
+
+  additionalPorts:
+    - name: dlna
+      containerPort: 1900
+      protocol: UDP
+    - name: bonjour
+      containerPort: 5353
+      protocol: UDP
+    - name: roku
+      containerPort: 8324
+      protocol: TCP
+    - name: gdm1
+      containerPort: 32410
+      protocol: UDP
+    - name: gdm2
+      containerPort: 32412
+      protocol: UDP
+    - name: gdm3
+      containerPort: 32413
+      protocol: UDP
+    - name: gdm4
+      containerPort: 32414
+      protocol: UDP
+    - name: dlnat
+      containerPort: 32469
+      protocol: TCP
+
+  volumes:
+    - name: media
+      hostPath:
+        path: /plex
+    - name: quicksync
+      hostPath:
+        path: /dev/dri
+
+  volumeMounts:
+    - mountPath: /plex
+      name: media
+    - mountPath: /dev/dri
+      name: quicksync
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: quicksync
+            operator: In
+            values:
+            - available
+

@@ -38,3 +38,6 @@ terraform.rc
 
 playbooks/vpn/keygen.sh
 .vscode/
+
+argo/charts/**/charts
+argo/argocd/charts

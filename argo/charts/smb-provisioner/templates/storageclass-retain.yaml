@@ -1,0 +1,19 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "{{ .Values.name }}-retain"
+  labels:
+    {{- include "smb.labels" . | nindent 4 }}
+provisioner: smb.csi.k8s.io
+parameters:
+  source: "{{ .Values.host }}"
+  # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
+  # with PV name under source
+  csi.storage.k8s.io/provisioner-secret-name: "{{ .Values.creds.secretName }}"
+  csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Values.creds.namespace }}"
+  csi.storage.k8s.io/node-stage-secret-name: "{{ .Values.creds.secretName }}"
+  csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Values.creds.namespace }}"
+volumeBindingMode: "{{ .Values.volumeBindingMode }}"
+mountOptions:
+  {{- .Values.mountOptions | toYaml | nindent 2 }}
+reclaimPolicy: Retain

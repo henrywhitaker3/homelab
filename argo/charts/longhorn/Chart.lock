@@ -1,0 +1,6 @@
+dependencies:
+- name: longhorn
+  repository: https://charts.longhorn.io
+  version: 1.4.2
+digest: sha256:a1247776e3571d1761eb77d3c8fa6867aed5a4c2c67b2ef4a574cc183302f22a
+generated: "2023-05-24T14:06:21.589127454+01:00"

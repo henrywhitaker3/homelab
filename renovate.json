@@ -1,0 +1,52 @@
+{
+    "enabled": true,
+    "platform": "gitlab",
+    "username": "renovate[bot]",
+    "repositories": ["henrywhitaker3/homelab"],
+    "gitAuthor": "renovate <henrywhitaker3+renovate@outlook.com>",
+    "semanticCommits": "enabled",
+    "labels": ["renovatebot"],
+    "semanticCommitScope": "images",
+    "dependencyDashboard": true,
+    "dependencyDashboardTitle": "Renovate Dashboard",
+    "suppressNotifications": ["prIgnoreNotification"],
+    "rebaseWhen": "conflicted",
+    "helm-values": {
+      "fileMatch": [
+        "cluster/.+/helm-?release\\.ya?ml$"
+      ]
+    },
+    "packageRules": [
+      {
+        "matchManagers": ["kubernetes"],
+        "matchDatasources": ["kubernetes-api"],
+        "enabled": false
+      },
+      {
+        "matchDatasources": ["docker"],
+        "matchUpdateTypes": ["major"],
+        "enabled": true
+      },
+      {
+        "matchDatasources": ["docker"],
+        "addLabels": ["docker/image"]
+      },
+      {
+        "matchUpdateTypes": [
+          "minor",
+          "patch",
+          "pin",
+          "digest"
+        ],
+        "automerge": true
+      },
+      {
+        "matchUpdateTypes": ["major"],
+        "addLabels": [ "dep/major"]
+      },
+      {
+        "matchUpdateTypes": ["minor", "patch"],
+        "addLabels": [ "dep/minor"]
+      }
+    ]
+}

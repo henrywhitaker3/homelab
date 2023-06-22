@@ -1,0 +1,9 @@
+connections:
+  - name: mariadb-k3s
+    host: mariadb.databases.svc.cluster.local
+    port: 3306
+    user: provisioner
+    passwordSecretRef:
+      name: mariadb-k3s
+      key: password
+      vault: vaults/Infra/items/mariadb-provisioner-user

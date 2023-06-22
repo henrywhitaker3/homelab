@@ -1,0 +1,63 @@
+generic:
+  nameOverride: sonarr
+  fullnameOverride: sonarr
+
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/sonarr
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 8989
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://plexmox.com/api/v2/auth?group=1
+      nginx.ingress.kubernetes.io/auth-signin: https://plexmox.com
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_set_header Accept-Encoding "";
+        sub_filter
+        '</head>'
+        '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/nord.css">
+        </head>';
+        sub_filter_once on;
+    hosts:
+      - host: plexmox.com
+        paths:
+          - path: /sonarr
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: plexmox-com-tls
+      hosts:
+        - plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 2Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ:  Europe/London
+
+  volumes:
+    - name: media
+      hostPath:
+        path: /plex
+
+  volumeMounts:
+    - mountPath: /data
+      name: media

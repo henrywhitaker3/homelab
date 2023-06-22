@@ -1,0 +1,57 @@
+generic:
+  nameOverride: organizr
+  fullnameOverride: organizr
+
+  replicaCount: 1
+
+  image:
+    repository: organizr/organizr
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 80
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        if ($http_referer ~* /plex) {
+          rewrite ^/web/(.*) /plex/web/$1? redirect;
+        }
+    hosts:
+      - host: plexmox.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: plexmox-com-tls
+      hosts:
+        - plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 2Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 3
+
+  config:
+    fpm: "true"
+    branch: "dev"
+    PUID: "1000"
+    PGID: "1000"
+    TZ:  Europe/London

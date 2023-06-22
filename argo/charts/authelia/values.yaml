@@ -1,0 +1,77 @@
+secrets: vaults/Infra/items/authelia
+
+authelia:
+  domain: plexmox.com
+
+  pod:
+    extraVolumeMounts:
+      - mountPath: /users
+        name: users
+        readOnly: true
+
+    extraVolumes:
+      - name: users
+        secret:
+          items:
+            - key: users_database.yml
+              path: users_database.yml
+          secretName: authelia-secrets
+
+  rbac:
+    enabled: true
+
+  ingress:
+    enabled: true
+
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    subdomain: auth
+
+  secret:
+    existingSecret: "authelia-secrets"
+
+  configMap:
+    default_redirection_url: https://plexmox.com
+    authentication_backend:
+      ldap:
+        enabled: false
+      file:
+        enabled: true
+        path: /users/users_database.yml
+
+    access_control:
+      default_policy: deny
+      rules:
+        - domain:
+          - plexmox.com
+          - "*.plexmox.com"
+          policy: two_factor
+        - domain:
+          - henrywhitaker.com
+          - "*.henrywhitaker.com"
+          policy: two_factor
+
+    session:
+      redis:
+        enabled: true
+        host: redis.databases.svc.cluster.local
+
+    storage:
+      postgres:
+        enabled: false
+
+      mysql:
+        enabled: true
+        host: mariadb.databases.svc.cluster.local
+        port: 3306
+        username: authelia
+        database: authelia
+
+    notifier:
+      filesystem:
+        enabled: true
+
+      smtp:
+        enabled: false

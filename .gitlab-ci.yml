@@ -1,6 +1,11 @@
+include:
+  - project: 'renovate-bot/renovate-runner'
+    file: '/templates/renovate.gitlab-ci.yml'
+
 stages:
   - stage
   - deploy
+  - renovate
 
 image: henrywhitaker3/ansible-terraform
 
@@ -117,3 +122,16 @@ build docker image:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
         - Dockerfile
+
+############
+# Renovate #
+############
+
+renovate:
+  stage: renovate
+  image: ${CI_RENOVATE_IMAGE_FULL}
+  variables:
+    RENOVATE_EXTRA_FLAGS: henrywhitaker3/charts
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "push"'

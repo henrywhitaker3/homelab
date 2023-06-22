@@ -1,0 +1,7 @@
+gitlab-runner:
+  concurrent: 10
+  gitlabUrl: https://gitlab.com
+  runners:
+    secret: chart-runner-secret
+  rbac:
+    create: true

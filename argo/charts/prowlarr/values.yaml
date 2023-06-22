@@ -1,0 +1,65 @@
+generic:
+  nameOverride: prowlarr
+  fullnameOverride: prowlarr
+
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/prowlarr
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 9696
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 200Mi
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://plexmox.com/api/v2/auth?group=1
+      nginx.ingress.kubernetes.io/auth-signin: https://plexmox.com
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_set_header Accept-Encoding "";
+        sub_filter
+        '</head>'
+        '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/prowlarr/nord.css">
+        </head>';
+        sub_filter_once on;
+    hosts:
+      - host: plexmox.com
+        paths:
+          - path: /prowlarr
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: plexmox-com-tls
+      hosts:
+        - plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 1Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ:  Europe/London
+
+  vpn:
+    enabled: false
+    secret:
+      path: vaults/Infra/items/prowlarr-tunnel

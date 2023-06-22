@@ -1,0 +1,7 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: smb-creds
+  namespace: kube-system
+spec:
+  itemPath: "vaults/Infra/items/k3s-smb"

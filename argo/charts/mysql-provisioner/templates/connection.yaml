@@ -1,0 +1,22 @@
+{{- $global := . -}}
+
+{{- range .Values.connections }}
+apiVersion: mysql-provisioner.henrywhitaker.com/v1beta1
+kind: Connection
+metadata:
+  name: {{ .name }}
+spec:
+  host: {{ .host | quote }}
+  port: {{ .port }}
+  user: {{ .user }}
+  passwordSecretRef:
+    name: {{ .passwordSecretRef.name }}
+    key: {{ .passwordSecretRef.key }}
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: {{ .name }}
+spec:
+  itemPath: {{ .passwordSecretRef.vault }}
+{{- end }}

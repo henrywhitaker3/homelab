@@ -1,0 +1,73 @@
+generic:
+  nameOverride: transmission
+  fullnameOverride: transmission
+
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/transmission
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 9091
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://plexmox.com/api/v2/auth?group=1
+      nginx.ingress.kubernetes.io/auth-signin: https://plexmox.com
+    hosts:
+      - host: plexmox.com
+        paths:
+          - path: /transmission
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: plexmox-com-tls
+      hosts:
+        - plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 128Mi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+
+    initialDelaySeconds: 15
+    timeoutSeconds: 10
+    periodSeconds: 30
+    failureThreshold: 3
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ:  Europe/London
+
+  volumes:
+    - name: downloads
+      hostPath:
+        path: /plex/temp
+    - name: watch
+      hostPath:
+        path: /plex/watch
+
+  volumeMounts:
+    - mountPath: /downloads
+      name: downloads
+    - mountPath: /watch
+      name: watch
+
+  vpn:
+    enabled: true
+    secret:
+      path: vaults/Infra/items/transmission-tunnel
