@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+
+resources:
+  - grafana-secret.yaml
+
+helmCharts:
+  - name: kube-prometheus-stack
+    includeCRDs: true
+    releaseName: kube-prometheus-stack
+    version: "47.0.0"
+    repo: https://prometheus-community.github.io/helm-charts
+    valuesFile: values.yaml
+
+patches:
+  - path: patches/prometheuses.yaml
+    target:
+      kind: CustomResourceDefinition
+      name: prometheuses.monitoring.coreos.com
+  - path: patches/prometheusagents.yaml
+    target:
+      kind: CustomResourceDefinition
+      name: prometheusagents.monitoring.coreos.com

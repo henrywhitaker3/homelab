@@ -1,433 +1,429 @@
-secrets:
-  grafana: vaults/Infra/items/grafana-creds
+alertmanager:
+  enabled: false
 
-kube-prometheus-stack:
-  alertmanager:
-    enabled: false
+nodeExporter:
+  enabled: false
 
-  nodeExporter:
-    enabled: false
+kubeEtcd:
+  enabled: true
 
-  kubeEtcd:
+  endpoints:
+    - 10.0.0.20
+    - 10.0.0.21
+    - 10.0.0.24
+
+grafana:
+  enabled: true
+
+  admin:
+    existingSecret: grafana-creds
+
+  ingress:
     enabled: true
 
-    endpoints:
-      - 10.0.0.20
-      - 10.0.0.21
-      - 10.0.0.24
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
 
-  grafana:
-    enabled: true
+    hosts:
+      - grafana.plexmox.com
 
-    admin:
-      existingSecret: grafana-creds
+    tls:
+      - secretName: grafana-plexmox-com-tls
+        hosts:
+          - grafana.plexmox.com
 
-    ingress:
-      enabled: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: default
+        orgId: 1
+        folder: Custom
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/default
 
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
-
-      hosts:
-        - grafana.plexmox.com
-
-      tls:
-        - secretName: grafana-plexmox-com-tls
-          hosts:
-            - grafana.plexmox.com
-
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-        - name: default
-          orgId: 1
-          folder: Custom
-          type: file
-          disableDeletion: true
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/default
-
-    dashboards:
-      default:
-        haproxy:
-          gnetId: 2428
-          revision: 7
-          datasource: Prometheus
-        node_exporter:
-          gnetId: 1860
-          revision: 31
-          datasource: Prometheus
-        argocd:
-          gnetId: 14584
-          revision: 1
-          datasource: Prometheus
-        cert-manager:
-          gnetId: 11001
-          revision: 1
-          datasource: Prometheus
-        ingress-nginx:
-          gnetId: 9614
-          revision: 1
-          datasource: Prometheus
-        overview:
-          json: |
-            {
-              "annotations": {
-                "list": [
-                  {
-                    "builtIn": 1,
-                    "datasource": {
-                      "type": "grafana",
-                      "uid": "-- Grafana --"
-                    },
-                    "enable": true,
-                    "hide": true,
-                    "iconColor": "rgba(0, 211, 255, 1)",
-                    "name": "Annotations & Alerts",
-                    "type": "dashboard"
-                  }
-                ]
-              },
-              "editable": true,
-              "fiscalYearStartMonth": 0,
-              "graphTooltip": 0,
-              "links": [],
-              "liveNow": false,
-              "panels": [
+  dashboards:
+    default:
+      haproxy:
+        gnetId: 2428
+        revision: 7
+        datasource: Prometheus
+      node_exporter:
+        gnetId: 1860
+        revision: 31
+        datasource: Prometheus
+      argocd:
+        gnetId: 14584
+        revision: 1
+        datasource: Prometheus
+      cert-manager:
+        gnetId: 11001
+        revision: 1
+        datasource: Prometheus
+      ingress-nginx:
+        gnetId: 9614
+        revision: 1
+        datasource: Prometheus
+      overview:
+        json: |
+          {
+            "annotations": {
+              "list": [
                 {
+                  "builtIn": 1,
                   "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
                   },
-                  "fieldConfig": {
-                    "defaults": {
-                      "color": {
-                        "mode": "palette-classic"
-                      },
-                      "custom": {
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                          "legend": false,
-                          "tooltip": false,
-                          "viz": false
-                        },
-                        "lineInterpolation": "smooth",
-                        "lineStyle": {
-                          "fill": "solid"
-                        },
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                          "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                          "group": "A",
-                          "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                          "mode": "off"
-                        }
-                      },
-                      "mappings": [],
-                      "max": 100,
-                      "min": 0,
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "color": "green",
-                            "value": null
-                          },
-                          {
-                            "color": "red",
-                            "value": 80
-                          }
-                        ]
-                      },
-                      "unit": "%"
-                    },
-                    "overrides": []
-                  },
-                  "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 0
-                  },
-                  "id": 1,
-                  "options": {
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "placement": "bottom",
-                      "showLegend": true
-                    },
-                    "tooltip": {
-                      "mode": "single",
-                      "sort": "none"
-                    }
-                  },
-                  "targets": [
-                    {
-                      "datasource": {
-                        "type": "prometheus",
-                        "uid": "prometheus"
-                      },
-                      "editorMode": "code",
-                      "expr": "sum by (instance)(100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100))",
-                      "legendFormat": "{{instance}}",
-                      "range": true,
-                      "refId": "A"
-                    }
-                  ],
-                  "title": "CPU Usage",
-                  "type": "timeseries"
+                  "enable": true,
+                  "hide": true,
+                  "iconColor": "rgba(0, 211, 255, 1)",
+                  "name": "Annotations & Alerts",
+                  "type": "dashboard"
+                }
+              ]
+            },
+            "editable": true,
+            "fiscalYearStartMonth": 0,
+            "graphTooltip": 0,
+            "links": [],
+            "liveNow": false,
+            "panels": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus"
                 },
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "fieldConfig": {
-                    "defaults": {
-                      "color": {
-                        "mode": "palette-classic"
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
                       },
-                      "custom": {
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                          "legend": false,
-                          "tooltip": false,
-                          "viz": false
-                        },
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                          "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                          "group": "A",
-                          "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                          "mode": "off"
-                        }
+                      "lineInterpolation": "smooth",
+                      "lineStyle": {
+                        "fill": "solid"
                       },
-                      "mappings": [],
-                      "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                          {
-                            "color": "green",
-                            "value": null
-                          },
-                          {
-                            "color": "red",
-                            "value": 80
-                          }
-                        ]
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
                       }
                     },
-                    "overrides": []
-                  },
-                  "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 0
-                  },
-                  "id": 2,
-                  "options": {
-                    "legend": {
-                      "calcs": [],
-                      "displayMode": "list",
-                      "placement": "bottom",
-                      "showLegend": true
+                    "mappings": [],
+                    "max": 100,
+                    "min": 0,
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
                     },
-                    "tooltip": {
-                      "mode": "single",
-                      "sort": "none"
+                    "unit": "%"
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 8,
+                  "w": 12,
+                  "x": 0,
+                  "y": 0
+                },
+                "id": 1,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                  },
+                  "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                  }
+                },
+                "targets": [
+                  {
+                    "datasource": {
+                      "type": "prometheus",
+                      "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "sum by (instance)(100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100))",
+                    "legendFormat": "{{instance}}",
+                    "range": true,
+                    "refId": "A"
+                  }
+                ],
+                "title": "CPU Usage",
+                "type": "timeseries"
+              },
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
+                      },
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
+                      }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
                     }
                   },
-                  "targets": [
-                    {
-                      "datasource": {
-                        "type": "prometheus",
-                        "uid": "prometheus"
-                      },
-                      "editorMode": "code",
-                      "expr": "avg by (instance) (node_load1)\n",
-                      "legendFormat": "{{instance}}",
-                      "range": true,
-                      "refId": "A"
-                    }
-                  ],
-                  "title": "CPU Load 1m",
-                  "type": "timeseries"
-                }
-              ],
-              "refresh": "",
-              "schemaVersion": 38,
-              "style": "dark",
-              "tags": [],
-              "templating": {
-                "list": []
-              },
-              "time": {
-                "from": "now-6h",
-                "to": "now"
-              },
-              "timepicker": {},
-              "timezone": "",
-              "title": "Overview",
-              "uid": "e9226d8f-7ac0-4a48-8ae4-f25fa4ef0113",
-              "version": 1,
-              "weekStart": ""
-            }
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 8,
+                  "w": 12,
+                  "x": 12,
+                  "y": 0
+                },
+                "id": 2,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                  },
+                  "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                  }
+                },
+                "targets": [
+                  {
+                    "datasource": {
+                      "type": "prometheus",
+                      "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "avg by (instance) (node_load1)\n",
+                    "legendFormat": "{{instance}}",
+                    "range": true,
+                    "refId": "A"
+                  }
+                ],
+                "title": "CPU Load 1m",
+                "type": "timeseries"
+              }
+            ],
+            "refresh": "",
+            "schemaVersion": 38,
+            "style": "dark",
+            "tags": [],
+            "templating": {
+              "list": []
+            },
+            "time": {
+              "from": "now-6h",
+              "to": "now"
+            },
+            "timepicker": {},
+            "timezone": "",
+            "title": "Overview",
+            "uid": "e9226d8f-7ac0-4a48-8ae4-f25fa4ef0113",
+            "version": 1,
+            "weekStart": ""
+          }
 
-    additionalDataSources:
-      - name: Loki
-        ordId: 1
-        access: proxy
-        type: loki
-        url: http://loki-gateway.loki.svc.cluster.local
-        jsonData:
-          maxLines: 250
+  additionalDataSources:
+    - name: Loki
+      ordId: 1
+      access: proxy
+      type: loki
+      url: http://loki-gateway.loki.svc.cluster.local
+      jsonData:
+        maxLines: 250
 
-  prometheus:
-    ingress:
-      enabled: true
+prometheus:
+  ingress:
+    enabled: true
 
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
 
-      hosts:
-        - prometheus.plexmox.com
+    hosts:
+      - prometheus.plexmox.com
 
-      tls:
-        - secretName: prometheus-plexmox-com-tls
-          hosts:
-            - prometheus.plexmox.com
+    tls:
+      - secretName: prometheus-plexmox-com-tls
+        hosts:
+          - prometheus.plexmox.com
 
-    persistentVolume:
-      enabled: true
-      size: 50Gi
-      storageClass: longhorn
+  persistentVolume:
+    enabled: true
+    size: 50Gi
+    storageClass: longhorn
 
-    prometheusSpec:
-      # ruleSelectorNilUsesHelmValues: false
-      serviceMonitorSelectorNilUsesHelmValues: false
-      podMonitorSelectorNilUsesHelmValues: false
-      probeSelectorNilUsesHelmValues: false
+  prometheusSpec:
+    # ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
 
-      retention: 7d
+    retention: 7d
 
-      additionalScrapeConfigs:
-        - job_name: kubernetes-service-endpoints
-          kubernetes_sd_configs:
-          - role: service
-          relabel_configs:
+    additionalScrapeConfigs:
+      - job_name: kubernetes-service-endpoints
+        kubernetes_sd_configs:
+        - role: service
+        relabel_configs:
 
-          # annotation 'prometheus.io/scrape' must be set to 'true'
-          - action: keep
-            regex: true
-            source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+        # annotation 'prometheus.io/scrape' must be set to 'true'
+        - action: keep
+          regex: true
+          source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
 
-          # service cannot be in kube-system or prom namespaces
-          - action: drop
-            regex: (kube-system|prom)
-            source_labels: [__meta_kubernetes_namespace]
+        # service cannot be in kube-system or prom namespaces
+        - action: drop
+          regex: (kube-system|prom)
+          source_labels: [__meta_kubernetes_namespace]
 
-          # service port name must end with word 'metrics'
-          - action: keep
-            regex: .*metrics
-            source_labels: [__meta_kubernetes_service_port_name]
+        # service port name must end with word 'metrics'
+        - action: keep
+          regex: .*metrics
+          source_labels: [__meta_kubernetes_service_port_name]
 
-          # allow override of http scheme
-          - action: replace
-            regex: (https?)
-            source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
-            target_label: __scheme__
+        # allow override of http scheme
+        - action: replace
+          regex: (https?)
+          source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+          target_label: __scheme__
 
-          # allow override of default /metrics path
-          - action: replace
-            regex: (.+)
-            source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
-            target_label: __metrics_path__
+        # allow override of default /metrics path
+        - action: replace
+          regex: (.+)
+          source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+          target_label: __metrics_path__
 
-          # allow override of default port
-          - action: replace
-            regex: ([^:]+)(?::\d+)?;(\d+)
-            replacement: $1:$2
-            source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
-            target_label: __address__
+        # allow override of default port
+        - action: replace
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+          source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+          target_label: __address__
 
-          - {action: labelmap, regex: __meta_kubernetes_service_label_(.+)}
+        - {action: labelmap, regex: __meta_kubernetes_service_label_(.+)}
 
-          - action: replace
-            source_labels: [__meta_kubernetes_namespace]
-            target_label: kubernetes_namespace
+        - action: replace
+          source_labels: [__meta_kubernetes_namespace]
+          target_label: kubernetes_namespace
 
-          - action: replace
-            source_labels: [__meta_kubernetes_service_name]
-            target_label: kubernetes_name
+        - action: replace
+          source_labels: [__meta_kubernetes_service_name]
+          target_label: kubernetes_name
 
-        - job_name: 'haproxy'
-          static_configs:
-            - targets:
-              - 'jump-k8s.lab:8404'
-              - 'k8s.lab:8404'
+      - job_name: 'haproxy'
+        static_configs:
+          - targets:
+            - 'jump-k8s.lab:8404'
+            - 'k8s.lab:8404'
 
-        - job_name: 'node_exporter'
-          static_configs:
-            - targets:
-              - 'pihole.lab:9100'
-              - 'lb-1.lab:9100'
-              - 'lb-2.lab:9100'
-              - 'vpn-1.lab:9100'
-              - 'vpn-2.lab:9100'
-              - 'jump-k8s.lab:9100'
-              - 'bedroom.lab:9100'
-              - 'proxmox-1.lab:9100'
-              - 'proxmox-2.lab:9100'
-              - 'k8s-control-1.lab:9100'
-              - 'k8s-control-2.lab:9100'
-              - 'k8s-control-3.lab:9100'
-              - 'k8s-worker-1.lab:9100'
-              - 'k8s-worker-2.lab:9100'
+      - job_name: 'node_exporter'
+        static_configs:
+          - targets:
+            - 'pihole.lab:9100'
+            - 'lb-1.lab:9100'
+            - 'lb-2.lab:9100'
+            - 'vpn-1.lab:9100'
+            - 'vpn-2.lab:9100'
+            - 'jump-k8s.lab:9100'
+            - 'bedroom.lab:9100'
+            - 'proxmox-1.lab:9100'
+            - 'proxmox-2.lab:9100'
+            - 'k8s-control-1.lab:9100'
+            - 'k8s-control-2.lab:9100'
+            - 'k8s-control-3.lab:9100'
+            - 'k8s-worker-1.lab:9100'
+            - 'k8s-worker-2.lab:9100'
 
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: longhorn
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 50Gi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
