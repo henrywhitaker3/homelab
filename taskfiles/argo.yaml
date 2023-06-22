@@ -6,9 +6,14 @@ tasks:
       - ./scripts/bootstrap_secrets.sh
 
   install:
+    deps: [repo]
     cmds:
       - helm dependency build argo/argocd
       - helm upgrade --install --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
+
+  repo:
+    cmds:
+      - helm repo add argo https://argoproj.github.io/argo-helm
 
   root:
     cmds:
