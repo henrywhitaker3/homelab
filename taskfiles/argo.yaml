@@ -3,8 +3,12 @@ version: "3"
 tasks:
   update:
     cmds:
-      - helm dependency build k8s/argo/argocd
+      - helm dependency build argo/argocd
       - helm upgrade --install -n argo -f argo/argocd/values.yaml argo argo/argocd/
+
+  values:
+    cmds:
+      - helm -n argo get values argo
 
   patch:pvc:
       cmds:
