@@ -9,6 +9,9 @@ tasks:
     cmds:
       - helm dependency build argo/argocd
       - helm upgrade --install --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
+
+  root:
+    cmds:
       - kubectl apply -f argo/root
 
   values:
@@ -23,3 +26,9 @@ tasks:
   apps:
     cmds:
       - kubectl -n argo get applications
+
+  go:
+    cmds:
+      - task: bootstrap
+      - task: install
+      - task: root
