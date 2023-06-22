@@ -14,6 +14,10 @@ resource "proxmox_vm_qemu" "vm" {
   cpu     = "host"
   memory  = var.memory
   onboot = true
+  scsihw = "virtio-scsi-pci"
+  qemu_os = "other"
+  additional_wait = 0
+  clone_wait = 0
 
   lifecycle {
     ignore_changes = [
