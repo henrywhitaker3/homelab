@@ -24,7 +24,7 @@ image: henrywhitaker3/ansible-terraform
         - pihole
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $ANSIBLE_RUN_ALL == "true"
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "main" && $SKIP_ANSIBLE != "true"
       changes:
         - ansible/playbooks/$PLAYBOOK/*
         - ansible/playbooks/$PLAYBOOK/**/*
