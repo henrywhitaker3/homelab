@@ -5,7 +5,6 @@ include:
 stages:
   - stage
   - deploy
-  - renovate
 
 image: henrywhitaker3/ansible-terraform
 
@@ -128,10 +127,10 @@ build docker image:
 ############
 
 renovate:
-  stage: renovate
+  stage: stage
   image: ${CI_RENOVATE_IMAGE_FULL}
   variables:
-    RENOVATE_EXTRA_FLAGS: henrywhitaker3/charts
+    RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
     - if: '$CI_PIPELINE_SOURCE == "push"'
