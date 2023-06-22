@@ -1,3 +1,5 @@
+namespaceOverride: monitoring
+
 alertmanager:
   enabled: false
 
