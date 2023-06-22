@@ -11,7 +11,7 @@
         dest: /tmp/kubeconfig
         flat: true
 
-    - name: Run bootstrap actions locally
+    - name: Run bootstrap actions
       delegate_to: localhost
       block:
         - name: Set repo base dir
