@@ -1,6 +1,7 @@
 argo-cd:
   dex:
     enabled: false
+
   controller:
     args:
       appResyncPeriod: 60
@@ -89,3 +90,7 @@ argo-cd:
           prometheus.io/scrape: true
           prometheus.io/path: /metrics
           prometheus.io/port: 8085
+
+  configs:
+    cm:
+      kustomize.buildOptions: --enable-helm
