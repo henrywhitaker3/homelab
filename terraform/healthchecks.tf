@@ -1,8 +1,20 @@
+data "healthchecksio_channel" "email" {
+  kind = "email"
+}
+
+data "healthchecksio_channel" "discord" {
+  kind = "discord"
+}
+
 resource "healthchecksio_check" "speedtest" {
   name = "Speedtest"
 
   grace   = 300 # seconds
   timeout = 14400
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
 }
 
 resource "healthchecksio_check" "jump_k8s_lan" {
@@ -16,6 +28,11 @@ resource "healthchecksio_check" "jump_k8s_lan" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+    data.healthchecksio_channel.email.id,
+  ]
 }
 
 resource "healthchecksio_check" "vpn_1" {
@@ -29,6 +46,11 @@ resource "healthchecksio_check" "vpn_1" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+    data.healthchecksio_channel.email.id,
+  ]
 }
 
 resource "healthchecksio_check" "vpn_2" {
@@ -42,6 +64,11 @@ resource "healthchecksio_check" "vpn_2" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+    data.healthchecksio_channel.email.id,
+  ]
 }
 
 resource "healthchecksio_check" "lb_1" {
@@ -55,6 +82,10 @@ resource "healthchecksio_check" "lb_1" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
 }
 
 resource "healthchecksio_check" "lb_2" {
@@ -68,6 +99,10 @@ resource "healthchecksio_check" "lb_2" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
 }
 
 resource "healthchecksio_check" "k8s_control" {
@@ -83,6 +118,10 @@ resource "healthchecksio_check" "k8s_control" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
 }
 
 resource "healthchecksio_check" "k8s_worker" {
@@ -98,4 +137,8 @@ resource "healthchecksio_check" "k8s_worker" {
   grace    = 60 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
 }
