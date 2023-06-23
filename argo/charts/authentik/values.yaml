@@ -8,7 +8,7 @@ authentik:
     hosts:
       - host: authentik.plexmox.com
         paths:
-          - path: /sonarr
+          - path: /
             pathType: ImplementationSpecific
     tls:
     - secretName: authentik-plexmox-com-tls
