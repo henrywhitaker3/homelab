@@ -29,20 +29,20 @@ authentik:
     AUTHENTIK_SECRET_KEY:
       secretKeyRef:
         key: secret-key
-        name: authentik
+        name: authentik-config
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
         key: postgres-password
-        name: authentik
+        name: authentik-config
     AUTHENTIK_BOOTSTRAP_PASSWORD:
       secretKeyRef:
         key: bootstrap-password
-        name: authentik
+        name: authentik-config
     AUTHENTIK_BOOTSTRAP_TOKEN:
       secretKeyRef:
         key: bootstrap-token
-        name: authentik
+        name: authentik-config
     AUTHENTIK_BOOTSTRAP_EMAIL:
       secretKeyRef:
         key: bootstrap-email
-        name: authentik
+        name: authentik-config
