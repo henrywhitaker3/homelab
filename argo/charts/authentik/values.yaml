@@ -24,7 +24,7 @@ authentik:
   authentik:
     redis:
       host: redis.databases.svc.cluster.local
-    postgres:
+    postgresql:
       host: authentik-cluster-rw.authentik.svc.cluster.local
 
   envValueFrom:
