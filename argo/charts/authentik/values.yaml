@@ -24,6 +24,8 @@ authentik:
   authentik:
     redis:
       host: redis.databases.svc.cluster.local
+    postgres:
+      host: authentik-cluster-rw.authentik.svc.cluster.local
 
   envValueFrom:
     AUTHENTIK_SECRET_KEY:
@@ -32,8 +34,8 @@ authentik:
         name: authentik-config
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
-        key: postgres-password
-        name: authentik-config
+        key: password
+        name: authentik-db
     AUTHENTIK_BOOTSTRAP_PASSWORD:
       secretKeyRef:
         key: bootstrap-password
