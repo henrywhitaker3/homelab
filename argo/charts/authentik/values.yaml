@@ -1,0 +1,48 @@
+authentik:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: authentik.plexmox.com
+        paths:
+          - path: /sonarr
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: authentik-plexmox-com-tls
+      hosts:
+        - authentik.plexmox.com
+
+  postgresql:
+    enabled: false
+
+  redis:
+    enabled: false
+
+  authentik:
+    redis:
+      host: redis.databases.svc.cluster.local
+
+  envValueFrom:
+    AUTHENTIK_SECRET_KEY:
+      secretKeyRef:
+        key: secret-key
+        name: authentik
+    AUTHENTIK_POSTGRESQL__PASSWORD:
+      secretKeyRef:
+        key: postgres-password
+        name: authentik
+    AUTHENTIK_BOOTSTRAP_PASSWORD:
+      secretKeyRef:
+        key: bootstrap-password
+        name: authentik
+    AUTHENTIK_BOOTSTRAP_TOKEN:
+      secretKeyRef:
+        key: bootstrap-token
+        name: authentik
+    AUTHENTIK_BOOTSTRAP_EMAIL:
+      secretKeyRef:
+        key: bootstrap-email
+        name: authentik
