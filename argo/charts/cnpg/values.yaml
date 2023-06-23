@@ -1,5 +1,5 @@
-clusters:
-  - name: postgres-cluster
-    secret: vaults/Infra/items/postgres-cluster
-    storage: {}
-    monitoring: {}
+# clusters:
+#   - name: postgres-cluster
+#     secret: vaults/Infra/items/postgres-cluster
+#     storage: {}
+#     monitoring: {}
