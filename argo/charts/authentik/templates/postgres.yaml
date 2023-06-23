@@ -1,0 +1,35 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: authentik-cluster
+spec:
+  itemPath: "vaults/Infra/items/authentik-cluster"
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: authentik-db
+spec:
+  itemPath: "vaults/Infra/items/authentik-db"
+type: kubernetes.io/basic-auth
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: authentik-cluster
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 1Gi
+    storageClass: longhorn
+  monitoring:
+    enablePodMonitor: true
+  superuserSecret:
+    name: authentik-cluster
+  bootstrap:
+    initdb:
+      database: authentik
+      owner: authentik
+      secret:
+        name: authentik-db
