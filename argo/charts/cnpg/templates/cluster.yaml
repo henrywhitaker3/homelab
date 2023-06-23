@@ -10,7 +10,7 @@ spec:
     size: {{ $range.storage.size | default "1Gi" }}
     storageClass: {{ $range.storage.size | default "longhorn" }}
   monitoring:
-    enabledPodMonitor: {{ $range.monitoring.enabled | default true }}
+    enablePodMonitor: {{ $range.monitoring.enabled | default true }}
   superuserSecret:
     name: {{ $range.name }}
 ---
