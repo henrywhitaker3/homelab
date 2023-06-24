@@ -1,7 +1,7 @@
 ---
 - name: Patch k8s nodes
 
-  hosts: k8s_nodes
+  hosts: k3s
 
   serial: 1
 
