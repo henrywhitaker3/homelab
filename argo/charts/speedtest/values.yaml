@@ -7,7 +7,7 @@ generic:
   image:
     repository: henrywhitaker3/speedtest-tracker
     pullPolicy: Always
-    tag: v1.12.3-dev
+    tag: dev
 
   service:
     port: 80
