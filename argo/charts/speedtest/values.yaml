@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: henrywhitaker3/speedtest-tracker:v1.12.3-dev
+    repository: henrywhitaker3/speedtest-tracker
     pullPolicy: Always
-    tag: dev
+    tag: v1.12.3-dev
 
   service:
     port: 80
