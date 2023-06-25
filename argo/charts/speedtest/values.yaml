@@ -39,7 +39,7 @@ generic:
     type: Recreate
 
   probes:
-    initialDelaySeconds: 15
+    initialDelaySeconds: 1000
 
   config:
     TZ:  Europe/London
