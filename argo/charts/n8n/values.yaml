@@ -25,3 +25,7 @@ ingress:
 scaling:
   redis:
     host: redis.databases.svc.cluster.local
+
+image:
+  tag: latest
+  pullPolicy: Always
