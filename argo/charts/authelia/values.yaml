@@ -75,3 +75,8 @@ authelia:
 
       smtp:
         enabled: false
+
+    server:
+      buffers:
+        read: 8192
+        write: 8192
