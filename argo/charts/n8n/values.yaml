@@ -6,3 +6,18 @@ config:
       user: n8n
       host: mariadb.databases.svc.cluster.local
       port: 3306
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: n8n.plexmox.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+  - secretName: n8n-plexmox-com-tls
+    hosts:
+      - n8n.plexmox.com
