@@ -15,8 +15,7 @@ ingress:
   hosts:
     - host: n8n.plexmox.com
       paths:
-        - path: /
-          pathType: ImplementationSpecific
+        - /
   tls:
   - secretName: n8n-plexmox-com-tls
     hosts:
