@@ -8,7 +8,7 @@ spec:
       containers:
         - name: n8n
           env:
-            - name: DB_MYSQL_DB_PASSWORD
+            - name: DB_MYSQLDB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: db-password
