@@ -24,7 +24,7 @@ ingress:
 
 scaling:
   redis:
-    host: redis.databases.svc.cluster.local
+    host: n8n-redis.databases.svc.cluster.local
 
 image:
   tag: latest
