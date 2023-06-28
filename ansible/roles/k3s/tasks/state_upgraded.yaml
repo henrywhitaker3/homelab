@@ -4,6 +4,7 @@
 
 - name: Restart k3s to use new version
   throttle: 1
+  become: "{{ k3s_become }}"
   ansible.builtin.service:
     name: k3s
     state: restarted

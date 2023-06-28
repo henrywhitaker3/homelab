@@ -3,7 +3,7 @@ version: "3"
 tasks:
   upgrade:
     cmds:
-      - ansible-playbook k8s/main.yaml --extra-vars "k3s_state=upgraded"
+      - ansible-playbook ansible/playbooks/k8s/main.yaml --extra-vars "k3s_state=upgraded"
 
   pull:
     cmds:
