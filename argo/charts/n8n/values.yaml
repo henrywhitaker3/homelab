@@ -1,4 +1,5 @@
 config:
+  host: n8n.plexmox.com
   database:
     type: mariadb
     mysqldb:
@@ -20,3 +21,7 @@ ingress:
   - secretName: n8n-plexmox-com-tls
     hosts:
       - n8n.plexmox.com
+
+scaling:
+  redis:
+    host: redis.databases.svc.cluster.local

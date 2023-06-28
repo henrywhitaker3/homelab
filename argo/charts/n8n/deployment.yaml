@@ -13,3 +13,8 @@ spec:
                 secretKeyRef:
                   key: db-password
                   name: n8n-secrets
+            - name: N8N_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: n8n-encryption-key
+                  name: n8n-secrets
