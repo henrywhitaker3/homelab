@@ -47,6 +47,9 @@ generic:
 
   probes:
     initialDelaySeconds: 15
+    type: tcpSocket
+    options:
+      port: http
 
   config:
     PUID: "1000"
