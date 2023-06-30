@@ -2,7 +2,7 @@ generic:
   nameOverride: theme-park
   fullnameOverride: theme-park
 
-  replicaCount: 2
+  replicaCount: 3
 
   image:
     repository: ghcr.io/onedr0p/theme-park
@@ -15,7 +15,9 @@ generic:
   ingress:
     enabled: false
 
-  probes:
-    type: tcpSocket
-    options:
-      port: http
+  resources:
+    requests:
+      cpu: 5m
+      memory: 10Mi
+    limits:
+      memory: 50Mi
