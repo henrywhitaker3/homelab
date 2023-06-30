@@ -8,3 +8,19 @@ tasks:
   pull:
     cmds:
       - ansible -b -a "k3s crictl pull henrywhitaker3/pipeline:latest" k3s
+
+  uptime:
+    cmds:
+      - ansible -a uptime k3s
+
+  nodes:
+    cmds:
+      - kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
+
+  ingress:
+    cmds:
+      - kubectl get ingress {{ .CLI_ARGS | default "-A" }}
+
+  lbs:
+    cmds:
+      - kubectl get service -A | grep -E "NAMESPACE|LoadBalancer"
