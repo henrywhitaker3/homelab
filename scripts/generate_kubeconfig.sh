@@ -35,5 +35,4 @@ users:
 - name: $name
   user:
     token: ${token}
-" > /tmp/$name.kubeconfig
-
+"
