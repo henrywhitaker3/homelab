@@ -24,3 +24,8 @@ tasks:
   lbs:
     cmds:
       - kubectl get service {{ .CLI_ARGS | default "-A" }} | grep -E "NAME|LoadBalancer"
+
+  user:
+    silent: true
+    cmds:
+      - ./scripts/generate_kubeconfig.sh {{ .CLI_ARGS }}
