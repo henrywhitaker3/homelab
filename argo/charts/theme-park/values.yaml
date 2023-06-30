@@ -1,0 +1,22 @@
+generic:
+  nameOverride: theme-park
+  fullnameOverride: theme-park
+
+  replicaCount: 2
+
+  image:
+    repository: onedr0p/theme-park
+    pullPolicy: Always
+    tag: "rolling"
+
+  service:
+    port: 8080
+
+  ingress:
+    enabled: false
+
+  probes:
+    initialDelaySeconds: 15
+    type: tcpSocket
+    options:
+      port: http
