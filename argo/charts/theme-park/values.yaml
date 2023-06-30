@@ -5,7 +5,7 @@ generic:
   replicaCount: 2
 
   image:
-    repository: onedr0p/theme-park
+    repository: ghcr.io/onedr0p/theme-park
     pullPolicy: Always
     tag: "rolling"
 
