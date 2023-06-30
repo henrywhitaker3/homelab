@@ -23,4 +23,4 @@ tasks:
 
   lbs:
     cmds:
-      - kubectl get service -A | grep -E "NAMESPACE|LoadBalancer"
+      - kubectl get service {{ .CLI_ARGS | default "-A" }} | grep -E "NAME|LoadBalancer"
