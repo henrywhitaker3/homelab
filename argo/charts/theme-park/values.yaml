@@ -13,7 +13,19 @@ generic:
     port: 8080
 
   ingress:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: theme-park.plexmox.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: theme-park-plexmox-com-tls
+      hosts:
+        - theme-park.plexmox.com
 
   resources:
     requests:

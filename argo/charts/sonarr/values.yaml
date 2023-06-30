@@ -23,7 +23,7 @@ generic:
         proxy_set_header Accept-Encoding "";
         sub_filter
         '</head>'
-        '<link rel="stylesheet" type="text/css" href="http://theme-park.misc.svc.cluster.local:8080/css/base/sonarr/nord.css">
+        '<link rel="stylesheet" type="text/css" href="http://theme-park.plexmox.com/css/base/sonarr/nord.css">
         </head>';
         sub_filter_once on;
     hosts:
