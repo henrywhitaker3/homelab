@@ -16,7 +16,6 @@ generic:
     enabled: false
 
   probes:
-    initialDelaySeconds: 15
     type: tcpSocket
     options:
       port: http
