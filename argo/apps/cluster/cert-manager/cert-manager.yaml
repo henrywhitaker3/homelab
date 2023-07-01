@@ -11,15 +11,15 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster
   sources:
+    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+      targetRevision: HEAD
+      ref: values
     - chart: cert-manager
       repoURL: https://charts.jetstack.io
       targetRevision: v1.12.2
       helm:
         valueFiles:
           - $values/argo/apps/cluster/cert-manager/values.yaml
-    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: HEAD
-      ref: values
   syncPolicy:
     automated:
       prune: true
