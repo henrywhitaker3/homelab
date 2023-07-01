@@ -1,0 +1,12 @@
+installCRDs: true
+
+ingressShim:
+  defaultIssuerName: letsencrypt-prod
+  defaultIssuerKind: ClusterIssuer
+
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: true
+
+cloudflareApiToken: vaults/Infra/items/cloudflare-api-token
