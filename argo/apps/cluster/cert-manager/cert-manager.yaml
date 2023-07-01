@@ -17,7 +17,7 @@ spec:
       helm:
         valueFiles:
           - $values/argo/apps/cluster/cert-manager/values.yaml
-    - repoURL: git@gitlab.com:/henrywhitaker3/homelab.git
+    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
       targetRevision: HEAD
       ref: values
   syncPolicy:
