@@ -4,6 +4,8 @@ tasks:
   bootstrap:
     cmds:
       - ./scripts/bootstrap_secrets.sh
+      - task: install
+      - task: root
 
   install:
     deps: [repo]
@@ -17,7 +19,7 @@ tasks:
 
   root:
     cmds:
-      - kubectl apply -f argo/root
+      - kubectl apply -f argo/bootstrap/manifests
 
   values:
     cmds:

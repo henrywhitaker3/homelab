@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root
+  name: metallb
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argo
+    namespace: metallb
     server: https://kubernetes.default.svc
-  project: default
+  project: cluster
   source:
-    path: argo/apps
+    path: argo/cluster/networking/metallb/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
-    directory:
-      recurse: true
   syncPolicy:
     automated:
       prune: true
