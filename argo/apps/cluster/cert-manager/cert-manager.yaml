@@ -16,7 +16,7 @@ spec:
     targetRevision: v1.12.2
     helm:
       valueFiles:
-        - values.yaml
+        - argo/apps/cluster/values.yaml
   syncPolicy:
     automated:
       prune: true
