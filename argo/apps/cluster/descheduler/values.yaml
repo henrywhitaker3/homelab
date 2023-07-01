@@ -1,0 +1,10 @@
+schedule: "*/5 * * * *"
+deschedulerPolicy:
+  strategies:
+    LowNodeUtilization:
+      params:
+        nodeResourceUtilizationThresholds:
+          thresholds:
+            cpu: 20
+            memory: 20
+            pods: 10

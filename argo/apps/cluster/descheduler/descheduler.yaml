@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: descheduler
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  project: cluster
+  source:
+    chart: descheduler
+    repoURL: https://kubernetes-sigs.github.io/descheduler
+    targetRevision: 0.27.1
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

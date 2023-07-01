@@ -8,5 +8,3 @@ prometheus:
   enabled: true
   servicemonitor:
     enabled: true
-
-cloudflareApiToken: vaults/Infra/items/cloudflare-api-token
