@@ -10,13 +10,16 @@ spec:
     namespace: cert-manager
     server: https://kubernetes.default.svc
   project: cluster
-  source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.12.2
-    helm:
-      valueFiles:
-        - values.yaml
+  sources:
+    - chart: cert-manager
+      repoURL: https://charts.jetstack.io
+      targetRevision: v1.12.2
+      helm:
+        valueFiles:
+          - $values/argo/apps/cluster/cert-manager/values.yaml
+    - repoURL: git@gitlab.com:/henrywhitaker3/homelab.git
+      targetRevision: HEAD
+      ref: values
   syncPolicy:
     automated:
       prune: true
