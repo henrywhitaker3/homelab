@@ -16,7 +16,7 @@ spec:
     targetRevision: v1.12.2
     helm:
       valueFiles:
-        - argo/apps/cluster/cert-manager/values.yaml
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
