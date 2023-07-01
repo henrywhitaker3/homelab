@@ -20,27 +20,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: apps
-  namespace: argo
-spec:
-  destination:
-    namespace: argo
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    path: argo/apps
-    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-    targetRevision: HEAD
-    directory:
-      recurse: true
-      include: "*.app.yaml"
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

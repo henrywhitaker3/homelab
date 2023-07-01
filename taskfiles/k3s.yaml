@@ -29,7 +29,3 @@ tasks:
     silent: true
     cmds:
       - ./scripts/generate_kubeconfig.sh {{ .CLI_ARGS }}
-
-  prune:
-    cmds:
-      - ansible -b -a "k3s crictl rmi --prune" k3s
