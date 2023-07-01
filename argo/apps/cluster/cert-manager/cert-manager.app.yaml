@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: argo/charts/cert-manager
+    path: argo/apps/cluster/cert-manager/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
