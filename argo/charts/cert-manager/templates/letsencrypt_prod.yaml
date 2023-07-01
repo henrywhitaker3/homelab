@@ -7,6 +7,7 @@ spec:
     email: henrywhitaker3@outlook.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
       name: letsencrypt-prod-issuer-key
     solvers:
       - dns01:

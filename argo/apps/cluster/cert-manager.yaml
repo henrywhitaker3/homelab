@@ -1,22 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: descheduler
+  name: cert-manager
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: kube-system
+    namespace: cert-manager
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    chart: descheduler
-    repoURL: https://kubernetes-sigs.github.io/descheduler
-    targetRevision: 0.27.1
-    helm:
-      valueFiles:
-        - values.yaml
+    path: argo/charts/cert-manager
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
