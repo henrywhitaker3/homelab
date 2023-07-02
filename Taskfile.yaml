@@ -4,3 +4,4 @@ includes:
   ci: taskfiles/CI.yaml
   argo: taskfiles/argo.yaml
   k3s: taskfiles/k3s.yaml
+  tf: taskfiles/terraform.yaml

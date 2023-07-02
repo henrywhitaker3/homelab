@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  fmt:
+    dir: terraform
+    cmds:
+      - terraform fmt
+
+  plan:
+    dir: terraform
+    cmds:
+      - terraform plan
+
+  apply:
+    dir: terraform
+    cmds:
+      - terraform apply
