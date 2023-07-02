@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: authelia
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: authelia
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/authelia
+    path: argo/cluster/misc/authelia/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
