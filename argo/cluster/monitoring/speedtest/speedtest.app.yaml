@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: speedtest
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: misc
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/speedtest
+    path: argo/cluster/monitoring/speedtest/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
