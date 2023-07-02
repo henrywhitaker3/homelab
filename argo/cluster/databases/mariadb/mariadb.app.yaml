@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: mariadb
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: databases
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/mariadb
+    path: argo/cluster/databases/mariadb/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
