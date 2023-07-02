@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: descheduler
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: kube-system
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: argo/charts/descheduler
+    path: argo/cluster/misc/descheduler/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
