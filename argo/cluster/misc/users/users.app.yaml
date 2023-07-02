@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: users
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: argo/charts/users
+    path: argo/cluster/misc/users/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
