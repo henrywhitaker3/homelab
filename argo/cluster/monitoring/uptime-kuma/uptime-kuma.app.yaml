@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: uptime-kuma
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/uptime-kuma
+    path: argo/cluster/monitoring/uptime-kuma/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
