@@ -18,7 +18,7 @@
           ansible.builtin.set_fact:
             repo_base_dir: "{{ playbook_dir }}/../../../"
 
-        - name: Bootstrap secrets
+        - name: Bootstrap cluster
           ansible.builtin.command:
             cmd: task argo:bootstrap
             chdir: "{{ repo_base_dir }}"
@@ -26,22 +26,6 @@
             KUBECONFIG: /tmp/kubeconfig
           register: bs_secrets
           changed_when: "'configured' in bs_secrets.stdout"
-
-        - name: Install argocd
-          ansible.builtin.command:
-            cmd: task argo:install
-            chdir: "{{ repo_base_dir }}"
-          environment:
-            KUBECONFIG: /tmp/kubeconfig
-          changed_when: true
-
-        - name: Install root
-          ansible.builtin.command:
-            cmd: task argo:root
-            chdir: "{{ repo_base_dir }}"
-          environment:
-            KUBECONFIG: /tmp/kubeconfig
-          changed_when: true
 
         - name: Remove local kubeconfig
           ansible.builtin.file:
