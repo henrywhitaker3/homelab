@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: mysql-provisioner
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: databases
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/mysql-provisioner
+    path: argo/cluster/databases/mysql-provisioner/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
