@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: redeployer
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: media
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: argo/charts/redeployer
+    path: argo/cluster/misc/redeployer/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
