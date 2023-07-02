@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: kube-prometheus-stack
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: argo/charts/kube-prometheus-stack
+    path: argo/cluster/monitoring/kube-prometheus-stack/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

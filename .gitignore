@@ -40,4 +40,5 @@ playbooks/vpn/keygen.sh
 .vscode/
 
 argo/charts/**/charts
+argo/cluster/**/charts
 argo/argocd/charts
