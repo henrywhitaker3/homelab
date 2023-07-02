@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: gitlab-runner
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: gitlab-runner
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/gitlab-runner
+    path: argo/cluster/misc/gitlab-runner/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
