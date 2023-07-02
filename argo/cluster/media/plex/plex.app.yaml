@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: plex
   namespace: argo
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: media
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/charts/plex
+    path: argo/cluster/media/plex/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
