@@ -9,6 +9,3 @@ helmCharts:
     version: "5.8.8"
     repo: https://grafana.github.io/helm-charts
     valuesFile: values.yaml
-
-patches:
-  - path: patches/grafanaagents.yaml
