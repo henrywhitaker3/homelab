@@ -10,7 +10,7 @@ loki:
     s3:
       s3: null
       insecure: true
-      endpoint: http://minio.minio.svc.cluster.local:9000
+      endpoint: http://minio.minio.svc.cluster.local.:9000
       s3ForcePathStyle: true
 
 write:
