@@ -32,3 +32,9 @@ loki:
 
   test:
     enabled: false
+
+  grafana:
+    enabled: false
+
+  prometheus:
+    enabled: false
