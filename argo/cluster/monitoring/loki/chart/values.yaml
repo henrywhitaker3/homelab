@@ -23,22 +23,16 @@ loki:
     persistence:
       storageClass: smb
 
-  gateway:
-    replicas: 3
+gateway:
+  replicas: 3
 
-  monitoring:
-    selfMonitoring:
-      enabled: false
-      grafanaAgent:
-        installOperator: false
-    lokiCanary:
-      enabled: false
-
-  test:
+monitoring:
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      installOperator: false
+  lokiCanary:
     enabled: false
 
-  grafana:
-    enabled: false
-
-  prometheus:
-    enabled: false
+test:
+  enabled: false
