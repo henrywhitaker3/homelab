@@ -29,6 +29,14 @@ loki:
   monitoring:
     selfMonitoring:
       enabled: false
+    lokiCanary:
+      enabled: false
 
   test:
+    enabled: false
+
+  grafana:
+    enabled: false
+
+  prometheus:
     enabled: false
