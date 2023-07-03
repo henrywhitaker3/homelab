@@ -12,4 +12,3 @@ helmCharts:
 
 patches:
   - path: patches/grafanaagents.yaml
-  - path: patches/prometheusagents.yaml
