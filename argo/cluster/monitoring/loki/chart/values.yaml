@@ -1,38 +1,39 @@
 loki:
-  auth_enabled: false
+  loki:
+    auth_enabled: false
 
-  storage:
-    bucketNames:
-      chunks: loki-chunks
-      ruler: loki-ruler
-      admin: loki-admin
+    storage:
+      bucketNames:
+        chunks: loki-chunks
+        ruler: loki-ruler
+        admin: loki-admin
 
-    s3:
-      s3: null
-      insecure: true
-      endpoint: http://minio.minio.svc.cluster.local.:9000
-      s3ForcePathStyle: true
+      s3:
+        s3: http://minio.minio.svc.cluster.local:9000
+        endpoint: http://minio.minio.svc.cluster.local:9000
+        insecure: true
+        s3ForcePathStyle: true
 
-write:
-  persistence:
-    storageClass: smb
-read:
-  persistence:
-    storageClass: smb
-backend:
-  persistence:
-    storageClass: smb
+  write:
+    persistence:
+      storageClass: smb
+  read:
+    persistence:
+      storageClass: smb
+  backend:
+    persistence:
+      storageClass: smb
 
-gateway:
-  replicas: 3
+  gateway:
+    replicas: 3
 
-monitoring:
-  selfMonitoring:
+  monitoring:
+    selfMonitoring:
+      enabled: false
+      grafanaAgent:
+        installOperator: false
+    lokiCanary:
+      enabled: false
+
+  test:
     enabled: false
-    grafanaAgent:
-      installOperator: false
-  lokiCanary:
-    enabled: false
-
-test:
-  enabled: false
