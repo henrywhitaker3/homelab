@@ -5,3 +5,25 @@ includes:
   argo: taskfiles/argo.yaml
   k3s: taskfiles/k3s.yaml
   tf: taskfiles/terraform.yaml
+
+tasks:
+  patch:
+    vars:
+      PLAYBOOK: '{{ .PLAYBOOK | default "generic" }}'
+    cmds:
+      - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml
+
+  patch:all:
+    cmds:
+      - task: patch
+        vars:
+          PLAYBOOK: generic
+      - task: patch
+        vars:
+          PLAYBOOK: ha
+      - task: patch
+        vars:
+          PLAYBOOK: pihole
+      - task: patch
+        vars:
+          PLAYBOOK: k8s
