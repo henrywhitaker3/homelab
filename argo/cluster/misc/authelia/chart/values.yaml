@@ -1,5 +1,3 @@
-secrets: vaults/Infra/items/authelia
-
 authelia:
   domain: plexmox.com
 
