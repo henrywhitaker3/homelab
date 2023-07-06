@@ -5,6 +5,7 @@ includes:
   argo: taskfiles/argo.yaml
   k3s: taskfiles/k3s.yaml
   tf: taskfiles/terraform.yaml
+  new: taskfiles/new.yaml
 
 tasks:
   patch:

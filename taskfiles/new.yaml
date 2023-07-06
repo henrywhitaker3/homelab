@@ -1,0 +1,28 @@
+version: "3"
+
+env:
+  NAME: "{{ .NAME }}"
+  NAMESPACE: '{{ .NAMESPACE | default "default" }}'
+  PROJECT: '{{ .PROJECT | default "apps" }}'
+  TYPE: '{{ .TYPE | default "misc" }}'
+
+tasks:
+  helm:
+    deps: [app]
+    cmds:
+      - cat templates/Chart.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/Chart.yaml
+
+  kustomize:
+    deps: [app]
+    cmds:
+      - cat templates/kustomization.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/kustomization.yaml
+
+  app:
+    preconditions:
+      - sh: "[[ ! -z $NAME ]]"
+        msg: |
+          NAME must be set
+    cmds:
+      - mkdir -p argo/cluster/$TYPE/$NAME
+      - mkdir -p argo/cluster/$TYPE/$NAME/chart
+      - cat templates/app.yaml | envsubst > argo/cluster/$TYPE/$NAME/$NAME.app.yaml
