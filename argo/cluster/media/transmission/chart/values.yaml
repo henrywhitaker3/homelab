@@ -77,4 +77,4 @@ generic:
   vpn:
     enabled: true
     secret:
-      path: vaults/Infra/items/transmission-tunnel
+      key: transmission-tunnel

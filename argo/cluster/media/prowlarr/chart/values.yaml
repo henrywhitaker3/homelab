@@ -62,4 +62,4 @@ generic:
   vpn:
     enabled: false
     secret:
-      path: vaults/Infra/items/prowlarr-tunnel
+      key: prowlarr-tunnel
