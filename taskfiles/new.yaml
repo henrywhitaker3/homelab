@@ -26,3 +26,7 @@ tasks:
       - mkdir -p argo/cluster/$TYPE/$NAME
       - mkdir -p argo/cluster/$TYPE/$NAME/chart
       - cat templates/app.yaml | envsubst > argo/cluster/$TYPE/$NAME/$NAME.app.yaml
+
+  secret:
+    cmds:
+      - cat templates/external-secret.yaml | envsubst
