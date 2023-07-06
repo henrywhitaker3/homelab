@@ -13,10 +13,18 @@ spec:
     name: {{ .passwordSecretRef.name }}
     key: {{ .passwordSecretRef.key }}
 ---
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: {{ .name }}
 spec:
-  itemPath: {{ .passwordSecretRef.vault }}
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: {{ .passwordSecretRef.vault }}
+
 {{- end }}

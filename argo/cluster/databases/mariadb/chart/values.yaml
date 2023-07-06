@@ -21,7 +21,9 @@ generic:
       ip: "10.0.0.36"
       externalTrafficPolicy: Local
 
-  secrets: vaults/Infra/items/mariadb
+  secrets:
+    enabled: true
+    key: mariadb
 
   ingress:
     enabled: false

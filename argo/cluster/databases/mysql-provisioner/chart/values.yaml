@@ -6,4 +6,4 @@ connections:
     passwordSecretRef:
       name: mariadb-k3s
       key: password
-      vault: vaults/Infra/items/mariadb-provisioner-user
+      vault: mariadb-provisioner-user

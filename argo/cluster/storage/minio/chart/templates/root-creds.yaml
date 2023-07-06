@@ -1,6 +1,13 @@
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: root-creds
 spec:
-  itemPath: {{ .Values.rootCredsPath }}
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: {{ .Values.rootCredsPath }}

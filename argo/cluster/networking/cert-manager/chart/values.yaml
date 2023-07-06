@@ -10,4 +10,4 @@ cert-manager:
     servicemonitor:
       enabled: true
 
-cloudflareApiToken: vaults/Infra/items/cloudflare-api-token
+cloudflareApiToken: cloudflare-api-token

@@ -36,4 +36,4 @@ minio:
 
     size: 150Gi
 
-rootCredsPath: vaults/Infra/items/minio-root-creds
+rootCredsPath: minio-root-creds

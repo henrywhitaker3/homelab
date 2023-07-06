@@ -1,7 +1,13 @@
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: smb-creds
-  namespace: kube-system
 spec:
-  itemPath: "vaults/Infra/items/k3s-smb"
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: k3s-smb
