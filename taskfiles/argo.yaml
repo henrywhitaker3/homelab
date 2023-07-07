@@ -39,3 +39,22 @@ tasks:
       - task: bootstrap
       - task: install
       - task: root
+
+  login:
+    cmds:
+      - argocd login $ARGO_CD_IP --insecure --username $ARGO_CD_USER --password $ARGO_CD_PASSWORD
+
+  diff:
+    deps: [login]
+    env:
+      APP: '{{ .APP }}'
+      DIR: '{{ .DIR }}'
+    preconditions:
+      - sh: "[[ ! -z $APP ]]"
+        msg: |
+          Must set $APP variable
+      - sh: "[[ ! -z $DIR ]]"
+        msg: |
+          Must set $DIR variable
+    cmds:
+      - argocd app diff $APP --local $DIR

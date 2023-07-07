@@ -1,5 +1,7 @@
 version: '3'
 
+dotenv: [.env]
+
 includes:
   ci: taskfiles/CI.yaml
   argo: taskfiles/argo.yaml
