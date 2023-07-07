@@ -57,4 +57,4 @@ tasks:
         msg: |
           Must set $DIR variable
     cmds:
-      - argocd app diff $APP --local $DIR
+      - argocd app diff $APP --local $DIR --loglevel error
