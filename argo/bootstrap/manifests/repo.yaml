@@ -12,3 +12,19 @@ stringData:
   type: git
   url: https://gitlab.com/henrywhitaker3/homelab.git
 type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: ghcr-repo
+  namespace: argo
+stringData:
+  enableOCI: "true"
+  type: helm
+  url: ghcr.io
+  name: ghcr.io
+type: Opaque
