@@ -13,7 +13,7 @@ generic:
     tag: "3.10.1"
 
   service:
-    port: 8443
+    port: 8080
 
   ingress:
     enabled: true
