@@ -4,6 +4,9 @@ generic:
 
   replicaCount: 1
 
+  deploymentStrategy:
+    type: Recreate
+
   image:
     repository: linuxserver/code-server
     pullPolicy: Always
