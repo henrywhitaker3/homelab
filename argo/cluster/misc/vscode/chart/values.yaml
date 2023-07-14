@@ -36,7 +36,7 @@ generic:
     enabled: true
     size: 5Gi
     storageClassName: longhorn
-    mountPath: /home/henry
+    mountPath: /home/coder
 
   config:
     PUID: "1000"
