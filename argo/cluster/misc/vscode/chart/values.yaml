@@ -45,5 +45,4 @@ generic:
     DOCKER_USER: henry
 
   secrets:
-    enabled: true
-    key: vscode-server
+    enabled: false
