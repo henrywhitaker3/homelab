@@ -8,9 +8,9 @@ generic:
     type: Recreate
 
   image:
-    repository: linuxserver/code-server
+    repository: codercom/code-server
     pullPolicy: Always
-    tag: "latest"
+    tag: "3.10.1"
 
   service:
     port: 8443
@@ -36,13 +36,13 @@ generic:
     enabled: true
     size: 5Gi
     storageClassName: longhorn
-    mountPath: /config
+    mountPath: /home/henry
 
   config:
     PUID: "1000"
     PGID: "1000"
     TZ:  Europe/London
-    PROXY_DOMAIN: code.plexmox.com
+    DOCKER_USER: henry
 
   secrets:
     enabled: true
