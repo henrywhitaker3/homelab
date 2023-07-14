@@ -2,7 +2,7 @@ generic:
   nameOverride: vscode
   fullnameOverride: vscode
 
-  replicaCount: 3
+  replicaCount: 1
 
   image:
     repository: linuxserver/code-server
