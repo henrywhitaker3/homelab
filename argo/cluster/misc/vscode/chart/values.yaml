@@ -39,6 +39,7 @@ generic:
     PUID: "1000"
     PGID: "1000"
     TZ:  Europe/London
+    PROXY_DOMAIN: code.plexmox.com
 
   secrets:
     enabled: true
