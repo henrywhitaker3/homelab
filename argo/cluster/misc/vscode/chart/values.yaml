@@ -8,9 +8,9 @@ generic:
     type: Recreate
 
   image:
-    repository: codercom/code-server
+    repository: ghcr.io/henrywhitaker3/vscode
     pullPolicy: Always
-    tag: "4.14.1"
+    tag: "latest"
 
   service:
     port: 8080
