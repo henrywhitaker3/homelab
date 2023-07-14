@@ -10,7 +10,7 @@ generic:
   image:
     repository: codercom/code-server
     pullPolicy: Always
-    tag: "3.10.1"
+    tag: "4.14.1"
 
   service:
     port: 8080
