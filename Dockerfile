@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y python3 \
             kbd \
             age
 
-RUN wget https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
+RUN wget https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
     && chmod 0755 /usr/local/bin/sops \
     && chown root:root /usr/local/bin/sops
 
