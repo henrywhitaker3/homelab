@@ -30,3 +30,13 @@ tasks:
   secret:
     cmds:
       - cat templates/external-secret.yaml | envsubst
+
+  vpn:
+    env:
+      PRIVATE_KEY:
+        sh: wg genkey
+      PSK:
+        sh: wg genpsk
+    cmds:
+      - sops --decrypt templates/wg.conf | envsubst
+      - echo -n "Public key " && echo $PRIVATE_KEY | wg pubkey
