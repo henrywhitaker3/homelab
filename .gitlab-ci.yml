@@ -88,6 +88,11 @@ tf plan:
   artifacts:
     paths:
       - terraform/planfile
+  rules:
+    - !reference [.terraform:base, rules]
+    - if: '$CI_PIPELINE_SOURCE == "merge_request"'
+      changes:
+        - terraform/*
 
 tf deploy:
   stage: deploy
