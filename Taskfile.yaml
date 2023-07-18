@@ -14,7 +14,7 @@ tasks:
     vars:
       PLAYBOOK: '{{ .PLAYBOOK | default "generic" }}'
     cmds:
-      - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml
+      - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml {{ .CLI_ARGS | default "" }}
 
   patch:all:
     cmds:
