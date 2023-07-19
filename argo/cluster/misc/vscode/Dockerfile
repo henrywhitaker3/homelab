@@ -22,5 +22,11 @@ RUN sudo wget https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}
     && sudo chmod 0755 /usr/local/bin/sops \
     && sudo chown root:root /usr/local/bin/sops
 
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
+
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
 ENV PATH="/home/coder/.local/bin:$PATH"
 RUN pip3 install ansible ansible-lint
