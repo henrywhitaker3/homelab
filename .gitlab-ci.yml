@@ -90,7 +90,7 @@ tf plan:
       - terraform/planfile
   rules:
     - !reference [.terraform:base, rules]
-    - if: '$CI_PIPELINE_SOURCE == "merge_request"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - terraform/*
 
