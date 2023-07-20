@@ -1,14 +1,22 @@
 cilium:
   bpf:
     masquerade: true
+
   cluster:
     name: kubemox
     id: 1
+
   containerRuntime:
     integration: containerd
     socketPath: /var/run/k3s/containerd/containerd.sock
+
   hubble:
     enabled: true
+
+    tls:
+      auto:
+        method: cronJob
+
     metrics:
       enabled:
         - dns:query;ignoreAAAA
@@ -18,17 +26,21 @@ cilium:
         - port-distribution
         - icmp
         - http
+
       serviceMonitor:
         enabled: false
+
     relay:
       enabled: true
       rollOutPods: true
       prometheus:
         serviceMonitor:
           enabled: true
+
     ui:
       enabled: true
       rollOutPods: true
+
       ingress:
         enabled: true
         className: nginx
@@ -43,12 +55,16 @@ cilium:
           - secretName: hubble-plexmox-com
             hosts:
               - hubble.plexmox.com
+
   ipam:
     mode: kubernetes
+
   k8sServiceHost: "10.0.0.7"
   k8sServicePort: 6443
+
   kubeProxyReplacement: strict
   kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
   operator:
     replicas: 1
     rollOutPods: true
@@ -56,6 +72,7 @@ cilium:
       enabled: true
       serviceMonitor:
         enabled: false
+
   prometheus:
     enabled: true
     serviceMonitor:

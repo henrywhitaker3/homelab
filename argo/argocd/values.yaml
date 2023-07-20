@@ -64,6 +64,13 @@ argo-cd:
         - type: helm
           name: argo-cd
           url: https://argoproj.github.io/argo-helm
+      resource.exclusions: |
+        - apiGroups:
+            - cilium.io
+          kinds:
+            - CiliumIdentity
+          clusters:
+            - '*'
 
     metrics:
       enabled: true
