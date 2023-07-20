@@ -18,15 +18,15 @@
           ansible.builtin.set_fact:
             repo_base_dir: "{{ playbook_dir }}/../../../"
 
-        - name: Install cilium
-          kubernetes.core.helm:
-            name: cilium
-            namespace: kube-system
-            chart_ref: "{{ repo_base_dir }}argo/cluster/networking/cilium/chart"
-            state: present
-            wait: true
-          environment:
-            KUBECONFIG: /tmp/kubeconfig
+        # - name: Install cilium
+        #   kubernetes.core.helm:
+        #     name: cilium
+        #     namespace: kube-system
+        #     chart_ref: "{{ repo_base_dir }}argo/cluster/networking/cilium/chart"
+        #     state: present
+        #     wait: true
+        #   environment:
+        #     KUBECONFIG: /tmp/kubeconfig
 
         - name: Bootstrap cluster
           ansible.builtin.command:

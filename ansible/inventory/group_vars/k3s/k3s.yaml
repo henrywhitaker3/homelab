@@ -25,11 +25,11 @@ k3s_disable:
 
 k3s_expose_etcd_metrics: true
 
-k3s_disable_kube_proxy: true
+# k3s_disable_kube_proxy: true
 
-k3s_flannel_backend: "none"
+k3s_flannel_backend: "vxlan"
 
-k3s_disable_network_policy: true
+# k3s_disable_network_policy: true
 
 cifs_mounts:
   - src: //10.0.0.9/plex
