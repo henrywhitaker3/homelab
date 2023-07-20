@@ -1,7 +1,7 @@
 ---
 - name: Configure k8s admin server
 
-  hosts: k8s-control-1.lab
+  hosts: k3s-control-1.lab
 
   tasks:
     - name: Copy kubeconfig over locally
@@ -18,14 +18,23 @@
           ansible.builtin.set_fact:
             repo_base_dir: "{{ playbook_dir }}/../../../"
 
-        - name: Bootstrap cluster
-          ansible.builtin.command:
-            cmd: task argo:bootstrap
-            chdir: "{{ repo_base_dir }}"
+        - name: Install cilium
+          kubernetes.core.helm:
+            name: cilium
+            namespace: kube-system
+            chart_ref: "{{ playbook_dir }}/../../../argo/cluster/networking/cilium/chart"
+            state: present
           environment:
             KUBECONFIG: /tmp/kubeconfig
-          register: bs_secrets
-          changed_when: "'configured' in bs_secrets.stdout"
+
+        # - name: Bootstrap cluster
+        #   ansible.builtin.command:
+        #     cmd: task argo:bootstrap
+        #     chdir: "{{ repo_base_dir }}"
+        #   environment:
+        #     KUBECONFIG: /tmp/kubeconfig
+        #   register: bs_secrets
+        #   changed_when: "'configured' in bs_secrets.stdout"
 
         - name: Remove local kubeconfig
           ansible.builtin.file:

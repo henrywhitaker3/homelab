@@ -19,7 +19,7 @@ image: henrywhitaker3/pipeline
     matrix:
       - PLAYBOOK:
         - vpn
-        - k8s
+        - k3s
         - haproxy
         - speakers
         - pihole

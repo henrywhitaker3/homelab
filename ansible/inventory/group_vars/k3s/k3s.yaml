@@ -11,11 +11,11 @@ k3s_kubelet_args:
 k3s_kube_apiserver_args:
   - "anonymous-auth=true"
 
-k3s_server_url: "https://10.0.0.6:6443"
+k3s_server_url: "https://10.0.0.7:6443"
 
 k3s_tls_san:
   - k8s.lan
-  - "10.0.0.6"
+  - "10.0.0.7"
 
 k3s_disable:
   - servicelb
@@ -24,6 +24,12 @@ k3s_disable:
   - metrics-server
 
 k3s_expose_etcd_metrics: true
+
+k3s_disable_kube_proxy: true
+
+k3s_flannel_backend: "none"
+
+k3s_disable_network_policy: true
 
 cifs_mounts:
   - src: //10.0.0.9/plex

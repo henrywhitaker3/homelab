@@ -105,11 +105,11 @@ resource "healthchecksio_check" "lb_2" {
   ]
 }
 
-resource "healthchecksio_check" "k8s_control" {
-  count = 3
+resource "healthchecksio_check" "k3s_worker" {
+  count = 2
 
-  name = "k8s-control-${count.index + 1}"
-  desc = "Checks the k8s control node is up"
+  name = "k3s-worker-${count.index + 1}"
+  desc = "Checks the k8s worker node is up"
 
   tags = [
     "k8s"
@@ -124,14 +124,14 @@ resource "healthchecksio_check" "k8s_control" {
   ]
 }
 
-resource "healthchecksio_check" "k8s_worker" {
-  count = 2
+resource "healthchecksio_check" "k3s_control" {
+  count = 3
 
-  name = "k8s-worker-${count.index + 1}"
-  desc = "Checks the k8s worker node is up"
+  name = "k3s-control-${count.index + 1}"
+  desc = "Checks the k3s control node is up"
 
   tags = [
-    "k8s"
+    "k3s"
   ]
 
   grace    = 60 # seconds

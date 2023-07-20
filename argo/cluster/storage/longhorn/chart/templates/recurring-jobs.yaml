@@ -15,7 +15,6 @@ apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
   name: nightly-trim
-  namespace: longhorn
 spec:
   name: nightly-trim
   cron: 0 0 * * *

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
-    echo Provie svcacct name
+    echo Provide svcacct name
     exit 1
 fi
 
 name="$1"
 
 # your server name goes here
-server=https://10.0.0.6:6443
+server=https://10.0.0.7:6443
 # the name of the secret containing the service account token goes here
 secret="$name-token"
 
