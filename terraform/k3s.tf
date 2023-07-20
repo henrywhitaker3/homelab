@@ -41,3 +41,14 @@ module "k3s-worker-2" {
   memory = 12288
   node   = 2
 }
+
+module "transmission" {
+  source = "./vm"
+
+  name   = "transmission"
+  image  = local.ubuntu_22_04_8G
+  ip     = 17
+  cores  = 1
+  memory = 512
+  node   = 2
+}

@@ -1,0 +1,46 @@
+---
+- name: Configure transmission server
+
+  hosts: transmission
+
+  roles:
+    - user
+    - common
+    - cifs
+    - docker
+
+  handlers:
+    - name: docker compose up
+      become: true
+      ansible.builtin.command:
+        cmd: docker compose up -d
+      changed_when: true
+
+  tasks:
+    - name: Copy over docker compose
+      ansible.builtin.template:
+        src: templates/docker-compose.yaml
+        dest: "/home/{{ ansible_user }}/docker-compose.yml"
+        mode: "0644"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      notify: docker compose up
+
+    - name: Create data dirs
+      ansible.builtin.file:
+        name: "{{ item }}"
+        state: directory
+        mode: "0755"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      loop:
+        - wireguard
+        - transmission
+
+    - name: Copy over wireguard config
+      ansible.builtin.copy:
+        content: "{{ tunnel }}"
+        dest: "/home/{{ ansible_user }}/wireguard/wg0.conf"
+        mode: "0600"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

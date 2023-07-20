@@ -1,0 +1,3 @@
+cifs_mounts:
+  - src: //10.0.0.9/plex
+    path: /plex
