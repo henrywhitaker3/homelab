@@ -11,7 +11,7 @@ tasks:
     deps: [repo]
     cmds:
       - helm dependency build argo/argocd
-      - helm upgrade --install --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
+      - helm upgrade --install --create-namespace --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
 
   repo:
     cmds:
