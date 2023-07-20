@@ -8,6 +8,12 @@ spec:
     name: onepassword-connect
   target:
     creationPolicy: Owner
-  dataFrom:
-    - extract:
+  data:
+    - secretKey: CIFS_USERNAME
+      remoteRef:
         key: k3s-smb
+        property: username
+    - secretKey: CIFS_PASSWORD
+      remoteRef:
+        key: k3s-smb
+        property: password
