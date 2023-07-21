@@ -14,4 +14,4 @@ tasks:
   apply:
     dir: terraform
     cmds:
-      - terraform apply
+      - terraform apply {{ .CLI_ARGS }}

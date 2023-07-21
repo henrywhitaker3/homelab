@@ -16,6 +16,7 @@
       ansible.builtin.apt:
         name: libguestfs-tools
         state: present
+        update_cache: true
 
     - name: Download images
       ansible.builtin.get_url:

@@ -15,13 +15,8 @@ templates:
     params:
       id: 9000
       size: 25G
-  - name: ubuntu-22.04-cloud-100G
-    source: ubuntu-22.04
-    params:
-      id: 10000
-      size: 100G
-  - name: ubuntu-22.04-cloud-300G
+  - name: ubuntu-22.04-cloud-200G
     source: ubuntu-22.04
     params:
       id: 11500
-      size: 300G
+      size: 200G

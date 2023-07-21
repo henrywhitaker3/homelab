@@ -2,7 +2,7 @@ module "k3s-control-1" {
   source = "./vm"
 
   name   = "k3s-control-1"
-  image  = local.ubuntu_22_04_300G
+  image  = local.ubuntu_22_04_200G
   ip     = 23
   cores  = 3
   memory = 12288
@@ -24,7 +24,7 @@ module "k3s-worker-1" {
   source = "./vm"
 
   name   = "k3s-worker-1"
-  image  = local.ubuntu_22_04_300G
+  image  = local.ubuntu_22_04_200G
   ip     = 20
   cores  = 3
   memory = 12288
