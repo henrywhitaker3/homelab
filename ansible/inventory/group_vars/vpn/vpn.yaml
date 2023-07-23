@@ -1,5 +1,5 @@
 vip_ips: ["10.0.0.13"]
-vip_priority_host: vpn-1.lab
+vip_priority_host: vpn-2.lab
 vip_check_script_enabled: true
 vip_check_script: |
   #!/bin/bash
