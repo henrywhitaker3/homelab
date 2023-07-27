@@ -5,6 +5,9 @@ argo-zombies:
         - name: default
           kind: ServiceAccount
           version: v1
+        - name: kube-root-ca.crt
+          kind: ConfigMap
+          version: v1
         - name: argocd-initial-admin-secret
           namespace: argo
           kind: Secret
