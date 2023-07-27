@@ -1,6 +1,15 @@
 argo-zombies:
   config:
     exclusions:
+      resources:
+        - name: default
+          kind: Secret
+          version: v1
+
+      selectors:
+        - labels:
+            controller.cert-manager.io/fao: "true"
+
       gvrs:
         - group: k3s.cattle.io
           version: v1
@@ -108,3 +117,7 @@ argo-zombies:
         - group: longhorn.io
           version: v1beta2
           resource: volumes
+
+        - group: apiextensions.k8s.io
+          version: v1
+          resource: customresourcedefinitions
