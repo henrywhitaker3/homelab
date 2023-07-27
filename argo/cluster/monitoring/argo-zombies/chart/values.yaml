@@ -9,6 +9,10 @@ argo-zombies:
       selectors:
         - labels:
             controller.cert-manager.io/fao: "true"
+        - labels:
+            app.kubernetes.io/part-of: argocd
+          annotations:
+            meta.helm.sh/release-name: argo
 
       gvrs:
         - group: k3s.cattle.io
