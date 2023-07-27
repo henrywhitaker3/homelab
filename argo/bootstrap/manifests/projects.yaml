@@ -3,8 +3,8 @@ kind: AppProject
 metadata:
   name: apps
   namespace: argo
-  labels:
-    henrywhitaker3.github.com/bootstrap: "true"
+  annotations:
+    henrywhitaker3.github.com/argo-zombies: "ignore"
 spec:
   clusterResourceWhitelist:
   - group: '*'
@@ -20,8 +20,8 @@ kind: AppProject
 metadata:
   name: cluster
   namespace: argo
-  labels:
-    henrywhitaker3.github.com/bootstrap: "true"
+  annotations:
+    henrywhitaker3.github.com/argo-zombies: "ignore"
 spec:
   clusterResourceWhitelist:
   - group: '*'

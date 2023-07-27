@@ -3,9 +3,9 @@ kind: Secret
 metadata:
   annotations:
     managed-by: argocd.argoproj.io
+    henrywhitaker3.github.com/argo-zombies: "ignore"
   labels:
     argocd.argoproj.io/secret-type: repository
-    henrywhitaker3.github.com/bootstrap: "true"
   name: argo-repo
   namespace: argo
 stringData:
@@ -19,9 +19,9 @@ kind: Secret
 metadata:
   annotations:
     managed-by: argocd.argoproj.io
+    henrywhitaker3.github.com/argo-zombies: "ignore"
   labels:
     argocd.argoproj.io/secret-type: repository
-    henrywhitaker3.github.com/bootstrap: "true"
   name: ghcr-repo
   namespace: argo
 stringData:
