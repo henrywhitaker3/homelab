@@ -3,6 +3,10 @@ argo-zombies:
     exclusions:
       resources:
         - name: default
+          kind: ServiceAccount
+          version: v1
+        - name: argocd-initial-admin-secret
+          namespace: argo
           kind: Secret
           version: v1
 
