@@ -1,0 +1,109 @@
+argo-zombies:
+  exclusions:
+    gvrs:
+      - group: k3s.cattle.io
+        version: v1
+        resource: addons
+      - group: helm.cattle.io
+        version: v1
+        resource: helmchartconfigs
+      - group: helm.cattle.io
+        version: v1
+        resource: helmcharts
+
+      - group: longhorn.io
+        version: v1beta1
+        resource: backingimages
+      - group: longhorn.io
+        version: v1beta2
+        resource: backingimages
+      - group: longhorn.io
+        version: v1beta1
+        resource: backups
+      - group: longhorn.io
+        version: v1beta2
+        resource: backups
+      - group: longhorn.io
+        version: v1beta1
+        resource: backuptargets
+      - group: longhorn.io
+        version: v1beta2
+        resource: backuptargets
+      - group: longhorn.io
+        version: v1beta1
+        resource: backupvolumes
+      - group: longhorn.io
+        version: v1beta2
+        resource: backupvolumes
+      - group: longhorn.io
+        version: v1beta1
+        resource: engineimages
+      - group: longhorn.io
+        version: v1beta2
+        resource: engineimages
+      - group: longhorn.io
+        version: v1beta1
+        resource: engines
+      - group: longhorn.io
+        version: v1beta2
+        resource: engines
+      - group: longhorn.io
+        version: v1beta1
+        resource: instancemanagers
+      - group: longhorn.io
+        version: v1beta2
+        resource: instancemanagers
+      - group: longhorn.io
+        version: v1beta1
+        resource: nodes
+      - group: longhorn.io
+        version: v1beta2
+        resource: nodes
+      - group: longhorn.io
+        version: v1beta2
+        resource: orphans
+      - group: longhorn.io
+        version: v1beta1
+        resource: recurringjobs
+      - group: longhorn.io
+        version: v1beta2
+        resource: recurringjobs
+      - group: longhorn.io
+        version: v1beta1
+        resource: replicas
+      - group: longhorn.io
+        version: v1beta2
+        resource: replicas
+      - group: longhorn.io
+        version: v1beta1
+        resource: settings
+      - group: longhorn.io
+        version: v1beta2
+        resource: settings
+      - group: longhorn.io
+        version: v1beta1
+        resource: sharemanagers
+      - group: longhorn.io
+        version: v1beta2
+        resource: sharemanagers
+      - group: longhorn.io
+        version: v1beta2
+        resource: snapshots
+      - group: longhorn.io
+        version: v1beta2
+        resource: supportbundles
+      - group: longhorn.io
+        version: v1beta2
+        resource: systembackups
+      - group: longhorn.io
+        version: v1beta2
+        resource: systemrestores
+      - group: longhorn.io
+        version: v1beta2
+        resource: volumeattachments
+      - group: longhorn.io
+        version: v1beta1
+        resource: volumes
+      - group: longhorn.io
+        version: v1beta2
+        resource: volumes
