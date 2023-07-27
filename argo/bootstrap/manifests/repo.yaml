@@ -5,6 +5,7 @@ metadata:
     managed-by: argocd.argoproj.io
   labels:
     argocd.argoproj.io/secret-type: repository
+    henrywhitaker3.github.com/bootstrap: "true"
   name: argo-repo
   namespace: argo
 stringData:
@@ -20,6 +21,7 @@ metadata:
     managed-by: argocd.argoproj.io
   labels:
     argocd.argoproj.io/secret-type: repository
+    henrywhitaker3.github.com/bootstrap: "true"
   name: ghcr-repo
   namespace: argo
 stringData:
