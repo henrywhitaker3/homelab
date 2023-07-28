@@ -7,6 +7,7 @@ RUN sudo apt-get update && \
     sudo apt-get install -y vim \
                             gnupg \
                             software-properties-common \
+                            apt-transport-https \
                             wget \
                             git \
                             python3 \
