@@ -1,6 +1,4 @@
 argo-zombies:
-  schedule: "* * * * *"
-
   config:
     dashboards:
       gitlab:
