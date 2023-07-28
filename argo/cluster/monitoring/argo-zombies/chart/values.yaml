@@ -1,14 +1,5 @@
 argo-zombies:
-  schedule: "* * * * *"
   config:
-    dashboards:
-      github:
-        enabled: true
-        repo: henrywhitaker3/argo-zombies
-        tokenSecretRef:
-          name: argo-zombies-tokens
-          key: github-token
-
     exclusions:
       bundles:
         - k3s
