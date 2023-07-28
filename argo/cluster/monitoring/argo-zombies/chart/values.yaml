@@ -1,5 +1,15 @@
 argo-zombies:
+  schedule: "* * * * *"
+
   config:
+    dashobards:
+      gitlab:
+        enabled: true
+        repo: henrywhitaker3/homelab
+        tokenSecretRef:
+          name: argo-zombies-tokens
+          key: gitlab-token
+
     exclusions:
       bundles:
         - k3s
