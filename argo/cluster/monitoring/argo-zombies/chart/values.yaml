@@ -4,14 +4,10 @@ argo-zombies:
       bundles:
         - k3s
         - longhorn
+        - ingress-nginx
+        - cert-manager
 
       resources:
-        - name: default
-          kind: ServiceAccount
-          version: v1
-        - name: kube-root-ca.crt
-          kind: ConfigMap
-          version: v1
         - name: argocd-initial-admin-secret
           namespace: argo
           kind: Secret
@@ -24,18 +20,6 @@ argo-zombies:
           namespace: monitoring
           kind: PersistentVolumeClaim
           version: v1
-        - name: cert-manager-webhook-ca
-          namespace: cert-manager
-          kind: Secret
-          version: v1
-        - name: letsencrypt-prod-issuer-key
-          namespace: cert-manager
-          kind: Secret
-          version: v1
-        - name: ingress-nginx-admission
-          namespace: ingress-nginx
-          kind: Secret
-          version: v1
         - name: kube-prometheus-stack-admission
           namespace: monitoring
           kind: Secret
@@ -47,8 +31,6 @@ argo-zombies:
 
       selectors:
         - labels:
-            controller.cert-manager.io/fao: "true"
-        - labels:
             app.kubernetes.io/part-of: argocd
           annotations:
             meta.helm.sh/release-name: argo
@@ -57,6 +39,3 @@ argo-zombies:
         - group: apiextensions.k8s.io
           version: v1
           resource: customresourcedefinitions
-        - group: apiregistration.k8s.io
-          version: v1
-          resource: apiservices
