@@ -1,4 +1,5 @@
 argo-zombies:
+  schedule: "* * * * *"
   config:
     dashboards:
       github:
