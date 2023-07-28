@@ -4,7 +4,7 @@ metadata:
   name: cluster
   namespace: argo
   annotations:
-    henrywhitaker3.github.com/argo-zombies: "ignore"
+    argo-zombies/ignore: "true"
 spec:
   destination:
     namespace: argo
