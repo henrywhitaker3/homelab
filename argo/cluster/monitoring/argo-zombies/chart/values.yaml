@@ -18,10 +18,10 @@ argo-zombies:
         - cert-manager
 
       resources:
-        # - name: argocd-initial-admin-secret
-        #   namespace: argo
-        #   kind: Secret
-        #   version: v1
+        - name: argocd-initial-admin-secret
+          namespace: argo
+          kind: Secret
+          version: v1
         - name: export-minio-[0-9]+
           namespace: minio
           kind: PersistentVolumeClaim
