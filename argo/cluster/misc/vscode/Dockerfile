@@ -2,7 +2,6 @@ FROM codercom/code-server:4.15.0
 
 ARG SOPS_VERSION=3.7.3
 
-RUN sudo add-apt-repository -y ppa:longsleep/golang-backports
 
 RUN sudo apt-get update && \
     sudo apt-get install -y vim \
@@ -15,8 +14,11 @@ RUN sudo apt-get update && \
                             curl \
                             openssh-client \
                             rsync \
-                            age \
-                            golang-go
+                            age
+
+RUN sudo add-apt-repository -y ppa:longsleep/golang-backports && \
+    sudo apt-get update && \
+    sudo apt-get install -y golang-go
 
 RUN sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
