@@ -17,9 +17,8 @@ RUN sudo apt-get update && \
                             rsync \
                             age
 
-RUN sudo add-apt-repository -y ppa:longsleep/golang-backports && \
-    sudo apt-get update && \
-    sudo apt-get install -y golang-go
+RUN curl -O https://dl.google.com/go/go1.20.6.linux-amd64.tar.gz && \
+    sudo tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz
 
 RUN sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
