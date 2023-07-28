@@ -32,5 +32,5 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sudo bash
 
-ENV PATH="/home/coder/.local/bin:$PATH"
+ENV PATH="/usr/local/go/bin:/home/coder/.local/bin:$PATH"
 RUN pip3 install ansible ansible-lint
