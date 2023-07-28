@@ -2,6 +2,8 @@ FROM codercom/code-server:4.15.0
 
 ARG SOPS_VERSION=3.7.3
 
+RUN sudo add-apt-repository -y ppa:longsleep/golang-backports
+
 RUN sudo apt-get update && \
     sudo apt-get install -y vim \
                             gnupg \
