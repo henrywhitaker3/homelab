@@ -1,5 +1,4 @@
 argo-zombies:
-  schedule: "* * * * *"
   config:
     exclusions:
       bundles:
