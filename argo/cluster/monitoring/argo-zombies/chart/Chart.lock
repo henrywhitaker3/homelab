@@ -1,6 +1,6 @@
 dependencies:
 - name: argo-zombies
   repository: https://henrywhitaker3.github.io/argo-zombies/
-  version: 0.1.4
-digest: sha256:d867a12364fd9f092856320d6087d031b23dc6e26e5dfb22d349daa8ebacf37e
-generated: "2023-07-27T21:18:39.156843688Z"
+  version: 0.1.5
+digest: sha256:723d02ac920574a48697e8892b6f40e9260f5ce11bb74bc3e63b32bdd7ab2faf
+generated: "2023-07-28T00:42:13.97911359Z"
