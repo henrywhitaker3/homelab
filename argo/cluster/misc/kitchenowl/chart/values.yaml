@@ -49,7 +49,3 @@ generic:
   secrets:
     enabled: true
     key: kitchenowl
-
-  securityContext:
-    runAsUser: 1000
-    runAsNonRoot: true
