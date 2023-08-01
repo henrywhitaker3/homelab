@@ -32,6 +32,9 @@ backend:
   service:
     port: 80
 
+  probes:
+    type: tcpSocket
+
   ingress:
     enabled: true
     annotations:
