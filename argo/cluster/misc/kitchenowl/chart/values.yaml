@@ -1,24 +1,30 @@
-generic:
+# frontend:
+#   nameOverride: kitchenowl-web
+#   fullnameOverride: kitchenowl-web
+
+#   replicaCount: 1
+
+#   image:
+#     repository: tombursch/kitchenowl-web
+#     pullPolicy: Always
+#     tag: "latest"
+
+#   deploymentStrategy:
+#     type: Recreate
+
+#   service:
+#     port: 80
+
+backend:
   nameOverride: kitchenowl
   fullnameOverride: kitchenowl
 
   replicaCount: 1
 
   image:
-    repository: tombursch/kitchenowl-web
+    repository: tombursch/kitchenowl
     pullPolicy: Always
     tag: "latest"
-
-  extraContainers:
-    - name: kitchenowl-backend
-      image: tombursch/kitchenowl:latest
-      imagePullPolicy: Always
-      volumeMounts:
-        - mountPath: /data
-          name: persistence
-      envFrom:
-        - secretRef:
-            name: kitchenowl
 
   deploymentStrategy:
     type: Recreate
