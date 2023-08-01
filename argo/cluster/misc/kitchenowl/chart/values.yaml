@@ -20,6 +20,9 @@ generic:
         - secretRef:
             name: kitchenowl
 
+  deploymentStrategy:
+    type: Recreate
+
   service:
     port: 80
 
