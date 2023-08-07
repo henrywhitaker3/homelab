@@ -6,7 +6,7 @@ module "pihole" {
   ip         = 2
   memory     = 2048
   nameserver = "1.1.1.1 8.8.8.8"
-  node       = 1
+  node       = 2
 }
 
 module "haproxy-1" {
