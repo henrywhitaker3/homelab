@@ -25,7 +25,7 @@ resource "healthchecksio_check" "jump_k8s_lan" {
     "vpn"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -43,7 +43,7 @@ resource "healthchecksio_check" "vpn_1" {
     "vpn"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -61,7 +61,7 @@ resource "healthchecksio_check" "vpn_2" {
     "vpn"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -79,7 +79,7 @@ resource "healthchecksio_check" "lb_1" {
     "vpn"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -96,7 +96,7 @@ resource "healthchecksio_check" "lb_2" {
     "vpn"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -115,7 +115,7 @@ resource "healthchecksio_check" "k3s_worker" {
     "k8s"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
@@ -134,7 +134,7 @@ resource "healthchecksio_check" "k3s_control" {
     "k3s"
   ]
 
-  grace    = 60 # seconds
+  grace    = 120 # seconds
   schedule = "* * * * *"
   timezone = "UTC"
 
