@@ -2,8 +2,6 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: "{{ .Values.name }}-retain"
-  labels:
-    {{- include "smb.labels" . | nindent 4 }}
 provisioner: smb.csi.k8s.io
 parameters:
   source: "{{ .Values.host }}"
