@@ -56,14 +56,14 @@ jobs:
     command: kubectl -n misc rollout restart deployment vscode
     schedule: "0 4 * * *"
   - name: rebalanace-plex
-    schedule: "*/5 * * * *"
+    schedule: "* * * * *"
     command: |
       #!/bin/bash
 
-      preferred_available=$(kubectl get node k8s-control-3 | tail -n 1 | tr -s ' ' | cut -d ' ' -f 2)
+      preferred_available=$(kubectl get node k3s-control-3 | tail -n 1 | tr -s ' ' | cut -d ' ' -f 2)
       current_node=$(kubectl -n media get pods -l app.kubernetes.io/name=plex -o=wide | tail -n 1 | tr -s ' ' | cut -d' ' -f7)
 
-      if [ $current_node == "k8s-control-3" ]; then
+      if [ $current_node == "k3s-control-3" ]; then
         echo Plex running on preferred node
         exit 0
       else
