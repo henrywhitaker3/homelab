@@ -56,7 +56,7 @@ jobs:
     command: kubectl -n misc rollout restart deployment vscode
     schedule: "0 4 * * *"
   - name: rebalanace-plex
-    schedule: "* * * * *"
+    schedule: "*/5 * * * *"
     command: |
       #!/bin/bash
 
