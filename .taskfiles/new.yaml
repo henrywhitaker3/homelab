@@ -10,12 +10,12 @@ tasks:
   helm:
     deps: [app]
     cmds:
-      - cat templates/Chart.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/Chart.yaml
+      - cat .templates/Chart.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/Chart.yaml
 
   kustomize:
     deps: [app]
     cmds:
-      - cat templates/kustomization.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/kustomization.yaml
+      - cat .templates/kustomization.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/kustomization.yaml
 
   app:
     preconditions:
@@ -25,11 +25,11 @@ tasks:
     cmds:
       - mkdir -p argo/cluster/$TYPE/$NAME
       - mkdir -p argo/cluster/$TYPE/$NAME/chart
-      - cat templates/app.yaml | envsubst > argo/cluster/$TYPE/$NAME/$NAME.app.yaml
+      - cat .templates/app.yaml | envsubst > argo/cluster/$TYPE/$NAME/$NAME.app.yaml
 
   secret:
     cmds:
-      - cat templates/external-secret.yaml | envsubst
+      - cat .templates/external-secret.yaml | envsubst
 
   vpn:
     env:
@@ -38,5 +38,5 @@ tasks:
       PSK:
         sh: wg genpsk
     cmds:
-      - sops --decrypt templates/wg.conf | envsubst
+      - sops --decrypt .templates/wg.conf | envsubst
       - echo -n "Public key " && echo $PRIVATE_KEY | wg pubkey

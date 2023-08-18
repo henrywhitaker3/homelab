@@ -3,11 +3,11 @@ version: '3'
 dotenv: [.env]
 
 includes:
-  ci: taskfiles/CI.yaml
-  argo: taskfiles/argo.yaml
-  k3s: taskfiles/k3s.yaml
-  tf: taskfiles/terraform.yaml
-  new: taskfiles/new.yaml
+  ci: .taskfiles/CI.yaml
+  argo: .taskfiles/argo.yaml
+  k3s: .taskfiles/k3s.yaml
+  tf: .taskfiles/terraform.yaml
+  new: .taskfiles/new.yaml
 
 tasks:
   patch:
