@@ -1,8 +1,0 @@
-kubernetes-ingress:
-  controller:
-    kind: DaemonSet
-    ingressClass: haproxy
-
-    service:
-      type: LoadBalancer
-      loadBalancerIP: "10.0.0.27"
