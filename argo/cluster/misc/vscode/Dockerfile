@@ -15,7 +15,8 @@ RUN sudo apt-get update && \
                             curl \
                             openssh-client \
                             rsync \
-                            age
+                            age \
+                            bash-completion
 
 RUN curl -O https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
     sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
