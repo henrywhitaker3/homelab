@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: metallb
-    version: "0.13.10"
+    version: "0.13.11"
     repository: https://metallb.github.io/metallb
