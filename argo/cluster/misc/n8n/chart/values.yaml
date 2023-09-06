@@ -27,5 +27,5 @@ scaling:
     host: redis.databases.svc.cluster.local
 
 image:
-  tag: latest
+  tag: ""
   pullPolicy: Always
