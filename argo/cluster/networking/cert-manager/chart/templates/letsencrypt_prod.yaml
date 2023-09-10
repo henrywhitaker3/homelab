@@ -20,6 +20,7 @@ spec:
           dnsZones:
             - 'plexmox.com'
             - 'henrywhitaker.com'
+            - 'srep.io'
       - http01:
           ingress:
             class: nginx
