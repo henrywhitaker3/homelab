@@ -7,7 +7,7 @@ generic:
   image:
     repository: linuxserver/plex
     pullPolicy: Always
-    tag: latest
+    tag: 1.32.6
 
   service:
     port: 32400
@@ -94,7 +94,7 @@ generic:
     type: tcpSocket
     options:
       port: http
-    initialDelaySeconds: 30
+    initialDelaySeconds: 45
 
   config:
     PUID: "1000"
