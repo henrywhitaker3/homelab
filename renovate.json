@@ -50,7 +50,7 @@
       },
       {
         "matchDatasources": "helm",
-        "matchPackageNames": ["plex"],
+        "matchPackageNames": ["linuxserver/plex"],
         "automerge": false
       }
     ]
