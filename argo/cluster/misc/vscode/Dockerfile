@@ -21,6 +21,8 @@ RUN sudo apt-get update && \
 RUN curl -O https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
     sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
 
+RUN /usr/local/go/bin/go install gotest.tools/gotestsum@latest
+
 RUN sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
 RUN curl https://raw.githubusercontent.com/go-task/task/main/completion/bash/task.bash | sudo tee /etc/bash_completion.d/task

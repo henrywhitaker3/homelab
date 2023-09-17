@@ -47,6 +47,11 @@
       {
         "matchUpdateTypes": ["minor", "patch"],
         "addLabels": [ "dep/minor"]
+      },
+      {
+        "matchDatasources": "helm",
+        "matchPackageNames": ["linuxserver/plex"],
+        "automerge": false
       }
     ]
 }
