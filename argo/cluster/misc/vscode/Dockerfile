@@ -37,5 +37,5 @@ RUN kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sudo bash
 
-ENV PATH="/usr/local/go/bin:/home/coder/.local/bin:$PATH"
+RUN 'export PATH="/usr/local/go/bin:/home/coder/.local/bin:$PATH"' >> ~/.bashrc
 RUN pip3 install ansible ansible-lint
