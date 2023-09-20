@@ -3,6 +3,6 @@ gitlab-runner:
   gitlabUrl: https://gitlab.com
   runners:
     secret: gitlab-runner-secret
-    tags: "home"
+    # tags: "home"
   rbac:
     create: true
