@@ -23,6 +23,7 @@ image: henrywhitaker3/pipeline
         - haproxy
         - speakers
         - pihole
+        - mariadb
   rules:
     - if: $SKIP_ANSIBLE == "true"
       when: never
