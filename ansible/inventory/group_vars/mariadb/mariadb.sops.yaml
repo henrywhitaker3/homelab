@@ -1,0 +1,23 @@
+healthchecks:
+    mariadb-1: ENC[AES256_GCM,data:i07ZK+mK6E6Le//LCv1sKELsAZzYWfWH1DDREfPlg/9XKVQSev3Y8+m7/epj/TGbAlh3oFOmGaw=,iv:7DwFwfb1Q/xzY9FGbgf28YlslATiA4vzYwL8R68gia8=,tag:X9vlQBOciLkT19mv+NxhPw==,type:str]
+    mariadb-2: ENC[AES256_GCM,data:+v0OCk1Bo0bjPYMdUlQrGsoW43hMBWx657ptSF1tpgFqqclxzuQyMKcShGXD/+kUjSFnuLe+cKE=,iv:9UqeBJqMRBt1JL131h8olCMIEiBvYCgCRvHIm8k8u3o=,tag:2n0QgSNrfMDypTbDAuxE5w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA4U2RRcmJmRlFKMkFhUWxT
+            RWRleURBZ05OclZsY3dDN2l4Rk9kNnpESFZjCkp4WVN0UVhFejJrVS9xcmtNS0Y4
+            Z0J4ckRIQ2U1RklMTTk0Ty9rN0MySm8KLS0tIEYvZDByeThxc3N3L2pRQnk3aytl
+            TzNvTDlhbnZtMUYwK1l5NkhpUzF1NFUK4BiUoQxBxzMIYAu/JLIVINf4ePQvoavO
+            ncXhqIa/AzcAsRHYelmP9eKEU07Gy1rdHCzdFwZTV0j0NYMc3TJl+A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-09-20T22:54:17Z"
+    mac: ENC[AES256_GCM,data:o4bQh43TyYHIEOYnAkc9FR+vT+B/EoBohJS0hcGEwqy6nmVsA/T7uoeHECABYvxvFJLkVVLIjU4eSLeToO/SESN5Rz4PiDJJu72Tgw+pl4lzXSHQGm90iNhqIiEXTT/YQ/HCY9nVI+g9DKKBe+GyguRCFI7p714ePYe/zg5DkSI=,iv:WTc7PF3vkhtg9syHvgdYStfZPVF7zChJpZlmP0myp0U=,tag:ZO1CJHwwvCT6llOtxPrzyQ==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

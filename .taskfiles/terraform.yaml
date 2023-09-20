@@ -15,3 +15,8 @@ tasks:
     dir: terraform
     cmds:
       - terraform apply {{ .CLI_ARGS }}
+
+  init:
+    dir: terraform
+    cmds:
+      - terraform init {{ .CLI_ARGS }}

@@ -1,0 +1,10 @@
+---
+- name: Configure mariadb servers
+
+  hosts: mariadb
+
+  roles:
+    - user
+    - common
+    - crog
+    - node_exporter

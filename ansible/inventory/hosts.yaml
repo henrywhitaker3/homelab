@@ -69,7 +69,9 @@ all:
         k3s-worker-2.lab:
           ansible_host: 10.0.0.21
 
-    transmission:
+    mariadb:
       hosts:
-        transmission.lab:
-          ansible_host: 10.0.0.17
+        mariadb-1:
+          ansible_host: 10.0.0.15
+        mariadb-2:
+          ansible_host: 10.0.0.16
