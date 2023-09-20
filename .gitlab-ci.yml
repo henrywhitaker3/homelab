@@ -13,8 +13,6 @@ image: henrywhitaker3/pipeline
 # Ansible #
 ###########
 .playbooks:
-  tags:
-    - home
   variables:
     ANSIBLE_CONFIG: ./ansible.cfg
   parallel:
@@ -60,8 +58,6 @@ ansible play:
 # Terraform #
 #############
 .terraform:base:
-  tags:
-    - home
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   before_script:
     - cd terraform
