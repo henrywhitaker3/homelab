@@ -58,3 +58,9 @@ tasks:
           Must set $DIR variable
     cmds:
       - argocd app diff $APP --local $DIR --loglevel error
+
+  refresh:
+    cmds:
+      - kubectl config set-context --current --namespace=argo
+      - argocd app get {{ .CLI_ARGS }} --refresh --core
+      - kubectl config set-context --current --namespace=default
