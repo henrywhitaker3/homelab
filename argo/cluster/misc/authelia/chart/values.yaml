@@ -62,7 +62,7 @@ authelia:
 
       mysql:
         enabled: true
-        host: mariadb-1.lab
+        host: mariadb-write.lab
         port: 3306
         username: authelia
         database: authelia
