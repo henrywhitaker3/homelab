@@ -8,6 +8,7 @@ includes:
   k3s: .taskfiles/k3s.yaml
   tf: .taskfiles/terraform.yaml
   new: .taskfiles/new.yaml
+  db: .taskfiles/db.yaml
 
 tasks:
   patch:
