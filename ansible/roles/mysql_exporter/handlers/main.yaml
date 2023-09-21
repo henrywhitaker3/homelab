@@ -1,0 +1,7 @@
+---
+- name: restart mysql exporter
+  tags: mysql_exporter
+  become: true
+  ansible.builtin.service:
+    name: mysqld_exporter
+    state: restarted

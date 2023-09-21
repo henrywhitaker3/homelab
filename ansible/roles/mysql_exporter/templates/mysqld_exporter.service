@@ -1,0 +1,23 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus Mysqld Exporter
+After=network-online.target
+
+[Service]
+Type=simple
+User={{ mysql_exporter_user }}
+Group={{ mysql_exporter_group }}
+ExecStart={{ mysql_exporter_install_dir }}/mysqld_exporter \
+    --web.listen-address={{ mysql_exporter_listen_address }} \
+    --web.telemetry-path={{ mysql_exporter_telemetry_path }} \
+    --config.my-cnf={{ mysql_exporter_install_dir }}/.my.cnf
+SyslogIdentifier=node_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+ProtectSystem=full
+WorkingDirectory={{ mysql_exporter_install_dir }}
+
+[Install]
+WantedBy=multi-user.target

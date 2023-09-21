@@ -72,6 +72,10 @@ grafana:
         gnetId: 9614
         revision: 1
         datasource: Prometheus
+      mysql-overview:
+        gnetId: 14057
+        revision: 1
+        datasource: Prometheus
       overview:
         json: |
           {
@@ -402,6 +406,12 @@ prometheus:
           - targets:
             - 'jump-k8s.lab:8404'
             - 'k8s.lab:8404'
+
+      - job_name: 'mysql'
+        static_configs:
+          - targets:
+            - 'mariadb-1.lab:9104'
+            - 'mariadb-2.lab:9104'
 
       - job_name: 'node_exporter'
         static_configs:

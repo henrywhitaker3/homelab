@@ -1,0 +1,83 @@
+---
+- name: Create mysql exporter group
+  become: true
+  ansible.builtin.group:
+    name: "{{ mysql_exporter_group }}"
+    state: present
+    system: true
+
+- name: Create mysql exporter user
+  become: true
+  ansible.builtin.user:
+    name: "{{ mysql_exporter_user }}"
+    groups: "{{ mysql_exporter_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+
+- name: Create mysql exporter directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ mysql_exporter_install_dir }}"
+    state: directory
+    owner: "{{ mysql_exporter_user }}"
+    group: "{{ mysql_exporter_group }}"
+    mode: "0755"
+
+- name: Download mysql exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus/mysqld_exporter/releases/download/v{{ mysql_exporter_version }}/mysqld_exporter-{{ mysql_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/mysqld_exporter-{{ mysql_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: "0755"
+
+- name: Unpack mysql exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/mysqld_exporter-{{ mysql_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/mysqld_exporter-{{ mysql_exporter_version }}.linux-{{ go_arch }}/mysqld_exporter"
+
+- name: Move mysql export binary to install dir
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/mysqld_exporter-{{ mysql_exporter_version }}.linux-{{ go_arch }}/mysqld_exporter"
+    remote_src: true
+    dest: "{{ mysql_exporter_install_dir }}/mysqld_exporter"
+    owner: "{{ mysql_exporter_user }}"
+    group: "{{ mysql_exporter_group }}"
+    mode: "0755"
+
+- name: Copy over config file
+  become: true
+  ansible.builtin.template:
+    src: templates/.my.cnf
+    dest: "{{ mysql_exporter_install_dir }}/.my.cnf"
+    owner: "{{ mysql_exporter_user }}"
+    group: "{{ mysql_exporter_group }}"
+    mode: "0600"
+  notify: restart mysql exporter
+
+- name: Copy over service file
+  become: true
+  ansible.builtin.template:
+    src: templates/mysqld_exporter.service
+    dest: /etc/systemd/system/mysqld_exporter.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: mysql_exporter_service_copied
+  notify: restart mysql exporter
+
+- name: Reload services
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: mysql_exporter_service_copied
+
+- name: Start and enable mysql exporter
+  become: true
+  ansible.builtin.service:
+    name: mysqld_exporter
+    state: started
+    enabled: true

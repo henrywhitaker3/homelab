@@ -1,0 +1,27 @@
+---
+mysql_exporter_version: 0.15.0
+
+mysql_exporter_install_dir: /opt/mysql_exporter
+
+mysql_exporter_user: mysqlexp
+
+mysql_exporter_group: mysqlexp
+
+mysql_exporter_host: "{{ ansible_host }}"
+
+mysql_exporter_listen_address: "{{ mysql_exporter_host }}:9104"
+
+mysql_exporter_telemetry_path: /metrics
+
+mysql_exporter_db_user: ""
+mysql_exporter_db_password: ""
+mysql_exporter_db_host: "localhost"
+
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
