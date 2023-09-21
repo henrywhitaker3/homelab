@@ -76,6 +76,10 @@ grafana:
         gnetId: 14057
         revision: 1
         datasource: Prometheus
+      mysql-replication:
+        gnetId: 7371
+        revision: 1
+        datasource: Prometheus
       overview:
         json: |
           {
