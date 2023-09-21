@@ -1,0 +1,120 @@
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+
+#
+# * Basic Settings
+#
+
+#user                    = mysql
+pid-file                = /run/mysqld/mysqld.pid
+basedir                 = /usr
+#datadir                 = /var/lib/mysql
+#tmpdir                  = /tmp
+
+# Broken reverse DNS slows down connections considerably and name resolve is
+# safe to skip if there are no "host by domain name" access grants
+#skip-name-resolve
+
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+bind-address            = {{ mariadb_bind_address }}
+
+#
+# * Fine Tuning
+#
+
+key_buffer_size        = {{ mariadb_key_buffer_size }}
+max_allowed_packet     = {{ mariadb_max_allowed_packet }}
+thread_stack           = {{ mariadb_thread_stack }}
+thread_cache_size      = {{ mariadb_thread_cache_size }}
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+#myisam_recover_options = BACKUP
+max_connections        = {{ mariadb_max_connections }}
+table_cache            = 64
+
+#
+# * Logging and Replication
+#
+
+# Both location gets rotated by the cronjob.
+# Be aware that this log type is a performance killer.
+# Recommend only changing this at runtime for short testing periods if needed!
+{% if mariadb_general_log_enabled == true %}
+general_log_file       = {{ mariadb_general_log_file }}
+general_log            = 1
+{% endif %}
+
+# When running under systemd, error logging goes via stdout/stderr to journald
+# and when running legacy init error logging goes to syslog due to
+# /etc/mysql/conf.d/mariadb.conf.d/50-mysqld_safe.cnf
+# Enable this if you want to have error logging into a separate file
+#log_error = /var/log/mysql/error.log
+# Enable the slow query log to see queries with especially long duration
+{% if mariadb_slow_log_enabled == true %}
+log_slow_query_file    = {{ mariadb_log_slow_query_file }}
+log_slow_query_time    = {{ mariadb_log_slow_query_time }}
+log_slow_verbosity     = {{ mariadb_log_slow_verbosity }}
+#log-queries-not-using-indexes
+log_slow_min_examined_row_limit = {{ mariadb_log_slow_min_examined_row_limit }}
+{% endif %}
+
+# The following can be used as easy to replay backup logs or for replication.
+# note: if you are setting up a replication slave, see README.Debian about
+#       other settings you may need to change.
+{% if mariadb_replication_enabled == true %}
+server-id              = {{ mariadb_server_id }}
+log_bin                = {{ mariadb_log_bin }}
+expire_logs_days       = {{ mariadb_expire_log_days }}
+max_binlog_size        = {{ mariadb_max_binlog_size }}
+{% endif %}
+
+#
+# * SSL/TLS
+#
+
+# For documentation, please read
+# https://mariadb.com/kb/en/securing-connections-for-client-and-server/
+#ssl-ca = /etc/mysql/cacert.pem
+#ssl-cert = /etc/mysql/server-cert.pem
+#ssl-key = /etc/mysql/server-key.pem
+#require-secure-transport = on
+
+#
+# * Character sets
+#
+
+# MySQL/MariaDB default is Latin1, but in Debian we rather default to the full
+# utf8 4-byte character set. See also client.cnf
+character-set-server  = utf8mb4
+collation-server      = utf8mb4_general_ci
+
+#
+# * InnoDB
+#
+
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+# Most important is to give InnoDB 80 % of the system RAM for buffer use:
+# https://mariadb.com/kb/en/innodb-system-variables/#innodb_buffer_pool_size
+#innodb_buffer_pool_size = 8G
+
+# this is only for embedded server
+[embedded]
+
+# This group is only read by MariaDB servers, not by MySQL.
+# If you use the same .cnf file for MySQL and MariaDB,
+# you can put MariaDB-only options here
+[mariadb]
+
+# This group is only read by MariaDB-10.11 servers.
+# If you use the same .cnf file for MariaDB of different versions,
+# use this group for options that older servers don't understand
+[mariadb-10.11]

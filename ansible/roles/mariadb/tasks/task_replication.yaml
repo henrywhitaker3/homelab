@@ -1,0 +1,44 @@
+---
+- name: Create replication user
+  become: "{{ mariadb_become }}"
+  community.mysql.mysql_user:
+    name: "{{ mariadb_replication_user }}"
+    host: "{{ mariadb_replication_host | default('%') }}"
+    password: "{{ mariadb_replication_password }}"
+    priv: "*.*:REPLICATION SLAVE"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Get name of master
+  ansible.builtin.set_fact:
+    mariadb_master_node: "{{ (item) if hostvars[item].mariadb_master is defined and hostvars[item].mariadb_master else (mariadb_master_node) }}"
+  loop: "{{ ansible_play_hosts }}"
+  when: mariadb_slave is defined and mariadb_slave
+
+- name: Setup replicas
+  when: mariadb_slave is defined and mariadb_slave
+  block:
+    - name: Check if replication is running
+      become: "{{ mariadb_become }}"
+      community.mysql.mysql_replication:
+        mode: getreplica
+        login_unix_socket: /run/mysqld/mysqld.sock
+      register: mariadb_replication_status
+
+    - name: Configure replication
+      become: "{{ mariadb_become }}"
+      community.mysql.mysql_replication:
+        mode: changeprimary
+        primary_host: "{{ mariadb_master_node }}"
+        primary_user: "{{ mariadb_replication_user }}"
+        primary_password: "{{ mariadb_replication_password }}"
+        login_unix_socket: /run/mysqld/mysqld.sock
+      when: not mariadb_replication_status.Is_Replica
+
+    - name: Start replication
+      become: "{{ mariadb_become }}"
+      community.mysql.mysql_replication:
+        mode: startreplica
+        login_unix_socket: /run/mysqld/mysqld.sock
+      when: not mariadb_replication_status.Is_Replica
+

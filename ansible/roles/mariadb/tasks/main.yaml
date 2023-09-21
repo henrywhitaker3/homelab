@@ -1,0 +1,11 @@
+---
+- name: Install mariadb
+  ansible.builtin.import_tasks: install.yaml
+  when: mariadb_state == "installed"
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Setup replication
+  ansible.builtin.import_tasks: task_replication.yaml
+  when: mariadb_replication_enabled == true

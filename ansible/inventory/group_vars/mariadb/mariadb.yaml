@@ -8,3 +8,6 @@ crog_actions:
       start: "{{ healthchecks[inventory_hostname] }}/start"
       success: "{{ healthchecks[inventory_hostname] }}"
       failure: "{{ healthchecks[inventory_hostname] }}/fail"
+
+mariadb_replication_enabled: true
+mariadb_bind_address: "0.0.0.0"

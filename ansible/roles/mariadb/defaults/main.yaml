@@ -1,0 +1,39 @@
+---
+mariadb_become: true
+
+mariadb_packages:
+  - python3-pymysql
+  - mariadb-server
+  - galera-4
+  - mariadb-client
+  - libmariadb3
+  - mariadb-backup
+  - mariadb-common
+
+mariadb_state: installed
+
+mariadb_replication_enabled: repl
+
+mariadb_replication_user: repl
+mariadb_replication_host: "%"
+mariadb_replication_password: ""
+
+mariadb_bind_address: "127.0.0.1"
+mariadb_max_connections: 100
+mariadb_key_buffer_size: 128M
+mariadb_max_allowed_packet: 1G
+mariadb_thread_stack: 192K
+mariadb_thread_cache_size: 8
+
+mariadb_general_log_enabled: false
+mariadb_general_log_file: /var/log/mysql/mysql.log
+mariadb_slow_log_enabled: true
+mariadb_log_slow_query_file: /var/log/mysql/mariadb-slow.log
+mariadb_log_slow_query_time: 10
+mariadb_log_slow_verbosity: query_plan,explain
+mariadb_log_slow_min_examined_row_limit: 1000
+
+mariadb_server_id: 1
+mariadb_log_bin: /var/log/mysql/mysql-bin.log
+mariadb_expire_log_days: 10
+mariadb_max_binlog_size: 100M

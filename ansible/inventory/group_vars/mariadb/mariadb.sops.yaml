@@ -1,6 +1,7 @@
 healthchecks:
     mariadb-1: ENC[AES256_GCM,data:i07ZK+mK6E6Le//LCv1sKELsAZzYWfWH1DDREfPlg/9XKVQSev3Y8+m7/epj/TGbAlh3oFOmGaw=,iv:7DwFwfb1Q/xzY9FGbgf28YlslATiA4vzYwL8R68gia8=,tag:X9vlQBOciLkT19mv+NxhPw==,type:str]
     mariadb-2: ENC[AES256_GCM,data:+v0OCk1Bo0bjPYMdUlQrGsoW43hMBWx657ptSF1tpgFqqclxzuQyMKcShGXD/+kUjSFnuLe+cKE=,iv:9UqeBJqMRBt1JL131h8olCMIEiBvYCgCRvHIm8k8u3o=,tag:2n0QgSNrfMDypTbDAuxE5w==,type:str]
+mariadb_replication_password: ENC[AES256_GCM,data:2bb9rBFc8qTvWckQdfzJnjgCu7OMBRxFrVF9R7ioGCrqmlet06weQu5/rcnbHdWaeoq82GdxArBL908cXYq9eC42PMFKNQ==,iv:W6R6ihyWI4S+8JlfWlTLSfum31mFfqcG8jXFhPiw2rs=,tag:qhALF8YzhTemWY7dkcmHlQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -16,8 +17,8 @@ sops:
             TzNvTDlhbnZtMUYwK1l5NkhpUzF1NFUK4BiUoQxBxzMIYAu/JLIVINf4ePQvoavO
             ncXhqIa/AzcAsRHYelmP9eKEU07Gy1rdHCzdFwZTV0j0NYMc3TJl+A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-20T22:54:17Z"
-    mac: ENC[AES256_GCM,data:o4bQh43TyYHIEOYnAkc9FR+vT+B/EoBohJS0hcGEwqy6nmVsA/T7uoeHECABYvxvFJLkVVLIjU4eSLeToO/SESN5Rz4PiDJJu72Tgw+pl4lzXSHQGm90iNhqIiEXTT/YQ/HCY9nVI+g9DKKBe+GyguRCFI7p714ePYe/zg5DkSI=,iv:WTc7PF3vkhtg9syHvgdYStfZPVF7zChJpZlmP0myp0U=,tag:ZO1CJHwwvCT6llOtxPrzyQ==,type:str]
+    lastmodified: "2023-09-21T13:39:57Z"
+    mac: ENC[AES256_GCM,data:y7LReUoS4Sf8T2VmlGU57WkogmHsD/CcRU8EgRnBFZkIFlFEUsmTDWsUYseGefesQNF8RSP79FEznprO6Uigm6M5ybe8/yB5Kf8AZGxF76/a4GFGlrlIm8ETKqcwcJYlK0XoqjOlaNvEMrk0GarE/1WX/CrJHJrkDlEoRoCAt2g=,iv:x6MfCzxN4xTiUWig/UZ86y4iCGHXrNGAUKYQRpLofRI=,tag:z9RbRz8lU93LBGYsISOSSA==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
