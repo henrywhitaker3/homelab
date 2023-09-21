@@ -73,9 +73,11 @@ all:
       hosts:
         mariadb-1.lab:
           ansible_host: 10.0.0.15
-          mariadb_master: true
+          mariadb_primary: true
+          # mariadb_replica: true
           mariadb_server_id: 1
         mariadb-2.lab:
           ansible_host: 10.0.0.16
-          mariadb_slave: true
+          mariadb_replica: true
+          # mariadb_primary: true
           mariadb_server_id: 2

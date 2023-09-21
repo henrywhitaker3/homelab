@@ -1,0 +1,13 @@
+---
+- name: Create users
+  become: "{{ mariadb_become }}"
+  community.mysql.mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    host: "{{ item.host }}"
+    priv: "{{ item.privileges }}"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+  loop: "{{ mariadb_users }}"
+  loop_control:
+    label: "{{ item.name }}"

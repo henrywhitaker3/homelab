@@ -37,3 +37,7 @@ mariadb_server_id: 1
 mariadb_log_bin: /var/log/mysql/mysql-bin.log
 mariadb_expire_log_days: 10
 mariadb_max_binlog_size: 100M
+
+mariadb_databases: []
+
+mariadb_users: []

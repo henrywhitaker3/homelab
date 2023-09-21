@@ -11,3 +11,8 @@ crog_actions:
 
 mariadb_replication_enabled: true
 mariadb_bind_address: "0.0.0.0"
+
+mariadb_databases:
+  - srep
+  - n8n
+  - authelia

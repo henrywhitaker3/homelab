@@ -9,3 +9,13 @@
 - name: Setup replication
   ansible.builtin.import_tasks: task_replication.yaml
   when: mariadb_replication_enabled == true
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Create databases
+  ansible.builtin.import_tasks: task_databases.yaml
+
+- name: Create users
+  ansible.builtin.import_tasks: task_users.yaml
+  when: not mariadb_replication_enabled or mariadb_primary is defined and mariadb_primary

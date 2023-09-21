@@ -8,37 +8,68 @@
     priv: "*.*:REPLICATION SLAVE"
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
+  when: mariadb_primary is defined and mariadb_primary
 
-- name: Get name of master
+- name: Set name of primary to empty string
   ansible.builtin.set_fact:
-    mariadb_master_node: "{{ (item) if hostvars[item].mariadb_master is defined and hostvars[item].mariadb_master else (mariadb_master_node) }}"
-  loop: "{{ ansible_play_hosts }}"
-  when: mariadb_slave is defined and mariadb_slave
+    mariadb_primary_node: ""
 
-- name: Setup replicas
-  when: mariadb_slave is defined and mariadb_slave
+- name: Get name of primary
+  ansible.builtin.set_fact:
+    mariadb_primary_node: "{{ (item) if hostvars[item].mariadb_primary is defined and hostvars[item].mariadb_primary else (mariadb_primary_node) }}"
+  loop: "{{ ansible_play_hosts }}"
+
+- name: Fail due to no primary set
+  ansible.builtin.fail:
+    msg: "Primary node must be set"
+  when: mariadb_primary_node == ""
+
+- name: Check if replication is running
+  become: "{{ mariadb_become }}"
+  community.mysql.mysql_replication:
+    mode: getreplica
+    login_unix_socket: /run/mysqld/mysqld.sock
+  register: mariadb_replication_status
+
+- name: Convert replica to primary
+  when: mariadb_primary is defined and mariadb_primary and mariadb_replication_status.Is_Replica
   block:
-    - name: Check if replication is running
+    - name: Stop replication
       become: "{{ mariadb_become }}"
       community.mysql.mysql_replication:
-        mode: getreplica
+        mode: stopreplica
+        primary_host: "{{ mariadb_primary_node }}"
+        primary_user: "{{ mariadb_replication_user }}"
+        primary_password: "{{ mariadb_replication_password }}"
         login_unix_socket: /run/mysqld/mysqld.sock
-      register: mariadb_replication_status
+
+    - name: Reset replica
+      become: "{{ mariadb_become }}"
+      community.mysql.mysql_replication:
+        mode: resetreplicaall
+        login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Setup replicas
+  when: mariadb_replica is defined and mariadb_replica and not mariadb_replication_status.Is_Replica
+  block:
+    - name: Reset replica
+      become: "{{ mariadb_become }}"
+      community.mysql.mysql_replication:
+        mode: resetreplicaall
+        login_unix_socket: /run/mysqld/mysqld.sock
 
     - name: Configure replication
       become: "{{ mariadb_become }}"
       community.mysql.mysql_replication:
         mode: changeprimary
-        primary_host: "{{ mariadb_master_node }}"
+        primary_host: "{{ mariadb_primary_node }}"
         primary_user: "{{ mariadb_replication_user }}"
         primary_password: "{{ mariadb_replication_password }}"
+        primary_use_gtid: replica_pos
         login_unix_socket: /run/mysqld/mysqld.sock
-      when: not mariadb_replication_status.Is_Replica
 
     - name: Start replication
       become: "{{ mariadb_become }}"
       community.mysql.mysql_replication:
         mode: startreplica
         login_unix_socket: /run/mysqld/mysqld.sock
-      when: not mariadb_replication_status.Is_Replica
-

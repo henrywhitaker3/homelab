@@ -1,0 +1,9 @@
+---
+- name: Create databases
+  become: "{{ mariadb_become }}"
+  community.mysql.mysql_db:
+    name: "{{ item }}"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+  loop: "{{ mariadb_databases }}"
+  when: not mariadb_replication_enabled or mariadb_primary is defined and mariadb_primary
