@@ -4,8 +4,8 @@
   hosts: mariadb
 
   roles:
+    - user
+    - common
+    - crog
+    - node_exporter
     - mariadb
-    # - user
-    # - common
-    # - crog
-    # - node_exporter
