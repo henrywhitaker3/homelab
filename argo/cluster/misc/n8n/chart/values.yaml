@@ -5,7 +5,7 @@ config:
     mysqldb:
       database: n8n
       user: n8n
-      host: mariadb.databases.svc.cluster.local
+      host: mariadb-1.lab
       port: 3306
 
 ingress:
