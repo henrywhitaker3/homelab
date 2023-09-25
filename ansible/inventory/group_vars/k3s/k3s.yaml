@@ -22,6 +22,7 @@ k3s_disable:
   - traefik
   - local-storage
   - metrics-server
+  - coredns
 
 k3s_expose_etcd_metrics: true
 
