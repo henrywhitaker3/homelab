@@ -20,3 +20,8 @@ tasks:
     dir: terraform
     cmds:
       - terraform init {{ .CLI_ARGS }}
+
+  lint:
+    dir: terraform
+    cmds:
+      - tflint
