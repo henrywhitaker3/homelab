@@ -4,6 +4,7 @@
   hosts:
     - jump
     - speakers
+    - mariadb
 
   serial: 1
 
