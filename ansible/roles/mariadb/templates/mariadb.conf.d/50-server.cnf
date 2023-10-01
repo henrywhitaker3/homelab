@@ -48,6 +48,8 @@ table_cache            = 64
 # * Logging and Replication
 #
 
+performance_schema = {{ mariadb_performance_schema }}
+
 # Both location gets rotated by the cronjob.
 # Be aware that this log type is a performance killer.
 # Recommend only changing this at runtime for short testing periods if needed!
@@ -108,7 +110,12 @@ collation-server      = utf8mb4_general_ci
 # Read the manual for more InnoDB related options. There are many!
 # Most important is to give InnoDB 80 % of the system RAM for buffer use:
 # https://mariadb.com/kb/en/innodb-system-variables/#innodb_buffer_pool_size
-#innodb_buffer_pool_size = 8G
+{% if mariadb_innodb_buffer_pool_size != "" %}
+innodb_buffer_pool_size = {{ mariadb_innodb_buffer_pool_size }}
+{% endif %}
+{% if mariadb_innodb_log_file_size != "" %}
+innodb_log_file_size = {{ mariadb_innodb_log_file_size }}
+{% endif %}
 
 # this is only for embedded server
 [embedded]

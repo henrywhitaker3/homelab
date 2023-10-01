@@ -16,3 +16,6 @@ mariadb_databases:
   - srep
   - n8n
   - authelia
+
+mariadb_innodb_buffer_pool_size: 1638M
+mariadb_innodb_log_file_size: 409M

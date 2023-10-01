@@ -8,9 +8,9 @@
     mysql_exporter_db_password: "{{ mariadb_users[0].password }}"
 
   roles:
-    # - user
-    # - common
-    # - crog
-    # - node_exporter
-    # - mariadb
+    - user
+    - common
+    - crog
+    - node_exporter
+    - mariadb
     - mysql_exporter

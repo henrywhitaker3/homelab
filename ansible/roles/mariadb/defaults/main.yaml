@@ -41,3 +41,7 @@ mariadb_max_binlog_size: 100M
 mariadb_databases: []
 
 mariadb_users: []
+
+mariadb_innodb_buffer_pool_size: ""
+mariadb_innodb_log_file_size: ""
+mariadb_performance_schema: "ON"
