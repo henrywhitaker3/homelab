@@ -60,6 +60,6 @@ generic:
     TZ:  Europe/London
 
   vpn:
-    enabled: false
+    enabled: true
     secret:
       key: prowlarr-tunnel
