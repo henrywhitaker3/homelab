@@ -10,6 +10,8 @@ user_authorized_keys:
 user_unauthorized_keys: []
 
 hosts_extras:
+  - name: vpn.lab
+    ip: 10.0.0.13
   - name: plex.lab
     ip: 10.0.0.26
   - name: redis.lab
