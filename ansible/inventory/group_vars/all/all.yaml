@@ -10,6 +10,10 @@ user_authorized_keys:
 user_unauthorized_keys: []
 
 hosts_extras:
+  - name: plex.lab
+    ip: 10.0.0.26
+  - name: redis.lab
+    ip: 10.0.0.35
   - name: k8s.lab
     ip: 10.0.0.6
   - name: mariadb-write.lab
