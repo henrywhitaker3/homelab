@@ -21,7 +21,7 @@ image: henrywhitaker3/pipeline
         - vpn
         - k3s
         - haproxy
-        - speakers
+        # - speakers
         - pihole
         - mariadb
   rules:
