@@ -1,6 +1,25 @@
 vip_ips: ["10.0.0.13"]
 vip_priority_host: vpn-2.lab
-vip_check_script_enabled: true
-vip_check_script: |
+
+vip_notify_script_enabled: true
+vip_notify_script: |
   #!/bin/bash
-  wg show wg0
+
+  TYPE=$1
+  NAME=$2
+  STATE=$3
+
+  case $STATE in
+          "MASTER") /usr/bin/wg-quick up wg0
+                    exit 0
+                    ;;
+          "BACKUP") /usr/bin/wg-quick down wg0
+                    exit 0
+                    ;;
+          "FAULT")  /usr/bin/wg-quick down wg0
+                    exit 0
+                    ;;
+          *)        echo "unknown state"
+                    exit 1
+                    ;;
+  esac

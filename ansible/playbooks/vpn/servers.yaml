@@ -56,15 +56,15 @@
         mode: "0700"
       notify: restart wireguard
 
-    - name: Start wireguard service
+    - name: Stop wireguard service
       tags:
         - vpn
         - wireguard
       become: true
       ansible.builtin.service:
         name: wg-quick@wg0.service
-        state: started
-        enabled: true
+        state: stopped
+        enabled: false
 
     - name: Define healthchecks
       tags:
