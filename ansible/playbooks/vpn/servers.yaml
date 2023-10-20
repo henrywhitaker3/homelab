@@ -72,8 +72,8 @@
       become: true
       ansible.builtin.set_fact:
         crog_actions:
-          - name: VPN Interface Status
-            command: wg show wg0
+          - name: Heartbeat
+            command: ping -W 1 -c 1 10.0.0.1
             code: 0
             cron: "* * * * *"
             when:
