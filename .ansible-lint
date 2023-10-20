@@ -5,3 +5,4 @@ skip_list:
   - yaml[truthy]
   - no-handler
   - latest[git]
+  - var-naming[no-role-prefix]
