@@ -4,6 +4,7 @@
   hosts: k3s
 
   roles:
+    - hosts
     - user
     - common
     - node_exporter

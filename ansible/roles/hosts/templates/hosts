@@ -1,0 +1,6 @@
+{% for host in groups["all"] %}
+{{ hostvars[host].ansible_host }} {{ host }}
+{% endfor %}
+{% for host in hosts_extras %}
+{{ host.ip }} {{ host.name }}
+{% endfor %}

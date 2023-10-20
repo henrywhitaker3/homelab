@@ -8,3 +8,11 @@ user_authorized_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
 
 user_unauthorized_keys: []
+
+hosts_extras:
+  - name: k8s.lab
+    ip: 10.0.0.6
+  - name: mariadb-write.lab
+    ip: 10.0.0.6
+  - name: mariadb-read.lab
+    ip: 10.0.0.7

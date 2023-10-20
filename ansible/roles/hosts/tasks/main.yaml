@@ -1,0 +1,10 @@
+---
+- name: Generate hosts list
+  ansible.builtin.set_fact:
+    hosts_render: "{{ lookup('template', 'templates/hosts') }}"
+
+- name: Add list to /etc/hosts
+  become: "{{ hosts_become }}"
+  ansible.builtin.blockinfile:
+    path: /etc/hosts
+    block: "{{ hosts_render }}"

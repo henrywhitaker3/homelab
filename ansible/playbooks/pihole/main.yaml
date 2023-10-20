@@ -12,6 +12,7 @@
       changed_when: false
 
   roles:
+    - hosts
     - qemu
     - common
     - user

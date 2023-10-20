@@ -4,6 +4,7 @@
   hosts: speakers
 
   roles:
+    - hosts
     - common
     - user
     - crog

@@ -4,6 +4,7 @@
   hosts: haproxy
 
   roles:
+    - hosts
     - user
     - common
     - vip

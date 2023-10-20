@@ -4,6 +4,7 @@
   hosts: jump
 
   roles:
+    - hosts
     - user
     - common
     - crog

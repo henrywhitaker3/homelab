@@ -4,6 +4,7 @@
   hosts: vpn
 
   roles:
+    - hosts
     - user
     - common
     - vip
