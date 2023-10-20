@@ -20,6 +20,11 @@ terraform {
       source  = "ryanwholey/pihole"
       version = "0.0.12"
     }
+
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "4.17.0"
+    }
   }
 
   backend "http" {
@@ -47,4 +52,8 @@ provider "healthchecksio" {
 provider "pihole" {
   url       = var.pihole_url
   api_token = var.pihole_api_token
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

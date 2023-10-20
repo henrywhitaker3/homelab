@@ -35,3 +35,9 @@ variable "pihole_api_token" {
   default   = ""
   sensitive = true
 }
+
+variable "cloudflare_api_token" {
+  type      = string
+  default   = ""
+  sensitive = true
+}

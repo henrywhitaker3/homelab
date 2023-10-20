@@ -49,7 +49,7 @@
         - wireguard
       become: true
       ansible.builtin.template:
-        src: templates/server.conf
+        src: templates/gateways.conf
         dest: /etc/wireguard/wg0.conf
         owner: root
         group: root
