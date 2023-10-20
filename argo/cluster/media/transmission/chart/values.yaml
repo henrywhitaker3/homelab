@@ -78,3 +78,5 @@ generic:
     enabled: true
     secret:
       key: transmission-tunnel
+      mount:
+        path: /config/wg_confs
