@@ -11,16 +11,6 @@
     - crog
     - node_exporter
 
-  vars:
-    haproxy_version: "2.7"
-    haproxy_enabled_stats: true
-    haproxy_stats_port: 8404
-    haproxy_stats_uri: /stats
-    haproxy_stats_refresh: 10s
-    vip_ips: ["10.0.0.6", "10.0.0.7"]
-    vip_priority_host: lb-2.lab
-    vip_router_id: 2
-
   handlers:
     - name: restart haproxy
       become: true
