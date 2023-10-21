@@ -22,9 +22,8 @@ generic:
       nginx.ingress.kubernetes.io/configuration-snippet: |
         proxy_set_header Accept-Encoding "";
         sub_filter
-        '</body>'
-        '<link rel="stylesheet" type="text/css" href="https://theme-park.plexmox.com/css/base/radarr/nord.css"></body>
-        '</body>';
+        '</head>'
+        '<link rel="stylesheet" type="text/css" href="https://theme-park.plexmox.com/css/base/radarr/nord.css">
         sub_filter_once on;
     hosts:
       - host: plexmox.com
