@@ -32,5 +32,5 @@ variable "ip" {
 
 variable "nameserver" {
   type = string
-  default = "10.0.0.2"
+  default = ""
 }
