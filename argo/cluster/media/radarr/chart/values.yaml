@@ -24,6 +24,7 @@ generic:
         sub_filter
         '</body>'
         '<link rel="stylesheet" type="text/css" href="https://theme-park.plexmox.com/css/base/radarr/nord.css"></body>
+        '</body>';
         sub_filter_once on;
     hosts:
       - host: plexmox.com
