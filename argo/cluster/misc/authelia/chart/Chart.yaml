@@ -26,4 +26,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: authelia
     repository: https://charts.authelia.com
-    version: "0.8.57"
+    version: "0.8.58"
