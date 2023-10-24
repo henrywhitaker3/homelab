@@ -14,6 +14,7 @@ crog_actions:
   - name: Heartbeat
     command: ping -W 1 -c 1 8.8.8.8
     cron: "* * * * *"
+    tries: 3
     when:
       start: "{{ healthchecks[inventory_hostname] }}/start"
       success: "{{ healthchecks[inventory_hostname] }}"

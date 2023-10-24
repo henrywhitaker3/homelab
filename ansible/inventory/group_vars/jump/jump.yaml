@@ -1,6 +1,7 @@
 crog_actions:
   - name: LAN connection
     command: nc -z -w 2 {{ haproxy_config.backend }} 443
+    tries: 3
     code: 0
     cron: "* * * * *"
     when:
@@ -9,6 +10,7 @@ crog_actions:
       failure: "{{ hc_lan }}/fail"
   - name: VPN Interface Status
     command: wg show wg0
+    tries: 3
     code: 0
     cron: "* * * * *"
     when:
