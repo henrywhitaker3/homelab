@@ -10,9 +10,9 @@ crog_actions:
     cron: "* * * * *"
     tries: 3
     when:
-      start: "{{ healthchecks[inventory_hostname] }}/start"
-      success: "{{ healthchecks[inventory_hostname] }}"
-      failure: "{{ healthchecks[inventory_hostname] }}/fail"
+      start: "{{ healthcheck }}/start"
+      success: "{{ healthcheck }}"
+      failure: "{{ healthcheck }}/fail"
 
 haproxy_listeners:
   - name: k3s-api
