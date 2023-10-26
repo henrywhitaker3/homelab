@@ -21,3 +21,29 @@ crog_actions:
 crog_verbose: true
 
 crog_server_ip: "{{ haproxy_config.ip }}"
+
+haproxy_stats_bind: "{{ haproxy_config.ip }}"
+haproxy_stats_extras:
+  - bind localhost:8404
+
+haproxy_listeners:
+  - name: http
+    bind: "*:80"
+    mode: tcp
+    balance: leastconn
+    extras:
+      - option tcpka
+    servers:
+      - name: k3s-nginx
+        host: "{{ haproxy_config.backend }}:80"
+        options: "check port 80 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
+  - name: https
+    bind: "*:443"
+    mode: tcp
+    balance: leastconn
+    extras:
+      - option tcpka
+    servers:
+      - name: k3s-nginx
+        host: "{{ haproxy_config.backend }}:443"
+        options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
