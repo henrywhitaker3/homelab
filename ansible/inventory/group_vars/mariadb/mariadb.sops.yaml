@@ -1,6 +1,3 @@
-healthchecks:
-    mariadb-1.lab: ENC[AES256_GCM,data:BodIMyb1RYEl4cadu/i9pQAPeJFjHcyTMW5W+pCYi3s+gcQi0FYcGOvqJq2PHNB9gtfAzSCD5gs=,iv:jFLXn9K6cC2ZXXYoc0jyfMwHsVMBARhi/G9K8JzWgvc=,tag:AW1NEBbFK14+DuwfLM1FHQ==,type:str]
-    mariadb-2.lab: ENC[AES256_GCM,data:d2DILMdmcdC4xBP8lJ60H5IT6/TKS2E5zUc1MqSgPeKY+e5/EPir5sbXGAMsfvIPHvrZILjo6to=,iv:VHYeBJIsvKMhOU8y2bJ3AfRwDqasH1b2oXUBaDqwW1E=,tag:lPM0ZRociexJylAmt+g8RQ==,type:str]
 mariadb_replication_password: ENC[AES256_GCM,data:8gBo7hXAuV7zV6xD2tFaKPKzD/EW8ayY,iv:V4KhCp8M6jfMB3nOenB7+G94GcCDpo0r6/onW0Yiato=,tag:KO94v1TyV9iV/gHvEn0Feg==,type:str]
 mariadb_users:
     - name: ENC[AES256_GCM,data:zohTp9SOAVM=,iv:BpymJk6sJT+S1zgA7jj8ayl8zOLaBEiEqE4Ek0Ze3h4=,tag:Np29ZnTM5n1LGWouKeAE4w==,type:str]
@@ -42,8 +39,8 @@ sops:
             TzNvTDlhbnZtMUYwK1l5NkhpUzF1NFUK4BiUoQxBxzMIYAu/JLIVINf4ePQvoavO
             ncXhqIa/AzcAsRHYelmP9eKEU07Gy1rdHCzdFwZTV0j0NYMc3TJl+A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-21T22:40:34Z"
-    mac: ENC[AES256_GCM,data:2sB0rIbMJDvLfF3O6P22P5VO4yvsUJpZVe0mnytE5agvmbCITlgjAkDQXKBwgD45Rhvrw+0CcWjpkz6H2+VEYgdpWkhJkAAisuwP3VeqgwzDPvW3SnIUCQEHxpEdrxHXulkWRhtZsZJU+xg6CJVXg+LCcEXU2PUHTyR34Q26rbg=,iv:eSq4eFQ98lwDA7zem/MCI/dG5zJ6vqczRQqjlcisfwU=,tag:8cm6gIds+pVAze8SDnCoVg==,type:str]
+    lastmodified: "2023-10-26T20:39:04Z"
+    mac: ENC[AES256_GCM,data:1yhOhz5P8ArE2vhAzQFCABbCE9Fx7jYgPJfZrtpwZhtDhO2e4bD9iPZWJUoLH86BhxD2E25AB2RtYIr3IYB/4ZTtuCo4swoogNwvXJQA+fHhc7+wMxXcRANphbXKtjqo6lG+nCWR5hsdtRNdBe4BalzOKdC3EnI21WsM6Jf6W+Y=,iv:7U4NZXyBUDjwpCD1BTFi0hJPkXaRbCCfqxz+i7onN7w=,tag:O64lk1Q/wUfnCAp51pqyFA==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
