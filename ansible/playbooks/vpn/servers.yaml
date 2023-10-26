@@ -9,6 +9,7 @@
     - common
     - vip
     - node_exporter
+    - crog
 
   handlers:
     - name: restart wireguard
@@ -66,24 +67,3 @@
         name: wg-quick@wg0.service
         state: stopped
         enabled: false
-
-    - name: Define healthchecks
-      tags:
-        - crog
-      become: true
-      ansible.builtin.set_fact:
-        crog_actions:
-          - name: Heartbeat
-            command: ping -W 1 -c 1 10.0.0.1
-            tries: 3
-            code: 0
-            cron: "* * * * *"
-            when:
-              start: "{{ healthchecks[inventory_hostname] }}/start"
-              success: "{{ healthchecks[inventory_hostname] }}"
-              failure: "{{ healthchecks[inventory_hostname] }}/fail"
-
-    - name: Setup crog service
-      tags: crog
-      ansible.builtin.import_role:
-        name: crog

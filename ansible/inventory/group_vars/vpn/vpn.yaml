@@ -33,3 +33,14 @@ vip_check_script: |
   else
     exit 0
   fi
+
+crog_actions:
+  - name: Heartbeat
+    command: ping -W 1 -c 1 10.0.0.1
+    tries: 3
+    code: 0
+    cron: "* * * * *"
+    when:
+      start: "{{ healthcheck }}/start"
+      success: "{{ healthcheck }}"
+      failure: "{{ healthcheck }}/fail"
