@@ -1,0 +1,9 @@
+---
+- name: Install haproxy
+  ansible.builtin.import_tasks: task_install.yaml
+
+- name: Configure haproxy
+  ansible.builtin.import_tasks: task_configure.yaml
+
+- name: Start/stop haproxy
+  ansible.builtin.import_tasks: task_state.yaml

@@ -1,0 +1,7 @@
+---
+- name: Enable and start haproxy
+  become: "{{ haproxy_become }}"
+  ansible.builtin.service:
+    name: haproxy
+    state: "{{ haproxy_state }}"
+    enabled: "{{ haproxy_enabled }}"

@@ -1,0 +1,45 @@
+---
+haproxy_become: true
+
+haproxy_version: 2.7
+haproxy_install_state: latest
+
+haproxy_config_dir: /etc/haproxy
+
+# Determines whether to start on boot
+haproxy_enabled: true
+
+# ansible.builtin.service.state value: started|stopped|restarted
+haproxy_state: started
+
+haproxy_stats_timeout: 30s
+
+haproxy_user: haproxy
+haproxy_group: haproxy
+
+haproxy_defaults:
+  - log     global
+  - mode    http
+  - option  httplog
+  - option  dontlognull
+  - timeout connect 5000
+  - timeout client  50000
+  - timeout server  50000
+
+# - name: ""
+#   bind: ""
+#   mode: ""
+#   balance: ""
+#   - ""
+#   extras: []
+#   - name: ""
+#     host: ""
+#     options: ""
+#   servers: []
+haproxy_listeners: []
+
+haproxy_stats_enabled: true
+
+haproxy_stats_port: 8404
+haproxy_stats_uri: /stats
+haproxy_stats_refresh: 5s

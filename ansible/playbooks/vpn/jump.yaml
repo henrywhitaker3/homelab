@@ -80,7 +80,7 @@
         - haproxy
         - apt
       ansible.builtin.apt_repository:
-        repo: "ppa:vbernat/haproxy-2.7"
+        repo: "ppa:vbernat/haproxy-2.8"
         state: present
 
     - name: Install haproxy

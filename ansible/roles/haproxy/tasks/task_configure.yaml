@@ -1,0 +1,19 @@
+---
+- name: Create haproxy directory
+  become: "{{ haproxy_become }}"
+  ansible.builtin.file:
+    path: "{{ haproxy_config_dir }}"
+    owner: root
+    group: root
+    state: directory
+    mode: "0755"
+
+- name: Generate haproxy config
+  become: "{{ haproxy_become }}"
+  ansible.builtin.template:
+    src: templates/haproxy.cfg
+    dest: "{{ haproxy_config_dir }}/haproxy.cfg"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart haproxy

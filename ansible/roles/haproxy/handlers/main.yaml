@@ -1,0 +1,6 @@
+---
+- name: Restart haproxy
+  become: "{{ haproxy_become }}"
+  service:
+    name: haproxy
+    state: restarted

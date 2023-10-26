@@ -1,5 +1,5 @@
 ---
-haproxy_version: "2.7"
+haproxy_version: "2.8"
 haproxy_enabled_stats: true
 haproxy_stats_port: 8404
 haproxy_stats_uri: /stats
@@ -19,3 +19,37 @@ crog_actions:
       start: "{{ healthchecks[inventory_hostname] }}/start"
       success: "{{ healthchecks[inventory_hostname] }}"
       failure: "{{ healthchecks[inventory_hostname] }}/fail"
+
+haproxy_listeners:
+  - name: k3s-api
+    bind: 10.0.0.7:6443
+    mode: tcp
+    balance: leastconn
+    extras:
+      - default-server check maxconn 20
+      - option httpchk GET /healthz HTTP/1.0
+      - http-check expect status 200
+    servers: |
+      {% for host in groups['k3s'] %}
+      {% if hostvars[host].k3s_control_plane is defined and hostvars[host].k3s_control_plane %}
+      server {{ host }} {{ hostvars[host].ansible_host }}:6443 check-ssl verify none
+      {% endif %}
+      {% endfor %}
+  - name: mariadb-write
+    bind: 10.0.0.6:3306
+    mode: tcp
+    balance: leastconn
+    servers: |
+      {% for host in groups['mariadb'] %}
+      {% if hostvars[host].mariadb_primary is defined and hostvars[host].mariadb_primary %}
+      server {{ host }} {{ hostvars[host].ansible_host }}:3306 check
+      {% endif %}
+      {% endfor %}
+  - name: mariadb-read
+    bind: 10.0.0.7:3306
+    mode: tcp
+    balance: leastconn
+    servers: |
+      {% for host in groups['mariadb'] %}
+      server {{ host }} {{ hostvars[host].ansible_host }}:3306 check
+      {% endfor %}

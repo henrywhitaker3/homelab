@@ -1,0 +1,13 @@
+---
+- name: Configure haproxy repo
+  become: "{{ haproxy_become }}"
+  ansible.builtin.apt_repository:
+    repo: "ppa:vbernat/haproxy-{{ haproxy_version }}"
+    state: present
+
+- name: Install haproxy
+  become: "{{ haproxy_become }}"
+  ansible.builtin.apt:
+    name: "haproxy"
+    state: "{{ haproxy_install_state }}"
+  notify: Restart haproxy
