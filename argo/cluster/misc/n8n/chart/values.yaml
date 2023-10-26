@@ -28,5 +28,5 @@ scaling:
 
 image:
   repository: n8nio/n8n
-  tag: "1.12.2"
+  tag: "1.14.2"
   pullPolicy: Always
