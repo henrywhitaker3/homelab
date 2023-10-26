@@ -25,6 +25,7 @@ vip_notify_script: |
   esac
 
 vip_check_script_enabled: true
+vip_check_interval: 5
 vip_check_script: |
   #!/bin/bash
 
