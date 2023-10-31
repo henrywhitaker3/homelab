@@ -25,12 +25,22 @@ variable "memory" {
   default = 512
 }
 
+variable "subnet" {
+  type = string
+  default = "10.0.0.0/24"
+}
+
 variable "ip" {
-  type = number
-  description = "The last bit of the ip (if > 1 instances, then this incremented for each further instance)"
+  type = string
+  description = "The ip (if > 1 instances, then this incremented for each further instance)"
 }
 
 variable "nameserver" {
   type = string
   default = ""
+}
+
+variable "gateway" {
+  type = string
+  default = "10.0.0.1"
 }

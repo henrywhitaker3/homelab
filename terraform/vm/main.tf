@@ -29,7 +29,7 @@ resource "proxmox_vm_qemu" "vm" {
   }
 
   # Cloud Init Settings
-  ipconfig0 = "ip=10.0.0.${var.ip + count.index}/24,gw=10.0.0.1"
+  ipconfig0 = "ip=${local.ipPrefix}.${local.ipBit + count.index}/${local.cidrBlock},gw=${var.gateway}"
   nameserver = var.nameserver
 }
 
@@ -37,7 +37,7 @@ resource "pihole_dns_record" "dns" {
   count = var.instances
 
   domain = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}.lab"
-  ip = "10.0.0.${var.ip + count.index}"
+  ip = "${local.ipPrefix}.${local.ipBit + count.index}"
 
   depends_on = [ proxmox_vm_qemu.vm ]
 }

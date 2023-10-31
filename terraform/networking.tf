@@ -3,7 +3,7 @@ module "pihole" {
 
   name       = "pihole"
   image      = local.ubuntu_22_04_8G
-  ip         = 2
+  ip         = "10.0.0.2"
   memory     = 2048
   nameserver = "1.1.1.1 8.8.8.8"
   node       = 2
@@ -14,7 +14,7 @@ module "haproxy-1" {
 
   name   = "lb-1"
   image  = local.ubuntu_22_04_8G
-  ip     = 4
+  ip     = "10.0.0.4"
   memory = 512
   node   = 1
 }
@@ -24,7 +24,7 @@ module "haproxy-2" {
 
   name   = "lb-2"
   image  = local.ubuntu_22_04_8G
-  ip     = 5
+  ip     = "10.0.0.5"
   memory = 512
   node   = 2
 }
@@ -34,7 +34,7 @@ module "vpn-1" {
 
   name   = "vpn-1"
   image  = local.ubuntu_22_04_8G
-  ip     = 11
+  ip     = "10.0.0.11"
   memory = 512
   node   = 1
 }
@@ -44,7 +44,7 @@ module "vpn-2" {
 
   name   = "vpn-2"
   image  = local.ubuntu_22_04_8G
-  ip     = 12
+  ip     = "10.0.0.12"
   memory = 512
   node   = 2
 }

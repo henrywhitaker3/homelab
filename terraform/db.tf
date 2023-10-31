@@ -3,7 +3,7 @@ module "mariadb-1" {
 
   name   = "mariadb-1"
   image  = local.ubuntu_22_04_25G
-  ip     = 15
+  ip     = "10.0.0.15"
   cores  = 2
   memory = 2048
   node   = 1
@@ -14,7 +14,7 @@ module "mariadb-2" {
 
   name   = "mariadb-2"
   image  = local.ubuntu_22_04_25G
-  ip     = 16
+  ip     = "10.0.0.16"
   cores  = 2
   memory = 2048
   node   = 2
