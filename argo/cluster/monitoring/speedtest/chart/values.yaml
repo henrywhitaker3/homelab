@@ -2,7 +2,7 @@ generic:
   nameOverride: speedtest
   fullnameOverride: speedtest
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: henrywhitaker3/speedtest-tracker
