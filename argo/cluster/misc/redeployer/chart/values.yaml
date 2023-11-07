@@ -33,7 +33,7 @@ jobs:
     schedule: "0 4 * * *"
   - name: prowlarr
     command: kubectl -n media rollout restart deployment prowlarr
-    schedule: "0 4 * * *"
+    schedule: "0 * * * *"
   - name: transmission
     command: kubectl -n media rollout restart deployment transmission
     schedule: "0 4 * * *"
