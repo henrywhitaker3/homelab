@@ -1,6 +1,6 @@
 dependencies:
 - name: authentik
   repository: https://charts.goauthentik.io
-  version: 2023.10.2
-digest: sha256:605ea6f9b3c85ea8b3d32e86b4715ef347c9b9ae920d1c1daaf73fcbcc12cd3b
-generated: "2023-10-28T21:02:00.779266336Z"
+  version: 2023.10.3
+digest: sha256:2c10c56fa589d2619f3b785ef0355658c9806b717da06a1db6be9a55d4d0a8bb
+generated: "2023-11-09T19:01:24.649774403Z"
