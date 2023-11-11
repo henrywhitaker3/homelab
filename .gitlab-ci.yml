@@ -135,7 +135,7 @@ build docker image:
 
 renovate:
   stage: renovate
-  image: ghcr.io/renovatebot/renovate:37.43.4
+  image: ghcr.io/renovatebot/renovate:37.56.3
   variables:
     RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
   rules:
