@@ -67,11 +67,6 @@
       changed_when: true
       loop: "{{ templates }}"
 
-    - name: Modify disk size
-      ansible.builtin.command: "qm resize {{ item.params.id + id_mod }} scsi0 +{{ item.params.size }}"
-      changed_when: true
-      loop: "{{ templates }}"
-
     - name: Convert VM to template
       ansible.builtin.command: "qm template {{ item.params.id + id_mod }}"
       changed_when: true
