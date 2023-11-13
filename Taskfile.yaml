@@ -3,6 +3,7 @@ version: '3'
 dotenv: [.env]
 
 includes:
+  ansible: .taskfiles/ansible.yaml
   ci: .taskfiles/CI.yaml
   argo: .taskfiles/argo.yaml
   k3s: .taskfiles/k3s.yaml

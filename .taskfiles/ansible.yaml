@@ -1,0 +1,13 @@
+version: "3"
+
+tasks:
+  play:
+    env:
+      PLAYBOOK: '{{ .PLAYBOOK | default "main.yaml" }}'
+      PLAY: '{{ .PLAY }}'
+    preconditions:
+      - sh: "[[ ! -z $PLAY ]]"
+        msg: |
+          Must set $PLAY variable
+    cmds:
+      - ansible-playbook ansible/playbooks/$PLAY/$PLAYBOOK {{ .CLI_ARGS }}
