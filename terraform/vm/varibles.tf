@@ -44,3 +44,18 @@ variable "gateway" {
   type = string
   default = "10.0.0.1"
 }
+
+variable "disk_size" {
+  type = string
+  default = "8192M"
+}
+
+variable "disk_storage" {
+  type = string
+  default = "local-lvm"
+}
+
+variable "disk_type" {
+  type = string
+  default = "scsi"
+}

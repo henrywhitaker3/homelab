@@ -7,6 +7,7 @@ module "k3s-control-1" {
   cores  = 3
   memory = 12288
   node   = 1
+  disk_size = "207052M"
 }
 
 module "k3s-control-2" {
@@ -18,6 +19,7 @@ module "k3s-control-2" {
   cores  = 3
   memory = 12288
   node   = 2
+  disk_size = "207052M"
 }
 
 module "k3s-worker-1" {
@@ -29,6 +31,7 @@ module "k3s-worker-1" {
   cores  = 2
   memory = 8192
   node   = 1
+  disk_size = "207052M"
 }
 
 module "k3s-worker-2" {
@@ -40,4 +43,5 @@ module "k3s-worker-2" {
   cores  = 2
   memory = 8192
   node   = 2
+  disk_size = "207052M"
 }

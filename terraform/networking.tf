@@ -7,6 +7,7 @@ module "pihole" {
   memory     = 2048
   nameserver = "1.1.1.1 8.8.8.8"
   node       = 2
+  disk_size = "10444M"
 }
 
 module "haproxy-1" {
@@ -17,6 +18,7 @@ module "haproxy-1" {
   ip     = "10.0.0.4"
   memory = 512
   node   = 1
+  disk_size = "10444M"
 }
 
 module "haproxy-2" {
@@ -27,6 +29,7 @@ module "haproxy-2" {
   ip     = "10.0.0.5"
   memory = 512
   node   = 2
+  disk_size = "10444M"
 }
 
 module "vpn-1" {
@@ -37,6 +40,7 @@ module "vpn-1" {
   ip     = "10.0.0.11"
   memory = 512
   node   = 1
+  disk_size = "10444M"
 }
 
 module "vpn-2" {
@@ -47,4 +51,5 @@ module "vpn-2" {
   ip     = "10.0.0.12"
   memory = 512
   node   = 2
+  disk_size = "10444M"
 }

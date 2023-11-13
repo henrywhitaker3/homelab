@@ -19,12 +19,18 @@ resource "proxmox_vm_qemu" "vm" {
   additional_wait = 0
   clone_wait = 0
 
+  disk {
+    size = var.disk_size
+    storage = var.disk_storage
+    type = var.disk_type
+  }
+
   lifecycle {
     ignore_changes = [
       network,
       ciuser,
       sshkeys,
-      disk
+      # disk
     ]
   }
 

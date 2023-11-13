@@ -7,6 +7,7 @@ module "mariadb-1" {
   cores  = 2
   memory = 2048
   node   = 1
+  disk_size = "27852M"
 }
 
 module "mariadb-2" {
@@ -18,4 +19,5 @@ module "mariadb-2" {
   cores  = 2
   memory = 2048
   node   = 2
+  disk_size = "27852M"
 }
