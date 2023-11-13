@@ -1,6 +1,6 @@
 dependencies:
 - name: cilium
   repository: https://helm.cilium.io
-  version: 1.14.3
-digest: sha256:7dc57a7403ded64b1d308ecd4602cfb8424c0ea672be8ed7683b46bbcc77acc8
-generated: "2023-10-20T00:04:28.228100628Z"
+  version: 1.14.4
+digest: sha256:14a7315cd9347c4973cdc10fe871bfb3b112700c60778bb0ca1ff34efb7a8aa7
+generated: "2023-11-13T22:03:32.127686285Z"
