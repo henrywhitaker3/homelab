@@ -1,0 +1,5 @@
+---
+- name: Reboot
+  become: "{{ hosts_become }}"
+  throttle: 1
+  ansible.builtin.reboot:
