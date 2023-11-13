@@ -59,3 +59,8 @@ variable "disk_type" {
   type = string
   default = "scsi"
 }
+
+variable "tags" {
+  type = list(string)
+  default = []
+}

@@ -8,6 +8,8 @@ module "mariadb-1" {
   memory = 2048
   node   = 1
   disk_size = "25G"
+
+  tags = [ "database", "ubuntu" ]
 }
 
 module "mariadb-2" {
@@ -20,4 +22,6 @@ module "mariadb-2" {
   memory = 2048
   node   = 2
   disk_size = "25G"
+
+  tags = [ "database", "ubuntu" ]
 }

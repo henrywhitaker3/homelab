@@ -25,12 +25,13 @@ resource "proxmox_vm_qemu" "vm" {
     type = var.disk_type
   }
 
+  tags = join(";", var.tags)
+
   lifecycle {
     ignore_changes = [
       network,
       ciuser,
       sshkeys,
-      # disk
     ]
   }
 

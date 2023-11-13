@@ -8,6 +8,8 @@ module "pihole" {
   nameserver = "1.1.1.1 8.8.8.8"
   node       = 2
   disk_size = "8G"
+
+  tags = [ "dns", "networking", "ubuntu" ]
 }
 
 module "lb-1" {
@@ -19,6 +21,8 @@ module "lb-1" {
   memory = 512
   node   = 1
   disk_size = "8G"
+
+  tags = [ "lb", "networking", "ubuntu" ]
 }
 
 module "lb-2" {
@@ -30,6 +34,8 @@ module "lb-2" {
   memory = 512
   node   = 2
   disk_size = "8G"
+
+  tags = [ "lb", "networking", "ubuntu" ]
 }
 
 module "vpn-1" {
@@ -41,6 +47,8 @@ module "vpn-1" {
   memory = 512
   node   = 1
   disk_size = "8G"
+
+  tags = [ "networking", "ubuntu", "vpn" ]
 }
 
 module "vpn-2" {
@@ -52,4 +60,6 @@ module "vpn-2" {
   memory = 512
   node   = 2
   disk_size = "8G"
+
+  tags = [ "networking", "ubuntu", "vpn" ]
 }
