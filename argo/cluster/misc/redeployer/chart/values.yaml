@@ -33,7 +33,7 @@ jobs:
     schedule: "0 4 * * *"
   - name: prowlarr
     command: kubectl -n media rollout restart deployment prowlarr
-    schedule: "0 * * * *"
+    schedule: "0 4 * * *"
   - name: transmission
     command: kubectl -n media rollout restart deployment transmission
     schedule: "0 4 * * *"
@@ -77,4 +77,20 @@ jobs:
       else
         echo Preferred node unavailable
         exit 0
+      fi
+  - name: Kill prowlarr if not running
+    schedule: "*/5 * * * *"
+    command: |
+      #!/bin/bash
+
+      status=$(kubectl -n media get pod -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.phase')
+
+      if [ $status != "Running" ]; then
+        echo Status is not running. Waiting 120 seconds...
+        sleep 120
+        status=$(kubectl -n media get pod -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.phase')
+        if [ $status != "Running" ]; then
+          echo Status still not running, deleting pods
+          kubectl -n media delete pod -l app.kubernetes.io/instance=prowlarr
+        fi
       fi
