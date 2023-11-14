@@ -78,7 +78,7 @@ jobs:
         echo Preferred node unavailable
         exit 0
       fi
-  - name: Kill prowlarr if not running
+  - name: kill-prowlarr
     schedule: "*/5 * * * *"
     command: |
       #!/bin/bash
