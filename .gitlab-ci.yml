@@ -3,7 +3,8 @@ include:
     file: '/templates/renovate.gitlab-ci.yml'
 
 stages:
-  - stage
+  - lint
+  - plan
   - deploy
   - renovate
 
@@ -40,7 +41,7 @@ image: henrywhitaker3/pipeline
         - .ansible-lint
 
 ansible lint:
-  stage: stage
+  stage: lint
   extends: .playbooks
   script:
     - task ci:age:key AGE_KEY="$AGE_KEY"
@@ -80,8 +81,23 @@ ansible play:
         - terraform/*
         - .gitlab-ci.yml
 
+tf validate:
+  stage: lint
+  extends:
+    - .terraform:base
+  script:
+    - terraform validate
+  artifacts:
+    paths:
+      - terraform/planfile
+  rules:
+    - !reference [.terraform:base, rules]
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - terraform/*
+
 tf plan:
-  stage: stage
+  stage: plan
   extends:
     - .terraform:base
   script:
@@ -91,9 +107,6 @@ tf plan:
       - terraform/planfile
   rules:
     - !reference [.terraform:base, rules]
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
-        - terraform/*
 
 tf deploy:
   stage: deploy
