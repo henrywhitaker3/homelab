@@ -83,14 +83,16 @@ jobs:
     command: |
       #!/bin/bash
 
-      status=$(kubectl -n media get pod -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.phase')
+      unavailable=$(kubectl -n media get deployment -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.unavailableReplicas')
 
-      if [ $status != "Running" ]; then
+      if [ $unavailable != null ]; then
         echo Status is not running. Waiting 120 seconds...
         sleep 120
-        status=$(kubectl -n media get pod -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.phase')
-        if [ $status != "Running" ]; then
+        unavailable=$(kubectl -n media get deployment -l app.kubernetes.io/instance=prowlarr -o json | jq -r '.items[0].status.unavailableReplicas')
+        if [ $unavailable != null ]; then
           echo Status still not running, deleting pods
           kubectl -n media delete pod -l app.kubernetes.io/instance=prowlarr
         fi
+      else
+          echo Status is healthy
       fi
