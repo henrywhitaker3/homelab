@@ -18,7 +18,7 @@ terraform {
 
     pihole = {
       source  = "ryanwholey/pihole"
-      version = "0.0.12"
+      version = "0.2.0"
     }
 
     cloudflare = {
