@@ -76,6 +76,10 @@ grafana:
         gnetId: 14057
         revision: 1
         datasource: Prometheus
+      echo-api:
+        gnetId: 10913
+        revision: 1
+        datasource: Prometheus
       overview:
         json: |
           {
