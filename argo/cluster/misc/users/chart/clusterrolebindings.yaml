@@ -53,7 +53,7 @@ metadata:
   namespace: srep-plays
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: srep-operator:pods
 subjects:
   - kind: ServiceAccount
