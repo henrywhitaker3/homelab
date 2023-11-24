@@ -58,4 +58,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: srep-operator
-    namespace: default
+    namespace: srep-plays
