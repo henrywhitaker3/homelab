@@ -6,3 +6,4 @@ gitlab-runner:
     # tags: "home"
   rbac:
     create: true
+  unregisterRunners: true
