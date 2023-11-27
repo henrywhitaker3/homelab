@@ -10,6 +10,11 @@ spec:
   target:
     creationPolicy: Owner
   data:
+  - secretKey: runner-registration-token
+    remoteRef:
+      key: gitlab-runner-token
+      property: runner-registration-token
+
   - secretKey: runner-token
     remoteRef:
       key: gitlab-runner-token
