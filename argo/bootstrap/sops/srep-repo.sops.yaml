@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    annotations:
+        managed-by: argocd.argoproj.io
+        argo-zombies/ignore: "true"
+    labels:
+        argocd.argoproj.io/secret-type: repository
+    name: srep-ghcr-repo
+    namespace: argo
+stringData:
+    enableOCI: ENC[AES256_GCM,data:LI24ng==,iv:rYtyDGEDZC9Y7qOV9IJ8oJXxQlYdWQbbpp/c3FdZR9s=,tag:Jpt3G3aHXciQb9MNXAD1aw==,type:str]
+    type: ENC[AES256_GCM,data:O2ibfg==,iv:X4T/4yflmxT6lLcCdgjpeduK/ir8x59kFewbAUPGnnk=,tag:fCnJu7iVTv7XNGgKzNHx+w==,type:str]
+    url: ENC[AES256_GCM,data:cGmJFAp+30dFD7+VXnA=,iv:ZcYUH0FbbuCFa0i/+GcR9O59fI/O2DvXsfmAxBAUx9w=,tag:2RnjuTtawEi96dOYNhS3FA==,type:str]
+    name: ENC[AES256_GCM,data:q1aSy0KUHgXfic8=,iv:6kHMxvJDdP6z7XrIBih1kVu7dcq/POQhItiSzPDyXJI=,tag:Nu250Z1mJV9/GI3Pi3iRAg==,type:str]
+    password: ENC[AES256_GCM,data:QrsGRy5MRNg5XGaabvtPQrEZSW1mHSNZGcz4bfmU7prP/kju9rrN7xkZeupgIJdgpUFOjiRv7gQjkLZaGLccYOZ4rprEFFogLLbuQA==,iv:ydvJ0f2ixbp2D33JxLFcHtA0h/O1uWNks8vN3iVQrsY=,tag:f5fcdSoOYRUK3A3PHlkt3w==,type:str]
+type: Opaque
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUTkVVSXIydDRtTEtDREJn
+            cSttMUJYdVZwWURWbzNqc1BMbnZRLzQzdUhVCmpqS1I1UTJUczdMaVVuSDBzYVdi
+            bEZFMHh4d0xBZkE0Q1pNS0V1MDlQbFkKLS0tIEcyK2d4eXIxMG9ZZ3QrbGUwNkhn
+            NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
+            Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-12-01T11:35:48Z"
+    mac: ENC[AES256_GCM,data:vwCE+FwveqeX6JLUhFRRLrK1rAXI4SM5ASZk6/X5wgIkM6OxQzMVTQ5J214anR80ZalJFMw0nR+amxxq7FjESgy9pJ+/O4n3nlboN5+Om0vsnb5OH9oMPVddZSrTkwqwfClvbvqAiOOqgkNZXBKk+TvrIv57tJbkQpdqCYwlVuQ=,iv:1arIVgJbfD9oGq8H0vlo2XsCOds8WpgkLLm6NFAsafc=,tag:rXpo7SLC7gd6yO2//tKnhQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
