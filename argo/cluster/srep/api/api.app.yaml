@@ -12,7 +12,7 @@ spec:
   project: apps
   source:
     chart: srep-api-chart
-    repoURL: oci://ghcr.io/srepio/srep-api-chart
+    repoURL: ghcr.io/srepio
     targetRevision: 0.1.38
   syncPolicy:
     automated:
