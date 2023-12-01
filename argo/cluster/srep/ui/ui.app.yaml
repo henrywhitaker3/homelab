@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: api
+  name: ui
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,9 +11,9 @@ spec:
     server: https://kubernetes.default.svc
   project: srep
   source:
-    chart: srep-api-chart
+    chart: srep-ui-chart
     repoURL: ghcr.io/srepio
-    targetRevision: v0.1.38
+    targetRevision: v0.1.9
   syncPolicy:
     automated:
       prune: true
