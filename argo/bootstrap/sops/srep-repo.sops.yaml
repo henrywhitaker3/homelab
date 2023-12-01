@@ -13,6 +13,7 @@ stringData:
     type: ENC[AES256_GCM,data:O2ibfg==,iv:X4T/4yflmxT6lLcCdgjpeduK/ir8x59kFewbAUPGnnk=,tag:fCnJu7iVTv7XNGgKzNHx+w==,type:str]
     url: ENC[AES256_GCM,data:cGmJFAp+30dFD7+VXnA=,iv:ZcYUH0FbbuCFa0i/+GcR9O59fI/O2DvXsfmAxBAUx9w=,tag:2RnjuTtawEi96dOYNhS3FA==,type:str]
     name: ENC[AES256_GCM,data:q1aSy0KUHgXfic8=,iv:6kHMxvJDdP6z7XrIBih1kVu7dcq/POQhItiSzPDyXJI=,tag:Nu250Z1mJV9/GI3Pi3iRAg==,type:str]
+    username: ENC[AES256_GCM,data:CJODXbGSRacZp27DFJiaa2jvjfqJY0FE5Os=,iv:hYLhqdOsNYIQA8wmoCp3LVJa/nKO2G3us5IOBv61i38=,tag:1M8PETvSgiWbAhBIBcdaQQ==,type:str]
     password: ENC[AES256_GCM,data:QrsGRy5MRNg5XGaabvtPQrEZSW1mHSNZGcz4bfmU7prP/kju9rrN7xkZeupgIJdgpUFOjiRv7gQjkLZaGLccYOZ4rprEFFogLLbuQA==,iv:ydvJ0f2ixbp2D33JxLFcHtA0h/O1uWNks8vN3iVQrsY=,tag:f5fcdSoOYRUK3A3PHlkt3w==,type:str]
 type: Opaque
 sops:
@@ -30,8 +31,8 @@ sops:
             NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
             Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-01T11:35:48Z"
-    mac: ENC[AES256_GCM,data:vwCE+FwveqeX6JLUhFRRLrK1rAXI4SM5ASZk6/X5wgIkM6OxQzMVTQ5J214anR80ZalJFMw0nR+amxxq7FjESgy9pJ+/O4n3nlboN5+Om0vsnb5OH9oMPVddZSrTkwqwfClvbvqAiOOqgkNZXBKk+TvrIv57tJbkQpdqCYwlVuQ=,iv:1arIVgJbfD9oGq8H0vlo2XsCOds8WpgkLLm6NFAsafc=,tag:rXpo7SLC7gd6yO2//tKnhQ==,type:str]
+    lastmodified: "2023-12-01T11:39:46Z"
+    mac: ENC[AES256_GCM,data:fyzfTZNyO69LzbzBrsEvk3yE37f5FW6+9hghj1NFEuDrCIbaQOryELUE0s8j6yJPSiqWVomsUFXyX0j0yMvn3w5uItZpfrsnvD2+BuwBvOS0fc9GXrGZYjut7Ie6PeukDO63PvZrn9gi6b9x1ouV2FlH9ZX4UjD7Kkr3OZSgX/E=,iv:6hm8GNz2U05xWF6VdVtEIq13NddNu7TjZjpnjYqeYhM=,tag:5Y1RGok1BcMw/684hrR7zQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3
