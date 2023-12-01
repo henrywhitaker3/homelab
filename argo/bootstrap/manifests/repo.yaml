@@ -27,6 +27,6 @@ metadata:
 stringData:
   enableOCI: "true"
   type: helm
-  url: ghcr.io
+  url: ghcr.io/henrywhitaker3
   name: ghcr.io
 type: Opaque
