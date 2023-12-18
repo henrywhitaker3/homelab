@@ -26,6 +26,7 @@ generic:
 
   config:
     MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "true"
+    MARIADB_ROOT_PASSWORD: ""
 
   probes:
     type: tcpSocket
