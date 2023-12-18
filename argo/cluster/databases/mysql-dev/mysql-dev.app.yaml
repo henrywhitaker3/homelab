@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/cluster/databases/redis/chart
+    path: argo/cluster/databases/mysql-dev/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
