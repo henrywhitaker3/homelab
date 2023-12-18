@@ -1,6 +1,6 @@
 FROM codercom/code-server:4.19.1
 
-ARG SOPS_VERSION=3.7.3
+ARG SOPS_VERSION=3.8.1
 ARG GO_VERSION=1.21.5
 
 RUN sudo apt-get update && \
@@ -17,7 +17,7 @@ RUN sudo apt-get update && \
                             rsync \
                             age \
                             bash-completion \
-                            mysql-client \
+                            default-mysql-client \
                             redis-tools
 
 RUN curl -O https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
