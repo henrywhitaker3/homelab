@@ -22,7 +22,7 @@ generic:
     storageClassName: longhorn
     size: 256M
     accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 
   config:
     MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "true"
