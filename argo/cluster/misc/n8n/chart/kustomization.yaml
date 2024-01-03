@@ -9,7 +9,7 @@ helmCharts:
   - name: n8n
     releaseName: n8n
     repo: https://8gears.container-registry.com/chartrepo/library
-    version: 0.20.0
+    version: 0.20.1
     valuesFile: values.yaml
     namespace: misc
 
