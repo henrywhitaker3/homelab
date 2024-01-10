@@ -19,3 +19,6 @@
 - name: Create users
   ansible.builtin.import_tasks: task_users.yaml
   when: not mariadb_replication_enabled or mariadb_primary is defined and mariadb_primary
+
+- name: Configure backups
+  ansible.builtin.import_tasks: task_backup.yaml

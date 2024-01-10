@@ -1,0 +1,27 @@
+---
+- name: Ensure backup directory exists
+  become: "{{ mariadb_become }}"
+  ansible.builtin.file:
+    path: "{{ mariadb_backup_directory }}"
+    state: directory
+
+- name: Copy backup script
+  become: "{{ mariadb_become }}"
+  ansible.builtin.template:
+    src: templates/backup.sh
+    dest: /opt/mariadb_backup.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Configure backup cronjob
+  become: "{{ mariadb_become }}"
+  ansible.builtin.cron:
+    name: Mariadb Backup
+    minute: "{{ mariadb_backup_minute }}"
+    hour: "{{ mariadb_backup_hour }}"
+    day: "{{ mariadb_backup_day }}"
+    month: "{{ mariadb_backup_month }}"
+    weekday: "{{ mariadb_backup_weekday }}"
+    job: /opt/mariadb_backup.sh
+    state: "{{ 'present' if mariadb_backup_enabled == true else 'absent' }}"

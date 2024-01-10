@@ -45,3 +45,14 @@ mariadb_users: []
 mariadb_innodb_buffer_pool_size: ""
 mariadb_innodb_log_file_size: ""
 mariadb_performance_schema: "ON"
+
+mariadb_backup_enabled: false
+mariadb_backup_retention_days: 7
+
+mariadb_backup_minute: 0
+mariadb_backup_hour: 22
+mariadb_backup_day: "*"
+mariadb_backup_month: "*"
+mariadb_backup_weekday: "*"
+
+mariadb_backup_directory: /tmp/mariadb_backup
