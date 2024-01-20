@@ -13,7 +13,7 @@ spec:
   source:
     chart: srep-ui-chart
     repoURL: ghcr.io/srepio
-    targetRevision: v0.1.22
+    targetRevision: v0.1.23
   syncPolicy:
     automated:
       prune: true
