@@ -30,8 +30,46 @@ sops:
             NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
             Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-01T12:01:19Z"
-    mac: ENC[AES256_GCM,data:mX1t5fXycxee8p39AvPA4NPAwhXNYPgnrJ7aC5kF2vlTJhxd3YOhUghzSEZljxfUU1758c/awdtSSRMHc6ZpdIioWc+fxtYZkPGC8gaCp9bD1/lCnRWlx5z9ydjLuT+3vhWyav5vLD3FDEs/9/Dm8fxeBDRQp+5TuGyBtCkMaeM=,iv:TrdGLNeknvXy0gj9koj1Kd6TxSbi5wlNOuhxSSqoEcs=,tag:NYGHXwHG/XSvrw5Muy93+Q==,type:str]
+    lastmodified: "2024-01-22T21:11:36Z"
+    mac: ENC[AES256_GCM,data:Q5M0U6CiCUBZMUOfEeP5GjuiDYinNYR0AYtw8SUjMea8Ky+UAGx4JvKGxzXLvwUVraAtYv9qdwhDbxg9Wm2yxBr7UgVbhTM00hREyvN0dx9BMiAhfyq4vQEy/e28E5kR7Zd4AvCy0CN85aPbnoXwQBEJ6qZfTB3KjgtXb6hw7UQ=,iv:uB+jF7HgNT2t8SGzJMiaCEc9voAi7DLb9OW69u5b/uU=,tag:y5wQLwvFEoOhPQoU/BZzpA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    annotations:
+        managed-by: argocd.argoproj.io
+        argo-zombies/ignore: "true"
+    labels:
+        argocd.argoproj.io/secret-type: repository
+    name: srep-provisioning
+    namespace: argo
+stringData:
+    project: ENC[AES256_GCM,data:fPUyZA==,iv:Q8VFGJgfOPZ5gGAJlhbFJ1DtbNqVtZ0i73w5rE8eHEc=,tag:rkfB+J9TrduOvXnIiE3x0Q==,type:str]
+    type: ENC[AES256_GCM,data:409B,iv:T5aXTOa8WP9AmpNbR+8Yhj/UB/D7AdxlLtvdErHhsXE=,tag:G5asCDm9VoTxInCdgCeCmw==,type:str]
+    url: ENC[AES256_GCM,data:EtCmi7hbYvymI0OEV+xrYU65N+g4V9e9BwEu8YHqRgaLzUN14Rh71r9B,iv:F6TmMn4lWQsd6T8wlLkEFQ1rV4qFX4vOW93GGezxMiA=,tag:2saSZwICHxvNOMHWOyoeDg==,type:str]
+    username: ENC[AES256_GCM,data:63jDO5UBrX77gqAYxBI=,iv:HC3udB82bD/RTJHGI7fLU9UV4Vhh3mkI/CoLdjLh6s4=,tag:NL1MN3321/wHoOjIWZV90A==,type:str]
+    password: ENC[AES256_GCM,data:fzoPYUyMyoEq4AzTC1Fjj3h0TpduaiD5mU8+asbsT3EEpQH8ZYHdIQ==,iv:1P8pBmAyjaZyNq6Ic5f8DIp1wZBNhYxsheFxCjxT1bk=,tag:BuGZzQVpBrmrIj6UKAWpCA==,type:str]
+type: Opaque
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUTkVVSXIydDRtTEtDREJn
+            cSttMUJYdVZwWURWbzNqc1BMbnZRLzQzdUhVCmpqS1I1UTJUczdMaVVuSDBzYVdi
+            bEZFMHh4d0xBZkE0Q1pNS0V1MDlQbFkKLS0tIEcyK2d4eXIxMG9ZZ3QrbGUwNkhn
+            NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
+            Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-01-22T21:11:36Z"
+    mac: ENC[AES256_GCM,data:Q5M0U6CiCUBZMUOfEeP5GjuiDYinNYR0AYtw8SUjMea8Ky+UAGx4JvKGxzXLvwUVraAtYv9qdwhDbxg9Wm2yxBr7UgVbhTM00hREyvN0dx9BMiAhfyq4vQEy/e28E5kR7Zd4AvCy0CN85aPbnoXwQBEJ6qZfTB3KjgtXb6hw7UQ=,iv:uB+jF7HgNT2t8SGzJMiaCEc9voAi7DLb9OW69u5b/uU=,tag:y5wQLwvFEoOhPQoU/BZzpA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3

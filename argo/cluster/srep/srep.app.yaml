@@ -1,17 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ui
+  name: cluster
   namespace: argo
+  annotations:
+    argo-zombies/ignore: "true"
 spec:
   destination:
     namespace: srep
     server: https://kubernetes.default.svc
-  project: srep
+  project: default
   source:
-    chart: srep-ui-chart
-    repoURL: ghcr.io/srepio
-    targetRevision: v0.1.33
+    path: argo/cluster
+    repoURL: https://github.com/srepio/provisioning.git
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      include: "*.app.yaml"
+      exclude: "argo/cluster/infra"
   syncPolicy:
     automated:
       prune: true
