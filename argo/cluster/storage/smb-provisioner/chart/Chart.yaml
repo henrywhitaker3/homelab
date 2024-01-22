@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: csi-driver-smb
-    version: "v1.13.0"
+    version: "v1.14.0"
     repository: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
