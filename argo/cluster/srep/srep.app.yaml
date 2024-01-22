@@ -17,7 +17,7 @@ spec:
     directory:
       recurse: true
       include: "*.app.yaml"
-      exclude: "argo/cluster/infra"
+      exclude: "infra/"
   syncPolicy:
     automated:
       prune: true
