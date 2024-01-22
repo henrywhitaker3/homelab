@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster
+  name: srep
   namespace: argo
   annotations:
     argo-zombies/ignore: "true"
@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: srep
     server: https://kubernetes.default.svc
-  project: default
+  project: srep
   source:
     path: argo/cluster
     repoURL: https://github.com/srepio/provisioning.git
