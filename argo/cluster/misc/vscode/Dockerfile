@@ -11,6 +11,7 @@ RUN sudo apt-get update && \
                             wget \
                             git \
                             python3 \
+                            python3-full \
                             python3-pip \
                             curl \
                             openssh-client \
