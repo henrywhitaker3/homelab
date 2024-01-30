@@ -1,7 +1,7 @@
 FROM codercom/code-server:4.20.1
 
 ARG SOPS_VERSION=3.8.1
-ARG GO_VERSION=1.21.5
+ARG GO_VERSION=1.21.6
 
 RUN sudo apt-get update && \
     sudo apt-get install -y vim \
@@ -42,6 +42,6 @@ RUN kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sudo bash
 
-RUN pip3 install ansible ansible-lint
+RUN pip3 install ansible ansible-lint --break-system-packages
 
 RUN echo 'export PATH="/usr/local/go/bin:/home/coder/.local/bin:$PATH"' >> /home/coder/.bashrc
