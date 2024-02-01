@@ -7,59 +7,59 @@ module "pihole" {
   memory     = 2048
   nameserver = "1.1.1.1 8.8.8.8"
   node       = 2
-  disk_size = "8G"
+  disk_size  = "8G"
 
-  tags = [ "dns", "networking", "ubuntu" ]
+  tags = ["dns", "networking", "ubuntu"]
 }
 
 module "lb-1" {
   source = "./vm"
 
-  name   = "lb-1"
-  image  = local.ubuntu_22_04
-  ip     = "10.0.0.4"
-  memory = 512
-  node   = 1
+  name      = "lb-1"
+  image     = local.ubuntu_22_04
+  ip        = "10.0.0.4"
+  memory    = 512
+  node      = 1
   disk_size = "8G"
 
-  tags = [ "lb", "networking", "ubuntu" ]
+  tags = ["lb", "networking", "ubuntu"]
 }
 
 module "lb-2" {
   source = "./vm"
 
-  name   = "lb-2"
-  image  = local.ubuntu_22_04
-  ip     = "10.0.0.5"
-  memory = 512
-  node   = 2
+  name      = "lb-2"
+  image     = local.ubuntu_22_04
+  ip        = "10.0.0.5"
+  memory    = 512
+  node      = 2
   disk_size = "8G"
 
-  tags = [ "lb", "networking", "ubuntu" ]
+  tags = ["lb", "networking", "ubuntu"]
 }
 
 module "vpn-1" {
   source = "./vm"
 
-  name   = "vpn-1"
-  image  = local.ubuntu_22_04
-  ip     = "10.0.0.11"
-  memory = 512
-  node   = 1
+  name      = "vpn-1"
+  image     = local.ubuntu_22_04
+  ip        = "10.0.0.11"
+  memory    = 512
+  node      = 1
   disk_size = "8G"
 
-  tags = [ "networking", "ubuntu", "vpn" ]
+  tags = ["networking", "ubuntu", "vpn"]
 }
 
 module "vpn-2" {
   source = "./vm"
 
-  name   = "vpn-2"
-  image  = local.ubuntu_22_04
-  ip     = "10.0.0.12"
-  memory = 512
-  node   = 2
+  name      = "vpn-2"
+  image     = local.ubuntu_22_04
+  ip        = "10.0.0.12"
+  memory    = 512
+  node      = 2
   disk_size = "8G"
 
-  tags = [ "networking", "ubuntu", "vpn" ]
+  tags = ["networking", "ubuntu", "vpn"]
 }

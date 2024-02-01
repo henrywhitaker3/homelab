@@ -18,11 +18,19 @@ resource "proxmox_vm_qemu" "vm" {
   qemu_os = "other"
   additional_wait = 0
   clone_wait = 0
+  vm_state = "running"
+  cloudinit_cdrom_storage = "local-lvm"
 
-  disk {
-    size = var.disk_size
-    storage = var.disk_storage
-    type = var.disk_type
+  disks {
+    scsi {
+        scsi0 {
+            disk {
+                size = replace(var.disk_size, "G", "")
+                storage = var.disk_storage
+                format = "raw"
+            }
+        }
+    }
   }
 
   tags = join(";", var.tags)

@@ -9,7 +9,7 @@ tasks:
   plan:
     dir: terraform
     cmds:
-      - terraform plan
+      - terraform plan {{ .CLI_ARGS }}
 
   apply:
     dir: terraform
