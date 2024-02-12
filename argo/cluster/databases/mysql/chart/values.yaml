@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: mysql-8
+    repository: mysql
     pullPolicy: Always
-    tag: latest
+    tag: "8"
 
   service:
     portName: mysql
