@@ -8,7 +8,7 @@ module "actions" {
   cores      = 2
   nameserver = "1.1.1.1 8.8.8.8"
   node       = 2
-  disk_size  = "8G"
+  disk_size  = "25G"
 
   tags = ["srep", "ubuntu"]
 }

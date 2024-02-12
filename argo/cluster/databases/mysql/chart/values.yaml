@@ -1,0 +1,34 @@
+generic:
+  nameOverride: mysql
+  fullnameOverride: mysql
+
+  replicaCount: 1
+
+  image:
+    repository: mysql-8
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    portName: mysql
+    port: 3306
+
+  ingress:
+    enabled: false
+
+  pvc:
+    enabled: true
+    mountPath: /var/lib/mysql
+    storageClassName: longhorn
+    size: 1024M
+    accessModes:
+    - ReadWriteOnce
+
+  config:
+    MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "true"
+    MARIADB_ROOT_PASSWORD: ""
+
+  probes:
+    type: tcpSocket
+    options:
+      port: mysql
