@@ -4,6 +4,9 @@ generic:
 
   replicaCount: 1
 
+  deploymentStrategy:
+    type: Recreate
+
   image:
     repository: mysql
     pullPolicy: Always
