@@ -25,8 +25,8 @@ generic:
     - ReadWriteOnce
 
   config:
-    MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "true"
-    MARIADB_ROOT_PASSWORD: ""
+    MYSQL_ALLOW_EMPTY_ROOT_PASSWORD: "true"
+    MYSQL_ROOT_PASSWORD: ""
 
   probes:
     type: tcpSocket
