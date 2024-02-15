@@ -4,6 +4,9 @@ generic:
 
   replicaCount: 1
 
+  deploymentStrategy:
+    type: Recreate
+
   image:
     repository: redis
     pullPolicy: Always
@@ -27,7 +30,7 @@ generic:
     storageClassName: longhorn
     size: 2Gi
     accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 
   probes:
     type: tcpSocket
