@@ -58,7 +58,7 @@ grafana:
         datasource: Prometheus
       node_exporter:
         gnetId: 1860
-        revision: 31
+        revision: 33
         datasource: Prometheus
       argocd:
         gnetId: 14584
