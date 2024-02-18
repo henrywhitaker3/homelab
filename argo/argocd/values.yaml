@@ -1,3 +1,6 @@
+global:
+  domain: argocd.plexmox.com
+
 argo-cd:
   dex:
     enabled: false
@@ -44,7 +47,7 @@ argo-cd:
       # -- Defines which ingress controller will implement the resource
       ingressClassName: "nginx"
 
-      tls:
+      extraTls:
         - hosts:
           - argocd.plexmox.com
           secretName: argocd-plexmox-com
