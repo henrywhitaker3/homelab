@@ -1,4 +1,5 @@
 metrics-server:
+  replicas: 2
   args:
     - --kubelet-insecure-tls
     - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
@@ -8,3 +9,4 @@ metrics-server:
     enabled: true
   serviceMonitor:
     enabled: true
+    interval: 15s
