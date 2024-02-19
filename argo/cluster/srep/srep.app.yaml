@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: srep
   source:
-    path: argo/cluster/production/gateway
+    path: clusters/production/gateway
     repoURL: https://github.com/srepio/provisioning.git
     targetRevision: HEAD
     directory:
