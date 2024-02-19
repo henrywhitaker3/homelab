@@ -1,6 +1,6 @@
 generic:
-  nameOverride: mysql
-  fullnameOverride: mysql
+  nameOverride: srep-mysql
+  fullnameOverride: srep-mysql
 
   replicaCount: 1
 
@@ -26,13 +26,13 @@ generic:
     enabled: true
     mountPath: /var/lib/mysql
     storageClassName: longhorn
-    size: 1024M
+    size: 10240M
     accessModes:
     - ReadWriteOnce
 
-  config:
-    MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-    MYSQL_ROOT_PASSWORD: ""
+  secrets:
+    enabled: true
+    key: srep-mysql
 
   probes:
     type: tcpSocket
