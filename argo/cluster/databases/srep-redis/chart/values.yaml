@@ -45,7 +45,7 @@ generic:
 
   metrics:
     enabled: true
-    port: metrics
+    port: 9121
     interval: 15s
     timeout: 10s
 
