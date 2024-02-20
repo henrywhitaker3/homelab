@@ -80,6 +80,10 @@ grafana:
         gnetId: 14061
         revision: 1
         datasource: Prometheus
+      redis:
+        gnetId: 14091
+        revision: 1
+        datasource: Prometheus
       overview:
         json: |
           {
