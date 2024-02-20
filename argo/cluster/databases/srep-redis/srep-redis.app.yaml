@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: srep-mysql
+  name: srep-redis
   namespace: argo
 spec:
   destination:
@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/cluster/databases/srep-mysql/chart
+    path: argo/cluster/databases/srep-redis/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

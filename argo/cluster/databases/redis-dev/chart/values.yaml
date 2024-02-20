@@ -19,14 +19,6 @@ generic:
   ingress:
     enabled: false
 
-  pvc:
-    enabled: true
-    mountPath: /data
-    storageClassName: longhorn
-    size: 128M
-    accessModes:
-    - ReadWriteOnce
-
   probes:
     type: tcpSocket
     options:

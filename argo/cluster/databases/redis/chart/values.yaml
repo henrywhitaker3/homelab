@@ -16,21 +16,8 @@ generic:
     portName: redis
     port: 6379
 
-    loadBalancer:
-      enabled: true
-      ip: "10.0.0.35"
-      externalTrafficPolicy: Local
-
   ingress:
     enabled: false
-
-  pvc:
-    enabled: true
-    mountPath: /data
-    storageClassName: longhorn
-    size: 2Gi
-    accessModes:
-    - ReadWriteOnce
 
   probes:
     type: tcpSocket

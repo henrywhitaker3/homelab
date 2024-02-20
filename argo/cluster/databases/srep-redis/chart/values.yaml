@@ -1,0 +1,49 @@
+generic:
+  nameOverride: srep-redis
+  fullnameOverride: srep-redis
+
+  replicaCount: 1
+
+  deploymentStrategy:
+    type: Recreate
+
+  image:
+    repository: redis
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    portName: redis
+    port: 6379
+
+    loadBalancer:
+      enabled: true
+      ip: "10.0.0.35"
+      externalTrafficPolicy: Local
+
+  extraContainers:
+    - name: redis_exporter
+      image: oliver006/redis_exporter:v1.58.0
+      imagePullPolicy: IfNotPresent
+      args:
+        - --redis.addr=redis://127.0.0.1:6379
+      ports:
+        - containerPort: 9121
+          name: metrics
+          protocol: TCP
+
+  ingress:
+    enabled: false
+
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 1Gi
+    accessModes:
+    - ReadWriteOnce
+
+  probes:
+    type: tcpSocket
+    options:
+      port: redis
