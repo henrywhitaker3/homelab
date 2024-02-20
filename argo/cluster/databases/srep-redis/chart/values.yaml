@@ -43,6 +43,11 @@ generic:
     accessModes:
     - ReadWriteOnce
 
+  metrics:
+    enabled: true
+    port: metrics
+    interval: 15s
+
   probes:
     type: tcpSocket
     options:
