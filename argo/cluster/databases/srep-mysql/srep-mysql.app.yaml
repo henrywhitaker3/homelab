@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: databases
     server: https://kubernetes.default.svc
-  project: apps
+  project: srep
   source:
     path: argo/cluster/databases/srep-mysql/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

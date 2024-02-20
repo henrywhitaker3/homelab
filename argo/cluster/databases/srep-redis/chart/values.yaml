@@ -22,7 +22,7 @@ generic:
       externalTrafficPolicy: Local
 
   extraContainers:
-    - name: redis_exporter
+    - name: redis-exporter
       image: oliver006/redis_exporter:v1.58.0
       imagePullPolicy: IfNotPresent
       args:
