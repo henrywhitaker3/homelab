@@ -10,6 +10,9 @@ loki:
       storageClass: longhorn
       size: 5Gi
 
+  test:
+    enabled: false
+
   monitoring:
     selfMonitoring:
       enabled: false
