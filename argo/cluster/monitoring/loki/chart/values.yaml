@@ -5,6 +5,8 @@ loki:
       replication_factor: 1
     storage:
       type: 'filesystem'
+    limits_config:
+      retention_period: 168h
   singleBinary:
     replicas: 1
     persistence:
