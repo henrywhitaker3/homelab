@@ -22,11 +22,6 @@ generic:
       protocol: TCP
       targetPort: metrics
 
-    loadBalancer:
-      enabled: true
-      ip: "10.0.0.35"
-      externalTrafficPolicy: Local
-
   extraContainers:
     - name: redis-exporter
       image: oliver006/redis_exporter:v1.58.0
