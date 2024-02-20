@@ -16,6 +16,12 @@ generic:
     portName: redis
     port: 6379
 
+    additionalPorts:
+    - name: metrics
+      port: 9121
+      protocol: TCP
+      targetPort: metrics
+
     loadBalancer:
       enabled: true
       ip: "10.0.0.35"
