@@ -12,15 +12,53 @@ generic:
     pullPolicy: Always
     tag: "8"
 
+  extraContainers:
+    - name: mysqld-exporter
+      image: quay.io/prometheus/mysqld-exporter:latest
+      imagePullPolicy: Always
+      args:
+        - --config.my-cnf=/etc/cnf/.my.cnf
+        - --collect.global_status
+        - --collect.global_variables
+        - --collect.info_schema.innodb_metrics
+        - --collect.info_schema.query_response_time
+      ports:
+        - containerPort: 9104
+          name: metrics
+          protocol: TCP
+      volumeMounts:
+        - name: exporter-conf
+          mountPath: /etc/cnf
+          readOnly: true
+
+  volumes:
+    - name: exporter-conf
+      secret:
+        secretName: srep-mysql
+        items:
+          - key: .my.cnf
+            path: .my.cnf
+
   service:
     portName: mysql
     port: 3306
     loadBalancer:
       enabled: true
       ip: "10.0.0.38"
+    additionalPorts:
+      - name: metrics
+        port: 9104
+        protocol: TCP
+        targetPort: metrics
 
   ingress:
     enabled: false
+
+  metrics:
+    enabled: true
+    port: metrics
+    interval: 30s
+    timeout: 10s
 
   pvc:
     enabled: true
