@@ -320,7 +320,7 @@ grafana:
       ordId: 1
       access: proxy
       type: loki
-      url: http://loki-gateway.loki.svc.cluster.local
+      url: http://loki-gateway
       jsonData:
         maxLines: 250
 
