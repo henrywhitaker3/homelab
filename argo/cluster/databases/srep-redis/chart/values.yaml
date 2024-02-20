@@ -32,6 +32,13 @@ generic:
         - containerPort: 9121
           name: metrics
           protocol: TCP
+      securityContext:
+        runAsUser: 59000
+        runAsGroup: 59000
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
 
   ingress:
     enabled: false
