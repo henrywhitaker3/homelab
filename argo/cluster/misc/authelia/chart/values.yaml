@@ -42,6 +42,11 @@ authelia:
     access_control:
       default_policy: deny
       rules:
+        - domain: argocd.plexmox.com
+          networks:
+            - 34.74.90.64/28
+            - 34.74.226.0/24
+          policy: bypass
         - domain:
           - plexmox.com
           - "*.plexmox.com"
