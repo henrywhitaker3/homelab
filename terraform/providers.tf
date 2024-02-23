@@ -13,7 +13,7 @@ terraform {
 
     healthchecksio = {
       source  = "kristofferahl/healthchecksio"
-      version = "1.10.1"
+      version = "2.0.0"
     }
 
     pihole = {
