@@ -7,7 +7,7 @@ module "k3s-control-1" {
   cores     = 3
   memory    = 12288
   node      = 1
-  disk_size = "200G"
+  disk_size = "300G"
 
   tags = ["control", "k3s", "ubuntu"]
 }
@@ -21,7 +21,7 @@ module "k3s-control-2" {
   cores     = 3
   memory    = 12288
   node      = 2
-  disk_size = "200G"
+  disk_size = "300G"
 
   tags = ["control", "k3s", "ubuntu"]
 }
@@ -35,7 +35,7 @@ module "k3s-worker-1" {
   cores     = 2
   memory    = 8192
   node      = 1
-  disk_size = "200G"
+  disk_size = "300G"
 
   tags = ["agent", "k3s", "ubuntu"]
 }
@@ -49,7 +49,7 @@ module "k3s-worker-2" {
   cores     = 2
   memory    = 8192
   node      = 2
-  disk_size = "200G"
+  disk_size = "300G"
 
   tags = ["agent", "k3s", "ubuntu"]
 }
