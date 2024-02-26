@@ -13,7 +13,7 @@
     "rebaseWhen": "conflicted",
     "argocd": {
         "fileMatch": [
-            "argo/cluster/.*\\.app\\.yaml"
+            "argo\/cluster\/.*\\.app\\.yaml"
         ]
     },
     "packageRules": [
@@ -58,7 +58,7 @@
             "customType": "regex",
             "description": ["Process custom dependencies"],
             "fileMatch": [
-                "ansible/.*/.*\\.yaml$"
+                "ansible\/.*\/.*\\.yaml$"
             ],
             "matchStrings": [
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
