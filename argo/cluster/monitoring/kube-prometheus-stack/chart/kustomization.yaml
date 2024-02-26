@@ -17,11 +17,11 @@ patches:
   - path: patches/prometheuses.yaml
   - path: patches/prometheusagents.yaml
 
-generatorOptions:
-  labels:
-    grafana_dashboard: "1"
-
 configMapGenerator:
-  - name: custom-json-dashboards
+  - name: srep-dashboards
     files:
       - dashboards/srep-api.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        dashboard-provider: srep
