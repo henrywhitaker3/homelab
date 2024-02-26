@@ -53,6 +53,14 @@ grafana:
           editable: false
           options:
             path: /var/lib/grafana/dashboards/default
+        - name: SREP
+          orgId: 1
+          folder: SREP
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /tmp/dashboard/SREP
 
   dashboards:
     default:
