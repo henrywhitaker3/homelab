@@ -18,7 +18,7 @@ patches:
   - path: patches/prometheusagents.yaml
 
 generatorOptions:
-  annotations:
+  labels:
     grafana_dashboard: "1"
     dashboard-provider: default
 
