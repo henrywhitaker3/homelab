@@ -20,7 +20,6 @@ patches:
 generatorOptions:
   labels:
     grafana_dashboard: "1"
-    dashboard-provider: default
 
 configMapGenerator:
   - name: custom-json-dashboards
