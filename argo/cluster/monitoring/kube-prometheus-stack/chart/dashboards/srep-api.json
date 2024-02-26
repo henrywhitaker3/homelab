@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 44,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1027,8 +1026,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1162,8 +1160,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1231,6 +1228,6 @@
   "timezone": "",
   "title": "API",
   "uid": "a902d6ff-d46b-40a2-848e-a02743b90cbf",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }
