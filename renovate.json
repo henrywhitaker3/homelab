@@ -13,8 +13,7 @@
     "rebaseWhen": "conflicted",
     "argocd": {
         "fileMatch": [
-            "argo/apps/apps/.+\\.yaml$",
-            "argo/apps/cluster/.+\\.yaml$"
+            "argo\/cluster\/.*\\.app\\.yaml"
         ]
     },
     "packageRules": [
@@ -53,5 +52,18 @@
         "matchPackageNames": ["linuxserver/plex"],
         "automerge": false
       }
+    ],
+    "customManagers": [
+        {
+            "customType": "regex",
+            "description": ["Process custom dependencies"],
+            "fileMatch": [
+                "ansible\/.*\/.*\\.yaml$"
+            ],
+            "matchStrings": [
+                "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
+            ],
+            "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
+        }
     ]
 }

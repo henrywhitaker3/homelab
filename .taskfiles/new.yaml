@@ -37,6 +37,11 @@ tasks:
         sh: wg genkey
       PSK:
         sh: wg genpsk
+      IP: '{{ .IP }}'
+    preconditions:
+      - sh: "[[ ! -z $IP ]]"
+        msg: |
+          IP must be set
     cmds:
       - sops --decrypt .templates/wg.conf | envsubst
       - echo -n "Public key " && echo $PRIVATE_KEY | wg pubkey
