@@ -9,6 +9,8 @@ coredns:
   prometheus:
     service:
       enabled: true
+    monitor:
+      enabled: true
 
   servers:
     - zones:
