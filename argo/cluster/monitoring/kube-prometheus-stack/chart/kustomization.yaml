@@ -24,4 +24,5 @@ configMapGenerator:
     options:
       labels:
         grafana_dashboard: "1"
-        dashboard-provider: srep
+      annotations:
+        grafana_folder: SREP
