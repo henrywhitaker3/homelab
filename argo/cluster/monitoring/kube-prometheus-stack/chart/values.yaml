@@ -56,7 +56,7 @@ grafana:
           disableDeletion: true
           editable: false
           options:
-            path: /var/lib/grafana/dashboards/srep
+            path: /tmp/srep
 
   dashboards:
     default:
