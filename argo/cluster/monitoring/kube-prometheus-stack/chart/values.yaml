@@ -37,6 +37,10 @@ grafana:
         hosts:
           - grafana.plexmox.com
 
+  sidecar:
+    dashboards:
+      folderAnnotation: grafana_folder
+
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
