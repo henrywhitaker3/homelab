@@ -1216,7 +1216,9 @@
   ],
   "refresh": "30s",
   "schemaVersion": 39,
-  "tags": [],
+  "tags": [
+    "srep"
+  ],
   "templating": {
     "list": []
   },
