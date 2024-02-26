@@ -16,3 +16,12 @@ helmCharts:
 patches:
   - path: patches/prometheuses.yaml
   - path: patches/prometheusagents.yaml
+
+generatorOptions:
+  annotations:
+    grafana_dashboard: "1"
+
+configMapGenerator:
+  - name: custom-json-dashboards
+    files:
+      - dashboards/srep-api.json
