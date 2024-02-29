@@ -44,3 +44,4 @@ generic:
     storageClassName: smb
     mountPath: /app/backend/data
 
+  tty: true
