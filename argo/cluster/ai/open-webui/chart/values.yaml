@@ -2,7 +2,7 @@ generic:
   nameOverride: open-webui
   fullnameOverride: open-webui
 
-  replicaCount: 0
+  replicaCount: 1
 
   deploymentStrategy:
     type: Recreate
