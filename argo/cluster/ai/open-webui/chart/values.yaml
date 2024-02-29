@@ -35,6 +35,9 @@ generic:
       hosts:
         - ai.plexmox.com
 
+  config:
+    OLLAMA_API_BASE_URL: http://ollama:11434
+
   pvc:
     enabled: true
     size: 20Gi

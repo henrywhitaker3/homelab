@@ -1,0 +1,16 @@
+ollama:
+  persistentVolume:
+    enabled: true
+    size: 30Gi
+    storageClass: smb
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: quicksync
+            operator: In
+            values:
+            - available
