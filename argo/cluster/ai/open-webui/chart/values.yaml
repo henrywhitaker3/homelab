@@ -40,8 +40,8 @@ generic:
 
   pvc:
     enabled: true
-    size: 20Gi
-    storageClassName: smb
+    size: 3Gi
+    storageClassName: longhorn
     mountPath: /app/backend/data
 
   tty: true
