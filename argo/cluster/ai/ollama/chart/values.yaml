@@ -17,3 +17,12 @@ ollama:
             operator: In
             values:
             - available
+
+  volumes:
+    - name: quicksync
+      hostPath:
+        path: /dev/dri
+
+  volumeMounts:
+    - mountPath: /dev/dri
+      name: quicksync

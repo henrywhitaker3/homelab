@@ -36,7 +36,7 @@ generic:
         - ai.plexmox.com
 
   config:
-    OLLAMA_API_BASE_URL: http://ollama:11434
+    OLLAMA_API_BASE_URL: http://ollama:11434/api
 
   pvc:
     enabled: true
