@@ -15,6 +15,9 @@ generic:
   service:
     port: 8080
 
+  probes:
+    enabled: false
+
   ingress:
     enabled: true
     annotations:
