@@ -4,6 +4,7 @@ user_authorized_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrIf/4nqWVI4A2G10rHav1X7951wG+5ZfmXiDYhwEik henry@laptop
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIy1ivZdPaKzmNYlBWSIOLu7MnmW/z6LzILgAPY5IBqF henry@phone
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAMlJmW+RotMpADZDdCCbcFEKg2yykIYLCsWaGpnNtZv henry@tablet
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNtpiRq/jjvhfZRpAoCArJzkTCnX0Z0ttNZJKuXiMt+ henry@desktop
 
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
 
