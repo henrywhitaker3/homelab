@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.21.1
+FROM codercom/code-server:4.21.2
 
 ARG SOPS_VERSION=3.8.1
 ARG GO_VERSION=1.21.6
