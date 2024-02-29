@@ -1,5 +1,6 @@
 ollama:
-  defaultModel: mistral
+  ollama:
+    defaultModel: mistral
 
   persistentVolume:
     enabled: true
