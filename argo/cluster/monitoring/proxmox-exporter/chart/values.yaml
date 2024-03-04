@@ -25,7 +25,7 @@ generic:
         secretName: proxmox-exporter
         items:
           - key: pve.yaml
-            path: pve.yaml
+            path: pve.yml
 
   volumeMounts:
     - mountPath: /etc/prometheus
