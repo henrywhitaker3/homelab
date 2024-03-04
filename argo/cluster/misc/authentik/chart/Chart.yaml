@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: authentik
-    version: "2024.2.1"
+    version: "2024.2.2"
     repository: https://charts.goauthentik.io
