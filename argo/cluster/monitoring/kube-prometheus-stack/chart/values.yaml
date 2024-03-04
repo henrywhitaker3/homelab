@@ -74,7 +74,7 @@ additionalPrometheusRulesMap:
       - name: haproxy
         rules:
           - alert: HaproxyServerNotUp
-            expr: haproxy_server_status{state!="UP"}
+            expr: haproxy_server_status{state!="UP"} > 0
             for: 3m
             labels:
               severity: critical
