@@ -12,8 +12,8 @@ alertmanager:
     receivers:
       - name: "null"
       - name: discord
-        # discord_configs:
-        #   - webhook_url_file: /etc/alertmanager/secrets/alertmanager-secrets/discord
+        slack_configs:
+          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/discord
 
   alertmanagerSpec:
     replicas: 2
