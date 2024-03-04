@@ -4,11 +4,11 @@ alertmanager:
   enabled: true
 
   config:
-    route:
-      routes:
-        - receiver: discord
-          match:
-            severity: critical
+    # route:
+    #   routes:
+    #     - receiver: discord
+    #       match:
+    #         severity: critical
     receivers:
       - name: "null"
       - name: discord
