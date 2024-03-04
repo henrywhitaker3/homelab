@@ -39,6 +39,7 @@ coredns:
             10.0.0.4 lb-1.lab
             10.0.0.5 lb-2.lab
             165.22.112.190 jump-k8s.lab
+            10.8.0.1 jump.lab
             10.0.0.30 bedroom.lab
             10.0.0.150 proxmox-1.lab
             10.0.0.152 proxmox-2.lab
