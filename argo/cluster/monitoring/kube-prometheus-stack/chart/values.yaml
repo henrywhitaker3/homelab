@@ -76,7 +76,7 @@ grafana:
   dashboards:
     default:
       haproxy:
-        gnetId: 2428
+        gnetId: 12693
         revision: 7
         datasource: Prometheus
       node_exporter:
