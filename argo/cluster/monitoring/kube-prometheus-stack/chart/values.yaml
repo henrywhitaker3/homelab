@@ -61,14 +61,23 @@ defaultRules:
 additionalPrometheusRulesMap:
   misc:
     groups:
+      - name: vms
+        rules:
+          - alert: TargetDown
+            expr: 100 * (count by (instance) (up{job="node_exporter"} == 0) / count by (instance) (up{job="node_exporter"})) > 10
+            for: 10m
+            labels:
+              severity: critical
+            annotations:
+              summary: Target {{ $labels.instance }} is DOWN
       - name: k8s
         rules:
           - alert: OOMKilled
             expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
-            annotations:
-              summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
             labels:
               severity: critical
+            annotations:
+              summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
       - name: haproxy
         rules:
           - alert: HaproxyServerNotUp
