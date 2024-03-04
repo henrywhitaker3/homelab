@@ -65,7 +65,7 @@ additionalPrometheusRulesMap:
         rules:
           - alert: VMDown
             expr: 100 * (count by (instance) (up{job="node_exporter"} == 0) / count by (instance) (up{job="node_exporter"})) > 10
-            for: 10m
+            for: 5m
             labels:
               severity: critical
             annotations:
