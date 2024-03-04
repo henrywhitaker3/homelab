@@ -5,6 +5,8 @@ alertmanager:
 
   config:
     route:
+      group_by:
+        - alertname
       routes:
         - receiver: discord
           match:
