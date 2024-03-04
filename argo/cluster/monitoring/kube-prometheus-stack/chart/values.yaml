@@ -58,6 +58,17 @@ defaultRules:
     kubeSchedulerAlerting: false
     kubeSchedulerRecording: false
 
+additionalPrometheusRulesMap:
+  srep:
+    groups:
+      - name: api
+        rules:
+          - alert: APIErrorRate
+            expr: ((sum(srep_requests_total{code=~"2..|4..|3.."}) / sum(srep_requests_total)) * 100) < 99.99
+            for: 5m
+            labels:
+              severity: critical
+
 grafana:
   enabled: true
 
