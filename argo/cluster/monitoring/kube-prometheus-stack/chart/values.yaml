@@ -243,7 +243,7 @@ prometheus:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: pve-exporter.svc:9221
+            replacement: pve-exporter.monitoring.svc:9221
 
     storageSpec:
       volumeClaimTemplate:

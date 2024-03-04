@@ -14,3 +14,17 @@ generic:
 
   probes:
     enabled: false
+
+  secrets:
+    enabled: true
+    key: pve-exporter-config
+
+  volumes:
+    - name: pve-config
+      secret:
+        secretName: proxmox-exporter
+
+  volumeMounts:
+    - mountPath: /etc/prometheus
+      name: pve-config
+      readOnly: true
