@@ -63,7 +63,7 @@ additionalPrometheusRulesMap:
     groups:
       - name: vms
         rules:
-          - alert: TargetDown
+          - alert: VMDown
             expr: 100 * (count by (instance) (up{job="node_exporter"} == 0) / count by (instance) (up{job="node_exporter"})) > 10
             for: 10m
             labels:
