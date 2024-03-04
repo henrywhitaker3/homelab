@@ -24,4 +24,4 @@ hosts_extras:
   - name: mariadb-read.lab
     ip: 10.0.0.7
   - name: jump.lab
-    ip: 10.8.0.100
+    ip: 10.8.0.1
