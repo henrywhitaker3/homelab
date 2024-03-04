@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: argo/cluster/monitoring/speedtest/chart
+    path: argo/cluster/monitoring/proxmox-exporter/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
