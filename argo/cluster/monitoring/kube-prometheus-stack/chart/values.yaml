@@ -16,6 +16,7 @@ alertmanager:
       - name: discord
         slack_configs:
           - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack
+            send_resolved: true
 
   alertmanagerSpec:
     replicas: 2
