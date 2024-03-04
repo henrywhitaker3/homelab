@@ -59,6 +59,18 @@ defaultRules:
     kubeSchedulerRecording: false
 
 additionalPrometheusRulesMap:
+  misc:
+    groups:
+      - name: db
+        rules:
+          - alert: MysqlDown
+            expr: mysql_up{service!~"srep.*"} == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: MySQL down (instance {{ $labels.instance }})
+              description: "MySQL instance is down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
   srep:
     groups:
       - name: api
@@ -68,6 +80,15 @@ additionalPrometheusRulesMap:
             for: 5m
             labels:
               severity: critical
+            annotations:
+              summary: API Success Rate is < 99.99%
+          - alert: APIMysqlDown
+            expr: mysql_up{service="srep-mysql"} == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: API MySQL is down
 
 grafana:
   enabled: true
