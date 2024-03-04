@@ -1,0 +1,16 @@
+generic:
+  nameOverride: proxmox-exporter
+  fullnameOverride: proxmox-exporter
+
+  replicaCount: 1
+
+  image:
+    repository: prompve/prometheus-pve-exporter
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 9221
+
+  probes:
+    enabled: false
