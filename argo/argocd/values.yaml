@@ -15,14 +15,6 @@ argo-cd:
           prometheus.io/scrape: true
           prometheus.io/path: /metrics
           prometheus.io/port: 8082
-  redis:
-    metrics:
-      enabled: true
-      service:
-        annotations:
-          prometheus.io/scrape: true
-          prometheus.io/path: /metrics
-          prometheus.io/port: 9121
 
   server:
     ingress:
