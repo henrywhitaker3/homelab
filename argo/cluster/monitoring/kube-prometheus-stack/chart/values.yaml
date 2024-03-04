@@ -3,6 +3,18 @@ namespaceOverride: monitoring
 alertmanager:
   enabled: true
 
+  config:
+    route:
+      routes:
+        - receiver: discord
+          match:
+            severity: critical
+    receivers:
+      - name: "null"
+      - name: discord
+        discord_configs:
+          - webhook_url_file: /etc/alertmanager/secrets/alertmanager-secrets/discord
+
   alertmanagerSpec:
     replicas: 2
     secrets:
