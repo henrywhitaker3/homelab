@@ -229,6 +229,22 @@ prometheus:
             - 'mariadb-1.lab:9100'
             - 'mariadb-2.lab:9100'
 
+      - job_name: 'pve'
+        static_configs:
+          - targets:
+            - proxmox-1.lab
+            - proxmox-2.lab
+        metrics_path: /pve
+        params:
+          module: [default]
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: pve-exporter.svc:9221
+
     storageSpec:
       volumeClaimTemplate:
         spec:
