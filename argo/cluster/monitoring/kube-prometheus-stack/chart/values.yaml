@@ -107,10 +107,6 @@ grafana:
         gnetId: 14091
         revision: 1
         datasource: Prometheus
-      proxmox:
-        gnetId: 10347
-        revision: 4
-        datasource: Prometheus
 
   additionalDataSources:
     - name: Loki

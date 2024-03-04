@@ -26,3 +26,11 @@ configMapGenerator:
         grafana_dashboard: "1"
       annotations:
         grafana_folder: SREP
+  - name: misc-dashboards
+    files:
+      - dashboards/proxmox.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+      annotations:
+        grafana_folder: Custom
