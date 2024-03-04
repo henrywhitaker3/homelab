@@ -55,7 +55,8 @@ defaultRules:
   rules:
     kubeControllerManager: false
     kubeProxy: false
-    kubeScheduler: false
+    kubeSchedulerAlerting: false
+    kubeSchedulerRecording: false
 
 grafana:
   enabled: true
