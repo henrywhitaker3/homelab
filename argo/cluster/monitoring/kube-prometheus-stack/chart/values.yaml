@@ -1,7 +1,24 @@
 namespaceOverride: monitoring
 
 alertmanager:
-  enabled: false
+  enabled: true
+
+  ingress:
+    enabled: true
+
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+
+    hosts:
+      - alerts.plexmox.com
+
+    tls:
+      - secretName: alerts-plexmox-com-tls
+        hosts:
+          - alerts.plexmox.com
 
 nodeExporter:
   enabled: false
