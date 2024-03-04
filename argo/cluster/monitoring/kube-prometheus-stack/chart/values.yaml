@@ -13,7 +13,7 @@ alertmanager:
       - name: "null"
       - name: discord
         slack_configs:
-          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/discord
+          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack
 
   alertmanagerSpec:
     replicas: 2
