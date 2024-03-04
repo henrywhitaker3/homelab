@@ -61,6 +61,31 @@ defaultRules:
 additionalPrometheusRulesMap:
   misc:
     groups:
+      - name: haproxy
+        rules:
+          - alert: HaproxyServerNotUp
+            expr: haproxy_server_status{state!="UP"}
+            for: 3m
+            labels:
+              severity: critical
+            annotations:
+              summary: Haproxy Server {{ $labels.server }} is not UP
+      - name: argo
+        rules:
+          - alert: ArgocdServiceUnhealthy
+            expr: argocd_app_info{health_status!="Healthy"} != 0
+            for: 15m
+            labels:
+              severity: warning
+            annotations:
+              summary: ArgoCD service unhealthy (instance {{ $labels.instance }})
+          - alert: ArgocdServiceNotSynced
+            expr: argocd_app_info{sync_status!="Synced"} != 0
+            for: 15m
+            labels:
+              severity: warning
+            annotations:
+              summary: ArgoCD service not synced (instance {{ $labels.instance }})
       - name: db
         rules:
           - alert: MysqlDown
@@ -70,14 +95,27 @@ additionalPrometheusRulesMap:
               severity: critical
             annotations:
               summary: MySQL down (instance {{ $labels.instance }})
-              description: "MySQL instance is down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: MysqlHighThreadsRunning
+            expr: max_over_time(mysql_global_status_threads_running{service!~"srep.*"}[1m]) / mysql_global_variables_max_connections{service!~"srep.*"} * 100 > 75
+            for: 2m
+            labels:
+              severity: warning
+            annotations:
+              summary: MySQL high threads running (instance {{ $labels.instance }})
+          - alert: RedisDown
+            expr: redis_up{service!~"srep*"} == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Redis down (instance {{ $labels.instance }})
   srep:
     groups:
       - name: api
         rules:
           - alert: APIErrorRate
-            expr: ((sum(srep_requests_total{code=~"2..|4..|3.."}) / sum(srep_requests_total)) * 100) < 99.99
-            for: 5m
+            expr: ((rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) / rate(srep_requests_total[1m])) * 100) < 99.99
+            for: 1m
             labels:
               severity: critical
             annotations:
@@ -89,6 +127,20 @@ additionalPrometheusRulesMap:
               severity: critical
             annotations:
               summary: API MySQL is down
+          - alert: APIMysqlHighThreadsRunning
+            expr: max_over_time(mysql_global_status_threads_running{service="srep-mysql"}[1m]) / mysql_global_variables_max_connections{service="srep-mysql"} * 100 > 75
+            for: 2m
+            labels:
+              severity: warning
+            annotations:
+              summary: MySQL high threads running (instance {{ $labels.instance }})
+          - alert: APIRedisDown
+            expr: redis_up{service="srep-redis"} == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Redis down (instance {{ $labels.instance }})
 
 grafana:
   enabled: true
