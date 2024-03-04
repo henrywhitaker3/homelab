@@ -3,6 +3,11 @@ namespaceOverride: monitoring
 alertmanager:
   enabled: true
 
+  alertmanagerSpec:
+    replicas: 2
+    secrets:
+      - alertmanager-secrets
+
   ingress:
     enabled: true
 
