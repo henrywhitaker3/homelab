@@ -201,10 +201,10 @@ prometheus:
       - job_name: 'haproxy'
         static_configs:
           - targets:
-            - 'jump-k8s.lab:8404'
+            - 'jump.lab:8404'
             - 'k8s.lab:8404'
 
-      - job_name: 'mysql'
+      - job_name: 'mariadb'
         static_configs:
           - targets:
             - 'mariadb-1.lab:9104'
@@ -218,8 +218,7 @@ prometheus:
             - 'lb-2.lab:9100'
             - 'vpn-1.lab:9100'
             - 'vpn-2.lab:9100'
-            - 'jump-k8s.lab:9100'
-            - 'bedroom.lab:9100'
+            - 'jump.lab:9100'
             - 'proxmox-1.lab:9100'
             - 'proxmox-2.lab:9100'
             - 'k3s-control-1.lab:9100'
