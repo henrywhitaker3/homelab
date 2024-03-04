@@ -77,7 +77,7 @@ additionalPrometheusRulesMap:
             labels:
               severity: critical
             annotations:
-              summary: Haproxy Server {{ $labels.server }} is not UP
+              summary: Haproxy Server {{ $labels.server }} is not UP for backend {{ $labels.proxy }}
       - name: argo
         rules:
           - alert: ArgocdServiceUnhealthy
