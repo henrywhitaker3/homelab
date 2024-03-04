@@ -51,6 +51,12 @@ kubeScheduler:
     - 10.0.0.21
     - 10.0.0.24
 
+defaultRules:
+  rules:
+    kubeControllerManager: false
+    kubeProxy: false
+    kubeScheduler: false
+
 grafana:
   enabled: true
 
