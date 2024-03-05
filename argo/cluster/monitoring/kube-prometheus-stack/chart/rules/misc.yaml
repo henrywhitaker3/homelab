@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: longhorn
+      rules:
+        - alert: BackupFailed
+          expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
     - name: vms
       rules:
         - alert: VMDown
