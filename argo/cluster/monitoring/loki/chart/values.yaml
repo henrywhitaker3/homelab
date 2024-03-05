@@ -35,7 +35,7 @@ loki:
           name: loki-rules
     extraVolumeMounts:
       - name: rules-cm
-        mountPath: /rules/srep-ui.yaml
+        mountPath: /rules/fake/srep-ui.yaml
         subPath: srep-ui.yaml
       - name: scratch
         mountPath: /tmp/scratch
