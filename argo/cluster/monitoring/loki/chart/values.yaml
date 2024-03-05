@@ -15,10 +15,10 @@ loki:
         local:
           directory: /rules
       rule_path: /tmp/scratch
-      # remote_write:
-      #   enabled: true
-      #   client:
-      #     url: http://kube-prometheus-stack-prometheus:9090/api/v1/write
+      remote_write:
+        enabled: true
+        client:
+          url: http://kube-prometheus-stack-prometheus:9090/api/v1/write
 
   singleBinary:
     replicas: 1
