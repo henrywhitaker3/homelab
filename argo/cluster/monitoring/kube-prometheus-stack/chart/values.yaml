@@ -22,6 +22,7 @@ alertmanager:
       - name: heartbeat
         webhook_configs:
           - url_file: /etc/alertmanager/secrets/alertmanager-secrets/kuma
+            send_resolved: true
       - name: discord
         slack_configs:
           - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack
