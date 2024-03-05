@@ -30,9 +30,14 @@ loki:
         emptyDir: {}
       - name: rules
         emptyDir: {}
+      - name: riles-cm
+        configMap:
+          name: loki-rules
     extraVolumeMounts:
       - name: rules
         mountPath: /rules
+      - name: rules-cm
+        mountPath: /rules/fake
       - name: scratch
         mountPath: /tmp/scratch
 
