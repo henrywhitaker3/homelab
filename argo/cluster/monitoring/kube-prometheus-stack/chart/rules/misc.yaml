@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: pve
+      rules:
+        - alert: PVEDiskFillingUp
+          expr: (sum by (instance) (pve_disk_usage_bytes{id=~".*local-lvm"}) / sum by (instance) (pve_disk_size_bytes{id=~".*local-lvm"})) * 100 > 90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: PVE local-lvm disk filling on {{ $labels.instance }}
     - name: loki
       rules:
         - alert: LokiMetricsWriteFailed
