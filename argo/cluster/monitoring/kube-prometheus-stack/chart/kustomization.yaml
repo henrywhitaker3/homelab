@@ -6,6 +6,7 @@ resources:
   - secrets
   - scrapeconfigs
   - dashboards
+  - rules
 
 patches:
   - path: patches/prometheuses.yaml

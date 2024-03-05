@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: misc
+  labels:
+    prometheus: k8s
+    role: alert-rules
+spec:
+  groups:
+    - name: api
+      rules:
+        - alert: APIErrorRate
+          expr: ((rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) / rate(srep_requests_total[1m])) * 100) < 99.99
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: API Success Rate is < 99.99%
+        - alert: APIMysqlDown
+          expr: mysql_up{service="srep-mysql"} == 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: API MySQL is down
+        - alert: APIMysqlHighThreadsRunning
+          expr: max_over_time(mysql_global_status_threads_running{service="srep-mysql"}[1m]) / mysql_global_variables_max_connections{service="srep-mysql"} * 100 > 75
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: MySQL high threads running (instance {{ $labels.instance }})
+        - alert: APIRedisDown
+          expr: redis_up{service="srep-redis"} == 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Redis down (instance {{ $labels.instance }})
