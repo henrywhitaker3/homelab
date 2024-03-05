@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: loki
+      rules:
+        - alert: LokiMetricsWriteFailed
+          expr: sum (loki_ruler_wal_prometheus_remote_storage_samples_failed_total) > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Loki failed to write metrics to prometheus
     - name: longhorn
       rules:
         - alert: BackupFailed
