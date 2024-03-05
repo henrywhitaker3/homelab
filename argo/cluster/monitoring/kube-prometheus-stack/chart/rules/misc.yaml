@@ -22,6 +22,13 @@ spec:
             severity: critical
           annotations:
             summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
+        - alert: VolumeFillingUp
+          expr: ((avg by (pvc) (longhorn_volume_actual_size_bytes))/ (avg by (pvc) (longhorn_volume_capacity_bytes))) * 100 > 90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Volume {{ $labels.pvc }} is using > 90% of capactiy
     - name: vms
       rules:
         - alert: VMDown
