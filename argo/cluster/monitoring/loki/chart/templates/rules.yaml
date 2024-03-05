@@ -8,10 +8,10 @@ data:
   srep-ui.yaml: |
     groups:
       - name: ui
-        interval: 1m
+        interval: 30s
         rules:
           - record: srep_ui_requests_total_count
             expr: |
               sum(
-                count_over_time({app="srep-ui-chart"} |= `` | pattern `<_> - - <_> "<method> <url> <_>" <status> <size> <_> "<agent>" "<ip>"` [1m])
+                count_over_time({app="srep-ui-chart"} |= `` | pattern `<_> - - <_> "<method> <url> <_>" <status> <size> <_> "<agent>" "<ip>"` [30s])
               ) by(job, status, url, method, container, pod, instance)

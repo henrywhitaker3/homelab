@@ -4,6 +4,15 @@ metadata:
   name: srep
 spec:
   groups:
+    - name: ui
+      rules:
+        - alert: UIErrorRate
+          expr: ((rate(srep_ui_requests_total_count{code=~"2..|4..|3.."}[1m]) / rate(srep_ui_requests_total_count[1m])) * 100) < 99.99
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: UI Success Rate is < 99.99%
     - name: api
       rules:
         - alert: APIErrorRate
