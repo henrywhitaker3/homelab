@@ -13,6 +13,7 @@ configMapGenerator:
     files:
       - proxmox.json
       - longhorn.json
+      - overview.json
     options:
       labels:
         grafana_dashboard: "1"
