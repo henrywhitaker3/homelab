@@ -7,11 +7,31 @@ loki:
       type: 'filesystem'
     limits_config:
       retention_period: 168h
+    rulerConfig:
+      enable_alertmanager_v2: true
+      alertmanager_url: http://kube-prometheus-stack-alertmanager.monitoring.svc:9093
+      storage:
+        type: local
+        local:
+          directory: /tmp/rules
+      rule_path: /tmp/scratch
+
   singleBinary:
     replicas: 1
     persistence:
       storageClass: longhorn
       size: 5Gi
+    extraVolumes:
+      - name: rules
+        configMap:
+          name: loki-rules
+      - name: scratch
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: rules
+        mountPath: /tmp/rules
+      - name: scratch
+        mountPath: /tmp/scratch
 
   test:
     enabled: false
