@@ -7,7 +7,7 @@ generic:
   image:
     repository: linuxserver/plex
     pullPolicy: Always
-    tag: 1.40.0@sha256:2785162169f41bc732a204f16686ea27823b4faaab3e295849dac7f25b8ed97b
+    tag: 1.40.0@sha256:1242180c3f80dcaa6f15d481b3056ae62dfb25afcb0d3cd080c2fb6243f5cddd
 
   service:
     port: 32400
