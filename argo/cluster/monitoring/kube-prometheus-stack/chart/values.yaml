@@ -364,7 +364,8 @@ prometheus:
         static_configs:
           - targets:
             - 'jump.lab:8404'
-            - 'k8s.lab:8404'
+            - 'lb-1.lab:8404'
+            - 'lb-2.lab:8404'
 
       - job_name: 'mariadb'
         static_configs:
