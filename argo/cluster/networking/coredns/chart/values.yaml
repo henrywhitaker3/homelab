@@ -56,6 +56,7 @@ coredns:
             10.0.0.6 k8s.lab
             10.0.0.6 mariadb-write.lab
             10.0.0.7 mariadb-read.lab
+            10.0.0.9 unraid.lab
             fallthrough
         - name: prometheus
           parameters: 0.0.0.0:9153
