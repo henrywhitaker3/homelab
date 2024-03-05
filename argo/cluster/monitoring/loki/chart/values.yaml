@@ -26,14 +26,18 @@ loki:
       storageClass: longhorn
       size: 5Gi
     extraVolumes:
-      - name: rules
+      - name: rules-cm
         configMap:
           name: loki-rules
+      - name: rules
+        emptyDir: {}
       - name: scratch
         emptyDir: {}
     extraVolumeMounts:
       - name: rules
-        mountPath: /rules
+        mountPath: /rules/fakse
+      - name: rules-cm
+        mountPath: /rules/cm
       - name: scratch
         mountPath: /tmp/scratch
 
