@@ -168,6 +168,10 @@ grafana:
         gnetId: 14091
         revision: 1
         datasource: Prometheus
+      alertmanager:
+        gnetId: 9578
+        revision: 4
+        datasource: Prometheus
 
   additionalDataSources:
     - name: Loki
