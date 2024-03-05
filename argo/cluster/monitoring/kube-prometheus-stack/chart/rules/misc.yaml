@@ -7,12 +7,12 @@ spec:
     - name: pve
       rules:
         - alert: PVEDiskFillingUp
-          expr: (sum by (instance) (pve_disk_usage_bytes{id=~".*local-lvm"}) / sum by (instance) (pve_disk_size_bytes{id=~".*local-lvm"})) * 100 > 90
+          expr: (sum by (id) (pve_disk_usage_bytes{id=~".*local-lvm"}) / sum by (id) (pve_disk_size_bytes{id=~".*local-lvm"})) * 100 > 90
           for: 5m
           labels:
             severity: warning
           annotations:
-            summary: PVE local-lvm disk filling on {{ $labels.instance }}
+            summary: PVE local-lvm disk filling on {{ $labels.id }}
     - name: loki
       rules:
         - alert: LokiMetricsWriteFailed
