@@ -17,9 +17,16 @@ alertmanager:
         - receiver: discord
           matchers:
             - severity = critical
+        - receiver: discord_warn
+          matchers:
+            - severity = warning
     receivers:
       - name: "null"
       - name: heartbeat
+      - name: discord_warn
+        slack_configs:
+          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack_warn
+            send_resolved: true
       - name: discord
         slack_configs:
           - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack
