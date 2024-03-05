@@ -15,8 +15,8 @@ alertmanager:
             - alertname =~ "Watchdog"
           repeat_interval: 5m
         - receiver: discord
-          match:
-            severity: critical
+          matchers:
+            - severity = critical
     receivers:
       - name: "null"
       - name: heartbeat
