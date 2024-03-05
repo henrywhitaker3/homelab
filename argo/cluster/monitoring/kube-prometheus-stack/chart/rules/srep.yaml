@@ -1,10 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: misc
-  labels:
-    prometheus: k8s
-    role: alert-rules
+  name: srep
 spec:
   groups:
     - name: api
