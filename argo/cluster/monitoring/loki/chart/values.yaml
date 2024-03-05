@@ -5,6 +5,7 @@ loki:
       replication_factor: 1
     storage:
       type: 'filesystem'
+      rules_directory: /var/loki/rules
     limits_config:
       retention_period: 168h
     rulerConfig:
@@ -35,7 +36,7 @@ loki:
         emptyDir: {}
     extraVolumeMounts:
       - name: rules-cm
-        mountPath: /var/loki/rules
+        mountPath: /var/loki/rules/fake
       - name: rules
         mountPath: /rules
       - name: scratch
