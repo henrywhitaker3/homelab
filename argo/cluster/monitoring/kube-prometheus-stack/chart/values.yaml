@@ -202,6 +202,7 @@ prometheus:
     storageClass: longhorn
 
   prometheusSpec:
+    enableRemoteWriteReceiver: true
     scrapeConfigSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
