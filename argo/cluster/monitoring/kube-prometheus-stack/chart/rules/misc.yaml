@@ -7,7 +7,7 @@ spec:
     - name: loki
       rules:
         - alert: LokiMetricsWriteFailed
-          expr: sum (loki_ruler_wal_prometheus_remote_storage_samples_failed_total) > 0
+          expr: increase (loki_ruler_wal_prometheus_remote_storage_samples_failed_total[1m]) > 0
           for: 1m
           labels:
             severity: critical
