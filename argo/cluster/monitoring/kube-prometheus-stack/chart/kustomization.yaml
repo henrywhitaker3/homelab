@@ -3,8 +3,13 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - secrets/grafana.yaml
-  - secrets/alertmanager.yaml
+  - secrets
+  - scrapeconfigs
+  - dashboards
+
+patches:
+  - path: patches/prometheuses.yaml
+  - path: patches/prometheusagents.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
@@ -13,25 +18,3 @@ helmCharts:
     version: "56.21.1"
     repo: https://prometheus-community.github.io/helm-charts
     valuesFile: values.yaml
-
-patches:
-  - path: patches/prometheuses.yaml
-  - path: patches/prometheusagents.yaml
-
-configMapGenerator:
-  - name: srep-dashboards
-    files:
-      - dashboards/srep-api.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-      annotations:
-        grafana_folder: SREP
-  - name: misc-dashboards
-    files:
-      - dashboards/proxmox.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-      annotations:
-        grafana_folder: Custom

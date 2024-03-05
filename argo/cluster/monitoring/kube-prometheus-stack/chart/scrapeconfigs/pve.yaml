@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pve
+spec:
+  staticConfigs:
+    - targets:
+        - proxmox-1.lab
+        - proxmox-2.lab
+  metricsPath: /pve
+  params:
+    module: [default]
+  relabelings:
+    - sourceLabels: [__address__]
+      targetLabel: __param_target
+    - sourceLabels: [__param_target]
+      targetLabel: instance
+    - targetLabel: __address__
+      replacement: proxmox-exporter.monitoring.svc:9221

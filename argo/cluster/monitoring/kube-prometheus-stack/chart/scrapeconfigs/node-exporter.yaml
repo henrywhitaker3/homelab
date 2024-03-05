@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: node_exporter
+spec:
+  staticConfigs:
+    - targets:
+        - 'pihole.lab:9100'
+        - 'lb-1.lab:9100'
+        - 'lb-2.lab:9100'
+        - 'vpn-1.lab:9100'
+        - 'vpn-2.lab:9100'
+        - 'jump.lab:9100'
+        - 'proxmox-1.lab:9100'
+        - 'proxmox-2.lab:9100'
+        - 'k3s-control-1.lab:9100'
+        - 'k3s-control-2.lab:9100'
+        - 'k3s-control-3.lab:9100'
+        - 'k3s-worker-1.lab:9100'
+        - 'k3s-worker-2.lab:9100'
+        - 'mariadb-1.lab:9100'
+        - 'mariadb-2.lab:9100'
+  metricsPath: /metrics

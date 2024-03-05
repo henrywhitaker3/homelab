@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: haproxy
+spec:
+  staticConfigs:
+    - targets:
+        - 'jump.lab:8404'
+        - 'lb-1.lab:8404'
+        - 'lb-2.lab:8404'
+  metricsPath: /metrics
