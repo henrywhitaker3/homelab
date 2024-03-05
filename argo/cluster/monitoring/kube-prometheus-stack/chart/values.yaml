@@ -21,7 +21,7 @@ alertmanager:
       - name: "null"
       - name: heartbeat
         webhook_configs:
-          - url_file: /etc/alertmanager/secrets/alertmanager-secrets/kuma
+          - url: http://uptime-kuma.monitoring.svc:3001/api/push/YiR8xNCHCS?status=up&msg=OK&ping=/alertmanager
             send_resolved: true
       - name: discord
         slack_configs:
