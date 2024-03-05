@@ -35,7 +35,7 @@ loki:
         emptyDir: {}
     extraVolumeMounts:
       - name: rules
-        mountPath: /rules/fakse
+        mountPath: /rules
       - name: rules-cm
         mountPath: /rules/cm
       - name: scratch
