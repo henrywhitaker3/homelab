@@ -30,7 +30,7 @@ loki:
         emptyDir: {}
       - name: rules
         emptyDir: {}
-      - name: riles-cm
+      - name: rules-cm
         configMap:
           name: loki-rules
     extraVolumeMounts:
