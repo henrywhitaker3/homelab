@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: node_exporter
+  name: node-exporter
 spec:
   staticConfigs:
     - targets:
