@@ -9,3 +9,6 @@ spec:
         - 'lb-1.lab:8404'
         - 'lb-2.lab:8404'
   metricsPath: /metrics
+  relabelings:
+    - targetLabel: job
+      replacement: haproxy
