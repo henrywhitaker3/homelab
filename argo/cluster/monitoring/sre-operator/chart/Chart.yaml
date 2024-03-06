@@ -7,6 +7,7 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: sre-operator/chart
+  - name: chart
+    alias: sre
     version: "v0.1.1"
-    repository: oci://ghcr.io/henrywhitaker3
+    repository: oci://ghcr.io/henrywhitaker3/sre-operator
