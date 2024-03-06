@@ -13,7 +13,7 @@ spec:
   sources:
     - chart: sre-operator/chart
       repoURL: ghcr.io/henrywhitaker3
-      targetRevision: v0.1.0
+      targetRevision: v0.1.1
       helm:
         valueFiles:
           - $values/argo/cluster/monitoring/sre-operator/values.yaml
