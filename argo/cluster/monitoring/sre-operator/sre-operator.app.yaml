@@ -10,16 +10,10 @@ spec:
     namespace: monitoring
     server: https://kubernetes.default.svc
   project: srep
-  sources:
-    - chart: sre-operator/chart
-      repoURL: ghcr.io/henrywhitaker3
-      targetRevision: v0.1.1
-      helm:
-        valueFiles:
-          - $values/argo/cluster/monitoring/sre-operator/values.yaml
-    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: main
-      ref: values
+  source:
+    path: argo/cluster/monitoring/sre-operator/chart
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true

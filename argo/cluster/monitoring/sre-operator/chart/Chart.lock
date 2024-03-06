@@ -1,0 +1,6 @@
+dependencies:
+- name: sre-operator/chart
+  repository: oci://ghcr.io/henrywhitaker3
+  version: v0.1.1
+digest: sha256:8ef3e3258570e9e4a0aaad93ad68397db492600f5938d99b8f8c0d769b40be82
+generated: "2024-03-06T15:59:47.934222579Z"
