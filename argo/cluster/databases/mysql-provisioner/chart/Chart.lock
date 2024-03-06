@@ -1,6 +1,0 @@
-dependencies:
-- name: mysql-provisioner
-  repository: https://henrywhitaker3.github.io/mysql-provisioner
-  version: 0.1.8
-digest: sha256:469f2ea0693512aa281bb47626839f126b4bc48c826902cb26633cb519c60d42
-generated: "2023-06-12T14:35:48.348828654Z"
