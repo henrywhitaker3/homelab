@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sre-operator
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: srep
+  sources:
+    - chart: sre-operator/chart
+      repoURL: ghcr.io/henrywhitaker3
+      targetRevision: v0.1.0
+      helm:
+        valueFiles:
+          - $values/argo/cluster/monitoring/sre-operator/values.yaml
+    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+      targetRevision: main
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
