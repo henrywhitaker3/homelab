@@ -13,7 +13,7 @@ alertmanager:
           group_wait: 0s
           matchers:
             - alertname =~ "Watchdog"
-          repeat_interval: 5m
+          repeat_interval: 1m
         - receiver: discord
           matchers:
             - severity = critical
