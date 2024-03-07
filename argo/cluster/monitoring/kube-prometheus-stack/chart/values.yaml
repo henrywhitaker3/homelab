@@ -8,7 +8,7 @@ alertmanager:
       group_by:
         - alertname
       routes:
-        - receiver: discord_warn
+        - receiver: heartbeat
           group_interval: 1m
           group_wait: 0s
           matchers:
@@ -26,8 +26,8 @@ alertmanager:
         webhook_configs:
           - url_file: /etc/alertmanager/secrets/alertmanager-secrets/heartbeat
       - name: discord_warn
-        discord_configs:
-          - webhook_url_file: /etc/alertmanager/secrets/alertmanager-secrets/discord_warn
+        slack_configs:
+          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack_warn
             send_resolved: true
       - name: discord
         slack_configs:
