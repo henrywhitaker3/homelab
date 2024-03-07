@@ -10,7 +10,7 @@ route:
     - alertname
 
   routes:
-    - receiver: discord_warn
+    - receiver: heartbeat
       matchers:
         - alertname=~"Watchdog"
       group_wait: 0s
@@ -52,14 +52,14 @@ receivers:
   - name: "null"
   - name: heartbeat
     webhook_configs:
-    - url: "{{ .heartbeat }}"
+      - url: "{{ .heartbeat }}"
   - name: discord_warn
     discord_configs:
-    - webhook_url: "{{ .discord_warn }}"
-      send_resolved: true
+      - webhook_url: "{{ .discord_warn }}"
+        send_resolved: true
   - name: discord
-    slack_configs:
-    - api_url: "{{ .slack }}"
-      send_resolved: true
+    discord_configs:
+      - webhook_url: "{{ .discord }}"
+        send_resolved: true
 templates:
   - /etc/alertmanager/config/*.tmpl
