@@ -8,7 +8,6 @@ crog_actions:
     when:
       start: "{{ healthcheck }}/start"
       success: "{{ healthcheck }}"
-      failure: "{{ healthcheck }}/fail"
 
 mariadb_replication_enabled: true
 mariadb_bind_address: "0.0.0.0"

@@ -6,4 +6,3 @@ crog_actions:
     when:
       start: "{{ healthchecks[inventory_hostname] }}/start"
       success: "{{ healthchecks[inventory_hostname] }}"
-      failure: "{{ healthchecks[inventory_hostname] }}/fail"

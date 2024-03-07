@@ -12,7 +12,6 @@ crog_actions:
     when:
       start: "{{ healthcheck }}/start"
       success: "{{ healthcheck }}"
-      failure: "{{ healthcheck }}/fail"
 
 haproxy_listeners:
   - name: k3s-api

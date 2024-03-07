@@ -162,3 +162,20 @@ resource "healthchecksio_check" "mariadb" {
     data.healthchecksio_channel.discord.id,
   ]
 }
+
+resource "healthchecksio_check" "alertmanager" {
+  name = "alertmanager"
+  desc = "Checks alertmanager heartbeat is firing"
+
+  tags = [
+    "alertmanager"
+  ]
+
+  grace    = 120 # seconds
+  schedule = "* * * * *"
+  timezone = "UTC"
+
+  channels = [
+    data.healthchecksio_channel.discord.id,
+  ]
+}

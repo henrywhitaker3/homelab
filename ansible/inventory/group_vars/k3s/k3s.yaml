@@ -51,4 +51,3 @@ crog_actions:
     when:
       start: "{{ healthcheck }}/start"
       success: "{{ healthcheck }}"
-      failure: "{{ healthcheck }}/fail"
