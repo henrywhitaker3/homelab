@@ -56,12 +56,10 @@ receivers:
   - name: discord_warn
     slack_configs:
     - api_url: "{{ .slack_warn }}"
-      title: '{{ template "discord.default.title" . }}'
       send_resolved: true
   - name: discord
     slack_configs:
     - api_url: "{{ .slack }}"
-      title: '{{ template "discord.default.title" . }}'
       send_resolved: true
 templates:
   - /etc/alertmanager/config/*.tmpl
