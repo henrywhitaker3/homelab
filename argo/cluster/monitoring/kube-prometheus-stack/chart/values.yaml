@@ -8,7 +8,7 @@ alertmanager:
       group_by:
         - alertname
       routes:
-        - receiver: heartbeat
+        - receiver: discord_warn
           group_interval: 1m
           group_wait: 0s
           matchers:
