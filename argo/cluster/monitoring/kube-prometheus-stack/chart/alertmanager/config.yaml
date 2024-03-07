@@ -1,0 +1,67 @@
+global:
+  resolve_timeout: 5m
+route:
+  receiver: "null"
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+
+  group_by:
+    - alertname
+
+  routes:
+    - receiver: heartbeat
+      matchers:
+        - alertname=~"Watchdog"
+      group_wait: 0s
+      group_interval: 1m
+
+    - receiver: discord
+      matchers:
+        - severity="critical"
+
+    - receiver: discord_warn
+      matchers:
+        - severity="warning"
+
+inhibit_rules:
+  - source_matchers:
+      - severity="critical"
+    target_matchers:
+      - severity=~"warning|info"
+    equal:
+      - namespace
+      - alertname
+  - source_matchers:
+      - severity="warning"
+    target_matchers:
+      - severity="info"
+    equal:
+      - namespace
+      - alertname
+  - source_matchers:
+      - alertname="InfoInhibitor"
+    target_matchers:
+      - severity="info"
+    equal:
+      - namespace
+  - target_matchers:
+      - alertname="InfoInhibitor"
+
+receivers:
+  - name: "null"
+  - name: heartbeat
+    webhook_configs:
+    - url: "{{ .heartbeat }}"
+  - name: discord_warn
+    slack_configs:
+    - api_url: "{{ .slack_warn }}"
+      title: '{{ template "discord.default.title" . }}'
+      send_resolved: true
+  - name: discord
+    slack_configs:
+    - api_url: "{{ .slack }}"
+      title: '{{ template "discord.default.title" . }}'
+      send_resolved: true
+templates:
+  - /etc/alertmanager/config/*.tmpl

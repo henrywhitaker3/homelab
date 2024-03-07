@@ -3,46 +3,10 @@ namespaceOverride: monitoring
 alertmanager:
   enabled: true
 
-  config:
-    route:
-      group_by:
-        - alertname
-      routes:
-        - receiver: discord_warn
-          group_interval: 1m
-          group_wait: 0s
-          matchers:
-            - alertname =~ "Watchdog"
-          repeat_interval: 1m
-        - receiver: discord
-          matchers:
-            - severity = critical
-        - receiver: discord_warn
-          matchers:
-            - severity = warning
-    receivers:
-      - name: "null"
-      - name: heartbeat
-        webhook_configs:
-          - url_file: /etc/alertmanager/secrets/alertmanager-secrets/heartbeat
-      - name: discord_warn
-        slack_configs:
-          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack_warn
-            send_resolved: true
-            title:   '{{ template "discord.default.title" . }}'
-            message: '{{ template "discord.default.message" . }}'
-
-      - name: discord
-        slack_configs:
-          - api_url_file: /etc/alertmanager/secrets/alertmanager-secrets/slack
-            send_resolved: true
-            title:   '{{ template "discord.default.title" . }}'
-            message: '{{ template "discord.default.message" . }}'
-
   alertmanagerSpec:
     replicas: 2
-    secrets:
-      - alertmanager-secrets
+    useExistingSecret: true
+    configSecret: alertmanager-config
 
   ingress:
     enabled: true

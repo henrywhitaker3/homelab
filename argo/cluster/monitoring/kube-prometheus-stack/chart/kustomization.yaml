@@ -7,6 +7,7 @@ resources:
   - scrapeconfigs
   - dashboards
   - rules
+  - alertmanager
 
 patches:
   - path: patches/prometheuses.yaml
