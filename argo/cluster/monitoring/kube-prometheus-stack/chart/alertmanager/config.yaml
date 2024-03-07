@@ -10,7 +10,7 @@ route:
     - alertname
 
   routes:
-    - receiver: "null"
+    - receiver: heartbeat
       matchers:
         - alertname=~"Watchdog"
       group_wait: 0s
