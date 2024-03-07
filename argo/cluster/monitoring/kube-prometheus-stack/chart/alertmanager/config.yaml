@@ -10,7 +10,7 @@ route:
     - alertname
 
   routes:
-    - receiver: heartbeat
+    - receiver: discord_warn
       matchers:
         - alertname=~"Watchdog"
       group_wait: 0s
@@ -54,8 +54,8 @@ receivers:
     webhook_configs:
     - url: "{{ .heartbeat }}"
   - name: discord_warn
-    slack_configs:
-    - api_url: "{{ .slack_warn }}"
+    discord_configs:
+    - webhook_url: "{{ .discord_warn }}"
       send_resolved: true
   - name: discord
     slack_configs:
