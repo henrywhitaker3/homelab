@@ -15,6 +15,7 @@ route:
         - alertname=~"Watchdog"
       group_wait: 0s
       group_interval: 1m
+      repeat_interval: 1m
 
     - receiver: discord
       matchers:
