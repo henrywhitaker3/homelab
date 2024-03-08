@@ -37,6 +37,9 @@ loki:
       - name: rules-cm
         mountPath: /rules/fake/srep-ui.yaml
         subPath: srep-ui.yaml
+      - name: rules-cm
+        mountPath: /rules/fake/srep-api.yaml
+        subPath: srep-api.yaml
       - name: scratch
         mountPath: /tmp/scratch
 
