@@ -17,6 +17,10 @@ route:
       group_interval: 1m
       repeat_interval: 1m
 
+    - receiver: discord_no_resolve
+      matchers:
+        - severity="critical"
+        - autoresolve="false"
     - receiver: discord
       matchers:
         - severity="critical"
@@ -59,6 +63,10 @@ receivers:
       - webhook_url: "{{ .discord_warn }}"
         send_resolved: true
   - name: discord
+    discord_configs:
+      - webhook_url: "{{ .discord }}"
+        send_resolved: true
+  - name: discord_no_resolve
     discord_configs:
       - webhook_url: "{{ .discord }}"
         send_resolved: true
