@@ -38,6 +38,14 @@ spec:
             autoresolve: "false"
           annotations:
             summary: API Success Rate is < 99.99%
+        - alert: APIErrorLogs
+          expr: |
+            sum by (msg) (srep_api_error_log_count or vector(0)) > 5
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: More than 5 {{ $labels.msg }} errors seen in last 5 minutes
         - alert: APIMysqlDown
           expr: mysql_up{service="srep-mysql"} == 0
           for: 0m
