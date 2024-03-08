@@ -231,8 +231,8 @@
             "uid": "prometheus"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "avg(rate(srep_requests_total{code=~\"2..|4..|3..\"}[$__rate_interval]))",
+          "editorMode": "code",
+          "expr": "sum(rate(srep_requests_total{code=~\"2..|4..|3..\"}[$__rate_interval]) or vector(0))",
           "fullMetaSearch": false,
           "hide": true,
           "includeNullMetadata": true,
@@ -249,7 +249,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "avg(rate(srep_requests_total{code=~\"5..\"}[$__rate_interval])) or vector(0)",
+          "expr": "sum(rate(srep_requests_total{code=~\"5..\"}[$__rate_interval])) or vector(0)",
           "fullMetaSearch": false,
           "hide": true,
           "includeNullMetadata": true,
@@ -1059,8 +1059,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1161,8 +1160,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1225,13 +1223,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "API",
   "uid": "a902d6ff-d46b-40a2-848e-a02743b90cbf",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

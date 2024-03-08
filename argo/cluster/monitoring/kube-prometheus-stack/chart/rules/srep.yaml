@@ -16,7 +16,10 @@ spec:
     - name: api
       rules:
         - alert: APIErrorRate
-          expr: ((rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) / rate(srep_requests_total[1m])) * 100) < 99.99
+          expr: |
+            ((sum(rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) or vector(0))
+              /
+            sum(rate(srep_requests_total[1m]) or vector(0))) * 100) < 99.99
           for: 1m
           labels:
             severity: critical
