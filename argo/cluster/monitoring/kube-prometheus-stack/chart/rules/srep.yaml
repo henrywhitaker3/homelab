@@ -8,9 +8,11 @@ spec:
       rules:
         - alert: UIErrorRate
           expr: |
-            ((sum(rate(srep_ui_requests_total_count{status=~"2..|4..|3.."}[1m]) or vector(0))
-              /
-            sum(rate(srep_ui_requests_total_count[1m]) or vector(0))) * 100) < 99.99
+            (
+              (sum(rate(srep_ui_requests_total_count{status=~"2..|4..|3.."}[1m]) or vector(0))
+                /
+              (sum(rate(srep_ui_requests_total_count[1m]) or vector(0)))
+            ) * 100) < 99.99
           for: 1m
           labels:
             severity: critical
@@ -21,9 +23,11 @@ spec:
       rules:
         - alert: APIErrorRate
           expr: |
-            ((sum(rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) or vector(0))
-              /
-            sum(rate(srep_requests_total[1m]) or vector(0))) * 100) < 99.99
+            (
+              (sum(rate(srep_requests_total{code=~"2..|4..|3.."}[1m]) or vector(0))
+                /
+              (sum(rate(srep_requests_total[1m]) or vector(0)))
+            ) * 100) < 99.99
           for: 1m
           labels:
             severity: critical
