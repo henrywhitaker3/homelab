@@ -171,8 +171,8 @@ resource "healthchecksio_check" "alertmanager" {
     "alertmanager"
   ]
 
+  timeout = 60 # seconds
   grace    = 120 # seconds
-  schedule = "* * * * *"
   timezone = "UTC"
 
   channels = [
