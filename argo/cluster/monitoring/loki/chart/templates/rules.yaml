@@ -5,6 +5,16 @@ metadata:
   labels:
     loki_rule: ""
 data:
+  srep-api.yaml: |
+    groups:
+      - name: api
+        interval: 30s
+        rules:
+          - record: srep_api_error_log_count
+            expr: |
+              sum (
+                count_over_time({job="srep/srep-api-chart"} != `latency_human` | json | level = `error` | __error__=`` [30s])
+              ) by (type, msg, caller)
   srep-ui.yaml: |
     groups:
       - name: ui
