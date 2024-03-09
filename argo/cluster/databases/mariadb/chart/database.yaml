@@ -10,15 +10,12 @@ spec:
   galera:
     enabled: true
     config:
-      volumeClaimTemplate:
-        storageClassName: longhorn-single-replica
-        resources:
-          requests:
-            storage: 64M
-        accessModes:
-          - ReadWriteOnce
+      reuseStorageVolume: true
     recovery:
       enabled: true
+
+  podSecurityContext:
+    runAsUser: 0
 
   rootPasswordSecretKeyRef:
     name: mariadb-secrets
