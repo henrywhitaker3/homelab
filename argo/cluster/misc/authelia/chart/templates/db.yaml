@@ -7,7 +7,7 @@ spec:
     name: mariadb
     namespace: databases
 ---
-apiVersion: k8s.mariadb.com
+apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
   name: authelia
@@ -23,7 +23,7 @@ spec:
     name: mariadb
     namespace: databases
 ---
-apiVersion: k8s.mariadb.com
+apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: authlia-grant
