@@ -46,8 +46,6 @@ spec:
 
   metrics:
     enabled: true
-    serviceMonitor:
-      enabled: true
 
   service:
     type: LoadBalancer
