@@ -1,6 +1,6 @@
 dependencies:
-- name: generic
-  repository: oci://ghcr.io/henrywhitaker3
-  version: v1.3.4
-digest: sha256:52d4e590a69b90d3428c02ecbc01bc0eaecdbaa840769ef4bbf2e7f0671bd3d7
-generated: "2024-02-29T21:05:23.221573097Z"
+- name: mariadb-operator
+  repository: https://mariadb-operator.github.io/mariadb-operator
+  version: 0.27.0
+digest: sha256:c1631e1f6822e74d2af178139c33bd01d709ddb65d923fbc7a378f084e185da1
+generated: "2024-03-09T00:25:29.723674835Z"
