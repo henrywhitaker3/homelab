@@ -41,6 +41,7 @@ generic:
     timeoutSeconds: 3
 
   config:
+    APP_URL: docs.plexmox.com
     PUID: "1000"
     PGID: "1000"
     TZ:  Europe/London
