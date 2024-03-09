@@ -44,6 +44,11 @@ spec:
       cpu: 300m
       memory: 512Mi
 
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
   service:
     type: LoadBalancer
     loadBalancerIP: 10.0.0.28
