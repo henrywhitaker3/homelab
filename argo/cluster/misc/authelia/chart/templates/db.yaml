@@ -1,0 +1,38 @@
+apiVerison: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: authelia-db
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
+---
+apiVersion: k8s.mariadb.com
+kind: User
+metadata:
+  name: authelia
+spec:
+  name: authelia
+  host: '%'
+
+  passwordSecretKeyRef:
+    name: mariadb-authelia-password
+    key: password
+
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
+---
+apiVersion: k8s.mariadb.com
+kind: Grant
+metadata:
+  name: authlia-grant
+spec:
+  database: authelia
+  table: "*"
+  privileges: [ALL]
+  username: authelia
+
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
