@@ -37,6 +37,7 @@ generic:
     type: Recreate
 
   probes:
+    path: /status
     initialDelaySeconds: 15
     timeoutSeconds: 3
 
