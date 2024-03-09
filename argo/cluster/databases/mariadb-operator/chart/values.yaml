@@ -1,12 +1,11 @@
-mariadb-operator:
-  ha:
-    enabled: true
-    replicas: 3
+ha:
+  enabled: true
+  replicas: 3
 
-  metrics:
-    enabled: true
+metrics:
+  enabled: true
 
-  webhook:
-    cert:
-      certManager:
-        enabled: true
+webhook:
+  cert:
+    certManager:
+      enabled: true
