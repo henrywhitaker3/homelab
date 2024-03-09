@@ -10,7 +10,13 @@ spec:
   galera:
     enabled: true
     config:
-      reuseStorageVolume: true
+      volumeClaimTemplate:
+        storageClassName: longhorn-single-replica
+        resources:
+          requests:
+            storage: 64M
+        accessModes:
+          - ReadWriteOnce
     recovery:
       enabled: true
 
