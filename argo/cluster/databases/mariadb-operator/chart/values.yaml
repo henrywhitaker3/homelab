@@ -1,0 +1,12 @@
+mariadb-operator:
+  ha:
+    enabled: true
+    replicas: 3
+
+  metrics:
+    enabled: true
+
+  webhook:
+    cert:
+      certManager:
+        enabled: true
