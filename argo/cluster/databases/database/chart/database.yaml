@@ -1,0 +1,44 @@
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+spec:
+  port: 3306
+
+  replicas: 3
+
+  galera:
+    enabled: true
+    config:
+      reuseStorageVolume: true
+    recovery:
+      enabled: true
+
+  rootPasswordSecretKeyRef:
+    name: mariadb-secrets
+    key: root-password
+
+  # bootstrapFrom:
+  #   backupRef:
+  #     name: mariabackup
+
+  storage:
+    volumeClaimTemplate:
+      storageClassName: longhorn-single-replica
+      resources:
+        requests:
+          storage: 10Gi
+      accessModes:
+        - ReadWriteOnce
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 10.0.0.28
