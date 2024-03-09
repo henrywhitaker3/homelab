@@ -23,3 +23,16 @@ spec:
   retain: 0
   groups:
     - default
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: hourly
+spec:
+  name: hourly
+  cron: 0 * * * *
+  task: backup
+  concurrency: 1
+  retain: 3
+  groups:
+    - hourly
