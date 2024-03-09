@@ -1,0 +1,38 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: bookstack
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: bookstack
+spec:
+  name: bookstack
+  host: '%'
+
+  passwordSecretKeyRef:
+    name: bookstack
+    key: DB_PASSWORD
+
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: bookstack-grant
+spec:
+  database: bookstack
+  table: "*"
+  privileges: [ALL]
+  username: bookstack
+
+  mariaDbRef:
+    name: mariadb
+    namespace: databases

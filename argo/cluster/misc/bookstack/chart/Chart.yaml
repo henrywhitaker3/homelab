@@ -1,12 +1,11 @@
 apiVersion: v2
-name: vscode
-description: vscode chart
+name: bookstack
+description: bookstack manifests
 type: application
-
 version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
   - name: generic
+    version: "v1.3.4"
     repository: oci://ghcr.io/henrywhitaker3
-    version: v1.3.4

@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: smb-provisioner
+  name: authelia
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: kube-system
+    namespace: authelia
     server: https://kubernetes.default.svc
-  project: cluster
+  project: apps
   source:
-    path: argo/cluster/storage/smb-provisioner/chart
+    path: argo/cluster/misc/authelia/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
