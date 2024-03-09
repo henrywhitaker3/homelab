@@ -8,6 +8,4 @@ reclaimPolicy: Delete
 volumeBindingMode: Immediate
 parameters:
   numberOfReplicas: "1"
-  recurringJobSelector:
-    - name: hourly
-      isGroup: true
+  recurringJobSelector: '[{"name":"hourly", "isGroup":true}]'
