@@ -16,8 +16,8 @@ spec:
   host: '%'
 
   passwordSecretKeyRef:
-    name: mariadb-authelia-password
-    key: password
+    name: authelia-secrets
+    key: STORAGE_PASSWORD
 
   mariaDbRef:
     name: mariadb
