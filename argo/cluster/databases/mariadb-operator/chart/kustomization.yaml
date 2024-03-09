@@ -9,6 +9,7 @@ helmCharts:
   - name: mariadb-operator
     includeCRDs: true
     releaseName: mariadb-operator
+    namespace: databases
     version: "0.27.0"
     repo: https://mariadb-operator.github.io/mariadb-operator
     valuesFile: values.yaml
