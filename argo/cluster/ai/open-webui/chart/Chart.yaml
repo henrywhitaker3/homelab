@@ -9,4 +9,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: generic
     repository: oci://ghcr.io/henrywhitaker3
-    version: v1.3.4
+    version: v1.3.5
