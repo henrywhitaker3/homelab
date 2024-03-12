@@ -173,7 +173,6 @@ resource "healthchecksio_check" "alertmanager" {
 
   timeout = 60 # seconds
   grace    = 120 # seconds
-  timezone = "UTC"
 
   channels = [
     data.healthchecksio_channel.discord.id,
