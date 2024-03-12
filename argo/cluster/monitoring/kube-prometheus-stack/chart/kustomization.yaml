@@ -12,6 +12,7 @@ resources:
 patches:
   - path: patches/prometheuses.yaml
   - path: patches/prometheusagents.yaml
+  - path: patches/alertmanagers.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
