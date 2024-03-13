@@ -9,6 +9,9 @@ spec:
     cron: "0 */2 * * *"
   maxRetention: 72h
 
+  podSecurityContext:
+    runAsUser: 0
+
   storage:
     persistentVolumeClaim:
       storageClassName: longhorn-single-hourly
