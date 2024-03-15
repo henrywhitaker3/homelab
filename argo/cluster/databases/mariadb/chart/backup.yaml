@@ -6,7 +6,7 @@ spec:
   mariaDbRef:
     name: mariadb
   schedule:
-    cron: "0 * * * *"
+    cron: "15 * * * *"
   maxRetention: 72h
 
   podSecurityContext:
