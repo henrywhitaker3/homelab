@@ -15,7 +15,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com
+      endpoint: 18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com
       accessKeyIdSecretKeyRef:
         name: mariadb-r2
         key: access-key-id
