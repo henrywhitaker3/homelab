@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
-  project: srep
+  project: apps
   source:
     path: argo/cluster/monitoring/sre-operator/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
