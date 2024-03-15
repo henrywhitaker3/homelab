@@ -6,18 +6,21 @@ spec:
   mariaDbRef:
     name: mariadb
   schedule:
-    cron: "0 */6 * * *"
+    cron: "0 * * * *"
   maxRetention: 72h
 
   podSecurityContext:
     runAsUser: 0
 
   storage:
-    persistentVolumeClaim:
-      storageClassName: longhorn-single-hourly
-
-      resources:
-        requests:
-          storage: 15Gi
-      accessModes:
-        - ReadWriteOnce
+    s3:
+      bucket: mariadb
+      endpoint: https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com
+      accessKeyIdSecretKeyRef:
+        name: mariadb-r2
+        key: access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-r2
+        key: secret-access-key
+      tls:
+        enabled: true
