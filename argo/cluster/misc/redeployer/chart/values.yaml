@@ -52,9 +52,6 @@ jobs:
   - name: kuma
     command: kubectl -n monitoring rollout restart deployment uptime-kuma
     schedule: "0 4 * * *"
-  - name: vscode
-    command: kubectl -n misc rollout restart deployment vscode
-    schedule: "0 4 * * 6"
   - name: rebalanace-plex
     schedule: "*/5 * * * *"
     command: |
