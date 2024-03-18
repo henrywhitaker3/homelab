@@ -4,6 +4,13 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: playground
+      rules:
+        - record: srep_request_latency_seconds
+          expr: |
+            sum by (url, method) (rate(srep_request_duration_seconds_sum[30s]))
+              /
+            sum by (url, method) (rate(srep_request_duration_seconds_count[30s]))
     - name: pve
       rules:
         - alert: PVEDiskFillingUp
