@@ -213,6 +213,7 @@
       },
       "id": 6,
       "options": {
+        "alertInstanceLabelFilter": "",
         "alertName": "",
         "dashboardAlerts": false,
         "groupBy": [],
@@ -545,7 +546,7 @@
       "type": "piechart"
     }
   ],
-  "refresh": "",
+  "refresh": "30s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
