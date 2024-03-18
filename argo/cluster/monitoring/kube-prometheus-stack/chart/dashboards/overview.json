@@ -50,7 +50,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 0,
         "y": 0
@@ -153,7 +153,7 @@
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
         "x": 4,
         "y": 0
@@ -278,7 +278,7 @@
         "h": 5,
         "w": 2,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 1,
       "options": {
@@ -361,7 +361,7 @@
         "h": 5,
         "w": 2,
         "x": 2,
-        "y": 4
+        "y": 5
       },
       "id": 2,
       "options": {
@@ -502,7 +502,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "id": 4,
       "options": {
@@ -532,12 +532,13 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
+          "exemplar": false,
           "expr": "sum by(health_status) (last_over_time(argocd_app_info[$__interval]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "instant": false,
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A",
           "useBackend": false
         }
@@ -628,10 +629,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 11,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 10
       },
       "id": 7,
       "options": {
