@@ -124,8 +124,8 @@ spec:
           annotations:
             summary: Galera backup job failed
         - alert: MysqlDown
-          expr: mysql_up{service!~"srep.*"} == 0
-          for: 0m
+          expr: mysql_up == 0
+          for: 1m
           labels:
             severity: critical
           annotations:
@@ -138,8 +138,8 @@ spec:
           annotations:
             summary: MySQL high threads running (instance {{ $labels.instance }})
         - alert: RedisDown
-          expr: redis_up{service!~"srep*"} == 0
-          for: 0m
+          expr: redis_up == 0
+          for: 1m
           labels:
             severity: critical
           annotations:
