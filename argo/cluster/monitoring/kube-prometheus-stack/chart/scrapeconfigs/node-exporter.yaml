@@ -18,8 +18,6 @@ spec:
         - 'k3s-control-3.lab:9100'
         - 'k3s-worker-1.lab:9100'
         - 'k3s-worker-2.lab:9100'
-        - 'mariadb-1.lab:9100'
-        - 'mariadb-2.lab:9100'
         - 'unraid.lab:9100'
   metricsPath: /metrics
   relabelings:

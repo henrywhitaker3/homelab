@@ -143,26 +143,6 @@ resource "healthchecksio_check" "k3s_control" {
   ]
 }
 
-resource "healthchecksio_check" "mariadb" {
-  count = 2
-
-  name = "mariadb-${count.index + 1}"
-  desc = "Checks the mariadb node is up"
-
-  tags = [
-    "mariadb",
-    "db"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
 resource "healthchecksio_check" "alertmanager" {
   name = "alertmanager"
   desc = "Checks alertmanager heartbeat is firing"

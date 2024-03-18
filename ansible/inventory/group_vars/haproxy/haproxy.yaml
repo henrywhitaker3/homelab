@@ -28,21 +28,3 @@ haproxy_listeners:
       server {{ host }} {{ hostvars[host].ansible_host }}:6443 check-ssl verify none
       {% endif %}
       {% endfor %}
-  - name: mariadb-write
-    bind: 10.0.0.6:3306
-    mode: tcp
-    balance: leastconn
-    servers: |
-      {% for host in groups['mariadb'] %}
-      {% if hostvars[host].mariadb_primary is defined and hostvars[host].mariadb_primary %}
-      server {{ host }} {{ hostvars[host].ansible_host }}:3306 check
-      {% endif %}
-      {% endfor %}
-  - name: mariadb-read
-    bind: 10.0.0.7:3306
-    mode: tcp
-    balance: leastconn
-    servers: |
-      {% for host in groups['mariadb'] %}
-      server {{ host }} {{ hostvars[host].ansible_host }}:3306 check
-      {% endfor %}

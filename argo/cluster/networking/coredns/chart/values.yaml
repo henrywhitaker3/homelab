@@ -48,14 +48,10 @@ coredns:
             10.0.0.24 k3s-control-3.lab
             10.0.0.20 k3s-worker-1.lab
             10.0.0.21 k3s-worker-2.lab
-            10.0.0.15 mariadb-1.lab
-            10.0.0.16 mariadb-2.lab
             10.0.0.13 vpn.lab
             10.0.0.26 plex.lab
             10.0.0.35 redis.lab
             10.0.0.6 k8s.lab
-            10.0.0.6 mariadb-write.lab
-            10.0.0.7 mariadb-read.lab
             10.0.0.9 unraid.lab
             fallthrough
         - name: prometheus
