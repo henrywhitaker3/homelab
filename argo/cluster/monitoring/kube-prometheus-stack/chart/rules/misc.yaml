@@ -11,6 +11,11 @@ spec:
             sum by (url) (rate(srep_request_duration_seconds_sum[30s]))
               /
             sum by (url) (rate(srep_request_duration_seconds_count[30s]))
+        - record: srep_shell_latency_seconds
+          expr: |
+            sum by (url) (rate(srep_shell_latency_sum[30s]))
+              /
+            sum by (url) (rate(srep_shell_latency_count[30s]))
     - name: pve
       rules:
         - alert: PVEDiskFillingUp
