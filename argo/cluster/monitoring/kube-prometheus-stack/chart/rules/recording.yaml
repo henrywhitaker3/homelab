@@ -1,0 +1,60 @@
+apiVerison: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: recording-rules
+spec:
+  groups:
+    - name: anomalies
+      rules:
+        - record: anomaly:node_cpu_seconds_idle_1w
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_cpu_seconds_total{mode="idle"}[5m])
+                  -
+                rate(node_cpu_seconds_total{mode="idle"}[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(node_cpu_seconds_total{mode="idle"}[1w])
+              )
+            )
+        - record: anomaly:node_network_receive_bytes_1w
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_network_receive_bytes_total[5m])
+                  -
+                rate(node_network_receive_bytes_total[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(node_network_receive_bytes_total[1w])
+              )
+            )
+        - record: anomaly:node_network_transmit_bytes_1w
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_network_transmit_bytes_total[5m])
+                  -
+                rate(node_network_transmit_bytes_total[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(node_network_transmit_bytes_total[1w])
+              )
+            )
+        - record: anomaly:node_load5_1w
+          expr: |
+            sum by (instance) (
+              (
+                avg_over_time(node_load5[5m])
+                  -
+                avg_over_time(node_load5[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(node_load5[1w])
+              )
+            )
