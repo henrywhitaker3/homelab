@@ -19,12 +19,14 @@ spec:
         - alert: APILatencyAnomaly
           expr: |
             (
-              avg_over_time(srep_request_latency_seconds[1m])
-                -
-              avg_over_time(srep_request_latency_seconds[1d])
-            )
-              /
-            stddev_over_time(srep_request_latency_seconds[1d])
+              (
+                avg_over_time(srep_request_latency_seconds[1m])
+                  -
+                avg_over_time(srep_request_latency_seconds[1d])
+              )
+                /
+              stddev_over_time(srep_request_latency_seconds[1d])
+            ) > 3
           for: 5m
           labels:
             severity: warning
