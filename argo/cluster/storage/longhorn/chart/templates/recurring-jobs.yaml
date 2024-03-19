@@ -14,25 +14,12 @@ spec:
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: nightly-trim
+  name: six-hourly-trim
 spec:
-  name: nightly-trim
-  cron: 0 0 * * *
+  name: six-hourly-trim
+  cron: 0 */6 * * *
   task: filesystem-trim
   concurrency: 1
   retain: 0
   groups:
     - default
----
-apiVersion: longhorn.io/v1beta2
-kind: RecurringJob
-metadata:
-  name: hourly
-spec:
-  name: hourly
-  cron: 0 * * * *
-  task: backup
-  concurrency: 1
-  retain: 3
-  groups:
-    - hourly
