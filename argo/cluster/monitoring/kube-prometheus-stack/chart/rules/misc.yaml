@@ -16,6 +16,21 @@ spec:
             sum by (url) (rate(srep_shell_latency_sum[30s]))
               /
             sum by (url) (rate(srep_shell_latency_count[30s]))
+        - alert: APILatencyAnomaly
+          expr: |
+            (
+              avg_over_time(srep_request_latency_seconds[1m])
+                -
+              avg_over_time(srep_request_latency_seconds[1d])
+            )
+              /
+            stddev_over_time(srep_request_latency_seconds[1d])
+          for: 5m
+          labels:
+            severity: warning
+            experimental: "true"
+          annotations:
+            summary: Request latency anomaly for {{ $labels.url }}
     - name: pve
       rules:
         - alert: PVEDiskFillingUp
