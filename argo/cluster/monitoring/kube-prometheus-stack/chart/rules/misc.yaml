@@ -97,6 +97,27 @@ spec:
             severity: critical
           annotations:
             summary: Target {{ $labels.instance }} is DOWN
+        - alert: CPUIdleAnomaly
+          expr: abs(anomaly:node_cpu_seconds_idle_1w) > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: CPU Idle Time on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: NetworkTxAnomaly
+          expr: node_network_receive_bytes_1w > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Network Transmits on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: NetworkRxAnomaly
+          expr: node_network_receive_bytes_1w > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Network Received on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
     - name: k8s
       rules:
         - alert: OOMKilled
