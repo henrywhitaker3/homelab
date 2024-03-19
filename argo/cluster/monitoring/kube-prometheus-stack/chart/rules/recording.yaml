@@ -1,4 +1,4 @@
-apiVerison: monitoring.coreos.com/v1
+apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: recording-rules
