@@ -10,9 +10,9 @@ spec:
           expr: |
             sum by (instance) (
               (
-                rate(node_cpu_seconds_total{mode="idle"}[5m])
+                rate(node_cpu_seconds_total{mode="idle"}[3m])
                   -
-                rate(node_cpu_seconds_total{mode="idle"}[5m] offset 6d23h57m30s)
+                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 6d23h58m30s)
               )
                 /
               (
@@ -23,9 +23,9 @@ spec:
           expr: |
             sum by (instance) (
               (
-                rate(node_network_receive_bytes_total[5m])
+                rate(node_network_receive_bytes_total[3m])
                   -
-                rate(node_network_receive_bytes_total[5m] offset 6d23h57m30s)
+                rate(node_network_receive_bytes_total[3m] offset 6d23h58m30s)
               )
                 /
               (
@@ -36,9 +36,9 @@ spec:
           expr: |
             sum by (instance) (
               (
-                rate(node_network_transmit_bytes_total[5m])
+                rate(node_network_transmit_bytes_total[3m])
                   -
-                rate(node_network_transmit_bytes_total[5m] offset 6d23h57m30s)
+                rate(node_network_transmit_bytes_total[3m] offset 6d23h58m30s)
               )
                 /
               (
