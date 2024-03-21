@@ -7,6 +7,8 @@ spec:
     - targets:
         - vpn-1.lab:9165
         - vpn-2.lab:9165
+      labels:
+        vip: vpn
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
@@ -21,6 +23,8 @@ spec:
     - targets:
         - lb-1.lab:9165
         - lb-2.lab:9165
+      labels:
+        vip: lb
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
