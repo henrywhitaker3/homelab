@@ -87,6 +87,13 @@ spec:
             severity: critical
           annotations:
             summary: Target {{ $labels.instance }} is DOWN
+        - alert: CPULoad5Anomaly
+          expr: anomaly:node_load5_1w > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: CPU Load 5 on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
         - alert: CPUIdleAnomaly
           expr: abs(anomaly:node_cpu_seconds_idle_1w) > 3
           for: 5m
