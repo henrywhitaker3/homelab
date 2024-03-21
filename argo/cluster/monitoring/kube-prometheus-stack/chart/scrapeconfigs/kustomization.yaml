@@ -5,3 +5,4 @@ resources:
   - node-exporter.yaml
   - pve.yaml
   - k8s-annotations.yaml
+  - keepalived.yaml
