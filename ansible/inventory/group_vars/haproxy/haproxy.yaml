@@ -2,6 +2,7 @@
 vip_ips: ["10.0.0.6", "10.0.0.7"]
 vip_priority_host: lb-1.lab
 vip_router_id: 2
+vip_metrics_enabled: true
 
 crog_verbose: true
 crog_actions:

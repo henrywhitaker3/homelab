@@ -1,0 +1,45 @@
+---
+- name: Download metrics exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/mehdy/keepalived-exporter/releases/download/v{{ vip_metrics_version }}/keepalived-exporter-{{ vip_metrics_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/keepalived_exporter-{{ vip_metrics_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: "0755"
+
+- name: Unpack metrics exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/keepalived_exporter-{{ vip_metrics_version }}.linux-{{ go_arch }}.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/keepalived_exporter-{{ vip_metrics_version }}.linux-{{ go_arch }}/keepalived_exporter"
+
+- name: Install metrics exporter binary
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/keepalived-exporter"
+    remote_src: true
+    dest: /opt/keepalived_exporter
+    mode: "0755"
+
+- name: Copy over service file
+  become: true
+  ansible.builtin.template:
+    src: templates/keepalived_exporter.service
+    dest: /etc/systemd/system/keepalived_exporter.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: keepalived_exporter_service_copied
+  notify: restart keepalived exporter
+
+- name: Reload services
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: keepalived_exporter_service_copied
+
+- name: Start and enable metrics exporter
+  become: true
+  ansible.builtin.service:
+    name: keepalived_exporter
+    state: started
+    enabled: true

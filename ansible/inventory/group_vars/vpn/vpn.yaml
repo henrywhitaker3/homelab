@@ -34,6 +34,7 @@ vip_check_script: |
   else
     exit 0
   fi
+vip_metrics_enabled: true
 
 crog_actions:
   - name: Heartbeat

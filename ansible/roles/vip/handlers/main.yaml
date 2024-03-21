@@ -5,3 +5,9 @@
   ansible.builtin.service:
     name: keepalived
     state: restarted
+
+- name: restart keepalived exporter
+  become: true
+  ansible.builtin.service:
+    name: keepalived_exporter
+    state: restarted

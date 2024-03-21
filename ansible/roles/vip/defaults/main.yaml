@@ -16,6 +16,12 @@ vip_check_script_location: "/etc/keepalived/vip_check.sh"
 
 vip_notify_script_enabled: false
 
+vip_metrics_enabled: false
+
+vip_metrics_version: 1.3.2
+
+vip_metrics_port: 9165
+
 vip_notify_script: |
   #!/bin/bash
 
@@ -43,3 +49,10 @@ vip_notify_script_location: "/etc/keepalived/vip_notify.sh"
 vip_check_rise: 2
 vip_check_fall: 2
 vip_check_interval: 2
+
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'

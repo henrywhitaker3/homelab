@@ -55,3 +55,7 @@
     name: keepalived
     state: started
     enabled: true
+
+- name: Install metrics exporter
+  ansible.builtin.import_tasks: metrics.yaml
+  when: vip_metrics_enabled
