@@ -140,14 +140,14 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: ArgoCD service unhealthy (instance {{ $labels.instance }})
+            summary: ArgoCD service unhealthy (instance {{ $labels.name }})
         - alert: ArgocdServiceNotSynced
           expr: argocd_app_info{sync_status!="Synced"} != 0
           for: 15m
           labels:
             severity: warning
           annotations:
-            summary: ArgoCD service not synced (instance {{ $labels.instance }})
+            summary: ArgoCD service not synced (instance {{ $labels.name }})
     - name: db
       rules:
         - alert: GaleraClusterSize
