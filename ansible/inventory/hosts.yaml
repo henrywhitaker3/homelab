@@ -31,9 +31,10 @@ all:
 
     speakers:
       hosts:
-        bedroom.lab:
+        living-room.lab:
           ansible_host: 10.0.0.30
-          spotify_name: Bedroom
+          ansible_user: pi
+          spotify_name: Living Room
 
     proxmox:
       vars:

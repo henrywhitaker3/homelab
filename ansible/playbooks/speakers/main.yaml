@@ -7,7 +7,6 @@
     - hosts
     - common
     - user
-    - crog
     - node_exporter
 
   handlers:
