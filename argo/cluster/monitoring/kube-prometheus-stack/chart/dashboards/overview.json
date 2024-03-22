@@ -29,23 +29,16 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
           },
-          "unit": "percent"
+          "mappings": []
         },
         "overrides": []
       },
@@ -55,11 +48,14 @@
         "x": 0,
         "y": 0
       },
-      "id": 5,
+      "id": 10,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -67,11 +63,11 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -79,16 +75,58 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "100 - (\n    node_filesystem_free_bytes{instance=\"unraid.lab:9100\", mountpoint=\"/mnt/user\"}\n        /\n    node_filesystem_size_bytes{instance=\"unraid.lab:9100\", mountpoint=\"/mnt/user\"}\n) * 100",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
+          "exemplar": false,
+          "expr": "count(longhorn_volume_robustness == 0)",
+          "instant": true,
+          "legendFormat": "Unknown",
+          "range": false,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(longhorn_volume_robustness == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Healthy",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(longhorn_volume_robustness == 2)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Degraded",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(longhorn_volume_robustness == 3)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Faulted",
+          "range": false,
+          "refId": "D"
         }
       ],
-      "title": "NAS Usage",
-      "type": "gauge"
+      "title": "PVC Health",
+      "type": "piechart"
     },
     {
       "datasource": {
@@ -268,10 +306,11 @@
               },
               {
                 "color": "red",
-                "value": 1
+                "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -281,11 +320,10 @@
         "x": 0,
         "y": 5
       },
-      "id": 1,
+      "id": 5,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -294,9 +332,9 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
       "pluginVersion": "10.4.0",
       "targets": [
@@ -305,20 +343,17 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "max(ALERTS{severity!=\"none\", alertstate=\"firing\"}) or vector(0)",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "editorMode": "code",
+          "expr": "100 - (\n    node_filesystem_free_bytes{instance=\"unraid.lab:9100\", mountpoint=\"/mnt/user\"}\n        /\n    node_filesystem_size_bytes{instance=\"unraid.lab:9100\", mountpoint=\"/mnt/user\"}\n) * 100",
+          "hide": false,
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A",
-          "useBackend": false
+          "refId": "A"
         }
       ],
-      "title": "Active Alerts",
-      "type": "stat"
+      "title": "NAS Usage",
+      "type": "gauge"
     },
     {
       "datasource": {

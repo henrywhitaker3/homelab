@@ -7,4 +7,5 @@ allowVolumeExpansion: true
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 parameters:
-  numberOfReplicas: "1"
+  # Min 2 so we can drain nodes
+  numberOfReplicas: "2"

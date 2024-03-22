@@ -161,7 +161,7 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: Galera cluster size is not equal to the number of replicase
+            summary: Galera cluster size is not equal to the number of replicas
         - alert: GaleraBackupFailed
           expr: |
             sum(kube_job_status_failed{namespace="databases", job_name=~"mariabackup.*"}) > 0
