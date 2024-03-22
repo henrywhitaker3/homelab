@@ -51,3 +51,7 @@ loki:
       enabled: false
       grafanaAgent:
         installOperator: false
+
+    dashboards:
+      annotations:
+        grafana_folder: Loki
