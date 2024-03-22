@@ -88,6 +88,8 @@ grafana:
 
   sidecar:
     dashboards:
+      annotations:
+        grafana_folder: Kubernetes
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
