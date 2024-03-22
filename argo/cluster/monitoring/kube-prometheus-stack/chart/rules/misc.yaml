@@ -88,7 +88,7 @@ spec:
           annotations:
             summary: Target {{ $labels.instance }} is DOWN
         - alert: CPULoad5Anomaly
-          expr: (anomaly:node_load5_1w > 3) and on(instance) (node_load5 > 1)
+          expr: (anomaly:node_load5_1w > 4) and on(instance) (node_load5 > 2)
           for: 5m
           labels:
             severity: warning
