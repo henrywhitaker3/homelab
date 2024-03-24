@@ -6,6 +6,32 @@ spec:
   groups:
     - name: anomalies
       rules:
+        - record: anomaly:longhorn_volume_write_latency_1d
+          expr: |
+            sum by (pvc) (
+              (
+                avg_over_time(longhorn_volume_write_latency[5m])
+                  -
+                avg_over_time(longhorn_volume_write_latency[5m] offset 23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(longhorn_volume_write_latency[1d])
+              )
+            )
+        - record: anomaly:longhorn_volume_read_latency_1d
+          expr: |
+            sum by (pvc) (
+              (
+                avg_over_time(longhorn_volume_read_latency[5m])
+                  -
+                avg_over_time(longhorn_volume_read_latency[5m] offset 23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(longhorn_volume_read_latency[1d])
+              )
+            )
         - record: anomaly:node_cpu_seconds_idle_1w
           expr: |
             sum by (instance) (
