@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: longhorn
+spec:
+  groups:
+    - name: longhorn
+      rules:
+        - alert: BackupFailed
+          expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
+        - alert: VolumeFillingUp
+          expr: ((avg by (pvc) (longhorn_volume_actual_size_bytes))/ (avg by (pvc) (longhorn_volume_capacity_bytes))) * 100 > 90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Volume {{ $labels.pvc }} is using > 90% of capactiy
+        - alert: VolumeStatusCritical
+          expr: longhorn_volume_robustness == 3
+          for: 0m
+          annotations:
+            summary: Longhorn volume {{$labels.volume}} is Fault
+          labels:
+            severity: critical
+        - alert: VolumeStatusWarning
+          expr: longhorn_volume_robustness == 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Longhorn volume {{$labels.volume}} is Degraded
+        - alert: NodeNotSchedulable
+          expr: longhorn_node_status{condition="schedulable"} != 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Longhorn Node {{ $labels.node }} unschedulable due to {{ $labels.condition_reason }}

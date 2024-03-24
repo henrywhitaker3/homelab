@@ -1,0 +1,52 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vms
+spec:
+  groups:
+    - name: pve
+      rules:
+        - alert: PVEDiskFillingUp
+          expr: (sum by (id) (pve_disk_usage_bytes{id=~".*local-lvm"}) / sum by (id) (pve_disk_size_bytes{id=~".*local-lvm"})) * 100 > 90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: PVE local-lvm disk filling on {{ $labels.id }}
+    - name: vms
+      rules:
+        - alert: VMDown
+          expr: 100 * (count by (instance) (up{job="node_exporter"} == 0) / count by (instance) (up{job="node_exporter"})) > 10
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Target {{ $labels.instance }} is DOWN
+        - alert: CPULoad5Anomaly
+          expr: (anomaly:node_load5_1w > 4) and on(instance) (node_load5 > 2)
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: CPU Load 5 on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: CPUIdleAnomaly
+          expr: abs(anomaly:node_cpu_seconds_idle_1w) > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: CPU Idle Time on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: NetworkTxAnomaly
+          expr: node_network_receive_bytes_1w > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Network Transmits on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: NetworkRxAnomaly
+          expr: node_network_receive_bytes_1w > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Network Received on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins

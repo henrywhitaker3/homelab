@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: playground
+spec:
+  groups:
+    - name: playground
+      rules:
+        - alert: APILatencyAnomaly
+          expr: |
+            (
+              (
+                avg_over_time(srep_request_latency_seconds[1m])
+                  -
+                avg_over_time(srep_request_latency_seconds[1d])
+              )
+                /
+              stddev_over_time(srep_request_latency_seconds[1d])
+            ) > 3
+          for: 5m
+          labels:
+            severity: warning
+            experimental: "true"
+          annotations:
+            summary: Request latency anomaly for {{ $labels.url }}

@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: db
+spec:
+  groups:
+    - name: redis
+      rules:
+        - alert: RedisDown
+          expr: redis_up == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Redis down (instance {{ $labels.instance }})
+    - name: mysql
+      rules:
+        - alert: GaleraClusterSize
+          expr: |
+            (
+              min(mysql_global_status_wsrep_cluster_size{job="mariadb-metrics", namespace="databases"})
+                -
+              sum(kube_statefulset_replicas{namespace="databases", statefulset="mariadb"})
+            ) != 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Galera cluster size is not equal to the number of replicas
+        - alert: GaleraBackupFailed
+          expr: |
+            sum(kube_job_status_failed{namespace="databases", job_name=~"mariabackup.*"}) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Galera backup job failed
+        - alert: MysqlDown
+          expr: mysql_up == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: MySQL down (instance {{ $labels.instance }})
+        - alert: MysqlHighThreadsRunning
+          expr: max_over_time(mysql_global_status_threads_running[1m]) / mysql_global_variables_max_connections * 100 > 75
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: MySQL high threads running (instance {{ $labels.instance }})
