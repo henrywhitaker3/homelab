@@ -1,0 +1,14 @@
+---
+docker_compose_become: true
+
+docker_compose_up: true
+
+docker_compose_target_dir: "/home/{{ ansible_user }}"
+
+docker_compose_target_file: docker-compose.yaml
+
+docker_compose_template: templates/docker-compose.yaml
+
+docker_compose_env_enabled: false
+
+docker_compose_env_template: templates/.env

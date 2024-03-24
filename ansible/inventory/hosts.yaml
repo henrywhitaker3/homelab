@@ -49,6 +49,13 @@ all:
           proxmox_node: 2
           id_mod: 1
 
+    minio:
+      hosts:
+        minio-1.lab:
+          ansible_host: 10.0.0.15
+        minio-2.lab:
+          ansible_host: 10.0.0.16
+
     k3s:
       hosts:
         k3s-control-1.lab:

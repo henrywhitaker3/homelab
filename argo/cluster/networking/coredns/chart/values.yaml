@@ -53,6 +53,9 @@ coredns:
             10.0.0.35 redis.lab
             10.0.0.6 k8s.lab
             10.0.0.9 unraid.lab
+            10.0.0.15 minio-1.lab
+            10.0.0.16 minio-2.lab
+            10.0.0.6 minio.lab
             fallthrough
         - name: prometheus
           parameters: 0.0.0.0:9153

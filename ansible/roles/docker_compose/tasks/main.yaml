@@ -1,0 +1,21 @@
+---
+- name: Copy over env file
+  become: "{{ docker_compose_become }}"
+  ansible.builtin.template:
+    src: "{{ docker_compose_env_template }}"
+    dest: "{{ docker_compose_target_dir }}/.env"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0700"
+  when: docker_compose_env_enabled == true
+  notify: docker compose up
+
+- name: Copy over compose file
+  become: "{{ docker_compose_become }}"
+  ansible.builtin.template:
+    src: "{{ docker_compose_template }}"
+    dest: "{{ docker_compose_target_dir }}/{{ docker_compose_target_file }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+  notify: docker compose up
