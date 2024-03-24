@@ -39,6 +39,13 @@ authelia:
         enabled: true
         path: /users/users_database.yml
 
+    telemetry:
+      metrics:
+        enabled: true
+
+        serviceMonitor:
+          enabled: true
+
     access_control:
       default_policy: deny
       rules:
