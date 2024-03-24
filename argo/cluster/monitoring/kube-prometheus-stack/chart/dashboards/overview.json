@@ -40,7 +40,23 @@
           },
           "mappings": []
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Degraded"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -968,6 +984,32 @@
           "legendFormat": "Tx {{instance}}",
           "range": true,
           "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "anomaly:longhorn_volume_read_latency_1d",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PVC Read {{pvc}}",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "anomaly:longhorn_volume_write_latency_1d",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PVC Write {{pvc}}",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "Anomalies",
