@@ -6,3 +6,4 @@ resources:
   - pve.yaml
   - k8s-annotations.yaml
   - keepalived.yaml
+  - minio.yaml

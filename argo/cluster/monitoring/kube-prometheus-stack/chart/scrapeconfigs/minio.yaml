@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: minio
+spec:
+  staticConfigs:
+    - targets:
+        - minio-1.lab:9000
+        - minio-2.lab:9000
+  metricsPath: /minio/v2/metrics/cluster
+  relabelings:
+    - targetLabel: job
+      replacement: minio
