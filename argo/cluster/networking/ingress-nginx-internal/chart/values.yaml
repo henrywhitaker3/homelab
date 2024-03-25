@@ -1,6 +1,7 @@
 ingress-nginx:
   controller:
     replicaCount: 2
+    watchIngressWithoutClass: false
 
     ingressClass: internal
     ingressClassResource:
