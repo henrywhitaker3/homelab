@@ -62,12 +62,12 @@ ansible play:
 .terraform:base:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   before_script:
-    - cd terraform
+    - cd terraform/$TF_DIR
     - |
       terraform init \
-          -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state" \
-          -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
-          -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state/lock" \
+          -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE" \
+          -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
+          -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
           -backend-config="username=henrywhitaker3" \
           -backend-config="password=$TERRAFORM_ACCESS_TOKEN" \
           -backend-config="lock_method=POST" \
@@ -78,8 +78,13 @@ ansible play:
       when: never
     - if: $CI_COMMIT_BRANCH == "main" && $SKIP_TERRAFORM != "true"
       changes:
-        - terraform/*
+        - terraform/$TF_DIR/*
         - .gitlab-ci.yml
+  parallel:
+    matrix:
+      - TF_STATE: tf-state
+        TF_DIR: infra
+
 
 tf validate:
   stage: lint
