@@ -2,6 +2,7 @@ ingress-nginx:
   controller:
     replicaCount: 2
 
+    ingressClass: internal
     ingressClassResource:
       name: internal
       controllerValue: k8s.io/internal
