@@ -7,7 +7,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0700"
-  when: docker_compose_env_enabled == true
+  when: docker_compose_env_enabled
   notify: docker compose up
 
 - name: Copy over compose file
