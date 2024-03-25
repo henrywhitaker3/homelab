@@ -31,8 +31,9 @@ loki:
         dir: /var/loki/ruler-wal
       remote_write:
         enabled: true
-        client:
-          url: http://kube-prometheus-stack-prometheus:9090/api/v1/write
+        clients:
+          - url: http://prometheus-kube-stack-prometheus-0:9090/api/v1/write
+          - url: http://prometheus-kube-stack-prometheus-1:9090/api/v1/write
 
     compactor:
       compaction_interval: 10m
