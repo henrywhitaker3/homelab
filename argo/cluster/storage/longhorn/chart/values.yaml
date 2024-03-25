@@ -1,6 +1,7 @@
 longhorn:
   ingress:
     enabled: true
+    ingressClassName: internal
     host: longhorn.plexmox.com
     tls: true
     tlsSecret: longhorn-plexmox-com-tls

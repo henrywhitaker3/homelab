@@ -11,6 +11,8 @@ alertmanager:
   ingress:
     enabled: true
 
+    ingressClassName: internal
+
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -162,6 +164,8 @@ grafana:
 prometheus:
   ingress:
     enabled: true
+
+    ingressClassName: internal
 
     annotations:
       kubernetes.io/tls-acme: "true"
