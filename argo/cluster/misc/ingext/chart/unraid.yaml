@@ -28,6 +28,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
     nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
 spec:
+  ingressClassName: internal
   rules:
     - host: unraid.plexmox.com
       http:
