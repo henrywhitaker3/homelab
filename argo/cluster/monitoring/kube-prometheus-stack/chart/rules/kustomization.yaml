@@ -6,4 +6,5 @@ resources:
   - db.yaml
   - vms.yaml
   - longhorn.yaml
+  - minio.yaml
   - recording.yaml

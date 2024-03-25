@@ -1,0 +1,30 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: minio
+spec:
+  groups:
+    - name: minio
+      rules:
+        - alert: ClusterCapacityLow
+          expr: |
+            100 - (100 * (minio_cluster_capacity_usable_free_bytes / minio_cluster_capacity_usable_total_bytes)) < 90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: MinIO free capacity is < 10%
+        - alert: NodesOffline
+          expr: avg_over_time(minio_cluster_nodes_offline_total{job="minio-job"}[5m]) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Node {{ $labels.instance }} down in MinIO deployment
+        - alert: DisksOffline
+          expr: avg_over_time(minio_cluster_drive_offline_total{job="minio-job"}[5m]) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Disks down in MinIO deployment on node {{ $labels.instance }}
