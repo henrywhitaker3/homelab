@@ -56,6 +56,8 @@ coredns:
             10.0.0.15 minio-1.lab
             10.0.0.16 minio-2.lab
             10.0.0.6 minio.lab
+            10.0.0.27 s3.plexmox.com
+            10.0.0.27 minio.plexmox.com
             fallthrough
         - name: prometheus
           parameters: 0.0.0.0:9153

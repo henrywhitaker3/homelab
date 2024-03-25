@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+spec:
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+    - protocol: TCP
+      port: 9001
+      targetPort: 9001
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: minio
+subsets:
+  - addresses:
+      - ip: 10.0.0.6
+    ports:
+      - port: 9000
+      - port: 9001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+spec:
+  ingressClassName: internal
+  rules:
+    - host: s3.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio
+                port:
+                  number: 9000
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - s3.plexmox.com
+      secretName: s3-plexmox-com-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-ui
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+spec:
+  ingressClassName: internal
+  rules:
+    - host: minio.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - minio.plexmox.com
+      secretName: minio-plexmox-com-tls

@@ -4,7 +4,6 @@ ingress-nginx:
 
     ingressClassResource:
       name: internal
-      default: true
       controllerValue: k8s.io/internal
 
     admissionWebhooks:
