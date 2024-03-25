@@ -34,20 +34,32 @@ loki:
         client:
           url: http://kube-prometheus-stack-prometheus:9090/api/v1/write
 
+    compactor:
+      compaction_interval: 10m
+      retention_enabled: true
+      retention_delete_delay: 2h
+      retention_delete_worker_count: 150
+
     schema_config:
       configs:
-        - from: "2022-01-11" # quote
+        - from: "2022-01-11"
           store: boltdb-shipper
           object_store: s3
           schema: v12
           index:
             prefix: loki_index_
-            period: 30d
+            period: 24h
+          chunks:
+            period: 24h
+
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 30d
 
   singleBinary:
     replicas: 1
     persistence:
-      # enabled: false
+      enabled: false
       storageClass: longhorn
       size: 5Gi
     extraVolumes:
