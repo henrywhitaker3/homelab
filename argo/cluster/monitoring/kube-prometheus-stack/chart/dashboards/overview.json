@@ -761,7 +761,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 2,
+            "fillOpacity": 0.75,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -816,13 +816,13 @@
       "options": {
         "legend": {
           "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -834,7 +834,7 @@
           "editorMode": "code",
           "expr": "(\n    (\n        avg by (pvc) (longhorn_volume_actual_size_bytes)\n    )\n        / \n    (\n        avg by (pvc) (longhorn_volume_capacity_bytes)\n    )\n) * 100",
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{pvc}}",
           "range": true,
           "refId": "A"
         },
@@ -850,6 +850,19 @@
           "legendFormat": "MinIO",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 - (node_filesystem_free_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"}) * 100",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Disk {{instance}}",
+          "range": true,
+          "refId": "C"
         }
       ],
       "title": "Volumes",
