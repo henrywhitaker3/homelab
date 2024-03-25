@@ -4,7 +4,16 @@ loki:
     commonConfig:
       replication_factor: 1
     storage:
-      type: 'filesystem'
+      type: s3
+
+      bucketNames:
+        chunks: loki-chunks
+      s3:
+        endpoint: s3.plexmox.com
+        region: unraid
+        insecure: false
+        accessKeyId: ${MINIO_ACCESS_KEY}
+        secretAccessKey: ${MINIO_SECRET_KEY}
     limits_config:
       retention_period: 168h
     rulerConfig:
@@ -42,6 +51,17 @@ loki:
         subPath: srep-api.yaml
       - name: scratch
         mountPath: /tmp/scratch
+    extraEnv:
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: loki-minio
+            key: access-key
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: loki-minio
+            key: secret-key
 
   test:
     enabled: false
