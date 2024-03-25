@@ -59,7 +59,6 @@ loki:
   singleBinary:
     replicas: 1
     persistence:
-      enabled: false
       storageClass: longhorn
       size: 5Gi
     extraVolumes:
