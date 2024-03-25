@@ -8,7 +8,7 @@ spec:
       rules:
         - alert: ClusterCapacityLow
           expr: |
-            100 - (100 * (minio_cluster_capacity_usable_free_bytes / minio_cluster_capacity_usable_total_bytes)) < 90
+            100 - (100 * (minio_cluster_capacity_usable_free_bytes / minio_cluster_capacity_usable_total_bytes)) > 90
           for: 5m
           labels:
             severity: warning
