@@ -857,8 +857,8 @@
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(prometheus-kube-prometheus-stack.*)",
-            "renamePattern": "prometheus"
+            "regex": "prometheus-kube-prometheus-stack-.*-([0-9]+)",
+            "renamePattern": "prometheus-$1"
           }
         }
       ],
