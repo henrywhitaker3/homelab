@@ -184,10 +184,9 @@ prometheus:
           - prometheus.plexmox.com
 
   prometheusSpec:
-    replicas: 1
-    # replicaExternalLabelName: __replica__
+    replicas: 2
+    replicaExternalLabelName: __replica__
 
-    # TODO: look into loki remote write with > 1 replica
     enableRemoteWriteReceiver: true
     scrapeConfigSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
