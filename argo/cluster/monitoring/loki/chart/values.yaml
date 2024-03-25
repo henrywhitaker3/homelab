@@ -5,7 +5,6 @@ loki:
       replication_factor: 1
     storage:
       type: s3
-
       bucketNames:
         chunks: loki-chunks
       s3:
@@ -16,8 +15,10 @@ loki:
         accessKeyId: ${MINIO_ACCESS_KEY}
         secretAccessKey: ${MINIO_SECRET_KEY}
         s3ForcePathStyle: true
+
     limits_config:
-      retention_period: 168h
+      retention_period: 30d
+
     rulerConfig:
       enable_alertmanager_v2: true
       alertmanager_url: http://kube-prometheus-stack-alertmanager.monitoring.svc:9093
@@ -33,9 +34,20 @@ loki:
         client:
           url: http://kube-prometheus-stack-prometheus:9090/api/v1/write
 
+    schema_config:
+      configs:
+        - from: "2022-01-11" # quote
+          store: boltdb-shipper
+          object_store: s3
+          schema: v12
+          index:
+            prefix: loki_index_
+            period: 30d
+
   singleBinary:
     replicas: 1
     persistence:
+      # enabled: false
       storageClass: longhorn
       size: 5Gi
     extraVolumes:
