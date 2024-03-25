@@ -1,5 +1,7 @@
 namespaceOverride: monitoring
 
+cleanPrometheusOperatorObjectNames: true
+
 alertmanager:
   enabled: true
 
@@ -181,12 +183,11 @@ prometheus:
         hosts:
           - prometheus.plexmox.com
 
-  persistentVolume:
-    enabled: true
-    size: 50Gi
-    storageClass: longhorn
-
   prometheusSpec:
+    replicas: 1
+    # replicaExternalLabelName: __replica__
+
+    # TODO: look into loki remote write with > 1 replica
     enableRemoteWriteReceiver: true
     scrapeConfigSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
@@ -194,7 +195,13 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
 
-    retention: 10d
+    retention: 14d
+
+    walCompression: true
+
+    enableFeatures:
+      - memory-snapshot-on-shutdown
+      - new-service-discovery-manager
 
     storageSpec:
       volumeClaimTemplate:
@@ -203,4 +210,4 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 50Gi
+              storage: 30Gi
