@@ -837,9 +837,22 @@
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 - avg(100 * (minio_cluster_capacity_usable_free_bytes / minio_cluster_capacity_usable_total_bytes))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "MinIO",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "Longhorn Volumes",
+      "title": "Volumes",
       "transformations": [
         {
           "id": "renameByRegex",
