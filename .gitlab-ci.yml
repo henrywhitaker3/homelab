@@ -84,7 +84,8 @@ ansible play:
     matrix:
       - TF_STATE: tf-state
         TF_DIR: infra
-
+      - TF_STATE: post
+        TF_DIR: post
 
 tf validate:
   stage: lint
