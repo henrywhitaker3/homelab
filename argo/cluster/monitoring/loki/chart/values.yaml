@@ -53,10 +53,6 @@ loki:
           chunks:
             period: 24h
 
-    table_manager:
-      retention_deletes_enabled: true
-      retention_period: 30d
-
   singleBinary:
     replicas: 1
     persistence:
