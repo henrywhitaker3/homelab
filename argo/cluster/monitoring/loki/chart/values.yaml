@@ -9,7 +9,8 @@ loki:
       bucketNames:
         chunks: loki-chunks
       s3:
-        endpoint: s3://s3.plexmox.com
+        s3: https://s3.plexmox.com
+        endpoint: https://s3.plexmox.com
         region: unraid
         insecure: false
         accessKeyId: ${MINIO_ACCESS_KEY}
