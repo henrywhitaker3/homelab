@@ -53,6 +53,10 @@ loki:
         subPath: srep-api.yaml
       - name: scratch
         mountPath: /tmp/scratch
+
+    extraArgs:
+      - -config.expand-env=true
+
     extraEnv:
       - name: MINIO_ACCESS_KEY
         valueFrom:
