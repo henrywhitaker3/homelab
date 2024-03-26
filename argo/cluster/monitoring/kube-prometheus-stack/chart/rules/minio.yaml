@@ -15,15 +15,15 @@ spec:
           annotations:
             summary: MinIO free capacity is < 10%
         - alert: NodesOffline
-          expr: avg_over_time(minio_cluster_nodes_offline_total{job="minio-job"}[5m]) > 0
-          for: 10m
+          expr: minio_cluster_nodes_offline_total > 0
+          for: 5m
           labels:
             severity: critical
           annotations:
             summary: Node {{ $labels.instance }} down in MinIO deployment
         - alert: DisksOffline
-          expr: avg_over_time(minio_cluster_drive_offline_total{job="minio-job"}[5m]) > 0
-          for: 10m
+          expr: minio_cluster_drive_offline_total > 0
+          for: 5m
           labels:
             severity: critical
           annotations:
