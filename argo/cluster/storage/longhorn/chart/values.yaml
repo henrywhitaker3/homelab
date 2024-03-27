@@ -19,6 +19,5 @@ longhorn:
 
   defaultSettings:
     defaultLonghornStaticStorageClass: longhorn
-    backupTarget: s3://longhorn@unraid
-    backupTargetCredentialSecret: longhorn-minio
+    backupTarget: nfs://10.0.0.9:/mnt/user/longhorn
     removeSnapshotsDuringFilesystemTrim: enabled
