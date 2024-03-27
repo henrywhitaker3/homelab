@@ -4,6 +4,7 @@
   hosts:
     - jump
     - speakers
+    - minio
 
   serial: 1
 
