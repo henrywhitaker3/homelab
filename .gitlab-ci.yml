@@ -95,9 +95,6 @@ tf validate:
     - .terraform:base
   script:
     - terraform validate
-  artifacts:
-    paths:
-      - terraform/planfile
   rules:
     - !reference [.terraform:base, rules]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -112,7 +109,7 @@ tf plan:
     - terraform plan -out planfile
   artifacts:
     paths:
-      - terraform/planfile
+      - terraform/$TF_DIR/planfile
   rules:
     - !reference [.terraform:base, rules]
 
