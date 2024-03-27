@@ -1,0 +1,26 @@
+generic:
+  nameOverride: pihole-exporter
+  fullnameOverride: pihole-exporter
+
+  replicaCount: 1
+
+  image:
+    repository: ekofr/pihole-exporter:latest
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    portName: http
+    port: 9617
+
+  config:
+    PIHOLE_PROTOCOL: http
+    PIHOLE_HOSTNAME: "10.0.0.2"
+    PORT: "9617"
+
+  metrics:
+    enabled: true
+
+  secrets:
+    enabled: true
+    key: pihole-exporter
