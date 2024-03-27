@@ -125,7 +125,7 @@ tf deploy:
   dependencies:
     - tf plan
   environment:
-    name: infra
+    name: $TF_DIR
   when: manual
 
 ##########
