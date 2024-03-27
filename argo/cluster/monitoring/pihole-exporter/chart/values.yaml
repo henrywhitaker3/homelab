@@ -21,6 +21,10 @@ generic:
   metrics:
     enabled: true
 
+  probes:
+    options:
+      path: /metrics
+
   secrets:
     enabled: true
     key: pihole-exporter
