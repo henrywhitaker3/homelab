@@ -151,8 +151,8 @@ resource "healthchecksio_check" "alertmanager" {
     "alertmanager"
   ]
 
-  timeout = 60 # seconds
-  grace    = 120 # seconds
+  timeout = 60  # seconds
+  grace   = 120 # seconds
 
   channels = [
     data.healthchecksio_channel.discord.id,

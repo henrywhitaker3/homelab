@@ -47,12 +47,3 @@ resource "proxmox_vm_qemu" "vm" {
   ipconfig0 = "ip=${local.ipPrefix}.${local.ipBit + count.index}/${local.cidrBlock},gw=${var.gateway}"
   nameserver = var.nameserver
 }
-
-resource "pihole_dns_record" "dns" {
-  count = var.instances
-
-  domain = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}.lab"
-  ip = "${local.ipPrefix}.${local.ipBit + count.index}"
-
-  depends_on = [ proxmox_vm_qemu.vm ]
-}

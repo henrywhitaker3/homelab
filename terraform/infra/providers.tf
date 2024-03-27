@@ -16,11 +16,6 @@ terraform {
       version = "2.0.0"
     }
 
-    pihole = {
-      source  = "ryanwholey/pihole"
-      version = "0.2.0"
-    }
-
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "4.27.0"
@@ -47,11 +42,6 @@ provider "digitalocean" {
 
 provider "healthchecksio" {
   api_key = var.healthchecksio_api_key
-}
-
-provider "pihole" {
-  url       = var.pihole_url
-  api_token = var.pihole_api_token
 }
 
 provider "cloudflare" {
