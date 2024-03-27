@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: pihole
+      rules:
+        - alert: PiholeDown
+          expr: pihole_status == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Pihole instance {{ $labels.hostname }} is down
     - name: loki
       rules:
         - alert: LokiMetricsWriteFailed
