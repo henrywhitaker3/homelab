@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: adguard
+spec:
+  staticConfigs:
+    - targets:
+        - 'adguard-1.lab:9618'
+        - 'adguard-2.lab:9618'
+  metricsPath: /metrics
+  relabelings:
+    - targetLabel: job
+      replacement: adguard

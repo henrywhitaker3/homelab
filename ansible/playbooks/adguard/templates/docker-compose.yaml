@@ -16,3 +16,13 @@ services:
       - /home/{{ ansible_user }}/adguard/config:/opt/adguardhome/conf
       - /home/{{ ansible_user }}/adguard/data:/opt/adguardhome/work
     network_mode: host
+
+  exporter:
+    image: gchr.io/henrywhitaker3/adguard-exporter:latest
+    restart: unless-stopped
+    ports:
+      - 9618:9618
+    environment:
+      - ADGUARD_SERVERS={{ ansible_host }}
+      - ADGUARD_USERNAMES=henry
+      - ADGUARD_PASSWORD={{ adguard_password }}
