@@ -14,7 +14,7 @@ configMapGenerator:
       - proxmox.json
       - longhorn.json
       - overview.json
-      - adguard.json
+      # - adguard.json
     options:
       labels:
         grafana_dashboard: "1"
