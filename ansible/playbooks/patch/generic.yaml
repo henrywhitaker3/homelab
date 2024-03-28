@@ -5,6 +5,7 @@
     - jump
     - speakers
     - minio
+    - adguard
 
   serial: 1
 

@@ -2,6 +2,7 @@ services:
   minio:
     container_name: minio
     image: minio/minio:latest
+    restart: unless-stopped
     hostname: "{{ inventory_hostname }}"
     command: server --console-address ":9001" http://minio-{1...2}.lab:9000/data
     ports:

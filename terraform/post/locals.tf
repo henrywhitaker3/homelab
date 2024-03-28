@@ -1,8 +1,12 @@
 locals {
   pihole_dns = [
     {
-      name  = "pihole.lab"
-      value = data.terraform_remote_state.infra.outputs.pihole_ip
+      name  = "adguard-1.lab"
+      value = data.terraform_remote_state.infra.outputs.adguard_1_ip
+    },
+    {
+      name  = "adguard-2.lab"
+      value = data.terraform_remote_state.infra.outputs.adguard_2_ip
     },
     {
       name  = "lb-1.lab"

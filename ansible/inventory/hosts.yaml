@@ -1,9 +1,11 @@
 all:
   children:
-    pihole:
+    adguard:
       hosts:
-        pihole.lab:
+        adguard-1.lab:
           ansible_host: 10.0.0.2
+        adguard-2.lab:
+          ansible_host: 10.0.0.3
 
     vpn:
       hosts:

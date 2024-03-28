@@ -20,9 +20,9 @@ variable "infra_state_token" {
   description = "The token to access the infra remote state"
 }
 
-variable "pihole_url" {
+variable "adguard_user" {
   type = string
 }
-variable "pihole_api_token" {
+variable "adguard_password" {
   type = string
 }

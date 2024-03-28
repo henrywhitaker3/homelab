@@ -23,7 +23,7 @@ image: henrywhitaker3/pipeline
         - k3s
         - haproxy
         - speakers
-        - pihole
+        - adguard
         - minio
   rules:
     - if: $SKIP_ANSIBLE == "true"

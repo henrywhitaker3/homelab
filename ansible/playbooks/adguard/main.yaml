@@ -1,0 +1,90 @@
+---
+- name: Adguard
+
+  hosts: adguard
+
+  roles:
+    - hosts
+    - qemu
+    - common
+    - user
+    - node_exporter
+    - docker
+
+  handlers:
+    - name: Restart systemd-reolved
+      tags: skip_ansible_lint
+      become: true
+      ansible.builtin.command:
+        cmd: systemctl reload-or-restart systemd-resolved
+      changed_when: true
+
+  tasks:
+    - name: Disable DNSStubListener
+      block:
+        - name: Create config directory
+          become: true
+          ansible.builtin.file:
+            path: /etc/systemd/resolved.conf.d
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+
+        - name: Copy over config file
+          become: true
+          ansible.builtin.copy:
+            src: files/adguardhome.conf
+            dest: /etc/systemd/resolved.conf.d/adguardhome.conf
+            owner: root
+            group: root
+            mode: "0644"
+          notify: Restart systemd-reolved
+
+        - name: Backup existing config
+          become: true
+          ansible.builtin.copy:
+            src: /etc/resolv.conf
+            remote_src: true
+            dest: /etc/resolv.conf.backup
+            owner: root
+            group: root
+            mode: "0644"
+
+        - name: Symlink new config
+          become: true
+          ansible.builtin.file:
+            src: /run/systemd/resolve/resolv.conf
+            dest: /etc/resolv.conf
+            state: link
+          notify: Restart systemd-reolved
+
+    - name: Create adguard config directory
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0755"
+      loop:
+        - "/home/{{ ansible_user }}/adguard"
+        - "/home/{{ ansible_user }}/adguard/config"
+        - "/home/{{ ansible_user }}/adguard/data"
+
+    - name: Check if config file exists
+      ansible.builtin.stat:
+        path: "/home/{{ ansible_user }}/adguard/config/AdGuardHome.yaml"
+      register: config
+
+    - name: Copy over config
+      when: not config.stat.exists
+      ansible.builtin.template:
+        src: templates/AdGuardHome.yaml
+        dest: "/home/{{ ansible_user }}/adguard/config/AdGuardHome.yaml"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
+
+    - name: Setup docker compose
+      ansible.builtin.import_role:
+        name: docker_compose

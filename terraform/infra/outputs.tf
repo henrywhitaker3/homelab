@@ -1,6 +1,3 @@
-output "pihole_ip" {
-  value = module.pihole.ip
-}
 output "lb_1_ip" {
   value = module.lb-1.ip
 }
@@ -33,4 +30,10 @@ output "minio_1_ip" {
 }
 output "minio_2_ip" {
   value = module.minio-2.ip
+}
+output "adguard_1_ip" {
+  value = module.adguard-1.ip
+}
+output "adguard_2_ip" {
+  value = module.adguard-2.ip
 }

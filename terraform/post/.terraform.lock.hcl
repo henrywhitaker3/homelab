@@ -21,6 +21,29 @@ provider "registry.terraform.io/aminueza/minio" {
   ]
 }
 
+provider "registry.terraform.io/gmichels/adguard" {
+  version     = "1.1.5"
+  constraints = "1.1.5"
+  hashes = [
+    "h1:4Ll48FZn30BmKE+V0YjGdgjl2oaJY8uar13Jq6VdhB4=",
+    "zh:1326f4fe4f9f694927f07840319b1658107bb220bdbdddfb249fad54f50af0e8",
+    "zh:1ee43a8a4644bb1d418412ee78bd7b93c9cc54c99b8a996ec48c1f1804c67815",
+    "zh:2775900901af0d821513da5e54ef570f3a9106e7cefa17bd6a53e8c398e84fb0",
+    "zh:6567984709968b58d8f246dfbb4a2fc133e91fda412a8b33e85c6d844a59d5a1",
+    "zh:681612039a0d0f19e4eb526eb805c02c7ec02ac0a691718c48246e92714002e2",
+    "zh:6c55978ca3c537478db67edf20bd78c685c5d310828d27af779c72744542b05f",
+    "zh:77bc9d919d3c4e55453bf98883d34d17ac9d7727dd958d2734673a6df101d2c3",
+    "zh:7aeb6e17af41b956389c14901dd6e75f54194452ccfab548ed51dfd0e28f2cb3",
+    "zh:8d094f36b7b5f0ab868847b971abfd0dcfca4d04dd03f28920ebf554c444630d",
+    "zh:a31fd84275965eee2341aa8602aaeba742a4841a0e459e51166d1d8939851df7",
+    "zh:b7df39f407fd3c18b954dadb552696d4df647de3c8919cf4d37562f4b6d0dfd8",
+    "zh:d07bc68e76327cb81fd616425a050bbf96fca438d0d372a88dd4ec349e561a4c",
+    "zh:db6d3d8bae36b23e8e65a6672a3823bf692e9cadbab4822f6fadb3de713e5f9b",
+    "zh:edec58dcc4ee79f16d35eaaee2c23d8ae2ccefaa9f424bbf3c711446dec22698",
+    "zh:f809ab383cca0a5f83072981c64208cbd7fa67e986a86ee02dd2c82333221e32",
+  ]
+}
+
 provider "registry.terraform.io/ryanwholey/pihole" {
   version     = "0.2.0"
   constraints = "0.2.0"

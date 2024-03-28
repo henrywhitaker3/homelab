@@ -1,0 +1,21 @@
+adguard_password: ENC[AES256_GCM,data:Ghgvl25f9rsXBmfSMWhiYYBhKaAd33qDH5FUjdr0Q+mHYrHZL2ft0q8tYBY62jtgaG2HRs0PR0ausgow,iv:v25b2HzblNXZPZn4xHtYVbzM89FH6tmNj/ziC2+CtDY=,tag:1b6+VOkXqfVxwx5UKoV90A==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSByVG5WVzQ4cXhDKzUwZjJj
+            bTZHUWlGUXNkSk5xdEFLNWE4TWYxU1hEbWtNClRwajdwY252ZnJ6bFdMektUY29Y
+            V3lKVXg3RnViY0FiUWt2Z2JGeVhxZWMKLS0tIE5TS2pNSUNKNVVobXdqMVQ0TXFu
+            ME5Kb1NZelNqWGhhZC8vUXl6SnlqQUUKwe19aXgzT7SkKShsIHfJqGn5SYHAUfpI
+            KPyIWR64Cn/zrGSedUlnH+8U/i804v2lUpi1Sty51LhKBSOG7jY43A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-03-28T01:41:31Z"
+    mac: ENC[AES256_GCM,data:zoKwdym8vEh6MCMLNw56Nq7Fg9c07SUv9DNXqwnnFebWDHomcOMdI75TSYqpldNF+Q4MbLw8bPy16uOsBd8NsiOSux3t5UMi/ZJiTYR/WZ+JDQMGRXzTRU07Qz8YDFcYiDDFhfhugmWmyxoG2bs9anjA00JT+S8koV8BWbhb1os=,iv:j86ggN3OwCD+mZVncgzXpWGOTu02Br/w1E3D4PF4/jE=,tag:51/Gu7/9txDdTFKNeRc7uQ==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

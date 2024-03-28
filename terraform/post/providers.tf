@@ -5,9 +5,9 @@ terraform {
       version = "2.2.0"
     }
 
-    pihole = {
-      source  = "ryanwholey/pihole"
-      version = "0.2.0"
+    adguard = {
+      source  = "gmichels/adguard"
+      version = "1.1.5"
     }
   }
 
@@ -22,7 +22,20 @@ provider "minio" {
   minio_ssl      = true
 }
 
-provider "pihole" {
-  url       = var.pihole_url
-  api_token = var.pihole_api_token
+provider "adguard" {
+  alias    = "adguard-1"
+  host     = data.terraform_remote_state.infra.outputs.adguard_1_ip
+  username = var.adguard_user
+  password = var.adguard_password
+  scheme   = "http"
+  timeout  = 5
+}
+
+provider "adguard" {
+  alias    = "adguard-2"
+  host     = data.terraform_remote_state.infra.outputs.adguard_2_ip
+  username = var.adguard_user
+  password = var.adguard_password
+  scheme   = "http"
+  timeout  = 5
 }
