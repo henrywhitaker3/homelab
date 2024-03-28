@@ -33,7 +33,8 @@ coredns:
             ttl 30
         - name: hosts
           configBlock: |
-            10.0.0.2 pihole.lab
+            10.0.0.2 adguard-1.lab
+            10.0.0.3 adguard-2.lab
             10.0.0.11 vpn-1.lab
             10.0.0.12 vpn-2.lab
             10.0.0.4 lb-1.lab
