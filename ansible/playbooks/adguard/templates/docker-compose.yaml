@@ -23,6 +23,6 @@ services:
     ports:
       - 9618:9618
     environment:
-      - ADGUARD_SERVERS={{ ansible_host }}
+      - ADGUARD_SERVERS=http://{{ ansible_host }}
       - ADGUARD_USERNAMES=henry
       - ADGUARD_PASSWORDS={{ adguard_password }}
