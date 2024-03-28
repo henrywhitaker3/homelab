@@ -16,16 +16,8 @@ resource "adguard_config" "primary" {
   }
 
   dns = {
-    upstream_dns = [
-      "https://dns10.quad9.net/dns-query",
-      "1.1.1.1"
-    ]
-    bootstrap_dns = [
-      "9.9.9.10",
-      "149.112.112.10",
-      "2620:fe::10",
-      "2620:fe::fe:10",
-    ]
+    upstream_dns = local.upstream_dns
+    bootstrap_dns = local.bootstrap_dns
     rate_limit = 20
   }
 
@@ -78,16 +70,8 @@ resource "adguard_config" "secondary" {
   }
 
   dns = {
-    upstream_dns = [
-      "https://dns10.quad9.net/dns-query",
-      "1.1.1.1"
-    ]
-    bootstrap_dns = [
-      "9.9.9.10",
-      "149.112.112.10",
-      "2620:fe::10",
-      "2620:fe::fe:10",
-    ]
+    upstream_dns = local.upstream_dns
+    bootstrap_dns = local.bootstrap_dns
     rate_limit = 20
   }
 
@@ -96,30 +80,26 @@ resource "adguard_config" "secondary" {
   }
 }
 
-resource "adguard_list_filter" "dns_1" {
+resource "adguard_list_filter" "filters_1" {
   provider = adguard.adguard-1
+  for_each = {
+    for c in local.filter_lists:
+    c.name => c
+  }
+
   enabled  = true
-  name     = "AdGuard DNS filter"
-  url      = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+  name     = each.value.name
+  url      = each.value.url
 }
 
-resource "adguard_list_filter" "block_1" {
-  provider = adguard.adguard-1
-  enabled  = true
-  name     = "AdGuard Default Blocklist"
-  url      = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
-}
-
-resource "adguard_list_filter" "dns_2" {
+resource "adguard_list_filter" "filters_2" {
   provider = adguard.adguard-2
-  enabled  = true
-  name     = "AdGuard DNS filter"
-  url      = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
-}
+  for_each = {
+    for c in local.filter_lists:
+    c.name => c
+  }
 
-resource "adguard_list_filter" "block_2" {
-  provider = adguard.adguard-2
   enabled  = true
-  name     = "AdGuard Default Blocklist"
-  url      = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
+  name     = each.value.name
+  url      = each.value.url
 }

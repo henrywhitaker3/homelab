@@ -62,4 +62,27 @@ locals {
     "alerts.plexmox.com",
     "longhorn.plexmox.com"
   ]
+
+  upstream_dns =  [
+    "https://cloudflare-dns.com/dns-query",
+    "https://dns10.quad9.net/dns-query"
+  ]
+
+  bootstrap_dns = [
+    "9.9.9.10",
+    "149.112.112.10",
+    "2620:fe::10",
+    "2620:fe::fe:10",
+  ]
+
+  filter_lists = [
+    {
+      name = "AdGuard DNS Filter"
+      url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+    },
+    {
+      name = "AdGuard Default Blocklist",
+      url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
+    }
+  ]
 }
