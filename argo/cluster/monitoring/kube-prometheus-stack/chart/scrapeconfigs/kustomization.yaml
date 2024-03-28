@@ -7,3 +7,4 @@ resources:
   - k8s-annotations.yaml
   - keepalived.yaml
   - minio.yaml
+  - adguard.yaml
