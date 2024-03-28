@@ -18,7 +18,7 @@ services:
     network_mode: host
 
   exporter:
-    image: ghcr.io/henrywhitaker3/adguard-exporter:latest
+    image: ghcr.io/henrywhitaker3/adguard-exporter:v1.0.2
     restart: unless-stopped
     ports:
       - 9618:9618
