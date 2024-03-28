@@ -25,4 +25,4 @@ services:
     environment:
       - ADGUARD_SERVERS={{ ansible_host }}
       - ADGUARD_USERNAMES=henry
-      - ADGUARD_PASSWORD={{ adguard_password }}
+      - ADGUARD_PASSWORDS={{ adguard_password }}
