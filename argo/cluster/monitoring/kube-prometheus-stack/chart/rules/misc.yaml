@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: adguard
+      rules:
+        - alert: AdguardScrapeError
+          expr: adguard_scrape_errors > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Aguard exporter has seen errors for the last 5 mins
     - name: loki
       rules:
         - alert: LokiMetricsWriteFailed
