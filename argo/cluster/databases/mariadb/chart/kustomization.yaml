@@ -6,6 +6,6 @@ resources:
   - secret.yaml
   - database.yaml
   - backup.yaml
-  - maxscale.yaml
+  # - maxscale.yaml
   - users.yaml
   # - restore.yaml
