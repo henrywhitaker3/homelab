@@ -17,13 +17,14 @@ spec:
     port: 8989
     guiEnabled: true
 
-  volumeClaimTemplate:
-    storageClassName: longhorn-no-backups
-    resources:
-      requests:
-        storage: 100Mi
-    accessModes:
-      - ReadWriteOnce
+  config:
+    volumeClaimTemplate:
+      storageClassName: longhorn-no-backups
+      resources:
+        requests:
+          storage: 100Mi
+      accessModes:
+        - ReadWriteOnce
 
   metrics:
     enabled: true
