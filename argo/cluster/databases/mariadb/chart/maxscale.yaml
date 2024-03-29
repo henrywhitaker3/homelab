@@ -1,17 +1,3 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: maxscale-secrets
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: onepassword-connect
-  target:
-    creationPolicy: Owner
-  dataFrom:
-    - extract:
-        key: maxscale-secrets
----
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MaxScale
 metadata:
@@ -45,10 +31,10 @@ spec:
       name: maxscale-secrets
       key: admin-password
 
-  # metrics:
-  #   enabled: true
-  #   serviceMonitor:
-  #     enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
