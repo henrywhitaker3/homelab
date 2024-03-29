@@ -42,7 +42,3 @@ spec:
 
   metrics:
     enabled: true
-
-  service:
-    type: LoadBalancer
-    loadBalancerIP: 10.0.0.28
