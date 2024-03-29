@@ -1,3 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: maxscale
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: maxscale
+---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MaxScale
 metadata:
@@ -26,7 +42,39 @@ spec:
       accessModes:
         - ReadWriteOnce
 
+  auth:
+    adminPasswordSecretKeyRef:
+      name: maxscale
+      key: admin-password
+
   # metrics:
   #   enabled: true
   #   serviceMonitor:
   #     enabled: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+    nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+  name: maxscale
+spec:
+  ingressClassName: internal
+  rules:
+  - host: maxscale.plexmox.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: maxscale-repl
+            port:
+              name: admin
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - maxscale.plexmox.com
+    secretName: maxscale-plexmox-com-tls
