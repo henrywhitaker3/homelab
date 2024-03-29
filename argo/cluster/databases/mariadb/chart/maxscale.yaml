@@ -31,10 +31,10 @@ spec:
       name: maxscale-secrets
       key: admin-password
 
-  metrics:
-    enabled: true
-    serviceMonitor:
-      enabled: true
+  # metrics:
+  #   enabled: true
+  #   serviceMonitor:
+  #     enabled: true
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
