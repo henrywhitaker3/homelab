@@ -4,5 +4,6 @@ namespace: databases
 
 resources:
   - secret.yaml
-  # - database.yaml
+  - database.yaml
   # - backup.yaml
+  # - restore.yaml
