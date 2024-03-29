@@ -2,12 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mariadb
-  namespace: mariadb
+  namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: databases
+    namespace: mariadb
     server: https://kubernetes.default.svc
   project: apps
   source:
