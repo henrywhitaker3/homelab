@@ -11,7 +11,7 @@ spec:
 
   kubernetesService:
     type: LoadBalancer
-    loadBalancerIP: 10.0.0.28
+    loadBalancerIP: 10.0.0.29
 
   admin:
     port: 8989
