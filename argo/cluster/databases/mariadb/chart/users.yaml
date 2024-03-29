@@ -1,0 +1,29 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: henry
+spec:
+  name: henry
+  host: '%'
+
+  passwordSecretKeyRef:
+    name: mariadb-secrets
+    key: henry-password
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: henry
+spec:
+  database: "*"
+  table: "*"
+  privileges: [ALL]
+  username: henry
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb

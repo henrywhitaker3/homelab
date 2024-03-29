@@ -7,4 +7,5 @@ resources:
   - database.yaml
   - backup.yaml
   - maxscale.yaml
+  - users.yaml
   # - restore.yaml
