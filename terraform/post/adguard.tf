@@ -28,7 +28,7 @@ resource "adguard_config" "primary" {
     ipv4_settings = {
       gateway_ip     = "10.0.0.1"
       lease_duration = 86400
-      range_start    = "10.0.0.31"
+      range_start    = "10.0.0.41"
       range_end      = "10.0.0.251"
       subnet_mask    = "255.255.255.0"
     }
