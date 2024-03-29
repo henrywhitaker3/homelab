@@ -16,8 +16,13 @@ loki:
         secretAccessKey: ${MINIO_SECRET_KEY}
         s3ForcePathStyle: true
 
+    memberlist:
+      join_members: ["loki-memberlist"]
+
     limits_config:
       retention_period: 30d
+      # Uncomment this if running a single replica
+      # split_queries_by_interval: 0
 
     rulerConfig:
       enable_alertmanager_v2: true
@@ -57,9 +62,9 @@ loki:
             period: 24h
 
   singleBinary:
-    replicas: 1
+    replicas: 0
     persistence:
-      storageClass: longhorn
+      storageClass: longhorn-no-backup
       size: 5Gi
     extraVolumes:
       - name: scratch

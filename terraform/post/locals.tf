@@ -60,7 +60,8 @@ locals {
     "s3.plexmox.com",
     "prometheus.plexmox.com",
     "alerts.plexmox.com",
-    "longhorn.plexmox.com"
+    "longhorn.plexmox.com",
+    "grafana.plexmox.com"
   ]
 
   upstream_dns =  [
