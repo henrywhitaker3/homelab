@@ -23,10 +23,6 @@ spec:
     name: mariadb-secrets
     key: root-password
 
-  bootstrapFrom:
-    backupRef:
-      name: mariabackup
-
   storage:
     volumeClaimTemplate:
       storageClassName: longhorn-no-backups
