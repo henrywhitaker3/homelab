@@ -26,7 +26,7 @@ spec:
       accessModes:
         - ReadWriteOnce
 
-  metrics:
-    enabled: true
-    serviceMonitor:
-      enabled: true
+  # metrics:
+  #   enabled: true
+  #   serviceMonitor:
+  #     enabled: true
