@@ -10,7 +10,7 @@ spec:
     creationPolicy: Owner
   dataFrom:
     - extract:
-        key: maxscale
+        key: maxscale-secrets
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MaxScale
