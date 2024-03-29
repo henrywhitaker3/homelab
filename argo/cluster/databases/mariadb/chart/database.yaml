@@ -41,7 +41,7 @@ spec:
       memory: 512Mi
 
   metrics:
-    enabled: true
+    enabled: false
 
   service:
     type: LoadBalancer
