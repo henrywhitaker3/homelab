@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mariadb
-  namespace: argo
+  namespace: mariadb
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
