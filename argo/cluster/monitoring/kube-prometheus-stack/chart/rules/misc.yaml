@@ -15,6 +15,13 @@ spec:
             summary: Aguard exporter has seen errors for the last 5 mins
     - name: loki
       rules:
+        - alert: LokiClusterCountMismatch
+          expr: loki_memberlist_client_cluster_members_count < on() group_left kube_statefulset_replicas{statefulset="loki"}
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Loki cluster count is less than the desired replicas for 5 mins
         - alert: LokiMetricsWriteFailed
           expr: increase (loki_ruler_wal_prometheus_remote_storage_samples_failed_total[1m]) > 0
           for: 1m
