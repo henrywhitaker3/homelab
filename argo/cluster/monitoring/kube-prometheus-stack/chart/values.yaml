@@ -76,6 +76,8 @@ grafana:
   ingress:
     enabled: true
 
+    ingressClassName: internal
+
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
