@@ -73,7 +73,7 @@ authelia:
 
       mysql:
         enabled: true
-        host: mariadb.databases.svc
+        host: mariadb.mariadb.svc
         port: 3306
         username: authelia
         database: authelia

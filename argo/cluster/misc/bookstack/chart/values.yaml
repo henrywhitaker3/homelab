@@ -50,7 +50,7 @@ generic:
     PUID: "1000"
     PGID: "1000"
     TZ:  Europe/London
-    DB_HOST: mariadb.databases.svc
+    DB_HOST: mariadb.mariadb.svc
     DB_PORT: "3306"
     DB_USER: bookstack
     DB_DATABASE: bookstack
