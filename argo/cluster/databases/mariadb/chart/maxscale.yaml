@@ -3,6 +3,8 @@ kind: MaxScale
 metadata:
   name: maxscale-repl
 spec:
+  replicas: 3
+
   mariaDbRef:
     name: mariadb
     namespace: mariadb
@@ -22,3 +24,8 @@ spec:
         storage: 100Mi
     accessModes:
       - ReadWriteOnce
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
