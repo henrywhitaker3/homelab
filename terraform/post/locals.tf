@@ -61,7 +61,8 @@ locals {
     "prometheus.plexmox.com",
     "alerts.plexmox.com",
     "longhorn.plexmox.com",
-    "grafana.plexmox.com"
+    "grafana.plexmox.com",
+    "maxscale.plexmox.com"
   ]
 
   upstream_dns =  [
