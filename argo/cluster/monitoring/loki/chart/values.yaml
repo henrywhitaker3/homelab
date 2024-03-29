@@ -62,7 +62,7 @@ loki:
             period: 24h
 
   singleBinary:
-    replicas: 0
+    replicas: 2
     persistence:
       storageClass: longhorn-no-backup
       size: 5Gi
