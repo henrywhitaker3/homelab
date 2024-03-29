@@ -5,7 +5,7 @@ metadata:
 spec:
   mariaDbRef:
     name: mariadb
-    namespace: databases
+    namespace: mariadb
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
@@ -35,4 +35,4 @@ spec:
 
   mariaDbRef:
     name: mariadb
-    namespace: databases
+    namespace: mariadb
