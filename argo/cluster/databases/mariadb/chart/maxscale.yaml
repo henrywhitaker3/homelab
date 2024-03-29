@@ -26,11 +26,6 @@ spec:
       accessModes:
         - ReadWriteOnce
 
-  auth:
-    adminPasswordSecretKeyRef:
-      name: maxscale-secrets
-      key: admin-password
-
   # metrics:
   #   enabled: true
   #   serviceMonitor:
