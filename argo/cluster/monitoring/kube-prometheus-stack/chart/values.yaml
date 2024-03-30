@@ -158,7 +158,7 @@ grafana:
         datasource: Prometheus
 
   additionalDataSources:
-    - name: Prometheus
+    - name: Thanos
       ordId: 1
       type: prometheus
       access: proxy
