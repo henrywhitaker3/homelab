@@ -1,0 +1,4 @@
+type: REDIS
+config:
+  addr: redis.databases.svc.cluster.local:6379
+  db: 5

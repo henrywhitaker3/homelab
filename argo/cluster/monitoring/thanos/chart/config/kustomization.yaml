@@ -6,5 +6,10 @@ configMapGenerator:
       - config.yaml=./objstore.yaml
     options:
       disableNameSuffixHash: true
+  - name: thanos-cache-config
+    files:
+      - cache.yaml=./cache.yaml
+    options:
+      disableNameSuffixHash: true
 resources:
   - objstore-secret.yaml
