@@ -15,6 +15,7 @@ configMapGenerator:
       - longhorn.json
       - overview.json
       - adguard.json
+      - minio.json
     options:
       labels:
         grafana_dashboard: "1"
