@@ -102,8 +102,9 @@ grafana:
       provider:
         foldersFromFilesStructure: true
     datasources:
-      isDefaultDatasource: false
-      uid: prometheus-direct
+      defaultDatasourceEnabled: false
+      # isDefaultDatasource: false
+      # uid: prometheus-direct
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -158,7 +159,7 @@ grafana:
         datasource: Prometheus
 
   additionalDataSources:
-    - name: Thanos
+    - name: Prometheus
       ordId: 1
       type: prometheus
       access: proxy
