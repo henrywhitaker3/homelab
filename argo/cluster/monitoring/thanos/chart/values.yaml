@@ -81,6 +81,8 @@ rule:
               for: 5m
               labels:
                 severity: critical
+              annotations:
+                summary: Prometheus instance {{ $labels.pod }} is down
 
   persistence:
     enabled: true
