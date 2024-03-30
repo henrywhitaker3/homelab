@@ -46,7 +46,8 @@ queryFrontend:
     hosts:
       - thanos.plexmox.com
     tls:
-      - hosts:
+      - secretName: thanos-plexmox-com-tls
+        hosts:
           - thanos.plexmox.com
 
 rule:
