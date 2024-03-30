@@ -181,6 +181,11 @@ prometheus:
         hosts:
           - prometheus.plexmox.com
 
+  thanosService:
+    enabled: true
+  thanosServiceMonitor:
+    enabled: true
+
   prometheusSpec:
     replicas: 2
     replicaExternalLabelName: __replica__
@@ -192,7 +197,16 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
 
-    retention: 14d
+    thanos:
+      objectStorageConfig:
+        existingSecret:
+          name: thanos-objstore-config
+          key: config.yaml
+
+    externalLabels:
+      cluster: main
+
+    retention: 8d
 
     walCompression: true
 

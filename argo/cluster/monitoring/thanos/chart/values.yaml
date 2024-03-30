@@ -1,0 +1,87 @@
+objstoreConfig:
+  name: thanos-objstore-config
+
+additionalEndpoints:
+  - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+
+additionalReplicaLabels: ["__replica__"]
+
+serviceMonitor:
+  enabled: true
+
+compact:
+  enabled: true
+  extraArgs:
+    - --compact.concurrency=4
+    - --delete-delay=30m
+    - --retention.resolution-raw=14d
+    - --retention.resolution-5m=30d
+    - --retention.resolution-1h=60d
+
+  persistence:
+    enabled: true
+    storageClass: longhorn-no-backups
+    size: 5Gi
+
+query:
+  replicas: 2
+  extraArgs: ["--alert.query-url=https://thanos.plexmox.com"]
+
+queryFrontend:
+  enabled: true
+  replicas: 2
+
+  # extraArgs: ["--query-range.response-cache-config=$(THANOS_CACHE_CONFIG)"]
+
+  ingress:
+    enabled: true
+    ingressClassName: internal
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+    hosts:
+      - thanos.plexmox.com
+    tls:
+      - hosts:
+          - thanos.plexmox.com
+
+rule:
+  enabled: true
+  replicas: 2
+
+  extraArgs: ["--web.prefix-header=X-Forwarded-Prefix"]
+
+  alertmanagersConfig:
+    value: |-
+      alertmanagers:
+        - api_version: v2
+          static_configs:
+            - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
+
+  rules:
+    value: |-
+      groups:
+        - name: PrometheusWatcher
+          rules:
+            - alert: PrometheusDown
+              annotations:
+                summary: A Prometheus has disappeared from Prometheus target discovery
+              expr: absent(up{job="kube-prometheus-stack-prometheus"})
+              for: 5m
+              labels:
+                severity: critical
+
+  persistence:
+    enabled: true
+    storageClass: longhorn-no-backups
+    size: 5Gi
+
+storeGateway:
+  replicas: 2
+
+  persistence:
+    enabled: true
+    storageClass: longhorn-no-backups
+    size: 5Gi
