@@ -33,3 +33,8 @@ tasks:
     dir: terraform/{{ .DIR }}
     cmds:
       - terraform output {{ .CLI_ARGS }}
+
+  import:
+    dir: terraform/{{ .DIR }}
+    cmds:
+      - terraform import {{ .CLI_ARGS }}

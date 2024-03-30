@@ -40,3 +40,8 @@ resource "minio_ilm_policy" "lifecycle" {
     expiration = "${var.retention}d"
   }
 }
+
+resource "minio_iam_service_account" "service_account" {
+  target_user = minio_iam_user.user.name
+  policy = minio_iam_policy.policy.policy
+}
