@@ -96,7 +96,7 @@ storeGateway:
         configMapKeyRef:
           name: thanos-cache-config
           key: cache.yaml
-  extraArgs: ["--index-cahce.config=$(THANOS_CACHE_CONFIG)"]
+  extraArgs: ["--index-cache.config=$(THANOS_CACHE_CONFIG)"]
 
   persistence:
     enabled: true
