@@ -92,6 +92,8 @@ grafana:
         hosts:
           - grafana.plexmox.com
 
+  defaultDashboardsEditable: false
+
   sidecar:
     dashboards:
       annotations:
@@ -99,6 +101,9 @@ grafana:
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
+    datasources:
+      isDefaultDatasource: false
+      uid: prometheus-direct
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -153,6 +158,13 @@ grafana:
         datasource: Prometheus
 
   additionalDataSources:
+    - name: Prometheus
+      ordId: 1
+      type: prometheus
+      access: proxy
+      jsonData:
+        prometheusType: Thanos
+      isDefault: true
     - name: Loki
       ordId: 1
       access: proxy
