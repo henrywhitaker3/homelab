@@ -43,9 +43,6 @@ haproxy_listeners:
     mode: tcp
     balance: leastconn
     servers: |
-      server minio-1.lab 10.0.0.15:9001 check
-    # Leaving the second one out, as it wont let me login
-    # servers: |
-    #   {% for host in groups['minio'] %}
-    #   server {{ host }} {{ hostvars[host].ansible_host }}:9001 check
-    #   {% endfor %}
+      {% for host in groups['minio'] %}
+      server {{ host }} {{ hostvars[host].ansible_host }}:9001 check
+      {% endfor %}
