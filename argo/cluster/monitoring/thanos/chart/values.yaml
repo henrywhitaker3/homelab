@@ -1,7 +1,7 @@
 objstoreConfig:
   create: false
   name: thanos-objstore-config
-  key: config.yaml
+  key: "config.yaml"
 
 additionalEndpoints:
   - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
