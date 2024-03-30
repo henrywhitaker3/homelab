@@ -174,8 +174,8 @@ prometheus:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      # nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
-      # nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
 
     hosts:
       - prometheus.plexmox.com
