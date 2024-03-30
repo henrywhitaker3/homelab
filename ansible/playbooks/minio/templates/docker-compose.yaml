@@ -16,6 +16,9 @@ services:
       - MINIO_PROMETHEUS_AUTH_TYPE=${MINIO_PROMETHEUS_AUTH_TYPE}
       - MINIO_SERVER_URL=${MINIO_SERVER_URL}
       - MINIO_BROWSER_REDIRECT_URL=${MINIO_BROWSER_REDIRECT_URL}
+    extra_hosts:
+      - s3.plexmox.com:10.0.0.27
+      - minio.plexmox.com:10.0.0.27
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
       interval: 1m30s
