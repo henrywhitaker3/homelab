@@ -52,6 +52,10 @@ locals {
       name  = "minio-2.lab"
       value = data.terraform_remote_state.infra.outputs.minio_2_ip
     },
+    {
+      name  = "minio.lab"
+      value = "10.0.0.6"
+    },
   ]
 
   internal_ingress = [

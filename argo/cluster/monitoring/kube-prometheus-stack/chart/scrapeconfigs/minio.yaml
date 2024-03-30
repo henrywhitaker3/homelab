@@ -5,8 +5,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - minio-1.lab:9000
-        - minio-2.lab:9000
+        - minio.lab:9000
   metricsPath: /minio/v2/metrics/cluster
   relabelings:
     - targetLabel: job
@@ -19,8 +18,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - minio-1.lab:9000
-        - minio-2.lab:9000
+        - minio.lab:9000
   metricsPath: /minio/v2/metrics/bucket
   relabelings:
     - targetLabel: job
@@ -47,8 +45,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - minio-1.lab:9000
-        - minio-2.lab:9000
+        - minio.lab:9000
   metricsPath: /minio/v2/metrics/resource
   relabelings:
     - targetLabel: job
