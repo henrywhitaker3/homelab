@@ -8,6 +8,7 @@ resources:
   - dashboards
   - rules
   - alertmanager
+  - thanos
 
 patches:
   - path: patches/prometheuses.yaml
