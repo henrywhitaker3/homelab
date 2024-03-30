@@ -1,0 +1,15 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: kuma
+spec:
+  name: kuma
+  host: '%'
+
+  passwordSecretKeyRef:
+    name: uptime-kuma
+    key: password
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
