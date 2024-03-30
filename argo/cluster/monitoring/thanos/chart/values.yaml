@@ -1,4 +1,5 @@
 objstoreConfig:
+  create: false
   name: thanos-objstore-config
 
 additionalEndpoints:
