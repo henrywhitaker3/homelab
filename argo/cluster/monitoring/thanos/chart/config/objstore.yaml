@@ -2,6 +2,7 @@ type: s3
 config:
   bucket: thanos
   endpoint: minio.lab:9000
+  insecure: true
   region: unraid
   access_key: "{{ .access_key }}"
   secret_key: "{{ .secret_key }}"
