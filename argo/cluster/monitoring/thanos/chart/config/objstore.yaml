@@ -1,7 +1,7 @@
 type: s3
 config:
   bucket: thanos
-  endpoint: s3.plexmox.com
+  endpoint: minio.lab:9000
   region: unraid
   access_key: "{{ .access_key }}"
   secret_key: "{{ .secret_key }}"
