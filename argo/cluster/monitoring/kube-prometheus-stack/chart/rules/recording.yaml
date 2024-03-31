@@ -32,55 +32,55 @@ spec:
                 stddev_over_time(longhorn_volume_read_latency[1d])
               )
             )
-        - record: anomaly:node_cpu_seconds_idle_1w
+        - record: anomaly:node_cpu_seconds_idle_1d
           expr: |
             sum by (instance) (
               (
                 rate(node_cpu_seconds_total{mode="idle"}[3m])
                   -
-                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 6d23h58m30s)
+                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_cpu_seconds_total{mode="idle"}[1w])
+                stddev_over_time(node_cpu_seconds_total{mode="idle"}[1d])
               )
             )
-        - record: anomaly:node_network_receive_bytes_1w
+        - record: anomaly:node_network_receive_bytes_1d
           expr: |
             sum by (instance) (
               (
                 rate(node_network_receive_bytes_total[3m])
                   -
-                rate(node_network_receive_bytes_total[3m] offset 6d23h58m30s)
+                rate(node_network_receive_bytes_total[3m] offset 23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_network_receive_bytes_total[1w])
+                stddev_over_time(node_network_receive_bytes_total[1d])
               )
             )
-        - record: anomaly:node_network_transmit_bytes_1w
+        - record: anomaly:node_network_transmit_bytes_1d
           expr: |
             sum by (instance) (
               (
                 rate(node_network_transmit_bytes_total[3m])
                   -
-                rate(node_network_transmit_bytes_total[3m] offset 6d23h58m30s)
+                rate(node_network_transmit_bytes_total[3m] offset 23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_network_transmit_bytes_total[1w])
+                stddev_over_time(node_network_transmit_bytes_total[1d])
               )
             )
-        - record: anomaly:node_load5_1w
+        - record: anomaly:node_load5_1d
           expr: |
             sum by (instance) (
               (
                 avg_over_time(node_load5[5m])
                   -
-                avg_over_time(node_load5[5m] offset 6d23h57m30s)
+                avg_over_time(node_load5[5m] offset 23h57m30s)
               )
                 /
               (
-                stddev_over_time(node_load5[1w])
+                stddev_over_time(node_load5[1d])
               )
             )

@@ -211,7 +211,7 @@ prometheus:
     externalLabels:
       cluster: main
 
-    retention: 8d
+    retention: 2d
 
     walCompression: true
 

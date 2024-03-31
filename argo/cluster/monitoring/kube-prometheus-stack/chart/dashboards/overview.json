@@ -966,7 +966,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "anomaly:node_cpu_seconds_idle_1w",
+          "expr": "anomaly:node_cpu_seconds_idle_1d",
           "instant": false,
           "legendFormat": "CPU Idle {{instance}}",
           "range": true,
@@ -978,7 +978,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "anomaly:node_load5_1w",
+          "expr": "anomaly:node_load5_1d",
           "hide": false,
           "instant": false,
           "legendFormat": "Load 5 {{instance}}",
@@ -991,7 +991,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "anomaly:node_network_receive_bytes_1w",
+          "expr": "anomaly:node_network_receive_bytes_1d",
           "hide": false,
           "instant": false,
           "legendFormat": "Rx {{instance}}",
@@ -1004,7 +1004,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "anomaly:node_network_transmit_bytes_1w",
+          "expr": "anomaly:node_network_transmit_bytes_1d",
           "hide": false,
           "instant": false,
           "legendFormat": "Tx {{instance}}",
