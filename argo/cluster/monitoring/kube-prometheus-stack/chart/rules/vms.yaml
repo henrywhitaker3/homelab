@@ -23,7 +23,7 @@ spec:
           annotations:
             summary: Target {{ $labels.instance }} is DOWN
         - alert: CPULoad5Anomaly
-          expr: (anomaly:node_load5_1d > 4) and on(instance) (node_load5 > 2)
+          expr: (abs(anomaly:node_load5_1d) > 4) and on(instance) (node_load5 > 2)
           for: 10m
           labels:
             severity: warning
@@ -37,14 +37,14 @@ spec:
           annotations:
             summary: CPU Idle Time on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
         - alert: NetworkTxAnomaly
-          expr: anomaly:node_network_transmit_bytes_1d > 3
+          expr: abs(anomaly:node_network_transmit_bytes_1d) > 3
           for: 5m
           labels:
             severity: warning
           annotations:
             summary: Network Transmits on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
         - alert: NetworkRxAnomaly
-          expr: anomaly:node_network_receive_bytes_1d > 3
+          expr: abs(anomaly:node_network_receive_bytes_1d) > 3
           for: 5m
           labels:
             severity: warning
