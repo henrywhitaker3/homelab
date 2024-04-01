@@ -69,6 +69,7 @@ defaultRules:
 
 grafana:
   enabled: true
+  replicas: 2
 
   admin:
     existingSecret: grafana-creds
