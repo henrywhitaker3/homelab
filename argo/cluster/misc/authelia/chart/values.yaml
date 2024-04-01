@@ -12,8 +12,6 @@ pod:
         items:
           - key: users_database.yaml
             path: users_database.yaml
-          # - key: configuration.oidc.yml.yaml
-          #   path: configuration.oidc.yml.yaml
         secretName: authelia-secrets
 
 rbac:
