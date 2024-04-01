@@ -10,6 +10,7 @@ services:
 
   compactor:
     image: quay.io/thanos/thanos:v0.34.1
+    restart: unless-stopped
     command:
       - compact
       - --wait
@@ -32,6 +33,15 @@ services:
     depends_on:
       ownership:
         condition: service_completed_successfully
+
+  tools:
+    image: quay.io/thanos/thanos:v0.34.1
+    entrypoint:
+      - tail
+      - -f
+      - /dev/null
+    volumes:
+      - ./objstore.yaml:/etc/thanos/objstore.yaml:ro
 
 volumes:
   compactor:

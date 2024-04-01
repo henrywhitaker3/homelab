@@ -4,12 +4,12 @@
   hosts: thanos
 
   roles:
-    # - hosts
-    # - qemu
-    # - common
-    # - user
-    # - node_exporter
-    # - docker
+    - hosts
+    - qemu
+    - common
+    - user
+    - node_exporter
+    - docker
     - docker_compose
 
   handlers:
