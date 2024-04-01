@@ -2,16 +2,18 @@ domain: plexmox.com
 
 pod:
   extraVolumeMounts:
-    - mountPath: /users
-      name: users
+    - mountPath: /custom
+      name: custom
       readOnly: true
 
   extraVolumes:
-    - name: users
+    - name: custom
       secret:
         items:
           - key: users_database.yaml
             path: users_database.yaml
+          - key: configuration.oidc.yml
+            path: configuration.oidc.yml
         secretName: authelia-secrets
 
 rbac:
@@ -36,7 +38,7 @@ configMap:
       enabled: false
     file:
       enabled: true
-      path: /users/users_database.yaml
+      path: /custom/users_database.yaml
 
   telemetry:
     metrics:
