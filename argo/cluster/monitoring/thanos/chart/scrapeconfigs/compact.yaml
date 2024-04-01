@@ -5,7 +5,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 'compact.lab:10902'
+        - 'compactor.lab:10902'
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
