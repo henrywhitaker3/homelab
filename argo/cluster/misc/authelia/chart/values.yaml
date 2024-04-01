@@ -6,7 +6,7 @@ pod:
       name: users
       readOnly: true
     - mountPath: /custom
-      name: secrets
+      name: custom-secrets
       readOnly: true
 
   extraVolumes:
@@ -16,7 +16,7 @@ pod:
           - key: users_database.yml
             path: users_database.yml
         secretName: authelia-secrets
-    - name: secrets
+    - name: custom-secrets
       secret:
         secretName: authelia-secrets
 
