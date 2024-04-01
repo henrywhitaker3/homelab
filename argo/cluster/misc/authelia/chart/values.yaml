@@ -2,12 +2,12 @@ domain: plexmox.com
 
 pod:
   extraVolumeMounts:
-    - mountPath: /custom
-      name: custom
+    - mountPath: /users
+      name: users
       readOnly: true
 
   extraVolumes:
-    - name: custom
+    - name: users
       secret:
         items:
           - key: users_database.yaml
@@ -38,7 +38,7 @@ configMap:
       enabled: false
     file:
       enabled: true
-      path: /custom/users_database.yaml
+      path: /users/users_database.yaml
 
   telemetry:
     metrics:
