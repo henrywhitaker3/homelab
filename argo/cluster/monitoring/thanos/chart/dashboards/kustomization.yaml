@@ -8,6 +8,7 @@ configMapGenerator:
       - query.json
       - store.json
       - query-frontend.json
+      - sidecar.json
     options:
       labels:
         grafana_dashboard: "1"
