@@ -16,8 +16,8 @@ spec:
   host: '%'
 
   passwordSecretKeyRef:
-    name: grafana-db
-    key: password
+    name: grafana-creds
+    key: db_password
 
   mariaDbRef:
     name: mariadb

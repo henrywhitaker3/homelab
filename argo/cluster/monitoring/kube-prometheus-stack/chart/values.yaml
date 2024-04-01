@@ -88,8 +88,8 @@ grafana:
   envValueFrom:
     GF_DATABASE_PASSWORD:
       secretKeyRef:
-        name: grafana-db
-        key: password
+        name: grafana-creds
+        key: db_password
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
       secretKeyRef:
         name: grafana-creds
