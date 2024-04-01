@@ -14,6 +14,12 @@ pod:
             path: users_database.yml
         secretName: authelia-secrets
 
+  env:
+    - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+      secretKeyRef:
+        name: authelia-secrets
+        key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+
 rbac:
   enabled: true
 
