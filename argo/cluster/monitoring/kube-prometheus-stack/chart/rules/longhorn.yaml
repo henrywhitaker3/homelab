@@ -14,7 +14,12 @@ spec:
           annotations:
             summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
         - alert: VolumeFillingUp
-          expr: ((avg by (pvc) (longhorn_volume_actual_size_bytes))/ (avg by (pvc) (longhorn_volume_capacity_bytes))) * 100 > 90
+          expr: |
+            (
+              ( avg by (pvc) (longhorn_volume_actual_size_bytes{pvc!="data-thanos-compact-0"}) )
+              /
+              ( avg by (pvc) (longhorn_volume_capacity_bytes{pvc!="data-thanos-compact-0"}) )
+            ) * 100 > 90
           for: 5m
           labels:
             severity: warning
