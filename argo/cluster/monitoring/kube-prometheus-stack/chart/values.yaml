@@ -86,6 +86,8 @@ grafana:
         key: client_secret
 
   grafana.ini:
+    server:
+      root_url: https://grafana.plexmox.com
     auth:
       oauth_auto_login: false
     auth.basic:
