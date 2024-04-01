@@ -1,91 +1,90 @@
-authelia:
-  domain: plexmox.com
+domain: plexmox.com
 
-  pod:
-    extraVolumeMounts:
-      - mountPath: /users
-        name: users
-        readOnly: true
+pod:
+  extraVolumeMounts:
+    - mountPath: /users
+      name: users
+      readOnly: true
 
-    extraVolumes:
-      - name: users
-        secret:
-          items:
-            - key: users_database.yml
-              path: users_database.yml
-          secretName: authelia-secrets
+  extraVolumes:
+    - name: users
+      secret:
+        items:
+          - key: users_database.yml
+            path: users_database.yml
+        secretName: authelia-secrets
 
-  rbac:
-    enabled: true
+rbac:
+  enabled: true
 
-  ingress:
-    enabled: true
+ingress:
+  enabled: true
 
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
-    subdomain: auth
+  subdomain: auth
 
-  secret:
-    existingSecret: "authelia-secrets"
+secret:
+  existingSecret: "authelia-secrets"
 
-  configMap:
-    default_redirection_url: https://plexmox.com
-    authentication_backend:
-      ldap:
-        enabled: false
-      file:
-        enabled: true
-        path: /users/users_database.yml
+configMap:
+  default_redirection_url: https://plexmox.com
+  authentication_backend:
+    ldap:
+      enabled: false
+    file:
+      enabled: true
+      path: /users/users_database.yml
 
-    telemetry:
-      metrics:
-        enabled: true
+  telemetry:
+    metrics:
+      enabled: true
 
-        serviceMonitor:
-          enabled: true
-
-    access_control:
-      default_policy: deny
-      rules:
-        - domain: argocd.plexmox.com
-          resources:
-            - '^/api/webhook'
-          policy: bypass
-        - domain:
-          - plexmox.com
-          - "*.plexmox.com"
-          policy: two_factor
-        - domain:
-          - henrywhitaker.com
-          - "*.henrywhitaker.com"
-          policy: two_factor
-
-    session:
-      redis:
-        enabled: true
-        host: redis.databases.svc.cluster.local
-
-    storage:
-      postgres:
-        enabled: false
-
-      mysql:
-        enabled: true
-        host: mariadb.mariadb.svc
-        port: 3306
-        username: authelia
-        database: authelia
-
-    notifier:
-      filesystem:
+      serviceMonitor:
         enabled: true
 
-      smtp:
-        enabled: false
+  access_control:
+    default_policy: deny
+    rules:
+      - domain: argocd.plexmox.com
+        resources:
+          - '^/api/webhook'
+        policy: bypass
+      - domain:
+        - plexmox.com
+        - "*.plexmox.com"
+        policy: two_factor
+      - domain:
+        - henrywhitaker.com
+        - "*.henrywhitaker.com"
+        policy: two_factor
 
-    server:
-      buffers:
-        read: 8192
-        write: 8192
+  session:
+    redis:
+      enabled: true
+      host: redis.databases.svc.cluster.local
+
+  storage:
+    postgres:
+      enabled: false
+
+    mysql:
+      enabled: true
+      host: mariadb.mariadb.svc
+      port: 3306
+      username: authelia
+      database: authelia
+
+  notifier:
+    filesystem:
+      enabled: true
+
+    smtp:
+      enabled: false
+
+  server:
+    buffers:
+      read: 8192
+      write: 8192

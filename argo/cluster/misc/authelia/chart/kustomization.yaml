@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: authelia
+
+helmCharts:
+  - name: authelia
+    releaseName: authelia
+    namespace: authelia
+    version: "0.8.52"
+    repo: https://charts.authelia.com
+    valuesFile: values.yaml
+
+resources:
+  - database
