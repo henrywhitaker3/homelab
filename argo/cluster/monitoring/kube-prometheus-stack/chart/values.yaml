@@ -83,7 +83,7 @@ grafana:
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
       secretKeyRef:
         name: grafana-creds
-        value: client_secret
+        key: client_secret
 
   ingress:
     enabled: true
