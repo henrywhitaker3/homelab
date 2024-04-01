@@ -2,12 +2,9 @@ domain: plexmox.com
 
 pod:
   extraVolumeMounts:
-    - name: users
-      secret:
-        items:
-          - key: users_database.yml
-            path: users_database.yml
-        secretName: authelia-secrets
+    - mountPath: /users
+      name: users
+      readOnly: true
     - mountPath: /custom
       name: secrets
       readOnly: true
