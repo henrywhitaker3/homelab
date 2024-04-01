@@ -81,7 +81,7 @@ grafana:
 
   envValueFrom:
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
-      secretRefKey:
+      secretKeyRef:
         name: grafana-creds
         value: client_secret
 
