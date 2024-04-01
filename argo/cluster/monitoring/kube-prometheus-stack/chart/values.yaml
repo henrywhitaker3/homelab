@@ -80,7 +80,7 @@ grafana:
     GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
     GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.plexmox.com/api/oidc/token
     GF_DATABASE_NAME: grafana
-    GF_DATABASE_HOST: mariadb.mariadb.svc:3306
+    GF_DATABASE_HOST: maxscale-repl.mariadb.svc:3306
     GF_DATABASE_USER: grafana
     GF_DATABASE_SSL_MODE: disable
     GF_DATABASE_TYPE: mysql
