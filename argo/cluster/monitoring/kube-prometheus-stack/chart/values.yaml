@@ -90,7 +90,7 @@ grafana:
     server:
       root_url: https://grafana.plexmox.com
     auth:
-      oauth_auto_login: true
+      oauth_auto_login: false
     auth.basic:
       enabled: true
     auth.generic_oauth:
