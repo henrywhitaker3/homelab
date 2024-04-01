@@ -42,7 +42,7 @@ configMap:
       enabled: false
     file:
       enabled: true
-      path: /custom/users_database.yml
+      path: /users/users_database.yml
 
   telemetry:
     metrics:
