@@ -9,6 +9,7 @@ resources:
   - rules
   - alertmanager
   - thanos
+  - database
 
 patches:
   - path: patches/prometheuses.yaml

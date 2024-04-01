@@ -1,0 +1,38 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: grafana
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: grafana
+spec:
+  name: grafana
+  host: '%'
+
+  passwordSecretKeyRef:
+    name: grafana-db
+    key: password
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: grafana-grant
+spec:
+  database: grafana
+  table: "*"
+  privileges: [ALL]
+  username: grafana
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb

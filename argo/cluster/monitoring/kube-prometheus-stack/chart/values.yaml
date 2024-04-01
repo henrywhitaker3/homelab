@@ -79,8 +79,17 @@ grafana:
     GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.plexmox.com/api/oidc/authorization
     GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
     GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.plexmox.com/api/oidc/token
+    GF_DATABASE_NAME: grafana
+    GF_DATABASE_HOST: mariadb.mariadb.svc:3306
+    GF_DATABASE_USER: grafana
+    GF_DATABASE_SSL_MODE: disable
+    GF_DATABASE_TYPE: mysql
 
   envValueFrom:
+    GF_DATABASE_PASSWORD:
+      secretKeyRef:
+        name: grafana-db
+        key: password
     GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
       secretKeyRef:
         name: grafana-creds
@@ -89,9 +98,6 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.plexmox.com
-    remote_cache:
-      provider: redis
-      provider_config: “addr=redis.databases.svc:6379,db=7,pool_size=5,prefix=grafana”
     auth:
       oauth_auto_login: true
     auth.basic:
