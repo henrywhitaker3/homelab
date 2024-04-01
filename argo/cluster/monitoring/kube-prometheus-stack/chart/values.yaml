@@ -89,10 +89,9 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.plexmox.com
-    session:
+    remote_cache:
       provider: redis
       provider_config: “addr=redis.databases.svc:6379,db=7,pool_size=5,prefix=grafana”
-      cookie_secure: "true"
     auth:
       oauth_auto_login: true
     auth.basic:
