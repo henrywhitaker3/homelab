@@ -5,6 +5,9 @@ pod:
     - mountPath: /users
       name: users
       readOnly: true
+    - mountPath: /configuration.oidc.yml
+      name: oidc
+      readOnly: true
 
   extraVolumes:
     - name: users
@@ -13,13 +16,16 @@ pod:
           - key: users_database.yml
             path: users_database.yml
         secretName: authelia-secrets
+    - name: oidc
+      secret:
+        items:
+          - key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+            path: configuration.oidc.yml
+        secretName: authelia-secrets
 
   env:
-    - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC
-      valueFrom:
-        secretKeyRef:
-          name: authelia-secrets
-          key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+    - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_FILE
+      value: /configuration.oidc.yml
 
 rbac:
   enabled: true
