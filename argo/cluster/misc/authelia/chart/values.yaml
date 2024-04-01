@@ -16,9 +16,10 @@ pod:
 
   env:
     - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC
-      secretKeyRef:
-        name: authelia-secrets
-        key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+      valueFrom:
+        secretKeyRef:
+          name: authelia-secrets
+          key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
 
 rbac:
   enabled: true
