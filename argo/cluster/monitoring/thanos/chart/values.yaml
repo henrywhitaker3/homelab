@@ -11,8 +11,9 @@ additionalReplicaLabels: ["__replica__"]
 serviceMonitor:
   enabled: true
 
+# It's now running on a dedicated vm for storage resons
 compact:
-  enabled: true
+  enabled: false
   extraArgs:
     - --compact.concurrency=4
     - --delete-delay=30m
