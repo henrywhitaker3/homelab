@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: adguard
+spec:
+  staticConfigs:
+    - targets:
+        - 'compact.lab:10902'
+  metricsPath: /metrics
+  relabelings:
+    - targetLabel: job
+      replacement: thanos-compact-headless

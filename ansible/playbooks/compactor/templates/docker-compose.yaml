@@ -30,6 +30,8 @@ services:
     volumes:
       - ./objstore.yaml:/etc/thanos/objstore.yaml:ro
       - compactor:/var/thanos/compact
+    ports:
+      - 10902:10902
     depends_on:
       ownership:
         condition: service_completed_successfully
