@@ -5,7 +5,7 @@ pod:
     - mountPath: /users
       name: users
       readOnly: true
-    - mountPath: /configuration.oidc.yml
+    - mountPath: /oidc
       name: oidc
       readOnly: true
 
@@ -19,13 +19,9 @@ pod:
     - name: oidc
       secret:
         items:
-          - key: AUTHELIA_IDENTITY_PROVIDERS_OIDC
+          - key: configuration.oidc.yml
             path: configuration.oidc.yml
         secretName: authelia-secrets
-
-  env:
-    - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_FILE
-      value: /configuration.oidc.yml
 
 rbac:
   enabled: true
@@ -73,6 +69,9 @@ configMap:
         - henrywhitaker.com
         - "*.henrywhitaker.com"
         policy: two_factor
+
+  identity_providers: |
+    {{- fileContent "/oidc/configuration.oidc.yml" | nindent 2 }}
 
   session:
     redis:
