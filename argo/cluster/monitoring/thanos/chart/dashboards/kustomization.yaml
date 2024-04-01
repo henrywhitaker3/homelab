@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+configMapGenerator:
+  - name: thanos-dashboards
+    files:
+      - overview.json
+      - compact.json
+      - query.json
+      - store.json
+      - query-frontend.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+      annotations:
+        grafana_folder: Thanos
+        argocd.argoproj.io/sync-options: Replace=true
