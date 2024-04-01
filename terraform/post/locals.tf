@@ -53,6 +53,10 @@ locals {
       value = data.terraform_remote_state.infra.outputs.minio_2_ip
     },
     {
+      name  = "compactor.lab"
+      value = data.terraform_remote_state.infra.outputs.thanos_compactor_ip
+    },
+    {
       name  = "minio.lab"
       value = "10.0.0.6"
     },

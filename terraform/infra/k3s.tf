@@ -57,3 +57,18 @@ module "k3s-worker-2" {
 
   tags = ["agent", "k3s", "ubuntu"]
 }
+
+module "thanos-compactor" {
+  source = "./vm"
+
+  name      = "compactor"
+  image     = local.ubuntu_22_04
+  ip        = "10.0.0.17"
+  nameserver = "10.0.0.2 10.0.0.3"
+  cores     = 1
+  memory    = 1024
+  node      = 2
+  disk_size = "100G"
+
+  tags = ["thanos", "ubuntu"]
+}

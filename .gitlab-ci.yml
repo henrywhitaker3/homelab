@@ -25,6 +25,7 @@ image: henrywhitaker3/pipeline
         - speakers
         - adguard
         - minio
+        - compactor
   rules:
     - if: $SKIP_ANSIBLE == "true"
       when: never
