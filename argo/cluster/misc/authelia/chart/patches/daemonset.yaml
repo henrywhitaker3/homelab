@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: authelia
+spec:
+  template:
+    spec:
+      containers:
+        - name: authelia
+          args:
+            - --config=/configuration.yaml
+            - --config=/custom/configuration.oidc.yaml

@@ -13,3 +13,6 @@ helmCharts:
 resources:
   - database
   - secrets
+
+patches:
+  - path: patches/daemonset.yaml
