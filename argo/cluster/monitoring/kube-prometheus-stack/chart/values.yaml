@@ -44,6 +44,9 @@ kubelet:
       - action: drop
         sourceLabels: ["__name__"]
         regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (apiserver|etcd)_request(|_sli|_slo)_duration_seconds_bucket
 
 kubeApiServer:
   enabled: true
