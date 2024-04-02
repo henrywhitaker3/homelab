@@ -18,8 +18,3 @@ ingress-nginx:
 
     service:
       loadBalancerIP: "10.0.0.25"
-
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
