@@ -7,4 +7,4 @@ resources:
   - database.yaml
   # - backup.yaml
   - users.yaml
-  # - restore.yaml
+  - restore.yaml
