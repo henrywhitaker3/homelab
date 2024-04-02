@@ -8,4 +8,4 @@ resources:
   - backup.yaml
   - maxscale.yaml
   - users.yaml
-  # - restore.yaml
+  - restore.yaml
