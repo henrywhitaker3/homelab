@@ -6,7 +6,7 @@ spec:
   groups:
     - name: minio
       rules:
-        - alert: ClusterCapacityLow
+        - alert: MinioClusterCapacityLow
           expr: |
             100 - (100 * (minio_cluster_capacity_usable_free_bytes / minio_cluster_capacity_usable_total_bytes)) > 90
           for: 5m
@@ -14,14 +14,14 @@ spec:
             severity: warning
           annotations:
             summary: MinIO free capacity is < 10%
-        - alert: NodesOffline
+        - alert: MinioNodesOffline
           expr: minio_cluster_nodes_offline_total > 0
           for: 5m
           labels:
             severity: critical
           annotations:
             summary: Node {{ $labels.instance }} down in MinIO deployment
-        - alert: DisksOffline
+        - alert: MinioDisksOffline
           expr: minio_cluster_drive_offline_total > 0
           for: 5m
           labels:
