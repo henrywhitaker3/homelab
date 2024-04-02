@@ -32,12 +32,42 @@ alertmanager:
 nodeExporter:
   enabled: false
 
+kubelet:
+  enabled: true
+  serviceMonitor:
+    metricRelabelings:
+      # Drop high cardinality labels
+      - action: labeldrop
+        regex: (uid)
+      - action: labeldrop
+        regex: (id|name)
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+
+kubeApiServer:
+  enabled: true
+  serviceMonitor:
+    metricRelabelings:
+      # Drop high cardinality labels
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
+
 kubeEtcd:
   enabled: true
   endpoints:
     - 10.0.0.20
     - 10.0.0.21
     - 10.0.0.24
+  serviceMonitor:
+    metricRelabelings:
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (etcd_request_duration_seconds_bucket)
 
 kubeControllerMnager:
   enabled: true
@@ -178,10 +208,6 @@ grafana:
         datasource: Prometheus
       cert-manager:
         gnetId: 11001
-        revision: 1
-        datasource: Prometheus
-      ingress-nginx:
-        gnetId: 9614
         revision: 1
         datasource: Prometheus
       mysql-overview:
