@@ -4,8 +4,7 @@ namespace: mariadb
 
 resources:
   - secret.yaml
-  - database.yaml
+  # - database.yaml
   # - backup.yaml
-  - maxscale.yaml
   - users.yaml
-  - restore.yaml
+  # - restore.yaml
