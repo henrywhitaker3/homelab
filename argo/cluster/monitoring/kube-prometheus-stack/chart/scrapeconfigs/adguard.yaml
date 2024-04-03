@@ -11,8 +11,8 @@ spec:
   relabelings:
     - targetLabel: job
       replacement: adguard
-  metricRelabelings:
-    - sourceLabels: ["server"]
+    - action: replace
+      sourceLabels: ["server"]
       regex: http(|s):\/\/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}).*
       replacement: $2
       targetLabel: server
