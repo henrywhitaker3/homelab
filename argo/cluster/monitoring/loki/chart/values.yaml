@@ -106,6 +106,13 @@ loki:
       grafanaAgent:
         installOperator: false
 
+    serviceMonitoring:
+      enabled: true
+      metricRelabelings:
+        - action: drop
+          sourceLabels: ["__name__"]
+          regex: loki_request_duration_seconds_bucket
+
     dashboards:
       annotations:
         grafana_folder: Loki

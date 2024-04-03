@@ -56,6 +56,9 @@ kubelet:
       - action: drop
         sourceLabels: ["__name__"]
         regex: (prober_probe_duration_seconds_bucket)
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (kubelet_runtime_operations_duration_seconds_bucket)
 
 kubeApiServer:
   enabled: true
