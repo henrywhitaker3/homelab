@@ -106,7 +106,7 @@ loki:
       grafanaAgent:
         installOperator: false
 
-    serviceMonitoring:
+    serviceMonitor:
       enabled: true
       metricRelabelings:
         - action: drop
