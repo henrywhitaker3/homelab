@@ -68,7 +68,7 @@ module "thanos-compactor" {
   cores     = 1
   memory    = 1024
   node      = 2
-  disk_size = "100G"
+  disk_size = "40G"
 
   tags = ["thanos", "ubuntu"]
 }
