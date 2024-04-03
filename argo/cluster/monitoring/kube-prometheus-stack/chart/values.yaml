@@ -279,11 +279,11 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
 
-    thanos:
-      objectStorageConfig:
-        existingSecret:
-          name: thanos-objstore-config
-          key: config.yaml
+    # thanos:
+    #   objectStorageConfig:
+    #     existingSecret:
+    #       name: thanos-objstore-config
+    #       key: config.yaml
 
     externalLabels:
       cluster: main
