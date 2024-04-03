@@ -7,7 +7,7 @@ spec:
     - name: meta
       rules:
         - record: prometheus_high_cardinality_metrics_top_20
-          expr: topk(20, count by (__name__, job) ({__name__=~".+"}))
+          expr: label_replace(topk(20, count by(__name__, job) ({__name__=~".+"})),"name","$1","__name__", "(.+)")
           interval: 1m
     - name: anomalies
       rules:
