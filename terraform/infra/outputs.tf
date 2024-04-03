@@ -37,6 +37,3 @@ output "adguard_1_ip" {
 output "adguard_2_ip" {
   value = module.adguard-2.ip
 }
-output "thanos_compactor_ip" {
-  value = module.thanos-compactor.ip
-}

@@ -79,7 +79,7 @@ all:
         k3s-worker-2.lab:
           ansible_host: 10.0.0.21
 
-    thanos:
-      hosts:
-        compactor.lab:
-          ansible_host: 10.0.0.17
+    # thanos:
+    #   hosts:
+    #     compactor.lab:
+    #       ansible_host: 10.0.0.17

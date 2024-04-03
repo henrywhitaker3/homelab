@@ -178,9 +178,8 @@ grafana:
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
-    datasources:
-      # defaultDatasourceEnabled: false
-      url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
+    # datasources:
+      # url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -289,7 +288,7 @@ prometheus:
     externalLabels:
       cluster: main
 
-    retention: 2d
+    retention: 10d
 
     walCompression: true
 
