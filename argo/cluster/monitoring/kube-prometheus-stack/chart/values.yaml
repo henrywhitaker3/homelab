@@ -55,7 +55,7 @@ kubelet:
         regex: apiserver_(response|watch_events)_sizes_bucket
       - action: drop
         sourceLabels: ["__name__"]
-        regex: prober_probe_duration_seconds_bucket
+        regex: (prober_probe_duration_seconds_bucket)
 
 kubeApiServer:
   enabled: true
