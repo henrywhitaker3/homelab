@@ -50,6 +50,9 @@ kubelet:
       - action: drop
         sourceLabels: ["__name__"]
         regex: apiserver_request_body_size_bytes_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: apiserver_(response|watch_events)_sizes_bucket
 
 kubeApiServer:
   enabled: true
