@@ -55,10 +55,10 @@ kubelet:
         regex: apiserver_(response|watch_events)_sizes_bucket
       - action: drop
         sourceLabels: ["__name__"]
-        regex: (prober_probe_duration_seconds_bucket)
+        regex: prober_probe_duration_seconds_bucket
       - action: drop
         sourceLabels: ["__name__"]
-        regex: (kubelet_runtime_operations_duration_seconds_bucket)
+        regex: kubelet_runtime_operations_duration_seconds_bucket
 
 kubeApiServer:
   enabled: true
@@ -74,6 +74,9 @@ kubeApiServer:
       - action: drop
         sourceLabels: ["__name__"]
         regex: apiserver_request_body_size_bytes_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: workqueue_(queue|work)_duration_seconds_bucket
 
 kubeEtcd:
   enabled: true
