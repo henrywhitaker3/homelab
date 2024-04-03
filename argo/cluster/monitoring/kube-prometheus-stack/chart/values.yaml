@@ -49,7 +49,7 @@ kubelet:
         regex: (apiserver|etcd)_request(|_sli|_slo)_duration_seconds_bucket
       - action: drop
         sourceLabels: ["__name__"]
-        regex: apiserver_request_body_szie_bytes_bucket
+        regex: apiserver_request_body_size_bytes_bucket
 
 kubeApiServer:
   enabled: true
@@ -64,7 +64,7 @@ kubeApiServer:
         regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
       - action: drop
         sourceLabels: ["__name__"]
-        regex: apiserver_request_body_szie_bytes_bucket
+        regex: apiserver_request_body_size_bytes_bucket
 
 kubeEtcd:
   enabled: true
