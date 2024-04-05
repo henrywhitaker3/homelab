@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-external
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "10.0.0.29"
+  selector:
+    cnpg.io/cluster: postgres
+    role: primary
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
