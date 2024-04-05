@@ -13,7 +13,6 @@ spec:
 
   superuserSecret:
     name: postgres-cluster-secrets
-    key: root-password
 
   enableSuperuserAccess: true
 
