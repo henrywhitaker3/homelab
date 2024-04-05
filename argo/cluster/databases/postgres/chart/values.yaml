@@ -36,6 +36,9 @@ generic:
     accessModes:
       - ReadWriteOnce
 
+  config:
+    PGDATA: /var/lib/postgresql/data/pgdata
+
   secrets:
     enabled: true
     key: postgres
