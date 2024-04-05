@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgres
+spec:
+  schedule: "@hourly"
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: postgres
