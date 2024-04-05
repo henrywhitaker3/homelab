@@ -11,11 +11,6 @@ spec:
     size: 5Gi
     storageClass: longhorn-no-backups
 
-  superuserSecret:
-    name: postgres-superuser
-
-  enableSuperuserAccess: true
-
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
