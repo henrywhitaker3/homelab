@@ -12,7 +12,7 @@ spec:
     storageClass: longhorn-no-backups
 
   superuserSecret:
-    name: postgres-cluster-secrets
+    name: postgres-superuser
 
   enableSuperuserAccess: true
 
