@@ -1,0 +1,41 @@
+generic:
+  nameOverride: postgres
+  fullnameOverride: postgres
+
+  replicaCount: 1
+
+  deploymentStrategy:
+    type: Recreate
+
+  image:
+    repository: postgres
+    pullPolicy: Always
+    tag: "16.2"
+
+  service:
+    portName: postgres
+    port: 5432
+
+    loadBalancer:
+      enabled: true
+      ip: "10.0.0.29"
+
+  ingress:
+    enabled: false
+
+  probes:
+    type: tcpSocket
+    options:
+      port: postgres
+
+  pvc:
+    enabled: true
+    mountPath: /var/lib/postgresql/data
+    storageClassName: longhorn
+    size: 5Gi
+    accessModes:
+      - ReadWriteOnce
+
+  secrets:
+    enabled: true
+    key: postgres
