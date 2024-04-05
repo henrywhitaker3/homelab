@@ -12,7 +12,7 @@ spec:
     storageClass: longhorn-no-backups
 
   superuserSecret:
-    name: postgres-cluster-secret
+    name: postgres-cluster-secrets
     key: root-password
 
   enableSuperuserAccess: true
@@ -54,8 +54,8 @@ spec:
 
       s3Credentials:
         accessKeyId:
-          name: postgres-cluster-secret
+          name: postgres-cluster-secrets
           key: aws-access-key-id
         secretAccessKey:
-          name: postgres-cluster-secret
+          name: postgres-cluster-secrets
           key: aws-secret-access-key
