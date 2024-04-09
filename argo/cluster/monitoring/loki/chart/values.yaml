@@ -8,6 +8,9 @@ loki:
     enabled: true
     allocatedMemory: 256
 
+  lokiCanary:
+    enabled: false
+
   loki:
     auth_enabled: false
     commonConfig:
