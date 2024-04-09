@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: mariadb
     server: https://kubernetes.default.svc
-  project: apps
+  project: databases
   source:
     path: argo/cluster/databases/mariadb/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

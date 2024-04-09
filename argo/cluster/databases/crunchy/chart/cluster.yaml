@@ -1,0 +1,48 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  port: 3306
+
+  replicas: 3
+
+  galera:
+    enabled: true
+    config:
+      reuseStorageVolume: true
+    recovery:
+      enabled: true
+
+  podSecurityContext:
+    runAsUser: 0
+
+  rootPasswordSecretKeyRef:
+    name: mariadb-secrets
+    key: root-password
+
+  storage:
+    volumeClaimTemplate:
+      storageClassName: longhorn-no-backups
+      resources:
+        requests:
+          storage: 10Gi
+      accessModes:
+        - ReadWriteOnce
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+  metrics:
+    enabled: true
+
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 10.0.0.28
