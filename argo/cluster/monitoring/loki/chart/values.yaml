@@ -1,6 +1,13 @@
 loki:
   deploymentMode: SingleBinary
 
+  chunksCache:
+    enabled: true
+    allocatedMemory: 256
+  resultsCache:
+    enabled: true
+    allocatedMemory: 256
+
   loki:
     auth_enabled: false
     commonConfig:
