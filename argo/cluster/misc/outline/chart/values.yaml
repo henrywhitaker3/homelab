@@ -51,12 +51,12 @@ generic:
     URL: https://wiki.plexmox.com
 
     FILE_STORAGE: s3
+    FILE_STORAGE_UPLOAD_MAX_SIZE: "26214400"
     AWS_REGION: auto
     AWS_S3_UPLOAD_BUCKET_NAME: outline
-    AWS_S3_UPLOAD_BUCKET_URL: https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com
-    AWS_S3_ACCELERATE_URL: ""
+    AWS_S3_UPLOAD_BUCKET_URL: https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com/outline
+    AWS_S3_ACCELERATE_URL: https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com/outline
     AWS_S3_FORCE_PATH_STYLE: "false"
-    AWS_S3_UPLOAD_MAX_SIZE: "26214400"
 
     OIDC_CLIENT_ID: outline
     OIDC_AUTH_URI: https://auth.plexmox.com/api/oidc/authorization
