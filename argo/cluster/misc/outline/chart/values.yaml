@@ -76,8 +76,8 @@ generic:
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
-          name: outline
-          key: db-url
+          name: crunchy-pguser-outline
+          key: uri
     - name: OIDC_CLIENT_SECRET
       valueFrom:
         secretKeyRef:
