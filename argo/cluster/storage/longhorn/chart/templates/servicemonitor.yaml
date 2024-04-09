@@ -13,6 +13,9 @@ spec:
       - action: drop
         sourceLabels: ["__name__"]
         regex: longhorn_rest_client_(rate_limiter|request)_latency_seconds_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: longhorn_workqueue_(work|queue)_duration)_seconds_bucket
   namespaceSelector:
     matchNames:
     - longhorn-system
