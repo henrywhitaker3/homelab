@@ -54,6 +54,7 @@ generic:
     AWS_REGION: unraid
     AWS_S3_UPLOAD_BUCKET_NAME: outline
     AWS_S3_UPLOAD_BUCKET_URL: https://s3.plexmox.com
+    AWS_S3_FORCE_PATH_STYLE: "true"
 
     OIDC_CLIENT_ID: outline
     OIDC_AUTH_URI: https://auth.plexmox.com/api/oidc/authorization
