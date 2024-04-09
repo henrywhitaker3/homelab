@@ -1,0 +1,99 @@
+generic:
+  nameOverride: outline
+  fullnameOverride: outline
+
+  replicaCount: 1
+
+  image:
+    repository: outlinewiki/outline
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 80
+
+  ingress:
+    enabled: true
+    ingressClassName: internal
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+    hosts:
+      - host: wiki.plexmox.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: wiki-plexmox-com-tls
+      hosts:
+        - wiki.plexmox.com
+
+  pvc:
+    enabled: true
+    mountPath: /var/lib/outline/data
+    storageClassName: longhorn
+    size: 256M
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 30
+    timeoutSeconds: 3
+
+  config:
+    NODE_ENV: production
+    FORCE_HTTPS: "false"
+    REDIS_URL: redis://redis.databases.svc:6379
+    URL: https://wiki.plexmox.com
+
+    FILE_STORAGE: s3
+    AWS_REGION: unraid
+    AWS_S3_UPLOAD_BUCKET_NAME: outline
+    AWS_S3_UPLOAD_BUCKET_URL: https://s3.plexmox.com
+
+    OIDC_CLIENT_ID: outline
+    OIDC_AUTH_URI: https://auth.plexmox.com/api/oidc/authorization
+    OIDC_TOKEN_URI: https://auth.plexmox.com/api/oidc/token
+    OIDC_USERINFO_URI: https://auth.plexmox.com/api/oidc/userinfo
+    OIDC_USERNAME_CLAIM: preferred_username
+    OIDC_DISPLAY_NAME: Authelia
+    OIDC_SCOPES: "openid offline_access profile email"
+
+  env:
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: secret-key
+    - name: UTILS_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: utils-secret
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: db-url
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: aws-access-key-id
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: aws-secret-access-key
+    - name: OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: outline
+          key: authelia-client-secret
+
+  secrets:
+    enabled: true
+    key: outline-secrets
