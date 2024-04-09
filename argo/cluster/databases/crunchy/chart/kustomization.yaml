@@ -5,4 +5,4 @@ namespace: crunchy
 resources:
   - secret.yaml
   - cluster.yaml
-  # - restore.yaml
+  - push.yaml
