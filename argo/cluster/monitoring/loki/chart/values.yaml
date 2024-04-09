@@ -51,7 +51,7 @@ loki:
       retention_delete_worker_count: 150
       shared_store: s3
 
-    schema_config:
+    schemaConfig:
       configs:
         - from: "2022-01-11"
           store: boltdb-shipper
