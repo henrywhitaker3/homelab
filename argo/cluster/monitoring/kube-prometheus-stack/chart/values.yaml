@@ -60,6 +60,11 @@ kubelet:
       - action: drop
         sourceLabels: ["__name__"]
         regex: prober_probe_duration_seconds_bucket
+    cAdvisorMetricRelabelings:
+      - action: labeldrop
+        regex: (uid)
+      - action: labeldrop
+        regex: (id|name)
 
 kubeApiServer:
   enabled: true
