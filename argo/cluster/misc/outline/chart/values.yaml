@@ -87,6 +87,7 @@ generic:
   securityContext:
     fsGroup: 65533
     runAsUser: 65533
+    fsGroupChangePolicy: OnRootMismatch
 
   secrets:
     enabled: true
