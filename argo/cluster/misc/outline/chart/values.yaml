@@ -85,8 +85,8 @@ generic:
           key: authelia-client-secret
 
   securityContext:
-    fsGroup: 65533
-    runAsUser: 65533
+    runAsUser: 1001
+    fsGroup: 1001
     fsGroupChangePolicy: OnRootMismatch
 
   secrets:
