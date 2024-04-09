@@ -81,3 +81,14 @@
   loop:
     - none
     - swap
+
+- name: Copy over registries configuration
+  become: "{{ k3s_become }}"
+  ansible.builtin.template:
+    src: templates/registries.yaml
+    dest: /etc/rancher/k3s/registries.yaml
+    owner: root
+    group: root
+    mode: "0644"
+  when: k3s_registry_enabled
+  notify: restart k3s

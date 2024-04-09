@@ -33,6 +33,8 @@ k3s_flannel_backend: "vxlan"
 
 # k3s_disable_network_policy: true
 
+k3s_registry_enabled: true
+
 cifs_mounts:
   - src: //10.0.0.9/plex
     path: /plex
