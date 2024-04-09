@@ -1,0 +1,6 @@
+dependencies:
+- name: crunchy-userinit-controller
+  repository: https://ramblurr.github.io/crunchy-userinit-controller
+  version: 0.0.4
+digest: sha256:713b6f44ff4276188a67edccd39f9f11efd4bfe6d772279adb4556d8bacfcd8c
+generated: "2024-04-09T18:48:49.475543384+01:00"

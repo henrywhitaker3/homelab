@@ -1,0 +1,2 @@
+crunchy-userinit-controller:
+  fullnameOverride: crunchy-userinit
