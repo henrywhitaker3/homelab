@@ -84,6 +84,10 @@ generic:
           name: outline
           key: authelia-client-secret
 
+  securityContext:
+    fsGroup: 65533
+    runAsUser: 65533
+
   secrets:
     enabled: true
     key: outline-secrets
