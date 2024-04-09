@@ -6,8 +6,8 @@ generic:
 
   image:
     repository: outlinewiki/outline
-    pullPolicy: Always
-    tag: latest
+    pullPolicy: IfNotPresent
+    tag: "0.75.2"
 
   service:
     port: 3000
