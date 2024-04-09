@@ -3,7 +3,7 @@ module "outline" {
 
   name      = "outline"
   buckets   = ["outline"]
-  acl       = "public"
+  acl       = "public-read"
   permissions = [
     "s3:DeleteObject",
     "s3:GetObject",
