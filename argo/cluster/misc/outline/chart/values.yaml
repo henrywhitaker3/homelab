@@ -47,6 +47,7 @@ generic:
     NODE_ENV: production
     FORCE_HTTPS: "false"
     REDIS_URL: redis://redis.databases.svc:6379
+    PGSSLMODE: disable
     URL: https://wiki.plexmox.com
 
     FILE_STORAGE: s3
