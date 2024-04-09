@@ -11,6 +11,11 @@ loki:
   lokiCanary:
     enabled: false
 
+  gateway:
+    service:
+      annotations:
+        prometheus.io/service-monitor: "false"
+
   loki:
     auth_enabled: false
     commonConfig:
