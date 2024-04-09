@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: databases
 
 patches:
-  - path: postgresclusters.yaml
+  - path: patches/postgresclusters.yaml
 
 helmCharts:
   - name: pgo
