@@ -83,6 +83,9 @@ kubeApiServer:
       - action: drop
         sourceLabels: ["__name__"]
         regex: workqueue_(queue|work)_duration_seconds_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: apiserver_admission_controller_admission_duration_seconds_bucket
 
 kubeEtcd:
   enabled: true
