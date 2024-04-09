@@ -1,0 +1,90 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: crunchy
+spec:
+  postgresVersion: 16
+
+  metadata:
+    labels:
+      crunchy-userinit.ramblurr.github.com/enabled: "true"
+      crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+
+  service:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.36
+
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        synchronous_commit: "on"
+        pg_hba:
+          - hostnossl all all 10.42.0.0/16 md5
+          - hostssl all all all md5
+
+  instances:
+    - name: crunchy
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy
+      replicas: 3
+      dataVolumeClaimSpec:
+        storageClassName: longhorn-no-backups
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+
+  users:
+    # Superuser
+    - name: postgres
+      databases:
+        - postgres
+      options: "SUPERUSER"
+      password:
+        type: AlphaNumeric
+
+    # Applications
+    - name: outline
+      databases:
+        - outline
+      password:
+        type: AlphaNumeric
+
+  backups:
+    pgbackrest:
+      # restore:
+      #   enabled: true
+      #   repoName: repo1
+      #   options:
+      #   - --type=time
+      #   - --target="2021-06-09 14:15:11-04"
+      configuration:
+        - secret:
+            name: crunchy-postgres-secrets
+      global:
+        compress-type: "bz2"
+        compress-level: "9"
+        delta: "y"
+        repo1-retention-full-type: "time"
+        repo1-retention-full: "14"
+        repo1-retention-diff: "30"
+        repo1-path: "/crunchy"
+        repo1-s3-uri-style: path
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-backup
+      repos:
+        - name: repo1
+          s3:
+            bucket: "crunchy"
+            endpoint: "https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com"
+            region: "auto"
+          schedules:
+            full: "0 1 * * 0" # Sunday at 01:00
+            differential: "0 1 * * 1-6" # Mon-Sat at 01:00
+            incremental: "0 2-23 * * *" # Every hour except 01:00

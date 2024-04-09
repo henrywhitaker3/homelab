@@ -1,10 +1,9 @@
-module "dragonfly" {
+module "outline" {
   source = "./bucket"
 
-  name      = "dragonfly"
-  buckets   = ["dragonfly"]
-  retention = 3
-  acl       = "private"
+  name      = "outline"
+  buckets   = ["outline"]
+  acl       = "public-read"
   permissions = [
     "s3:DeleteObject",
     "s3:GetObject",

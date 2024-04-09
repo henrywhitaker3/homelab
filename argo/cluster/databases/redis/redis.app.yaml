@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: databases
     server: https://kubernetes.default.svc
-  project: apps
+  project: databases
   source:
     path: argo/cluster/databases/redis/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

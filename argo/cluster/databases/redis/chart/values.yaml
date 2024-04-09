@@ -20,6 +20,8 @@ generic:
     enabled: false
 
   probes:
-    type: tcpSocket
+    type: exec
     options:
-      port: redis
+      command:
+        - redis-cli
+        - ping

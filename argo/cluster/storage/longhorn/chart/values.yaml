@@ -15,7 +15,8 @@ longhorn:
 
   metrics:
     serviceMonitor:
-      enabled: true
+      # Disabled until helm metricrelabiling is possible
+      enabled: false
 
   defaultSettings:
     defaultLonghornStaticStorageClass: longhorn

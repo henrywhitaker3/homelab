@@ -115,4 +115,4 @@ loki:
       metricRelabelings:
         - action: drop
           sourceLabels: ["__name__"]
-          regex: loki_request_duration_seconds_bucket
+          regex: loki_(request_duration|logql_querystats_bytes_processed_per)_seconds_bucket

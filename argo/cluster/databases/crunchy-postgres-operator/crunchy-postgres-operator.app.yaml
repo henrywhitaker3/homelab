@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bookstack
+  name: crunchy-postgres-operator
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: docs
+    namespace: databases
     server: https://kubernetes.default.svc
-  project: apps
+  project: databases
   source:
-    path: argo/cluster/misc/bookstack/chart
+    path: argo/cluster/databases/crunchy-postgres-operator/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

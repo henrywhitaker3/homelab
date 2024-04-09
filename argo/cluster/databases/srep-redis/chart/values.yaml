@@ -58,6 +58,8 @@ generic:
     timeout: 10s
 
   probes:
-    type: tcpSocket
+    type: exec
     options:
-      port: redis
+      command:
+        - redis-cli
+        - ping

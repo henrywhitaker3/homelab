@@ -56,10 +56,24 @@ kubelet:
       - action: drop
         sourceLabels: ["__name__"]
         regex: (kubelet_runtime_operations|storage_operation)_duration_seconds_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: (apiserver|etcd)_request_total
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: apiserver_request_duration_seconds_(count|sum)
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: etcd_request_duration_seconds_(count|sum)
     probesMetricRelabelings:
       - action: drop
         sourceLabels: ["__name__"]
         regex: prober_probe_duration_seconds_bucket
+    cAdvisorMetricRelabelings:
+      - action: labeldrop
+        regex: (uid)
+      - action: labeldrop
+        regex: (id|name)
 
 kubeApiServer:
   enabled: true
@@ -78,6 +92,9 @@ kubeApiServer:
       - action: drop
         sourceLabels: ["__name__"]
         regex: workqueue_(queue|work)_duration_seconds_bucket
+      - action: drop
+        sourceLabels: ["__name__"]
+        regex: apiserver_admission_controller_admission_duration_seconds_bucket
 
 kubeEtcd:
   enabled: true

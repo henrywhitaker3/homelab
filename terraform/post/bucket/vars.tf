@@ -24,7 +24,7 @@ variable "acl" {
   description = "The ACL for the bucket"
   default     = "private"
   validation {
-    condition     = contains(["public", "private"], var.acl)
+    condition     = contains(["public", "private", "public-read"], var.acl)
     error_message = "Invalid acl"
   }
 }
