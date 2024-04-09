@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: databases
+    namespace: crunchy
     server: https://kubernetes.default.svc
   project: databases
   source:
