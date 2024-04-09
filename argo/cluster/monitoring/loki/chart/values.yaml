@@ -1,5 +1,6 @@
 loki:
   deploymentMode: SingleBinary
+
   loki:
     auth_enabled: false
     commonConfig:
@@ -61,6 +62,13 @@ loki:
             period: 24h
           chunks:
             period: 24h
+
+  read:
+    replicas: 0
+  write:
+    replicas: 0
+  backend:
+    replicas: 0
 
   singleBinary:
     replicas: 3
