@@ -54,7 +54,7 @@ generic:
     AWS_REGION: unraid
     AWS_S3_UPLOAD_BUCKET_NAME: outline
     AWS_S3_UPLOAD_BUCKET_URL: https://s3.plexmox.com/outline
-    AWS_S3_ACCELERATE_URL: https://s3.plexmox.com/outline
+    AWS_S3_ACCELERATE_URL: ""
     AWS_S3_FORCE_PATH_STYLE: "false"
     AWS_S3_UPLOAD_MAX_SIZE: "26214400"
 
