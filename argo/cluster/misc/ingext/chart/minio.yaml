@@ -34,6 +34,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 100M
+    nginx.ingress.kubernetes.io/upstream-vhost: "minio.lab:9000"
 spec:
   ingressClassName: internal
   rules:
