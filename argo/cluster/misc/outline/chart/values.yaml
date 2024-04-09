@@ -21,14 +21,14 @@ generic:
       nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
       nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
     hosts:
-      - host: wiki.plexmox.com
+      - host: docs.plexmox.com
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: wiki-plexmox-com-tls
+    - secretName: docs-plexmox-com-tls
       hosts:
-        - wiki.plexmox.com
+        - docs.plexmox.com
 
   pvc:
     enabled: true
@@ -48,7 +48,7 @@ generic:
     FORCE_HTTPS: "false"
     REDIS_URL: redis://redis.databases.svc:6379
     PGSSLMODE: disable
-    URL: https://wiki.plexmox.com
+    URL: https://docs.plexmox.com
 
     FILE_STORAGE: local
     FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
