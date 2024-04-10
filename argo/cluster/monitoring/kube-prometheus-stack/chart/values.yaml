@@ -326,7 +326,7 @@ prometheus:
     externalLabels:
       cluster: main
 
-    retention: 10d
+    retention: 14d
     retentionSize: 25GB
 
     walCompression: true
