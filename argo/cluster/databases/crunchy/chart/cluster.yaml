@@ -63,6 +63,10 @@ spec:
       password:
         type: AlphaNumeric
 
+    - name: kuma
+      password:
+        type: AlphaNumeric
+
   backups:
     pgbackrest:
       # restore:
