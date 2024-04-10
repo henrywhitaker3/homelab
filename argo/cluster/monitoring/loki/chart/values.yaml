@@ -1,6 +1,20 @@
 loki:
+  deploymentMode: SingleBinary
+
+  chunksCache:
+    enabled: true
+    allocatedMemory: 256
+  resultsCache:
+    enabled: true
+    allocatedMemory: 256
+
   lokiCanary:
     enabled: false
+
+  gateway:
+    service:
+      annotations:
+        prometheus.io/service-monitor: "false"
 
   loki:
     auth_enabled: false
@@ -50,19 +64,26 @@ loki:
       retention_enabled: true
       retention_delete_delay: 2h
       retention_delete_worker_count: 150
-      shared_store: s3
+      delete_request_store: s3
 
-    schema_config:
+    schemaConfig:
       configs:
         - from: "2022-01-11"
-          store: boltdb-shipper
+          store: tsdb
           object_store: s3
-          schema: v12
+          schema: v13
           index:
             prefix: loki_index_
             period: 24h
           chunks:
             period: 24h
+
+  read:
+    replicas: 0
+  write:
+    replicas: 0
+  backend:
+    replicas: 0
 
   singleBinary:
     replicas: 3
@@ -104,18 +125,17 @@ loki:
     enabled: false
 
   monitoring:
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Loki
+    rules:
+      enabled: true
     selfMonitoring:
       enabled: false
-      grafanaAgent:
-        installOperator: false
-
     serviceMonitor:
       enabled: true
       metricRelabelings:
         - action: drop
           sourceLabels: ["__name__"]
           regex: loki_(request_duration|logql_querystats_bytes_processed_per)_seconds_bucket
-
-    dashboards:
-      annotations:
-        grafana_folder: Loki
