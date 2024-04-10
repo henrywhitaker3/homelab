@@ -10,6 +10,13 @@ spec:
           expr: label_replace(topk(20, count by(__name__, job) ({__name__=~".+"})),"name","$1","__name__", "(.+)")
         - record: prometheus_bytes_per_sample
           expr: rate(prometheus_tsdb_compaction_chunk_size_bytes_sum[1h]) / rate(prometheus_tsdb_compaction_chunk_samples_sum[1h])
+        - record: prometheus_storage_size_estimate
+          expr: |
+            sum by (pod) (prometheus_tsdb_retention_limit_seconds)
+              *
+            (
+              sum by (pod) (rate(prometheus_tsdb_head_samples_appended_total[1h])) * sum by (pod) (prometheus_bytes_per_sample)
+            ) * 1.05
     - name: anomalies
       rules:
         - record: anomaly:longhorn_volume_write_latency_1d
