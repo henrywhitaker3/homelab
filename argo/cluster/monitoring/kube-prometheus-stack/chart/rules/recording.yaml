@@ -8,6 +8,8 @@ spec:
       rules:
         - record: prometheus_high_cardinality_metrics_top_20
           expr: label_replace(topk(20, count by(__name__, job) ({__name__=~".+"})),"name","$1","__name__", "(.+)")
+        - record: prometheus_bytes_per_sample
+          expr: rate(prometheus_tsdb_compaction_chunk_size_bytes_sum[1h]) / rate(prometheus_tsdb_compaction_chunk_samples_sum[1h])
     - name: anomalies
       rules:
         - record: anomaly:longhorn_volume_write_latency_1d
