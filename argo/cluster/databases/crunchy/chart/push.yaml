@@ -125,11 +125,6 @@ spec:
           remoteKey: *name
           property: *key
     - match:
-        secretKey: &key jdbc-uri
-        remoteRef:
-          remoteKey: *name
-          property: *key
-    - match:
         secretKey: &key password
         remoteRef:
           remoteKey: *name
