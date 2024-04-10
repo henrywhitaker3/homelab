@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 3109,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -81,10 +82,11 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(10 * 24 * 60 * 60) * sum(rate(prometheus_tsdb_head_samples_appended_total[1h])) * 2 * 1.2 * 1.05",
-          "instant": false,
+          "expr": "prometheus_storage_size_estimate",
+          "format": "table",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -1119,7 +1121,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
