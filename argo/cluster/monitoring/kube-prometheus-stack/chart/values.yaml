@@ -266,7 +266,7 @@ grafana:
         datasource: Prometheus
       adguard:
         gnetId: 20799
-        revision: 3
+        revision: 4
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
 
