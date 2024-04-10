@@ -13,7 +13,7 @@ loki:
 
   gateway:
     service:
-      annotations:
+      labels:
         prometheus.io/service-monitor: "false"
 
   loki:
