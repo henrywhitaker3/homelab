@@ -6,8 +6,8 @@ generic:
 
   image:
     repository: linuxserver/sonarr
-    pullPolicy: Always
-    tag: latest
+    pullPolicy: IfNotPresent
+    tag: "4.0.3"
 
   service:
     port: 8989

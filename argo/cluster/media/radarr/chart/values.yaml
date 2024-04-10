@@ -6,8 +6,8 @@ generic:
 
   image:
     repository: linuxserver/radarr
-    pullPolicy: Always
-    tag: latest
+    pullPolicy: IfNotPresent
+    tag: "5.3.6"
 
   service:
     port: 7878

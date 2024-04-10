@@ -6,8 +6,8 @@ generic:
 
   image:
     repository: linuxserver/prowlarr
-    pullPolicy: Always
-    tag: latest
+    pullPolicy: IfNotPresent
+    tag: "1.15.0"
 
   service:
     port: 9696

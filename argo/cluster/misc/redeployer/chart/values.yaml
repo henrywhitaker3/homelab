@@ -25,23 +25,11 @@ role:
   name: restart-deployment
 
 jobs:
-  - name: sonarr
-    command: kubectl -n media rollout restart deployment sonarr
-    schedule: "0 4 * * *"
-  - name: radarr
-    command: kubectl -n media rollout restart deployment radarr
-    schedule: "0 4 * * *"
-  - name: prowlarr
-    command: kubectl -n media rollout restart deployment prowlarr
-    schedule: "0 4 * * *"
   - name: transmission
     command: kubectl -n media rollout restart deployment transmission
     schedule: "0 4 * * *"
   - name: overseerr
     command: kubectl -n media rollout restart deployment overseerr
-    schedule: "0 4 * * *"
-  - name: tautulli
-    command: kubectl -n media rollout restart deployment tautulli
     schedule: "0 4 * * *"
   - name: organizr
     command: kubectl -n media rollout restart deployment organizr
