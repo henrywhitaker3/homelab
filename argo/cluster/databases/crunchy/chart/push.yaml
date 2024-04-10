@@ -135,11 +135,6 @@ spec:
           remoteKey: *name
           property: *key
     - match:
-        secretKey: &key uri
-        remoteRef:
-          remoteKey: *name
-          property: *key
-    - match:
         secretKey: &key user
         remoteRef:
           remoteKey: *name
