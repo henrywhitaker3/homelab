@@ -15,7 +15,7 @@ spec:
           sourceLabels: [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance]
           targetLabel: deployment
         - action: replace
-        - sourceLabels: [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
+          sourceLabels: [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
           targetLabel: role
   namespaceSelector:
     matchNames:
