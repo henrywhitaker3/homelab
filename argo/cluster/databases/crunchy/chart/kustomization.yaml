@@ -6,3 +6,4 @@ resources:
   - secret.yaml
   - cluster.yaml
   - push.yaml
+  - servicemonitor.yaml

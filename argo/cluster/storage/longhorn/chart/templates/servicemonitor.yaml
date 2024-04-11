@@ -1,7 +1,6 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  annotations:
   labels:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: longhorn
