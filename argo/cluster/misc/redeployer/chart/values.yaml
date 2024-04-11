@@ -50,6 +50,7 @@ jobs:
           echo Plex running on preferred node
           exit 0
         fi
+      done
 
       echo Plex not running on preferred node
 
