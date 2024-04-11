@@ -1,0 +1,85 @@
+version: "3"
+
+tasks:
+  dump:
+    desc: Run mariadb-dump of the database
+    requires:
+      vars:
+        - db
+    vars:
+      cluster: '{{ .cluster | default "mariadb" }}'
+      ns: '{{ .ns | default "mariadb" }}'
+      primary:
+        sh: |-
+          kubectl -n mariadb get service mariadb-primary -o json | jq -r '.spec.selector."statefulset.kubernetes.io/pod-name"'
+      password:
+        sh: |-
+          kubectl -n {{ .ns }} exec --container mariadb {{ .primary }} -- /bin/sh -c 'echo $MARIADB_ROOT_PASSWORD'
+      data_dir: '{{ .data_dir | default "/tmp" }}'
+      output_dir: '{{ .output_dir | default "." }}'
+    cmds:
+      - task: exec
+        silent: true
+        vars:
+          run: /bin/sh -c 'mariadb-dump --single-transaction=true --skip-add-locks=true --user=root --password="{{ .password }}" {{ .db }} > {{ .data_dir }}/{{ .db }}.sql'
+      - kubectl -n {{ .ns }} cp --container mariadb  "{{ .primary }}:{{ .data_dir }}/{{ .db }}.sql" "{{ .output_dir }}/{{ .db }}.sql"
+      - task: exec
+        vars:
+          run: rm "{{ .data_dir }}/{{ .db }}.sql"
+
+  restore:
+    desc: Restore from a mariadb-dump
+    requires:
+      vars:
+        - db
+        - file
+    vars:
+      cluster: '{{ .cluster | default "mariadb" }}'
+      ns: '{{ .ns | default "mariadb" }}'
+      primary:
+        sh: |-
+          kubectl -n mariadb get service mariadb-primary -o json | jq -r '.spec.selector."statefulset.kubernetes.io/pod-name"'
+      password:
+        sh: |-
+          kubectl -n {{ .ns }} exec --container mariadb {{ .primary }} -- /bin/sh -c 'echo $MARIADB_ROOT_PASSWORD'
+      data_dir: '{{ .data_dir | default "/tmp" }}'
+    cmds:
+      - kubectl -n {{ .ns }} cp --container mariadb {{ .file }} {{ .primary }}:{{ .data_dir }}/{{ .db }}.sql
+      - task: exec
+        silent: true
+        vars:
+          it: ''
+          run: /bin/sh -c 'mariadb --user=root --password={{ .password }} {{ .db }} < {{ .data_dir }}/{{ .db }}.sql'
+      - task: exec
+        vars:
+          run: rm {{ .data_dir }}/{{ .db }}.sql
+
+  exec:
+    desc: Exec into the primary instance
+    vars:
+      cluster: '{{ .cluster | default "mariadb" }}'
+      ns: '{{ .ns | default "mariadb" }}'
+      it: '{{ .it | default "-it" }}'
+      primary:
+        sh: |-
+          kubectl -n mariadb get service mariadb-primary -o json | jq -r '.spec.selector."statefulset.kubernetes.io/pod-name"'
+      run: '{{ .run | default "/bin/bash" }}'
+    cmds:
+      - kubectl -n {{ .ns }} exec --container mariadb {{ .it }} {{ .primary }} -- {{ .run }}
+
+  mariadb:
+    desc: Get a mariadb shell in the primary instance
+    vars:
+      cluster: '{{ .cluster | default "mariadb" }}'
+      ns: '{{ .ns | default "mariadb" }}'
+      primary:
+        sh: |-
+          kubectl -n mariadb get service mariadb-primary -o json | jq -r '.spec.selector."statefulset.kubernetes.io/pod-name"'
+      password:
+        sh: |-
+          kubectl -n {{ .ns }} exec --container mariadb {{ .primary }} -- /bin/sh -c 'echo $MARIADB_ROOT_PASSWORD'
+    cmds:
+      - task: exec
+        silent: true
+        vars:
+          run: mariadb -u root --password="{{ .password }}"

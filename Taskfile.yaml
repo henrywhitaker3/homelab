@@ -10,6 +10,7 @@ includes:
   tf: .taskfiles/terraform.yaml
   new: .taskfiles/new.yaml
   postgres: .taskfiles/postgres.yaml
+  galera: .taskfiles/galera.yaml
 
 tasks:
   default:
