@@ -9,7 +9,7 @@ spec:
         - record: prometheus_high_cardinality_metrics_top_20
           expr: label_replace(topk(20, count by(__name__, job) ({__name__=~".+"})),"name","$1","__name__", "(.+)")
         - record: prometheus_bytes_per_sample
-          expr: sum by (pod) (rate(prometheus_tsdb_compaction_chunk_size_bytes_sum[1d]) / rate(prometheus_tsdb_compaction_chunk_samples_sum[1d]) > 0)
+          expr: sum by (pod) (rate(prometheus_tsdb_compaction_chunk_size_bytes_sum[1d])) / sum by (pod) (rate(prometheus_tsdb_compaction_chunk_samples_sum[1d]))
         - record: seconds_in_a_day
           expr: 24 * 60 * 60
         - record: prometheus_storage_bytes_per_second
