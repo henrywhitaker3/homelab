@@ -3,11 +3,11 @@ kind: PodMonitor
 metadata:
   name: crunchy
 spec:
-  endpoints:
-  - port: exporter
+  podMetricsEndpoints:
+    - port: exporter
   namespaceSelector:
     matchNames:
-    - crunchy
+      - crunchy
   selector:
     matchLabels:
       postgres-operator.crunchydata.com/cluster: crunchy
