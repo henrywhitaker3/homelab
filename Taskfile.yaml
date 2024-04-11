@@ -23,9 +23,8 @@ tasks:
       - |
         docker run --rm -v $(pwd):/usr/src/app \
           -e RENOVATE_CONFIG_FILE=/usr/src/app/renovate.json \
-          -e RENOVATE_TOKEN=$GITHUB_TOKEN \
           ghcr.io/renovatebot/renovate:37 \
-          --dry-run --platform=local
+          --dry-run --platform=local --token=$GITHUB_TOKEN
 
   patch:all:
     cmds:

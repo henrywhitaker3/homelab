@@ -1,7 +1,5 @@
 {
     "enabled": true,
-    "platform": "gitlab",
-    "username": "renovate[bot]",
     "gitAuthor": "renovate <henrywhitaker3+renovate@outlook.com>",
     "semanticCommits": "enabled",
     "labels": ["renovatebot"],
