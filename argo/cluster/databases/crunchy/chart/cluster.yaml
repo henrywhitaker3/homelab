@@ -67,6 +67,12 @@ spec:
       password:
         type: AlphaNumeric
 
+    - name: srep
+      databases:
+        - srep
+      password:
+        type: AlphaNumeric
+
   backups:
     pgbackrest:
       # restore:
