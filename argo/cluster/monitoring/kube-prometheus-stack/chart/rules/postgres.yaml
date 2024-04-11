@@ -1,0 +1,169 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: postgres
+spec:
+  groups:
+    - name: postgres
+      rules:
+        - alert: CrunchyBackupFailed
+          expr: sum(kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: A backup job failed for the crunchy cluster
+
+        - alert: PGExporterScrapeError
+          expr: pg_exporter_last_scrape_error > 0
+          for: 60s
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Postgres Exporter running on {{ $labels.job }} (instance: {{ $labels.instance }}) is encountering scrape errors processing queries. Error count: ( {{ $value }} )'
+
+        - alert: PGIsUp
+          expr: pg_up < 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: 'postgres_exporter running on {{ $labels.job }} is unable to communicate with the configured database'
+
+        - alert: PGConnectionAbsent
+          expr: absent(ccp_connection_stats_max_connections{job="crunchy/crunchy"})
+          for: 10s
+          labels:
+            severity: critical
+          annotations:
+            description: Connection metric is absent from target (crunchy). Check that postgres_exporter can connect to PostgreSQL
+
+        - alert: PGDataChecksum
+          expr: ccp_data_checksum_failure > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Data Checksum failure for {{ $labels.job }} in {{ $labels.dbname }}
+
+        - alert: PGIdleTxn
+          expr: ccp_connection_stats_max_idle_in_txn_time > 300
+          for: 60s
+          labels:
+            severity: warning
+          annotations:
+            description: '{{ $labels.job }} has at least one session idle in transaction for over 5 minutes.'
+            summary: PGSQL Instance {{ $labels.job }} idle transactions
+
+        - alert: PGIdleTxn
+          expr: ccp_connection_stats_max_idle_in_txn_time > 900
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} idle transactions
+
+        - alert: PGQueryTime
+          expr: ccp_connection_stats_max_query_time > 43200
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: PGSQL Max Query Runtime > 12 hours for {{ $labels.job }}
+
+        - alert: PGQueryTime
+          expr: ccp_connection_stats_max_query_time > 86400
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Max Query Runtime > 1 day for {{ $labels.job }}
+
+        - alert: PGConnPerc
+          expr: 100 * (ccp_connection_stats_total / ccp_connection_stats_max_connections) > 75
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: PGSQL available connections < 25% for {{ $labels.job }}
+
+        - alert: PGConnPerc
+          expr: 100 * (ccp_connection_stats_total / ccp_connection_stats_max_connections) > 90
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL available connections < 10% for {{ $labels.job }}
+
+        - alert: PGClusterRoleChange
+          expr: count by (pg_cluster) (ccp_is_in_recovery_status != ignoring(instance,ip,pod,role) (ccp_is_in_recovery_status offset 5m)) >= 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Postgres cluster {{ $labels.pg_cluster }} has had a switchover/failover event. Please check this cluster for more details
+
+        - alert: PGReplicationByteLag
+          expr: ccp_replication_lag_size_bytes > 5.24288e+07
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} has at least one replica lagging over 50MB behind
+
+        - alert: PGReplicationByteLag
+          expr: ccp_replication_lag_size_bytes > 1.048576e+08
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} has at least one replica lagging over 100MB behind
+
+        - alert: PGReplicationSlotsInactive
+          expr: ccp_replication_slots_active == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} has one or more inactive replication slots'
+
+        - alert: PGXIDWraparound
+          expr: ccp_transaction_wraparound_percent_towards_wraparound > 50
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} is over 50% towards transaction id wraparound
+
+        - alert: PGXIDWraparound
+          expr: ccp_transaction_wraparound_percent_towards_wraparound > 75
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: PGSQL Instance {{ $labels.job }} is over 75% towards transaction id wraparound
+
+        - alert: PGSequenceExhaustion
+          expr: ccp_sequence_exhaustion_count > 0
+          for: 60s
+          labels:
+            severity: critical
+          annotations:
+            summary: 'Count of sequences on instance {{ $labels.job }} at over 75% usage: {{ $value }}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
+
+        - alert: PGBackRestLastCompletedFull_main
+          expr: ccp_backrest_last_full_backup_time_since_completion_seconds{stanza="db"} > 648000
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Full backup for stanza [db] on system {{ $labels.job }} has not completed in the last week
+
+        - alert: PGBackRestLastCompletedIncr_main
+          expr: ccp_backrest_last_incr_backup_time_since_completion_seconds{stanza="db"} > 129600
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: 'Incremental backup for stanza [main] on system {{ $labels.job }} has not completed in the last 24 hours.'
+

@@ -13,15 +13,6 @@ spec:
             severity: critical
           annotations:
             summary: Redis down (instance {{ $labels.instance }})
-    - name: postgres
-      rules:
-        - alert: CrunchyBackupFailed
-          expr: sum(kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: A backup job failed for the crunchy cluster
     - name: mysql
       rules:
         - alert: GaleraClusterSize

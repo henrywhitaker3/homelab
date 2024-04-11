@@ -4,6 +4,7 @@ resources:
   - misc.yaml
   - playground.yaml
   - db.yaml
+  - postgres.yaml
   - vms.yaml
   - longhorn.yaml
   - minio.yaml
