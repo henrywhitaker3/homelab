@@ -151,7 +151,7 @@ spec:
           annotations:
             summary: 'Count of sequences on instance {{ $labels.job }} at over 75% usage: {{ $value }}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
 
-        - alert: PGBackRestLastCompletedFull_main
+        - alert: PGBackRestLastCompletedFull
           expr: ccp_backrest_last_full_backup_time_since_completion_seconds{stanza="db"} > 648000
           for: 1m
           labels:
@@ -159,11 +159,11 @@ spec:
           annotations:
             summary: Full backup for stanza [db] on system {{ $labels.job }} has not completed in the last week
 
-        - alert: PGBackRestLastCompletedIncr_main
+        - alert: PGBackRestLastCompletedIncr
           expr: ccp_backrest_last_incr_backup_time_since_completion_seconds{stanza="db"} > 129600
           for: 1m
           labels:
             severity: critical
           annotations:
-            summary: 'Incremental backup for stanza [main] on system {{ $labels.job }} has not completed in the last 24 hours.'
+            summary: 'Incremental backup for stanza [db] on system {{ $labels.job }} has not completed in the last 24 hours.'
 
