@@ -5,6 +5,22 @@ metadata:
 spec:
   postgresVersion: 16
 
+  # dataSource:
+  #   pgbackrest:
+  #     stanza: db
+  #     configuration:
+  #       - secret:
+  #           name: crunchy-postgres-secrets
+  #     global:
+  #       repo1-path: "/crunchy"
+  #       repo1-s3-uri-style: path
+  #     repo:
+  #       name: repo1
+  #       s3:
+  #         bucket: "crunchy"
+  #         endpoint: "https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com"
+  #         region: "auto"
+
   metadata:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
@@ -75,12 +91,6 @@ spec:
 
   backups:
     pgbackrest:
-      # restore:
-      #   enabled: true
-      #   repoName: repo1
-      #   options:
-      #   - --type=time
-      #   - --target="2021-06-09 14:15:11-04"
       configuration:
         - secret:
             name: crunchy-postgres-secrets
