@@ -231,6 +231,14 @@ grafana:
           editable: false
           options:
             path: /var/lib/grafana/dashboards/default
+        - name: postgres
+          orgId: 1
+          folder: Postgres
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/postgres
 
   dashboards:
     default:
@@ -271,6 +279,10 @@ grafana:
         revision: 4
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
+    postgres:
+      pgbackrest:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json
+        datasource: Prometheus
 
   additionalDataSources:
     - name: Loki
