@@ -2,12 +2,14 @@ version: "3"
 
 tasks:
   bootstrap:
+    desc: Bootsrap the cluster
     cmds:
       - ./scripts/bootstrap_secrets.sh
       - task: install
       - task: root
 
   install:
+    desc: Install argocd into the cluster
     deps: [repo]
     cmds:
       - helm dependency build argo/argocd
@@ -18,6 +20,7 @@ tasks:
       - helm repo add argo https://argoproj.github.io/argo-helm
 
   root:
+    desc: Apply the initial manifests
     cmds:
       - kubectl apply -f argo/bootstrap/manifests
 
@@ -25,16 +28,13 @@ tasks:
     cmds:
       - helm -n argo get values argo
 
-  patch:pvc:
-      cmds:
-        - |
-          kubectl patch -n {{ .NAMESPACE }} pvc {{ .NAME }} --patch '{ "metadata": { "annotations": { "meta.helm.sh/release-namespace": "{{ .NAMESPACE }}", "meta.helm.sh/release-name": "{{ .NAME }}" }, "labels": { "app.kubernetes.io/managed-by": "Helm" } } }'
-
   apps:
+    desc: List argo apps
     cmds:
       - kubectl -n argo get applications
 
   go:
+    desc: Bootstrap the entire cluster, install argo, install manifests
     cmds:
       - task: bootstrap
       - task: install
@@ -45,7 +45,12 @@ tasks:
       - argocd login $ARGO_CD_IP --insecure --username $ARGO_CD_USER --password $ARGO_CD_PASSWORD
 
   diff:
+    desc: Run a diff on the argo app
     deps: [login]
+    requires:
+      vars:
+        - APP
+        - DIR
     env:
       APP: '{{ .APP }}'
       DIR: '{{ .DIR }}'
@@ -60,6 +65,7 @@ tasks:
       - argocd app diff $APP --local $DIR --loglevel error
 
   refresh:
+    desc: Trigger a refresh on an app
     cmds:
       - kubectl config set-context --current --namespace=argo
       - argocd app get {{ .CLI_ARGS }} --refresh --core

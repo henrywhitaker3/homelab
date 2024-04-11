@@ -2,6 +2,10 @@ version: "3"
 
 tasks:
   play:
+    desc: Run a playbook
+    requires:
+      vars:
+        - PLAY
     env:
       PLAYBOOK: '{{ .PLAYBOOK | default "main.yaml" }}'
       PLAY: '{{ .PLAY }}'

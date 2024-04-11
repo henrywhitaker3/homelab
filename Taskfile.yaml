@@ -9,24 +9,26 @@ includes:
   k3s: .taskfiles/k3s.yaml
   tf: .taskfiles/terraform.yaml
   new: .taskfiles/new.yaml
-  db: .taskfiles/db.yaml
+  postgres: .taskfiles/postgres.yaml
 
 tasks:
+  default:
+    silent: true
+    cmds:
+      - task -l
+
   patch:
+    desc: Patch a set of hosts
+    requires:
+      vars:
+        - PLAYBOOK
     vars:
       PLAYBOOK: '{{ .PLAYBOOK | default "generic" }}'
     cmds:
       - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml {{ .CLI_ARGS | default "" }}
 
-  renovate:
-    cmds:
-      - |
-        docker run --rm -v $(pwd):/usr/src/app \
-          -e RENOVATE_CONFIG_FILE=/usr/src/app/renovate.json \
-          ghcr.io/renovatebot/renovate:37 \
-          --dry-run --platform=local --token=$GITHUB_TOKEN
-
   patch:all:
+    desc: Patch all hosts
     cmds:
       - task: patch
         vars:

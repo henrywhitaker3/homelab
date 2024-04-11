@@ -1,0 +1,65 @@
+version: "3"
+
+tasks:
+  dump:
+    desc: Run pg_dump on the master
+    requires:
+      vars:
+        - db
+    vars:
+      cluster: '{{ .cluster | default "crunchy" }}'
+      ns: '{{ .ns | default "crunchy" }}'
+      primary:
+        sh: |-
+          kubectl -n {{ .ns }} get pods -l postgres-operator.crunchydata.com/role=master,postgres-operator.crunchydata.com/cluster={{ .cluster }} -o jsonpath='{.items[0].metadata.name}'
+      data_dir: '{{ .data_dir | default "/pgdata" }}'
+      output_dir: '{{ .output_dir | default "." }}'
+      cli_args:
+        sh: |-
+          [[ -n "{{ .cli_args }}" ]] && echo "{{ .cli_args }}" || echo "--verbose --format=c --no-comments --clean --if-exists --no-owner --extension plpgsql"
+    cmds:
+      - kubectl exec -it --container database -n {{ .ns }} {{ .primary }} -- /bin/bash -c 'pg_dump --dbname {{ .db }} {{ .cli_args }} --file {{ .data_dir }}/{{ .db }}.psql'
+      - kubectl cp --container database "{{ .ns }}/{{ .primary }}:{{ .data_dir }}/{{ .db }}.psql" "{{ .output_dir }}/{{ .db }}.psql"
+      - kubectl exec -it --container database -n {{ .ns }} {{ .primary }} -- /bin/bash -c 'rm -rf {{ .data_dir }}/{{.db }}.psql'
+
+  restore:
+    desc: Restore a dump file to the cluster
+    requires:
+      vars:
+        - db
+        - user
+        - file
+    vars:
+      cluster: '{{ .cluster | default "crunchy" }}'
+      ns: '{{ .ns | default "crunchy" }}'
+      primary:
+        sh: |-
+          kubectl -n {{ .ns }} get pods -l postgres-operator.crunchydata.com/role=master,postgres-operator.crunchydata.com/cluster={{ .cluster }} -o jsonpath='{.items[0].metadata.name}'
+      data_dir: '{{ .data_dir | default "/pgdata" }}'
+      cli_args:
+        sh: |-
+          [[ -n "{{ .cli_args }}" ]] && echo -n "{{ .cli_args }}" || echo -n "--verbose --format=c --clean --if-exists --no-owner --role {{ .user }}"
+    cmds:
+      - kubectl cp --container database "{{ .file }}" "{{ .ns }}/{{ .primary }}:{{ .data_dir }}/restore-{{ .db }}.psql"
+      - kubectl exec -it --container database -n {{ .ns }} {{ .primary }} -- /bin/bash -c 'echo "ALTER DATABASE \"{{ .db }}\" OWNER TO \"{{ .db }}\";" | psql'
+      - kubectl exec -it --container database -n {{ .ns }} {{ .primary }} -- /bin/bash -c 'pg_restore --dbname {{ .db }} {{ .cli_args }} {{ .data_dir }}/restore-{{ .db }}.psql'
+      - defer: kubectl exec -it -n {{ .ns }} {{ .primary }} -- /bin/bash -c 'rm -rf {{ .data_dir }}/restore-{{ .db }}.psql'
+
+  exec:
+    desc: Exec into the primary instance
+    vars:
+      run: '{{ .run | default "/bin/bash" }}'
+      cluster: '{{ .cluster | default "crunchy" }}'
+      ns: '{{ .ns | default "crunchy" }}'
+      primary:
+        sh: |-
+          kubectl -n {{ .ns }} get pods -l postgres-operator.crunchydata.com/role=master,postgres-operator.crunchydata.com/cluster={{ .cluster }} -o jsonpath='{.items[0].metadata.name}'
+    cmds:
+      - kubectl -n {{ .ns }} exec -it {{ .primary }} -- {{ .run }}
+
+  psql:
+    desc: Get a psql shell in the primary instance
+    cmds:
+      - task: exec
+        vars:
+          run: psql -U postgres
