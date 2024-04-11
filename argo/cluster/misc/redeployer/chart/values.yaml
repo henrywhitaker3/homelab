@@ -42,24 +42,26 @@ jobs:
     command: |
       #!/bin/bash
 
-      preferred_available=$(kubectl get node k3s-control-3 | tail -n 1 | tr -s ' ' | cut -d ' ' -f 2)
-      current_node=$(kubectl -n media get pods -l app.kubernetes.io/name=plex -o=wide | tail -n 1 | tr -s ' ' | cut -d' ' -f7)
+      nodes=$(kubectl get nodes -l quicksync -o json | jq -r '.items[].metadata.name')
+      current_node=$(kubectl -n media get pod -l app.kubernetes.io/name=plex -o json | jq -r '.items[0].spec.nodeName')
 
-      if [ $current_node == "k3s-control-3" ]; then
-        echo Plex running on preferred node
-        exit 0
-      else
-        echo Plex not running on preferred node
-      fi
+      for node in $nodes; do
+        if [ $current_node == $node ]; then
+          echo Plex running on preferred node
+          exit 0
+        fi
 
-      if [ $preferred_available == "Ready" ]; then
+      echo Plex not running on preferred node
+
+      ready=$(kubectl get nodes -l quicksync -o json | jq -r '.items[] | select(.status.conditions[].type=="Ready") | .metadata.name')
+      for node in $ready; do
         echo Preferred node available
         kubectl -n media rollout restart deployment plex
         exit 0
-      else
-        echo Preferred node unavailable
-        exit 0
-      fi
+      done
+
+      echo Preferred node unavailable
+      exit 0
   - name: kill-prowlarr
     schedule: "*/5 * * * *"
     command: |
