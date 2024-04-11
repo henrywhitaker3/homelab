@@ -89,9 +89,10 @@ spec:
       password:
         type: AlphaNumeric
 
-  pgmonitor:
-    exporter:
-      image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.1-0
+  monitoring:
+    pgmonitor:
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.1-0
 
   backups:
     pgbackrest:
