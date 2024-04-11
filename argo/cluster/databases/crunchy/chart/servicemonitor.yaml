@@ -4,12 +4,10 @@ metadata:
   name: crunchy
 spec:
   endpoints:
-  - targetPort: 9187
+  - port: exporter
   namespaceSelector:
     matchNames:
     - crunchy
   selector:
     matchLabels:
       postgres-operator.crunchydata.com/cluster: crunchy
-      postgres-operator.crunchydata.com/crunchy-postgres-exporter: "true"
-      postgres-operator.crunchydata.com/data: postgres
