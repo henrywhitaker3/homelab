@@ -18,6 +18,15 @@ tasks:
     cmds:
       - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml {{ .CLI_ARGS | default "" }}
 
+  renovate:
+    cmds:
+      - |
+        docker run --rm -v $(pwd):/usr/src/app \
+          -e RENOVATE_CONFIG_FILE=/usr/src/app/renovate.json \
+          -e RENOVATE_TOKEN=$GITHUB_TOKEN \
+          ghcr.io/renovatebot/renovate:37 \
+          --dry-run --platform=local
+
   patch:all:
     cmds:
       - task: patch
