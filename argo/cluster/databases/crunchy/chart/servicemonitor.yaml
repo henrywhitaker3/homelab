@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
   name: crunchy
 spec:
@@ -11,3 +11,4 @@ spec:
   selector:
     matchLabels:
       postgres-operator.crunchydata.com/cluster: crunchy
+      postgres-operator.crunchydata.com/crunchy-postgres-exporter: "true"
