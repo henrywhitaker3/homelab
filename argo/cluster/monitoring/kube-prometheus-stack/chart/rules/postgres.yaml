@@ -95,13 +95,13 @@ spec:
           annotations:
             summary: PGSQL available connections < 10% for {{ $labels.job }}
 
-        - alert: PGClusterRoleChange
-          expr: count by (pg_cluster) (ccp_is_in_recovery_status != ignoring(instance,ip,pod,role) (ccp_is_in_recovery_status offset 5m)) >= 1
-          for: 1m
-          labels:
-            severity: critical
-          annotations:
-            summary: Postgres cluster {{ $labels.pg_cluster }} has had a switchover/failover event. Please check this cluster for more details
+        # - alert: PGClusterRoleChange
+        #   expr: count by (pg_cluster) (ccp_is_in_recovery_status != ignoring(instance,ip,pod,role) (ccp_is_in_recovery_status offset 5m)) >= 1
+        #   for: 1m
+        #   labels:
+        #     severity: critical
+        #   annotations:
+        #     summary: Postgres cluster {{ $labels.pg_cluster }} has had a switchover/failover event. Please check this cluster for more details
 
         - alert: PGReplicationByteLag
           expr: ccp_replication_lag_size_bytes > 5.24288e+07
