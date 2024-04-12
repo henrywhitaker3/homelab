@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openebs
+  namespace: argo
+spec:
+  destination:
+    namespace: openebs
+    server: https://kubernetes.default.svc
+  project: cluster
+  source:
+    path: argo/cluster/storage/openebs/chart
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

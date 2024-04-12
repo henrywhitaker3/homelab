@@ -1,0 +1,17 @@
+ndm:
+  enabled: false
+
+ndmOperator:
+  enabled: false
+
+localProvisioner:
+  enabled: true
+
+  deviceClass:
+    enabled: false
+
+  hostPathClass:
+    enabled: true
+    name: openebs-hostpath
+    isDefaultClass: false
+    basePath: /var/openebs/local
