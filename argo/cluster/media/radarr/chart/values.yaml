@@ -2,7 +2,7 @@ generic:
   nameOverride: radarr
   fullnameOverride: radarr
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: linuxserver/radarr
