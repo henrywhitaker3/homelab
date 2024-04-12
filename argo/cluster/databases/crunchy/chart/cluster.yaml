@@ -34,9 +34,9 @@ spec:
 
   patroni:
     dynamicConfiguration:
-      synchronous_mode: false
+      synchronous_mode: true
       postgresql:
-        synchronous_commit: "off"
+        synchronous_commit: "on"
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
@@ -90,11 +90,11 @@ spec:
         type: AlphaNumeric
 
     # Benchmarking user
-    - name: bench
-      databases:
-        - bench
-      password:
-        type: AlphaNumeric
+    # - name: bench
+    #   databases:
+    #     - bench
+    #   password:
+    #     type: AlphaNumeric
 
   monitoring:
     pgmonitor:
