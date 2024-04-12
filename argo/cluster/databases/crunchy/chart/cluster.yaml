@@ -5,21 +5,21 @@ metadata:
 spec:
   postgresVersion: 16
 
-  # dataSource:
-  #   pgbackrest:
-  #     stanza: db
-  #     configuration:
-  #       - secret:
-  #           name: crunchy-postgres-secrets
-  #     global:
-  #       repo1-path: "/crunchy"
-  #       repo1-s3-uri-style: path
-  #     repo:
-  #       name: repo1
-  #       s3:
-  #         bucket: "crunchy"
-  #         endpoint: "https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com"
-  #         region: "auto"
+  dataSource:
+    pgbackrest:
+      stanza: db
+      configuration:
+        - secret:
+            name: crunchy-postgres-secrets
+      global:
+        repo1-path: "/crunchy"
+        repo1-s3-uri-style: path
+      repo:
+        name: repo1
+        s3:
+          bucket: "crunchy"
+          endpoint: "https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com"
+          region: "auto"
 
   metadata:
     labels:
@@ -46,14 +46,14 @@ spec:
       metadata:
         labels:
           app.kubernetes.io/name: crunchy
-      replicas: 3
+      replicas: 5 # Number of nodes in the cluster
       dataVolumeClaimSpec:
-        storageClassName: longhorn-no-backups
+        storageClassName: openebs-hostpath
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 5Gi
+            storage: 10Gi
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: "kubernetes.io/hostname"
