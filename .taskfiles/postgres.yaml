@@ -55,7 +55,7 @@ tasks:
         sh: |-
           kubectl -n {{ .ns }} get pods -l postgres-operator.crunchydata.com/role=master,postgres-operator.crunchydata.com/cluster={{ .cluster }} -o jsonpath='{.items[0].metadata.name}'
     cmds:
-      - kubectl -n {{ .ns }} exec -it {{ .primary }} -- {{ .run }}
+      - kubectl -n {{ .ns }} exec --container database -it {{ .primary }} -- {{ .run }}
 
   psql:
     desc: Get a psql shell in the primary instance
