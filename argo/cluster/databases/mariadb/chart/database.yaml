@@ -23,6 +23,9 @@ spec:
     name: mariadb-secrets
     key: root-password
 
+  affinity:
+    enableAntiAffinity: true
+
   storage:
     volumeClaimTemplate:
       storageClassName: openebs-hostpath
