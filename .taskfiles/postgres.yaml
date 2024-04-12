@@ -70,3 +70,17 @@ tasks:
       - task: exec
         vars:
           run: patronictl -c /etc/patroni/~postgres-operator_cluster.yaml {{ .CLI_ARGS }}
+
+  switchover:
+    desc: Switchover the primary to another node
+    cmds:
+      - task: patronictl
+        vars:
+          CLI_ARGS: switchover
+
+  failover:
+    desc: Switchover the primary to another node
+    cmds:
+      - task: patronictl
+        vars:
+          CLI_ARGS: failover
