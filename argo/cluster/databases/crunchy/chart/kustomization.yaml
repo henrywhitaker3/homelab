@@ -4,6 +4,6 @@ namespace: crunchy
 
 resources:
   - secret.yaml
-  - cluster.yaml
+  # - cluster.yaml
   - push.yaml
   - servicemonitor.yaml
