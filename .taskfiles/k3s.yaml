@@ -10,3 +10,11 @@ tasks:
     silent: true
     cmds:
       - ./scripts/generate_kubeconfig.sh {{ .CLI_ARGS }}
+
+  media:scale:
+    desc: Scale services that rely on NAS media storage
+    requires:
+      vars:
+        - dir
+    cmds:
+      - ./scripts/media_scale.sh {{ .dir }}
