@@ -89,6 +89,12 @@ spec:
       password:
         type: AlphaNumeric
 
+    - name: bench
+      databases:
+        - bench
+      password:
+        type: AlphaNumeric
+
   monitoring:
     pgmonitor:
       exporter:
