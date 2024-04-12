@@ -48,8 +48,8 @@ spec:
       cpu: 300m
       memory: 512Mi
 
-  # metrics:
-  #   enabled: true
+  metrics:
+    enabled: true
 
   service:
     type: LoadBalancer
