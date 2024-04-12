@@ -6,14 +6,14 @@ spec:
   groups:
     - name: longhorn
       rules:
-        - alert: BackupFailed
+        - alert: LonghornBackupFailed
           expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
           for: 0m
           labels:
             severity: critical
           annotations:
             summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
-        - alert: VolumeFillingUp
+        - alert: LonghornVolumeFillingUp
           expr: |
             (
               ( avg by (pvc) (longhorn_volume_actual_size_bytes{pvc!="data-thanos-compact-0"}) )
@@ -25,38 +25,45 @@ spec:
             severity: warning
           annotations:
             summary: Volume {{ $labels.pvc }} is using > 90% of capactiy
-        - alert: VolumeStatusCritical
+        - alert: LonghornVolumeStatusCritical
           expr: longhorn_volume_robustness == 3
           for: 0m
           annotations:
             summary: Longhorn volume {{$labels.volume}} is Fault
           labels:
             severity: critical
-        - alert: VolumeStatusWarning
+        - alert: LonghornVolumeStatusWarning
           expr: longhorn_volume_robustness == 2
           for: 5m
           labels:
             severity: warning
           annotations:
             summary: Longhorn volume {{$labels.volume}} is Degraded
-        - alert: NodeNotSchedulable
+        - alert: LonghornNodeNotSchedulable
           expr: longhorn_node_status{condition="schedulable"} != 1
           for: 5m
           labels:
             severity: warning
           annotations:
             summary: Longhorn Node {{ $labels.node }} unschedulable due to {{ $labels.condition_reason }}
-        - alert: VolumeWriteLatencyAnomaly
+        - alert: LonghornVolumeWriteLatencyAnomaly
           expr: anomaly:longhorn_volume_write_latency_1d > 4
           for: 10m
           labels:
             severity: warning
           annotations:
             summary: Write latency is > 3 standard deviations from expected on {{ $labels.pvc }}
-        - alert: VolumeReadLatencyAnomaly
+        - alert: LonghornVolumeReadLatencyAnomaly
           expr: anomaly:longhorn_volume_read_latency_1d > 4
           for: 10m
           labels:
             severity: warning
           annotations:
             summary: Read latency is > 3 standard deviations from expected on {{ $labels.pvc }}
+        - alert: LonghornNightlyBackupHanging
+          expr: sum(kube_job_status_completion_time{job_name=~"nightly.+"} - kube_job_status_start_time{job_name=~"nightly.+"}) > 600
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: The longhorn nightly backup job has been running for more than 10 mins
