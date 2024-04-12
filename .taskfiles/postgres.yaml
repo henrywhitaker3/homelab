@@ -63,3 +63,10 @@ tasks:
       - task: exec
         vars:
           run: psql -U postgres
+
+  patronictl:
+    desc: Run patronictl commands against the primary
+    cmds:
+      - task: exec
+        vars:
+          run: patronictl -c /etc/patroni/~postgres-operator_cluster.yaml {{ .CLI_ARGS }}
