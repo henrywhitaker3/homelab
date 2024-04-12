@@ -2,7 +2,7 @@ generic:
   nameOverride: sonarr
   fullnameOverride: sonarr
 
-  replicaCount: 1
+  replicaCount: 0
 
   image:
     repository: linuxserver/sonarr
