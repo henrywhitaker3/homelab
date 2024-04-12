@@ -23,8 +23,13 @@ spec:
     name: mariadb-secrets
     key: root-password
 
-  affinity:
-    enableAntiAffinity: true
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: "DoNotSchedule"
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/instance: mariadb
 
   storage:
     volumeClaimTemplate:
