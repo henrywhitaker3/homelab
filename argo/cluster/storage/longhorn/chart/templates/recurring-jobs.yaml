@@ -4,7 +4,7 @@ metadata:
   name: nightly
 spec:
   name: nightly
-  cron: 48 * * * *
+  cron: 0 */12 * * *
   task: backup
   concurrency: 1
   retain: 4
