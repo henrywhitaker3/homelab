@@ -18,7 +18,7 @@ services:
     network_mode: host
 
   exporter:
-    image: ghcr.io/henrywhitaker3/adguard-exporter:v1.1.8
+    image: ghcr.io/henrywhitaker3/adguard-exporter:v1.1.9
     restart: unless-stopped
     ports:
       - 9618:9618
@@ -26,3 +26,4 @@ services:
       - ADGUARD_SERVERS=http://{{ ansible_host }}
       - ADGUARD_USERNAMES=henry
       - ADGUARD_PASSWORDS={{ adguard_password }}
+      - DEBUG=true
