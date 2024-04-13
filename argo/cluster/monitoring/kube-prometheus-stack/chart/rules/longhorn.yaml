@@ -60,10 +60,10 @@ spec:
             severity: warning
           annotations:
             summary: Read latency is > 3 standard deviations from expected on {{ $labels.pvc }}
-        - alert: LonghornNightlyBackupHanging
-          expr: sum(kube_job_status_completion_time{job_name=~"nightly.+"} - kube_job_status_start_time{job_name=~"nightly.+"}) > 600
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: The longhorn nightly backup job has been running for more than 10 mins
+        # - alert: LonghornNightlyBackupHanging
+        #   expr: sum(kube_job_status_completion_time{job_name=~"nightly.+"} - kube_job_status_start_time{job_name=~"nightly.+"}) > 600
+        #   for: 5m
+        #   labels:
+        #     severity: warning
+        #   annotations:
+        #     summary: The longhorn nightly backup job has been running for more than 10 mins
