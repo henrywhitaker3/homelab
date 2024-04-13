@@ -24,10 +24,6 @@ argo-zombies:
           namespace: minio
           kind: PersistentVolumeClaim
           version: v1
-        - name: prometheus-kube-prometheus-stack-prometheus-db-prometheus-kube-prometheus-stack-prometheus-0
-          namespace: monitoring
-          kind: PersistentVolumeClaim
-          version: v1
         - name: kube-prometheus-stack-admission
           namespace: monitoring
           kind: Secret
@@ -36,12 +32,22 @@ argo-zombies:
           namespace: kube-system
           kind: Service
           version: v1
+        - name: ingress-nginx-internal-admission
+          namespace: ingress-nginx
+          kind: Secret
+          version: v1
 
       selectors:
         - labels:
             app.kubernetes.io/part-of: argocd
           annotations:
             meta.helm.sh/release-name: argo
+        - labels:
+            postgres-operator.crunchydata.com/cluster: crunchy
+        - labels:
+            app.kubernetes.io/instance: mariadb
+        - labels:
+            app.kubernetes.io/managed-by: prometheus-operator
 
       gvrs:
         - group: apiextensions.k8s.io
