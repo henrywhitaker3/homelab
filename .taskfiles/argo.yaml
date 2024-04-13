@@ -40,33 +40,47 @@ tasks:
       - task: install
       - task: root
 
+  exec:
+    vars:
+      run: '{{ .run | default "/bin/bash" }}'
+      vars:
+      pod:
+        sh: kubectl -n argo get pod -l app.kubernetes.io/name=argocd-server -o json | jq -r '.items[0].metadata.name'
+    cmds:
+      - kubectl -n argo exec -it {{ .pod }} -- {{ .run }}
+
   login:
     cmds:
-      - argocd login $ARGO_CD_IP --insecure --username $ARGO_CD_USER --password $ARGO_CD_PASSWORD
+      - task: exec
+        vars:
+          run: argocd login argo-argocd-server.argo.svc --insecure --insecure --username $ARGO_CD_USER --password $ARGO_CD_PASSWORD
 
   diff:
     desc: Run a diff on the argo app
     deps: [login]
     requires:
       vars:
-        - APP
-        - DIR
-    env:
-      APP: '{{ .APP }}'
-      DIR: '{{ .DIR }}'
-    preconditions:
-      - sh: "[[ ! -z $APP ]]"
-        msg: |
-          Must set $APP variable
-      - sh: "[[ ! -z $DIR ]]"
-        msg: |
-          Must set $DIR variable
+        - app
+        - dir
+    vars:
+      pod:
+        sh: kubectl -n argo get pod -l app.kubernetes.io/name=argocd-server -o json | jq -r '.items[0].metadata.name'
     cmds:
-      - argocd app diff $APP --local $DIR --loglevel error
+      - kubectl -n argo cp {{ .dir }} {{ .pod }}:/tmp/{{ .app }}
+      - task: exec
+        vars:
+          run: argocd app diff {{ .app }} --local /tmp/{{ .app }} --loglevel error
+      - task: exec
+        vars:
+          run: rm -r /tmp/{{ .app }}
 
   refresh:
     desc: Trigger a refresh on an app
+    deps: [login]
+    requires:
+      vars:
+        - app
     cmds:
-      - kubectl config set-context --current --namespace=argo
-      - argocd app get {{ .CLI_ARGS }} --refresh --core
-      - kubectl config set-context --current --namespace=default
+      - task: exec
+        vars:
+          run: argocd app get {{ .app }} --refresh
