@@ -1,6 +1,6 @@
 ingress-nginx:
   controller:
-    replicaCount: 3
+    kind: DaemonSet
     watchIngressWithoutClass: false
 
     ingressClass: internal
