@@ -1,21 +1,21 @@
 resource "adguard_rewrite" "dns_primary" {
   provider = adguard.adguard-1
   for_each = {
-    for value in local.pihole_dns : value.name => value
+    for value in local.vm_info : "${value.name}.lab" => value
   }
 
-  domain = each.value.name
-  answer = each.value.value
+  domain = each.key
+  answer = each.value.ip
 }
 
 resource "adguard_rewrite" "dns_secondary" {
   provider = adguard.adguard-2
   for_each = {
-    for value in local.pihole_dns : value.name => value
+    for value in local.vm_info : "${value.name}.lab" => value
   }
 
-  domain = each.value.name
-  answer = each.value.value
+  domain = each.key
+  answer = each.value.ip
 }
 
 resource "adguard_rewrite" "internal_ingress_primary" {

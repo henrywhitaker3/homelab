@@ -1,39 +1,29 @@
-output "lb_1_ip" {
-  value = module.lb-1.ip
+output "lb_info" {
+  value = module.lb.info
 }
-output "lb_2_ip" {
-  value = module.lb-2.ip
+output "vpn_info" {
+  value = module.vpn.info
 }
-output "vpn_1_ip" {
-  value = module.vpn-1.ip
+output "k3s_control_1_info" {
+  value = module.k3s-control-1.info
 }
-output "vpn_2_ip" {
-  value = module.vpn-2.ip
+output "k3s_control_2_info" {
+  value = module.k3s-control-2.info
 }
-output "k3s_control_1_ip" {
-  value = module.k3s-control-1.ip
+output "k3s_control_3_info" {
+  value = [
+    {
+      name = "k3s-control-3"
+      ip   = "10.0.0.24"
+    }
+  ]
 }
-output "k3s_control_2_ip" {
-  value = module.k3s-control-2.ip
+output "k3s_worker_info" {
+  value = module.k3s-worker.info
 }
-output "k3s_control_3_ip" {
-  value = "10.0.0.24"
+output "minio_info" {
+  value = module.minio.info
 }
-output "k3s_worker_1_ip" {
-  value = module.k3s-worker-1.ip
-}
-output "k3s_worker_2_ip" {
-  value = module.k3s-worker-2.ip
-}
-output "minio_1_ip" {
-  value = module.minio-1.ip
-}
-output "minio_2_ip" {
-  value = module.minio-2.ip
-}
-output "adguard_1_ip" {
-  value = module.adguard-1.ip
-}
-output "adguard_2_ip" {
-  value = module.adguard-2.ip
+output "adguard_info" {
+  value = module.adguard.info
 }

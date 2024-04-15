@@ -1,35 +1,40 @@
+data "external" "node_index" {
+  count   = var.instances
+  program = ["bash", "${path.module}/node_index.sh", length(var.nodes), count.index + 1]
+}
+
 resource "proxmox_vm_qemu" "vm" {
   count = var.instances
 
-  name = "${var.name}${var.instances > 1 ? "-${count.index + 1}" : ""}"
+  name = local.info[count.index].name
 
-  target_node = "proxmox-0${var.node}"
+  target_node = "proxmox-0${var.nodes[data.external.node_index[count.index].result.index]}"
 
-  clone = "${var.image}-node-${var.node}"
+  clone = "${var.image}-node-${var.nodes[data.external.node_index[count.index].result.index]}"
 
-  agent   = 1
-  os_type = "cloud-init"
-  cores   = var.cores
-  sockets = "1"
-  cpu     = "host"
-  memory  = var.memory
-  onboot = true
-  scsihw = "virtio-scsi-pci"
-  qemu_os = "other"
-  additional_wait = 0
-  clone_wait = 0
-  vm_state = "running"
+  agent                   = 1
+  os_type                 = "cloud-init"
+  cores                   = var.cores
+  sockets                 = "1"
+  cpu                     = "host"
+  memory                  = var.memory
+  onboot                  = true
+  scsihw                  = "virtio-scsi-pci"
+  qemu_os                 = "other"
+  additional_wait         = 0
+  clone_wait              = 0
+  vm_state                = "running"
   cloudinit_cdrom_storage = "local-lvm"
 
   disks {
     scsi {
-        scsi0 {
-            disk {
-                size = replace(var.disk_size, "G", "")
-                storage = var.disk_storage
-                format = "raw"
-            }
+      scsi0 {
+        disk {
+          size    = replace(var.disk_size, "G", "")
+          storage = var.disk_storage
+          format  = "raw"
         }
+      }
     }
   }
 
@@ -44,6 +49,6 @@ resource "proxmox_vm_qemu" "vm" {
   }
 
   # Cloud Init Settings
-  ipconfig0 = "ip=${local.ipPrefix}.${local.ipBit + count.index}/${local.cidrBlock},gw=${var.gateway}"
+  ipconfig0  = "ip=${local.info[count.index].ip}/${local.cidrBlock},gw=${var.gateway}"
   nameserver = var.nameserver
 }
