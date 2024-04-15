@@ -47,6 +47,7 @@ tasks:
 
   exec:
     desc: Exec into the primary instance
+    silent: true
     vars:
       run: '{{ .run | default "/bin/bash" }}'
       cluster: '{{ .cluster | default "crunchy" }}'
@@ -91,6 +92,7 @@ tasks:
     desc: Show the processlist
     cmds:
       - task: psql
+        silent: true
         vars:
           extra_args: |-
             -c "SELECT \

@@ -56,6 +56,7 @@ tasks:
 
   exec:
     desc: Exec into the primary instance
+    silent: true
     vars:
       cluster: '{{ .cluster | default "mariadb" }}'
       ns: '{{ .ns | default "mariadb" }}'
@@ -81,7 +82,6 @@ tasks:
       extra_args: '{{ .extra_args | default "" }}'
     cmds:
       - task: exec
-        silent: true
         vars:
           run: mariadb -u root --password="{{ .password }}" {{ .extra_args }}
 
