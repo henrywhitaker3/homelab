@@ -4,9 +4,7 @@ locals {
     data.terraform_remote_state.infra.outputs.minio_info,
     data.terraform_remote_state.infra.outputs.vpn_info,
     data.terraform_remote_state.infra.outputs.lb_info,
-    data.terraform_remote_state.infra.outputs.k3s_control_1_info,
-    data.terraform_remote_state.infra.outputs.k3s_control_2_info,
-    data.terraform_remote_state.infra.outputs.k3s_control_3_info,
+    data.terraform_remote_state.infra.outputs.k3s_control_info,
     data.terraform_remote_state.infra.outputs.k3s_worker_info,
     [{ name = "minio", ip = "10.0.0.6" }],
   )

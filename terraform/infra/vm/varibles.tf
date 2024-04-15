@@ -26,9 +26,9 @@ variable "subnet" {
   default = "10.0.0.0/24"
 }
 
-variable "ip" {
-  type        = string
-  description = "The ip (if > 1 instances, then this incremented for each further instance)"
+variable "ips" {
+  type        = list(string)
+  description = "The ips of the instances"
 }
 
 variable "nameserver" {
