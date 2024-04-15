@@ -30,6 +30,14 @@ spec:
           annotations:
             summary: 'postgres_exporter running on {{ $labels.job }} is unable to communicate with the configured database'
 
+        - alert: PGNodeInRecovery
+          expr: ccp_is_in_recovery_status{role="replica"} > 1
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            description: Replica {{ $labels.pod }} is in recovery status
+
         - alert: PGConnectionAbsent
           expr: absent(ccp_connection_stats_max_connections{job="crunchy/crunchy"})
           for: 10s
