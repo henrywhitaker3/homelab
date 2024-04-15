@@ -92,7 +92,6 @@ tasks:
     desc: Show the processlist
     cmds:
       - task: psql
-        silent: true
         vars:
           extra_args: |-
             -c "SELECT \
@@ -102,3 +101,23 @@ tasks:
               WHERE usename NOT IN ('_crunchyrepl', 'ccp_monitoring')
               AND application_name NOT IN ('Patroni')
               AND state <> 'idle';"
+
+  cancel:
+    desc: Gracefully kill a process
+    requires:
+      vars:
+        - pid
+    cmds:
+      - task: exec
+        vars:
+          extra_args: -c "SELECT pg_cancel_backend({{ .pid }});"
+
+  kill:
+    desc: Forcefully kill a process
+    requires:
+      vars:
+        - pid
+    cmds:
+      - task: exec
+        vars:
+          extra_args: -c "SELECT pg_terminate_backend({{ .pid }});"

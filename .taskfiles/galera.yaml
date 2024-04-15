@@ -91,3 +91,13 @@ tasks:
       - task: mariadb
         vars:
           extra_args: -e "SHOW FULL PROCESSLIST;"
+
+  kill:
+    desc: Kill a process
+    requires:
+      vars:
+        - pid
+    cmds:
+      - task: exec
+        vars:
+          extra_args: -e "KILL {{ .pid }};"
