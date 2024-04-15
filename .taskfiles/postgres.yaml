@@ -59,10 +59,12 @@ tasks:
 
   psql:
     desc: Get a psql shell in the primary instance
+    vars:
+      extra_args: '{{ .extra_args | default "" }}'
     cmds:
       - task: exec
         vars:
-          run: psql -U postgres
+          run: psql -U postgres {{ .extra_args }}
 
   patronictl:
     desc: Run patronictl commands against the primary
@@ -84,3 +86,17 @@ tasks:
       - task: patronictl
         vars:
           CLI_ARGS: failover
+
+  ps:
+    desc: Show the processlist
+    cmds:
+      - task: psql
+        vars:
+          extra_args: |-
+            -c "SELECT \
+              pid, usename, application_name, client_addr, \
+              age(now(), query_start) as time, state, query \
+              FROM pg_stat_activity\
+              WHERE usename NOT IN ('_crunchyrepl', 'ccp_monitoring')
+              AND application_name NOT IN ('Patroni')
+              AND state <> 'idle';"

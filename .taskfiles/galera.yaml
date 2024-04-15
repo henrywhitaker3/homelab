@@ -78,8 +78,16 @@ tasks:
       password:
         sh: |-
           kubectl -n {{ .ns }} exec --container mariadb {{ .primary }} -- /bin/sh -c 'echo $MARIADB_ROOT_PASSWORD'
+      extra_args: '{{ .extra_args | default "" }}'
     cmds:
       - task: exec
         silent: true
         vars:
-          run: mariadb -u root --password="{{ .password }}"
+          run: mariadb -u root --password="{{ .password }}" {{ .extra_args }}
+
+  ps:
+    desc: Show the processlist
+    cmds:
+      - task: mariadb
+        vars:
+          extra_args: -e "SHOW FULL PROCESSLIST;"
