@@ -1,9 +1,9 @@
 module "outline" {
   source = "./bucket"
 
-  name      = "outline"
-  buckets   = ["outline"]
-  acl       = "public-read"
+  name    = "outline"
+  buckets = ["outline"]
+  acl     = "public-read"
   permissions = [
     "s3:DeleteObject",
     "s3:GetObject",

@@ -4,7 +4,7 @@ module "adguard" {
 
   name       = "adguard"
   image      = local.ubuntu_22_04
-  ips         = ["10.0.0.2", "10.0.0.3"]
+  ips        = ["10.0.0.2", "10.0.0.3"]
   memory     = 512
   nameserver = "1.1.1.1 8.8.8.8"
   disk_size  = "8G"
@@ -19,7 +19,7 @@ module "lb" {
 
   name      = "lb"
   image     = local.ubuntu_22_04
-  ips        = ["10.0.0.4", "10.0.0.5"]
+  ips       = ["10.0.0.4", "10.0.0.5"]
   memory    = 512
   disk_size = "8G"
   nodes     = [1, 2]
@@ -33,7 +33,7 @@ module "vpn" {
 
   name      = "vpn"
   image     = local.ubuntu_22_04
-  ips        = ["10.0.0.11", "10.0.0.12"]
+  ips       = ["10.0.0.11", "10.0.0.12"]
   memory    = 512
   disk_size = "8G"
   nodes     = [1, 2]

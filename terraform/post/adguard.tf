@@ -16,9 +16,9 @@ resource "adguard_config" "primary" {
   }
 
   dns = {
-    upstream_dns = local.upstream_dns
+    upstream_dns  = local.upstream_dns
     bootstrap_dns = local.bootstrap_dns
-    rate_limit = 20
+    rate_limit    = 20
   }
 
   dhcp = {
@@ -70,9 +70,9 @@ resource "adguard_config" "secondary" {
   }
 
   dns = {
-    upstream_dns = local.upstream_dns
+    upstream_dns  = local.upstream_dns
     bootstrap_dns = local.bootstrap_dns
-    rate_limit = 20
+    rate_limit    = 20
   }
 
   filtering = {
@@ -83,23 +83,23 @@ resource "adguard_config" "secondary" {
 resource "adguard_list_filter" "filters_1" {
   provider = adguard.adguard-1
   for_each = {
-    for c in local.filter_lists:
+    for c in local.filter_lists :
     c.name => c
   }
 
-  enabled  = true
-  name     = each.value.name
-  url      = each.value.url
+  enabled = true
+  name    = each.value.name
+  url     = each.value.url
 }
 
 resource "adguard_list_filter" "filters_2" {
   provider = adguard.adguard-2
   for_each = {
-    for c in local.filter_lists:
+    for c in local.filter_lists :
     c.name => c
   }
 
-  enabled  = true
-  name     = each.value.name
-  url      = each.value.url
+  enabled = true
+  name    = each.value.name
+  url     = each.value.url
 }

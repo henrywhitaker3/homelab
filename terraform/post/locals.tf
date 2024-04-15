@@ -21,7 +21,7 @@ locals {
     "thanos.plexmox.com"
   ]
 
-  upstream_dns =  [
+  upstream_dns = [
     "https://cloudflare-dns.com/dns-query",
     "https://dns10.quad9.net/dns-query"
   ]
@@ -36,11 +36,11 @@ locals {
   filter_lists = [
     {
       name = "AdGuard DNS Filter"
-      url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+      url  = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
     },
     {
       name = "AdGuard Default Blocklist",
-      url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
+      url  = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
     }
   ]
 }
