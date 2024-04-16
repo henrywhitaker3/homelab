@@ -8,6 +8,7 @@
     - user
     - common
     - node_exporter
+    - smartctl_exporter
     - cifs
     - vpn_route
     - crog

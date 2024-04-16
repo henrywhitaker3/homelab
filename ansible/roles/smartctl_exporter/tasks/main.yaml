@@ -1,0 +1,5 @@
+---
+- name: Install smartctl exporter
+  tags: smartctl_exporter
+  ansible.builtin.import_tasks: install.yaml
+  when: smartctl_exporter_enabled

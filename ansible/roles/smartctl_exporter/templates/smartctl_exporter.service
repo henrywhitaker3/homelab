@@ -1,0 +1,27 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus smartctl Exporter
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart={{ smartctl_exporter_install_dir }}/smartctl_exporter \
+    --smartctl.path={{ smartctl_exporter_bin_path }} \
+    --smartctl.interval={{ smartctl_exporter_interval }} \
+    --smartctl.rescan={{ smartctl_exporter_rescan }} \
+{%for drive in smartctl_exporter_drives %}
+    --smartctl.device={{ drive }}
+{% endfor %}
+    --web.listen-address={{ smartctl_exporter_listen_address }} \
+    --web.telemetry-path={{ smartctl_exporter_telemetry_path }} \
+SyslogIdentifier=smartctl_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

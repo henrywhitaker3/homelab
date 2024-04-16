@@ -1,0 +1,70 @@
+---
+- name: Install smartctl
+  tags: smartctl
+  become: true
+  ansible.builtin.package:
+    name: smartmontools
+    state: present
+
+- name: Create smartctl exporter directory
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.file:
+    path: "{{ smartctl_exporter_install_dir }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Download smartctl exporter
+  tags: smartctl_exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smartctl_exporter_version }}/smartctl_exporter-{{ smartctl_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/smartctl_exporter-{{ smartctl_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: "0755"
+
+- name: Unpack smartctl exporter
+  tags: smartctl_exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/smartctl_exporter-{{ smartctl_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/smartctl_exporter-{{ smartctl_exporter_version }}.linux-{{ go_arch }}/smartctl_exporter"
+
+- name: Move smartctl exporter binary to install dir
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/smartctl_exporter-{{ smartctl_exporter_version }}.linux-{{ go_arch }}/smartctl_exporter"
+    remote_src: true
+    dest: "{{ smartctl_exporter_install_dir }}/smartctl_exporter"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Copy over service file
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.template:
+    src: templates/smartctl_exporter.service
+    dest: /etc/systemd/system/smartctl_exporter.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: smartctl_exporter_service_copied
+  notify: restart smartctl exporter
+
+- name: Reload services
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: smartctl_exporter_service_copied
+
+- name: Start and enable smartctl exporter
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.service:
+    name: smartctl_exporter
+    state: started
+    enabled: true

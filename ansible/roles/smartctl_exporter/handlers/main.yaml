@@ -1,0 +1,7 @@
+---
+- name: restart smartctl exporter
+  tags: smartctl_exporter
+  become: true
+  ansible.builtin.service:
+    name: smartctl_exporter
+    state: restarted
