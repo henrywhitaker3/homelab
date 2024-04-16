@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: smartctl
+      rules:
+        - alert: DriveWearoutHigh
+          expr: sum by (instance, drive) (smartctl_device_percentage_used) > 95
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.drive }} drive in {{ $labels.instance }} has > 95% wearout
     - name: adguard
       rules:
         - alert: AdguardScrapeError
