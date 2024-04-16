@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - haproxy.yaml
   - node-exporter.yaml
+  - smartctl-exporter.yaml
   - pve.yaml
   - k8s-annotations.yaml
   - keepalived.yaml
