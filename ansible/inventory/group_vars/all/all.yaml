@@ -8,8 +8,6 @@ user_authorized_keys:
 
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
 
-user_unauthorized_keys: []
-
 hosts_extras:
   - name: vpn.lab
     ip: 10.0.0.13
