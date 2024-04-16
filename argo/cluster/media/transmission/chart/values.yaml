@@ -6,8 +6,8 @@ generic:
 
   image:
     repository: linuxserver/transmission
-    pullPolicy: Always
-    tag: latest
+    pullPolicy: IfNotPresent
+    tag: "4.0.5"
 
   service:
     port: 9091

@@ -25,9 +25,6 @@ role:
   name: restart-deployment
 
 jobs:
-  - name: transmission
-    command: kubectl -n media rollout restart deployment transmission
-    schedule: "0 4 * * *"
   - name: overseerr
     command: kubectl -n media rollout restart deployment overseerr
     schedule: "0 4 * * *"
