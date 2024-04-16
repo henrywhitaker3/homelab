@@ -6,13 +6,27 @@ spec:
   groups:
     - name: smartctl
       rules:
-        - alert: DriveWearoutHigh
-          expr: sum by (instance, drive) (smartctl_device_percentage_used) > 95
-          for: 0m
+        - alert: SmartDriveWearoutHigh
+          expr: sum by (instance, device) (smartctl_device_percentage_used{device=~"nvme.*"}) > 95
+          for: 5m
           labels:
             severity: critical
           annotations:
-            summary: The {{ $labels.drive }} drive in {{ $labels.instance }} has > 95% wearout
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has > 95% wearout
+        - alert: SmartDriveCriticalWarning
+          expr: smartctl_device_critical_warning > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has critical warnings
+        - alert: SmartDriveMediaErrors
+          expr: smartctl_device_media_errors > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has media errors
     - name: adguard
       rules:
         - alert: AdguardScrapeError
