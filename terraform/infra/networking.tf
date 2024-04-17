@@ -8,7 +8,7 @@ module "adguard" {
   memory     = 512
   nameserver = "1.1.1.1 8.8.8.8"
   disk_size  = "8G"
-  nodes      = [1, 2]
+  nodes      = [3, 2]
 
   tags = ["dns", "networking", "ubuntu"]
 }
@@ -22,7 +22,7 @@ module "lb" {
   ips       = ["10.0.0.4", "10.0.0.5"]
   memory    = 512
   disk_size = "8G"
-  nodes     = [1, 2]
+  nodes     = [1, 3]
 
   tags = ["lb", "networking", "ubuntu"]
 }
@@ -36,7 +36,7 @@ module "vpn" {
   ips       = ["10.0.0.11", "10.0.0.12"]
   memory    = 512
   disk_size = "8G"
-  nodes     = [1, 2]
+  nodes     = [1, 3]
 
   tags = ["networking", "ubuntu", "vpn"]
 }

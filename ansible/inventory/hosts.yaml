@@ -50,6 +50,10 @@ all:
           ansible_host: 10.0.0.152
           proxmox_node: 2
           id_mod: 1
+        proxmox-3.lab:
+          ansible_host: 10.0.0.154
+          proxmox_node: 3
+          id_mod: 2
 
     minio:
       hosts:
@@ -70,7 +74,7 @@ all:
           k3s_control_plane: true
 
         k3s-control-3.lab:
-          ansible_host: 10.0.0.24
+          ansible_host: 10.0.0.19
           k3s_control_plane: true
 
         k3s-worker-1.lab:
@@ -78,6 +82,12 @@ all:
 
         k3s-worker-2.lab:
           ansible_host: 10.0.0.21
+
+        k3s-worker-3.lab:
+          ansible_host: 10.0.0.18
+
+        k3s-dedi-1.lab:
+          ansible_host: 10.0.0.24
 
     # thanos:
     #   hosts:

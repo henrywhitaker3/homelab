@@ -5,15 +5,15 @@ output "vpn_info" {
   value = module.vpn.info
 }
 output "k3s_control_info" {
-  value = concat(
-    module.k3s-control.info,
-    [
-      {
-        name = "k3s-control-3"
-        ip   = "10.0.0.24"
-      }
-    ]
-  )
+  value = module.k3s-control.info
+}
+output "k3s_dedi_info" {
+  value = [
+    {
+      name = "k3s-dedi-1"
+      ip   = "10.0.0.24"
+    }
+  ]
 }
 output "k3s_worker_info" {
   value = module.k3s-worker.info

@@ -5,13 +5,9 @@ tasks:
     desc: Run a playbook
     requires:
       vars:
-        - PLAY
-    env:
-      PLAYBOOK: '{{ .PLAYBOOK | default "main.yaml" }}'
-      PLAY: '{{ .PLAY }}'
-    preconditions:
-      - sh: "[[ ! -z $PLAY ]]"
-        msg: |
-          Must set $PLAY variable
+        - play
+    vars:
+      playbook: '{{ .playbook | default "main.yaml" }}'
+      play: '{{ .play }}'
     cmds:
-      - ansible-playbook ansible/playbooks/$PLAY/$PLAYBOOK {{ .CLI_ARGS }}
+      - ansible-playbook --private-key $ANSIBLE_SSH_KEY_FILE ansible/playbooks/{{ .play }}/{{ .playbook }} {{ .CLI_ARGS }}

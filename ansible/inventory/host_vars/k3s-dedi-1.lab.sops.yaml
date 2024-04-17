@@ -1,0 +1,21 @@
+healthcheck: null
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3cXJZVUQ1SjZ5dk5YTlZK
+            TmxCbmpVYTZpNTM2cmxoQlpxaVN4NmowK1dBClN6RzY5cGc1TTYrejFTd21mNFU5
+            djhIYmtyL0o1VDJQZVJaZ2JmVnJHSzgKLS0tIGdlV3VJWHRId1VwQi9jTy80d3JM
+            bVI3N21Id2tHTkVrR0Q2SFhIdHo3a1UKaQLcVxS0zc/kLoGYSHeYl9/1CPwNcb+h
+            VLlXry2w74rTCfVppy7fAFElsbR4NkhbnEC9Di/89X+WORAE4b+EWA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-16T17:15:24Z"
+    mac: ENC[AES256_GCM,data:n2QKymfYduZnW+OgBkAvOYiquX2pxJ4EMr0vOnMO0ssu5JTzAXwMqOVhaZbLcvWQeRGfmM12K9DXBjsyYkGhK5TG6NaI7vfeluPETs8ObtQD7RNaNGhkU8h50fWpVMaS0X2feiTbN8rJce0C50BIZc/Xw5rbWO5HiLP+c84k2+g=,iv:VilnjCvaU2UFPHoTqlyhpsAS1UGdl3chBnk71u0J4zU=,tag:f4QJr6vcrZG23PALR5wpHg==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

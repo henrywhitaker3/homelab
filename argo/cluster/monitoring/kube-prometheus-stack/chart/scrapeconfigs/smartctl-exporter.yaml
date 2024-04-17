@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: smartctl-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - proxmox-1.lab:9633
+        - proxmox-2.lab:9633
+        - k3s-control-3.lab:9633
+  metricsPath: /metrics
+  relabelings:
+    - targetLabel: job
+      replacement: smartctl_exporter

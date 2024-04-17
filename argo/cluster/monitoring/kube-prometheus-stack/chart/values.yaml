@@ -279,6 +279,10 @@ grafana:
         revision: 6
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
+      smarctl:
+        url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/main/dashboards/dist/smartctl.json
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
     postgres:
       pgbackrest:
         url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json

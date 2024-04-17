@@ -1,0 +1,30 @@
+---
+# renovate: datasource=github-releases depName=prometheus-community/smartctl_exporter
+smartctl_exporter_version: 0.12.0
+
+smartctl_exporter_enabled: false
+
+smartctl_exporter_install_dir: /opt/smartctl_exporter
+
+smartctl_exporter_host: "{{ ansible_host }}"
+
+smartctl_exporter_listen_address: "{{ smartctl_exporter_host }}:9633"
+
+smartctl_exporter_telemetry_path: /metrics
+
+smartctl_exporter_drives: []
+
+smartctl_exporter_interval: 60s
+
+smartctl_exporter_rescan: 10m
+
+smartctl_exporter_bin_path: /usr/sbin/smartctl
+
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"

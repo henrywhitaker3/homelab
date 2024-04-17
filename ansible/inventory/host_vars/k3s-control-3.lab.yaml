@@ -1,4 +1,3 @@
-ansible_user: root
-
+---
 smartctl_exporter_enabled: true
 smartctl_exporter_drives: [/dev/nvme0n1]
