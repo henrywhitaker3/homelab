@@ -39,7 +39,7 @@ jobs:
     command: |
       #!/bin/bash
 
-      nodes=$(kubectl get nodes -l quicksync -o json | jq -r '.items[].metadata.name')
+      nodes=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready|NotReady)\s+(control-plane|<none>)" | cut -d' ' -f 1)
       current_node=$(kubectl -n media get pod -l app.kubernetes.io/name=plex -o json | jq -r '.items[0].spec.nodeName')
 
       for node in $nodes; do
