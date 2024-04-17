@@ -1,5 +1,16 @@
 ---
-- name: Configure vpn routes
-  tags: vpn_route
-  ansible.builtin.include_tasks: add_route.yaml
-  loop: "{{ vpn_route_destinations }}"
+- name: Copy over script
+  become: true
+  ansible.builtin.template:
+    src: templates/router.sh
+    dest: /opt/vpn_routes.sh
+    owner: root
+    group: root
+    mode: "700"
+
+- name: Start cronjob for routes script
+  become: true
+  ansible.builtin.cron:
+    name: VPN Static Routes
+    job: "/opt/vpn_routes.sh >> /var/log/vpn_routes.log"
+    state: present

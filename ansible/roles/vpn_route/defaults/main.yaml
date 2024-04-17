@@ -1,4 +1,4 @@
 ---
-vpn_route_destinations: []
-
-vpn_route_via: ""
+# - to: 10.0.0.1
+#   via: 10.0.0.2
+vpn_route_routes: []

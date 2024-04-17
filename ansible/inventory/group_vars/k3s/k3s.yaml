@@ -41,8 +41,9 @@ cifs_mounts:
 
 vpn_route_via: "10.0.0.13"
 
-vpn_route_destinations:
-  - 10.8.0.1
+vpn_route_routes:
+  - to: 10.8.0.1
+    via: 10.0.0.13
 
 crog_verbose: true
 crog_actions:
