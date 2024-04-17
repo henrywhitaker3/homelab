@@ -51,7 +51,7 @@ jobs:
 
       echo Plex not running on preferred node
 
-      ready=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready|NotReady)\s+(control-plane|<none>)" | cut -d' ' -f 1)
+      ready=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready)\s+(control-plane|<none>)" | cut -d' ' -f 1)
       for node in $ready; do
         echo Preferred node available
         kubectl -n media rollout restart deployment plex
