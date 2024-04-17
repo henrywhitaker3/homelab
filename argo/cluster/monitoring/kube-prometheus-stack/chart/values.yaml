@@ -274,7 +274,7 @@ grafana:
         gnetId: 9578
         revision: 4
         datasource: Prometheus
-      adguard:
+      smarctl:
         url: https://github.com/blesswinsamuel/grafana-dashboards/raw/main/dashboards/dist/smartctl.json
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
