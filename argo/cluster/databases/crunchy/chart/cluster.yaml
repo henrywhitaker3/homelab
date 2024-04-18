@@ -34,9 +34,9 @@ spec:
 
   patroni:
     dynamicConfiguration:
-      synchronous_mode: true
+      synchronous_mode: false
       postgresql:
-        synchronous_commit: "on"
+        synchronous_commit: "off"
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
