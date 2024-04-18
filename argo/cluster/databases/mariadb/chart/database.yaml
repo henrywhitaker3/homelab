@@ -7,7 +7,7 @@ metadata:
 spec:
   port: 3306
 
-  replicas: 5 # set to the number of nodes in the cluster
+  replicas: 7 # set to the number of nodes in the cluster
 
   galera:
     enabled: true

@@ -46,7 +46,7 @@ spec:
       metadata:
         labels:
           app.kubernetes.io/name: crunchy
-      replicas: 5 # Number of nodes in the cluster
+      replicas: 7 # Number of nodes in the cluster
       dataVolumeClaimSpec:
         storageClassName: openebs-hostpath
         accessModes:
