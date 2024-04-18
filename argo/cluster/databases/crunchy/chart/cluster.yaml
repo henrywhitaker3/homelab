@@ -90,11 +90,11 @@ spec:
         type: AlphaNumeric
 
     # Benchmarking user
-    # - name: bench
-    #   databases:
-    #     - bench
-    #   password:
-    #     type: AlphaNumeric
+    - name: bench
+      databases:
+        - bench
+      password:
+        type: AlphaNumeric
 
   monitoring:
     pgmonitor:
