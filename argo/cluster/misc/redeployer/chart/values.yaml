@@ -39,7 +39,7 @@ jobs:
     command: |
       #!/bin/bash
 
-      nodes=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready|NotReady)\s+(control-plane|<none>)" | cut -d' ' -f 1)
+      nodes=$(kubectl get nodes -l quicksync -o json | jq -r '.items[].metadata.name')
       current_node=$(kubectl -n media get pod -l app.kubernetes.io/name=plex -o json | jq -r '.items[0].spec.nodeName')
 
       for node in $nodes; do
@@ -51,7 +51,7 @@ jobs:
 
       echo Plex not running on preferred node
 
-      ready=$(kubectl get nodes -l quicksync -o json | jq -r '.items[] | select(.status.conditions[].type=="Ready") | .metadata.name')
+      ready=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready)\s+(control-plane|<none>)" | cut -d' ' -f 1)
       for node in $ready; do
         echo Preferred node available
         kubectl -n media rollout restart deployment plex
