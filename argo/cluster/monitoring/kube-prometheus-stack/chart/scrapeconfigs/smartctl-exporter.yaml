@@ -7,6 +7,7 @@ spec:
     - targets:
         - proxmox-1.lab:9633
         - proxmox-2.lab:9633
+        - proxmox-3.lab:9633
         - k3s-control-3.lab:9633
   metricsPath: /metrics
   relabelings:

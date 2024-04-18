@@ -16,7 +16,7 @@ module "k3s-control" {
 
 module "k3s-worker" {
   source    = "./vm"
-  instances = 2
+  instances = 3
 
   name       = "k3s-worker"
   image      = local.ubuntu_22_04

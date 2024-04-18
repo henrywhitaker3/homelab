@@ -8,6 +8,9 @@ locals {
     data.terraform_remote_state.infra.outputs.k3s_worker_info,
     data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     [{ name = "minio", ip = "10.0.0.6" }],
+    [{ name = "proxmox-1", ip = "10.0.0.150" }],
+    [{ name = "proxmox-2", ip = "10.0.0.152" }],
+    [{ name = "proxmox-3", ip = "10.0.0.154" }]
   )
 
   internal_ingress = [
