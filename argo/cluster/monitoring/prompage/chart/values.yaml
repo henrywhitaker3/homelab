@@ -2,6 +2,22 @@ prompage:
   configuration:
     prometheus: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
     services:
+      - name: Plex
+        query:
+          query: probe_http_status_code{instance="https://plex.plexmox.com"}
+          expression: int(result) == 401
+      - name: Requests
+        query:
+          query: probe_http_status_code{instance="https://overseerr.plexmox.com"}
+          expression: int(result) == 200
+      - name: Auth Service
+        query:
+          query: probe_http_status_code{instance="https://auth.plexmox.com"}
+          expression: int(result) == 200
+      - name: Homepage
+        query:
+          query: probe_http_status_code{instance="https://plexmox.com"}
+          expression: int(result) == 200
       - name: Postgres
         query:
           query: avg(pg_up)
