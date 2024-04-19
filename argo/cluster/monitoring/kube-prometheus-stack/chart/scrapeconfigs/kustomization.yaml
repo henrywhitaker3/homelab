@@ -9,3 +9,4 @@ resources:
   - keepalived.yaml
   - minio.yaml
   - adguard.yaml
+  - blackbox.yaml

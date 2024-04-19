@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: blackbox
+spec:
+  staticConfigs:
+    - targets:
+        - https://plexox.com
+        - https://plex.plexmox.com
+        - https://overseerr.plexmox.com
+        - https://auth.plexmox.com
+  metricsPath: /probe
+  params:
+    module: [http_2xx]
+  relabelings:
+    - targetLabel: job
+      replacement: blackbox
