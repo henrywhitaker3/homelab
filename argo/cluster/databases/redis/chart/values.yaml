@@ -16,6 +16,30 @@ generic:
     portName: redis
     port: 6379
 
+  additionalPorts:
+    - name: metrics
+      port: 9121
+      protocol: TCP
+      targetPort: metrics
+
+  extraContainers:
+    - name: redis-exporter
+      image: oliver006/redis_exporter:v1.58.0
+      imagePullPolicy: IfNotPresent
+      args:
+        - --redis.addr=redis://127.0.0.1:6379
+      ports:
+        - containerPort: 9121
+          name: metrics
+          protocol: TCP
+      securityContext:
+        runAsUser: 59000
+        runAsGroup: 59000
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+
   ingress:
     enabled: false
 
@@ -25,3 +49,8 @@ generic:
       command:
         - redis-cli
         - ping
+
+  metrics:
+    enabled: true
+    port: metrics
+    timeout: 10s
