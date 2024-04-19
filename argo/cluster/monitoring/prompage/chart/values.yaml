@@ -19,7 +19,7 @@ prompage:
           range: 72h
 
 
-  replicaCount: 2
+  replicaCount: 3
 
   ingress:
     enabled: true
