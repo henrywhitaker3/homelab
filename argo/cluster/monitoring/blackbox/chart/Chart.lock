@@ -1,6 +1,6 @@
 dependencies:
-- name: prompage-helm
-  repository: oci://ghcr.io/henrywhitaker3
-  version: v0.1.8
-digest: sha256:ca9031794c8bc987c7c85130507a796a59408dd8fe5071d6c4a4fe2e228c941c
-generated: "2024-04-19T21:07:35.204697508+01:00"
+- name: prometheus-blackbox-exporter
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 8.15.1
+digest: sha256:13b3721ed865316581fd7ac058d69007af52662b691afe7ed7f71e8a64d7bea4
+generated: "2024-04-19T21:34:35.645647971+01:00"
