@@ -16,11 +16,11 @@ generic:
     portName: redis
     port: 6379
 
-  additionalPorts:
-    - name: metrics
-      port: 9121
-      protocol: TCP
-      targetPort: metrics
+    additionalPorts:
+      - name: metrics
+        port: 9121
+        protocol: TCP
+        targetPort: metrics
 
   extraContainers:
     - name: redis-exporter
