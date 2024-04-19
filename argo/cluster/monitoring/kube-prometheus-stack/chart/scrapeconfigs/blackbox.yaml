@@ -15,3 +15,5 @@ spec:
   relabelings:
     - targetLabel: job
       replacement: blackbox
+    - target_label: __address__
+      replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc:9115
