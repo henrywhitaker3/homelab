@@ -6,17 +6,17 @@ prompage:
         query:
           query: sum(pg_up)
           expression: float(result) >= 5
-          range: 168h
+          range: 72h
       - name: Galera
         query:
           query: sum(mysql_up{job="mariadb-metrics"})
           expression: float(result) >= 5
-          range: 168h
+          range: 72h
       - name: MinIO
         query:
           query: sum(minio_cluster_nodes_offline_total)
           expression: float(result) == 0
-          range: 168h
+          range: 72h
 
 
   replicaCount: 2
