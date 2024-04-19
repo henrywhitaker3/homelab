@@ -5,12 +5,12 @@ prompage:
       - name: Postgres
         query:
           query: sum(pg_up)
-          expression: float(result) == 7
+          expression: float(result) >= 5
           range: 168h
       - name: Galera
         query:
           query: sum(mysql_up{job="mariadb-metrics"})
-          expression: float(result) == 7
+          expression: float(result) >= 5
           range: 168h
       - name: MinIO
         query:
