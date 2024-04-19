@@ -13,7 +13,9 @@ spec:
   params:
     module: [http_2xx]
   relabelings:
-    - targetLabel: job
-      replacement: blackbox
+    - sourceLabels: [__address__]
+      targetLabel: __param_target
+    - sourceLabels: [__param_target]
+      targetLabel: instance
     - targetLabel: __address__
       replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc:9115
