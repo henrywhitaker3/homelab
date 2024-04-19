@@ -2,38 +2,44 @@ prompage:
   configuration:
     prometheus: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
     services:
+      - name: Homepage
+        group: Services
+        query:
+          query: probe_http_status_code{instance="https://plexmox.com"}
+          expression: int(result) == 200
       - name: Plex
+        group: Services
         query:
           query: probe_http_status_code{instance="https://plex.plexmox.com"}
           expression: int(result) == 401
       - name: Requests
+        group: Services
         query:
           query: probe_http_status_code{instance="https://overseerr.plexmox.com"}
           expression: int(result) == 200
       - name: Auth Service
+        group: Services
         query:
           query: probe_http_status_code{instance="https://auth.plexmox.com"}
           expression: int(result) == 200
-      - name: Homepage
-        query:
-          query: probe_http_status_code{instance="https://plexmox.com"}
-          expression: int(result) == 200
       - name: Postgres
+        group: Infra
         query:
           query: avg(pg_up)
           expression: float(result) == 1
           range: 72h
       - name: Galera
+        group: Infra
         query:
           query: avg(mysql_up{job="mariadb-metrics"})
           expression: float(result) == 1
           range: 72h
       - name: MinIO
+        group: Infra
         query:
           query: sum(minio_cluster_nodes_offline_total)
           expression: float(result) == 0
           range: 72h
-
 
   replicaCount: 3
 
