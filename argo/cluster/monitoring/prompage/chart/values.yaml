@@ -4,13 +4,13 @@ prompage:
     services:
       - name: Postgres
         query:
-          query: sum(pg_up)
-          expression: float(result) >= 5
+          query: avg(pg_up)
+          expression: float(result) == 1
           range: 72h
       - name: Galera
         query:
-          query: sum(mysql_up{job="mariadb-metrics"})
-          expression: float(result) >= 5
+          query: avg(mysql_up{job="mariadb-metrics"})
+          expression: float(result) == 1
           range: 72h
       - name: MinIO
         query:
