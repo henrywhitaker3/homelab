@@ -32,13 +32,19 @@ prompage:
         group: Infra
         query:
           query: avg(mysql_up{job="mariadb-metrics"})
-          expression: float(result) == 1
+          expression: int(result) == 1
+          range: 72h
+      - name: Redis
+        group: Infra
+        query:
+          query: sum(redis_up{job="redis"})
+          expression: int(result) == 1
           range: 72h
       - name: MinIO
         group: Infra
         query:
           query: sum(minio_cluster_nodes_offline_total)
-          expression: float(result) == 0
+          expression: int(result) == 0
           range: 72h
 
   replicaCount: 3
@@ -48,8 +54,6 @@ prompage:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
-      nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
     hosts:
       - host: status.plexmox.com
         paths:
