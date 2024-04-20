@@ -77,15 +77,6 @@ all:
           ansible_host: 10.0.0.19
           k3s_control_plane: true
 
-        k3s-worker-1.lab:
-          ansible_host: 10.0.0.20
-
-        k3s-worker-2.lab:
-          ansible_host: 10.0.0.21
-
-        k3s-worker-3.lab:
-          ansible_host: 10.0.0.18
-
         k3s-dedi-1.lab:
           ansible_host: 10.0.0.24
 

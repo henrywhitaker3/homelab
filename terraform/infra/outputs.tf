@@ -15,9 +15,6 @@ output "k3s_dedi_info" {
     }
   ]
 }
-output "k3s_worker_info" {
-  value = module.k3s-worker.info
-}
 output "minio_info" {
   value = module.minio.info
 }

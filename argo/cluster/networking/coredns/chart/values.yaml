@@ -49,9 +49,6 @@ coredns:
             10.0.0.22 k3s-control-2.lab
             10.0.0.19 k3s-control-3.lab
             10.0.0.24 k3s-dedi-1.lab
-            10.0.0.20 k3s-worker-1.lab
-            10.0.0.21 k3s-worker-2.lab
-            10.0.0.18 k3s-worker-3.lab
             10.0.0.13 vpn.lab
             10.0.0.26 plex.lab
             10.0.0.35 redis.lab

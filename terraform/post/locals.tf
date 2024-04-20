@@ -5,7 +5,6 @@ locals {
     data.terraform_remote_state.infra.outputs.vpn_info,
     data.terraform_remote_state.infra.outputs.lb_info,
     data.terraform_remote_state.infra.outputs.k3s_control_info,
-    data.terraform_remote_state.infra.outputs.k3s_worker_info,
     data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     [{ name = "minio", ip = "10.0.0.6" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],

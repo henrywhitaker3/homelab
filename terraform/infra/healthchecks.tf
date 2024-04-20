@@ -105,25 +105,6 @@ resource "healthchecksio_check" "lb_2" {
   ]
 }
 
-resource "healthchecksio_check" "k3s_worker" {
-  count = 3
-
-  name = "k3s-worker-${count.index + 1}"
-  desc = "Checks the k8s worker node is up"
-
-  tags = [
-    "k8s"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
 resource "healthchecksio_check" "k3s_dedi" {
   count = 1
 
