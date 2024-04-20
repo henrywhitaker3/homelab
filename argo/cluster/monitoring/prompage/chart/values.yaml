@@ -1,6 +1,9 @@
 prompage:
   configuration:
     prometheus: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
+
+    refresh: 1m
+
     services:
       - name: Homepage
         group: Services
