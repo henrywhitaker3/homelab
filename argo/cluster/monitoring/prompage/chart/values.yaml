@@ -63,12 +63,12 @@ prompage:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - host: status.plexmox.com
+      - host: status.henrywhitaker.com
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: status-plexmox-com-tls
+    - secretName: status-henrywhitaker-com-tls
       hosts:
-        - status.plexmox.com
+        - status.henrywhitaker.com
 
