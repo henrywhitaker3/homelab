@@ -7,45 +7,53 @@ prompage:
         query:
           query: probe_http_status_code{instance="https://plexmox.com"}
           expression: int(result) == 200
+          bool: true
       - name: Plex
         group: Services
         query:
           query: probe_http_status_code{instance="https://plex.plexmox.com"}
           expression: int(result) == 401
+          bool: true
       - name: Requests
         group: Services
         query:
           query: probe_http_status_code{instance="https://overseerr.plexmox.com"}
           expression: int(result) == 200
+          bool: true
       - name: Auth Service
         group: Services
         query:
           query: probe_http_status_code{instance="https://auth.plexmox.com"}
           expression: int(result) == 200
+          bool: true
       - name: Postgres
         group: Infra
         query:
           query: avg(pg_up)
           expression: float(result) == 1
           range: 72h
+          bool: true
       - name: Galera
         group: Infra
         query:
           query: avg(mysql_up{job="mariadb-metrics"})
           expression: int(result) == 1
           range: 72h
+          bool: true
       - name: Redis
         group: Infra
         query:
           query: sum(redis_up{job="redis"})
           expression: int(result) == 1
           range: 72h
+          bool: true
       - name: MinIO
         group: Infra
         query:
           query: sum(minio_cluster_nodes_offline_total)
           expression: int(result) == 0
           range: 72h
+          bool: true
 
   replicaCount: 3
 
