@@ -7,7 +7,15 @@ metadata:
 spec:
   port: 3306
 
-  replicas: 7 # set to the number of nodes in the cluster
+  replicas: 3 # set to the number of nodes in the cluster
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: quicksync
+                operator: DoesNotExist
 
   galera:
     enabled: true
