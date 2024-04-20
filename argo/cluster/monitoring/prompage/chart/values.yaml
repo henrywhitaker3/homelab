@@ -55,7 +55,7 @@ prompage:
           range: 72h
           bool: true
 
-  replicaCount: 3
+  replicaCount: 1
 
   ingress:
     enabled: true
