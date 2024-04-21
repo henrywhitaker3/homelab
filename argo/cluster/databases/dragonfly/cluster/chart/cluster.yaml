@@ -21,7 +21,7 @@ spec:
         secretKeyRef:
           name: dragonfly-minio
           key: aws-secret-access-key
-    - name: AWS_ENDPOINT
+    - name: AWS_ENDPOINT_URL
       value: https://s3.plexmox.com
 
   args:
