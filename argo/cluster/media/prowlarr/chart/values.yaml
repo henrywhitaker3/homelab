@@ -56,3 +56,15 @@ generic:
     enabled: true
     secret:
       key: prowlarr-tunnel
+
+  # Keep it here until i figure out vpn gateway
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: quicksync
+            operator: In
+            values:
+            - available
