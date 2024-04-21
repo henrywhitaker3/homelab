@@ -4,3 +4,4 @@ namespace: dragonfly
 resources:
   - cluster.yaml
   - secrets.yaml
+  - podmonitor.yaml
