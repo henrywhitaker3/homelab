@@ -45,7 +45,7 @@ generic:
   config:
     NODE_ENV: production
     FORCE_HTTPS: "false"
-    REDIS_URL: redis://redis.databases.svc:6379
+    REDIS_URL: redis://dragonfly.dragonfly.svc:6379/2
     PGSSLMODE: disable
     URL: https://docs.plexmox.com
 

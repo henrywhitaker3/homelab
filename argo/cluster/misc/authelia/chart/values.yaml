@@ -66,7 +66,8 @@ configMap:
   session:
     redis:
       enabled: true
-      host: redis.databases.svc.cluster.local
+      host: dragonfly.dragonfly.svc
+      database_index: 5
 
   storage:
     postgres:
