@@ -34,6 +34,6 @@ spec:
     limits:
       memory: 256Mi
 
-  snapshots:
+  snapshot:
     dir: "s3://dragonfly"
-    cron: "0 * * * *"
+    cron: "* * * * *"
