@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - misc.yaml
   - playground.yaml
-  - db.yaml
   - vms.yaml
   - minio.yaml
   - smartctl.yaml

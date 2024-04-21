@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: dragonfly
+spec:
+  groups:
+    - name: dragonfly
+      rules:
+        - name: DragonflyReplicaUnhealthy
+          expr: increase(dragonfly_uptime_in_seconds[1m]) < 60
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Dragonfly instance {{ $labels.pod }} has not been up for 1 minute

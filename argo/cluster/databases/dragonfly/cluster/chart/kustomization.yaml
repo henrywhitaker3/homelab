@@ -5,3 +5,4 @@ resources:
   - cluster.yaml
   - secrets.yaml
   - podmonitor.yaml
+  - rules.yaml
