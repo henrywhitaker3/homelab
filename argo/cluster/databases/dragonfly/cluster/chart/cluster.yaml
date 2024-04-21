@@ -21,13 +21,14 @@ spec:
         secretKeyRef:
           name: dragonfly-minio
           key: aws-secret-access-key
+    - name: AWS_ENDPOINT
+      value: https://s3.plexmox.com
 
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=1
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --s3_endpoint=s3.plexmox.com
   resources:
     requests:
       cpu: 100m
