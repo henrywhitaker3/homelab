@@ -9,6 +9,7 @@ spec:
         - proxmox-2.lab:9633
         - proxmox-3.lab:9633
         - k3s-dedi-1.lab:9633
+        - unraid.lab:9633
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
