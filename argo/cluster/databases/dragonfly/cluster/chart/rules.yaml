@@ -6,7 +6,7 @@ spec:
   groups:
     - name: dragonfly
       rules:
-        - name: DragonflyReplicaUnhealthy
+        - alert: DragonflyReplicaUnhealthy
           expr: increase(dragonfly_uptime_in_seconds[1m]) < 60
           for: 1m
           labels:
