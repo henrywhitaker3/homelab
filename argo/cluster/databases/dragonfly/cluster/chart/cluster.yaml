@@ -13,7 +13,7 @@ spec:
           divisor: 1Mi
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
-    - --proactor_threads=2
+    - --proactor_threads=1
     - --cluster_mode=emulated
     - --lock_on_hashtags
   resources:
