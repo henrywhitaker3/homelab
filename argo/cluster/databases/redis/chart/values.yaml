@@ -43,6 +43,14 @@ generic:
   ingress:
     enabled: false
 
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 1Gi
+    accessModes:
+    - ReadWriteOnce
+
   probes:
     type: exec
     options:
