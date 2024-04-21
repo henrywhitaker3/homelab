@@ -1,0 +1,43 @@
+nameOverride: dragonfly-operator
+fullnameOverride: dragonfly-operator
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/dragonflydb/operator
+  pullPolicy: Always
+  tag: v1.1.2
+
+entrypoint:
+  command: ["/manager"]
+  args:
+    - --health-probe-bind-address=:8081
+    - --metrics-bind-address=:8080
+
+additionalPorts:
+  - name: metrics
+    containerPort: 8080
+    protocol: TCP
+
+service:
+  portName: health
+  port: 8081
+
+  additionalPorts:
+    - name: metrics
+      port: 8080
+      protocol: TCP
+      targetPort: metrics
+
+ingress:
+  enabled: false
+
+probes:
+  options:
+    path: /healthz
+    port: health
+
+# metrics:
+#   enabled: true
+#   port: metrics
+#   timeout: 10s
