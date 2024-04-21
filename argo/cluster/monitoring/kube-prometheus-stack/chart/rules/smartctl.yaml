@@ -1,0 +1,56 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: smartctl
+spec:
+  groups:
+    - name: smartctl
+      rules:
+        - alert: SmartDriveWearoutHigh
+          expr: sum by (instance, device) (smartctl_device_percentage_used{device=~"nvme.*"}) > 95
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has > 95% wearout
+        - alert: SmartDriveCriticalWarning
+          expr: smartctl_device_critical_warning > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has critical warnings
+        - alert: SmartDriveMediaErrors
+          expr: smartctl_device_media_errors > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The {{ $labels.device }} drive in {{ $labels.instance }} has media errors
+        - alert: SmartDeviceHighTemperature
+          expr: smartctl_device_temperature > 65
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Drive {{ $labels.device }} on {{ $labels.instance }} has a temperature higher than 65°C.
+        - alert: SmartDeviceTestFailed
+          expr: |
+            (
+              smartctl_device_smart_status != 1
+            or
+              smartctl_device_status != 1
+            )
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Drive {{ $labels.device }} on {{ $labels.instance }} did not pass its SMART test.
+        - alert: SmartDeviceInterfaceSlow
+          expr: |
+            smartctl_device_interface_speed{speed_type="current"} != on(device, instance, namespace, pod) smartctl_device_interface_speed{speed_type="max"}
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: Drive {{ $labels.device }} on {{ $labels.instance }} interface is slower then it should be.

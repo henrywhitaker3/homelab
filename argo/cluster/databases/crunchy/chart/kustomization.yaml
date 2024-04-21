@@ -7,3 +7,4 @@ resources:
   - cluster.yaml
   - push.yaml
   - servicemonitor.yaml
+  - rules.yaml
