@@ -23,7 +23,7 @@ prompage:
           query: probe_http_status_code{instance="https://overseerr.plexmox.com"}
           expression: int(result) == 200
           bool: true
-      - name: Auth Service
+      - name: Auth
         group: Services
         query:
           query: probe_http_status_code{instance="https://auth.plexmox.com"}
