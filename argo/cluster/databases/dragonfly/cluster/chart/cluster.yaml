@@ -11,13 +11,29 @@ spec:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: dragonfly-minio
+          key: aws-access-key-id
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: dragonfly-minio
+          key: aws-secret-access-key
+
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=1
     - --cluster_mode=emulated
     - --lock_on_hashtags
+    - --s3_endpoint= s3.plexmox.com
   resources:
     requests:
       cpu: 100m
     limits:
       memory: 256Mi
+
+  snapshots:
+    dir: "s3://dragonfly"
+    cron: "0 * * * *"

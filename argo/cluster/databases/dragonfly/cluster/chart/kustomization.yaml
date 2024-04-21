@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: dragonfly
 resources:
   - cluster.yaml
+  - secrets.yaml
