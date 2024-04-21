@@ -9,4 +9,15 @@ spec:
   podTargetLabels: ["app"]
   podMetricsEndpoints:
     - port: admin
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: dragonfly-redis
+spec:
+  selector:
+    matchLabels:
+      app: dragonfly
+  podTargetLabels: ["app"]
+  podMetricsEndpoints:
     - port: redis
