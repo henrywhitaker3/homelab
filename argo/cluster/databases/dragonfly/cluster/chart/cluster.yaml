@@ -38,4 +38,4 @@ spec:
 
   snapshot:
     dir: "s3://dragonfly"
-    cron: "* * * * *"
+    cron: "0 * * * *"
