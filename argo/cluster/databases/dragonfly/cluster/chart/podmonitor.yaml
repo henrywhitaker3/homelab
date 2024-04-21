@@ -9,4 +9,3 @@ spec:
   podTargetLabels: ["app"]
   podMetricsEndpoints:
     - port: admin
-    - port: redis
