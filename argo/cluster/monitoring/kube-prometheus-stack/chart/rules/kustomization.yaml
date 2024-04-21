@@ -7,4 +7,5 @@ resources:
   - vms.yaml
   - minio.yaml
   - smartctl.yaml
+  - longhorn.yaml
   - recording.yaml
