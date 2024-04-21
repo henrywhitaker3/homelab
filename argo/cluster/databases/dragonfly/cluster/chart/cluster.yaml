@@ -21,6 +21,8 @@ spec:
         secretKeyRef:
           name: dragonfly-minio
           key: aws-secret-access-key
+    - name: AWS_DEFAULT_REGION
+      value: unraid
 
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
