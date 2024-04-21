@@ -30,11 +30,17 @@ spec:
     - --cluster_mode=emulated
     - --lock_on_hashtags
     - --s3_endpoint=s3.plexmox.com
+
   resources:
     requests:
       cpu: 100m
     limits:
       memory: 256Mi
+
+  serviceSpec:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 10.0.0.35
 
   snapshot:
     dir: "s3://dragonfly"
