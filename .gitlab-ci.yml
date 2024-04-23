@@ -60,7 +60,7 @@ ansible play:
 # Terraform #
 #############
 .terraform:base:
-  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+  image: henrywhitaker3/pipeline
   before_script:
     - cd terraform/$TF_DIR
     - |
