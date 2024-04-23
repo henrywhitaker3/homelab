@@ -12,6 +12,7 @@
         flat: true
 
     - name: Update the context name
+      delegate_to: localhost
       ansible.builtin.replace:
         path: /tmp/kubeconfig
         regexp: default
