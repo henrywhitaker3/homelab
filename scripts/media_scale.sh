@@ -17,7 +17,7 @@ transmission
 )
 
 scale() {
-    sed -E -i "s/replicaCount: [0-9]+/replicaCount: $2/g" "argo/cluster/media/$1/chart/values.yaml"
+    sed -E -i "s/replicaCount: [0-9]+/replicaCount: $2/g" "kubernetes/k3s/apps/media/$1/chart/values.yaml"
 }
 
 for service in ${media[@]}; do

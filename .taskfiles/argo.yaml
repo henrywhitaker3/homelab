@@ -3,8 +3,12 @@ version: "3"
 tasks:
   bootstrap:
     desc: Bootsrap the cluster
+    requires:
+      vars:
+        - cluster
     cmds:
-      - ./scripts/bootstrap_secrets.sh
+      - kubectl config use-context {{ .cluster }}
+      - ./scripts/bootstrap_secrets.sh {{ .cluster }}
       - task: install
       - task: root
 

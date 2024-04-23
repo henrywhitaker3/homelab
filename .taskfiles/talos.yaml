@@ -1,0 +1,90 @@
+version: "3"
+
+tasks:
+  gensecret:
+    desc: Generate talos secrets
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talhelper gensecret > talsecret.sops.yaml
+      - sops -e -i talsecret.sops.yaml
+
+  genconfig:
+    desc: Generate talos configs
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talhelper genconfig --secret-file talsecret.sops.yaml
+
+  bootstrap:
+    deps:
+      - apply
+      - apps
+
+  .apply:
+    requires:
+      vars:
+        - cluster
+    vars:
+      args: '{{ .args | default "" }}'
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talhelper gencommand apply {{ .args }} | bash
+
+  apply:
+    desc: Apply the cluster configuration
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - task: .apply
+        vars:
+          args: --extra-flags=--insecure
+      - sleep 30
+      - talhelper gencommand bootstrap | bash
+
+  reapply:
+    desc: Re-apply a new configuration
+    cmds:
+      - task: .apply
+
+  apps:
+    desc: Install the required k8s apps
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - helmfile --file ./apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+
+  ctl:
+    desc: Run talosctl commands
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talosctl --talosconfig clusterconfig/talosconfig {{ .CLI_ARGS }}
+
+  kubeconfig:
+    desc: Fetch the kubeconfig file
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/talos'
+    cmds:
+      - talhelper gencommand kubeconfig | bash
+
+  nuke:
+    desc: Nuke the cluster and start over
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash

@@ -1,0 +1,5 @@
+providerRegex: ^(talos-control-1|talos-control-2|talos-control-3)$
+bypassDnsResolution: true
+bypassHostnameCheck: true
+replicas: 1
+leaderElection: false

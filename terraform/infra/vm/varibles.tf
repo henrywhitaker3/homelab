@@ -60,3 +60,9 @@ variable "nodes" {
   type        = list(number)
   description = "Provide a list of nodes that the vms will be scheduled onto"
 }
+
+variable "iso" {
+  type        = string
+  description = "The name of the iso to use"
+  default     = ""
+}

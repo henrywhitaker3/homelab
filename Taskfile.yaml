@@ -11,6 +11,7 @@ includes:
   new: .taskfiles/new.yaml
   postgres: .taskfiles/postgres.yaml
   galera: .taskfiles/galera.yaml
+  talos: .taskfiles/talos.yaml
 
 tasks:
   default:

@@ -10,12 +10,12 @@ tasks:
   helm:
     deps: [app]
     cmds:
-      - cat .templates/Chart.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/Chart.yaml
+      - cat .templates/Chart.yaml | envsubst > kubernetes/k3s/apps/$TYPE/$NAME/chart/Chart.yaml
 
   kustomize:
     deps: [app]
     cmds:
-      - cat .templates/kustomization.yaml | envsubst > argo/cluster/$TYPE/$NAME/chart/kustomization.yaml
+      - cat .templates/kustomization.yaml | envsubst > kubernetes/k3s/apps/$TYPE/$NAME/chart/kustomization.yaml
 
   app:
     preconditions:
@@ -23,9 +23,9 @@ tasks:
         msg: |
           NAME must be set
     cmds:
-      - mkdir -p argo/cluster/$TYPE/$NAME
-      - mkdir -p argo/cluster/$TYPE/$NAME/chart
-      - cat .templates/app.yaml | envsubst > argo/cluster/$TYPE/$NAME/$NAME.app.yaml
+      - mkdir -p kubernetes/k3s/apps/$TYPE/$NAME
+      - mkdir -p kubernetes/k3s/apps/$TYPE/$NAME/chart
+      - cat .templates/app.yaml | envsubst > kubernetes/k3s/apps/$TYPE/$NAME/$NAME.app.yaml
 
   secret:
     cmds:

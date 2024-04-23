@@ -39,8 +39,8 @@ terraform.rc
 playbooks/vpn/keygen.sh
 .vscode/
 
-argo/charts/**/charts
-argo/cluster/**/charts
-argo/argocd/charts
+**/argo/charts/**/charts
+**/apps/**/charts
+**/argo/charts
 
 .env

@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: $PROJECT
   source:
-    path: argo/cluster/$TYPE/$NAME/chart
+    path: kubernetes/k3s/apps/$TYPE/$NAME/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
