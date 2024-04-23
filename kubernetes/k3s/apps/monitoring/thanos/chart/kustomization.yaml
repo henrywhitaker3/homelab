@@ -11,6 +11,6 @@ helmCharts:
   - name: thanos
     releaseName: thanos
     namespace: thanos
-    version: "1.16.4"
+    version: "1.16.5"
     repo: https://stevehipwell.github.io/helm-charts
     valuesFile: values.yaml
