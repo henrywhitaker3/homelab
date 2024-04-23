@@ -1,8 +1,8 @@
 resource "proxmox_storage_iso" "talos" {
   count = 3
 
-  url                = "https://github.com/siderolabs/talos/releases/download/${local.talos_version}/metal-amd64.iso"
-  checksum           = "f3eb533962bec805fa68e3856164ce5baacbd60505f5b3590beb853da30d926e"
+  url                = "https://factory.talos.dev/image/4ea1b20f73a7b3eac7faac4a02193470a85d0e2c441af474ddfd2de2e8da4dc7/v1.7.0/metal-amd64.iso"
+  checksum           = "493190e8f19c2614b645d30abc589b9ecc555b2f6876c11f9840a03c275469d6"
   checksum_algorithm = "sha256"
   filename           = "talos.iso"
   storage            = "local"

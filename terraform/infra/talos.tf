@@ -26,7 +26,7 @@
 #   name        = "mango-control-3"
 #   node        = 3
 #   cores       = 2
-#   memory      = 2048
+#   memory      = 2049
 #   disk_size   = 200
 #   mac_address = "18:e7:3e:fa:e1:f9"
 # }

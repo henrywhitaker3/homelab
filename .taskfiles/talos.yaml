@@ -89,3 +89,20 @@ tasks:
     dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
     cmds:
       - talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
+
+  upgrade:
+    desc: Run a cluster upgrade
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmds:
+      - talhelper gencommand upgrade | bash
+
+  iso:
+    desc: Generate iso url
+    requires:
+      vars:
+        - cluster
+    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+    cmd: talhelper genurl iso

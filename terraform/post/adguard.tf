@@ -50,7 +50,7 @@ resource "adguard_config" "primary" {
         hostname = "mango-control-1"
       },
       {
-        mac      = "18:88:df:e5:c2:99"
+        mac      = "18:88:df:e6:c2:99"
         ip       = "10.0.0.31"
         hostname = "mango-control-2"
       },

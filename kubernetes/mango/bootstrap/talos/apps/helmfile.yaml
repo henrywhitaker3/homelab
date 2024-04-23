@@ -1,6 +1,8 @@
 repositories:
   - name: postfinance
     url: https://postfinance.github.io/kubelet-csr-approver
+  - name: longhorn
+    url: https://charts.longhorn.io
 
 helmDefaults:
   wait: true
@@ -15,3 +17,8 @@ releases:
     chart: postfinance/kubelet-csr-approver
     version: 1.1.0
     values: ["./kubelet-csr-approver-values.yaml"]
+  - name: longhorn
+    namespace: longhorn-system
+    chart: longhorn/longhorn
+    version: 1.6.1
+    values: ["../../../apps/storage/longhorn/chart/values.yaml"]

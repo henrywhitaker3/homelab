@@ -19,10 +19,19 @@ cniConfig:
 nodes:
   - hostname: "mango-control-1"
     ipAddress: "10.0.0.30"
+    schematic: &schematic
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915-ucode
+            - siderolabs/iscsi-tools
+            - siderolabs/util-linux-tools
     installDisk: "/dev/sda"
     machineDisks:
       - device: /dev/sdb
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+        partitions:
+          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -40,14 +49,16 @@ nodes:
           ip: "10.0.0.8"
   - hostname: "mango-control-2"
     ipAddress: "10.0.0.31"
+    schematic: *schematic
     installDisk: "/dev/sda"
     machineDisks:
       - device: /dev/sdb
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+        partitions:
+          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "18:88:df:e5:c2:99"
+          hardwareAddr: "18:88:df:e6:c2:99"
         dhcp: false
         addresses:
           - "10.0.0.31/24"
@@ -61,10 +72,12 @@ nodes:
           ip: "10.0.0.8"
   - hostname: "mango-control-3"
     ipAddress: "10.0.0.32"
+    schematic: *schematic
     installDisk: "/dev/sda"
     machineDisks:
       - device: /dev/sdb
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+        partitions:
+          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -152,6 +165,10 @@ patches:
     machine:
       kubelet:
         extraMounts:
+          - destination: /var/mnt/storage
+            type: bind
+            source: /var/mnt/storage
+            options: ["bind", "rshared", "rw"]
           - destination: /var/lib/longhorn
             type: bind
             source: /var/lib/longhorn
