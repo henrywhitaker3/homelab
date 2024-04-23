@@ -79,7 +79,7 @@ tasks:
     dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
     cmds:
       - talhelper gencommand kubeconfig | bash
-      - sed 's/admin@{{ .cluster }}/{{ .cluster }}/g' ~/.kube/config
+      - sed -i 's/admin@{{ .cluster }}/{{ .cluster }}/g' ~/.kube/config
 
   nuke:
     desc: Nuke the cluster and start over
