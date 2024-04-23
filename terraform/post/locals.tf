@@ -9,7 +9,7 @@ locals {
     [{ name = "minio", ip = "10.0.0.6" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],
     [{ name = "proxmox-2", ip = "10.0.0.152" }],
-    [{ name = "proxmox-3", ip = "10.0.0.154" }]
+    [{ name = "proxmox-3", ip = "10.0.0.154" }],
   )
 
   internal_ingress = [

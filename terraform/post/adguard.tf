@@ -43,6 +43,21 @@ resource "adguard_config" "primary" {
         mac      = "dc:a6:32:16:b4:d4"
         ip       = "10.0.0.139"
         hostname = "living-room"
+      },
+      {
+        mac      = "18:2f:a3:3e:dc:7a"
+        ip       = "10.0.0.30"
+        hostname = "mango-control-1"
+      },
+      {
+        mac      = "18:88:df:e5:c2:99"
+        ip       = "10.0.0.31"
+        hostname = "mango-control-2"
+      },
+      {
+        mac      = "18:e7:3e:fa:e1:f9"
+        ip       = "10.0.0.32"
+        hostname = "mango-control-3"
       }
     ]
   }

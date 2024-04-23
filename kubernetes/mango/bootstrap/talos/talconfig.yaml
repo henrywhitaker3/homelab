@@ -17,9 +17,11 @@ cniConfig:
   name: flannel
 
 nodes:
-  - hostname: "talos-control-1"
+  - hostname: "mango-control-1"
     ipAddress: "10.0.0.30"
     installDisk: "/dev/sda"
+    machineDisks:
+      - device: /dev/sdb
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
@@ -36,9 +38,11 @@ nodes:
             gateway: "10.0.0.1"
         vip:
           ip: "10.0.0.8"
-  - hostname: "talos-control-2"
+  - hostname: "mango-control-2"
     ipAddress: "10.0.0.31"
     installDisk: "/dev/sda"
+    machineDisks:
+      - device: /dev/sdb
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
@@ -55,9 +59,11 @@ nodes:
             gateway: "10.0.0.1"
         vip:
           ip: "10.0.0.8"
-  - hostname: "talos-control-3"
+  - hostname: "mango-control-3"
     ipAddress: "10.0.0.32"
     installDisk: "/dev/sda"
+    machineDisks:
+      - device: /dev/sdb
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     controlPlane: true
     networkInterfaces:
@@ -141,11 +147,15 @@ patches:
         net.core.rmem_max: "2500000"
         net.core.wmem_max: "2500000"
 
-  # Mount openebs-hostpath in kubelet
+  # Mount storage in kubelet
   - |-
     machine:
       kubelet:
         extraMounts:
+          - destination: /var/lib/longhorn
+            type: bind
+            source: /var/lib/longhorn
+            options: ["bind", "rshared", "rw"]
           - destination: /var/openebs/local
             type: bind
             source: /var/openebs/local
