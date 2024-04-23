@@ -1,6 +1,13 @@
 version: "3"
 
 tasks:
+  .context:
+    requires:
+      vars:
+        - cluster
+    cmds:
+      - kubectl config use-context {{ .cluster }}
+
   gensecret:
     desc: Generate talos secrets
     requires:
@@ -60,6 +67,7 @@ tasks:
         - cluster
     dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
     cmds:
+      - task: .context
       - helmfile --file ./apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
 
   ctl:

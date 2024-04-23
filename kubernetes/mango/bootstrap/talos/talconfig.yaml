@@ -28,10 +28,6 @@ nodes:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
     installDisk: "/dev/sda"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -51,10 +47,6 @@ nodes:
     ipAddress: "10.0.0.31"
     schematic: *schematic
     installDisk: "/dev/sda"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -74,10 +66,6 @@ nodes:
     ipAddress: "10.0.0.32"
     schematic: *schematic
     installDisk: "/dev/sda"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/storage
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -165,10 +153,6 @@ patches:
     machine:
       kubelet:
         extraMounts:
-          - destination: /var/mnt/storage
-            type: bind
-            source: /var/mnt/storage
-            options: ["bind", "rshared", "rw"]
           - destination: /var/lib/longhorn
             type: bind
             source: /var/lib/longhorn
