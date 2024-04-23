@@ -11,6 +11,10 @@
         dest: /tmp/kubeconfig
         flat: true
 
+    - name: Update the context name
+      ansible.builtin.command:
+        cmd: sed -i 's/default/k3s/g' /tmp/kubeconfig
+
     - name: Run bootstrap actions
       delegate_to: localhost
       block:
