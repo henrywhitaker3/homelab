@@ -1,45 +1,53 @@
 version: "3"
 
 tasks:
+  .context:
+    requires:
+      vars:
+        - cluster
+    cmds:
+      - kubectl config use-context {{ .cluster }}
+
   bootstrap:
     desc: Bootsrap the cluster
     requires:
       vars:
         - cluster
     cmds:
-      - kubectl config use-context {{ .cluster }}
+      - task: .context
       - ./scripts/bootstrap_secrets.sh {{ .cluster }}
       - task: install
       - task: root
 
   install:
     desc: Install argocd into the cluster
-    deps: [repo]
+    requires:
+      vars:
+        - cluster
     cmds:
-      - helm dependency build argo/argocd
-      - helm upgrade --install --create-namespace --wait -n argo -f argo/argocd/values.yaml argo argo/argocd/
-
-  repo:
-    cmds:
-      - helm repo add argo https://argoproj.github.io/argo-helm
+      - task: .context
+      - helm dependency build kubernetes/{{ .cluster }}/bootstrap/argo
+      - helm upgrade --install --create-namespace --wait -n argo -f kubernetes/{{ .cluster }}/bootstrap/argo/values.yaml argo kubernetes/{{ .cluster }}/bootstrap/argo/
 
   root:
     desc: Apply the initial manifests
+    requires:
+      vars:
+        - cluster
     cmds:
-      - kubectl apply -f argo/bootstrap/manifests
-
-  values:
-    cmds:
-      - helm -n argo get values argo
+      - task: .context
+      - kubectl apply -f kubernetes/{{ .cluster}}/bootstrap/manifests
 
   apps:
     desc: List argo apps
     cmds:
+      - task: .context
       - kubectl -n argo get applications
 
   go:
     desc: Bootstrap the entire cluster, install argo, install manifests
     cmds:
+      - task: .context
       - task: bootstrap
       - task: install
       - task: root
@@ -51,10 +59,12 @@ tasks:
       pod:
         sh: kubectl -n argo get pod -l app.kubernetes.io/name=argocd-server -o json | jq -r '.items[0].metadata.name'
     cmds:
+      - task: .context
       - kubectl -n argo exec -it {{ .pod }} -- {{ .run }}
 
   login:
     cmds:
+      - task: .context
       - task: exec
         vars:
           run: argocd login argo-argocd-server.argo.svc --insecure --insecure --username $ARGO_CD_USER --password $ARGO_CD_PASSWORD
@@ -70,6 +80,7 @@ tasks:
       pod:
         sh: kubectl -n argo get pod -l app.kubernetes.io/name=argocd-server -o json | jq -r '.items[0].metadata.name'
     cmds:
+      - task: .context
       - kubectl -n argo cp {{ .dir }} {{ .pod }}:/tmp/{{ .app }}
       - task: exec
         vars:
@@ -85,6 +96,7 @@ tasks:
       vars:
         - app
     cmds:
+      - task: .context
       - task: exec
         vars:
           run: argocd app get {{ .app }} --refresh

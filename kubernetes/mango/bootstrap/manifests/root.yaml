@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kubernetes/k3s/apps
+    path: kubernetes/mango/apps
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
     directory:

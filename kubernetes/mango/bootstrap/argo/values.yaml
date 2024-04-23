@@ -1,0 +1,84 @@
+global:
+  domain: taloscd.plexmox.com
+
+argo-cd:
+  dex:
+    enabled: false
+
+  controller:
+    args:
+      appResyncPeriod: 60
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8082
+
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        nginx.ingress.kubernetes.io/auth-url: https://auth.plexmox.com/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.plexmox.com
+      ingressClassName: "nginx"
+
+      extraTls:
+        - hosts:
+          - taloscd.plexmox.com
+          secretName: taloscd-plexmox-com
+
+      hosts:
+        - taloscd.plexmox.com
+    config:
+      url: https://argocd.plexmox.com
+      repositories: |
+        - type: helm
+          name: stable
+          url: https://charts.helm.sh/stable
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.github.io/argo-helm
+      resource.exclusions: |
+        - apiGroups:
+            - cilium.io
+          kinds:
+            - CiliumIdentity
+          clusters:
+            - '*'
+
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8083
+
+  repoServer:
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8084
+
+  applicationSet:
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/path: /metrics
+          prometheus.io/port: 8080
+
+  configs:
+    cm:
+      kustomize.buildOptions: --enable-helm

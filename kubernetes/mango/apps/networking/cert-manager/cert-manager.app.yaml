@@ -1,22 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster
+  name: cert-manager
   namespace: argo
-  annotations:
-    argo-zombies/ignore: "true"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argo
+    namespace: cert-manager
     server: https://kubernetes.default.svc
-  project: default
+  project: cluster
   source:
-    path: kubernetes/k3s/apps
+    path: kubernetes/mango/apps/networking/cert-manager/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
-    directory:
-      recurse: true
-      include: "*.app.yaml"
   syncPolicy:
     automated:
       prune: true

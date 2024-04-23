@@ -1,0 +1,13 @@
+cert-manager:
+  installCRDs: true
+
+  ingressShim:
+    defaultIssuerName: letsencrypt-prod
+    defaultIssuerKind: ClusterIssuer
+
+  prometheus:
+    enabled: true
+    servicemonitor:
+      enabled: true
+
+cloudflareApiToken: cloudflare-api-token

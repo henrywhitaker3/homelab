@@ -30,7 +30,7 @@
 
         - name: Bootstrap cluster
           ansible.builtin.command:
-            cmd: task argo:bootstrap
+            cmd: task argo:bootstrap cluster=k3s
             chdir: "{{ repo_base_dir }}"
           environment:
             KUBECONFIG: /tmp/kubeconfig
