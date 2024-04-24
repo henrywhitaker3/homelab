@@ -34,14 +34,12 @@ prompage:
         query:
           query: avg(pg_up)
           expression: float(result) == 1
-          range: 72h
           bool: true
       - name: Galera
         group: Infra
         query:
           query: avg(mysql_up{job="mariadb-metrics"})
           expression: int(result) == 1
-          range: 72h
           bool: true
       - name: Dragonfly
         group: Infra
@@ -54,7 +52,6 @@ prompage:
         query:
           query: sum(minio_cluster_nodes_offline_total)
           expression: int(result) == 0
-          range: 72h
           bool: true
 
   replicaCount: 1
