@@ -13,7 +13,7 @@ serviceMonitor:
 
 # It's now running on a dedicated vm for storage resons
 compact:
-  enabled: false
+  enabled: true
   extraArgs:
     - --compact.concurrency=4
     - --delete-delay=30m
@@ -24,7 +24,7 @@ compact:
   persistence:
     enabled: true
     storageClass: longhorn-no-backups
-    size: 15Gi
+    size: 25Gi
 
 query:
   replicas: 2

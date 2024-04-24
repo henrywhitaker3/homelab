@@ -23,6 +23,7 @@ resource "minio_iam_policy" "policy" {
   ]
 }
 EOF
+  depends_on = [ minio_iam_user.user, minio_s3_bucket.bucket ]
 }
 
 resource "minio_iam_user_policy_attachment" "policy_attachment" {
