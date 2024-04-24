@@ -47,7 +47,7 @@ prompage:
         group: Infra
         query:
           query: sum(rate(dragonfly_uptime_in_seconds[5m]))
-          expression: int(result) > 0
+          expression: float(result) > 2.5
           bool: true
       - name: MinIO
         group: Infra
