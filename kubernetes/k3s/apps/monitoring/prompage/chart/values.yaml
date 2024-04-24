@@ -1,6 +1,6 @@
 prompage:
   configuration:
-    prometheus: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
+    prometheus: http://thanos-query-frontend.thanos.svc.cluster.local:10902
 
     refresh: 1m
 
