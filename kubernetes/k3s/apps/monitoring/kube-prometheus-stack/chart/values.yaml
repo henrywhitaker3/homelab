@@ -217,7 +217,7 @@ grafana:
       provider:
         foldersFromFilesStructure: true
     datasources:
-      url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
+      defaultDatasourceEnabled: false
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -308,6 +308,12 @@ grafana:
         datasource: Prometheus
 
   additionalDataSources:
+    - name: Prometheus
+      orgId: 1
+      access: proxy
+      url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
+      jsonData:
+        prometheusType: Thanos
     - name: Loki
       ordId: 1
       access: proxy
