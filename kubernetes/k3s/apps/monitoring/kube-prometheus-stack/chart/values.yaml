@@ -216,8 +216,8 @@ grafana:
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
-    # datasources:
-      # url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
+    datasources:
+      url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
 
   dashboardProviders:
     dashboardproviders.yaml:
