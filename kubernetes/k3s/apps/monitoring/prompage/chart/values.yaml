@@ -47,8 +47,7 @@ prompage:
         group: Infra
         query:
           query: sum(increase(dragonfly_uptime_in_seconds[1m]))
-          expression: int(result) >= 177
-          range: 72h
+          expression: int(result) >= 882
           bool: true
       - name: MinIO
         group: Infra
