@@ -4,7 +4,6 @@ namespace: thanos
 
 resources:
   - config
-  - scrapeconfigs
   - dashboards
 
 helmCharts:
