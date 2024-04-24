@@ -7,8 +7,8 @@ spec:
     - name: dragonfly
       rules:
         - alert: DragonflyReplicaUnhealthy
-          expr: increase(dragonfly_uptime_in_seconds[1m]) < 59
-          for: 1m
+          expr: rate(dragonfly_uptime_in_seconds[1m]) < 1
+          for: 5m
           labels:
             severity: warning
           annotations:
