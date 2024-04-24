@@ -36,7 +36,7 @@ module "vpn" {
   ips       = ["10.0.0.11", "10.0.0.12"]
   memory    = 512
   disk_size = "8G"
-  nodes     = [1, 3]
+  nodes     = [1, 2]
 
   tags = ["networking", "ubuntu", "vpn"]
 }
