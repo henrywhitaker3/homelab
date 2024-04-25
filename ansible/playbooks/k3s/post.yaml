@@ -17,6 +17,7 @@
         path: /tmp/kubeconfig
         regexp: default
         replace: k3s
+        mode: "0600"
 
     - name: Run bootstrap actions
       delegate_to: localhost
