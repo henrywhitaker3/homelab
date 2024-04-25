@@ -36,6 +36,14 @@
         #   environment:
         #     KUBECONFIG: /tmp/kubeconfig
 
+        - name: Install argo repo
+          ansible.builtin.command:
+            cmd: task argo:repo
+            chdir: "{{ repo_base_dir }}"
+          environment:
+            KUBECONFIG: /tmp/kubeconfig
+          changed_when: true
+
         - name: Bootstrap cluster
           ansible.builtin.command:
             cmd: task argo:bootstrap cluster=k3s

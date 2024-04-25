@@ -19,6 +19,11 @@ tasks:
       - task: install
       - task: root
 
+  repo:
+    desc: Install the argo helm repo
+    cmds:
+      - helm repo add argo https://argoproj.github.io/argo-helm
+
   install:
     desc: Install argocd into the cluster
     requires:
