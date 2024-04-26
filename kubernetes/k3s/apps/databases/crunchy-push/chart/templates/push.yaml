@@ -1,0 +1,66 @@
+{{- range $user := .Values.users }}
+{{- $name := .name }}
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: {{ $name }}
+spec:
+  refreshInterval: 1h
+  secretStoreRefs:
+    - name: onepassword-connect
+      kind: ClusterSecretStore
+  selector:
+    secret:
+      name: {{ $name }}
+  data:
+    {{- if not .fields }}
+    - match:
+        secretKey: dbname
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: dbname
+    - match:
+        secretKey: host
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: host
+    - match:
+        secretKey: jdbc-uri
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: jdbc-uri
+    - match:
+        secretKey: password
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: password
+    - match:
+        secretKey: port
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: port
+    - match:
+        secretKey: uri
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: uri
+    - match:
+        secretKey: user
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: user
+    - match:
+        secretKey: verifier
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: verifier
+    {{- else }}
+    {{- range $field := .fields }}
+    - match:
+        secretKey: {{ . }}
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: {{ . }}
+    {{- end }}
+    {{- end }}
+{{- end }}

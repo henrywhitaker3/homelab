@@ -1,0 +1,9 @@
+users:
+  - name: crunchy-pguser-outline
+  - name: crunchy-pguser-kuma
+    fields:
+      - host
+      - password
+      - port
+      - user
+      - verifier
