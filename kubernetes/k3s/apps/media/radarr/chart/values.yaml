@@ -43,8 +43,8 @@ generic:
 
   config:
     RADARR__URL_BASE: radarr
-    RADARR__MAIN_DB: radarr-main
-    RADARR_LOG_DB: radarr-log
+    RADARR__POSTGRES_MAIN_DB: radarr-main
+    RADARR__POSTGRES_LOG_DB: radarr-log
 
   env:
     - name: RADARR__POSTGRES_HOST
