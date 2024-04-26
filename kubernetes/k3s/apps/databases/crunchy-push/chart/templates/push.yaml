@@ -63,4 +63,5 @@ spec:
           property: {{ . }}
     {{- end }}
     {{- end }}
+---
 {{- end }}
