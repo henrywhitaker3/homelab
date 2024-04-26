@@ -99,6 +99,11 @@ spec:
         - radarr-main
         - radarr-log
 
+    - name: prowlarr
+      databases:
+        - prowlarr-main
+        - prowlarr-log
+
     # Benchmarking user
     # - name: bench
     #   databases:
