@@ -52,39 +52,10 @@ generic:
     PGID: "1000"
     TZ:  Europe/London
 
-  volumes:
-    - name: wg-config-raw
-      secret:
-        secretName: prowlarr-wireguard
-        optional: false
-    - name: wg-config
-      emptyDir: {}
-
-  volumeMounts:
-    - mountPath: /config/wg_confs
-      name: wg-config
-
-  initContainers:
-    - name: wg-configer
-      image: alpine:latest
-      command:
-        - /bin/sh
-        - -c
-        - |
-          cp /wg/wg0.conf /config/wg0.conf
-      volumeMounts:
-        - mountPath: /wg
-          name: wg-config-raw
-          readOnly: true
-        - mountPath: /config
-          name: wg-config
-
   vpn:
     enabled: true
     secret:
       key: prowlarr-tunnel
-      mount:
-        enabled: false
 
   # Keep it here until i figure out vpn gateway
   affinity:
