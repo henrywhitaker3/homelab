@@ -94,6 +94,11 @@ spec:
         - sonarr-main
         - sonarr-log
 
+    - name: radarr
+      databases:
+        - radarr-main
+        - radarr-log
+
     # Benchmarking user
     # - name: bench
     #   databases:
