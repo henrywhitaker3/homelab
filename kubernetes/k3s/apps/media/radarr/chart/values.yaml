@@ -5,7 +5,7 @@ generic:
   replicaCount: 1
 
   image:
-    repository: linuxserver/radarr
+    repository: ghcr.io/onedr0p/radarr
     pullPolicy: IfNotPresent
     tag: "5.4.6"
 
@@ -42,9 +42,26 @@ generic:
     initialDelaySeconds: 15
 
   config:
-    PUID: "1000"
-    PGID: "1000"
-    TZ:  Europe/London
+    RADARR__URL_BASE: radarr
+    RADARR__MAIN_DB: radarr-main
+    RADARR_LOG_DB: radarr-log
+
+  env:
+    - name: RADARR__POSTGRES_HOST
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-radarr
+          key: host
+    - name: RADARR__POSTGRES_USER
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-radarr
+          key: user
+    - name: RADARR__POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-radarr
+          key: password
 
   volumes:
     - name: media
