@@ -55,7 +55,7 @@ generic:
   initContainers:
     - name: wg-configer
       image: alpine:latest
-      commands:
+      command:
         - /bin/sh
         - -c
         - |
