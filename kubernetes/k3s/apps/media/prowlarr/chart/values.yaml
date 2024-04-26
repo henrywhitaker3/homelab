@@ -54,9 +54,10 @@ generic:
 
   vpn:
     enabled: true
-    before: |
+    script: |
       gateway=$(ip route list | grep default | cut -d' ' -f 3)
-      sed -i "s/K8S_GATEWAY/$gateway/g" /wg/wg0.conf
       echo Update gateway placeholder with $gateway
+      sed "s/K8S_GATEWAY/$gateway/g" /wg/wg0.conf > /config/wg0.cong
+      echo Copying wireguard config to shared volume
     secret:
       key: prowlarr-tunnel
