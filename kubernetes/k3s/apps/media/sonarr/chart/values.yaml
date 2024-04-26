@@ -49,6 +49,7 @@ generic:
     SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
     SONARR__POSTGRES_MAIN_DB: sonarr-main
     SONARR__POSTGRES_LOG_DB: sonarr-log
+    SONARR__URL_BASE: sonarr
 
   env:
     - name: SONARR__POSTGRES_HOST
