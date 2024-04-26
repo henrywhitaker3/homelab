@@ -58,7 +58,7 @@ generic:
       commands: ["/bin/sh", "-c"]
       args:
         - |
-          cat /config/wg_confs/wg0.conf
+          ls -alh /config/wg_confs/
       volumeMounts:
         - mountPath: /config/wg_confs
           name: wg-config
