@@ -45,6 +45,8 @@ generic:
     RADARR__URL_BASE: radarr
     RADARR__POSTGRES_MAIN_DB: radarr-main
     RADARR__POSTGRES_LOG_DB: radarr-log
+    RADARR__AUTHENTICATION_METHOD: External
+    RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
 
   env:
     - name: RADARR__POSTGRES_HOST
