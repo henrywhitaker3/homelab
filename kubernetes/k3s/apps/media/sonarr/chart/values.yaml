@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: linuxserver/sonarr
+    repository: ghcr.io/onedr0p/sonarr-develop
     pullPolicy: IfNotPresent
-    tag: "4.0.4"
+    tag: "4.0.4.1515"
 
   service:
     port: 8989
@@ -45,9 +45,27 @@ generic:
       port: http
 
   config:
-    PUID: "1000"
-    PGID: "1000"
-    TZ:  Europe/London
+    SONARR__AUTHENTICATION_METHOD: External
+    SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+    SONARR__POSTGRES_MAIN_DB: sonarr-main
+    SONARR__POSTGRES_LOG_DB: sonarr-log
+
+  env:
+    - name: SONARR__POSTGRES_HOST
+      valueFrom:
+        secretRef:
+          name: crunchy-pguser-sonarr
+          key: host
+    - name: SONARR__POSTGRES_USER
+      valueFrom:
+        secretRef:
+          name: crunchy-pguser-sonarr
+          key: user
+    - name: SONARR__POSTGRES_PASSWORD
+      valueFrom:
+        secretRef:
+          name: crunchy-pguser-sonarr
+          key: password
 
   volumes:
     - name: media
