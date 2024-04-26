@@ -89,6 +89,11 @@ spec:
       password:
         type: AlphaNumeric
 
+    - name: sonarr
+      databases:
+        - sonarr-main
+        - sonarr-log
+
     # Benchmarking user
     # - name: bench
     #   databases:

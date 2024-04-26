@@ -198,3 +198,58 @@ spec:
         remoteRef:
           remoteKey: *name
           property: *key
+---
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: &name crunchy-pguser-sonarr
+spec:
+  refreshInterval: 1h
+  secretStoreRefs:
+    - name: onepassword-connect
+      kind: ClusterSecretStore
+  selector:
+    secret:
+      name: *name
+  data:
+    - match:
+        secretKey: &key dbname
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key host
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key jdbc-uri
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key password
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key port
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key uri
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key user
+        remoteRef:
+          remoteKey: *name
+          property: *key
+    - match:
+        secretKey: &key verifier
+        remoteRef:
+          remoteKey: *name
+          property: *key
+
