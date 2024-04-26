@@ -58,9 +58,9 @@ generic:
       commands: ["/bin/sh", "-c"]
       args:
         - |
-          ls -alh /config/wg_confs/
+          ls -alh /wg
       volumeMounts:
-        - mountPath: /config/wg_confs
+        - mountPath: /wg
           name: wg-config
           readOnly: true
 
