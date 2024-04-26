@@ -20,9 +20,9 @@ spec:
         - record: prometheus_storage_size_estimate
           expr: sum by (pod) (prometheus_tsdb_retention_limit_seconds) * prometheus_storage_bytes_per_second
         - record: thanos_5m_resolution
-          expr: sum by (pod) (prometheus_tsdb_head_series) * on() group_left seconds_in_a_day * 30 * (1/(60*5)) * prometheus_bytes_per_sample
+          expr: sum by (pod) (prometheus_tsdb_head_series) * sum by (pod) (prometheus_bytes_per_sample) * on() group_left seconds_in_a_day * 60 * (1/60*5)
         - record: thanos_1h_resolution
-          expr: sum by (pod) (prometheus_tsdb_head_series) * on() group_left seconds_in_a_day * 60 * (1/(60*60)) * prometheus_bytes_per_sample
+          expr: sum by (pod) (prometheus_tsdb_head_series) * sum by (pod) (prometheus_bytes_per_sample) * on() group_left seconds_in_a_day * 60 * (1/60*60)
     - name: anomalies
       rules:
         - record: anomaly:longhorn_volume_write_latency_1d
