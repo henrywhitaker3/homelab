@@ -55,10 +55,11 @@ generic:
   initContainers:
     - name: wg-configer
       image: alpine:latest
-      commands: ["/bin/sh", "-c"]
-      args:
+      commands:
+        - /bin/sh
+        - -c
         - |
-          ls -alh /wg
+          ls -alh /
       volumeMounts:
         - mountPath: /wg
           name: wg-config
