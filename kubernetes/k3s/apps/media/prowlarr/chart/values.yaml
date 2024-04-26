@@ -52,6 +52,18 @@ generic:
     PGID: "1000"
     TZ:  Europe/London
 
+  initContainers:
+    - name: wg-configer
+      image: alpine:latest
+      commands: ["/bin/sh", "-c"]
+      args:
+        - |
+          cat /config/wg_confs/wg0.conf
+      volumeMounts:
+        - mountPath: /config/wg_confs
+          name: wg-config
+          readOnly: true
+
   vpn:
     enabled: true
     secret:
