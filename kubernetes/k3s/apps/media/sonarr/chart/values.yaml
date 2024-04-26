@@ -53,17 +53,17 @@ generic:
   env:
     - name: SONARR__POSTGRES_HOST
       valueFrom:
-        secretRef:
+        secretKeyRef:
           name: crunchy-pguser-sonarr
           key: host
     - name: SONARR__POSTGRES_USER
       valueFrom:
-        secretRef:
+        secretKeyRef:
           name: crunchy-pguser-sonarr
           key: user
     - name: SONARR__POSTGRES_PASSWORD
       valueFrom:
-        secretRef:
+        secretKeyRef:
           name: crunchy-pguser-sonarr
           key: password
 
