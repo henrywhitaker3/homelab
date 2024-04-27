@@ -75,7 +75,7 @@ kubelet:
       - action: labeldrop
         regex: (id|name|image)
       - action: labeldrop
-        regex: (endpoint|metrics_path|instance)
+        regex: (endpoint|instance)
 
 kubeApiServer:
   enabled: true
