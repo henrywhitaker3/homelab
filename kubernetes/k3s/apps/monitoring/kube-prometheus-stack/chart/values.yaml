@@ -61,10 +61,7 @@ kubelet:
         regex: (apiserver|etcd)_request_total
       - action: drop
         sourceLabels: ["__name__"]
-        regex: apiserver_request_duration_seconds_(count|sum)
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: etcd_request_duration_seconds_(count|sum)
+        regex: (etcd|apiserver)_request_duration_seconds_(count|sum)
     probesMetricRelabelings:
       - action: drop
         sourceLabels: ["__name__"]
