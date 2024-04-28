@@ -140,10 +140,12 @@ for file in $changed; do
 
         if [[ $format == "helm" ]]; then
             diffs=$(helm_diffs $root $app_name)
+            echo "$diffs"
             diff_md="$(diff_to_md $app_name "$diffs")"
             comment_on_mr "$diff_md"
         elif [[ $format == "kustomize" ]]; then
             diffs=$(kustomize_diffs $root $app_name)
+            echo "$diffs"
             diff_md="$(diff_to_md $app_name "$diffs")"
             comment_on_mr "$diff_md"
         fi
