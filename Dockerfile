@@ -1,6 +1,9 @@
 FROM ubuntu:22.04
+# renovate: datasource=github-releases depName=getsops/sops
+ARG SOPS_VERSION=v3.7.3
+# renovate: datasource=github-releases depName=kubernetes-sigs/kustomize
+ARG KUSTOMIZE_VERSION="v5.4.1"
 
-ARG SOPS_VERSION=3.7.3
 ARG USER=abc
 
 ENV HOME=/home/$USER
@@ -24,7 +27,7 @@ RUN apt-get update && apt-get install -y python3 \
             kbd \
             age
 
-RUN wget https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
+RUN wget https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
     && chmod 0755 /usr/local/bin/sops \
     && chown root:root /usr/local/bin/sops
 
@@ -33,6 +36,11 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/loc
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
+
+RUN wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+    && tar -xzvf kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+    && chmod +x kustomize \
+    && mv kustomize /usr/local/bin
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
