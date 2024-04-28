@@ -320,6 +320,11 @@ grafana:
       url: http://loki-gateway
       jsonData:
         maxLines: 250
+    - name: Tempo
+      orgId: 1
+      access: proxy
+      type: tempo
+      url: http://tempo.monitoring.svc:3100
 
 prometheus:
   ingress:
