@@ -18,15 +18,15 @@ tempo:
           secret_key: ${MINIO_SECRET_KEY}
           forcepathstyle: true
 
-  extraArgs: [-config.expand-env=true]
-  extraEnv:
-    - name: MINIO_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: tempo-minio
-          key: aws-access-key-id
-    - name: MINIO_SECRET_KEY
-      valueFrom:
-        secretKeyRef:
-          name: tempo-minio
-          key: aws-secret-access-key
+    extraArgs: [-config.expand-env=true]
+    extraEnv:
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tempo-minio
+            key: aws-access-key-id
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tempo-minio
+            key: aws-secret-access-key
