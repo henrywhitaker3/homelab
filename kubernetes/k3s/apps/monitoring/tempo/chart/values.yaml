@@ -18,7 +18,8 @@ tempo:
           secret_key: ${MINIO_SECRET_KEY}
           forcepathstyle: true
 
-    extraArgs: [-config.expand-env=true]
+    extraArgs:
+      config.expand-env: true
     extraEnv:
       - name: MINIO_ACCESS_KEY
         valueFrom:
