@@ -79,6 +79,7 @@ comment_json() {
     formatted=$(echo "$1" | sed -z 's/\n/\\n/g')
     formatted=$(echo "$formatted" | sed -z 's/\"/\\"/g')
     formatted=$(echo "$formatted" | sed -z "s/\'/\\'/g")
+    formatted=$(echo "$formatted" | sed -z 's/( ){1}/&nbsp;/g')
     body=$(cat <<EOF
 {
     "body": "$formatted"
