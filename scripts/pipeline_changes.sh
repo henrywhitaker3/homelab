@@ -39,10 +39,10 @@ is_k8s_change() {
 # Get the root app dir e.g. kubernetes/k3s/apps/monitoring/loki
 get_root_dir() {
     dir=$(dirname "$1")
-    full=$(realpath -s "$dir/..")
-    while [[ $full =~ ^.*/chart$ ]]; do
-        full=$(realpath -s "$full/..")
+    while [[ ! $(echo $dir | grep -E ^.*/chart$) ]]; do
+        dir=$(realpath -s "$dir/..")
     done
+    full=$(realpath -s "$dir/..")
     echo ${full/"$source/"}
 }
 
