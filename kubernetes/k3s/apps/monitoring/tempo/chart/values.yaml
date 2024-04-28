@@ -25,7 +25,9 @@ tempo:
 
     metricsGenerator:
       enabled: true
-      remoteWriteUrl: http://kube-prometheus-stack-alertmanager.monitoring.svc:9093
+      remoteWriteUrls:
+        - http://prometheus-kube-stack-prometheus-0:9090/api/v1/write
+        - http://prometheus-kube-stack-prometheus-1:9090/api/v1/write
 
     extraArgs:
       config.expand-env: true
@@ -40,3 +42,38 @@ tempo:
           secretKeyRef:
             name: tempo-minio
             key: aws-secret-access-key
+
+  config: |
+    multitenancy_enabled: {{ .Values.tempo.multitenancyEnabled }}
+    usage_report:
+      reporting_enabled: {{ .Values.tempo.reportingEnabled }}
+    compactor:
+      compaction:
+        block_retention: {{ .Values.tempo.retention }}
+    distributor:
+      receivers:
+        {{- toYaml .Values.tempo.receivers | nindent 8 }}
+    ingester:
+      {{- toYaml .Values.tempo.ingester | nindent 6 }}
+    server:
+      {{- toYaml .Values.tempo.server | nindent 6 }}
+    storage:
+      {{- toYaml .Values.tempo.storage | nindent 6 }}
+    querier:
+      {{- toYaml .Values.tempo.querier | nindent 6 }}
+    query_frontend:
+      {{- toYaml .Values.tempo.queryFrontend | nindent 6 }}
+    overrides:
+      {{- toYaml .Values.tempo.global_overrides | nindent 6 }}
+      {{- if .Values.tempo.metricsGenerator.enabled }}
+          metrics_generator_processors:
+          - 'service-graphs'
+          - 'span-metrics'
+    metrics_generator:
+          storage:
+            path: "/tmp/tempo"
+            remote_write:
+            {{- range $url := .Values.tempo.metricsGenerator.remoteWriteUrls }}
+              - url: {{ . }}
+            {{- end }}
+      {{- end }}
