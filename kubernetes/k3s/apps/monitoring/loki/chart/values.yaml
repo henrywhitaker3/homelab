@@ -88,7 +88,7 @@ loki:
   singleBinary:
     replicas: 3
     persistence:
-      storageClass: longhorn-no-backups
+      storageClass: longhorn
       size: 5Gi
     extraVolumes:
       - name: scratch
