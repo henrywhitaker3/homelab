@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 source_branch=$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
 target_branch=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
