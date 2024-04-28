@@ -29,3 +29,15 @@ tasks:
     cmds:
       - ansible-galaxy install -r ansible/requirements.yml --roles-path ~/.ansible/roles --force
       - ansible-galaxy collection install -r ansible/requirements.yml --collections-path ~/.ansible/collections --force
+
+  diffs:
+    desc: Run the ci step that outputs git diffs
+    vars:
+      source:
+        sh: git rev-parse --abbrev-ref HEAD
+    env:
+      CI_MERGE_REQUEST_SOURCE_BRANCH_NAME: '{{ .source }}'
+      CI_MERGE_REQUEST_TARGET_BRANCH_NAME: '{{ .target | default "main" }}'
+      CI_PROJECT_URL: git@gitlab.com:henrywhitaker3/homelab.git
+    cmds:
+      - ./scripts/pipeline_changes.sh

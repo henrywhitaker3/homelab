@@ -29,7 +29,7 @@ spec:
           expr: longhorn_volume_robustness == 3
           for: 0m
           annotations:
-            summary: Longhorn volume {{$labels.volume}} is Fault
+            summary: Longhorn volume {{$labels.volume}} has faulted
           labels:
             severity: critical
         - alert: LonghornVolumeStatusWarning
