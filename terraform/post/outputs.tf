@@ -24,3 +24,12 @@ output "thanos_secret_access_key" {
   value     = module.thanos.secret_access_key
   sensitive = true
 }
+
+output "tempo_access_key_id" {
+  value     = module.tempo.access_key_id
+  sensitive = true
+}
+output "tempo_secret_access_key" {
+  value     = module.tempo.secret_access_key
+  sensitive = true
+}

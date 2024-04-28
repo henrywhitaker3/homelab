@@ -1,0 +1,32 @@
+tempo:
+  replicas: 1
+
+  tempo:
+    repository: grafana/tempo
+    tag: 2.4.1
+
+    retention: 24h
+    storage:
+      trace:
+        backend: s3
+        s3:
+          bucket: tempo
+          endpoint: https://s3.plexmox.com
+          region: unraid
+          insecure: false
+          accessKeyId: ${MINIO_ACCESS_KEY}
+          secretAccessKey: ${MINIO_SECRET_KEY}
+          s3ForcePathStyle: true
+
+  extraArgs: [-config.expand-env=true]
+  extraEnv:
+    - name: MINIO_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: tempo-minio
+          key: aws-access-key-id
+    - name: MINIO_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: tempo-minio
+          key: aws-secret-access-key
