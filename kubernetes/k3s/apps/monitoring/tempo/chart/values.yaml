@@ -14,9 +14,9 @@ tempo:
           endpoint: https://s3.plexmox.com
           region: unraid
           insecure: false
-          accessKeyId: ${MINIO_ACCESS_KEY}
-          secretAccessKey: ${MINIO_SECRET_KEY}
-          s3ForcePathStyle: true
+          access_key: ${MINIO_ACCESS_KEY}
+          secret_key: ${MINIO_SECRET_KEY}
+          forcepathstyle: true
 
   extraArgs: [-config.expand-env=true]
   extraEnv:
