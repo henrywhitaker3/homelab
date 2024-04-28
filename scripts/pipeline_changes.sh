@@ -97,7 +97,7 @@ helm_diffs() {
     helm template $2 "$target/$1/chart" > $target_file
     helm template $2 "$source/$1/chart" > $source_file
 
-    echo "$(diff --color $target_file $source_file)"
+    echo "$(diff --color -t -C 5 $target_file $source_file)"
 }
 
 # Output the diffs of 2 kustomize charts
@@ -109,7 +109,7 @@ kustomize_diffs() {
     kustomize build --enable-helm "$target/$1/chart" > $target_file
     kustomize build --enable-helm "$source/$1/chart" > $source_file
 
-    echo "$(diff --color $target_file $source_file)"
+    echo "$(diff --color -t -C 5 $target_file $source_file)"
 }
 
 comment_on_mr() {
