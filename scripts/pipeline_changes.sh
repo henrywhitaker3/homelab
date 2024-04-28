@@ -77,6 +77,8 @@ diff_to_md() {
 # Useage: [comment body]
 comment_json() {
     formatted=$(echo "$1" | sed -z 's/\n/\\n/g')
+    formatted=$(echo "$formatted" | sed -z 's/\"/\\"/g')
+    formatted=$(echo "$formatted" | sed -z "s/\'/\\'/g")
     body=$(cat <<EOF
 {
     "body": "$formatted"
