@@ -77,9 +77,11 @@ tempo:
           - 'local-blocks'
     metrics_generator:
           storage:
-            path: "/tmp/tempo"
+            path: "/tmp/tempo/generator/wal"
             remote_write:
             {{- range $url := .Values.tempo.metricsGenerator.remoteWriteUrls }}
               - url: {{ . }}
             {{- end }}
+          traces_storage:
+            path: /tmp/tempo/generator/traces
       {{- end }}
