@@ -76,6 +76,8 @@ diff_to_md() {
 # Useage: [comment body]
 comment_json() {
     formatted=$(echo "$1" | sed -z 's/\n/\\n/g')
+    formatted=$(echo "$formatted" | sed -z 's/\"/\\"/g')
+    formatted=$(echo "$formatted" | sed -z "s/\'/\\'/g")
     body=$(cat <<EOF
 {
     "body": "$formatted"
@@ -83,6 +85,13 @@ comment_json() {
 EOF
 )
     echo $body
+}
+
+# Run the diff cli to generate a diff string
+# Usage: [target] [changes]
+diffs() {
+    output=$(diff --color -t -u $1 $2 | sed -E 's/^\+{1}/>/g' | sed -E 's/^-{1}/</g')
+    echo "$output"
 }
 
 # Output the diffs of 2 helm charts
@@ -97,7 +106,7 @@ helm_diffs() {
     helm template $2 "$target/$1/chart" > $target_file
     helm template $2 "$source/$1/chart" > $source_file
 
-    echo "$(diff --color $target_file $source_file)"
+    echo "$(diffs $target_file $source_file)"
 }
 
 # Output the diffs of 2 kustomize charts
@@ -109,7 +118,7 @@ kustomize_diffs() {
     kustomize build --enable-helm "$target/$1/chart" > $target_file
     kustomize build --enable-helm "$source/$1/chart" > $source_file
 
-    echo "$(diff --color $target_file $source_file)"
+    echo "$(diffs $target_file $source_file)"
 }
 
 comment_on_mr() {
@@ -140,10 +149,12 @@ for file in $changed; do
 
         if [[ $format == "helm" ]]; then
             diffs=$(helm_diffs $root $app_name)
+            echo "$diffs"
             diff_md="$(diff_to_md $app_name "$diffs")"
             comment_on_mr "$diff_md"
         elif [[ $format == "kustomize" ]]; then
             diffs=$(kustomize_diffs $root $app_name)
+            echo "$diffs"
             diff_md="$(diff_to_md $app_name "$diffs")"
             comment_on_mr "$diff_md"
         fi
