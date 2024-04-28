@@ -34,6 +34,10 @@ tempo:
         metrics_generator:
           processors: ['local-blocks']
 
+    queryFrontend:
+      search:
+        max_duration: 3h
+
     extraArgs:
       config.expand-env: true
     extraEnv:
