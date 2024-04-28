@@ -88,6 +88,13 @@ EOF
     echo $body
 }
 
+# Run the diff cli to generate a diff string
+# Usage: [target] [changes]
+diffs() {
+    output=$(diff --color -t -u $1 $2 | sed -E 's/^\+{1}/>/g' | sed -E 's/^-{1}/</g')
+    echo "$output"
+}
+
 # Output the diffs of 2 helm charts
 # Usage: [app dir] [app name]
 helm_diffs() {
@@ -100,7 +107,7 @@ helm_diffs() {
     helm template $2 "$target/$1/chart" > $target_file
     helm template $2 "$source/$1/chart" > $source_file
 
-    echo "$(diff --color -t -C 5 $target_file $source_file)"
+    echo "$(diffs $target_file $source_file)"
 }
 
 # Output the diffs of 2 kustomize charts
@@ -112,7 +119,7 @@ kustomize_diffs() {
     kustomize build --enable-helm "$target/$1/chart" > $target_file
     kustomize build --enable-helm "$source/$1/chart" > $source_file
 
-    echo "$(diff --color -t -C 5 $target_file $source_file)"
+    echo "$(diffs $target_file $source_file)"
 }
 
 comment_on_mr() {
