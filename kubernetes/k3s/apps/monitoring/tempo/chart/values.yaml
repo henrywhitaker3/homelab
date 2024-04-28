@@ -2,7 +2,7 @@ tempo:
   replicas: 1
 
   service:
-    type: LoadBalaner
+    type: LoadBalancer
     annotations:
      metallb.universe.tf/loadBalancerIPs: 10.0.0.37
 
