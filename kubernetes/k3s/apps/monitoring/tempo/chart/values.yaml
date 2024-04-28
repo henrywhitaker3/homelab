@@ -23,6 +23,10 @@ tempo:
           secret_key: ${MINIO_SECRET_KEY}
           forcepathstyle: true
 
+    metricsGenerator:
+      enabled: true
+      remoteWriteUrl: http://kube-prometheus-stack-alertmanager.monitoring.svc:9093
+
     extraArgs:
       config.expand-env: true
     extraEnv:
