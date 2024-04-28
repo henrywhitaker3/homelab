@@ -129,29 +129,24 @@ cd $source
 
 changed=$(git diff --name-only "origin/$target_branch")
 
-k8s_changes=()
 for file in $changed; do
     is_k8s=$(is_k8s_change $file)
 
     if [[ true == $is_k8s ]]; then
         root=$(get_root_dir $file)
-        k8s_changes+=($root)
-    fi
-done
+        app_name=$(get_app_name "$root")
+        format=$(guess_format "$root")
+        echo "Detected change to $app_name using format $format"
 
-for change in $k8s_changes; do
-    app_name=$(get_app_name "$change")
-    format=$(guess_format $change)
-    echo "Detected change to $app_name using format $format"
-
-    if [[ $format == "helm" ]]; then
-        diffs=$(helm_diffs $change $app_name)
-        diff_md="$(diff_to_md $app_name "$diffs")"
-        comment_on_mr "$diff_md"
-    elif [[ $format == "kustomize" ]]; then
-        diffs=$(kustomize_diffs $change $app_name)
-        diff_md="$(diff_to_md $app_name "$diffs")"
-        comment_on_mr "$diff_md"
+        if [[ $format == "helm" ]]; then
+            diffs=$(helm_diffs $root $app_name)
+            diff_md="$(diff_to_md $app_name "$diffs")"
+            comment_on_mr "$diff_md"
+        elif [[ $format == "kustomize" ]]; then
+            diffs=$(kustomize_diffs $root $app_name)
+            diff_md="$(diff_to_md $app_name "$diffs")"
+            comment_on_mr "$diff_md"
+        fi
     fi
 done
 
