@@ -1,17 +1,34 @@
-ndm:
+localpv-provisioner:
+  rbac:
+    create: true
+  localpv:
+    hostpathClass:
+      enabled: true
+      name: openebs-hostpath
+      isDefaultClass: false
+      basePath: /var/openebs/local
+
+openebs-crds:
+  csi:
+    volumeSnapshots:
+      enabled: false
+      keep: false
+
+zfs-localpv:
   enabled: false
 
-ndmOperator:
+lvm-localpv:
   enabled: false
 
-localProvisioner:
-  enabled: true
+mayastor:
+  enabled: false
 
-  deviceClass:
-    enabled: false
-
-  hostPathClass:
-    enabled: true
-    name: openebs-hostpath
-    isDefaultClass: false
-    basePath: /var/openebs/local
+engines:
+  local:
+    lvm:
+      enabled: false
+    zfs:
+      enabled: false
+  replicated:
+    mayastor:
+      enabled: false
