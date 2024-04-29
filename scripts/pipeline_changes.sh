@@ -67,7 +67,7 @@ get_app_name() {
 # Usage: [app name] [diff]
 diff_to_md() {
     echo "# $1"
-    echo "\`\`\`diff"
+    echo "\`\`\`"
     echo "$2"
     echo "\`\`\`"
 }
@@ -75,22 +75,14 @@ diff_to_md() {
 # Format the json for a comment post request
 # Useage: [comment body]
 comment_json() {
-    formatted=$(echo "$1" | sed -z 's/\n/\\n/g')
-    formatted=$(echo "$formatted" | sed -z 's/\"/\\"/g')
-    formatted=$(echo "$formatted" | sed -z "s/\'/\\'/g")
-    body=$(cat <<EOF
-{
-    "body": "$formatted"
-}
-EOF
-)
-    echo $body
+    json=$(jq -n --arg body "$1" '$ARGS.named')
+    echo "$json"
 }
 
 # Run the diff cli to generate a diff string
 # Usage: [target] [changes]
 diffs() {
-    output=$(diff --color -t -u $1 $2 | sed -E 's/^\+{1}/>/g' | sed -E 's/^-{1}/</g')
+    output=$(dyff between -b $1 $2)
     echo "$output"
 }
 
