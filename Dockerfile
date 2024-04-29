@@ -3,6 +3,9 @@ FROM ubuntu:22.04
 ARG SOPS_VERSION=v3.7.3
 # renovate: datasource=github-releases depName=kubernetes-sigs/kustomize
 ARG KUSTOMIZE_VERSION="v5.4.1"
+# renovate: datasource=github-releases depName=homeport/dyff
+ARG DYFF_VERSION="1.7.1"
+
 
 ARG USER=abc
 
@@ -25,7 +28,8 @@ RUN apt-get update && apt-get install -y python3 \
             openssh-client \
             rsync \
             kbd \
-            age
+            age \
+            jq
 
 RUN wget https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
     && chmod 0755 /usr/local/bin/sops \
@@ -41,6 +45,10 @@ RUN wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomiz
     && tar -xzvf kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
     && chmod +x kustomize \
     && mv kustomize /usr/local/bin
+
+RUN wget https://github.com/homeport/dyff/releases/download/v${DYFF_VERSION}/dyff_${DYFF_VERSION}_linux_amd64.tar.gz \
+    && tar -xzvf dyff_${DYFF_VERSION}_linux_amd64.tar.gz \
+    && mv dyff /usr/local/bin
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
