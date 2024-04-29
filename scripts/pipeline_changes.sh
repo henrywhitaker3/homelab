@@ -75,14 +75,14 @@ diff_to_md() {
 # Format the json for a comment post request
 # Useage: [comment body]
 comment_json() {
-    json=$(jq -n --arg body "$1")
+    json=$(jq -n --arg body "$1" '$ARGS.named')
     echo "$json"
 }
 
 # Run the diff cli to generate a diff string
 # Usage: [target] [changes]
 diffs() {
-    output=$(dyff between $1 $2)
+    output=$(dyff between -b $1 $2)
     echo "$output"
 }
 
