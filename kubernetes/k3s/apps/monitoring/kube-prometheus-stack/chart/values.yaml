@@ -215,8 +215,8 @@ grafana:
       folderAnnotation: grafana_folder
       provider:
         foldersFromFilesStructure: true
-    datasources:
-      defaultDatasourceEnabled: false
+    # datasources:
+    #   defaultDatasourceEnabled: false
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -307,14 +307,14 @@ grafana:
         datasource: Prometheus
 
   additionalDataSources:
-    - name: Prometheus
-      orgId: 1
-      access: proxy
-      url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
-      jsonData:
-        prometheusType: Thanos
-        timeInterval: 1m
-      isDefault: true
+    # - name: Prometheus
+    #   orgId: 1
+    #   access: proxy
+    #   url: http://thanos-query-frontend.thanos.svc.cluster.local:10902
+    #   jsonData:
+    #     prometheusType: Thanos
+    #     timeInterval: 1m
+    #   isDefault: true
     - name: Loki
       ordId: 1
       access: proxy
@@ -348,10 +348,10 @@ prometheus:
         hosts:
           - prometheus.plexmox.com
 
-  thanosService:
-    enabled: true
-  thanosServiceMonitor:
-    enabled: true
+  # thanosService:
+  #   enabled: true
+  # thanosServiceMonitor:
+  #   enabled: true
 
   prometheusSpec:
     replicas: 2
@@ -364,11 +364,11 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
 
-    thanos:
-      objectStorageConfig:
-        existingSecret:
-          name: thanos-objstore-config
-          key: config.yaml
+    # thanos:
+    #   objectStorageConfig:
+    #     existingSecret:
+    #       name: thanos-objstore-config
+    #       key: config.yaml
 
     externalLabels:
       cluster: main
