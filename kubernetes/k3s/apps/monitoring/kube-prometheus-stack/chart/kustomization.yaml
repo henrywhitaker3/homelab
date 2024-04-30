@@ -8,7 +8,7 @@ resources:
   - dashboards
   - rules
   - alertmanager
-  - thanos
+  # - thanos
   - database
 
 patches:
