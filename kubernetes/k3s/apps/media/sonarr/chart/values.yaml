@@ -45,24 +45,25 @@ generic:
       port: http
 
   config:
-    SONARR__AUTHENTICATION_METHOD: External
-    SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-    SONARR__POSTGRES_MAIN_DB: sonarr-main
-    SONARR__POSTGRES_LOG_DB: sonarr-log
-    SONARR__URL_BASE: sonarr
+    SONARR__AUTH__METHOD: External
+    SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+    SONARR__POSTGRES__MAINDB: sonarr-main
+    SONARR__POSTGRES__LOGDB: sonarr-log
+    SONARR__SERVER__URLBASE: sonarr
+    TZ: Europe/London
 
   env:
-    - name: SONARR__POSTGRES_HOST
+    - name: SONARR__POSTGRES__HOST
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-sonarr
           key: host
-    - name: SONARR__POSTGRES_USER
+    - name: SONARR__POSTGRES__USER
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-sonarr
           key: user
-    - name: SONARR__POSTGRES_PASSWORD
+    - name: SONARR__POSTGRES__PASSWORD
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-sonarr
