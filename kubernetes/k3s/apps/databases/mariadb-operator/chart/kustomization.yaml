@@ -4,6 +4,7 @@ namespace: databases
 
 patches:
   - path: patches/mariadbs.yaml
+  - path: patches/maxscales.yaml
 
 helmCharts:
   - name: mariadb-operator
