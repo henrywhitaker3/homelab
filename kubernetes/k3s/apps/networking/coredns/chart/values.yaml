@@ -14,7 +14,7 @@ coredns:
 
   servers:
     - zones:
-        - zone: .lab
+        - zone: lab
           scheme: dns://
           use_tcp: true
       port: 53
@@ -25,8 +25,10 @@ coredns:
           configBlock:
             lameduck 5s
         - name: ready
+        - name: prometheus
+          parameters: 0.0.0.0:9153
         - name: forward
-          parameters: 10.0.0.2 10.0.0.3
+          parameters: . 10.0.0.2 10.0.0.3
     - zones:
         - zone: .
           scheme: dns://
