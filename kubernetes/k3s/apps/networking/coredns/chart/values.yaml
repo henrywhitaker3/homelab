@@ -25,9 +25,8 @@ coredns:
           configBlock:
             lameduck 5s
         - name: ready
-        - name: lab
-          configBlock: |
-            forward 10.0.0.2 10.0.0.3
+        - name: forward
+          parameters: 10.0.0.2 10.0.0.3
     - zones:
         - zone: .
           scheme: dns://
