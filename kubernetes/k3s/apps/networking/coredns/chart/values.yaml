@@ -47,36 +47,12 @@ coredns:
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
             ttl 30
-        # - name: hosts
-        #   configBlock: |
-        #     10.0.0.2 adguard-1.lab
-        #     10.0.0.3 adguard-2.lab
-        #     10.0.0.11 vpn-1.lab
-        #     10.0.0.12 vpn-2.lab
-        #     10.0.0.4 lb-1.lab
-        #     10.0.0.5 lb-2.lab
-        #     165.22.112.190 jump-k8s.lab
-        #     10.8.0.1 jump.lab
-        #     10.0.0.139 living-room.lab
-        #     10.0.0.150 proxmox-1.lab
-        #     10.0.0.152 proxmox-2.lab
-        #     10.0.0.154 proxmox-3.lab
-        #     10.0.0.23 k3s-control-1.lab
-        #     10.0.0.22 k3s-control-2.lab
-        #     10.0.0.19 k3s-control-3.lab
-        #     10.0.0.24 k3s-dedi-1.lab
-        #     10.0.0.13 vpn.lab
-        #     10.0.0.26 plex.lab
-        #     10.0.0.35 redis.lab
-        #     10.0.0.6 k8s.lab
-        #     10.0.0.9 unraid.lab
-        #     10.0.0.15 minio-1.lab
-        #     10.0.0.16 minio-2.lab
-        #     10.0.0.6 minio.lab
-        #     10.0.0.17 compactor.lab
-        #     10.0.0.27 s3.plexmox.com
-        #     10.0.0.27 minio.plexmox.com
-        #     fallthrough
+        - name: hosts
+          configBlock: |
+            165.22.112.190 jump-k8s.lab
+            10.0.0.27 s3.plexmox.com
+            10.0.0.27 minio.plexmox.com
+            fallthrough
         - name: prometheus
           parameters: 0.0.0.0:9153
         - name: forward
