@@ -14,7 +14,7 @@ coredns:
 
   servers:
     - zones:
-        - zone: lab
+        - zone: .lab
           scheme: dns://
           use_tcp: true
       port: 53
