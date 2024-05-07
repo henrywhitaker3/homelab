@@ -33,12 +33,3 @@ output "tempo_secret_access_key" {
   value     = module.tempo.secret_access_key
   sensitive = true
 }
-
-output "longhorn_access_key_id" {
-  value     = module.longhorn.access_key_id
-  sensitive = true
-}
-output "longhorn_secret_access_key" {
-  value     = module.longhorn.secret_access_key
-  sensitive = true
-}
