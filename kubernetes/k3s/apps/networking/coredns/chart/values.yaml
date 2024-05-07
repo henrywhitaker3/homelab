@@ -29,6 +29,9 @@ coredns:
           parameters: 0.0.0.0:9153
         - name: forward
           parameters: . 10.0.0.2 10.0.0.3
+        - name: reload
+        - name: cache
+          parameters: 30
     - zones:
         - zone: .
           scheme: dns://
