@@ -17,6 +17,9 @@ coredns:
         - zone: lab
           scheme: dns://
           use_tcp: true
+        - zone: plexmox.com
+          scheme: dns://
+          use_tcp: true
       port: 53
       plugins:
         - name: log
@@ -50,12 +53,6 @@ coredns:
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
             ttl 30
-        - name: hosts
-          configBlock: |
-            165.22.112.190 jump-k8s.lab
-            10.0.0.27 s3.plexmox.com
-            10.0.0.27 minio.plexmox.com
-            fallthrough
         - name: prometheus
           parameters: 0.0.0.0:9153
         - name: forward
