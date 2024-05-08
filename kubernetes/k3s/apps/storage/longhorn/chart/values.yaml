@@ -20,6 +20,5 @@ longhorn:
 
   defaultSettings:
     defaultLonghornStaticStorageClass: longhorn
-    backupTarget: s3://longhorn@auto
-    backupTargetCredentialSecret: longhorn-s3
+    backupTarget: nfs://10.0.0.9/mnt/user/longhorn
     removeSnapshotsDuringFilesystemTrim: enabled

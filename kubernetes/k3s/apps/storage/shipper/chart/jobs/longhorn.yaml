@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: longhorn-shipper
+  labels:
+    app.kubernetes.io/name: shipper
+    app.kubernetes.io/instance: longhorn
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 0 5 * * *
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: shipper
+        app.kubernetes.io/instance: longhorn
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: shipper
+              image: rclone/rclone:1.66.0
+              imagePullPolicy: IfNotPresent
+              args:
+                - --config=/creds/s3.conf
+                - sync
+                - --s3-chunk-size=100M
+                - --s3-upload-cutoff=100M
+                - --progress
+                - /source
+                - s3:longhorn/
+              volumeMounts:
+                - mountPath: /source
+                  name: source
+                - mountPath: /creds
+                  name: creds
+          volumes:
+            - name: source
+              nfs:
+                path: /mnt/user/longhorn
+                server: 10.0.0.9
+            - name: creds
+              secret:
+                secretName: shipper-longhorn-s3
+                items:
+                  - key: s3.conf
+                    path: s3.conf
+
