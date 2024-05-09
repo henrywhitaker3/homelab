@@ -1,8 +1,0 @@
-node-feature-discovery:
-  worker:
-    config:
-      core:
-        sources:
-          - pci
-          - system
-          - usb
