@@ -7,7 +7,7 @@ terraform {
 
     adguard = {
       source  = "gmichels/adguard"
-      version = "1.1.5"
+      version = "1.2.0"
     }
   }
 
