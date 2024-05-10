@@ -10,7 +10,7 @@ generic:
   image:
     repository: postgres
     pullPolicy: Always
-    tag: "16.2"
+    tag: "16.3"
 
   service:
     portName: postgres
