@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: victoria
+
+helmCharts:
+  - name: victoria-metrics-operator
+    releaseName: vm-operator
+    namespace: victoria
+    version: "0.31.1"
+    repo: https://victoriametrics.github.io/helm-charts
+    valuesFile: values.yaml

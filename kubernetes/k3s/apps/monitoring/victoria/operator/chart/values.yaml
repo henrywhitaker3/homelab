@@ -1,0 +1,10 @@
+createCRD: true
+
+operator:
+  psp_auto_creation_enabled: false
+rbac:
+  psp_enabled: false
+resources:
+  requests:
+    cpu: 5m
+    memory: 50M
