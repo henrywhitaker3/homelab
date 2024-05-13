@@ -275,7 +275,7 @@ grafana:
         datasource: Prometheus
       adguard:
         gnetId: 20799
-        revision: 6
+        revision: 7
         datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
       smarctl:
