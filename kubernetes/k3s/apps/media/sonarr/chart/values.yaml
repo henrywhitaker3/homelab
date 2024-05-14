@@ -44,6 +44,13 @@ generic:
     options:
       port: http
 
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
   config:
     SONARR__AUTH__METHOD: External
     SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
