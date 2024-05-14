@@ -4,7 +4,7 @@ tasks:
   upgrade:
     desc: Run the playbook to upgrade a k3s version
     cmds:
-      - ansible-playbook ansible/playbooks/k3s/main.yaml --extra-vars "k3s_state=upgraded"
+      - ansible-playbook --private-key $ANSIBLE_SSH_KEY_FILE ansible/playbooks/k3s/main.yaml --extra-vars "k3s_state=upgraded" {{ .CLI_ARGS }}
 
   user:
     silent: true
