@@ -41,6 +41,9 @@ generic:
   probes:
     initialDelaySeconds: 15
 
+  securityContext:
+    fsGroupChangePolicy: OnRootMismatch
+
   config:
     RADARR__URL_BASE: radarr
     RADARR__POSTGRES_MAIN_DB: radarr-main
