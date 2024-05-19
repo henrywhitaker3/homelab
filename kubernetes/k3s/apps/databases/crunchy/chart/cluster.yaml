@@ -2,6 +2,8 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: crunchy
+  annotations:
+    postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
 spec:
   postgresVersion: 16
 
@@ -22,8 +24,6 @@ spec:
   #         region: "auto"
 
   metadata:
-    annotations:
-      postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
