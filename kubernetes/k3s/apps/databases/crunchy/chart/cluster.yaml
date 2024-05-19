@@ -22,6 +22,8 @@ spec:
   #         region: "auto"
 
   metadata:
+    annotations:
+      postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
