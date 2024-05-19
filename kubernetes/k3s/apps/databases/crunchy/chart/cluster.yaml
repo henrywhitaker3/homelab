@@ -2,8 +2,8 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: crunchy
-  annotations:
-    postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
+  # annotations:
+  #   postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
 spec:
   postgresVersion: 16
 
@@ -120,12 +120,12 @@ spec:
 
   backups:
     pgbackrest:
-      restore:
-        enabled: true
-        repoName: repo1
-        options:
-          - --type=time
-          - --target="2024-05-12 11:00:00"
+      # restore:
+      #   enabled: true
+      #   repoName: repo1
+      #   options:
+      #     - --type=time
+      #     - --target="2024-05-12 11:00:00"
       configuration:
         - secret:
             name: crunchy-postgres-secrets
