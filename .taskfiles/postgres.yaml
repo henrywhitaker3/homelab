@@ -121,3 +121,32 @@ tasks:
       - task: exec
         vars:
           extra_args: -c "SELECT pg_terminate_backend({{ .pid }});"
+
+  tabledump:
+    desc: Run a sql dump on a table
+    requires:
+      vars:
+        - db
+        - table
+    vars:
+      cluster: '{{ .cluster | default "crunchy" }}'
+      ns: '{{ .ns | default "crunchy" }}'
+      schema: '{{ .schema | default "public" }}'
+    cmds:
+      - task: exec
+        vars:
+          run: pg_dump --column-inserts --data-only --dbname={{ .db }} --schema={{ .schema }} --table={{ .table }}
+
+  schemadump:
+    desc: Run a sql dump on a schema
+    requires:
+      vars:
+        - db
+    vars:
+      cluster: '{{ .cluster | default "crunchy" }}'
+      ns: '{{ .ns | default "crunchy" }}'
+      schema: '{{ .schema | default "public" }}'
+    cmds:
+      - task: exec
+        vars:
+          run: pg_dump --column-inserts --data-only --dbname={{ .db }} --schema={{ .schema }}
