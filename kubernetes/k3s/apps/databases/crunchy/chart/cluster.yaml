@@ -118,6 +118,12 @@ spec:
 
   backups:
     pgbackrest:
+      restore:
+        enabled: true
+        repoName: repo1
+        options:
+          - --type=time
+          - --target="2024-05-12 11:00:00"
       configuration:
         - secret:
             name: crunchy-postgres-secrets
