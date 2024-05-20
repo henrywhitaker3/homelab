@@ -35,18 +35,33 @@ prompage:
           query: avg(pg_up)
           expression: float(result) == 1
           bool: true
+        extras:
+          - name: Throughput
+            units: rps
+            query: sum(rate(ccp_pg_stat_statements_total_calls_count[5m]))
+          - name: Latency
+            units: ms
+            query: avg(ccp_pg_stat_statements_top_mean_exec_time_ms)
       - name: Galera
         group: Infra
         query:
           query: avg(mysql_up{job="mariadb-metrics"})
           expression: int(result) == 1
           bool: true
+        extras:
+          - name: Throughput
+            units: rps
+            query: sum(irate(mysql_global_status_queries[5m]))
       - name: Dragonfly
         group: Infra
         query:
           query: sum(rate(dragonfly_uptime_in_seconds[1m]))
           expression: float(result) > 2.5
           bool: true
+        extras:
+          - name: Throughput
+            units: rps
+            query: sum(rate(dragonfly_commands_processed_total[5m]))
       - name: MinIO
         group: Infra
         query:
