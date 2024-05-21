@@ -8,5 +8,5 @@ appVersion: "1.16.0"
 dependencies:
   - name: prompage-helm
     alias: prompage
-    version: "v0.1.16"
+    version: "v0.1.17"
     repository: oci://ghcr.io/henrywhitaker3
