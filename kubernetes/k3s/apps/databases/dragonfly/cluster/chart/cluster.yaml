@@ -38,6 +38,15 @@ spec:
     limits:
       memory: 256Mi
 
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: "DoNotSchedule"
+      labelSelector:
+        matchLabels:
+          app: dragonfly
+          app.kubernetes.io/name: dragonfly
+
   serviceSpec:
     type: LoadBalancer
     annotations:
