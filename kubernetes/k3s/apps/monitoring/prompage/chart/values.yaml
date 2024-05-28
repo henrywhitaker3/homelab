@@ -1,6 +1,9 @@
 prompage:
   configuration:
-    prometheus: http://kube-prometheus-stack-prometheus:9090
+    datasources:
+      - name: prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus:9090
 
     refresh: 1m
 
