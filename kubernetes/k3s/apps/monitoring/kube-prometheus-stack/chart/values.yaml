@@ -322,6 +322,10 @@ grafana:
       url: http://loki-gateway
       jsonData:
         maxLines: 250
+        derivedFields:
+          - datasourceUid: Tempo
+            url: '$${__value.raw}'
+            urlDisplayLabel: 'View Trace'
     - name: Tempo
       orgId: 1
       access: proxy
