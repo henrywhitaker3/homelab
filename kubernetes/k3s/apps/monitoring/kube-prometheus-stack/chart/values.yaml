@@ -323,7 +323,9 @@ grafana:
       jsonData:
         maxLines: 250
         derivedFields:
-          - datasourceUid: Tempo
+          - name: TraceID
+            datasourceUid: Tempo
+            matcherRegex: 'traceID":"(\\w+)'
             url: '$${__value.raw}'
             urlDisplayLabel: 'View Trace'
     - name: Tempo
