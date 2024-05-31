@@ -325,7 +325,7 @@ grafana:
         derivedFields:
           - name: TraceID
             datasourceUid: Tempo
-            matcherRegex: 'traceID":"(\\w+)'
+            matcherRegex: 'traceID":"(\w+)'
             url: '$${__value.raw}'
             urlDisplayLabel: 'View Trace'
     - name: Tempo
