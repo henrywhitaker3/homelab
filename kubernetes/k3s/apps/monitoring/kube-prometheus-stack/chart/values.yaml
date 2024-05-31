@@ -337,6 +337,8 @@ grafana:
         tracesToLogsV2:
           datasourceUid: Loki
           tags: [{ key: "host.name", value: "pod" }]
+          spanStartTimeShift: '5m'
+          spanEndTimeShift: '-5m'
           filterByTraceID: true
 
 prometheus:
