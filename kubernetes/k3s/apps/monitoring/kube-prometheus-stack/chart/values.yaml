@@ -330,7 +330,7 @@ grafana:
       jsonData:
         tracesToLogsV2:
           datasourceUid: Loki
-          tags: [{ key: "http.server_name", value: "pod" }]
+          tags: [{ key: "host.name", value: "pod" }]
           filterByTraceID: true
 
 prometheus:
