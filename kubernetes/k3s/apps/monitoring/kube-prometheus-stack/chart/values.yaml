@@ -337,9 +337,23 @@ grafana:
         tracesToLogsV2:
           datasourceUid: Loki
           tags: [{ key: "host.name", value: "pod" }]
-          spanStartTimeShift: '5m'
-          spanEndTimeShift: '-5m'
+          spanStartTimeShift: '15m'
+          spanEndTimeShift: '-15m'
           filterByTraceID: true
+        tracesToMetrics:
+          datasourceUid: Prometheus
+          spanStartTimeShift: '15m'
+          spanEndTimeShift: '-15m'
+          tags: [{ key: "host.name", value: "pod" }]
+          queries:
+            - name: CPU Usage
+              query: sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{$$__tags})
+            - name: Memory Usage
+              query: sum (container_memory_usage_bytes{$$__tags})
+            - name: Network Receive
+              query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
+            - name: Network Transmit
+              query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
 
 prometheus:
   ingress:
