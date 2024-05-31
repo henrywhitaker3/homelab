@@ -337,13 +337,11 @@ grafana:
         tracesToLogsV2:
           datasourceUid: Loki
           tags: [{ key: "host.name", value: "pod" }]
-          spanStartTimeShift: '15m'
-          spanEndTimeShift: '-15m'
+          spanStartTimeShift: '-15m'
           filterByTraceID: true
         tracesToMetrics:
           datasourceUid: Prometheus
-          spanStartTimeShift: '15m'
-          spanEndTimeShift: '-15m'
+          spanStartTimeShift: '-15m'
           tags: [{ key: "host.name", value: "pod" }]
           queries:
             - name: CPU Usage
