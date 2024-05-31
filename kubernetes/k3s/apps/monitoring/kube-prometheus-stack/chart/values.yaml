@@ -329,7 +329,7 @@ grafana:
       url: http://tempo.monitoring.svc:3100
       jsonData:
         tracesToLogsV2:
-          datasource: loki
+          datasource: Loki
           tags: [{ key: "http.server_name", value: "pod" }]
           filterByTraceID: true
 
