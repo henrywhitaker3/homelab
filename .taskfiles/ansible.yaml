@@ -11,3 +11,15 @@ tasks:
       play: '{{ .play }}'
     cmds:
       - ansible-playbook --private-key $ANSIBLE_SSH_KEY_FILE ansible/playbooks/{{ .play }}/{{ .playbook }} {{ .CLI_ARGS }}
+
+  patch:
+    desc: Run the patch playbook
+    requires:
+      vars:
+        - play
+    cmds:
+      - task: play
+        vars:
+          play: patch
+          playbook: '{{ .play }}.yaml'
+          CLI_ARGS: '{{ .CLI_ARGS }}'

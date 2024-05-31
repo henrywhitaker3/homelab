@@ -18,29 +18,3 @@ tasks:
     silent: true
     cmds:
       - task -l
-
-  patch:
-    desc: Patch a set of hosts
-    requires:
-      vars:
-        - PLAYBOOK
-    vars:
-      PLAYBOOK: '{{ .PLAYBOOK | default "generic" }}'
-    cmds:
-      - ansible-playbook ansible/playbooks/patch/{{ .PLAYBOOK }}.yaml {{ .CLI_ARGS | default "" }}
-
-  patch:all:
-    desc: Patch all hosts
-    cmds:
-      - task: patch
-        vars:
-          PLAYBOOK: generic
-      - task: patch
-        vars:
-          PLAYBOOK: ha
-      - task: patch
-        vars:
-          PLAYBOOK: pihole
-      - task: patch
-        vars:
-          PLAYBOOK: k8s
