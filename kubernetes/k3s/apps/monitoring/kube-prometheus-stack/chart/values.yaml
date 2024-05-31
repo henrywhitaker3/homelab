@@ -327,6 +327,11 @@ grafana:
       access: proxy
       type: tempo
       url: http://tempo.monitoring.svc:3100
+      jsonData:
+        tracesToLogsV2:
+          datasource: loki
+          tags: [{ key: "http.server_name", value: "pod" }]
+          filterByTraceID: true
 
 prometheus:
   ingress:
