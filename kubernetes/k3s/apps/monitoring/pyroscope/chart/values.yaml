@@ -22,12 +22,12 @@ pyroscope:
       storage:
         backend: s3
         s3:
-          bucket: pyroscope
+          bucket_name: pyroscope
           endpoint: s3.plexmox.com
           region: unraid
           insecure: false
-          access_key: ${MINIO_ACCESS_KEY}
-          secret_key: ${MINIO_SECRET_KEY}
+          access_key_id: ${MINIO_ACCESS_KEY}
+          secret_access_key: ${MINIO_SECRET_KEY}
           forcepathstyle: true
 
 

@@ -33,3 +33,11 @@ output "tempo_secret_access_key" {
   value     = module.tempo.secret_access_key
   sensitive = true
 }
+output "pyroscope_access_key_id" {
+  value     = module.pyroscope.access_key_id
+  sensitive = true
+}
+output "pyroscope_secret_access_key" {
+  value     = module.pyroscope.secret_access_key
+  sensitive = true
+}
