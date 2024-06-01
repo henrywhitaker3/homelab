@@ -355,7 +355,7 @@ grafana:
         tracesToProfiles:
           datasourceUid: Pyroscope
           tags:
-            - { key: "service.name", value: "service.name" }
+            - { key: "service.name", value: "service_name" }
             - { key: "host.name", value: "pod" }
           profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
     - name: Pyroscope
