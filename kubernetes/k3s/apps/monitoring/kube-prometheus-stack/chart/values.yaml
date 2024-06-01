@@ -355,7 +355,7 @@ grafana:
     - name: Pyroscope
       orgId: 1
       access: proxy
-      type: pyroscope
+      type: grafana-pyroscope-datasource
       url: http://pyroscope.monitoring.svc:4040
 
 prometheus:
