@@ -354,7 +354,9 @@ grafana:
               query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
         tracesToProfiles:
           datasourceUid: Pyroscope
-          tags: [{ key: "service.name", value: "service_name" }]
+          tags:
+            - { key: "service.name", value: "service.name" }
+            - { key: "host.name", value: "pod" }
           profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
     - name: Pyroscope
       orgId: 1
