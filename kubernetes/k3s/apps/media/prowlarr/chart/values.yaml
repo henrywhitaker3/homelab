@@ -78,8 +78,6 @@ generic:
 
   vpn:
     enabled: true
-    image:
-      tag:  v1.0.20210914-ls36
     script: |
       gateway=$(ip route list | grep default | cut -d' ' -f 3)
       echo Update gateway placeholder with $gateway
