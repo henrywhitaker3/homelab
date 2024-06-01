@@ -9,7 +9,7 @@ pyroscope:
     service:
       type: LoadBalancer
       annotations:
-      metallb.universe.tf/loadBalancerIPs: 10.0.0.38
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.38
 
     repository: grafana/pyroscope
     tag: 2.4.1
@@ -30,11 +30,10 @@ pyroscope:
           access_key_id: ${MINIO_ACCESS_KEY}
           secret_access_key: ${MINIO_SECRET_KEY}
 
-
     extraArgs:
       config.expand-env: true
 
-    extraEnv:
+    extraEnvFrom:
       - name: MINIO_ACCESS_KEY
         valueFrom:
           secretKeyRef:
