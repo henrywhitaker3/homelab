@@ -584,7 +584,7 @@
           "useBackend": false
         }
       ],
-      "title": "Latency",
+      "title": "Query Latency",
       "type": "timeseries"
     },
     {
