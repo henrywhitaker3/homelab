@@ -352,6 +352,11 @@ grafana:
               query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
             - name: Network Transmit
               query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
+    - name: Pyroscope
+      orgId: 1
+      access: proxy
+      type: pyroscope
+      url: http://pyroscope.monitoring.svc:4040
 
 prometheus:
   ingress:
