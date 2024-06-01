@@ -33,13 +33,13 @@ pyroscope:
     extraArgs:
       config.expand-env: true
 
-    extraEnvFrom:
-      - name: MINIO_ACCESS_KEY
+    extraEnvVars:
+      MINIO_ACCESS_KEY:
         valueFrom:
           secretKeyRef:
             name: pyroscope-minio
             key: aws-access-key-id
-      - name: MINIO_SECRET_KEY
+      MINIO_SECRET_KEY:
         valueFrom:
           secretKeyRef:
             name: pyroscope-minio
