@@ -352,6 +352,9 @@ grafana:
               query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
             - name: Network Transmit
               query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
+        tracesToProfiles:
+          datasourceUid: Pyroscope
+          tags: [{ key: "host.name", value: "pod" }]
     - name: Pyroscope
       orgId: 1
       access: proxy
