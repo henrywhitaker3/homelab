@@ -342,7 +342,7 @@ grafana:
         tracesToMetrics:
           datasourceUid: Prometheus
           spanStartTimeShift: '-15m'
-          tags: ["service.name"]
+          tags: [{ key: "host.name", value: "pod" }]
           queries:
             - name: CPU Usage
               query: sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{$$__tags})
@@ -354,7 +354,7 @@ grafana:
               query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
         tracesToProfiles:
           datasourceUid: Pyroscope
-          tags: [{ key: "host.name", value: "pod" }]
+          tags: ["service.name"]
           profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
     - name: Pyroscope
       orgId: 1
