@@ -1,15 +1,16 @@
 pyroscope:
-  replicas: 1
-
-  service:
-    type: LoadBalancer
-    annotations:
-     metallb.universe.tf/loadBalancerIPs: 10.0.0.38
 
   agent:
     enabled: false
 
   pyroscope:
+    replicaCount: 1
+
+    service:
+      type: LoadBalancer
+      annotations:
+      metallb.universe.tf/loadBalancerIPs: 10.0.0.38
+
     repository: grafana/pyroscope
     tag: 2.4.1
 
@@ -28,7 +29,6 @@ pyroscope:
           insecure: false
           access_key_id: ${MINIO_ACCESS_KEY}
           secret_access_key: ${MINIO_SECRET_KEY}
-          forcepathstyle: true
 
 
     extraArgs:
