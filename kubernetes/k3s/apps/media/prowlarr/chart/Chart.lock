@@ -1,6 +1,6 @@
 dependencies:
 - name: generic
   repository: oci://ghcr.io/henrywhitaker3
-  version: v1.3.16
-digest: sha256:6e1599a30a72dad18cc2cd900540981f09cb65ecb7e19713843978b8e35320e5
-generated: "2024-06-01T13:22:27.662444168+01:00"
+  version: v1.3.17
+digest: sha256:292022534a7108a5b0bbc1326310a1718c0b05922dc94ed7427b37a5ad98bb9f
+generated: "2024-06-01T13:43:04.439045128+01:00"
