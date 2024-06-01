@@ -1,0 +1,11 @@
+apiVersion: v2
+name: tempo
+description: tempo helm chart
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+
+dependencies:
+  - name: pyroscope
+    version: "1.6.0"
+    repository: https://grafana.github.io/helm-charts

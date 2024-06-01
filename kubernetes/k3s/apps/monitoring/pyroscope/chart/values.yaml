@@ -1,0 +1,47 @@
+pyroscope:
+  replicas: 1
+
+  service:
+    type: LoadBalancer
+    annotations:
+     metallb.universe.tf/loadBalancerIPs: 10.0.0.38
+
+  agent:
+    enabled: false
+
+  pyroscope:
+    repository: grafana/pyroscope
+    tag: 2.4.1
+
+    persistence:
+      enabled: true
+      size: 5Gi
+      storageClassName: longhorn-no-backups
+
+    structuredConfig:
+      storage:
+        backend: s3
+        s3:
+          bucket: pyroscope
+          endpoint: s3.plexmox.com
+          region: unraid
+          insecure: false
+          access_key: ${MINIO_ACCESS_KEY}
+          secret_key: ${MINIO_SECRET_KEY}
+          forcepathstyle: true
+
+
+    extraArgs:
+      config.expand-env: true
+
+    extraEnv:
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: pyroscope-minio
+            key: aws-access-key-id
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: pyroscope-minio
+            key: aws-secret-access-key
