@@ -355,6 +355,7 @@ grafana:
         tracesToProfiles:
           datasourceUid: Pyroscope
           tags: [{ key: "host.name", value: "pod" }]
+          profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
     - name: Pyroscope
       orgId: 1
       access: proxy
