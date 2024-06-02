@@ -1,120 +1,37 @@
-resource "adguard_config" "primary" {
-  provider = adguard.adguard-1
+module "adguard_1" {
+  source = "./adguard"
 
-  safesearch = {
-    enabled = false
-  }
+  adguard_host     = data.terraform_remote_state.infra.outputs.adguard_info[0].ip
+  adguard_user     = var.adguard_user
+  adguard_password = var.adguard_password
 
-  querylog = {
-    enabled  = true
-    interval = 30
-  }
+  vms                      = local.vm_info
+  internal_ingress_targets = local.internal_ingress
+  upstream_dns             = local.upstream_dns
+  bootstrap_dns            = local.bootstrap_dns
+  filter_lists             = local.filter_lists
 
-  stats = {
-    enabled  = true
-    interval = 24
-  }
-
-  dns = {
-    upstream_dns  = local.upstream_dns
-    bootstrap_dns = local.bootstrap_dns
-    rate_limit    = 20
-  }
-
-  dhcp = {
-    enabled   = true
-    interface = "eth0"
-
-    ipv4_settings = {
-      gateway_ip     = "10.0.0.1"
-      lease_duration = 86400
-      range_start    = "10.0.0.41"
-      range_end      = "10.0.0.251"
-      subnet_mask    = "255.255.255.0"
-    }
-
-    static_leases = [
-      {
-        mac      = "2c:f0:5d:75:f1:ba"
-        ip       = "10.0.0.226"
-        hostname = "desktop-ogovugk"
-      },
-      {
-        mac      = "dc:a6:32:16:b4:d4"
-        ip       = "10.0.0.139"
-        hostname = "living-room"
-      },
-      {
-        mac      = "18:2f:a3:3e:dc:7a"
-        ip       = "10.0.0.30"
-        hostname = "mango-control-1"
-      },
-      {
-        mac      = "18:88:df:e6:c2:99"
-        ip       = "10.0.0.31"
-        hostname = "mango-control-2"
-      },
-      {
-        mac      = "18:e7:3e:fa:e1:f9"
-        ip       = "10.0.0.32"
-        hostname = "mango-control-3"
-      }
-    ]
-  }
-
-  filtering = {
-    enabled = true
-  }
+  dhcp_enabled       = true
+  dhcp_interface     = "eth0"
+  dhcp_ipv4_settings = local.dhcp_ipv4_settings
+  dhcp_static_leases = local.dhcp_static_leases
 }
 
-resource "adguard_config" "secondary" {
-  provider = adguard.adguard-2
+module "adguard_2" {
+  source = "./adguard"
 
-  safesearch = {
-    enabled = false
-  }
+  adguard_host     = data.terraform_remote_state.infra.outputs.adguard_info[1].ip
+  adguard_user     = var.adguard_user
+  adguard_password = var.adguard_password
 
-  querylog = {
-    enabled  = true
-    interval = 30
-  }
+  vms                      = local.vm_info
+  internal_ingress_targets = local.internal_ingress
+  upstream_dns             = local.upstream_dns
+  bootstrap_dns            = local.bootstrap_dns
+  filter_lists             = local.filter_lists
 
-  stats = {
-    enabled  = true
-    interval = 24
-  }
-
-  dns = {
-    upstream_dns  = local.upstream_dns
-    bootstrap_dns = local.bootstrap_dns
-    rate_limit    = 20
-  }
-
-  filtering = {
-    enabled = true
-  }
-}
-
-resource "adguard_list_filter" "filters_1" {
-  provider = adguard.adguard-1
-  for_each = {
-    for c in local.filter_lists :
-    c.name => c
-  }
-
-  enabled = true
-  name    = each.value.name
-  url     = each.value.url
-}
-
-resource "adguard_list_filter" "filters_2" {
-  provider = adguard.adguard-2
-  for_each = {
-    for c in local.filter_lists :
-    c.name => c
-  }
-
-  enabled = true
-  name    = each.value.name
-  url     = each.value.url
+  dhcp_enabled       = false
+  dhcp_interface     = "eth0"
+  dhcp_ipv4_settings = local.dhcp_ipv4_settings
+  dhcp_static_leases = local.dhcp_static_leases
 }

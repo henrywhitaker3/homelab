@@ -14,6 +14,42 @@ locals {
     [{ name = "proxmox-3", ip = "10.0.0.154" }],
   )
 
+  dhcp_static_leases = [
+    {
+      mac      = "2c:f0:5d:75:f1:ba"
+      ip       = "10.0.0.226"
+      hostname = "desktop-ogovugk"
+    },
+    {
+      mac      = "dc:a6:32:16:b4:d4"
+      ip       = "10.0.0.139"
+      hostname = "living-room"
+    },
+    {
+      mac      = "18:2f:a3:3e:dc:7a"
+      ip       = "10.0.0.30"
+      hostname = "mango-control-1"
+    },
+    {
+      mac      = "18:88:df:e6:c2:99"
+      ip       = "10.0.0.31"
+      hostname = "mango-control-2"
+    },
+    {
+      mac      = "18:e7:3e:fa:e1:f9"
+      ip       = "10.0.0.32"
+      hostname = "mango-control-3"
+    }
+  ]
+
+  dhcp_ipv4_settings = {
+    gateway_ip     = "10.0.0.1"
+    lease_duration = 86400
+    range_start    = "10.0.0.41"
+    range_end      = "10.0.0.251"
+    subnet_mask    = "255.255.255.0"
+  }
+
   internal_ingress = [
     "unraid.plexmox.com",
     "minio.plexmox.com",
@@ -24,7 +60,8 @@ locals {
     "grafana.plexmox.com",
     "maxscale.plexmox.com",
     "thanos.plexmox.com",
-    "proxmox.plexmox.com"
+    "proxmox.plexmox.com",
+    "speedtest.plexmox.com",
   ]
 
   upstream_dns = [

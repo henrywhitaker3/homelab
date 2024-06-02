@@ -4,7 +4,7 @@ module "pyroscope" {
   name    = "pyroscope"
   buckets = ["pyroscope"]
 
-  acl       = "private"
+  acl = "private"
   permissions = [
     "s3:DeleteObject",
     "s3:GetObject",
