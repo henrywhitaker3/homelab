@@ -3,6 +3,20 @@ kind: MaxScale
 metadata:
   name: maxscale
 spec:
+  replicas: 2
+
+  auth:
+    generate: true
+
+  config:
+    volumeClaimTemplate:
+      storageClassName: longhorn-no-backups
+      resources:
+        requests:
+          storage: 100Mi
+      accessModes:
+        - ReadWriteOnce
+
   mariaDbRef:
     name: mariadb
 
