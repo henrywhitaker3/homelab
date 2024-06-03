@@ -36,6 +36,9 @@ spec:
         params:
           connection_metadata: "tx_isolation=auto"
 
+  metrics:
+    enabled: true
+
   kubernetesService:
     type: LoadBalancer
     metadata:
