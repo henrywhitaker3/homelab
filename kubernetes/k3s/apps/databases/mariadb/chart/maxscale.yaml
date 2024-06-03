@@ -60,13 +60,14 @@ spec:
   selector:
     secret:
       name: maxscale-admin
-  # template:
-  #   data:
-  #     username: mariadb-operator
-  #     password: '{{ .password }}'
-  #     website: http://10.0.0.40:8989
+  template:
+    data:
+      username: mariadb-operator
+      password: '{{ .password }}'
+      website: http://10.0.0.40:8989
   data:
     - match:
         secretKey: password
         remoteRef:
-          remoteKey: password
+          property: password
+          remoteKey: maxscale-admin
