@@ -7,6 +7,7 @@ spec:
 
   auth:
     generate: true
+    clientUsername: maxscale
 
   config:
     volumeClaimTemplate:
