@@ -8,5 +8,5 @@ resources:
   - backup.yaml
   - users.yaml
   - rules.yaml
-  # - maxscale.yaml
+  - maxscale.yaml
   # - restore.yaml
