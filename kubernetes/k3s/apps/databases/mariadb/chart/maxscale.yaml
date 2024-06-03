@@ -76,3 +76,8 @@ spec:
         remoteRef:
           property: password
           remoteKey: maxscale-admin
+    - match:
+        secretKey: website
+        remoteRef:
+          property: website
+          remoteKey: maxscale-admin
