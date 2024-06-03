@@ -1,0 +1,35 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale
+spec:
+  mariaDbRef:
+    name: mariadb
+
+  services:
+    - name: rw-router
+      router: readwritesplit
+      params:
+        transaction_replay: "true"
+        transaction_replay_attempts: "10"
+        transaction_replay_timeout: "5s"
+        max_slave_connections: "255"
+        max_replication_lag: "3s"
+        master_accept_reads: "true"
+      listener:
+        port: 3306
+        protocol: MariaDBProtocol
+        params:
+          connection_metadata: "tx_isolation=auto"
+
+  kubernetesService:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.39
+
+  guiKubernetesService:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.40
