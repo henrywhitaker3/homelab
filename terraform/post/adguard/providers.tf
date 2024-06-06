@@ -2,7 +2,7 @@ terraform {
   required_providers {
     adguard = {
       source  = "gmichels/adguard"
-      version = "1.2.0"
+      version = "1.3.0"
     }
   }
 }
