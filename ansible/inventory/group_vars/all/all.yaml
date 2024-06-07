@@ -28,3 +28,5 @@ hosts_extras:
     ip: 10.0.0.7
   - name: jump.lab
     ip: 10.8.0.1
+  - name: loki.plexmox.com
+    ip: 10.0.0.27
