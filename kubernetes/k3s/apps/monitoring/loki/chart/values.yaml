@@ -16,6 +16,19 @@ loki:
       labels:
         prometheus.io/service-monitor: "false"
 
+  ingress:
+    enabled: true
+    ingressClassName: internal
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - loki.plexmox.com
+    tls:
+      - secretName: loki-plexmox-com-tls
+        hosts:
+          - loki.plexmox.com
+
   loki:
     auth_enabled: false
     commonConfig:
