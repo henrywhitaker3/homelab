@@ -62,6 +62,7 @@ locals {
     "thanos.plexmox.com",
     "proxmox.plexmox.com",
     "speedtest.plexmox.com",
+    "loki.plexmox.com"
   ]
 
   upstream_dns = [

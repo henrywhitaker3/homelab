@@ -10,6 +10,7 @@
     - crog
     - node_exporter
     - haproxy
+    - promtail
 
   handlers:
     - name: restart wireguard

@@ -11,3 +11,4 @@
     - crog
     - node_exporter
     - haproxy
+    - promtail

@@ -1,0 +1,6 @@
+---
+- name: restart promtail
+  become: "{{ promtail_become }}"
+  ansible.builtin.service:
+    name: promtail
+    state: restarted
