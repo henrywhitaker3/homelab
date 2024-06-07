@@ -2,7 +2,7 @@ generic:
   nameOverride: demo
   fullnameOverride: demo
 
-  replicaCount: 2
+  replicaCount: 3
 
   image:
     repository: ealen/echo-server
