@@ -1240,8 +1240,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1374,8 +1373,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1476,8 +1474,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1623,7 +1620,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1631,218 +1628,219 @@
         "y": 9
       },
       "id": 26,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "P214B5B846CF3925F"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 10
+          },
+          "id": 27,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.0.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "tempo",
+                "uid": "P214B5B846CF3925F"
+              },
+              "filters": [
+                {
+                  "id": "72a36092",
+                  "operator": "=",
+                  "scope": "span",
+                  "tag": "kind",
+                  "value": [
+                    "server"
+                  ],
+                  "valueType": "keyword"
+                },
+                {
+                  "id": "service-name",
+                  "operator": "=",
+                  "scope": "resource",
+                  "tag": "service.name",
+                  "value": [
+                    "api"
+                  ],
+                  "valueType": "string"
+                },
+                {
+                  "id": "c5d2b7fd",
+                  "operator": "!=",
+                  "scope": "span",
+                  "tag": "http.route",
+                  "value": [
+                    "/*"
+                  ],
+                  "valueType": "string"
+                }
+              ],
+              "groupBy": [
+                {
+                  "id": "a3a06fe3",
+                  "scope": "span",
+                  "tag": "http.route"
+                }
+              ],
+              "limit": 20,
+              "queryType": "traceqlSearch",
+              "refId": "A",
+              "tableType": "traces"
+            }
+          ],
+          "title": "Route Statistics",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "P214B5B846CF3925F"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
+          "id": 28,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.0.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "tempo",
+                "uid": "P214B5B846CF3925F"
+              },
+              "filters": [
+                {
+                  "id": "fa512e09",
+                  "operator": "=",
+                  "scope": "span",
+                  "tag": "kind",
+                  "value": [
+                    "server"
+                  ],
+                  "valueType": "keyword"
+                },
+                {
+                  "id": "service-name",
+                  "operator": "=",
+                  "scope": "resource",
+                  "tag": "service.name",
+                  "value": [
+                    "api"
+                  ],
+                  "valueType": "string"
+                },
+                {
+                  "id": "7fd45c00",
+                  "operator": "!=",
+                  "scope": "span",
+                  "tag": "http.route",
+                  "value": [
+                    "/*"
+                  ],
+                  "valueType": "string"
+                }
+              ],
+              "groupBy": [
+                {
+                  "id": "da299757",
+                  "scope": "span"
+                }
+              ],
+              "limit": 20,
+              "queryType": "traceqlSearch",
+              "refId": "A",
+              "tableType": "traces"
+            }
+          ],
+          "title": "Traces",
+          "type": "table"
+        }
+      ],
       "title": "APM",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "tempo",
-        "uid": "P214B5B846CF3925F"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 10
-      },
-      "id": 27,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "11.0.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "tempo",
-            "uid": "P214B5B846CF3925F"
-          },
-          "filters": [
-            {
-              "id": "72a36092",
-              "operator": "=",
-              "scope": "span",
-              "tag": "kind",
-              "value": [
-                "server"
-              ],
-              "valueType": "keyword"
-            },
-            {
-              "id": "service-name",
-              "operator": "=",
-              "scope": "resource",
-              "tag": "service.name",
-              "value": [
-                "api"
-              ],
-              "valueType": "string"
-            },
-            {
-              "id": "c5d2b7fd",
-              "operator": "!=",
-              "scope": "span",
-              "tag": "http.route",
-              "value": [
-                "/*"
-              ],
-              "valueType": "string"
-            }
-          ],
-          "groupBy": [
-            {
-              "id": "a3a06fe3",
-              "scope": "span",
-              "tag": "http.route"
-            }
-          ],
-          "limit": 20,
-          "queryType": "traceqlSearch",
-          "refId": "A",
-          "tableType": "traces"
-        }
-      ],
-      "title": "Route Statistics",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "tempo",
-        "uid": "P214B5B846CF3925F"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 28,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "11.0.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "tempo",
-            "uid": "P214B5B846CF3925F"
-          },
-          "filters": [
-            {
-              "id": "fa512e09",
-              "operator": "=",
-              "scope": "span",
-              "tag": "kind",
-              "value": [
-                "server"
-              ],
-              "valueType": "keyword"
-            },
-            {
-              "id": "service-name",
-              "operator": "=",
-              "scope": "resource",
-              "tag": "service.name",
-              "value": [
-                "api"
-              ],
-              "valueType": "string"
-            },
-            {
-              "id": "7fd45c00",
-              "operator": "!=",
-              "scope": "span",
-              "tag": "http.route",
-              "value": [
-                "/*"
-              ],
-              "valueType": "string"
-            }
-          ],
-          "groupBy": [
-            {
-              "id": "da299757",
-              "scope": "span"
-            }
-          ],
-          "limit": 20,
-          "queryType": "traceqlSearch",
-          "refId": "A",
-          "tableType": "traces"
-        }
-      ],
-      "title": "Traces",
-      "type": "table"
     },
     {
       "collapsed": true,
@@ -1850,7 +1848,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 10
       },
       "id": 23,
       "panels": [
