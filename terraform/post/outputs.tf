@@ -41,3 +41,27 @@ output "pyroscope_secret_access_key" {
   value     = module.pyroscope.secret_access_key
   sensitive = true
 }
+output "mariadb_access_key_id" {
+  value     = module.mariadb.access_key_id
+  sensitive = true
+}
+output "mariadb_secret_access_key" {
+  value     = module.mariadb.secret_access_key
+  sensitive = true
+}
+output "crunchy_access_key_id" {
+  value     = module.crunchy.access_key_id
+  sensitive = true
+}
+output "crunchy_secret_access_key" {
+  value     = module.crunchy.secret_access_key
+  sensitive = true
+}
+output "henry_access_key_id" {
+  value     = minio_iam_service_account.henry.access_key
+  sensitive = true
+}
+output "henry_secret_access_key" {
+  value     = minio_iam_service_account.henry.secret_key
+  sensitive = true
+}

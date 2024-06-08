@@ -15,12 +15,12 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: 18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com
+      endpoint: s3.plexmox.com
       accessKeyIdSecretKeyRef:
         name: mariadb-r2
-        key: access-key-id
+        key: minio-access-key-id
       secretAccessKeySecretKeyRef:
         name: mariadb-r2
-        key: secret-access-key
+        key: minio-secret-access-key
       tls:
         enabled: true
