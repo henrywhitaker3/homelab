@@ -6,7 +6,7 @@ spec:
   mariaDbRef:
     name: mariadb
   schedule:
-    cron: "20 * * * *"
+    cron: "23 * * * *"
   maxRetention: 72h
 
   podSecurityContext:
@@ -16,6 +16,7 @@ spec:
     s3:
       bucket: mariadb
       endpoint: s3.plexmox.com
+      region: unraid
       accessKeyIdSecretKeyRef:
         name: mariadb-r2
         key: minio-access-key-id
