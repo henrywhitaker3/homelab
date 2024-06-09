@@ -14,7 +14,7 @@ GitOps/IaC managed homelab using proxmox and ArgoCD
 │   │   ├── apps            # The definition of all services deployed in the custer
 │   │   └── bootstrap       # Initial bootstrapping config
 │   │       ├── ArgoCD      # ArgoCD helm chart 
-│   │       ├── manifests   # One of mainfests e.g. ArgoCD app of apps
+│   │       ├── manifests   # Initial mainfests e.g. ArgoCD app of apps
 │   │       └── sops        # Any secrets that cannot be pulled from 1password (i.e. the 1password auth tokens used by ESO)
 │   ├── mango               # Talos cluster used for testing
 │   │   ├── apps
@@ -26,7 +26,7 @@ GitOps/IaC managed homelab using proxmox and ArgoCD
 ├── scripts
 ├── terraform               # Terraform config
 │   ├── infra               # Provisions VMs in proxmox
-│       ├── talos           # Configures an talos vm
+│       ├── talos           # Configures a talos vm
 │       └── vm              # VM module
 │   └── post                # Provisions/configures the infra (e.g. minio buckets/iam, DNS config)
 │       ├── adguard         # Configures an adguard instance
