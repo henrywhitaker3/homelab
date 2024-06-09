@@ -6,12 +6,11 @@
   vars_files:
     - vars/main.yaml
 
-  vars:
-    template_ssh_key: |
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrIf/4nqWVI4A2G10rHav1X7951wG+5ZfmXiDYhwEik henry@laptop
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
-
   tasks:
+    - name: Format ssh keys
+      ansible.builtin.set_fact:
+        template_ssh_key: "{{ user_authorized_keys | join('\n') }}"
+
     - name: Install dependencies
       ansible.builtin.apt:
         name: libguestfs-tools
@@ -53,7 +52,7 @@
       loop: "{{ templates }}"
 
     - name: Mount coud-init drive
-      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --ide2 local-lvm:cloudinit
+      ansible.builtin.command: qm set {{ item.params.id + id_mod }} --ide3 local-lvm:cloudinit
       changed_when: true
       loop: "{{ templates }}"
 

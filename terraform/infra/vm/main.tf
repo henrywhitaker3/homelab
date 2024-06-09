@@ -11,7 +11,7 @@ resource "proxmox_vm_qemu" "vm" {
   target_node = "proxmox-0${var.nodes[data.external.node_index[count.index].result.index]}"
 
   clone = var.iso == "" ? "${var.image}-node-${var.nodes[data.external.node_index[count.index].result.index]}" : null
-  iso   = var.iso == "" ? null : var.iso
+  # iso   = var.iso == "" ? null : var.iso
 
   agent                   = 1
   os_type                 = "cloud-init"
@@ -25,9 +25,15 @@ resource "proxmox_vm_qemu" "vm" {
   additional_wait         = 0
   clone_wait              = 0
   vm_state                = "running"
-  cloudinit_cdrom_storage = "local-lvm"
 
   disks {
+    ide {
+      ide3 {
+        cloudinit {
+          storage = "local-lvm"
+        }
+      }
+    }
     scsi {
       scsi0 {
         disk {
