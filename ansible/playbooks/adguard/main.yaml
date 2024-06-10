@@ -9,6 +9,7 @@
     - common
     - user
     - node_exporter
+    - process_exporter
     - promtail
     - docker
 

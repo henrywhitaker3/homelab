@@ -1,0 +1,5 @@
+---
+- name: Install process exporter
+  tags: process_exporter
+  ansible.builtin.import_tasks: install.yaml
+  when: process_exporter_enabled
