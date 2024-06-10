@@ -9,6 +9,7 @@
     - common
     - vip
     - node_exporter
+    - process_exporter
     - crog
     - promtail
 

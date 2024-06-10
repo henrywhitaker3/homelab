@@ -1,0 +1,74 @@
+---
+- name: Create process exporter directory
+  tags: process_exporter
+  become: true
+  ansible.builtin.file:
+    path: "{{ process_exporter_install_dir }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Download process exporter
+  tags: process_exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/ncabatoff/process-exporter/releases/download/v{{ process_exporter_version }}/process-exporter-{{ process_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/tmp/process-exporter-{{ process_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    mode: "0755"
+
+- name: Unpack process exporter
+  tags: process_exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/process-exporter-{{ process_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/process-exporter-{{ process_exporter_version }}.linux-{{ go_arch }}/process-exporter"
+
+- name: Move process exporter binary to install dir
+  tags: process_exporter
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/process-exporter-{{ process_exporter_version }}.linux-{{ go_arch }}/process-exporter"
+    remote_src: true
+    dest: "{{ process_exporter_install_dir }}/process_exporter"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Copy over service file
+  tags: process_exporter
+  become: true
+  ansible.builtin.template:
+    src: templates/process_exporter.service
+    dest: /etc/systemd/system/process_exporter.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: process_exporter_service_copied
+  notify: restart process exporter
+
+- name: Copy over config file
+  tags: process_exporter
+  become: true
+  ansible.builtin.copy:
+    src: templates/config.yaml
+    dest: "{{ process_exporter_install_dir }}/config.yaml"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart process exporter
+
+- name: Reload services
+  tags: process_exporter
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: process_exporter_service_copied
+
+- name: Start and enable process exporter
+  tags: process_exporter
+  become: true
+  ansible.builtin.service:
+    name: process_exporter
+    state: started
+    enabled: true

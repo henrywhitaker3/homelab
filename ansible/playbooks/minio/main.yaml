@@ -17,6 +17,7 @@
     - common
     - user
     - node_exporter
+    - process_exporter
     - docker
     - docker_compose
     - promtail

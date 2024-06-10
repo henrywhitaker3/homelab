@@ -1,0 +1,24 @@
+---
+process_exporter_become: true
+
+# renovate: datasource=github-releases depName=ncabatoff/process_exporter
+process_exporter_version: 0.8.2
+
+process_exporter_enabled: true
+
+process_exporter_install_dir: /opt/process_exporter
+
+process_exporter_host: "{{ ansible_host }}"
+
+process_exporter_listen_address: "{{ process_exporter_host }}:9256"
+
+process_exporter_telemetry_path: /metrics
+
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"

@@ -1,0 +1,7 @@
+---
+- name: restart process exporter
+  tags: process_exporter
+  become: true
+  ansible.builtin.service:
+    name: process_exporter
+    state: restarted

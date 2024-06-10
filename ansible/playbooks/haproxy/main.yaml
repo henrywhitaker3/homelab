@@ -10,5 +10,6 @@
     - vip
     - crog
     - node_exporter
+    - process_exporter
     - haproxy
     - promtail
