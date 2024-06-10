@@ -273,6 +273,10 @@ grafana:
         gnetId: 9578
         revision: 4
         datasource: Prometheus
+      process:
+        gnetId: 249
+        revision: 2
+        datasource: Prometheus
       adguard:
         gnetId: 20799
         revision: 7
