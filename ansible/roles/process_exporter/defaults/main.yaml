@@ -1,7 +1,7 @@
 ---
 process_exporter_become: true
 
-# renovate: datasource=github-releases depName=ncabatoff/process_exporter
+# renovate: datasource=github-releases depName=ncabatoff/process-exporter
 process_exporter_version: 0.8.2
 
 process_exporter_enabled: true
