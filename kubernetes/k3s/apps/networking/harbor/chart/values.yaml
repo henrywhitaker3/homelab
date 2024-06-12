@@ -23,7 +23,7 @@ persistence:
   persistentVolumeClaim:
     registry:
       storageClass: longhorn-no-backups
-      size: 5Gi
+      size: 100Gi
     jobservice:
       jobLog:
         storageClass: longhorn-no-backups
@@ -33,7 +33,7 @@ persistence:
       size: 1Gi
     trivy:
       storageClass: longhorn-no-backups
-      size: 5Gi
+      size: 15Gi
 
 updateStrategy:
   type: Recreate
