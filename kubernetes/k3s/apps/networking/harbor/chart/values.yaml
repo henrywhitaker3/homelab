@@ -1,0 +1,49 @@
+expose:
+  type: ingress
+  tls:
+    certSource: secret
+    secret:
+      secretName: harbor-plexmox-com-tls
+  ingress:
+    hosts:
+      core: harbor.plexmox.com
+    className: internal
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+externalUrl: https://harbor.plexmox.com
+
+persistence:
+  enabled: true
+  persistentVolumeClaim:
+    registry:
+      storageClass: longhorn-no-backups
+      size: 5Gi
+    jobService:
+      jobLog:
+        storageClass: longhorn-no-backups
+        size: 1Gi
+    trivy:
+      storageClass: longhorn-no-backups
+      size: 5Gi
+
+updateStrategy:
+  type: Recreate
+
+existingSecretAdminPassword: harbor-secrets
+existingSecretAdminPasswordKey: admin-password
+existingSecretSecretKey: harbor-secrets
+
+database:
+  type: external
+  external:
+    host: crunchy-primary.cruchy.svc
+    user: harbor
+    existingSecret: crunchy-pguser-harbor
+    coreDatabase: harbor
+    sslmode: verify-full
