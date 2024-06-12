@@ -28,6 +28,9 @@ persistence:
       jobLog:
         storageClass: longhorn-no-backups
         size: 1Gi
+    redis:
+      storageClass: longhorn-no-backups
+      size: 1Gi
     trivy:
       storageClass: longhorn-no-backups
       size: 5Gi
