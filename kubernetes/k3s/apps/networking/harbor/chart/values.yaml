@@ -49,4 +49,4 @@ database:
     user: harbor
     existingSecret: crunchy-pguser-harbor
     coreDatabase: harbor
-    sslmode: verify-full
+    sslmode: require
