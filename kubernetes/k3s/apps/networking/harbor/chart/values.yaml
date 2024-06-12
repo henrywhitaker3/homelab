@@ -16,7 +16,7 @@ expose:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
 
-externalUrl: https://harbor.plexmox.com
+externalURL: https://harbor.plexmox.com
 
 persistence:
   enabled: true
