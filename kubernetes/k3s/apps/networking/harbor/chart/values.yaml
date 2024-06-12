@@ -45,7 +45,7 @@ existingSecretSecretKey: harbor-secrets
 database:
   type: external
   external:
-    host: crunchy-primary.cruchy.svc
+    host: crunchy-primary.crunchy.svc
     user: harbor
     existingSecret: crunchy-pguser-harbor
     coreDatabase: harbor
