@@ -1,4 +1,4 @@
 mirrors:
   "docker.io":
     endpoint:
-      - https://harbor.plexmox.com/dockerhub
+      - https://harbor.plexmox.com/v2/dockerhub
