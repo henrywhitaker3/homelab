@@ -1,5 +1,4 @@
-configs:
+mirrors:
   "docker.io":
-    auth:
-      username: {{ k3s_registry_username }}
-      password: {{ k3s_registry_password }}
+    endpoint:
+      - https://harbor.plexmox.com/dockerhub
