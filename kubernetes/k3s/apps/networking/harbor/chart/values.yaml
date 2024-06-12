@@ -46,7 +46,7 @@ database:
   type: external
   external:
     host: crunchy-primary.crunchy.svc
-    user: harbor
+    username: harbor
     existingSecret: crunchy-pguser-harbor
     coreDatabase: harbor
     sslmode: require
