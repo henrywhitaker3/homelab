@@ -5,6 +5,7 @@ users:
   - name: crunchy-pguser-sonarr
   - name: crunchy-pguser-radarr
   - name: crunchy-pguser-prowlarr
+  - name: crunchy-pguser-harbor
   - name: crunchy-pguser-kuma
     fields:
       - host

@@ -106,6 +106,10 @@ spec:
         - prowlarr-main
         - prowlarr-log
 
+    - name: harbor
+      databases:
+        - harbor
+
     # Benchmarking user
     # - name: bench
     #   databases:
