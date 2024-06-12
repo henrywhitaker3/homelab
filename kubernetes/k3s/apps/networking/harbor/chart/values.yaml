@@ -24,7 +24,7 @@ persistence:
     registry:
       storageClass: longhorn-no-backups
       size: 5Gi
-    jobService:
+    jobservice:
       jobLog:
         storageClass: longhorn-no-backups
         size: 1Gi
