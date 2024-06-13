@@ -1,4 +1,11 @@
 mirrors:
   docker.io:
     endpoint:
-      - https://harbor.plexmox.com/v2/dockerhub
+      - https://harbor.plexmox.com
+    rewrite:
+      "^(.*)": "docker.io/$1"
+  ghcr.io:
+    endpoint:
+      - https://harbor.plexmox.com
+    rewrite:
+      "^(.*)": "ghcr.io/$1"
