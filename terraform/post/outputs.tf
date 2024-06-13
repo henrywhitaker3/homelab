@@ -49,14 +49,6 @@ output "mariadb_secret_access_key" {
   value     = module.mariadb.secret_access_key
   sensitive = true
 }
-output "harbor_access_key_id" {
-  value     = module.harbor.access_key_id
-  sensitive = true
-}
-output "harbor_secret_access_key" {
-  value     = module.harbor.secret_access_key
-  sensitive = true
-}
 output "henry_access_key_id" {
   value     = minio_iam_service_account.henry.access_key
   sensitive = true
