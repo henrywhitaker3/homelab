@@ -20,6 +20,16 @@ externalURL: https://harbor.plexmox.com
 
 persistence:
   enabled: true
+  imageChartStorage:
+    type: s3
+    s3:
+      # Access key id: REGISTRY_STORAGE_S3_ACCESSKEY
+      # Secret access key: REGISTRY_STORAGE_S3_SECRETKEY
+      existingSecret: harbor-secrets
+      region: unraid
+      bucket: harbor
+      regionendpoint: https://s3.plexmox.com
+
   persistentVolumeClaim:
     registry:
       storageClass: longhorn-no-backups
