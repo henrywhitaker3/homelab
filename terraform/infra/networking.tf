@@ -3,7 +3,7 @@ module "adguard" {
   instances = 2
 
   name       = "adguard"
-  image      = local.ubuntu_22_04
+  image      = local.ubuntu_24_04
   ips        = ["10.0.0.2", "10.0.0.3"]
   memory     = 512
   nameserver = "1.1.1.1 8.8.8.8"

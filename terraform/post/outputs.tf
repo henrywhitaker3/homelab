@@ -49,12 +49,12 @@ output "mariadb_secret_access_key" {
   value     = module.mariadb.secret_access_key
   sensitive = true
 }
-output "crunchy_access_key_id" {
-  value     = module.crunchy.access_key_id
+output "harbor_access_key_id" {
+  value     = module.harbor.access_key_id
   sensitive = true
 }
-output "crunchy_secret_access_key" {
-  value     = module.crunchy.secret_access_key
+output "harbor_secret_access_key" {
+  value     = module.harbor.secret_access_key
   sensitive = true
 }
 output "henry_access_key_id" {

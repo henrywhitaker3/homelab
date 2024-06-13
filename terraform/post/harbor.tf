@@ -1,8 +1,8 @@
-module "crunchy" {
+module "harbor" {
   source = "./bucket"
 
-  name    = "crunchy"
-  buckets = ["crunchy"]
+  name    = "harbor"
+  buckets = ["harbor"]
 
   acl = "private"
   permissions = [

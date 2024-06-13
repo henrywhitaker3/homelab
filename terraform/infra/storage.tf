@@ -3,7 +3,7 @@ module "minio" {
   instances = 2
 
   name      = "minio"
-  image     = local.ubuntu_22_04
+  image     = local.ubuntu_24_04
   ips       = ["10.0.0.15", "10.0.0.16"]
   cores     = 1
   memory    = 6144
