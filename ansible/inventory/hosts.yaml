@@ -26,6 +26,7 @@ all:
         jump-k8s.lab:
           ansible_host: 165.22.112.190
           node_exporter_host: 10.8.0.1
+          process_exporter_host: 10.8.0.1
           haproxy_config:
             ip: 10.8.0.1
             backend: 10.0.0.25
