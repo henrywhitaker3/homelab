@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 # renovate: datasource=github-releases depName=getsops/sops
 ARG SOPS_VERSION=v3.7.3
 # renovate: datasource=github-releases depName=kubernetes-sigs/kustomize
