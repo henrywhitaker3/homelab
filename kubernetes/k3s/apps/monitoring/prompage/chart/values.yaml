@@ -1,4 +1,5 @@
 prompage:
+  replicas: 3
   configuration:
     datasources:
       - name: prometheus
