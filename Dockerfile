@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 # renovate: datasource=github-releases depName=getsops/sops
 ARG SOPS_VERSION=v3.7.3
 # renovate: datasource=github-releases depName=kubernetes-sigs/kustomize
@@ -50,15 +50,15 @@ RUN wget https://github.com/homeport/dyff/releases/download/v${DYFF_VERSION}/dyf
 
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-RUN adduser --home $HOME --shell /bin/bash --disabled-password --gecos '' $USER
+RUN adduser --home "$HOME" --shell /bin/bash --disabled-password --gecos '' "$USER"
 
-RUN mkdir $HOME/.ssh && \
-    chmod 700 $HOME/.ssh && \
-    chown $USER:$USER $HOME/.ssh
+RUN mkdir "$HOME/.ssh" && \
+    chmod 700 "$HOME/.ssh" && \
+    chown "$USER":"$USER" "$HOME/.ssh"
 
 USER $USER
 
-RUN pip3 install ansible ansible-lint
+RUN pip3 install --break-system-packages ansible ansible-lint
 ENV PATH="/home/abc/.local/bin:$PATH"
 
 WORKDIR $HOME
