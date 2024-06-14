@@ -10,20 +10,9 @@ resource "minio_iam_user" "user" {
 }
 
 resource "minio_iam_policy" "policy" {
-  name   = var.name
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ${jsonencode(var.permissions)},
-      "Resource": ${jsonencode(local.resources)}
-    }
-  ]
-}
-EOF
-  depends_on = [ minio_iam_user.user, minio_s3_bucket.bucket ]
+  name       = var.name
+  policy     = local.policy
+  depends_on = [minio_iam_user.user, minio_s3_bucket.bucket]
 }
 
 resource "minio_iam_user_policy_attachment" "policy_attachment" {
@@ -44,5 +33,7 @@ resource "minio_ilm_policy" "lifecycle" {
 
 resource "minio_iam_service_account" "service_account" {
   target_user = minio_iam_user.user.name
-  policy      = minio_iam_policy.policy.policy
+  policy      = local.policy
+
+  depends_on = [minio_iam_policy.policy]
 }
