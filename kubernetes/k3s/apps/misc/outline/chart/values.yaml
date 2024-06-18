@@ -7,7 +7,7 @@ generic:
   image:
     repository: outlinewiki/outline
     pullPolicy: IfNotPresent
-    tag: "0.77.1"
+    tag: "0.77.2"
 
   service:
     port: 3000
