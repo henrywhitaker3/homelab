@@ -166,9 +166,8 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.plexmox.com
-    feature_toggles: |
+    feature_toggles:
       enable: metricsSummary tempoServiceGraph traceToMetrics
-      traceQLStreaming=false
     auth:
       auto_login: true
     auth.basic:
