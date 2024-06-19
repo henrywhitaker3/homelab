@@ -34,6 +34,9 @@ tempo:
         metrics_generator:
           processors: ['local-blocks']
 
+    global_overrides:
+      max_traces_per_user: 0
+
     extraArgs:
       config.expand-env: true
     extraEnv:
