@@ -26,8 +26,8 @@ tempo:
     metricsGenerator:
       enabled: true
       remoteWriteUrls:
-        - http://prometheus-kube-stack-prometheus-0.kube-prometheus-stack-prometheus:9090/api/v1/write
-        - http://prometheus-kube-stack-prometheus-1.kube-prometheus-stack-prometheus:9090/api/v1/write
+        - http://prometheus-kube-stack-prometheus-0.prometheus-operated:9090/api/v1/write
+        - http://prometheus-kube-stack-prometheus-1.prometheus-operated:9090/api/v1/write
 
     overrides:
       defaults:
