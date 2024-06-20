@@ -68,9 +68,9 @@ loki:
         enabled: true
         clients:
           prom-0:
-            url: http://prometheus-kube-stack-prometheus-0:9090/api/v1/write
+            url: http://kube-prometheus-stack-prometheus.prometheus-kube-stack-prometheus-0:9090/api/v1/write
           prom-1:
-            url: http://prometheus-kube-stack-prometheus-1:9090/api/v1/write
+            url: http://kube-prometheus-stack-prometheus.prometheus-kube-stack-prometheus-1:9090/api/v1/write
 
     compactor:
       compaction_interval: 10m
