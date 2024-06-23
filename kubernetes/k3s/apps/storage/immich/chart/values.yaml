@@ -4,6 +4,7 @@ image:
 
 env:
   REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
+  DB_VECTOR_EXTENSION: pgvector
   DB_HOSTNAME:
     valueFrom:
       secretKeyRef:
