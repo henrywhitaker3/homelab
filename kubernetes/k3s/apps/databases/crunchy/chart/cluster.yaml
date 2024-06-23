@@ -110,6 +110,10 @@ spec:
       databases:
         - harbor
 
+    - name: immich
+      databases:
+        - immich
+
     # Benchmarking user
     # - name: bench
     #   databases:

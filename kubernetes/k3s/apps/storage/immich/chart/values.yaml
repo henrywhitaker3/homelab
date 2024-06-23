@@ -1,0 +1,56 @@
+image:
+  # renovate: datasource=github-releases depName=immich-app/immich
+  tag: "v1.106.4"
+
+env:
+  REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
+  DB_HOSTNAME:
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-immich
+        key: host
+  DB_USERNAME:
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-immich
+        key: user
+  DB_PASSWORD:
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-immich
+        key: password
+  DB_DATABASE_NAME:
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-immich
+        key: dbname
+  TZ: Europe/London
+
+postgresql:
+  gloabl:
+    auth:
+      existingSecret: crunchy-pguser-immich
+
+immich:
+  metrics:
+    enabled: true
+  persistence:
+    library:
+      existingClaim: immich
+
+server:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      hosts:
+        - host: immich.plexmox.com
+          paths:
+            - path: /
+      tls:
+        - secretName: immich-plexmox-com-tls
+          hosts:
+            - immich.plexmox.com
