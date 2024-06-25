@@ -6,6 +6,6 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: crunchy-userinit-controller
-    version: "0.0.4"
-    repository: https://ramblurr.github.io/crunchy-userinit-controller
+  - name: crunchy-users
+    version: "1.0.1"
+    repository: oci://ghcr.io/henrywhitaker3/crunchy-users-helm
