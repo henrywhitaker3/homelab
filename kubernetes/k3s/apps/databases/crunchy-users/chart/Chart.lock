@@ -1,6 +1,6 @@
 dependencies:
-- name: crunchy-userinit-controller
-  repository: https://ramblurr.github.io/crunchy-userinit-controller
-  version: 0.0.4
-digest: sha256:713b6f44ff4276188a67edccd39f9f11efd4bfe6d772279adb4556d8bacfcd8c
-generated: "2024-04-09T18:48:49.475543384+01:00"
+- name: crunchy-users-helm
+  repository: oci://ghcr.io/henrywhitaker3
+  version: v1.0.1
+digest: sha256:d2bb2a7a3b5d06c5af32aad199017da40e9c2921c036b0529bbb64948430ee58
+generated: "2024-06-25T23:22:31.204023841+01:00"

@@ -6,6 +6,6 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: crunchy-users
-    version: "1.0.1"
-    repository: oci://ghcr.io/henrywhitaker3/crunchy-users-helm
+  - name: crunchy-users-helm
+    version: "v1.0.1"
+    repository: oci://ghcr.io/henrywhitaker3
