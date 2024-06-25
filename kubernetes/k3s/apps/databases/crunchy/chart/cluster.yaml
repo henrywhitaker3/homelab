@@ -4,8 +4,8 @@ metadata:
   name: crunchy
   labels:
     crunchy-users.henrywhitaker3.github.com/watch: "true"
+  annotations:
     crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
-  # annotations:
   #   postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
 spec:
   postgresVersion: 16
