@@ -2,6 +2,9 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: crunchy
+  labels:
+    crunchy-users.henrywhitaker3.github.com/watch: "true"
+    crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
   # annotations:
   #   postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
 spec:
@@ -27,8 +30,6 @@ spec:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
-      crunchy-users.henrywhitaker3.github.com/watch: "true"
-      crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
 
   service:
     type: LoadBalancer
