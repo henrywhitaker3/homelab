@@ -27,6 +27,8 @@ spec:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+      crunchy-users.henrywhitaker3.github.com/watch: "true"
+      crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
 
   service:
     type: LoadBalancer
