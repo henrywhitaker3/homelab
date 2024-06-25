@@ -1,2 +1,3 @@
 crunchy-userinit-controller:
   fullnameOverride: crunchy-userinit
+  replicaCount: 0
