@@ -117,10 +117,10 @@ spec:
       databases:
         - immich
 
-    # - name: cusers
-    #   databases:
-    #     - bongo
-    #     - bingo
+    - name: cusers
+      databases:
+        - bongo
+        - bingo
 
     # Benchmarking user
     # - name: bench
