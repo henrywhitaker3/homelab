@@ -10,7 +10,7 @@ metadata:
       [
         {
           "database": "demo-primary",
-          "extension": "cube",
+          "extension": "earthdistance",
           "cascade": true
         }
       ]
