@@ -1,0 +1,72 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: debug
+  labels:
+    crunchy-users.henrywhitaker3.github.com/watch: "true"
+  annotations:
+    crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
+spec:
+  postgresVersion: 16
+
+  service:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 10.0.0.29
+
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        pg_hba:
+          - hostnossl all all 10.42.0.0/16 md5
+          - hostssl all all all md5
+
+  instances:
+    - name: debug
+      metadata:
+        labels:
+          app.kubernetes.io/name: debug
+      replicas: 1
+      dataVolumeClaimSpec:
+        storageClassName: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 256Mi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "DoNotSchedule"
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: debug
+              postgres-operator.crunchydata.com/data: postgres
+
+  users:
+    # Superuser
+    - name: postgres
+      databases:
+        - postgres
+      options: "SUPERUSER"
+      password:
+        type: AlphaNumeric
+
+    # Applications
+    - name: demo
+      databases:
+        - demo-primary
+        - demo-secondary
+
+  backups:
+    pgbackrest:
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              accessModes:
+              - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 256Mi
