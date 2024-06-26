@@ -1,2 +1,2 @@
-crunchy-users:
+crunchy-users-helm:
   logLevel: debug
