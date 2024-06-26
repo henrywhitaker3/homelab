@@ -10,8 +10,12 @@ metadata:
       [
         {
           "database": "demo-primary",
-          "extension": "earthdistance",
+          "extension": "cube",
           "cascade": true
+        },
+        {
+          "database": "demo-primary",
+          "extension": "vector"
         }
       ]
 spec:
