@@ -1,2 +1,2 @@
-crunchy-userinit-controller:
-  fullnameOverride: crunchy-userinit
+crunchy-users:
+  logLevel: debug
