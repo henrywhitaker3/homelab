@@ -6,6 +6,14 @@ metadata:
     crunchy-users.henrywhitaker3.github.com/watch: "true"
   annotations:
     crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
+    crunchy-users.henrywhitaker3.github.com/extensions: |
+      [
+        {
+          "database": "demo-primary",
+          "extension": "cube",
+          "cascade": true
+        }
+      ]
 spec:
   postgresVersion: 16
 
