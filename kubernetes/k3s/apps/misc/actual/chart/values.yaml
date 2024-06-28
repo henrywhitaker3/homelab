@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: actualbudget/actual-server
+    repository: ghcr.io/actualbudget/actual-server
     pullPolicy: IfNotPresent
-    tag: "v24.6.0"
+    tag: "24.6.0"
 
   service:
     port: 5006
