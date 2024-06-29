@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mariadb
+  name: crunchy-postgres-operator
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: mariadb
+    namespace: databases
     server: https://kubernetes.default.svc
   project: databases
   source:
-    path: kubernetes/k3s/apps/databases/mariadb/chart
+    path: kubernetes/k3s/apps/databases/crunchy/operator/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

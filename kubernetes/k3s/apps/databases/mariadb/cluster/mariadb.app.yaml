@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mariadb-operator
+  name: mariadb
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: databases
+    namespace: mariadb
     server: https://kubernetes.default.svc
   project: databases
   source:
-    path: kubernetes/k3s/apps/databases/mariadb-operator/chart
+    path: kubernetes/k3s/apps/databases/mariadb/cluster/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

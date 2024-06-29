@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: databases
   source:
-    path: kubernetes/k3s/apps/databases/crunchy/chart
+    path: kubernetes/k3s/apps/databases/crunchy/cluster/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: crunchy-postgres-operator
+  name: crunchy-users
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: databases
   source:
-    path: kubernetes/k3s/apps/databases/crunchy-postgres-operator/chart
+    path: kubernetes/k3s/apps/databases/crunchy/users/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
