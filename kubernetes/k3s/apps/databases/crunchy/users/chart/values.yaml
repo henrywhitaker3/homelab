@@ -1,2 +1,2 @@
 crunchy-users-helm:
-  # logLevel: debug
+  logLevel: info
