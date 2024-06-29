@@ -64,6 +64,7 @@ locals {
     "speedtest.plexmox.com",
     "loki.plexmox.com",
     "harbor.plexmox.com",
+    "actual.plexmox.com",
   ]
 
   upstream_dns = [
