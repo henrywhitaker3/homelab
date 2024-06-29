@@ -134,7 +134,7 @@ tf deploy:
     - tf plan
   environment:
     name: $TF_DIR
-  when: manual
+  # when: manual
 
 ##########
 # Docker #
