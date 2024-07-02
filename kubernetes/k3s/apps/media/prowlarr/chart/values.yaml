@@ -55,22 +55,22 @@ generic:
     timeoutSeconds: 5
 
   config:
-    PROWLARR__AUTHENTICATION_METHOD: External
-    PROWLARR__POSTGRES_MAIN_DB: prowlarr-main
-    PROWLARR__POSTGRES_LOG_DB: prowlarr-log
+    PROWLARR__AUTH__METHOD: External
+    PROWLARR__POSTGRES__MAINDB: prowlarr-main
+    PROWLARR__POSTGRES__LOGDB: prowlarr-log
 
   env:
-    - name: PROWLARR__POSTGRES_HOST
+    - name: PROWLARR__POSTGRES__HOST
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-prowlarr
           key: host
-    - name: PROWLARR__POSTGRES_USER
+    - name: PROWLARR__POSTGRES__USER
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-prowlarr
           key: user
-    - name: PROWLARR__POSTGRES_PASSWORD
+    - name: PROWLARR__POSTGRES__PASSWORD
       valueFrom:
         secretKeyRef:
           name: crunchy-pguser-prowlarr
