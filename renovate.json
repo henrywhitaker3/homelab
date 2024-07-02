@@ -46,7 +46,10 @@
       },
       {
         "matchDatasources": "helm",
-        "matchPackageNames": ["linuxserver/plex"],
+        "matchPackageNames": [
+            "ghcr.io/immich-app/immich-server",
+            "ghcr.io/immich-app/immich-machine-learning"
+        ],
         "automerge": false
       },
       {
