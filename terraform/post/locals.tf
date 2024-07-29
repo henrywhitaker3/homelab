@@ -78,6 +78,17 @@ locals {
     "2620:fe::fe:10",
   ]
 
+  custom_rewrites = [
+    {
+      src  = "orderly.dev"
+      dest = "127.0.0.1"
+    },
+    {
+      src  = "*.orderly.dev"
+      dest = "127.0.0.1"
+    },
+  ]
+
   filter_lists = [
     {
       name = "AdGuard DNS Filter"
