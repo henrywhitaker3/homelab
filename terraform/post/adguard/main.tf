@@ -61,3 +61,12 @@ resource "adguard_rewrite" "internal_ingress" {
   domain = each.value
   answer = var.internal_ingress_ip
 }
+
+resource "adguard_rewrite" "custom_rewrites" {
+  for_each = {
+    for value in var.custom_rewrites : value.src => value
+  }
+
+  domain = each.key
+  answer = each.value.dest
+}

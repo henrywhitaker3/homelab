@@ -7,6 +7,7 @@ module "adguard_1" {
 
   vms                      = local.vm_info
   internal_ingress_targets = local.internal_ingress
+  custom_rewrites          = local.custom_rewrites
   upstream_dns             = local.upstream_dns
   bootstrap_dns            = local.bootstrap_dns
   filter_lists             = local.filter_lists
@@ -26,6 +27,7 @@ module "adguard_2" {
 
   vms                      = local.vm_info
   internal_ingress_targets = local.internal_ingress
+  custom_rewrites          = local.custom_rewrites
   upstream_dns             = local.upstream_dns
   bootstrap_dns            = local.bootstrap_dns
   filter_lists             = local.filter_lists

@@ -63,7 +63,7 @@
             "description": ["Process custom dependencies"],
             "fileMatch": [
                 "ansible\/.*\/.*\\.yaml$",
-                ".*values.yaml$"
+                ".*.yaml$"
             ],
             "matchStrings": [
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
