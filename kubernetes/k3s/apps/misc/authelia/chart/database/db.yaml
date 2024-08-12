@@ -17,7 +17,7 @@ spec:
 
   passwordSecretKeyRef:
     name: authelia-secrets
-    key: STORAGE_PASSWORD
+    key: storage.mysql.password.txt
 
   mariaDbRef:
     name: mariadb
