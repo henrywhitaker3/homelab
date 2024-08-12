@@ -67,9 +67,6 @@ configMap:
       - domain: plexmox.com
         subdomain: auth
         authelia_url: https://auth.plexmox.com
-      - domain: henrywhitaker.com
-        subdomain: auth
-        authelia_url: https://auth.henrywhitaker.com
     redis:
       enabled: true
       host: dragonfly.dragonfly.svc
