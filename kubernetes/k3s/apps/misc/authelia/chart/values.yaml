@@ -39,11 +39,6 @@ configMap:
       enabled: true
       path: /custom/users_database.yaml
 
-  identity_validation:
-    reset_password:
-      secret:
-        disabled: true
-
   telemetry:
     metrics:
       enabled: true
