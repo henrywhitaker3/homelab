@@ -22,7 +22,8 @@ rbac:
 ingress:
   enabled: true
 
-  certManager: true
+  tls:
+    enabled: true
 
   annotations:
     kubernetes.io/tls-acme: "true"
