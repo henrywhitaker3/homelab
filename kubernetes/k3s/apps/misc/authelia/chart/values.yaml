@@ -81,8 +81,7 @@ configMap:
 
     mysql:
       enabled: true
-      host: maxscale.mariadb.svc
-      port: 3306
+      address: tcp://maxscale.mariadb.svc:3306
       username: authelia
       database: authelia
 
