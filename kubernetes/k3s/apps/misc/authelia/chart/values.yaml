@@ -42,12 +42,19 @@ configMap:
 
   identity_providers:
     oidc:
+      jwks:
+        - key_id: default
+          algorithm: 'RS256'
+          use: 'sig'
+          key:
+            path: '/secrets/issuer.private_key'
+
       issuer_private_keys:
-      - key_id: ''
-        algorithm: 'RS256'
-        use: 'sig'
-        key:
-          path: '/secrets/issuer.private_key'
+        - key_id: 'default'
+          algorithm: 'RS256'
+          use: 'sig'
+          key:
+            path: '/secrets/issuer.private_key'
 
   telemetry:
     metrics:
