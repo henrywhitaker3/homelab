@@ -29,8 +29,6 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 
-  subdomain: auth
-
 secret:
   existingSecret: "authelia-secrets"
 
@@ -41,6 +39,15 @@ configMap:
     file:
       enabled: true
       path: /custom/users_database.yaml
+
+  identity_providers:
+    oidc:
+      issuer_private_keys:
+      - key_id: ''
+        algorithm: 'RS256'
+        use: 'sig'
+        key:
+          path: '/secrets/issuer.private_key'
 
   telemetry:
     metrics:
@@ -70,6 +77,8 @@ configMap:
       - domain: plexmox.com
         subdomain: auth
         authelia_url: https://auth.plexmox.com
+        default_redirection_url: https://plexmox.com
+
     redis:
       enabled: true
       host: dragonfly.dragonfly.svc
