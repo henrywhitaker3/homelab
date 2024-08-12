@@ -42,6 +42,7 @@ configMap:
 
   identity_providers:
     oidc:
+      enabled: true
       jwks:
         - key_id: default
           algorithm: 'RS256'
