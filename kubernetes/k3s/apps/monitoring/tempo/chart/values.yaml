@@ -6,11 +6,12 @@ tempo:
     annotations:
      metallb.universe.tf/loadBalancerIPs: 10.0.0.37
 
+  securityContext:
+    fsGroupChangePolicy: "OnRootMismatch"
+
   tempo:
     repository: grafana/tempo
     tag: 2.4.1
-
-    securityContext: {}
 
     retention: 24h
     storage:
