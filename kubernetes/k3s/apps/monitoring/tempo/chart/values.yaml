@@ -6,9 +6,6 @@ tempo:
     annotations:
      metallb.universe.tf/loadBalancerIPs: 10.0.0.37
 
-  securityContext:
-    runAsNonRoot: false
-
   tempo:
     repository: grafana/tempo
     tag: 2.4.1
@@ -16,6 +13,10 @@ tempo:
     retention: 24h
     storage:
       trace:
+        local:
+          path: /tmp/tempo/traces
+        wal:
+          path: /tmp/tempo/wal
         backend: s3
         s3:
           bucket: tempo
