@@ -10,6 +10,8 @@ tempo:
     repository: grafana/tempo
     tag: 2.4.1
 
+    securityContext: {}
+
     retention: 24h
     storage:
       trace:
