@@ -21,6 +21,7 @@ spec:
             - 'plexmox.com'
             - 'henrywhitaker.com'
             - 'srep.io'
+            - 'yourbuild.dev'
       - http01:
           ingress:
             class: nginx
