@@ -124,6 +124,10 @@ spec:
       databases:
         - immich
 
+    - name: yourbuild
+      databases:
+        - yourbuild
+
     # Benchmarking user
     # - name: bench
     #   databases:
