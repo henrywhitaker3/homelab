@@ -16,6 +16,7 @@ patches:
   - path: patches/prometheusagents.yaml
   - path: patches/alertmanagers.yaml
   - path: patches/alertmanagerconfigs.yaml
+  - path: patches/scrapeconfigs.yaml
   - path: patches/thanosrulers.yaml
 
 helmCharts:
