@@ -12,9 +12,9 @@ spec:
     region: unraid
     accessKeyIdSecretKeyRef:
       name: mariadb-r2
-      key: access-key-id
+      key: minio-access-key-id
     secretAccessKeySecretKeyRef:
       name: mariadb-r2
-      key: secret-access-key
+      key: minio-secret-access-key
     tls:
       enabled: true
