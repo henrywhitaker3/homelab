@@ -9,4 +9,4 @@ resources:
   - users.yaml
   - rules.yaml
   - maxscale.yaml
-  - restore.yaml
+  # - restore.yaml
