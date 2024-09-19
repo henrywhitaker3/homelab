@@ -1,0 +1,24 @@
+---
+- name: Copy monitor script
+  become: true
+  tags: [cifs]
+  ansible.builtin.template:
+    src: templates/monitor.sh
+    dest: "/opt/share_health_{{ item.path | replace('/', '-') }}.sh"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Setup monitor cron
+  become: true
+  tags: [cifs]
+  ansible.builtin.cron:
+    name: "Share {{ item.path }} health check"
+    user: root
+    job: "/opt/share_health_{{ item.path | replace('/', '-') }}.sh {{ item.path }}"
+    state: present
+    minute: 0
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"

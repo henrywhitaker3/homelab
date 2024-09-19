@@ -41,8 +41,16 @@
     fstype: cifs
     src: "{{ item.src }}"
     path: "{{ item.path }}"
-    opts: "users,x-systemd.automount,uid={{ cifs_mount_uid }},gid={{ cifs_mount_gid }},credentials={{ cifs_credentails_location }},workgroup=WORKGROUP,vers=3.0"
+    opts: "users,noserverino,x-systemd.automount,uid={{ cifs_mount_uid }},gid={{ cifs_mount_gid }},credentials={{ cifs_credentails_location }},workgroup=WORKGROUP,vers=3.0"
     state: mounted
   loop: "{{ cifs_mounts }}"
   loop_control:
     label: "{{ item.path }}"
+
+- name: Setup share monitoring
+  tags: [cifs]
+  loop: "{{ cifs_mounts }}"
+  loop_control:
+    label: "{{ item.path }}"
+  ansible.builtin.include_tasks:
+    file: tasks/monitor.yaml
