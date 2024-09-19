@@ -9,7 +9,7 @@ spec:
   concurrency: 1
   retain: 4
   parameters:
-    full-backup-interval: 2
+    full-backup-interval: "2"
   groups:
     - default
 ---
