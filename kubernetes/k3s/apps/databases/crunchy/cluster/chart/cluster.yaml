@@ -128,6 +128,10 @@ spec:
       databases:
         - yourbuild
 
+    - name: coder
+      databases:
+        - coder
+
     # Benchmarking user
     # - name: bench
     #   databases:
