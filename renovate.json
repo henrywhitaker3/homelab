@@ -69,17 +69,6 @@
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
             ],
             "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
-        },
-        {
-            "customType": "regex",
-            "description": ["Process dragonflydb"],
-            "fileMatch": [
-                ".*\/dragonfly\/cluster\/cluster.yaml$"
-            ],
-            "matchStrings": [
-                "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?ghcr\\.io/dragonflydb/dragonfly:(?<currentValue>\\S+?)\"?$)"
-            ],
-            "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
         }
     ]
 }
