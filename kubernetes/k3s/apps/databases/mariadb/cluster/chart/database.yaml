@@ -11,13 +11,13 @@ spec:
 
   # 4-node cluster, galera doesn't work well with even numbers, so don't
   # schedule on the worker node
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: quicksync
-                operator: DoesNotExist
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #         - matchExpressions:
+  #             - key: quicksync
+  #               operator: DoesNotExist
 
   galera:
     enabled: true
