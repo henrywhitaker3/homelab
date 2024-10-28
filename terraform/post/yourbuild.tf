@@ -4,7 +4,7 @@ module "yourbuild" {
   name    = "yourbuild"
   buckets = ["yourbuild"]
 
-  acl       = "private"
+  acl = "private"
   permissions = [
     "s3:DeleteObject",
     "s3:GetObject",

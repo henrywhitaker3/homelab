@@ -9,7 +9,7 @@ resource "cloudflare_record" "records" {
 
   zone_id = data.cloudflare_zone.zone.zone_id
   name    = each.value.name
-  value   = each.value.value
+  content   = each.value.value
   type    = each.value.type
   proxied = each.value.proxied
 }
