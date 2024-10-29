@@ -1,6 +1,6 @@
 dependencies:
 - name: orderly-operator
   repository: oci://ghcr.io/orderly-queue
-  version: v0.1.3
-digest: sha256:26706049351866ab86032734f4df780a683576dfa70d28a17785b698b81d6912
-generated: "2024-10-29T20:23:24.087686798Z"
+  version: v0.1.4
+digest: sha256:922ea127923ded3b09e63e2aee9b51b25e5aeff523226967948d7ad5fa7fadfc
+generated: "2024-10-29T20:53:26.580528459Z"
