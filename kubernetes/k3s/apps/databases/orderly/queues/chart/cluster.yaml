@@ -17,8 +17,23 @@ spec:
     secretName: main-queue
     secretKey: jwt-secret
 
+  storage:
+    enabled: true
+    type: s3
+    s3:
+      endpoint: s3.plexmox.com
+      bucket: orderly
+      region: unraid
+      accessKeyId:
+        secretName: main-queue
+        secretKey: s3-access-key
+      secretAccessKey:
+        secretName: main-queue
+        secretKey: s3-secret-key
+
   snapshots:
-    enabled: false
+    enabled: true
+    schedule: "20 * * * *"
 
   ingress:
     enabled: true
