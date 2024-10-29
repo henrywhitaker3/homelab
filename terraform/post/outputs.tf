@@ -57,6 +57,14 @@ output "yourbuild_secret_access_key" {
   value     = module.yourbuild.secret_access_key
   sensitive = true
 }
+output "orderly_access_key_id" {
+  value     = module.orderly.access_key_id
+  sensitive = true
+}
+output "orderly_secret_access_key" {
+  value     = module.orderly.secret_access_key
+  sensitive = true
+}
 output "henry_access_key_id" {
   value     = minio_iam_service_account.henry.access_key
   sensitive = true
