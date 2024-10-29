@@ -35,7 +35,7 @@ spec:
 
   snapshots:
     enabled: true
-    schedule: "20 * * * *"
+    schedule: "30 * * * *"
 
   ingress:
     enabled: true
