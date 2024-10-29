@@ -2,8 +2,8 @@ apiVersion: orderly.io/v1beta1
 kind: Queue
 metadata:
   name: main
-  finalizers:
-    - orderly.io/finalizer
+  # finalizers:
+  #   - orderly.io/finalizer
 spec:
   image:
     repository: ghcr.io/orderly-queue/orderly
