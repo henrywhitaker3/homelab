@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: orderly-operator
-    version: "v0.1.9"
+    version: "v0.1.10"
     repository: oci://ghcr.io/orderly-queue
