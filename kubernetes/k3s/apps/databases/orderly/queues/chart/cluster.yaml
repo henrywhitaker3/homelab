@@ -19,7 +19,6 @@ spec:
 
   snapshots:
     enabled: false
-    type: s3
 
   ingress:
     enabled: true
