@@ -65,12 +65,12 @@ ingress:
     nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
 
   hosts:
-    - grafana2.plexmox.com
+    - grafana.plexmox.com
 
   tls:
-    - secretName: grafana2-plexmox-com-tls
+    - secretName: grafana-plexmox-com-tls
       hosts:
-        - grafana2.plexmox.com
+        - grafana.plexmox.com
 
 defaultDashboardsEditable: false
 
