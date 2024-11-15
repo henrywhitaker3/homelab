@@ -140,6 +140,7 @@ defaultRules:
 
 grafana:
   enabled: false
+  forceDeployDashboards: true
 
 prometheus:
   ingress:
