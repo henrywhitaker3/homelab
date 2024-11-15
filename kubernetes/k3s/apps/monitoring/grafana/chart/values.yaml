@@ -103,6 +103,14 @@ dashboardProviders:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/postgres
+      - name: victoria
+        orgId: 1
+        folder: Victoria
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/victoria
 
 dashboards:
   default:
@@ -175,15 +183,30 @@ dashboards:
       url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/query_statistics.json
       datasource: Prometheus
 
+  victoria:
+    victoria-single:
+      gnetId: 10229
+      revision: 37
+      datasource: Victoria
+    victoria-agent:
+      gnetId: 12683
+      revision: 21
+      datasource: Victoria
+
 additionalDataSources:
   - name: Prometheus
     orgId: 1
     access: proxy
     url: http://prometheus-operated.monitoring.svc.cluster.local:9090
     jsonData:
-      prometheusType: Thanos
+      prometheusType: Prometheus
       timeInterval: 1m
     isDefault: true
+  - name: Victoria
+    orgId: 1
+    url: http://vmsingle-metrics.monitoring.svc:8429
+    type: victoriametrics-datasource
+    access: proxy
   - name: Loki
     ordId: 1
     access: proxy
