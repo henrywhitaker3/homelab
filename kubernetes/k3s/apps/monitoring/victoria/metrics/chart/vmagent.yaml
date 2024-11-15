@@ -1,0 +1,24 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: metrics
+spec:
+  externalLabels:
+    cluster: k3s
+  extraArgs:
+    promscrape.streamParse: "true"
+  remoteWrite:
+    - url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
+  replicaCount: 1
+  scrapeInterval: 60s
+  selectAllByDefault: true
+  statefulMode: true
+  statefulStorage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn-no-backups
+        resources:
+          requests:
+            storage: 1Gi
+  useStrictSecurity: true
+  vmAgentExternalLabelName: prometheus
