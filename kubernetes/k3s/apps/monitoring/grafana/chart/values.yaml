@@ -210,6 +210,7 @@ datasources:
       - name: Victoria
         orgId: 1
         url: http://vmsingle-metrics.monitoring.svc:8429
+        type: prometheus
         jsonData:
           prometheusType: Prometheus
           timeInterval: 1m
