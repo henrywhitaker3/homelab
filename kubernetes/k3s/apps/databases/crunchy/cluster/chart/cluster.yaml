@@ -164,6 +164,7 @@ spec:
         repo1-retention-diff: "21"
         repo1-path: "/crunchy"
         repo1-s3-uri-style: path
+        repo1-bundle: "y"
       metadata:
         labels:
           app.kubernetes.io/name: crunchy-postgres-backup
