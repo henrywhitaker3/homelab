@@ -195,65 +195,68 @@ dashboards:
       revision: 21
       datasource: Victoria
 
-additionalDataSources:
-  - name: Prometheus
-    orgId: 1
-    access: proxy
-    url: http://prometheus-operated.monitoring.svc.cluster.local:9090
-    jsonData:
-      prometheusType: Prometheus
-      timeInterval: 1m
-    isDefault: true
-  - name: Victoria
-    orgId: 1
-    url: http://vmsingle-metrics.monitoring.svc:8429
-    type: victoriametrics-datasource
-    access: proxy
-  - name: Loki
-    ordId: 1
-    access: proxy
-    type: loki
-    url: http://loki-gateway
-    jsonData:
-      maxLines: 250
-      derivedFields:
-        - name: TraceID
-          datasourceUid: Tempo
-          matcherRegex: 'traceID":"(\w+)'
-          url: '$${__value.raw}'
-          urlDisplayLabel: 'View Trace'
-  - name: Tempo
-    orgId: 1
-    access: proxy
-    type: tempo
-    url: http://tempo.monitoring.svc:3100
-    jsonData:
-      tracesToLogsV2:
-        datasourceUid: Loki
-        tags: [{ key: "host.name", value: "pod" }]
-        spanStartTimeShift: '-15m'
-        filterByTraceID: true
-      tracesToMetrics:
-        datasourceUid: Prometheus
-        spanStartTimeShift: '-15m'
-        tags: [{ key: "host.name", value: "pod" }]
-        queries:
-          - name: CPU Usage
-            query: sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{$$__tags})
-          - name: Memory Usage
-            query: sum (container_memory_usage_bytes{$$__tags})
-          - name: Network Receive
-            query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
-          - name: Network Transmit
-            query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
-      tracesToProfiles:
-        datasourceUid: Pyroscope
-        tags:
-          - { key: "service.name", value: "service_name" }
-          - { key: "host.name", value: "pod" }
-        profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
-  - name: Pyroscope
-    orgId: 1
-    access: proxy
-    type: grafana-pyroscope-datasource
-    url: http://pyroscope.monitoring.svc:4040
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        orgId: 1
+        access: proxy
+        url: http://prometheus-operated.monitoring.svc.cluster.local:9090
+        jsonData:
+          prometheusType: Prometheus
+          timeInterval: 1m
+        isDefault: true
+      - name: Victoria
+        orgId: 1
+        url: http://vmsingle-metrics.monitoring.svc:8429
+        type: victoriametrics-datasource
+        access: proxy
+      - name: Loki
+        ordId: 1
+        access: proxy
+        type: loki
+        url: http://loki-gateway
+        jsonData:
+          maxLines: 250
+          derivedFields:
+            - name: TraceID
+              datasourceUid: Tempo
+              matcherRegex: 'traceID":"(\w+)'
+              url: '$${__value.raw}'
+              urlDisplayLabel: 'View Trace'
+      - name: Tempo
+        orgId: 1
+        access: proxy
+        type: tempo
+        url: http://tempo.monitoring.svc:3100
+        jsonData:
+          tracesToLogsV2:
+            datasourceUid: Loki
+            tags: [{ key: "host.name", value: "pod" }]
+            spanStartTimeShift: '-15m'
+            filterByTraceID: true
+          tracesToMetrics:
+            datasourceUid: Prometheus
+            spanStartTimeShift: '-15m'
+            tags: [{ key: "host.name", value: "pod" }]
+            queries:
+              - name: CPU Usage
+                query: sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{$$__tags})
+              - name: Memory Usage
+                query: sum (container_memory_usage_bytes{$$__tags})
+              - name: Network Receive
+                query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
+              - name: Network Transmit
+                query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
+          tracesToProfiles:
+            datasourceUid: Pyroscope
+            tags:
+              - { key: "service.name", value: "service_name" }
+              - { key: "host.name", value: "pod" }
+            profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
+      - name: Pyroscope
+        orgId: 1
+        access: proxy
+        type: grafana-pyroscope-datasource
+        url: http://pyroscope.monitoring.svc:4040
