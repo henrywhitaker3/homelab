@@ -210,7 +210,9 @@ datasources:
       - name: Victoria
         orgId: 1
         url: http://vmsingle-metrics.monitoring.svc:8429
-        type: victoriametrics-datasource
+        jsonData:
+          prometheusType: Prometheus
+          timeInterval: 1m
         access: proxy
       - name: Loki
         ordId: 1
