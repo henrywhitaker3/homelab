@@ -1,9 +1,14 @@
 createCRD: true
 
+admissionWebhooks:
+  enabled: true
+  certManager:
+    enabled: true
+
 operator:
-  psp_auto_creation_enabled: false
-rbac:
-  psp_enabled: false
+  prometheus_converter_add_argocd_ignore_annotations: true
+  useCustomConfigReloader: true
+
 resources:
   requests:
     cpu: 5m
