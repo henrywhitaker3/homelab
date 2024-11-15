@@ -1,0 +1,236 @@
+namespaceOverride: monitoring
+
+grafana:
+  enabled: true
+  replicas: 2
+
+  admin:
+    existingSecret: grafana-creds
+
+  env:
+    GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.plexmox.com/api/oidc/userinfo
+    GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.plexmox.com/api/oidc/authorization
+    GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+    GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.plexmox.com/api/oidc/token
+    GF_DATABASE_NAME: grafana
+    GF_DATABASE_HOST: maxscale.mariadb.svc:3306
+    GF_DATABASE_USER: grafana
+    GF_DATABASE_SSL_MODE: disable
+    GF_DATABASE_TYPE: mysql
+
+  envValueFrom:
+    GF_DATABASE_PASSWORD:
+      secretKeyRef:
+        name: grafana-creds
+        key: db_password
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+      secretKeyRef:
+        name: grafana-creds
+        key: client_secret
+
+  grafana.ini:
+    server:
+      root_url: https://grafana2.plexmox.com
+    feature_toggles:
+      enable: metricsSummary tempoServiceGraph traceToMetrics
+    auth:
+      auto_login: true
+    auth.basic:
+      enabled: true
+    auth.generic_oauth:
+      enabled: true
+      name: Authelia
+      icon: signin
+      scopes: openid profile email groups
+      empty_scopes: false
+      login_attribute_path: preferred_username
+      groups_attribute_path: groups
+      name_attribute_path: name
+      use_pkce: true
+    auth.generic_oauth.group_mapping:
+      org_id: 1
+      role_attribute_path: |
+        contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+
+  ingress:
+    enabled: true
+
+    ingressClassName: internal
+
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+      nginx.ingress.kubernetes.io/auth-method: 'GET'
+      nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
+      nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
+      nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+
+    hosts:
+      - grafana2.plexmox.com
+
+    tls:
+      - secretName: grafana2-plexmox-com-tls
+        hosts:
+          - grafana2.plexmox.com
+
+  defaultDashboardsEditable: false
+
+  sidecar:
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Kubernetes
+      folderAnnotation: grafana_folder
+      provider:
+        foldersFromFilesStructure: true
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: default
+          orgId: 1
+          folder: Custom
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/default
+        - name: postgres
+          orgId: 1
+          folder: Postgres
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/postgres
+
+  dashboards:
+    default:
+      haproxy:
+        gnetId: 12693
+        revision: 7
+        datasource: Prometheus
+      node_exporter:
+        gnetId: 1860
+        revision: 33
+        datasource: Prometheus
+      argocd:
+        gnetId: 14584
+        revision: 1
+        datasource: Prometheus
+      cert-manager:
+        gnetId: 11001
+        revision: 1
+        datasource: Prometheus
+      mysql-overview:
+        gnetId: 14057
+        revision: 1
+        datasource: Prometheus
+      golang:
+        gnetId: 14061
+        revision: 1
+        datasource: Prometheus
+      redis:
+        gnetId: 14091
+        revision: 1
+        datasource: Prometheus
+      alertmanager:
+        gnetId: 9578
+        revision: 4
+        datasource: Prometheus
+      process:
+        gnetId: 249
+        revision: 2
+        datasource: Prometheus
+      adguard:
+        gnetId: 20799
+        revision: 7
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
+      smarctl:
+        url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/main/dashboards/dist/smartctl.json
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
+      dragonfly:
+        url: https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/main/monitoring/grafana-dashboard.json
+        datasource:
+          - { name: DS_PROMETHEUS, value: Prometheus }
+    postgres:
+      pgbackrest:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json
+        datasource: Prometheus
+      podDetails:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pod_details.json
+        datasource: Prometheus
+      postgresDetails:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_details.json
+        datasource: Prometheus
+      postgresOverview:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_overview.json
+        datasource: Prometheus
+      postgresServiceHealth:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_service_health.json
+        datasource: Prometheus
+      queryStats:
+        url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/query_statistics.json
+        datasource: Prometheus
+
+  additionalDataSources:
+    - name: Prometheus
+      orgId: 1
+      access: proxy
+      url: http://prometheus-operated.monitoring.svc.cluster.local:9090
+      jsonData:
+        prometheusType: Thanos
+        timeInterval: 1m
+      isDefault: true
+    - name: Loki
+      ordId: 1
+      access: proxy
+      type: loki
+      url: http://loki-gateway
+      jsonData:
+        maxLines: 250
+        derivedFields:
+          - name: TraceID
+            datasourceUid: Tempo
+            matcherRegex: 'traceID":"(\w+)'
+            url: '$${__value.raw}'
+            urlDisplayLabel: 'View Trace'
+    - name: Tempo
+      orgId: 1
+      access: proxy
+      type: tempo
+      url: http://tempo.monitoring.svc:3100
+      jsonData:
+        tracesToLogsV2:
+          datasourceUid: Loki
+          tags: [{ key: "host.name", value: "pod" }]
+          spanStartTimeShift: '-15m'
+          filterByTraceID: true
+        tracesToMetrics:
+          datasourceUid: Prometheus
+          spanStartTimeShift: '-15m'
+          tags: [{ key: "host.name", value: "pod" }]
+          queries:
+            - name: CPU Usage
+              query: sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{$$__tags})
+            - name: Memory Usage
+              query: sum (container_memory_usage_bytes{$$__tags})
+            - name: Network Receive
+              query: sum(irate(container_network_receive_bytes_total{$$__tags}[1m]))
+            - name: Network Transmit
+              query: sum(irate(container_network_transmit_bytes_total{$$__tags}[1m]))
+        tracesToProfiles:
+          datasourceUid: Pyroscope
+          tags:
+            - { key: "service.name", value: "service_name" }
+            - { key: "host.name", value: "pod" }
+          profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
+    - name: Pyroscope
+      orgId: 1
+      access: proxy
+      type: grafana-pyroscope-datasource
+      url: http://pyroscope.monitoring.svc:4040
