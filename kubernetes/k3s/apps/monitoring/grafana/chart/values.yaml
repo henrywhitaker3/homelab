@@ -82,6 +82,8 @@ sidecar:
     folderAnnotation: grafana_folder
     provider:
       foldersFromFilesStructure: true
+  datasources:
+    enabled: true
 
 dashboardProviders:
   dashboardproviders.yaml:
