@@ -47,14 +47,14 @@ spec:
           annotations:
             summary: Longhorn Node {{ $labels.node }} unschedulable due to {{ $labels.condition_reason }}
         - alert: LonghornVolumeWriteLatencyAnomaly
-          expr: anomaly:longhorn_volume_write_latency_1d > 4
+          expr: anomaly:longhorn_volume_write_latency:7d > 4
           for: 10m
           labels:
             severity: warning
           annotations:
             summary: Write latency is > 3 standard deviations from expected on {{ $labels.pvc }}
         - alert: LonghornVolumeReadLatencyAnomaly
-          expr: anomaly:longhorn_volume_read_latency_1d > 4
+          expr: anomaly:longhorn_volume_read_latency:7d > 4
           for: 10m
           labels:
             severity: warning

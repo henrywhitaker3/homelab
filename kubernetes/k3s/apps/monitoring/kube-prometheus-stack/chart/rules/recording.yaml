@@ -4,98 +4,83 @@ metadata:
   name: recording-rules
 spec:
   groups:
-    - name: meta
-      rules:
-        - record: prometheus_high_cardinality_metrics_top_20
-          expr: label_replace(topk(20, count by(__name__, job) ({__name__=~".+"})),"name","$1","__name__", "(.+)")
-        - record: prometheus_bytes_per_sample
-          expr: sum by (pod) (rate(prometheus_tsdb_compaction_chunk_size_bytes_sum[1d])) / sum by (pod) (rate(prometheus_tsdb_compaction_chunk_samples_sum[1d]))
-        - record: seconds_in_a_day
-          expr: 24 * 60 * 60
-        - record: prometheus_storage_bytes_per_second
-          expr: |
-            (
-              sum by (pod) (rate(prometheus_tsdb_head_samples_appended_total[1d])) * sum by (pod) (prometheus_bytes_per_sample)
-            ) * 1.05 * 1.2
-        - record: prometheus_storage_size_estimate
-          expr: sum by (pod) (prometheus_tsdb_retention_limit_seconds) * prometheus_storage_bytes_per_second
     - name: anomalies
       rules:
-        - record: anomaly:longhorn_volume_write_latency_1d
+        - record: anomaly:longhorn_volume_write_latency:7d
           expr: |
             sum by (pvc) (
               (
                 avg_over_time(longhorn_volume_write_latency[5m])
                   -
-                avg_over_time(longhorn_volume_write_latency[5m] offset 23h57m30s)
+                avg_over_time(longhorn_volume_write_latency[5m] offset 6d23h57m30s)
               )
                 /
               (
-                stddev_over_time(longhorn_volume_write_latency[1d])
+                stddev_over_time(longhorn_volume_write_latency[7d])
               )
             )
-        - record: anomaly:longhorn_volume_read_latency_1d
+        - record: anomaly:longhorn_volume_read_latency:7d
           expr: |
             sum by (pvc) (
               (
                 avg_over_time(longhorn_volume_read_latency[5m])
                   -
-                avg_over_time(longhorn_volume_read_latency[5m] offset 23h57m30s)
+                avg_over_time(longhorn_volume_read_latency[5m] offset 6d23h57m30s)
               )
                 /
               (
-                stddev_over_time(longhorn_volume_read_latency[1d])
+                stddev_over_time(longhorn_volume_read_latency[7d])
               )
             )
-        - record: anomaly:node_cpu_seconds_idle_1d
+        - record: anomaly:node_cpu_seconds_idle:7d
           expr: |
             sum by (instance) (
               (
                 rate(node_cpu_seconds_total{mode="idle"}[3m])
                   -
-                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 23h58m30s)
+                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 6d23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_cpu_seconds_total{mode="idle"}[1d])
+                stddev_over_time(node_cpu_seconds_total{mode="idle"}[7d])
               )
             )
-        - record: anomaly:node_network_receive_bytes_1d
+        - record: anomaly:node_network_receive_bytes:7d
           expr: |
             sum by (instance) (
               (
                 rate(node_network_receive_bytes_total[3m])
                   -
-                rate(node_network_receive_bytes_total[3m] offset 23h58m30s)
+                rate(node_network_receive_bytes_total[3m] offset 6d23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_network_receive_bytes_total[1d])
+                stddev_over_time(node_network_receive_bytes_total[7d])
               )
             )
-        - record: anomaly:node_network_transmit_bytes_1d
+        - record: anomaly:node_network_transmit_bytes:7d
           expr: |
             sum by (instance) (
               (
                 rate(node_network_transmit_bytes_total[3m])
                   -
-                rate(node_network_transmit_bytes_total[3m] offset 23h58m30s)
+                rate(node_network_transmit_bytes_total[3m] offset 6d23h58m30s)
               )
                 /
               (
-                stddev_over_time(node_network_transmit_bytes_total[1d])
+                stddev_over_time(node_network_transmit_bytes_total[7d])
               )
             )
-        - record: anomaly:node_load5_1d
+        - record: anomaly:node_load5:7d
           expr: |
             sum by (instance) (
               (
                 avg_over_time(node_load5[5m])
                   -
-                avg_over_time(node_load5[5m] offset 23h57m30s)
+                avg_over_time(node_load5[5m] offset 6d23h57m30s)
               )
                 /
               (
-                stddev_over_time(node_load5[1d])
+                stddev_over_time(node_load5[7d])
               )
             )
