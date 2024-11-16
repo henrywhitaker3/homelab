@@ -28,7 +28,7 @@ envValueFrom:
 
 grafana.ini:
   server:
-    root_url: https://grafana2.plexmox.com
+    root_url: https://grafana.plexmox.com
   feature_toggles:
     enable: metricsSummary tempoServiceGraph traceToMetrics
   auth:
