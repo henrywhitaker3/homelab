@@ -7,7 +7,7 @@ spec:
     repository: victoriametrics/vmalert
     tag: v1.106.0
   datasource:
-    url: http://vmsingle-metrics.observability.svc:8429
+    url: http://vmsingle-metrics.monitoring.svc:8429
   evaluationInterval: 1m
   externalLabels:
     cluster: k3s
