@@ -1,4 +1,0 @@
-type: REDIS
-config:
-  addr: dragonfly.dragonfly.svc:6379
-  db: 9
