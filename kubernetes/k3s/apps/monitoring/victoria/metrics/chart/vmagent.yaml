@@ -10,6 +10,13 @@ spec:
   remoteWrite:
     - url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
   replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 1Gi
   scrapeInterval: 60s
   selectAllByDefault: true
   statefulMode: true
