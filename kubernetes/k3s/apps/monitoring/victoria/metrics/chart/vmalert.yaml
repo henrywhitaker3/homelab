@@ -1,0 +1,23 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: metrics
+spec:
+  image:
+    repository: victoriametrics/vmalert
+    tag: v1.107.0
+  datasource:
+    url: http://vmsingle-metrics.observability.svc:8429
+  evaluationInterval: 1m
+  externalLabels:
+    cluster: k3s
+  extraArgs:
+    external.url: https://victoria.plexmox.com
+  notifiers:
+    - url: http://alertmanager-operated.monitoring.svc:9093
+  remoteRead:
+    url: http://vmsingle-metrics.monitoring.svc:8429
+  remoteWrite:
+    url: http://vmagent-metrics.monitoring.svc:8429
+  replicaCount: 1
+  selectAllByDefault: true
