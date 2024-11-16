@@ -202,19 +202,11 @@ datasources:
       - name: Prometheus
         orgId: 1
         access: proxy
-        url: http://prometheus-operated.monitoring.svc.cluster.local:9090
+        url: http://vmsingle-metrics.monitoring.svc:8429
         jsonData:
           prometheusType: Prometheus
           timeInterval: 1m
         isDefault: true
-      - name: Victoria
-        orgId: 1
-        url: http://vmsingle-metrics.monitoring.svc:8429
-        type: prometheus
-        jsonData:
-          prometheusType: Prometheus
-          timeInterval: 1m
-        access: proxy
       - name: Loki
         ordId: 1
         access: proxy
