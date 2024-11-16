@@ -3,7 +3,7 @@ prompage:
     datasources:
       - name: prometheus
         type: prometheus
-        url: http://vmsingle-metrics.monitoring.svc:8428
+        url: http://vmsingle-metrics.monitoring.svc:8429
 
     refresh: 1m
 
