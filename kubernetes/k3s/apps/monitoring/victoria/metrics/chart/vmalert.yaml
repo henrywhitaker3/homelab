@@ -5,7 +5,7 @@ metadata:
 spec:
   image:
     repository: victoriametrics/vmalert
-    tag: v1.107.0
+    tag: v1.106.0
   datasource:
     url: http://vmsingle-metrics.observability.svc:8429
   evaluationInterval: 1m
