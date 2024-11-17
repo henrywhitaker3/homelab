@@ -158,8 +158,7 @@ dashboards:
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
     keepalived:
-      gnetId: 18270
-      revision: 1
+      url: https://raw.githubusercontent.com/mehdy/keepalived-exporter/refs/heads/master/grafana/dashboards/keepalived-exporter.json
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
     smarctl:
