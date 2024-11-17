@@ -12,7 +12,9 @@ data:
         rules:
           - record: systemd_logs_count
             expr: |
-              sum by (unit, host, detected_level) (count_over_time({service_name="systemd-journal"}[30s]))
+              sum(
+              count_over_time({service_name="systemd-journal"} [30s])
+            ) by (unit, host, detected_level)
   srep-api.yaml: |
     groups:
       - name: api
