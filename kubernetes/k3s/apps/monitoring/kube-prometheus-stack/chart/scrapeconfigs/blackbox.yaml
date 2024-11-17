@@ -9,6 +9,10 @@ spec:
         - https://plex.plexmox.com
         - https://overseerr.plexmox.com
         - https://auth.plexmox.com
+        # - https://victoria.plexmox.com
+        # - https://grafana.plexmox.com
+        - https://yourbuild.dev
+        - https://api.yourbuild.dev/auth/login
   metricsPath: /probe
   params:
     module: [http_2xx]

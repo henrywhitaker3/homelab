@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: minio
+spec:
+  groups:
+    - name: external
+      rules:
+        - alert: PlexDown
+          expr: probe_http_status_code{instance="https://plex.plexmox.com"} != 401
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Plex might be down...
+        - alert: OrganizrDown
+          expr: probe_http_status_code{instance="https://plexmox.com"} != 200
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Organizr might be down...
+        - alert: OverseerrDown
+          expr: probe_http_status_code{instance="https://overseerr.plexmox.com"} != 200
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Overseerr might be down...
+        - alert: YourbuildUIDown
+          expr: probe_http_status_code{instance="https://yourbuild.dev"} != 200
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Yourbuild UI might be down...
+        - alert: YourbuildAPIDown
+          expr: probe_http_status_code{instance="https://api.yourbuild.dev/auth/login"} != 405
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Yourbuild API might be down...
