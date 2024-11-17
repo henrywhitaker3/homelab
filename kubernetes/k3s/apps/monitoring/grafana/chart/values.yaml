@@ -157,6 +157,11 @@ dashboards:
       revision: 7
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
+    keepalived:
+      gnetId: 18270
+      revision: 1
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
     smarctl:
       url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/main/dashboards/dist/smartctl.json
       datasource:
