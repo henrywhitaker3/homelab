@@ -67,10 +67,6 @@ loki:
       remote_write:
         enabled: true
         clients:
-          prom-0:
-            url: http://prometheus-kube-stack-prometheus-0.prometheus-operated:9090/api/v1/write
-          prom-1:
-            url: http://prometheus-kube-stack-prometheus-1.prometheus-operated:9090/api/v1/write
           victoria:
             url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
 
