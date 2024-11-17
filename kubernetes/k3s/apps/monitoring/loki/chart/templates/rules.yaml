@@ -13,5 +13,5 @@ data:
           - record: systemd_logs_count
             expr: |
               sum(
-              count_over_time({service_name="systemd-journal"} [30s])
-            ) by (unit, host, detected_level)
+                count_over_time({service_name="systemd-journal"} [30s])
+              ) by (unit, host, detected_level)
