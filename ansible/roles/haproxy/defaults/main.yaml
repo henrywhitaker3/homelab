@@ -1,7 +1,7 @@
 ---
 haproxy_become: true
 
-haproxy_version: 2.8
+haproxy_version: 2.9
 haproxy_install_state: latest
 
 haproxy_config_dir: /etc/haproxy
