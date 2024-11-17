@@ -70,10 +70,6 @@ loki:
           victoria:
             url: http://vmagent-metrics.monitoring.svc:8429/api/v1/write
 
-    sidecar:
-      rules:
-        folder: /rules/fake
-
     compactor:
       compaction_interval: 10m
       retention_enabled: true
@@ -92,6 +88,12 @@ loki:
             period: 24h
           chunks:
             period: 24h
+
+  sidecar:
+    rules:
+      enabled: true
+      labelValue: "true"
+      folder: /rules/fake
 
   read:
     replicas: 0

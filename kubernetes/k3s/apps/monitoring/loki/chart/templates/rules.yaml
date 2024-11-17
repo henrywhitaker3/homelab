@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: loki-rules
   labels:
-    loki_rule: ""
+    loki_rule: "true"
 data:
   loki-metrics.yaml: |
     groups:
