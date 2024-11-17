@@ -84,3 +84,16 @@ spec:
                 stddev_over_time(node_load5[7d])
               )
             )
+        - record: anomaly:systemd_logs_count:1d
+          expr: |
+            sum by (host, unit) (
+              (
+                rate(systemd_logs_count[5m])
+                  -
+                avg_over_time(systemd_logs_count[5m] offset 23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(systemd_logs_count[1d])
+              )
+            )
