@@ -19,5 +19,5 @@ spec:
     url: http://vmsingle-metrics.monitoring.svc:8429
   remoteWrite:
     url: http://vmagent-metrics.monitoring.svc:8429
-  replicaCount: 1
+  replicaCount: 2
   selectAllByDefault: true
