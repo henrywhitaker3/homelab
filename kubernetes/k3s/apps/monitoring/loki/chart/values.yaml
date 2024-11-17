@@ -68,7 +68,11 @@ loki:
         enabled: true
         clients:
           victoria:
-            url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
+            url: http://vmagent-metrics.monitoring.svc:8429/api/v1/write
+
+    sidecar:
+      rules:
+        folder: /rules/fake
 
     compactor:
       compaction_interval: 10m
@@ -104,12 +108,7 @@ loki:
     extraVolumes:
       - name: scratch
         emptyDir: {}
-      - name: rules-cm
-        configMap:
-          name: loki-rules
     extraVolumeMounts:
-      - name: rules-cm
-        mountPath: /rules/fake/
       - name: scratch
         mountPath: /tmp/scratch
 
