@@ -5,7 +5,7 @@ metadata:
   labels:
     loki_rule: ""
 data:
-  sytemd.yaml: |
+  systemd.yaml: |
     groups:
       - name: systemd
         interval: 30s
