@@ -5,6 +5,14 @@ metadata:
   labels:
     loki_rule: ""
 data:
+  sytemd.yaml: |
+    groups:
+      - name: systemd
+        interval: 30s
+        rules:
+          - record: systemd_logs_count
+            expr: |
+              sum by (unit, host, detected_level) (count_over_time({service_name="systemd-journal"}[30s]))
   srep-api.yaml: |
     groups:
       - name: api
