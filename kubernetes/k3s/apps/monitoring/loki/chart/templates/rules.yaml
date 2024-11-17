@@ -5,7 +5,7 @@ metadata:
   labels:
     loki_rule: ""
 data:
-  systemd.yaml: |
+  loki-metrics.yaml: |
     groups:
       - name: systemd
         interval: 30s
@@ -15,23 +15,3 @@ data:
               sum(
               count_over_time({service_name="systemd-journal"} [30s])
             ) by (unit, host, detected_level)
-  srep-api.yaml: |
-    groups:
-      - name: api
-        interval: 30s
-        rules:
-          - record: srep_api_error_log_count
-            expr: |
-              sum (
-                count_over_time({job="srep/srep-api-chart"} != `latency_human` | json | level = `error` | __error__=`` [30s])
-              ) by (type, msg, caller)
-  srep-ui.yaml: |
-    groups:
-      - name: ui
-        interval: 30s
-        rules:
-          - record: srep_ui_requests_total_count
-            expr: |
-              sum(
-                count_over_time({app="srep-ui-chart"} |= `` | pattern `<_> - - <_> "<method> <url> <_>" <status> <size> <_> "<agent>" "<ip>"` [30s])
-              ) by(job, status, url, method, container, pod, instance)
