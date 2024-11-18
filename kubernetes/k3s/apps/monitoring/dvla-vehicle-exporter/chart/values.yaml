@@ -9,6 +9,10 @@ generic:
     pullPolicy: Always
     tag: v1.0.2
 
+  entrypoint:
+    command: [/dvla-vehicle-exporter]
+    args: [run]
+
   service:
     port: 9876
 
