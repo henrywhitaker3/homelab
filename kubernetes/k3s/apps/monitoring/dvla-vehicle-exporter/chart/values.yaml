@@ -1,0 +1,23 @@
+generic:
+  nameOverride: dvla-vehicle-exporter
+  fullnameOverride: dvla-vehicle-exporter
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/henrywhitaker3/dvla-vehicle-exporter
+    pullPolicy: Always
+    tag: v1.0.2
+
+  service:
+    port: 9876
+
+  probes:
+    enabled: false
+
+  secrets:
+    enabled: true
+    key: dvla-vehicle-exporter
+
+  metrics:
+    enabled: true
