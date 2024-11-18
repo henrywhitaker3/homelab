@@ -4,6 +4,29 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: dvla
+      rules:
+        - alert: VehicleTaxExpired
+          expr: dvla_vehicle_details_tax_status < 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The tax for {{ $labels.reg }} has expired
+        - alert: VehicleMotExpired
+          expr: dvla_vehicle_details_mot_status < 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The tax for {{ $labels.reg }} has expired
+        - alert: VehicleTaxExpiring
+          expr: dvla_vehicle_details_tax_expiry_seconds < 604800
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The tax for {{ $labels.reg }} is expiring in less than a week
     - name: adguard
       rules:
         - alert: AdguardScrapeError
