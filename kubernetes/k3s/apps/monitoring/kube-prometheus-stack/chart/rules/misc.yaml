@@ -27,6 +27,13 @@ spec:
             severity: critical
           annotations:
             summary: The tax for {{ $labels.reg }} is expiring in less than a week
+        - alert: VehicleMotExpiring
+          expr: dvla_vehicle_details_mot_expiry_seconds < 604800
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The MOT for {{ $labels.reg }} is expiring in less than a week
     - name: adguard
       rules:
         - alert: AdguardScrapeError
