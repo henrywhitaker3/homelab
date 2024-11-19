@@ -26,3 +26,12 @@ variable "adguard_user" {
 variable "adguard_password" {
   type = string
 }
+
+variable "cloudflare_account_id" {
+  type = string
+}
+
+variable "cloudflare_api_token" {
+  type      = string
+  sensitive = true
+}

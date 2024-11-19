@@ -9,6 +9,14 @@ terraform {
       source  = "gmichels/adguard"
       version = "1.3.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "4.46.0"
+    }
+    random = {
+      source = "hashicorp/random"
+      version = "3.6.3"
+    }
   }
 
   backend "http" {
@@ -38,4 +46,8 @@ provider "adguard" {
   password = var.adguard_password
   scheme   = "http"
   timeout  = 5
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

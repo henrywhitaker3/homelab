@@ -1,75 +1,23 @@
-output "loki_access_key_id" {
-  value     = module.loki.access_key_id
-  sensitive = true
-}
-output "loki_secret_access_key" {
-  value     = module.loki.secret_access_key
-  sensitive = true
-}
-
-output "dragonfly_access_key_id" {
-  value     = module.dragonfly.access_key_id
-  sensitive = true
-}
-output "dragonfly_secret_access_key" {
-  value     = module.dragonfly.secret_access_key
+output "access_key_ids" {
+  value = merge(
+    {
+      for key, value in local.minio_tokens : format("minio:%s", key) => minio_iam_service_account.svc_account[key].access_key
+    },
+    {
+      for key, value in local.r2_tokens : format("r2:%s", key) => cloudflare_api_token.this[key].id
+    }
+  )
   sensitive = true
 }
 
-# output "thanos_access_key_id" {
-#   value     = module.thanos.access_key_id
-#   sensitive = true
-# }
-# output "thanos_secret_access_key" {
-#   value     = module.thanos.secret_access_key
-#   sensitive = true
-# }
-
-output "tempo_access_key_id" {
-  value     = module.tempo.access_key_id
-  sensitive = true
-}
-output "tempo_secret_access_key" {
-  value     = module.tempo.secret_access_key
-  sensitive = true
-}
-output "pyroscope_access_key_id" {
-  value     = module.pyroscope.access_key_id
-  sensitive = true
-}
-output "pyroscope_secret_access_key" {
-  value     = module.pyroscope.secret_access_key
-  sensitive = true
-}
-output "mariadb_access_key_id" {
-  value     = module.mariadb.access_key_id
-  sensitive = true
-}
-output "mariadb_secret_access_key" {
-  value     = module.mariadb.secret_access_key
-  sensitive = true
-}
-output "yourbuild_access_key_id" {
-  value     = module.yourbuild.access_key_id
-  sensitive = true
-}
-output "yourbuild_secret_access_key" {
-  value     = module.yourbuild.secret_access_key
-  sensitive = true
-}
-output "orderly_access_key_id" {
-  value     = module.orderly.access_key_id
-  sensitive = true
-}
-output "orderly_secret_access_key" {
-  value     = module.orderly.secret_access_key
-  sensitive = true
-}
-output "henry_access_key_id" {
-  value     = minio_iam_service_account.henry.access_key
-  sensitive = true
-}
-output "henry_secret_access_key" {
-  value     = minio_iam_service_account.henry.secret_key
+output "secret_access_keys" {
+  value = merge(
+    {
+      for key, value in local.minio_tokens : format("minio:%s", key) => minio_iam_service_account.svc_account[key].secret_key
+    },
+    {
+      for key, value in local.r2_tokens : format("r2:%s", key) => sha256(cloudflare_api_token.this[key].value)
+    }
+  )
   sensitive = true
 }
