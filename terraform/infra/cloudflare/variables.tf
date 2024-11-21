@@ -4,13 +4,13 @@ variable "zone" {
 }
 
 variable "records" {
-  type = list(object({
+  type = map(object({
     name    = string
     value   = string
     type    = string
     proxied = optional(bool, true)
   }))
-  default = []
+  default = {}
 }
 
 variable "geo_block" {

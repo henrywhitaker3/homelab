@@ -3,9 +3,7 @@ data "cloudflare_zone" "zone" {
 }
 
 resource "cloudflare_record" "records" {
-  for_each = {
-    for value in var.records : value.name => value
-  }
+  for_each = var.records
 
   zone_id = data.cloudflare_zone.zone.zone_id
   name    = each.value.name
