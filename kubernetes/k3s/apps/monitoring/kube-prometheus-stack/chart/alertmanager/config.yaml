@@ -17,22 +17,11 @@ route:
       group_interval: 1s
       repeat_interval: 1m
 
-    - receiver: pagerduty_heartbeat
-      matchers:
-        - alertname=~"Watchdog"
-      group_wait: 0s
-      group_interval: 1s
-      repeat_interval: 1m
-
     - receiver: discord_no_resolve
       matchers:
         - severity="critical"
         - autoresolve="false"
     - receiver: discord
-      matchers:
-        - severity="critical"
-
-    - receiver: pagerduty
       matchers:
         - severity="critical"
 
@@ -81,8 +70,5 @@ receivers:
     discord_configs:
       - webhook_url: "{{ .discord }}"
         send_resolved: true
-  - name: pagerduty
-    pagerduty_configs:
-      - service_key: "{{ .pagerduty_service_key }}"
 templates:
   - /etc/alertmanager/config/*.tmpl
