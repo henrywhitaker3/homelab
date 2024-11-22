@@ -29,6 +29,24 @@ locals {
       name = "Homelab"
       type = "alertmanager"
     }
+    cronitor = {
+      name = "Cronitor"
+      type = "webhook"
+      templates = {
+        grouping_key   = "{{ payload.id }}"
+        resolve_signal = "{{ payload.get(\"type\", \"\") == \"Recovery\" }}"
+        web = {
+          title   = "Cronitor - {{ payload.monitor }}"
+          message = "{{ payload.issue }}\\n{{ payload.description }}"
+        }
+        sms = {
+          title = "Cronitor - {{ payload.monitor }}"
+        }
+        phone_call = {
+          title = "Cronitor - {{ payload.monitor }}"
+        }
+      }
+    }
   }
 
   oncall_escalation_chains = {
@@ -130,6 +148,38 @@ resource "grafana_oncall_integration" "this" {
   type = each.value.type
 
   default_route {}
+
+  dynamic "templates" {
+    for_each = lookup(each.value, "templates", null) != null ? { main = each.value.templates } : {}
+
+    content {
+      grouping_key   = lookup(templates.value, "grouping_key", null)
+      resolve_signal = lookup(templates.value, "resolve_signal", null)
+
+      dynamic "web" {
+        for_each = lookup(templates.value, "web", null) != null ? { main = templates.value.web } : {}
+
+        content {
+          title   = lookup(web.value, "title", null)
+          message = lookup(web.value, "message", null)
+        }
+      }
+      dynamic "sms" {
+        for_each = lookup(templates.value, "sms", null) != null ? { main = templates.value.sms } : {}
+
+        content {
+          title = lookup(sms.value, "title", null)
+        }
+      }
+      dynamic "phone_call" {
+        for_each = lookup(templates.value, "phone_call", null) != null ? { main = templates.value.phone_call } : {}
+
+        content {
+          title = lookup(phone_call.value, "title", null)
+        }
+      }
+    }
+  }
 }
 
 resource "grafana_oncall_escalation_chain" "this" {
