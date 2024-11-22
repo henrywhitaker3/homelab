@@ -13,9 +13,11 @@ route:
     - receiver: grafana_cloud
       matchers:
         - severity="critical"
+      continue: true
     - receiver: grafana_cloud
       matchers:
         - severity="warning"
+      continue: true
 
     - receiver: heartbeat
       matchers:
@@ -23,12 +25,14 @@ route:
       group_wait: 0s
       group_interval: 1s
       repeat_interval: 1m
+      continue: true
     - receiver: cronitor
       matchers:
         - alertname=~"Watchdog"
       group_wait: 0s
       group_interval: 1s
       repeat_interval: 1m
+      continue: true
 
     - receiver: discord_no_resolve
       matchers:
