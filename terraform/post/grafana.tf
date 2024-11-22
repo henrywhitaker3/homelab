@@ -37,7 +37,7 @@ locals {
         resolve_signal = "{{ payload.get(\"type\", \"\") == \"Recovery\" }}"
         web = {
           title   = "Cronitor - {{ payload.monitor }}"
-          message = "{{ payload.issue }}\\n{{ payload.description }}"
+          message = "{{ payload.issue }}\n{{ payload.description }}"
         }
         sms = {
           title = "Cronitor - {{ payload.monitor }}"
