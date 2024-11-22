@@ -13,6 +13,13 @@ spec:
             severity: warning
           annotations:
             summary: PVE local-lvm disk filling on {{ $labels.id }}
+        - alert: PVENodeDown
+          expr: sum by (id) (pve_node_info) < 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Proxmox node {{ $labels.id }} is down
     - name: vms
       rules:
         - alert: VMDown
