@@ -10,7 +10,18 @@ route:
     - alertname
 
   routes:
+    - receiver: grafana_cloud
+      matchers:
+        - severity="critical""
+
     - receiver: heartbeat
+      matchers:
+        - alertname=~"Watchdog"
+      group_wait: 0s
+      group_interval: 1s
+      repeat_interval: 1m
+
+    - receiver: grafana_cloud
       matchers:
         - alertname=~"Watchdog"
       group_wait: 0s
@@ -73,5 +84,6 @@ receivers:
   - name: grafana_cloud
     webhook_configs:
       - url: "{{ .grafana_oncall }}"
+        send_resolved: true
 templates:
   - /etc/alertmanager/config/*.tmpl
