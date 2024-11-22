@@ -1,0 +1,13 @@
+logs:
+  server:
+    image:
+      repository: victoriametrics/victoria-logs
+      tag: v1.0.0-victorialogs
+
+    # Retention in months
+    retentionPeriod: 1
+
+    persistentVolume:
+      enabled: true
+      storageClassName: longhorn-no-backups
+      size: 15Gi
