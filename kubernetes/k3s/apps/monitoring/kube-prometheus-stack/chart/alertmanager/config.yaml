@@ -23,6 +23,12 @@ route:
       group_wait: 0s
       group_interval: 1s
       repeat_interval: 1m
+    - receiver: cronitor
+      matchers:
+        - alertname=~"Watchdog"
+      group_wait: 0s
+      group_interval: 1s
+      repeat_interval: 1m
 
     - receiver: discord_no_resolve
       matchers:
@@ -64,7 +70,7 @@ receivers:
   - name: "null"
   - name: heartbeat
     webhook_configs:
-      - url: "{{ .heartbeat }}"
+      - url: "{{ .healthchecks_heartbeat }}"
   - name: discord_warn
     discord_configs:
       - webhook_url: "{{ .discord_warn }}"
@@ -80,6 +86,10 @@ receivers:
   - name: grafana_cloud
     webhook_configs:
       - url: "{{ .grafana_oncall }}"
+        send_resolved: true
+  - name: cronitor
+    webhook_configs:
+      - url: "{{ .cronitor_heartbeat }}"
         send_resolved: true
 templates:
   - /etc/alertmanager/config/*.tmpl
