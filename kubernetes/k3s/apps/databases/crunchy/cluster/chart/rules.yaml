@@ -10,7 +10,7 @@ spec:
           expr: sum(kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0
           for: 0m
           labels:
-            severity: critical
+            severity: warning
           annotations:
             summary: A backup job failed for the crunchy cluster
 

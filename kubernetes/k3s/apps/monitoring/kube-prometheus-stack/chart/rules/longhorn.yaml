@@ -10,7 +10,7 @@ spec:
           expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
           for: 0m
           labels:
-            severity: critical
+            severity: warning
           annotations:
             summary: Backup {{ $labels.backup }} failed for {{ $labels.volume }}
         - alert: LonghornVolumeFillingUp

@@ -4,15 +4,6 @@ metadata:
   name: misc
 spec:
   groups:
-    - name: demo
-      rules:
-        - alert: YetAnotherFakeAlert
-          expr: vector(1) > 0
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: Demo alert to test grafana on-call
     - name: cert-manager
       rules:
         - alert: CertManagerCertExpiring21Days
@@ -74,16 +65,16 @@ spec:
       rules:
         - alert: LokiClusterCountMismatch
           expr: loki_memberlist_client_cluster_members_count < on() group_left kube_statefulset_replicas{statefulset="loki"}
-          for: 5m
+          for: 10m
           labels:
             severity: critical
           annotations:
-            summary: Loki cluster count is less than the desired replicas for 5 mins
+            summary: Loki cluster count is less than the desired replicas for 10 mins
         - alert: LokiMetricsWriteFailed
           expr: increase (loki_ruler_wal_prometheus_remote_storage_samples_failed_total[1m]) > 0
           for: 1m
           labels:
-            severity: critical
+            severity: warning
           annotations:
             summary: Loki failed to write metrics to prometheus
     - name: k8s
@@ -98,7 +89,7 @@ spec:
       rules:
         - alert: HaproxyServerNotUp
           expr: haproxy_server_status{state!="UP"} > 0
-          for: 3m
+          for: 10m
           labels:
             severity: critical
           annotations:
