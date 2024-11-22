@@ -49,6 +49,8 @@ grafana.ini:
     org_id: 1
     role_attribute_path: |
       contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+  plugins:
+    allow_loading_unsigned_plugins: "victoriametrics-datasource,victorialogs-datasource"
 
 plugins:
   - https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource
