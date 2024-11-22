@@ -28,3 +28,6 @@ logs:
       enabled: true
       storageClassName: longhorn-no-backups
       size: 15Gi
+
+    serviceMonitor:
+      enabled: true
