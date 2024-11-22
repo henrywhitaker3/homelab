@@ -6,7 +6,7 @@ spec:
   groups:
     - name: demo
       rules:
-        - alert: AnotherFakeAlert
+        - alert: YetAnotherFakeAlert
           expr: vector(1) > 0
           for: 0m
           labels:
