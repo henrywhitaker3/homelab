@@ -4,6 +4,15 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: demo
+      rules:
+        - alert: FakeAlert
+          expr: vector(1) > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Demo alert to test grafana on-call
     - name: cert-manager
       rules:
         - alert: CertManagerCertExpiring21Days
