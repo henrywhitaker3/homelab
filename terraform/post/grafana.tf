@@ -9,7 +9,9 @@ locals {
       type          = "rolling_users"
       start         = "2024-11-18T00:00:00"
       duration      = 60 * 60 * 24
-      frequency     = "daily"
+      by_day = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+      frequency     = "weekly"
+      week_start    = "MO"
       interval      = 1
       rolling_users = ["henry"]
     }
@@ -103,7 +105,7 @@ locals {
     cronitor_critical = {
       integration_key      = "cronitor"
       escalation_chain_key = "critical"
-      query                = "{{ payload.type == \"Alert\" }}"
+      query                = "{{ payload.type in [\"Alert\", \"Recovery\"] }}"
       type                 = "jinja2"
       position             = 0
     }
@@ -133,12 +135,15 @@ resource "grafana_oncall_on_call_shift" "this" {
   for_each = local.oncall_shifts
   provider = grafana.oncall
 
-  name      = each.value.name
-  type      = each.value.type
-  start     = each.value.start
-  frequency = each.value.frequency
-  interval  = each.value.interval
-  duration  = each.value.duration
+  name                           = each.value.name
+  type                           = each.value.type
+  start                          = each.value.start
+  frequency                      = each.value.frequency
+  interval                       = each.value.interval
+  duration                       = each.value.duration
+  week_start                     = lookup(each.value, "week_start", null)
+  by_day = lookup(each.value, "by_day", null)
+  start_rotation_from_user_index = each.value.type == "rolling_users" ? 0 : null
   rolling_users = [
     [for user in lookup(each.value, "rolling_users", []) : data.grafana_oncall_user.this[user].id]
   ]
