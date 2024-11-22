@@ -52,7 +52,7 @@ grafana.ini:
 
 plugins:
   - https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource
-  - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.10.3/victorialogs-datasource-v0.10.3.zip;victorialogs-datasource
+  - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.8.0/victorialogs-datasource-v0.8.0.zip;victorialogs-datasource
 
 ingress:
   enabled: true
