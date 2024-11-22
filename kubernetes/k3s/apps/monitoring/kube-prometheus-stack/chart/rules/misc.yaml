@@ -7,7 +7,7 @@ spec:
     - name: demo
       rules:
         - alert: FakeAlert
-          expr: vector(1) > 0
+          expr: vector(1) > 2
           for: 1m
           labels:
             severity: critical
