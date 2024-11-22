@@ -66,6 +66,7 @@ locals {
     "harbor.plexmox.com",
     "orderly.henrywhitaker.com",
     "victoria.plexmox.com",
+    "victoria-logs.plexmox.com",
   ]
 
   upstream_dns = [

@@ -4,6 +4,23 @@ logs:
       repository: victoriametrics/victoria-logs
       tag: v1.0.0-victorialogs
 
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        kubernetes.io/tls-acme: "true"
+      ingressClassName: internal
+      hosts:
+        - name: victoria-logs.plexmox.com
+          path:
+            - /select
+            - /insert
+          port: http
+      tls:
+        - secretName: victoria-logs-plexmox-com-tls
+          hosts:
+            - victoria-logs.plexmox.com
+
     # Retention in months
     retentionPeriod: 1
 

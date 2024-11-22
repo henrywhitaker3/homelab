@@ -17,6 +17,9 @@ promtail_clients:
   - url: https://loki.plexmox.com/loki/api/v1/push
     external_labels:
       host: "{{ inventory_hostname }}"
+  - url: https://victoria-logs.plexmox.com/insert/loki/api/v1/push?_stream_fields=instance,job,host,app
+    external_labels:
+      host: "{{ inventory_hostname }}"
 
 promtail_default_scrape_configs:
   - job_name: messages
