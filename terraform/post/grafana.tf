@@ -100,6 +100,13 @@ locals {
       type                 = "jinja2"
       position             = 1
     }
+    cronitor_critical = {
+      integration_key      = "cronitor"
+      escalation_chain_key = "critical"
+      query                = "{{ payload.type == \"Alert\" }}"
+      type                 = "jinja2"
+      position             = 0
+    }
   }
 }
 
