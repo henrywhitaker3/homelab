@@ -21,13 +21,6 @@ route:
       group_interval: 1s
       repeat_interval: 1m
 
-    - receiver: grafana_cloud
-      matchers:
-        - alertname=~"Watchdog"
-      group_wait: 0s
-      group_interval: 1s
-      repeat_interval: 1m
-
     - receiver: discord_no_resolve
       matchers:
         - severity="critical"
