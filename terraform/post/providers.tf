@@ -17,6 +17,10 @@ terraform {
       source  = "hashicorp/random"
       version = "3.6.3"
     }
+    grafana = {
+      source  = "grafana/grafana"
+      version = "3.13.2"
+    }
   }
 
   backend "http" {
@@ -50,4 +54,10 @@ provider "adguard" {
 
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
+}
+
+provider "grafana" {
+  alias               = "oncall"
+  oncall_url          = var.grafana_oncall_url
+  oncall_access_token = var.grafana_oncall_token
 }

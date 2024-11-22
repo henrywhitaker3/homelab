@@ -35,3 +35,13 @@ variable "cloudflare_api_token" {
   type      = string
   sensitive = true
 }
+
+variable "grafana_oncall_url" {
+  type    = string
+  default = "https://oncall-prod-eu-west-0.grafana.net/oncall"
+}
+
+variable "grafana_oncall_token" {
+  type      = string
+  sensitive = true
+}
