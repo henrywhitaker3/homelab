@@ -204,6 +204,10 @@ dashboards:
       gnetId: 12683
       revision: 21
       datasource: Victoria
+    victoria-logs:
+      gnetId: 22084
+      revision: 3
+      datasource: Victoria
 
 datasources:
   datasources.yaml:
