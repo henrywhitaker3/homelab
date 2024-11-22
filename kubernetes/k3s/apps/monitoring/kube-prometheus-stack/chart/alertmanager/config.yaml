@@ -70,5 +70,8 @@ receivers:
     discord_configs:
       - webhook_url: "{{ .discord }}"
         send_resolved: true
+  - name: grafana_cloud
+    webhook_configs:
+      - url: "{{ .grafana_oncall }}"
 templates:
   - /etc/alertmanager/config/*.tmpl
