@@ -215,6 +215,14 @@ datasources:
           prometheusType: Prometheus
           timeInterval: 1m
         isDefault: true
+      - name: VictoriaMetrics
+        type: victoriametrics-datasource
+        access: proxy
+        url: http://vmsingle-metrics.monitoring.svc:8428
+      - name: VictoriaLogs
+        type: victorialogs-datasource
+        access: proxy
+        url: http://logs-server.monitoring.svc:9428
       - name: Loki
         ordId: 1
         access: proxy
