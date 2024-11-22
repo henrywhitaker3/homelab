@@ -13,6 +13,9 @@ route:
     - receiver: grafana_cloud
       matchers:
         - severity="critical"
+    - receiver: grafana_cloud
+      matchers:
+        - severity="warning"
 
     - receiver: heartbeat
       matchers:
