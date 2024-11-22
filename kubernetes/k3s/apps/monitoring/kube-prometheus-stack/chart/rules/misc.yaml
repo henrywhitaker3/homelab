@@ -4,6 +4,22 @@ metadata:
   name: misc
 spec:
   groups:
+    - name: cert-manager
+      rules:
+        - alert: CertManagerCertExpiring21Days
+          expr: |
+            sum by (name, exported_namespace) (certmanager_certificate_expiration_timestamp_seconds - time()) < (60 * 60 * 24 * 21)
+          labels:
+            severity: warning
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 21 days
+        - alert: CertManagerCertExpiring7Days
+          expr: |
+            sum by (name, exported_namespace) (certmanager_certificate_expiration_timestamp_seconds - time()) < (60 * 60 * 24 * 7)
+          labels:
+            severity: critical
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 7 days
     - name: dvla
       rules:
         - alert: VehicleTaxExpired
