@@ -5,7 +5,7 @@ metadata:
 spec:
   image:
     repository: victoriametrics/victoria-metrics
-    tag: v1.107.0
+    tag: v1.106.0
   extraArgs:
     dedup.minScrapeInterval: 15s
     # maxLabelsPerTimeseries: "40"
