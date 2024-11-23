@@ -64,3 +64,10 @@ spec:
             severity: warning
           annotations:
             summary: Network Received on {{ $labels.instance }} is > 3 standard deviations from expected for 5 mins
+        - alert: SystemdLogsAnomaly
+          expr: anomaly:systemd_logs_count:1d > 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Systemd logs count on {{ $labels.host }}/{{ $labels.unit }} is > 3 standard deviations from expected for 5 mins
