@@ -1,9 +1,11 @@
 ---
 - name: Generate hosts list
+  tags: hosts
   ansible.builtin.set_fact:
     hosts_render: "{{ lookup('template', 'templates/hosts') }}"
 
 - name: Check if cloud-init is managing hosts file
+  tags: hosts
   become: "{{ hosts_become }}"
   ansible.builtin.shell: set -o pipefail && cat /etc/cloud/cloud.cfg | grep update_etc_hosts
   register: hosts_cloud_init
@@ -11,10 +13,12 @@
   failed_when: false
 
 - name: Set hosts file
+  tags: hosts
   ansible.builtin.set_fact:
     hosts_hosts_file: "{{ '/etc/cloud/templates/hosts.debian.tmpl' if hosts_cloud_init.rc == 0 else '/etc/hosts' }}"
 
 - name: Add list to {{ hosts_hosts_file }}
+  tags: hosts
   become: "{{ hosts_become }}"
   ansible.builtin.blockinfile:
     path: "{{ hosts_hosts_file }}"
@@ -22,6 +26,7 @@
   register: hosts_updated_file
 
 - name: Reboot if updating cloud-init hosts
+  tags: hosts
   become: "{{ hosts_become }}"
   throttle: 1
   ansible.builtin.debug:
