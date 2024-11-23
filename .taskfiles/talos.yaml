@@ -52,7 +52,7 @@ tasks:
       - task: .apply
         vars:
           args: --extra-flags=--insecure
-      - sleep 60
+      - sleep 120
       - talhelper gencommand bootstrap | bash
 
   reapply:

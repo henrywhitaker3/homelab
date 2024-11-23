@@ -1,3 +1,3 @@
-providerRegex: ^(talos-control-1|talos-control-2|talos-control-3)$
+providerRegex: (mango-control-1|mango-control-2|mango-control-3)
 bypassDnsResolution: true
 bypassHostnameCheck: true

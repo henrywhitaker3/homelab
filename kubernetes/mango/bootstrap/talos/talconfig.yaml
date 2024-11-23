@@ -23,8 +23,9 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/intel-ucode
             - siderolabs/i915-ucode
+            - siderolabs/intel-ucode
+            - siderolabs/qemu-guest-agent
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
     installDisk: "/dev/sda"
