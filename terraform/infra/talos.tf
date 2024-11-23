@@ -66,7 +66,7 @@ resource "proxmox_storage_iso" "talos" {
 resource "proxmox_vm_qemu" "talos" {
   for_each = local.computed_talos_vms
 
-  name     = each.value.name
+  name = each.value.name
   vmid = each.value.id
 
   target_node = "proxmox-0${each.value.node}"
@@ -151,7 +151,7 @@ locals {
       for key, value in local.talos_clusters : [
         for n_key, n_value in value.nodes : {
           name        = format("%s-%s", lookup(value, "name", key), n_value.name)
-          id = n_value.id
+          id          = n_value.id
           node        = n_value.node
           cores       = n_value.cores
           memory      = n_value.memory

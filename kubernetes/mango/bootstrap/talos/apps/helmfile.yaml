@@ -1,8 +1,10 @@
 repositories:
   - name: postfinance
     url: https://postfinance.github.io/kubelet-csr-approver
-  - name: longhorn
-    url: https://charts.longhorn.io
+  - name: cilium
+    url: https://helm.cilium.io
+  - name: coredns
+    url: https://coredns.github.io/helm
 
 helmDefaults:
   wait: true
@@ -16,9 +18,14 @@ releases:
     namespace: kube-system
     chart: postfinance/kubelet-csr-approver
     version: 1.2.3
-    values: ["./kubelet-csr-approver-values.yaml"]
-  - name: longhorn
-    namespace: longhorn-system
-    chart: longhorn/longhorn
-    version: 1.7.2
-    values: ["../../../apps/storage/longhorn/chart/values.yaml"]
+    values: ["../../../apps/system/kubelet-csr-approver/chart/values.yaml"]
+  - name: coredns
+    namespace: kube-system
+    chart: coredns/coredns
+    version: "1.36.1"
+    values: ["../../../apps/networking/coredns/chart/values.yaml"]
+  - name: cilium
+    namespace: kube-system
+    chart: cilium/cilium
+    version: 1.16.4
+    values: ["../../../apps/networking/cilium/chart/values.yaml"]

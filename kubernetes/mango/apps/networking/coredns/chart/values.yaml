@@ -1,0 +1,90 @@
+fullnameOverride: coredns
+k8sAppLabelOverride: kube-dns
+
+service:
+  name: kube-dns
+  clusterIP: 10.43.0.10
+
+prometheus:
+  service:
+    enabled: true
+  monitor:
+    enabled: true
+
+servers:
+  - zones:
+      - zone: lab
+        scheme: dns://
+        use_tcp: true
+      - zone: plexmox.com
+        scheme: dns://
+        use_tcp: true
+    port: 53
+    plugins:
+      - name: log
+      - name: errors
+      - name: health
+        configBlock:
+          lameduck 5s
+      - name: ready
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . 10.0.0.2 10.0.0.3
+      - name: reload
+      - name: cache
+        parameters: 30
+  - zones:
+      - zone: .
+        scheme: dns://
+        use_tcp: true
+    port: 53
+    plugins:
+      - name: log
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      - name: kubernetes
+        parameters: cluster.local in-addr.arpa ip6.arpa
+        configBlock: |-
+          pods insecure
+          fallthrough in-addr.arpa ip6.arpa
+          ttl 30
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . /etc/resolv.conf
+      - name: cache
+        parameters: 30
+      - name: loop
+      - name: reload
+      - name: loadbalance
+
+replicaCount: 3
+
+affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule
+  - key: node-role.kubernetes.io/master
+    operator: Exists
+    effect: NoSchedule
+
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/instance: coredns

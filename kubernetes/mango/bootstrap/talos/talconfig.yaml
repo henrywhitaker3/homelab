@@ -14,7 +14,7 @@ additionalApiServerCertSans: &sans
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 cniConfig:
-  name: flannel
+  name: none
 
 nodes:
   - hostname: "mango-control-1"
@@ -23,9 +23,8 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/i915-ucode
             - siderolabs/intel-ucode
-            - siderolabs/qemu-guest-agent
+            - siderolabs/i915-ucode
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
     installDisk: "/dev/sda"
@@ -172,8 +171,10 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
+        coreDNS:
+          disabled: true
         proxy:
-          disabled: false
+          disabled: true
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
