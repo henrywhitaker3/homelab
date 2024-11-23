@@ -20,7 +20,7 @@ spec:
             summary: Galera cluster size is not equal to the number of replicas
         - alert: GaleraBackupFailed
           expr: |
-            sum(kube_job_status_failed{namespace="mariadb", job_name=~"mariabackup.*"}) > 0
+            kube_job_failed{namespace="mariadb", job_name=~"mariabackup.*"} > 0
           for: 0m
           labels:
             severity: warning
