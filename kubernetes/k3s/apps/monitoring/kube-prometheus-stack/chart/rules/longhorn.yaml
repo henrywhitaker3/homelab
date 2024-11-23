@@ -8,7 +8,7 @@ spec:
       rules:
         - alert: LonghornBackupFailed
           expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
-          for: 0m
+          for: 10m
           labels:
             severity: warning
           annotations:
@@ -27,35 +27,35 @@ spec:
             summary: Volume {{ $labels.pvc }} is using > 90% of capactiy
         - alert: LonghornVolumeStatusCritical
           expr: longhorn_volume_robustness == 3
-          for: 0m
+          for: 10m
           annotations:
             summary: Longhorn volume {{$labels.volume}} has faulted
           labels:
             severity: critical
         - alert: LonghornVolumeStatusWarning
           expr: longhorn_volume_robustness == 2
-          for: 5m
+          for: 15m
           labels:
             severity: warning
           annotations:
             summary: Longhorn volume {{$labels.volume}} is Degraded
         - alert: LonghornNodeNotSchedulable
           expr: longhorn_node_status{condition="schedulable"} != 1
-          for: 5m
+          for: 15m
           labels:
             severity: warning
           annotations:
             summary: Longhorn Node {{ $labels.node }} unschedulable due to {{ $labels.condition_reason }}
         - alert: LonghornVolumeWriteLatencyAnomaly
           expr: anomaly:longhorn_volume_write_latency:7d > 4
-          for: 10m
+          for: 15m
           labels:
             severity: warning
           annotations:
             summary: Write latency is > 3 standard deviations from expected on {{ $labels.pvc }}
         - alert: LonghornVolumeReadLatencyAnomaly
           expr: anomaly:longhorn_volume_read_latency:7d > 4
-          for: 10m
+          for: 15m
           labels:
             severity: warning
           annotations:

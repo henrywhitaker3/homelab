@@ -7,7 +7,7 @@ spec:
     - name: postgres
       rules:
         - alert: CrunchyBackupFailed
-          expr: sum(kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0
+          expr: sum by (cluster, job_name) (kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0 and sum by (cluster, job_name) (kube_job_status_succeeded{namespace="crunchy", job_name=~"crunchy-.*"}) < 1
           for: 0m
           labels:
             severity: warning
