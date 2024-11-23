@@ -7,8 +7,8 @@ locals {
     default = {
       name          = "Default"
       type          = "rolling_users"
-      start         = "2024-11-18T00:00:00"
-      duration      = 60 * 60 * 24
+      start         = "2024-11-18T08:00:00"
+      duration      = 60 * 60 * 16
       by_day = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
       frequency     = "weekly"
       week_start    = "MO"
