@@ -13,18 +13,18 @@ resource "proxmox_vm_qemu" "vm" {
   clone = var.iso == "" ? "${var.image}-node-${var.nodes[data.external.node_index[count.index].result.index]}" : null
   # iso   = var.iso == "" ? null : var.iso
 
-  agent                   = 1
-  os_type                 = "cloud-init"
-  cores                   = var.cores
-  sockets                 = "1"
-  cpu                     = "host"
-  memory                  = var.memory
-  onboot                  = true
-  scsihw                  = "virtio-scsi-pci"
-  qemu_os                 = "other"
-  additional_wait         = 0
-  clone_wait              = 0
-  vm_state                = "running"
+  agent           = 1
+  os_type         = "cloud-init"
+  cores           = var.cores
+  sockets         = "1"
+  cpu             = "host"
+  memory          = var.memory
+  onboot          = true
+  scsihw          = "virtio-scsi-pci"
+  qemu_os         = "other"
+  additional_wait = 0
+  clone_wait      = 0
+  vm_state        = "running"
 
   disks {
     ide {
@@ -58,4 +58,6 @@ resource "proxmox_vm_qemu" "vm" {
   # Cloud Init Settings
   ipconfig0  = "ip=${local.info[count.index].ip}/${local.cidrBlock},gw=${var.gateway}"
   nameserver = var.nameserver
+  ciuser     = var.user
+  sshkeys    = join("\n", var.ssh_keys)
 }

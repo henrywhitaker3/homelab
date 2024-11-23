@@ -18,7 +18,7 @@ module "lb" {
   instances = 2
 
   name      = "lb"
-  image     = local.ubuntu_22_04
+  image     = local.ubuntu_24_04
   ips       = ["10.0.0.4", "10.0.0.5"]
   memory    = 512
   disk_size = "8G"
@@ -32,7 +32,7 @@ module "vpn" {
   instances = 2
 
   name      = "vpn"
-  image     = local.ubuntu_22_04
+  image     = local.ubuntu_24_04
   ips       = ["10.0.0.11", "10.0.0.12"]
   memory    = 512
   disk_size = "8G"
