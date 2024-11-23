@@ -128,7 +128,7 @@ resource "grafana_oncall_schedule" "this" {
   shifts = [
     for shift in lookup(each.value, "shifts", []) : grafana_oncall_on_call_shift.this[shift].id
   ]
-  enable_web_overrides = lookup(each.value, "enabled_web_overrides", false)
+  enable_web_overrides = lookup(each.value, "enable_web_overrides", false)
 }
 
 resource "grafana_oncall_on_call_shift" "this" {
