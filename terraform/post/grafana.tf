@@ -1,6 +1,7 @@
 locals {
   oncall_users = {
     henry = "henrywhitaker3"
+    none  = "noneuser"
   }
 
   oncall_shifts = {
@@ -9,11 +10,22 @@ locals {
       type          = "rolling_users"
       start         = "2024-11-18T08:00:00"
       duration      = 60 * 60 * 16
-      by_day = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+      by_day        = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
       frequency     = "weekly"
       week_start    = "MO"
       interval      = 1
       rolling_users = ["henry"]
+    }
+    none = {
+      name          = "None"
+      type          = "rolling_users"
+      start         = "2024-11-18T00:00:00"
+      duration      = (60 * 60 * 8)
+      by_day        = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+      frequency     = "weekly"
+      week_start    = "MO"
+      interval      = 1
+      rolling_users = ["none"]
     }
   }
 
@@ -22,7 +34,7 @@ locals {
       name                 = "Default"
       type                 = "calendar"
       enable_web_overrides = true
-      shifts               = ["default"]
+      shifts               = ["default", "none"]
     }
   }
 
@@ -142,7 +154,7 @@ resource "grafana_oncall_on_call_shift" "this" {
   interval                       = each.value.interval
   duration                       = each.value.duration
   week_start                     = lookup(each.value, "week_start", null)
-  by_day = lookup(each.value, "by_day", null)
+  by_day                         = lookup(each.value, "by_day", null)
   start_rotation_from_user_index = each.value.type == "rolling_users" ? 0 : null
   rolling_users = [
     [for user in lookup(each.value, "rolling_users", []) : data.grafana_oncall_user.this[user].id]
