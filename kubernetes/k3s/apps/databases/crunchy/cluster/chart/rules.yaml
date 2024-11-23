@@ -7,12 +7,12 @@ spec:
     - name: postgres
       rules:
         - alert: CrunchyBackupFailed
-          expr: sum by (cluster, job_name) (kube_job_status_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0 and sum by (cluster, job_name) (kube_job_status_succeeded{namespace="crunchy", job_name=~"crunchy-.*"}) < 1
+          expr: sum by (job_name) (kube_job_failed{namespace="crunchy", job_name=~"crunchy-.*"}) > 0
           for: 0m
           labels:
             severity: warning
           annotations:
-            summary: A backup job failed for the crunchy cluster
+            summary: Backup job {{ $labels.job_name }} failed for the crunchy cluster
 
         - alert: PGExporterScrapeError
           expr: pg_exporter_last_scrape_error > 0
