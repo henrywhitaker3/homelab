@@ -66,6 +66,13 @@ spec:
             severity: warning
           annotations:
             summary: The MOT for {{ $labels.reg }} is expiring in less than 30 days
+        - alert: VehicleDetailsScrapeErrors
+          expr: sum by (reg) (dvla_vehicle_details_collection_errors_count) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: There were errors getting vehicle details for {{ $labels.reg }}
     - name: adguard
       rules:
         - alert: AdguardScrapeError
