@@ -45,3 +45,13 @@ variable "grafana_oncall_token" {
   type      = string
   sensitive = true
 }
+
+variable "grafana_sm_url" {
+  type    = string
+  default = "https://synthetic-monitoring-api-eu-west-2.grafana.net"
+}
+
+variable "grafana_sm_access_token" {
+  type      = string
+  sensitive = true
+}

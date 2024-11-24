@@ -122,17 +122,17 @@ locals {
       position             = 0
     }
   }
+
+  synthetic_tests = {}
 }
 
 data "grafana_oncall_user" "this" {
   for_each = local.oncall_users
-  provider = grafana.oncall
   username = each.value
 }
 
 resource "grafana_oncall_schedule" "this" {
   for_each = local.oncall_schedules
-  provider = grafana.oncall
 
   name      = each.value.name
   type      = each.value.type
@@ -145,7 +145,6 @@ resource "grafana_oncall_schedule" "this" {
 
 resource "grafana_oncall_on_call_shift" "this" {
   for_each = local.oncall_shifts
-  provider = grafana.oncall
 
   name                           = each.value.name
   type                           = each.value.type
@@ -166,7 +165,6 @@ resource "grafana_oncall_on_call_shift" "this" {
 
 resource "grafana_oncall_integration" "this" {
   for_each = local.oncall_intergations
-  provider = grafana.oncall
 
   name = each.value.name
   type = each.value.type
@@ -208,14 +206,12 @@ resource "grafana_oncall_integration" "this" {
 
 resource "grafana_oncall_escalation_chain" "this" {
   for_each = local.oncall_escalation_chains
-  provider = grafana.oncall
 
   name = each.value.name
 }
 
 resource "grafana_oncall_escalation" "this" {
   for_each = local.oncall_escalations
-  provider = grafana.oncall
 
   escalation_chain_id          = grafana_oncall_escalation_chain.this[each.value.chain_key].id
   type                         = each.value.type
@@ -227,11 +223,42 @@ resource "grafana_oncall_escalation" "this" {
 
 resource "grafana_oncall_route" "this" {
   for_each = local.oncall_routes
-  provider = grafana.oncall
 
   integration_id      = grafana_oncall_integration.this[each.value.integration_key].id
   escalation_chain_id = grafana_oncall_escalation_chain.this[each.value.escalation_chain_key].id
   routing_regex       = each.value.query
   routing_type        = lookup(each.value, "type", "regex")
   position            = each.value.position
+}
+
+data "grafana_synthetic_monitoring_probes" "this" {}
+
+resource "grafana_synthetic_monitoring_check" "this" {
+  for_each = local.synthetic_tests
+
+  job               = each.value.name
+  probes            = each.value.probes
+  target            = each.value.target
+  frequency         = each.value.frequency
+  alert_sensitivity = lookup(each.value, "priority", null)
+  enabled           = lookup(each.value, "enabled", true)
+
+  settings {
+    dynamic "http" {
+      for_each = lookup(each.value.settings, "http", null) != null ? { main = each.value.settings.http } : {}
+      content {
+        method              = lookup(http.value, "method", null)
+        valid_status_codes  = lookup(http.value, "valid_status_codes", null)
+        no_follow_redirects = !lookup(http.value, "follow_redirects", true)
+
+        dynamic "fail_if_header_not_matches_regexp" {
+          for_each = lookup(http.value, "match_headers", {})
+          content {
+            header = fail_if_header_not_matches_regexp.value.name
+            regexp = fail_if_header_not_matches_regexp.value.regex
+          }
+        }
+      }
+    }
+  }
 }

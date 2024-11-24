@@ -57,7 +57,8 @@ provider "cloudflare" {
 }
 
 provider "grafana" {
-  alias               = "oncall"
   oncall_url          = var.grafana_oncall_url
   oncall_access_token = var.grafana_oncall_token
+  sm_url              = var.grafana_sm_url
+  sm_access_token     = var.grafana_sm_access_token
 }
