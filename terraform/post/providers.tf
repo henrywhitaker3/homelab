@@ -23,7 +23,7 @@ terraform {
     }
     cronitor = {
       source  = "henrywhitaker3/cronitor"
-      version = "1.1.7"
+      version = "1.2.1"
     }
   }
 

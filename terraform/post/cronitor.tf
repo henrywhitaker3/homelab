@@ -12,6 +12,9 @@ locals {
         "eu-west-1",
         "eu-central-1",
       ]
+      notify = [
+        cronitor_notification_list.this["grafana"].key,
+      ]
     }
     status = {
       name     = "Status Page"
@@ -25,16 +28,32 @@ locals {
         "eu-west-1",
         "eu-central-1",
       ]
+      notify = [
+        cronitor_notification_list.this["grafana"].key,
+      ]
     }
   }
 
   cronitor_heartbeat_monitors = {
     alertmanager = {
-      name     = "Alertmanager"
-      schedule = "* * * * *"
-      grace_seconds = 10
+      name               = "Alertmanager"
+      schedule           = "* * * * *"
+      grace_seconds      = 10
       schedule_tolerance = 2
-      timezone = "UTC"
+      timezone           = "UTC"
+      notify = [
+        cronitor_notification_list.this["grafana"].key,
+      ]
+    }
+  }
+
+  cronitor_notification_lists = {
+    grafana = {
+      name = "Grafana"
+      webhooks = [
+        "grafana-oncall",
+        # sensitive(grafana_oncall_integration.this["cronitor"].link),
+      ]
     }
   }
 }
@@ -81,4 +100,15 @@ resource "cronitor_heartbeat_monitor" "this" {
   environments       = lookup(each.value, "environments", null)
   tags               = lookup(each.value, "tags", null)
   timezone           = lookup(each.value, "timezone", null)
+}
+
+resource "cronitor_notification_list" "this" {
+  for_each = local.cronitor_notification_lists
+
+  name      = each.value.name
+  emails    = lookup(each.value, "emails", null)
+  slack     = lookup(each.value, "slack", null)
+  pagerduty = lookup(each.value, "pagerduty", null)
+  phones    = lookup(each.value, "phones", null)
+  webhooks  = lookup(each.value, "webhooks", null)
 }
