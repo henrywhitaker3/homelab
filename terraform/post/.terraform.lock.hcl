@@ -137,3 +137,26 @@ provider "registry.terraform.io/hashicorp/random" {
     "zh:eff58323099f1bd9a0bec7cb04f717e7f1b2774c7d612bf7581797e1622613a0",
   ]
 }
+
+provider "registry.terraform.io/henrywhitaker3/cronitor" {
+  version     = "1.1.7"
+  constraints = "1.1.7"
+  hashes = [
+    "h1:U4tm4HXKYzUfgTzlAzg/1IrL6wSrSVFc1riG/F7lPM0=",
+    "zh:111d5a1ea920b039919ca1075e41e47d4feece59d172f2c4c13300b434569cbf",
+    "zh:19a1c096bee258e95264d16b664aa348185fa989ba685db865b09bc9e175c3ed",
+    "zh:268688958b1a1a4246f9b3bd49a85bdf8bd5a614a734c5067277f4d9c312b102",
+    "zh:327368fe1914a3acede9f9495827e2a6ae264d4ee016110fdb1839c5b02048b1",
+    "zh:3798a606af505a8559e44ccd4aa31973fb0ead1a97a5e35268ec2238d508d9eb",
+    "zh:3f7d06aefdddd92c41ad7b8ee9203eac52ca7d6a103f12460422ee071e149003",
+    "zh:447a4d39c99dcd0681de1aac28d679fa135e805d796a0dca283de0a0779d49f7",
+    "zh:4d09304dd55bb06c130b6bcc56f1e49a4b4753dcab207f1aab1b6b941c792f4b",
+    "zh:597fcc4eb50971f589f02a3d2ba8dfeaefa3530497d472e5df79e29de7a42485",
+    "zh:5d9c6fbbe80e07e8facf2cacb22534b5b9fcf40a101d607af6d21e64b48342cb",
+    "zh:7d5bb8423e9ebd983e2d77155f7853f3dd25fdeed8e895a26c8f7c8d46f16738",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:8b8bd5c7b8d43d154f4986d67d0f0a75dd6e1b9cb5b254c18a3b9356cf98ccd6",
+    "zh:c4e97edfaf4fb7bc41d429b84b12627f86ae91a0a2d75114003f2d8c01e99309",
+    "zh:f63516e8964b5ed427d85ddebfd53ae6b36313fe5f47257774ef7735ebbd47c7",
+  ]
+}

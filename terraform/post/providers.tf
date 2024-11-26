@@ -21,6 +21,10 @@ terraform {
       source  = "grafana/grafana"
       version = "3.13.2"
     }
+    cronitor = {
+      source  = "henrywhitaker3/cronitor"
+      version = "1.1.7"
+    }
   }
 
   backend "http" {
@@ -61,4 +65,8 @@ provider "grafana" {
   oncall_access_token = var.grafana_oncall_token
   sm_url              = var.grafana_sm_url
   sm_access_token     = var.grafana_sm_access_token
+}
+
+provider "cronitor" {
+  api_key = var.cronitor_api_key
 }

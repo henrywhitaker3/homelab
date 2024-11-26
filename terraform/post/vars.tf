@@ -55,3 +55,8 @@ variable "grafana_sm_access_token" {
   type      = string
   sensitive = true
 }
+
+variable "cronitor_api_key" {
+  type      = string
+  sensitive = true
+}
