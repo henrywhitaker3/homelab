@@ -43,13 +43,41 @@ locals {
       name = "Homelab"
       type = "alertmanager"
     }
+    healthchecks = {
+      name = "Healthchecks.io"
+      type = "webhook"
+      templates = {
+        grouping_key   = "{{ payload.check.uuid }}"
+        resolve_signal = "{{ payload.status == \"up\" }}"
+        source_link    = "https://healthchecks.io/checks/{{ payload.check.uuid }}/details"
+        web = {
+          title   = "Healthchecks - {{ payload.check.name }}"
+          message = "Healthchecks.io check {{ payload.check.name }} is {{ payload.status }}"
+        }
+        mobile_app = {
+          title   = "Healthchecks - {{ payload.check.name }}"
+          message = "Healthchecks.io check {{ payload.check.name }} is {{ payload.status }}"
+        }
+        sms = {
+          title = "Healthchecks - {{ payload.check.name }}"
+        }
+        phone_call = {
+          title = "Healthchecks - {{ payload.check.name }}"
+        }
+      }
+    }
     cronitor = {
       name = "Cronitor"
       type = "webhook"
       templates = {
         grouping_key   = "{{ payload.id }}"
         resolve_signal = "{{ payload.get(\"type\", \"\") == \"Recovery\" }}"
+        source_link    = "{{ payload.issue_url }}"
         web = {
+          title   = "Cronitor - {{ payload.monitor }}"
+          message = "{{ payload.issue }}\n{{ payload.description }}"
+        }
+        mobile_app = {
           title   = "Cronitor - {{ payload.monitor }}"
           message = "{{ payload.issue }}\n{{ payload.description }}"
         }
@@ -121,6 +149,20 @@ locals {
       type                 = "jinja2"
       position             = 0
     }
+    healthchecks_warning = {
+      integration_key      = "healthchecks"
+      escalation_chain_key = "warning"
+      query                = "{{ \"warning\" in payload.check.tags }}"
+      type                 = "jinja2"
+      position             = 0
+    }
+    healthchecks_critical = {
+      integration_key      = "healthchecks"
+      escalation_chain_key = "critical"
+      query                = "{{ \"critical\" in payload.check.tags }}"
+      type                 = "jinja2"
+      position             = 1
+    }
   }
 
   synthetic_tests = {}
@@ -177,6 +219,7 @@ resource "grafana_oncall_integration" "this" {
     content {
       grouping_key   = lookup(templates.value, "grouping_key", null)
       resolve_signal = lookup(templates.value, "resolve_signal", null)
+      source_link    = lookup(templates.value, "source_link", null)
 
       dynamic "web" {
         for_each = lookup(templates.value, "web", null) != null ? { main = templates.value.web } : {}
@@ -198,6 +241,13 @@ resource "grafana_oncall_integration" "this" {
 
         content {
           title = lookup(phone_call.value, "title", null)
+        }
+      }
+      dynamic "mobile_app" {
+        for_each = lookup(templates.value, "mobile_app", null) != null ? { main = templates.value.mobile_app } : {}
+        content {
+          title   = lookup(mobile_app.value, "title", null)
+          message = lookup(mobile_app.value, "message", null)
         }
       }
     }

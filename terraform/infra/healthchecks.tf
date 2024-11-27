@@ -1,160 +1,121 @@
-data "healthchecksio_channel" "email" {
-  kind = "email"
-}
-
 data "healthchecksio_channel" "discord" {
   kind = "discord"
 }
 
-resource "healthchecksio_check" "speedtest" {
-  name = "Speedtest"
-
-  grace   = 300 # seconds
-  timeout = 14400
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
+data "healthchecksio_channel" "webhook" {
+  kind = "webhook"
 }
 
-resource "healthchecksio_check" "jump_k8s_lan" {
-  name = "K8s Jump server lan access"
-  desc = "Checks the k8s jump server has access to home lan"
+locals {
+  healthchecks_channels = ["discord", "webhook"]
 
-  tags = [
-    "vpn"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-    data.healthchecksio_channel.email.id,
-  ]
+  healthchecks_checks = {
+    speedtest = {
+      name     = "Speedtest"
+      grace    = 300
+      timeout  = 14400
+      channels = ["discord", "webhook"]
+      tags     = ["warning"]
+    }
+    jump_k8s_lan = {
+      name     = "K8s Jump server lan access"
+      desc     = "Checks the k8s jump server has access to home lan"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "vpn"]
+    }
+    vpn_1 = {
+      name     = "VPN 1"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "vpn"]
+    }
+    vpn_2 = {
+      name     = "VPN 2"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "vpn"]
+    }
+    lb_1 = {
+      name     = "LB 1"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["warning", "lb"]
+    }
+    lb_2 = {
+      name     = "LB 2"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["warning", "lb"]
+    }
+    k3s_control_1 = {
+      name     = "k3s-control-1"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "k3s"]
+    }
+    k3s_control_2 = {
+      name     = "k3s-control-2"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "k3s"]
+    }
+    k3s_control_3 = {
+      name     = "k3s-control-3"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "k3s"]
+    }
+    k3s_dedi_1 = {
+      name     = "k3s-dedi-1"
+      grace    = 120
+      schedule = "* * * * *"
+      timezone = "UTC"
+      channels = ["discord", "webhook"]
+      tags     = ["critical", "k3s"]
+    }
+    alertmanager = {
+      name     = "Alertmanager"
+      grace    = 120
+      timeout  = 60
+      channels = ["discord", "webhook"]
+      tags     = ["critical"]
+    }
+  }
 }
 
-resource "healthchecksio_check" "vpn_1" {
-  name = "VPN 1"
-  desc = "Checks the vpn interface is up"
-
-  tags = [
-    "vpn"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-    data.healthchecksio_channel.email.id,
-  ]
+data "healthchecksio_channel" "this" {
+  for_each = toset(local.healthchecks_channels)
+  kind     = each.value
 }
 
-resource "healthchecksio_check" "vpn_2" {
-  name = "VPN 2"
-  desc = "Checks the vpn interface is up"
+resource "healthchecksio_check" "this" {
+  for_each = local.healthchecks_checks
 
-  tags = [
-    "vpn"
+  name     = each.value.name
+  desc     = lookup(each.value, "desc", null)
+  grace    = lookup(each.value, "grace", null)
+  timeout  = lookup(each.value, "timeout", null)
+  schedule = lookup(each.value, "schedule", null)
+  timezone = lookup(each.value, "timezone", null)
+  channels = lookup(each.value, "channels", null) == null ? null : [
+    for key in each.value.channels : data.healthchecksio_channel.this[key].id
   ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-    data.healthchecksio_channel.email.id,
-  ]
-}
-
-resource "healthchecksio_check" "lb_1" {
-  name = "LB 1"
-  desc = "Checks the lb host is up"
-
-  tags = [
-    "vpn"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
-resource "healthchecksio_check" "lb_2" {
-  name = "LB 2"
-  desc = "Checks the lb host is up"
-
-  tags = [
-    "vpn"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
-resource "healthchecksio_check" "k3s_dedi" {
-  count = 1
-
-  name = "k3s-dedi-${count.index + 1}"
-  desc = "Checks the k8s dedicated node is up"
-
-  tags = [
-    "k8s"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
-resource "healthchecksio_check" "k3s_control" {
-  count = 3
-
-  name = "k3s-control-${count.index + 1}"
-  desc = "Checks the k3s control node is up"
-
-  tags = [
-    "k3s"
-  ]
-
-  grace    = 120 # seconds
-  schedule = "* * * * *"
-  timezone = "UTC"
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
-}
-
-resource "healthchecksio_check" "alertmanager" {
-  name = "alertmanager"
-  desc = "Checks alertmanager heartbeat is firing"
-
-  tags = [
-    "alertmanager"
-  ]
-
-  timeout = 60  # seconds
-  grace   = 120 # seconds
-
-  channels = [
-    data.healthchecksio_channel.discord.id,
-  ]
+  tags = lookup(each.value, "tags", null)
 }
