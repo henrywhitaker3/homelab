@@ -23,12 +23,23 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/intel-ucode
             - siderolabs/i915-ucode
+            - siderolabs/intel-ucode
+            - siderolabs/qemu-guest-agent
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
     installDisk: "/dev/sda"
+    machineDisks: &disks
+      - device: /dev/sdb
+        partitions:
+          - mountpoint: /var/openebs/local
+            size: 25GB
+          - mountpoint: /var/lib/longhorn
+            size: 25GB
     controlPlane: true
+    nodeLabels:
+      topology.kubernetes.io/region: mango
+      topology.kubernetes.io/zone: "1"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "18:2f:a3:3e:dc:7a"
@@ -47,7 +58,11 @@ nodes:
     ipAddress: "10.0.0.31"
     schematic: *schematic
     installDisk: "/dev/sda"
+    machineDisks: *disks
     controlPlane: true
+    nodeLabels:
+      topology.kubernetes.io/region: mango
+      topology.kubernetes.io/zone: "2"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "18:88:df:e6:c2:99"
@@ -66,7 +81,11 @@ nodes:
     ipAddress: "10.0.0.32"
     schematic: *schematic
     installDisk: "/dev/sda"
+    machineDisks: *disks
     controlPlane: true
+    nodeLabels:
+      topology.kubernetes.io/region: mango
+      topology.kubernetes.io/zone: "3"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "18:e7:3e:fa:e1:f9"

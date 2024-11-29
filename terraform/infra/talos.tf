@@ -3,10 +3,10 @@
 locals {
   talos_images = {
     nocloud_amd64 = {
-      platform = "nocloud"
-      arch     = "amd64"
-      # renovate: datasource=github-releases depName=siderolabs/talos
-      version = "v1.8.3"
+      platform  = "nocloud"
+      arch      = "amd64"
+      version   = "v1.8.3"
+      schematic = yamlencode(yamldecode(file("../../kubernetes/mango/bootstrap/talos/talconfig.yaml"))["nodes"][0]["schematic"])
     }
   }
 
@@ -16,30 +16,45 @@ locals {
     #   nodes = {
     #     control_1 = {
     #       name        = "control-1"
-    #       id = 200
+    #       id          = 200
     #       node        = 1
     #       cores       = 2
     #       memory      = 2048
     #       disk_size   = 30
     #       mac_address = "18:2f:a3:3e:dc:7a"
+    #       disks = {
+    #         data = {
+    #           disk_size = 50
+    #         }
+    #       }
     #     }
     #     control_2 = {
     #       name        = "control-2"
-    #       id = 201
+    #       id          = 201
     #       node        = 2
     #       cores       = 2
     #       memory      = 2048
     #       disk_size   = 30
     #       mac_address = "18:88:df:e6:c2:99"
+    #       disks = {
+    #         data = {
+    #           disk_size = 50
+    #         }
+    #       }
     #     }
     #     control_3 = {
     #       name        = "control-3"
-    #       id = 202
+    #       id          = 202
     #       node        = 3
     #       cores       = 2
     #       memory      = 2048
     #       disk_size   = 30
     #       mac_address = "18:e7:3e:fa:e1:f9"
+    #       disks = {
+    #         data = {
+    #           disk_size = 50
+    #         }
+    #       }
     #     }
     #   }
     # }
@@ -51,7 +66,7 @@ data "http" "talos_images" {
 
   url          = "https://factory.talos.dev/schematics"
   method       = "POST"
-  request_body = lookup(each.value, "schematic", file("./talos/schematic.yaml"))
+  request_body = each.value.schematic
 }
 
 resource "proxmox_storage_iso" "talos" {
@@ -95,6 +110,19 @@ resource "proxmox_vm_qemu" "talos" {
           storage = lookup(each.value, "storage", "local-lvm")
           size    = replace(each.value.disk_size, "G", "")
           format  = "raw"
+        }
+      }
+      dynamic "scsi1" {
+        for_each = length(keys(lookup(each.value, "disks", {}))) >= 1 ? {
+          main = each.value.disks[keys(each.value.disks)[0]]
+        } : {}
+
+        content {
+          disk {
+            storage = lookup(scsi1.value, "storage", "local-lvm")
+            size    = replace(scsi1.value.disk_size, "G", "")
+            format  = "raw"
+          }
         }
       }
     }
@@ -157,7 +185,8 @@ locals {
           memory      = n_value.memory
           disk_size   = n_value.disk_size
           mac_address = n_value.mac_address
-          iso         = format("%s:iso/%s", lookup(value, "iso_storage", "local"), proxmox_storage_iso.talos[format("%s_0%d", value.image_key, n_value.node)].filename)
+          iso         = format("%s:iso/%s", lookup(value, "iso_storage", "local"), proxmox_storage_iso.talos[format("%s_0%d", lookup(n_value, "image_key", value.image_key), n_value.node)].filename)
+          disks       = lookup(n_value, "disks", {})
         }
       ]
     ]) : vm.name => vm
