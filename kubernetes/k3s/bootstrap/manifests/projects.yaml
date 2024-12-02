@@ -18,7 +18,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: srep
+  name: yourbuild
   namespace: argo
   annotations:
     argo-zombies/ignore: "true"
@@ -35,7 +35,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: yourbuild
+  name: synthetigo
   namespace: argo
   annotations:
     argo-zombies/ignore: "true"
