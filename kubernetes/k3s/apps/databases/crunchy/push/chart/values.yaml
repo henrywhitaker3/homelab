@@ -8,7 +8,7 @@ users:
   - name: crunchy-pguser-harbor
   - name: crunchy-pguser-immich
   - name: crunchy-pguser-yourbuild
-  - name: crunchy-pguser-coder
+  - name: crunchy-pguser-synthetigo
   - name: crunchy-pguser-kuma
     fields:
       - host

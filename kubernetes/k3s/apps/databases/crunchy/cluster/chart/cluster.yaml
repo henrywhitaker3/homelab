@@ -128,9 +128,9 @@ spec:
       databases:
         - yourbuild
 
-    - name: coder
+    - name: synthetigo
       databases:
-        - coder
+        - synthetigo
 
     # Benchmarking user
     # - name: bench
