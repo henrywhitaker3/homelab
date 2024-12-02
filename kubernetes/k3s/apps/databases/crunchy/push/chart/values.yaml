@@ -1,7 +1,6 @@
 users:
   - name: crunchy-pguser-postgres
   - name: crunchy-pguser-outline
-  - name: crunchy-pguser-srep
   - name: crunchy-pguser-sonarr
   - name: crunchy-pguser-radarr
   - name: crunchy-pguser-prowlarr
