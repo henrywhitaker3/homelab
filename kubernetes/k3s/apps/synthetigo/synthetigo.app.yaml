@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: synthetigo-provisioning
+  namespace: argo
+  annotations:
+    argo-zombies/ignore: "true"
+spec:
+  destination:
+    namespace: synthetigo
+    server: https://kubernetes.default.svc
+  project: synthetigo
+  source:
+    path: kubernetes/staging/home/apps/services
+    repoURL: https://github.com/synthetigo/provisioning.git
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      include: "*.app.yaml"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
