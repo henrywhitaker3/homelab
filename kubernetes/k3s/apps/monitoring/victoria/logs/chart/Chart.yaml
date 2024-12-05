@@ -8,5 +8,5 @@ appVersion: "1.16.0"
 dependencies:
   - name: victoria-logs-single
     alias: logs
-    version: "0.8.8"
+    version: "0.8.10"
     repository: https://victoriametrics.github.io/helm-charts/
