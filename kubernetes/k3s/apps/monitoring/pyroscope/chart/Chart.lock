@@ -1,6 +1,6 @@
 dependencies:
 - name: pyroscope
   repository: https://grafana.github.io/helm-charts
-  version: 1.9.1
-digest: sha256:6406fc44356bca2739f55652aa260b8aa62078020a9a4face5b1fc061e04a27a
-generated: "2024-10-18T17:02:50.749751257Z"
+  version: 1.10.0
+digest: sha256:e2a78a02dcdc5423a56186a271a8b090eb9c72a4171f2ef8c11fe6eed4161883
+generated: "2024-12-05T13:05:53.962788452Z"
