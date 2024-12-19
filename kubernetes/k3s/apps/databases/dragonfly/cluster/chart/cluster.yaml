@@ -4,7 +4,7 @@ metadata:
   name: dragonfly
 spec:
   # renovate: datasource=github-releases depName=dragonflydb/dragonfly repository=ghcr.io/dragonflydb/dragonfly
-  image: ghcr.io/dragonflydb/dragonfly:v1.25.5
+  image: ghcr.io/dragonflydb/dragonfly:v1.25.6
   replicas: 3
   env:
     - name: MAX_MEMORY
