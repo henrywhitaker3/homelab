@@ -7,7 +7,7 @@ generic:
   image:
     repository: prompve/prometheus-pve-exporter
     pullPolicy: Always
-    tag: 3.4.6
+    tag: 3.4.7
 
   service:
     port: 9221
