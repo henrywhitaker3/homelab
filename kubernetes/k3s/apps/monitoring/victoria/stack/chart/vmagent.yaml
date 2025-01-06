@@ -12,10 +12,10 @@ spec:
   replicaCount: 2
   resources:
     requests:
-      cpu: 100m
+      cpu: 300m
       memory: 256Mi
     limits:
-      cpu: 300m
+      cpu: 500m
       memory: 1Gi
   scrapeInterval: 60s
   selectAllByDefault: true
