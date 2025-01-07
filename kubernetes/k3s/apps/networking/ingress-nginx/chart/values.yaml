@@ -15,6 +15,7 @@ ingress-nginx:
       server-snippet: |
         real_ip_header CF-Connecting-IP;
       use-proxy-protocol: true
+      annotations-risk-level: Critical
 
     service:
       loadBalancerIP: "10.0.0.25"
