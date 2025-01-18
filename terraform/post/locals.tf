@@ -39,7 +39,12 @@ locals {
       mac      = "18:e7:3e:fa:e1:f9"
       ip       = "10.0.0.32"
       hostname = "mango-control-3"
-    }
+    },
+    {
+      mac      = "12:d3:a8:a1:99:54"
+      ip       = "10.0.0.54"
+      hostname = "mac-mini.lab"
+    },
   ]
 
   dhcp_ipv4_settings = {
