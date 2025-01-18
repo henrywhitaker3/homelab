@@ -38,7 +38,7 @@ generic:
         - ai.plexmox.com
 
   config:
-    OLLAMA_BASE_URLS: http://mac-mini.lab:11434/api
+    OLLAMA_BASE_URLS: http://mac-mini.lab:11434
 
   pvc:
     enabled: true
