@@ -43,7 +43,7 @@ locals {
     {
       mac      = "12:d3:a8:a1:99:54"
       ip       = "10.0.0.54"
-      hostname = "mac-mini.lab"
+      hostname = "mac-mini"
     },
   ]
 
