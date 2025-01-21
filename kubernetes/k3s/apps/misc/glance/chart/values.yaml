@@ -92,7 +92,7 @@ config:
         - size: small
           widgets:
             - type: weather
-              location: London, United Kingdom
+              location: Manchester, United Kingdom
 
             - type: markets
               markets:
