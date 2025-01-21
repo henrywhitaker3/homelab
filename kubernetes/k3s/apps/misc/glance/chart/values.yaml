@@ -1,0 +1,114 @@
+generic:
+  nameOverride: glance
+  fullnameOverride: glance
+
+  replicaCount: 1
+
+  image:
+    repository: ealen/echo-server
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-method: 'GET'
+      nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
+      nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
+      nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+    hosts:
+      - host: echo.plexmox.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+    - secretName: echo-plexmox-com-tls
+      hosts:
+        - echo.plexmox.com
+
+  volumes:
+    - name: config
+      configMap:
+        name: glance-config
+
+  volumeMounts:
+    - mountPath: /config
+      name: config
+      readOnly: true
+
+  entrypoint:
+    command: [glance]
+    args:
+      - --config /config/config.yaml
+
+config:
+  pages:
+    - name: Home
+      columns:
+        - size: small
+          widgets:
+            - type: calendar
+
+            - type: rss
+              limit: 10
+              collapse-after: 3
+              cache: 3h
+              feeds:
+                - url: https://ciechanow.ski/atom.xml
+                - url: https://www.joshwcomeau.com/rss.xml
+                  title: Josh Comeau
+                - url: https://samwho.dev/rss.xml
+                - url: https://awesomekling.github.io/feed.xml
+                - url: https://ishadeed.com/feed.xml
+                  title: Ahmad Shadeed
+
+            - type: twitch-channels
+              channels:
+                - theprimeagen
+                - cohhcarnage
+                - christitustech
+                - blurbs
+                - asmongold
+                - jembawls
+
+        - size: full
+          widgets:
+            - type: hacker-news
+
+            - type: videos
+              channels:
+                - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+                - UCv6J_jJa8GJqFwQNgNrMuww # ServeTheHome
+                - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+
+            - type: reddit
+              subreddit: selfhosted
+
+        - size: small
+          widgets:
+            - type: weather
+              location: London, United Kingdom
+
+            - type: markets
+              markets:
+                - symbol: SPY
+                  name: S&P 500
+                - symbol: BTC-USD
+                  name: Bitcoin
+                - symbol: NVDA
+                  name: NVIDIA
+                - symbol: AAPL
+                  name: Apple
+                - symbol: MSFT
+                  name: Microsoft
+                - symbol: GOOGL
+                  name: Google
+                - symbol: AMD
+                  name: AMD
+                - symbol: RDDT
+                  name: Reddit

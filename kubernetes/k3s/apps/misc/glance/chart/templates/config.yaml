@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: glance-config
+data:
+  config.yaml: |
+    {{- .Values.config | toYaml | nindent 4 }}
