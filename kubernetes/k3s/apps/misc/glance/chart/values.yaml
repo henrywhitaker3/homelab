@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ealen/echo-server
-    pullPolicy: Always
-    tag: latest
+    repository: glanceapp/glance
+    pullPolicy: IfNotPresent
+    tag: v0.6.4
 
   service:
     port: 80
