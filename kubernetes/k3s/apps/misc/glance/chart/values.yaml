@@ -73,7 +73,6 @@ config:
 
             - type: videos
               channels:
-                - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
                 - UCH7gb4G5OTj4II-zv7K-8Ew # Luka & Pete
                 - UCUyeluBRhGPCW4rPe_UvBZQ # prime
                 - UCeLvlbC754U6FyFQbKc0UnQ # Anton Putra
