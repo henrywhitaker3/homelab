@@ -67,24 +67,23 @@ config:
                 - url: https://ishadeed.com/feed.xml
                   title: Ahmad Shadeed
 
-            - type: twitch-channels
-              channels:
-                - theprimeagen
-                - cohhcarnage
-                - christitustech
-                - blurbs
-                - asmongold
-                - jembawls
-
         - size: full
           widgets:
             - type: hacker-news
 
             - type: videos
               channels:
-                - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
-                - UCv6J_jJa8GJqFwQNgNrMuww # ServeTheHome
                 - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+                - UCH7gb4G5OTj4II-zv7K-8Ew # Luka & Pete
+                - UCUyeluBRhGPCW4rPe_UvBZQ # prime
+                - UCeLvlbC754U6FyFQbKc0UnQ # Anton Putra
+                - UCMb0O2CdPBNi-QqPk5T3gsQ # James Hoffman
+                - UCP_D3zytfKXqHr4xDzCoAhQ # ben pics
+                - UCsBjURrPoezykLs9EqgamOA # fireship
+                - UC_ML5xP23TOWKUcc-oAE_Eg # Hussein Nasser
+                - UCm8EsftbfNzSiRHzc7I59KQ # Kevin Fang
+                - UC6biysICWOJ-C3P4Tyeggzg # Low Level
+                - UC4eYXhJI4-7wSWc8UNRwD4A # NPR Music
 
             - type: reddit
               subreddit: selfhosted
