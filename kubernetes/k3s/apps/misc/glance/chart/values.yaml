@@ -42,7 +42,7 @@ generic:
       readOnly: true
 
   entrypoint:
-    command: [glance]
+    command: [/app/glance]
     args:
       - --config /config/config.yaml
 
