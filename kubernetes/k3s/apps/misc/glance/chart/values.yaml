@@ -10,7 +10,7 @@ generic:
     tag: v0.6.4
 
   service:
-    port: 80
+    port: 8080
 
   ingress:
     enabled: true
