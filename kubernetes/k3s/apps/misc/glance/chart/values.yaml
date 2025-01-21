@@ -44,7 +44,7 @@ generic:
   entrypoint:
     command: [/app/glance]
     args:
-      - --config /config/config.yaml
+      - -config=/config/config.yaml
 
 config:
   pages:
