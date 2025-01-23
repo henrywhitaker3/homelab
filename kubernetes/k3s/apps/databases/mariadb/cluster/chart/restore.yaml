@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/restore_v1alpha1.json
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Restore
 metadata:
