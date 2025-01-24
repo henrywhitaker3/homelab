@@ -2,7 +2,7 @@ logs:
   server:
     image:
       repository: victoriametrics/victoria-logs
-      tag: v1.7.0-victorialogs
+      tag: v1.8.0-victorialogs
 
     ingress:
       enabled: true
