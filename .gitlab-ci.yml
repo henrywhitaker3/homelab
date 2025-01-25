@@ -1,6 +1,6 @@
 include:
-  - project: 'renovate-bot/renovate-runner'
-    file: '/templates/renovate.gitlab-ci.yml'
+  - project: "renovate-bot/renovate-runner"
+    file: "/templates/renovate.gitlab-ci.yml"
 
 stages:
   - lint
@@ -29,13 +29,12 @@ diffs:
   parallel:
     matrix:
       - PLAYBOOK:
-        - vpn
-        - k3s
-        - haproxy
-        - speakers
-        - adguard
-        - minio
-        - proxmox
+          - vpn
+          - k3s
+          - haproxy
+          - adguard
+          - minio
+          - proxmox
   rules:
     - if: $SKIP_ANSIBLE == "true"
       when: never
