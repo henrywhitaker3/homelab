@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgres-operator.crunchydata.com/pgupgrade_v1beta1.json
+# apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PGUpgrade
+metadata:
+  name: crunchy-upgrade
+spec:
+  postgresClusterName: crunchy
+  fromPostgresVersion: 16
+  toPostgresVersion: 17
