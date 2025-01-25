@@ -7,7 +7,6 @@ metadata:
   labels:
     crunchy-users.henrywhitaker3.github.com/watch: "true"
   annotations:
-    postgres-operator.crunchydata.com/allow-upgrade: "crunchy-upgrade"
     crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
     crunchy-users.henrywhitaker3.github.com/extensions: |
       [
@@ -23,8 +22,8 @@ metadata:
       ]
   #   postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
 spec:
-  postgresVersion: 16
-  shutdown: true
+  postgresVersion: 17
+  shutdown: false
 
   # dataSource:
   #   pgbackrest:
@@ -140,7 +139,7 @@ spec:
   monitoring:
     pgmonitor:
       exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.6.0-0
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.7.3-0
 
   backups:
     pgbackrest:
