@@ -14,6 +14,7 @@ user_authorized_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB drone@drone.plexmox.com
 
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIATvHToFikTyfPJflH9oakgT497Dlhs5rO4wmTmH7XiZ henry@Henrys-Mac-mini.local
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJpK3VfLOVkG5nffVI+mEagvSXBe2cl8k4KTKlhDxR6a henry@Henrys-Macbook-Pro.local
 
 hosts_extras:
   - name: vpn.lab
