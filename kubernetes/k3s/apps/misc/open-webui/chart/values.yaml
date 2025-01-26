@@ -1,3 +1,4 @@
+---
 generic:
   nameOverride: open-webui
   fullnameOverride: open-webui
@@ -9,8 +10,8 @@ generic:
 
   image:
     repository: ghcr.io/open-webui/open-webui
-    pullPolicy: Always
-    tag: "main"
+    pullPolicy: IfNotPresent
+    tag: "v0.5.7"
 
   service:
     port: 8080
@@ -23,19 +24,19 @@ generic:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-method: 'GET'
-      nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
-      nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
-      nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+      nginx.ingress.kubernetes.io/auth-method: "GET"
+      nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
+      nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
+      nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
     hosts:
       - host: ai.plexmox.com
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: ai-plexmox-com-tls
-      hosts:
-        - ai.plexmox.com
+      - secretName: ai-plexmox-com-tls
+        hosts:
+          - ai.plexmox.com
 
   config:
     OLLAMA_BASE_URLS: http://mac-mini.lab:11434
