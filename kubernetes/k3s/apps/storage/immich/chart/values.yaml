@@ -1,6 +1,6 @@
 image:
   # renovate: datasource=github-releases depName=immich-app/immich
-  tag: "v1.125.2"
+  tag: "v1.125.3"
 
 env:
   REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
