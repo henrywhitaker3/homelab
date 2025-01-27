@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/onedr0p/sonarr-develop
     pullPolicy: IfNotPresent
-    tag: "4.0.12.2866"
+    tag: "4.0.12.2892"
 
   service:
     port: 8989
