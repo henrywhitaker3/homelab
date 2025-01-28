@@ -1,3 +1,4 @@
+---
 namespaceOverride: monitoring
 
 replicas: 2
@@ -11,7 +12,7 @@ env:
   GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
   GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.plexmox.com/api/oidc/token
   GF_DATABASE_NAME: grafana
-  GF_DATABASE_HOST: maxscale.mariadb.svc:3306
+  GF_DATABASE_HOST: mariadb.mariadb.svc:3306
   GF_DATABASE_USER: grafana
   GF_DATABASE_SSL_MODE: disable
   GF_DATABASE_TYPE: mysql
@@ -65,10 +66,10 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 
-    nginx.ingress.kubernetes.io/auth-method: 'GET'
-    nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
-    nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
-    nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+    nginx.ingress.kubernetes.io/auth-method: "GET"
+    nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
+    nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
+    nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
 
   hosts:
     - grafana.plexmox.com
@@ -240,8 +241,8 @@ datasources:
             - name: TraceID
               datasourceUid: Tempo
               matcherRegex: 'traceID":"(\w+)'
-              url: '$${__value.raw}'
-              urlDisplayLabel: 'View Trace'
+              url: "$${__value.raw}"
+              urlDisplayLabel: "View Trace"
       - name: Tempo
         orgId: 1
         access: proxy
@@ -251,11 +252,11 @@ datasources:
           tracesToLogsV2:
             datasourceUid: Loki
             tags: [{ key: "host.name", value: "pod" }]
-            spanStartTimeShift: '-15m'
+            spanStartTimeShift: "-15m"
             filterByTraceID: true
           tracesToMetrics:
             datasourceUid: Prometheus
-            spanStartTimeShift: '-15m'
+            spanStartTimeShift: "-15m"
             tags: [{ key: "host.name", value: "pod" }]
             queries:
               - name: CPU Usage
