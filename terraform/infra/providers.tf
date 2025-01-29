@@ -24,6 +24,10 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.5"
     }
+    talos = {
+      source  = "siderolabs/talos"
+      version = "0.7.1"
+    }
   }
 
   backend "http" {
@@ -31,13 +35,11 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url = "https://${local.proxmox_host}:8006/api2/json"
-
-  pm_api_token_id = "${var.proxmox_user}@pam!${var.proxmox_token_id}"
-
+  pm_api_url          = "https://${local.proxmox_host}:8006/api2/json"
+  pm_api_token_id     = "${var.proxmox_user}@pam!${var.proxmox_token_id}"
   pm_api_token_secret = var.proxmox_token
-
-  pm_tls_insecure = true
+  pm_tls_insecure     = true
+  pm_parallel         = 1
 }
 
 provider "digitalocean" {
