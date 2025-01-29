@@ -44,3 +44,11 @@ releases:
     values: ["../../../apps/networking/cilium/chart/values.yaml"]
     needs:
       - monitoring/prometheus-operator-crds
+
+  - name: argo
+    namespace: argo
+    chart: ../../argo
+    values: ["../../argo/values.yaml"]
+    needs:
+      - kube-system/cilium
+      - monitoring/prometheus-operator-crds
