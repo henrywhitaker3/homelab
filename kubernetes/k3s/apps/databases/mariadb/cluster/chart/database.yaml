@@ -11,6 +11,9 @@ spec:
 
   replicas: 3 # set to the number of nodes in the cluster
 
+  updateStrategy:
+    autoUpdateDataPlane: true
+
   # 4-node cluster, galera doesn't work well with even numbers, so don't
   # schedule on the worker node
   # affinity:
