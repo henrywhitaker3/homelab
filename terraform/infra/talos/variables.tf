@@ -6,6 +6,10 @@ variable "talos_version" {
   type = string
 }
 
+variable "kubernetes_version" {
+  type = string
+}
+
 variable "talos_image_filters" {
   type = list(string)
 }
