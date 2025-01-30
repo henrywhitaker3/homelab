@@ -1,8 +1,11 @@
 locals {
   talos_clusters = {
     mango = {
-      version = "v1.9.3"
+      version            = "v1.9.3"
+      kubernetes_version = "v1.32.1"
       image_filters = [
+        "siderolabs/i915-ucode",
+        "siderolabs/intel-ucode",
         "qemu-quest-agent",
         "iscsi-tools",
         "util-linux-tools",
@@ -57,6 +60,7 @@ module "talos" {
 
   control_plane_ip    = each.value.control_plane_ip
   cluster_name        = each.key
+  kubernetes_version  = each.value.kubernetes_version
   talos_version       = each.value.version
   talos_image_filters = each.value.image_filters
   nodes               = each.value.nodes
