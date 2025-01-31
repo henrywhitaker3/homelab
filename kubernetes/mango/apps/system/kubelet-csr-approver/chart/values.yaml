@@ -1,4 +1,3 @@
-providerRegex: (mango-control-1|mango-control-2|mango-control-3)
+providerRegex: (talos-mango-controlplane-1|talos-mango-controlplane-2|talos-mango-controlplane-3)
 bypassDnsResolution: true
 bypassHostnameCheck: true
-
