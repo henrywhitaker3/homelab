@@ -1,5 +1,8 @@
 prompage:
   configuration:
+    ui:
+      theme: dark
+
     datasources:
       - name: prometheus
         type: prometheus
@@ -85,7 +88,6 @@ prompage:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: status-henrywhitaker-com-tls
-      hosts:
-        - status.henrywhitaker.com
-
+      - secretName: status-henrywhitaker-com-tls
+        hosts:
+          - status.henrywhitaker.com
