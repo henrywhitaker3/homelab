@@ -1,7 +1,7 @@
 prompage:
   configuration:
     ui:
-      theme: dark
+      theme: auto
 
     datasources:
       - name: prometheus
@@ -75,7 +75,7 @@ prompage:
           expression: int(result) == 0
           bool: true
 
-  replicaCount: 1
+  replicaCount: 2
 
   ingress:
     enabled: true
