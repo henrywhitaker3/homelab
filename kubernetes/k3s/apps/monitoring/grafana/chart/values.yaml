@@ -51,11 +51,10 @@ grafana.ini:
     role_attribute_path: |
       contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
   plugins:
-    allow_loading_unsigned_plugins: "victoriametrics-datasource,victorialogs-datasource"
+    allow_loading_unsigned_plugins: "victoriametrics-datasource"
 
 plugins:
   - https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource
-  - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.8.0/victorialogs-datasource-v0.8.0.zip;victorialogs-datasource
 
 ingress:
   enabled: true
@@ -205,10 +204,6 @@ dashboards:
       gnetId: 12683
       revision: 21
       datasource: Victoria
-    victoria-logs:
-      gnetId: 22084
-      revision: 3
-      datasource: Victoria
 
 datasources:
   datasources.yaml:
@@ -226,10 +221,6 @@ datasources:
         type: victoriametrics-datasource
         access: proxy
         url: http://vmsingle-metrics.monitoring.svc:8428
-      - name: VictoriaLogs
-        type: victorialogs-datasource
-        access: proxy
-        url: http://logs-server.monitoring.svc:9428
       - name: Loki
         ordId: 1
         access: proxy
