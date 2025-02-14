@@ -11,7 +11,7 @@ generic:
   image:
     repository: ghcr.io/open-webui/open-webui
     pullPolicy: IfNotPresent
-    tag: "v0.5.11"
+    tag: "0.5.12"
 
   service:
     port: 8080
