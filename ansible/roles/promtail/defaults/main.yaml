@@ -17,9 +17,6 @@ promtail_clients:
   - url: https://loki.plexmox.com/loki/api/v1/push
     external_labels:
       host: "{{ inventory_hostname }}"
-  - url: https://victoria-logs.plexmox.com/insert/loki/api/v1/push?_stream_fields=instance,job,host,app
-    external_labels:
-      host: "{{ inventory_hostname }}"
 
 promtail_default_scrape_configs:
   - job_name: messages
@@ -39,19 +36,19 @@ promtail_default_scrape_configs:
         job: systemd-journal
         host: "{{ inventory_hostname }}"
     relabel_configs:
-      - action: 'replace'
-        source_labels: ['__journal__systemd_unit']
+      - action: "replace"
+        source_labels: ["__journal__systemd_unit"]
         regex: '(.*?)\.service'
-        replacement: '$1'
+        replacement: "$1"
         target_label: unit
 
 promtail_additional_scrape_configs: []
 
 go_arch_map:
-  i386: '386'
-  x86_64: 'amd64'
-  aarch64: 'arm64'
-  armv7l: 'armv7'
-  armv6l: 'armv6'
+  i386: "386"
+  x86_64: "amd64"
+  aarch64: "arm64"
+  armv7l: "armv7"
+  armv6l: "armv6"
 
 go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"

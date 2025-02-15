@@ -2,4 +2,3 @@ promtail:
   config:
     clients:
       - url: http://loki-gateway/loki/api/v1/push
-      - url: http://logs-server.monitoring.svc:9428/insert/loki/api/v1/push?_stream_fields=instance,job,host,app
