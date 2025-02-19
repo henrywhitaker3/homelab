@@ -1,0 +1,13 @@
+---
+- name: Actions runner
+
+  hosts: actions
+
+  roles:
+    - user
+    - common
+    - node_exporter
+    - process_exporter
+    - haproxy
+    - promtail
+    - docker

@@ -81,7 +81,7 @@ all:
         k3s-dedi-1.lab:
           ansible_host: 10.0.0.24
 
-    # thanos:
-    #   hosts:
-    #     compactor.lab:
-    #       ansible_host: 10.0.0.17
+    actions:
+      hosts:
+        actions-1:
+          ansible_host: 10.0.0.17
