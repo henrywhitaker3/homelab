@@ -7,7 +7,7 @@ generic:
   image:
     repository: glanceapp/glance
     pullPolicy: IfNotPresent
-    tag: v0.7.2
+    tag: v0.7.3
 
   service:
     port: 8080
