@@ -35,7 +35,6 @@ diffs:
           - adguard
           - minio
           - proxmox
-          - actions
   rules:
     - if: $SKIP_ANSIBLE == "true"
       when: never
