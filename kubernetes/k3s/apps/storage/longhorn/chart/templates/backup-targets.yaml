@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1beta1.json
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: longhorn-smb
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        CIFS_USERNAME: "{{ `{{ .username }}` }}"
+        CIFS_PASSWORD: "{{ `{{ .password }}` }}"
+  dataFrom:
+    - extract:
+        key: k3s-smb
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/longhorn.io/backuptarget_v1beta2.json
+apiVersion: longhorn.io/v1beta2
+kind: BackupTarget
+metadata:
+  name: default
+  namespace: longhorn-system
+  finalizers:
+    - longhorn.io
+spec:
+  backupTargetURL: cifs://10.0.0.9/longhorn
+  credentialSecret: longhorn-smb
+  pollInterval: 5m0s
