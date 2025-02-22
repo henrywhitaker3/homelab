@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/onedr0p/prowlarr-develop
     pullPolicy: IfNotPresent
-    tag: "1.31.1"
+    tag: "1.31.2"
 
   service:
     port: 9696
