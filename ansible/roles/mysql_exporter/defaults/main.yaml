@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=github-releases depName=prometheus/mysqld_exporter
-mysql_exporter_version: 0.16.0
+mysql_exporter_version: 0.17.1
 
 mysql_exporter_install_dir: /opt/mysql_exporter
 
