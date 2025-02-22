@@ -27,7 +27,7 @@ spec:
                 - --s3-chunk-size=100M
                 - --s3-upload-cutoff=100M
                 - --progress
-                - /source
+                - unraid:/longhorn
                 - s3-crypt:/
               volumeMounts:
                 - mountPath: /source
@@ -45,4 +45,3 @@ spec:
                 items:
                   - key: s3.conf
                     path: s3.conf
-
