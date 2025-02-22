@@ -30,15 +30,9 @@ spec:
                 - unraid:/longhorn
                 - s3-crypt:/
               volumeMounts:
-                - mountPath: /source
-                  name: source
                 - mountPath: /creds
                   name: creds
           volumes:
-            - name: source
-              nfs:
-                path: /mnt/user/longhorn
-                server: 10.0.0.9
             - name: creds
               secret:
                 secretName: shipper-longhorn-s3
