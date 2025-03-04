@@ -13,6 +13,7 @@ locals {
     [{ name = "proxmox-2", ip = "10.0.0.152" }],
     [{ name = "proxmox-3", ip = "10.0.0.154" }],
     [{ name = "mac-mini", ip = "10.0.0.54" }],
+    [{ name = "jetkvm", ip = "10.0.0.62" }],
   )
 
   dhcp_static_leases = [
