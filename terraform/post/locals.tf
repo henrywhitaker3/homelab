@@ -47,6 +47,11 @@ locals {
       ip       = "10.0.0.54"
       hostname = "mac-mini"
     },
+    {
+      mac      = "44:B7:D0:E2:83:63"
+      ip       = "10.0.0.62"
+      hostname = "jetkvm"
+    },
   ]
 
   dhcp_ipv4_settings = {
