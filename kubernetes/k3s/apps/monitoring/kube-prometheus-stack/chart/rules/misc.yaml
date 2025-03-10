@@ -67,8 +67,8 @@ spec:
           annotations:
             summary: The MOT for {{ $labels.reg }} is expiring in less than 30 days
         - alert: VehicleDetailsScrapeErrors
-          expr: sum by (reg) (dvla_vehicle_details_collection_errors_count) > 0
-          for: 5m
+          expr: sum by (reg) (increase(dvla_vehicle_details_collection_errors_count)) > 0
+          for: 1m
           labels:
             severity: warning
           annotations:
