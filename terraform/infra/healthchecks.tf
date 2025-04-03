@@ -1,112 +1,46 @@
-data "healthchecksio_channel" "discord" {
-  kind = "discord"
-}
-
-data "healthchecksio_channel" "webhook" {
-  kind = "webhook"
-}
-
-locals {
-  healthchecks_channels = ["discord", "webhook"]
-
-  healthchecks_checks = {
-    speedtest = {
-      name     = "Speedtest"
-      grace    = 300
-      timeout  = 14400
-      channels = ["discord", "webhook"]
-      tags     = ["warning"]
-    }
-    jump_k8s_lan = {
-      name     = "K8s Jump server lan access"
-      desc     = "Checks the k8s jump server has access to home lan"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "vpn"]
-    }
-    vpn_1 = {
-      name     = "VPN 1"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "vpn"]
-    }
-    vpn_2 = {
-      name     = "VPN 2"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "vpn"]
-    }
-    lb_1 = {
-      name     = "LB 1"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["warning", "lb"]
-    }
-    lb_2 = {
-      name     = "LB 2"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["warning", "lb"]
-    }
-    k3s_control_1 = {
-      name     = "k3s-control-1"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "k3s"]
-    }
-    k3s_control_2 = {
-      name     = "k3s-control-2"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "k3s"]
-    }
-    k3s_control_3 = {
-      name     = "k3s-control-3"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "k3s"]
-    }
-    k3s_dedi_1 = {
-      name     = "k3s-dedi-1"
-      grace    = 120
-      schedule = "* * * * *"
-      timezone = "UTC"
-      channels = ["discord", "webhook"]
-      tags     = ["critical", "k3s"]
-    }
-    alertmanager = {
-      name     = "Alertmanager"
-      grace    = 120
-      timeout  = 60
-      channels = ["discord", "webhook"]
-      tags     = ["critical"]
-    }
+variable "healthchecks_channels" {
+  type = map(object({
+    kind = string
+  }))
+  validation {
+    condition = length([
+      for key, value in var.healthchecks_channels : true
+      if contains(["discord", "webhook"], value.kind)
+    ]) == length(var.healthchecks_channels)
+    error_message = "kind must be one of: discord, webhook"
   }
 }
 
 data "healthchecksio_channel" "this" {
-  for_each = toset(local.healthchecks_channels)
-  kind     = each.value
+  for_each = var.healthchecks_channels
+  kind     = each.value.kind
+}
+
+variable "healthchecks_checks" {
+  type = map(object({
+    name     = string
+    desc     = optional(string, null)
+    grace    = optional(number, null)
+    timeout  = optional(number, null)
+    channels = optional(list(string), null)
+    schedule = optional(string)
+    timezone = optional(string)
+    tags     = optional(list(string), null)
+  }))
+  validation {
+    condition = length([
+      for key, value in var.healthchecks_checks : true
+      if value.channels == null ? true : length([
+        for c_key, c_value in value.channels : true
+        if contains(keys(var.healthchecks_channels), c_value)
+      ]) == length(value.channels)
+    ]) == length(var.healthchecks_checks)
+    error_message = "channels must be defined in var.healthchecks_channels"
+  }
 }
 
 resource "healthchecksio_check" "this" {
-  for_each = local.healthchecks_checks
+  for_each = var.healthchecks_checks
 
   name     = each.value.name
   desc     = lookup(each.value, "desc", null)

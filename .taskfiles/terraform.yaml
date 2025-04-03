@@ -14,13 +14,13 @@ tasks:
     desc: Run terraform plan
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform plan {{ .CLI_ARGS }}
+      - terraform plan $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}
 
   apply:
     desc: Run terraform apply
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform apply {{ .CLI_ARGS }}
+      - terraform apply $(for file in *.tfvars; do echo "-var-file $file "; done){{ .CLI_ARGS }}
 
   init:
     desc: Run terraform init
