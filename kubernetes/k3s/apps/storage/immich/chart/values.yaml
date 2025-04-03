@@ -39,6 +39,9 @@ immich:
     library:
       existingClaim: immich
 
+controller:
+  strategy: Recreate
+
 server:
   ingress:
     main:
