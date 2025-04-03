@@ -1,65 +1,55 @@
-locals {
-  cronitor_http_monitors = {
-    plex = {
-      name     = "Plex"
-      url      = "https://plex.plexmox.com"
-      schedule = "every 5 minutes"
-      assertions = [
-        "response.code = 401"
-      ]
-      failure_tolerance = 1
-      regions = [
-        "eu-west-1",
-        "eu-central-1",
-      ]
-      notify = [
-        cronitor_notification_list.this["grafana"].key,
-      ]
-    }
-    status = {
-      name     = "Status Page"
-      url      = "https://status.henrywhitaker.com"
-      schedule = "every 5 minutes"
-      assertions = [
-        "response.code = 200"
-      ]
-      failure_tolerance = 1
-      regions = [
-        "eu-west-1",
-        "eu-central-1",
-      ]
-      notify = [
-        cronitor_notification_list.this["grafana"].key,
-      ]
-    }
+variable "cronitor_http_monitors" {
+  type = map(object({
+    name              = string
+    url               = string
+    schedule          = string
+    assertions        = list(string)
+    failure_tolerance = optional(number, null)
+    regions           = list(string)
+    notify            = optional(list(string), null)
+  }))
+  validation {
+    condition = length([
+      for key, value in var.cronitor_http_monitors : true
+      if value.notify == null ? true : length([
+        for n_key, n_value in value.notify : true
+        if contains(keys(var.cronitor_notification_lists), n_value)
+      ]) == length(value.notify)
+    ]) == length(var.cronitor_http_monitors)
+    error_message = "notify must be defined in var.cronitor_notification_lists"
   }
+}
 
-  cronitor_heartbeat_monitors = {
-    alertmanager = {
-      name               = "Alertmanager"
-      schedule           = "* * * * *"
-      grace_seconds      = 10
-      schedule_tolerance = 2
-      timezone           = "UTC"
-      notify = [
-        cronitor_notification_list.this["grafana"].key,
-      ]
-    }
-  }
+variable "cronitor_notification_lists" {
+  type = map(object({
+    name     = string
+    webhooks = list(string)
+  }))
+}
 
-  cronitor_notification_lists = {
-    grafana = {
-      name = "Grafana"
-      webhooks = [
-        "grafana-oncall",
-        # sensitive(grafana_oncall_integration.this["cronitor"].link),
-      ]
-    }
+variable "cronitor_heartbeat_monitors" {
+  type = map(object({
+    name               = string
+    schedule           = string
+    grace_seconds      = number
+    schedule_tolerance = number
+    timezone           = optional(string, "UTC")
+    notify             = optional(list(string), null)
+  }))
+  validation {
+    condition = length([
+      for key, value in var.cronitor_heartbeat_monitors : true
+      if value.notify == null ? true : length([
+        for n_key, n_value in value.notify : true
+        if contains(keys(var.cronitor_notification_lists), n_value)
+      ]) == length(value.notify)
+    ]) == length(var.cronitor_heartbeat_monitors)
+    error_message = "notify must be defined in var.cronitor_notification_lists"
   }
 }
 
 resource "cronitor_http_monitor" "this" {
-  for_each = local.cronitor_http_monitors
+  for_each = var.cronitor_http_monitors
 
   name               = each.value.name
   schedule           = each.value.schedule
@@ -72,21 +62,23 @@ resource "cronitor_http_monitor" "this" {
   realert_interval   = lookup(each.value, "realert_interval", null)
   paused             = lookup(each.value, "paused", null)
   disabled           = lookup(each.value, "disabled", null)
-  notify             = lookup(each.value, "notify", null)
-  environments       = lookup(each.value, "environments", null)
-  tags               = lookup(each.value, "tags", null)
-  timeout_seconds    = lookup(each.value, "timeout_seconds", null)
-  headers            = lookup(each.value, "headers", null)
-  cookies            = lookup(each.value, "cookies", null)
-  regions            = lookup(each.value, "regions", null)
-  verify_ssl         = lookup(each.value, "verify_ssl", null)
-  follow_redirects   = lookup(each.value, "follow_redirects", null)
-  timezone           = lookup(each.value, "timezone", null)
-  body               = lookup(each.value, "body", null)
+  notify = lookup(each.value, "notify", null) == null ? null : [
+    for key, value in each.value.notify : cronitor_notification_list.this[value].key
+  ]
+  environments     = lookup(each.value, "environments", null)
+  tags             = lookup(each.value, "tags", null)
+  timeout_seconds  = lookup(each.value, "timeout_seconds", null)
+  headers          = lookup(each.value, "headers", null)
+  cookies          = lookup(each.value, "cookies", null)
+  regions          = lookup(each.value, "regions", null)
+  verify_ssl       = lookup(each.value, "verify_ssl", null)
+  follow_redirects = lookup(each.value, "follow_redirects", null)
+  timezone         = lookup(each.value, "timezone", null)
+  body             = lookup(each.value, "body", null)
 }
 
 resource "cronitor_heartbeat_monitor" "this" {
-  for_each = local.cronitor_heartbeat_monitors
+  for_each = var.cronitor_heartbeat_monitors
 
   name               = each.value.name
   schedule           = each.value.schedule
@@ -96,14 +88,16 @@ resource "cronitor_heartbeat_monitor" "this" {
   realert_interval   = lookup(each.value, "realert_interval", null)
   paused             = lookup(each.value, "paused", null)
   disabled           = lookup(each.value, "disabled", null)
-  notify             = lookup(each.value, "notify", null)
-  environments       = lookup(each.value, "environments", null)
-  tags               = lookup(each.value, "tags", null)
-  timezone           = lookup(each.value, "timezone", null)
+  notify = lookup(each.value, "notify", null) == null ? null : [
+    for key, value in each.value.notify : cronitor_notification_list.this[value].key
+  ]
+  environments = lookup(each.value, "environments", null)
+  tags         = lookup(each.value, "tags", null)
+  timezone     = lookup(each.value, "timezone", null)
 }
 
 resource "cronitor_notification_list" "this" {
-  for_each = local.cronitor_notification_lists
+  for_each = var.cronitor_notification_lists
 
   name      = each.value.name
   emails    = lookup(each.value, "emails", null)

@@ -27,6 +27,7 @@ override.tf.json
 *_override.tf.json
 
 !terraform/post/grafana.tfvars
+!terraform/post/cronitor.tfvars
 
 # Include override files you do wish to add to version control using negated pattern
 # !example_override.tf
