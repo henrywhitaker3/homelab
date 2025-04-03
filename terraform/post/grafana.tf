@@ -1,180 +1,10 @@
-locals {
-  oncall_users = {
-    henry = "henrywhitaker3"
-    none  = "noneuser"
-  }
-
-  oncall_shifts = {
-    default = {
-      name          = "Default"
-      type          = "rolling_users"
-      start         = "2024-11-18T08:00:00"
-      duration      = 60 * 60 * 16
-      by_day        = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
-      frequency     = "weekly"
-      week_start    = "MO"
-      interval      = 1
-      rolling_users = ["henry"]
-    }
-    none = {
-      name          = "None"
-      type          = "rolling_users"
-      start         = "2024-11-18T00:00:00"
-      duration      = (60 * 60 * 8)
-      by_day        = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
-      frequency     = "weekly"
-      week_start    = "MO"
-      interval      = 1
-      rolling_users = ["none"]
-    }
-  }
-
-  oncall_schedules = {
-    default = {
-      name                 = "Default"
-      type                 = "calendar"
-      enable_web_overrides = true
-      shifts               = ["default", "none"]
-    }
-  }
-
-  oncall_intergations = {
-    homelab_alertmanager = {
-      name = "Homelab"
-      type = "alertmanager"
-    }
-    healthchecks = {
-      name = "Healthchecks.io"
-      type = "webhook"
-      templates = {
-        grouping_key   = "{{ payload.check.uuid }}"
-        resolve_signal = "{{ payload.status == \"up\" }}"
-        source_link    = "https://healthchecks.io/checks/{{ payload.check.uuid }}/details"
-        web = {
-          title   = "Healthchecks - {{ payload.check.name }}"
-          message = "Healthchecks.io check {{ payload.check.name }} is {{ payload.status }}"
-        }
-        mobile_app = {
-          title   = "Healthchecks - {{ payload.check.name }}"
-          message = "Healthchecks.io check {{ payload.check.name }} is {{ payload.status }}"
-        }
-        sms = {
-          title = "Healthchecks - {{ payload.check.name }}"
-        }
-        phone_call = {
-          title = "Healthchecks - {{ payload.check.name }}"
-        }
-      }
-    }
-    cronitor = {
-      name = "Cronitor"
-      type = "webhook"
-      templates = {
-        grouping_key   = "{{ payload.id }}"
-        resolve_signal = "{{ payload.get(\"type\", \"\") == \"Recovery\" }}"
-        source_link    = "{{ payload.issue_url }}"
-        web = {
-          title   = "Cronitor - {{ payload.monitor }}"
-          message = "{{ payload.issue }}\n{{ payload.description }}"
-        }
-        mobile_app = {
-          title   = "Cronitor - {{ payload.monitor }}"
-          message = "{{ payload.issue }}\n{{ payload.description }}"
-        }
-        sms = {
-          title = "Cronitor - {{ payload.monitor }}"
-        }
-        phone_call = {
-          title = "Cronitor - {{ payload.monitor }}"
-        }
-      }
-    }
-  }
-
-  oncall_escalation_chains = {
-    critical = {
-      name = "Critical"
-    }
-    warning = {
-      name = "Warning"
-    }
-  }
-
-  oncall_escalations = {
-    critical_notify = {
-      chain_key    = "critical"
-      type         = "notify_on_call_from_schedule"
-      schedule_key = "default"
-      important    = true
-      position     = 0
-    }
-    critical_wait = {
-      chain_key = "critical"
-      type      = "wait"
-      duration  = 60 * 60
-      position  = 1
-    }
-    critical_renotify = {
-      chain_key = "critical"
-      type      = "repeat_escalation"
-      position  = 2
-    }
-    warning_notify = {
-      chain_key    = "warning"
-      type         = "notify_on_call_from_schedule"
-      schedule_key = "default"
-      position     = 0
-    }
-  }
-
-  oncall_routes = {
-    critical = {
-      integration_key      = "homelab_alertmanager"
-      escalation_chain_key = "critical"
-      query                = "{{ payload.commonLabels.severity == \"critical\" }}"
-      type                 = "jinja2"
-      position             = 0
-    }
-    warning = {
-      integration_key      = "homelab_alertmanager"
-      escalation_chain_key = "warning"
-      query                = "{{ payload.commonLabels.severity == \"warning\" }}"
-      type                 = "jinja2"
-      position             = 1
-    }
-    cronitor_critical = {
-      integration_key      = "cronitor"
-      escalation_chain_key = "critical"
-      query                = "{{ payload.type in [\"Alert\", \"Recovery\"] }}"
-      type                 = "jinja2"
-      position             = 0
-    }
-    healthchecks_warning = {
-      integration_key      = "healthchecks"
-      escalation_chain_key = "warning"
-      query                = "{{ \"warning\" in payload.check.tags }}"
-      type                 = "jinja2"
-      position             = 0
-    }
-    healthchecks_critical = {
-      integration_key      = "healthchecks"
-      escalation_chain_key = "critical"
-      query                = "{{ \"critical\" in payload.check.tags }}"
-      type                 = "jinja2"
-      position             = 1
-    }
-  }
-
-  synthetic_tests = {}
-}
-
 data "grafana_oncall_user" "this" {
-  for_each = local.oncall_users
+  for_each = var.oncall_users
   username = each.value
 }
 
 resource "grafana_oncall_schedule" "this" {
-  for_each = local.oncall_schedules
+  for_each = var.oncall_schedules
 
   name      = each.value.name
   type      = each.value.type
@@ -186,7 +16,7 @@ resource "grafana_oncall_schedule" "this" {
 }
 
 resource "grafana_oncall_on_call_shift" "this" {
-  for_each = local.oncall_shifts
+  for_each = var.oncall_shifts
 
   name                           = each.value.name
   type                           = each.value.type
@@ -206,7 +36,7 @@ resource "grafana_oncall_on_call_shift" "this" {
 }
 
 resource "grafana_oncall_integration" "this" {
-  for_each = local.oncall_intergations
+  for_each = var.oncall_intergations
 
   name = each.value.name
   type = each.value.type
@@ -255,13 +85,13 @@ resource "grafana_oncall_integration" "this" {
 }
 
 resource "grafana_oncall_escalation_chain" "this" {
-  for_each = local.oncall_escalation_chains
+  for_each = var.oncall_escalation_chains
 
   name = each.value.name
 }
 
 resource "grafana_oncall_escalation" "this" {
-  for_each = local.oncall_escalations
+  for_each = var.oncall_escalations
 
   escalation_chain_id          = grafana_oncall_escalation_chain.this[each.value.chain_key].id
   type                         = each.value.type
@@ -272,7 +102,7 @@ resource "grafana_oncall_escalation" "this" {
 }
 
 resource "grafana_oncall_route" "this" {
-  for_each = local.oncall_routes
+  for_each = var.oncall_routes
 
   integration_id      = grafana_oncall_integration.this[each.value.integration_key].id
   escalation_chain_id = grafana_oncall_escalation_chain.this[each.value.escalation_chain_key].id
@@ -281,34 +111,185 @@ resource "grafana_oncall_route" "this" {
   position            = each.value.position
 }
 
-data "grafana_synthetic_monitoring_probes" "this" {}
+variable "oncall_users" {
+  type    = map(string)
+  default = {}
+}
 
-resource "grafana_synthetic_monitoring_check" "this" {
-  for_each = local.synthetic_tests
+variable "oncall_shifts" {
+  type = map(object({
+    name          = string
+    type          = string
+    start         = string
+    duration      = number
+    by_day        = list(string)
+    frequency     = string
+    week_start    = string
+    interval      = number
+    rolling_users = optional(list(string), null)
+  }))
+  validation {
+    condition = length([
+      for key, value in var.oncall_shifts : true
+      if contains(["rolling_users"], value.type)
+    ]) == length(var.oncall_shifts)
+    error_message = "type must be one of: rolling_users"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_shifts : true
+      if can(regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}", value.start))
+    ]) == length(var.oncall_shifts)
+    error_message = "start must be an iso date"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_shifts : true
+      if length([
+        for b_key, b_value in value.by_day : true
+        if contains(["MO", "TU", "WE", "TH", "FR", "SA", "SU"], b_value)
+      ]) == length(value.by_day)
+    ]) == length(var.oncall_shifts)
+    error_message = "by_day must be one of: MO, TU, WE, TH, FR, SA, SU"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_shifts : true
+      if contains(["MO", "TU", "WE", "TH", "FR", "SA", "SU"], value.week_start)
+    ]) == length(var.oncall_shifts)
+    error_message = "week_start must be one of: MO, TU, WE, TH, FR, SA, SU"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_shifts : true
+      if value.rolling_users == null || length([
+        for r_key, r_value in value.rolling_users : true
+        if contains(keys(var.oncall_users), r_value)
+      ]) == length(value.rolling_users)
+    ]) == length(var.oncall_shifts)
+    error_message = "All users must be defined in var.rolling_users"
+  }
+}
 
-  job               = each.value.name
-  probes            = each.value.probes
-  target            = each.value.target
-  frequency         = each.value.frequency
-  alert_sensitivity = lookup(each.value, "priority", null)
-  enabled           = lookup(each.value, "enabled", true)
+variable "oncall_schedules" {
+  type = map(object({
+    name                 = string
+    type                 = string
+    enable_web_overrides = optional(bool, null)
+    shifts               = list(string)
+  }))
+  validation {
+    condition = length([
+      for key, value in var.oncall_schedules : true
+      if contains(["calendar"], value.type)
+    ]) == length(var.oncall_schedules)
+    error_message = "type must be one of: calendar"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_schedules : true
+      if length([
+        for s_key, s_value in value.shifts : true
+        if contains(keys(var.oncall_shifts), s_value)
+      ]) == length(value.shifts)
+    ]) == length(var.oncall_schedules)
+    error_message = "All shifts must be defined in var.oncall_shifts"
+  }
+}
 
-  settings {
-    dynamic "http" {
-      for_each = lookup(each.value.settings, "http", null) != null ? { main = each.value.settings.http } : {}
-      content {
-        method              = lookup(http.value, "method", null)
-        valid_status_codes  = lookup(http.value, "valid_status_codes", null)
-        no_follow_redirects = !lookup(http.value, "follow_redirects", true)
+variable "oncall_intergations" {
+  type = map(object({
+    name = string
+    type = string
+    templates = optional(object({
+      grouping_key   = string
+      resolve_signal = string
+      source_link    = string
+      web = optional(object({
+        title   = string
+        message = optional(string)
+      }), null)
+      mobile_app = optional(object({
+        title   = string
+        message = optional(string)
+      }), null)
+      sms = optional(object({
+        title   = string
+        message = optional(string)
+      }), null)
+      phone_call = optional(object({
+        title   = string
+        message = optional(string)
+      }), null)
+    }), null)
+  }))
+}
 
-        dynamic "fail_if_header_not_matches_regexp" {
-          for_each = lookup(http.value, "match_headers", {})
-          content {
-            header = fail_if_header_not_matches_regexp.value.name
-            regexp = fail_if_header_not_matches_regexp.value.regex
-          }
-        }
-      }
-    }
+variable "oncall_escalation_chains" {
+  type = map(object({
+    name = string
+  }))
+}
+
+variable "oncall_escalations" {
+  type = map(object({
+    chain_key    = string
+    type         = string
+    schedule_key = optional(string, null)
+    important    = optional(bool, false)
+    duration     = optional(number, null)
+    position     = number
+  }))
+  validation {
+    condition = length([
+      for key, value in var.oncall_escalations : true
+      if contains(keys(var.oncall_escalation_chains), value.chain_key)
+    ]) == length(var.oncall_escalations)
+    error_message = "chain_key must be defined in var.oncall_escalation_chains"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_escalations : true
+      if value.schedule_key == null ? true : contains(keys(var.oncall_schedules), value.schedule_key)
+    ]) == length(var.oncall_escalations)
+    error_message = "schedule_key must be defined in var.oncall_schedules"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_escalations : true
+      if contains(["notify_on_call_from_schedule", "wait", "repeat_escalation"], value.type)
+    ]) == length(var.oncall_escalations)
+    error_message = "type must be one of: notify_on_call_from_schedule, wait, repeat_escalation"
+  }
+}
+
+variable "oncall_routes" {
+  type = map(object({
+    integration_key      = string
+    escalation_chain_key = string
+    query                = string
+    type                 = string
+    position             = number
+  }))
+  # validation {
+  #   condition = length([
+  #     for key, value in var.oncall_routes : true
+  #     if contains(keys(var.oncall_intergations), value.integration_key)
+  #   ]) == length(var.oncall_routes)
+  #   error_message = "integration_key must be defined in var.oncall_intergations"
+  # }
+  validation {
+    condition = length([
+      for key, value in var.oncall_routes : true
+      if contains(keys(var.oncall_escalation_chains), value.escalation_chain_key)
+    ]) == length(var.oncall_routes)
+    error_message = "escalation_chain_key must be defined in var.oncall_escalation_chains"
+  }
+  validation {
+    condition = length([
+      for key, value in var.oncall_routes : true
+      if contains(["jinja2"], value.type)
+    ]) == length(var.oncall_routes)
+    error_message = "type must be one of: jinja2"
   }
 }
