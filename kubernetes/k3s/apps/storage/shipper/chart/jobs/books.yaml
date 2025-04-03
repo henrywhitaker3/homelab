@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: books-shipper
+  labels:
+    app.kubernetes.io/name: shipper
+    app.kubernetes.io/instance: books
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 0 * * * *
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: shipper
+        app.kubernetes.io/instance: books
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: shipper
+              image: rclone/rclone:1.66.0
+              imagePullPolicy: IfNotPresent
+              args:
+                - --config=/creds/s3.conf
+                - sync
+                - --s3-chunk-size=100M
+                - --s3-upload-cutoff=100M
+                - --progress
+                - unraid:/plex/Media/Books
+                - s3-crypt:/
+              volumeMounts:
+                - mountPath: /creds
+                  name: creds
+          volumes:
+            - name: creds
+              secret:
+                secretName: shipper-books-s3
+                items:
+                  - key: s3.conf
+                    path: s3.conf

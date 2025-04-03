@@ -48,7 +48,7 @@ locals {
       hostname = "mac-mini"
     },
     {
-      mac      = "44:B7:D0:E2:83:63"
+      mac      = "44:b7:d0:e2:83:63"
       ip       = "10.0.0.62"
       hostname = "jetkvm"
     },

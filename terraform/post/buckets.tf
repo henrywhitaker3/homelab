@@ -50,6 +50,10 @@ locals {
       name = "mariadb"
       type = "r2"
     }
+    books = {
+      name = "books"
+      type = "r2"
+    }
   }
 
   minio_tokens = {
@@ -101,6 +105,10 @@ locals {
     }
     mariadb = {
       buckets = ["mariadb"]
+      write   = true
+    }
+    books = {
+      buckets = ["books"]
       write   = true
     }
   }

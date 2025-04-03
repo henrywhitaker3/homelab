@@ -146,7 +146,8 @@ provider "registry.terraform.io/grafana/grafana" {
 }
 
 provider "registry.terraform.io/hashicorp/random" {
-  version = "3.7.1"
+  version     = "3.7.1"
+  constraints = "3.7.1"
   hashes = [
     "h1:/qtweZW2sk0kBNiQM02RvBXmlVdI9oYqRMCyBZ8XA98=",
     "h1:0XCd0Y9HVdDcEbwxF18e49HB+YRO+QQ24H3jDgmFPEE=",
@@ -179,6 +180,7 @@ provider "registry.terraform.io/henrywhitaker3/cronitor" {
   constraints = "1.2.1"
   hashes = [
     "h1:FotD8cfGuE2xQRrEZSPGJ/6rtJeQ3FmjCX28TyZBeIE=",
+    "h1:ypt7PX0fwKWPVch+USFYPmy+CsRF7PaX178Jl8lu3Dk=",
     "zh:24988bedb989d8e0592bea89acdde06c08cbad3ef0559c281186b379851b8358",
     "zh:2f72507a55d07cc058208fd2c6d6ae25b4444d667285a53ef5dc64f91ece78d3",
     "zh:3d77d038ef785288ca525427770836fbac980ef4dc33fd40ebcb5d7fe4e8d5d2",
