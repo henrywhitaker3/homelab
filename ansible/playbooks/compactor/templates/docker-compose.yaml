@@ -9,7 +9,7 @@ services:
     command: chown -R 1001:1001 /var/thanos/compact
 
   compactor:
-    image: quay.io/thanos/thanos:v0.37.2
+    image: quay.io/thanos/thanos:v0.38.0
     restart: unless-stopped
     command:
       - compact
@@ -37,7 +37,7 @@ services:
         condition: service_completed_successfully
 
   tools:
-    image: quay.io/thanos/thanos:v0.37.2
+    image: quay.io/thanos/thanos:v0.38.0
     entrypoint:
       - tail
       - -f
