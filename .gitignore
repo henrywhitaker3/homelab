@@ -26,6 +26,7 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
+!terraform/infra/healthchecks.tfvars
 !terraform/post/grafana.tfvars
 !terraform/post/cronitor.tfvars
 !terraform/post/buckets.tfvars
