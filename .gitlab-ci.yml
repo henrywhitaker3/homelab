@@ -116,7 +116,7 @@ tf plan:
   extends:
     - .terraform:base
   script:
-    - terraform plan -out planfile
+    - terraform plan $(for file in *.tfvars; do echo "-var-file $file "; done) -out planfile
   artifacts:
     paths:
       - terraform/$TF_DIR/planfile

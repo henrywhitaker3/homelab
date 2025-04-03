@@ -271,13 +271,13 @@ variable "oncall_routes" {
     type                 = string
     position             = number
   }))
-  # validation {
-  #   condition = length([
-  #     for key, value in var.oncall_routes : true
-  #     if contains(keys(var.oncall_intergations), value.integration_key)
-  #   ]) == length(var.oncall_routes)
-  #   error_message = "integration_key must be defined in var.oncall_intergations"
-  # }
+  validation {
+    condition = length([
+      for key, value in var.oncall_routes : true
+      if contains(keys(var.oncall_intergations), value.integration_key)
+    ]) == length(var.oncall_routes)
+    error_message = "integration_key must be defined in var.oncall_intergations"
+  }
   validation {
     condition = length([
       for key, value in var.oncall_routes : true
