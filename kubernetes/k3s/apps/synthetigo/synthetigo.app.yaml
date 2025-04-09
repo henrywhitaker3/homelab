@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: synthetigo
   source:
-    path: kubernetes/staging/home/apps/services
+    path: kubernetes/test/home/apps/services
     repoURL: https://github.com/synthetigo/provisioning.git
     targetRevision: HEAD
     directory:
