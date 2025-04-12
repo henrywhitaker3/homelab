@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/dragonflydb/operator
   pullPolicy: Always
-  tag: v1.1.10
+  tag: v1.1.11
 
 entrypoint:
   command: ["/manager"]
