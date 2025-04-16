@@ -27,7 +27,7 @@ spec:
                 - --s3-chunk-size=100M
                 - --s3-upload-cutoff=100M
                 - --progress
-                - unraid:/plex/Media/Books
+                - unraid:/books/
                 - s3-crypt:/
               volumeMounts:
                 - mountPath: /creds
