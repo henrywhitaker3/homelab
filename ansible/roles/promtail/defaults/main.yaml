@@ -4,7 +4,7 @@ promtail_become: true
 promtail_install_dir: /opt/promtail
 
 # renovate: datasource=github-releases depName=grafana/loki
-promtail_version: v3.4.3
+promtail_version: v3.5.0
 
 promtail_server_disable: true
 
