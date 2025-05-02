@@ -7,7 +7,7 @@ terraform {
 
     adguard = {
       source  = "gmichels/adguard"
-      version = "1.5.1"
+      version = "1.6.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
