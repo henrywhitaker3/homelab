@@ -1,6 +1,6 @@
 services:
   adguard:
-    image: adguard/adguardhome:v0.107.59
+    image: adguard/adguardhome:v0.107.61
     restart: unless-stopped
     ports:
       - 53:53/tcp
