@@ -13,3 +13,10 @@ spec:
             severity: critical
           annotations:
             summary: Multiple orchestrators are the leader in {{ $labels.region }}:{{ $labels.shard }}
+        - alert: TestExecutionLag
+          expr: histogram_quantile(0.95, sum(rate(test_execution_lag_seconds_bucket[5m])) by (le)) > 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Test execution lag is greater than 2 seconds
