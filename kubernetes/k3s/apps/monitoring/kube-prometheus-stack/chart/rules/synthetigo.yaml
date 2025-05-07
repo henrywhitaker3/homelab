@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: synthetigo
+spec:
+  groups:
+    - name: synthetigo
+      rules:
+        - alert: MultipleLeaders
+          expr: sum by (region, shard) (orchestrator_is_leader) > 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Multiple orchestrators are the leader in {{ $labels.region }}:{{ $labels.shard }}

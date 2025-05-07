@@ -8,3 +8,4 @@ resources:
   - smartctl.yaml
   - longhorn.yaml
   - recording.yaml
+  - synthetigo.yaml
