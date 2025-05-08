@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/operator.victoriametrics.com/vmsingle_v1beta1.json
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
@@ -14,6 +16,12 @@ spec:
   replicaCount: 1
   # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
   retentionPeriod: "8w"
+  resources:
+    limits:
+      cpu: 1200m
+      memory: 2Gi
+    requests:
+      memory: 1Gi
   storage:
     accessModes: [ReadWriteOnce]
     resources:
