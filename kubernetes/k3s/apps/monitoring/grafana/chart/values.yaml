@@ -168,7 +168,7 @@ dashboards:
     #   datasource:
     #     - { name: DS_PROMETHEUS, value: Prometheus }
     smarctl:
-      url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/main/dashboards/dist/smartctl.json
+      url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/refs/heads/main/dashboards/dist/dashboards/smartctl.json
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
     dragonfly:
