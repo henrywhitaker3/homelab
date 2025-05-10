@@ -4,7 +4,7 @@ tempo:
   service:
     type: LoadBalancer
     annotations:
-     metallb.universe.tf/loadBalancerIPs: 10.0.0.37
+      metallb.universe.tf/loadBalancerIPs: 10.0.0.37
 
   tempo:
     repository: grafana/tempo
@@ -31,11 +31,6 @@ tempo:
       enabled: true
       remoteWriteUrls:
         - http://vmagent-metrics.monitoring.svc:8429/api/v1/write
-
-    overrides:
-      defaults:
-        metrics_generator:
-          processors: ['local-blocks']
 
     global_overrides:
       max_traces_per_user: 0
