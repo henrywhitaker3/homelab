@@ -13,6 +13,13 @@ spec:
             severity: critical
           annotations:
             summary: Multiple orchestrators are the leader in {{ $labels.region }}:{{ $labels.shard }}
+        - alert: NoLeaders
+          expr: sum by (region, shard) (orchestrator_is_leader) < 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: No orchestrator leader in {{ $labels.region }}:{{ $labels.shard }}
         - alert: TestExecutionLag
           expr: histogram_quantile(0.95, sum(rate(test_execution_lag_seconds_bucket[5m])) by (le)) > 2
           for: 5m
