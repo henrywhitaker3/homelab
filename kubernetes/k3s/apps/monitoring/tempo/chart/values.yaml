@@ -7,9 +7,6 @@ tempo:
       metallb.universe.tf/loadBalancerIPs: 10.0.0.37
 
   tempo:
-    repository: grafana/tempo
-    tag: 2.4.1
-
     retention: 24h
     storage:
       trace:
