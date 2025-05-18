@@ -4,7 +4,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: gitlab-runner-secret
-  namespace: { { .Release.Namespace } }
+  namespace: "{{ .Release.Namespace }}"
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
