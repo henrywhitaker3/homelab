@@ -27,17 +27,17 @@ spec:
             severity: critical
           annotations:
             summary: Overseerr might be down...
-        - alert: YourbuildUIDown
-          expr: probe_http_status_code{instance="https://yourbuild.dev"} != 200
+        - alert: SynthetigoUIDown
+          expr: probe_http_status_code{instance="https://synthetigo.dev"} != 200
           for: 5m
           labels:
             severity: critical
           annotations:
-            summary: Yourbuild UI might be down...
+            summary: Synthetigo API might be down...
         - alert: YourbuildAPIDown
-          expr: probe_http_status_code{instance="https://api.yourbuild.dev/auth/login"} != 405
+          expr: probe_http_status_code{instance="https://api.synthetigo.dev/auth/login"} != 405
           for: 5m
           labels:
             severity: critical
           annotations:
-            summary: Yourbuild API might be down...
+            summary: Synthetigo API might be down...

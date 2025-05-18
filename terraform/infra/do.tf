@@ -1,6 +1,6 @@
 resource "digitalocean_ssh_key" "laptop" {
   name       = "Laptop"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+Ho5rRpj4vpLNcAxKvy255db7Hr65mO8C4BNRB2yYcLTBkHG8N1mFsMbMQPqL0qCSYqS0+mRz/QN2W8JLa/pX5b2QffvisYKCNnxHzesyB78rmTh5JKO50ykZq9iJFAADD49yfYoP9v1I6RT8bLpGcdKugRsPzZqd3XskPa6uot8GZBkQ+0THcErvF8OQn1mIj03jQTFusCmIn2GzdQRnb0D8cbs1oDkiiXQMvNRtrymiNR2JA+2gXDnTKjxW87BGhFfP2UNrGVpbmTHQs4Jzm44opTixCA0gSNlDzYChlyWmrZbhgLipDWhrdpg5k2KdbZC4XX19X10voATfEUWV0vM4mk4BxOFPSEaeRInA+cM/8WZ1FEiANMmPzLRIgZh3lqyvJ7L0WUB9pm0XTtmD2bHpQ2/lk4XyVQ4iRgsE3D/3UD0d7T/I7virVXWSk4H1m4+92zCKQLduGeqH7AFEPrGYJvVYR0VkbBnMcTHfgFyIRWdyl7O+IBl+j7KAYV0="
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJpK3VfLOVkG5nffVI+mEagvSXBe2cl8k4KTKlhDxR6a"
 }
 
 resource "digitalocean_vpc" "jump_vpc" {
