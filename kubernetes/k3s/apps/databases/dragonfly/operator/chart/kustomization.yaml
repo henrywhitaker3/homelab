@@ -10,6 +10,6 @@ helmCharts:
   - name: generic
     releaseName: dragonfly-operator
     namespace: databases
-    version: "v1.3.17"
+    version: "v1.3.18"
     repo: oci://ghcr.io/henrywhitaker3
     valuesFile: values.yaml

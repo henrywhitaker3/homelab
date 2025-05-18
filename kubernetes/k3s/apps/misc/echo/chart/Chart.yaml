@@ -7,5 +7,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: generic
-    version: "v1.3.17"
+    version: "v1.3.18"
     repository: oci://ghcr.io/henrywhitaker3
