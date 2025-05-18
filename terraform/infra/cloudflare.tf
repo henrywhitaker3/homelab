@@ -3,6 +3,18 @@ module "henrywhitaker-com" {
 
   zone = "henrywhitaker.com"
   records = {
+    root = {
+      name    = "henrywhitaker.com"
+      value   = digitalocean_droplet.jump_k8s.ipv4_address
+      type    = "A"
+      proxied = true
+    }
+    wildcard = {
+      name    = "*"
+      value   = digitalocean_droplet.jump_k8s.ipv4_address
+      type    = "A"
+      proxied = true
+    }
     voodoo = {
       name    = "voodoo"
       value   = "www.voiceandsms.com"
