@@ -24,7 +24,7 @@ all:
     jump:
       hosts:
         jump-k8s.lab:
-          ansible_host: 165.22.112.190
+          ansible_host: 188.166.148.116
           node_exporter_host: 10.8.0.1
           process_exporter_host: 10.8.0.1
           haproxy_config:
