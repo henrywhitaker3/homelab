@@ -12,7 +12,7 @@ resource "digitalocean_vpc" "jump_vpc" {
 resource "digitalocean_droplet" "jump_k8s" {
   name     = "jump-k8s"
   size     = "s-1vcpu-1gb"
-  image    = "ubuntu-22-04-x64"
+  image    = "ubuntu-24-04-x64"
   region   = "lon1"
   vpc_uuid = digitalocean_vpc.jump_vpc.id
   ssh_keys = [digitalocean_ssh_key.laptop.fingerprint]
