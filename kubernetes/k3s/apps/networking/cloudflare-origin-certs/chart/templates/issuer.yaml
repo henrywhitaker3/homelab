@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cert-manager.k8s.cloudflare.com/clusteroriginissuer_v1.json
+apiVersion: cert-manager.k8s.cloudflare.com/v1
+kind: ClusterOriginIssuer
+metadata:
+  name: cloudflare-issuer
+spec:
+  requestType: OriginECC
+  auth:
+    tokenRef:
+      name: cloudflare-issuer-api-token
+      key: apiKey
