@@ -26,6 +26,16 @@ spec:
             severity: critical
           annotations:
             summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 7 days
+        - alert: CertManagerCloudflareCertExpiring1Days
+          expr: |
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24)
+          for: 60m
+          labels:
+            severity: critical
+          annotations:
+            summary: Cloudflare Origin Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 1 day
     - name: dvla
       rules:
         - alert: VehicleTaxExpired
