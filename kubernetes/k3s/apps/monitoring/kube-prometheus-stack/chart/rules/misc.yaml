@@ -8,7 +8,9 @@ spec:
       rules:
         - alert: CertManagerCertExpiring21Days
           expr: |
-            sum by (name, exported_namespace) (certmanager_certificate_expiration_timestamp_seconds - time()) < (60 * 60 * 24 * 21)
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group!="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24 * 21)
           for: 60m
           labels:
             severity: warning
@@ -16,7 +18,9 @@ spec:
             summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 21 days
         - alert: CertManagerCertExpiring7Days
           expr: |
-            sum by (name, exported_namespace) (certmanager_certificate_expiration_timestamp_seconds - time()) < (60 * 60 * 24 * 7)
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group!="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24 * 7)
           for: 60m
           labels:
             severity: critical
