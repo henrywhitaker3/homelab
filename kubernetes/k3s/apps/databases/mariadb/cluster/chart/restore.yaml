@@ -8,6 +8,8 @@ spec:
   mariaDbRef:
     name: mariadb
 
+  targetRecoveryTime: 2025-05-20T00:00:00Z
+
   s3:
     bucket: mariadb
     endpoint: s3.plexmox.com
