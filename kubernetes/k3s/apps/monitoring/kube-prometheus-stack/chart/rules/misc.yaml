@@ -132,14 +132,14 @@ spec:
     - name: argo
       rules:
         - alert: ArgocdServiceUnhealthy
-          expr: argocd_app_info{health_status!="Healthy"} != 0
+          expr: sum by (name) (argocd_app_info{health_status!="Healthy"}) != 0
           for: 15m
           labels:
             severity: warning
           annotations:
             summary: ArgoCD service unhealthy (instance {{ $labels.name }})
         - alert: ArgocdServiceNotSynced
-          expr: argocd_app_info{sync_status!="Synced"} != 0
+          expr: sum by (name) (argocd_app_info{sync_status!="Synced"}) != 0
           for: 15m
           labels:
             severity: warning

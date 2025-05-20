@@ -31,6 +31,6 @@ spec:
           expr: max by (queue) (asynq_queue_latency_seconds{namespace="synthetigo"}) > 10
           for: 5m
           labels:
-            severity: critical
+            severity: warning
           annotations:
-            summary: Average queue latency for ${{ labels.queue }} is over 10 seconds
+            summary: Average queue latency for {{ $labels.queue }} is over 10 seconds
