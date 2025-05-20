@@ -8,7 +8,7 @@ spec:
   mariaDbRef:
     name: mariadb
 
-  targetRecoveryTime: 2025-05-20T00:00:00Z
+  targetRecoveryTime: 2025-05-20T12:00:00Z
 
   s3:
     bucket: mariadb
