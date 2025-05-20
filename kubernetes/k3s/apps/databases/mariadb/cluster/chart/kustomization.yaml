@@ -8,4 +8,4 @@ resources:
   - backup.yaml
   - users.yaml
   - rules.yaml
-  - restore.yaml
+  # - restore.yaml
