@@ -19,7 +19,7 @@ vip_notify_script_enabled: false
 vip_metrics_enabled: false
 
 # renovate: datasource=github-releases depName=mehdy/keepalived-exporter
-vip_metrics_version: 1.6.0
+vip_metrics_version: 1.6.2
 
 vip_metrics_port: 9165
 
