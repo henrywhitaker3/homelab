@@ -11,7 +11,7 @@
     - node_exporter
     - process_exporter
     - haproxy
-    - promtail
+    - alloy
 
   handlers:
     - name: restart wireguard

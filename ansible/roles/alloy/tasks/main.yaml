@@ -1,0 +1,83 @@
+---
+- name: Create alloy installation directory
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.file:
+    path: "{{ alloy_install_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Download alloy
+  tags: alloy
+  ansible.builtin.get_url:
+    url: "https://github.com/grafana/alloy/releases/download/{{ alloy_version }}/alloy-linux-{{ go_arch }}.zip"
+    dest: "/tmp/alloy-{{ alloy_version }}-linux-{{ go_arch }}.zip"
+    mode: "0755"
+
+- name: Unzip alloy
+  tags: alloy
+  ansible.builtin.unarchive:
+    src: "/tmp/alloy-{{ alloy_version }}-linux-{{ go_arch }}.zip"
+    remote_src: true
+    dest: "/tmp"
+    creates: "/tmp/alloy-linux-{{ go_arch }}"
+
+- name: Move alloy binary to install dir
+  tags: alloy
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/alloy-linux-{{ go_arch }}"
+    remote_src: true
+    dest: "{{ alloy_install_dir }}/alloy"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create alloy data directory
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.file:
+    path: "{{ alloy_data_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0770"
+
+- name: Copy over config
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.copy:
+    dest: "{{ alloy_config_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+    content: "{{ alloy_config }}"
+
+- name: Copy over alloy service
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.template:
+    src: templates/alloy.service
+    dest: /etc/systemd/system/alloy.service
+    owner: root
+    group: root
+    mode: "0644"
+  register: alloy_service_copied
+  notify: restart alloy
+
+- name: Reload services
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: alloy_service_copied
+
+- name: Start and enable alloy
+  tags: alloy
+  become: true
+  ansible.builtin.service:
+    name: alloy
+    state: started
+    enabled: true

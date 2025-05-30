@@ -20,4 +20,4 @@
     - process_exporter
     - docker
     - docker_compose
-    - promtail
+    - alloy

@@ -13,7 +13,7 @@
     - cifs
     - vpn_route
     - crog
-    - promtail
+    - alloy
     - k3s
 
 - name: Run post installation

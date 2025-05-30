@@ -1,0 +1,7 @@
+---
+- name: restart alloy
+  tags: alloy
+  become: "{{ alloy_become }}"
+  ansible.builtin.service:
+    name: alloy
+    state: restarted

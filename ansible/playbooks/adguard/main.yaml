@@ -10,7 +10,7 @@
     - user
     - node_exporter
     - process_exporter
-    - promtail
+    - alloy
     - docker
 
   handlers:

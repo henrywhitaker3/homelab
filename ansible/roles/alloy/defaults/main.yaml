@@ -1,0 +1,110 @@
+---
+alloy_become: true
+
+# renovate: datasource=github-releases depName=grafana/alloy
+alloy_version: v1.8.3
+
+alloy_install_dir: /opt/alloy
+
+alloy_data_dir: /var/lib/alloy
+
+alloy_config_file: /etc/alloy.hcl
+
+alloy_stability_level: generally-available
+
+alloy_server_enabled: true
+
+alloy_server_http_addr: 0.0.0.0:12345
+
+alloy_server_ui_path: /
+
+alloy_config: |
+  local.file_match "messages" {
+    path_targets = [{
+      __address__ = "localhost",
+      __path__    = "/var/log/messages",
+      host        = "{{ inventory_hostname }}",
+      job         = "system-messages",
+    }]
+  }
+
+  loki.source.file "messages" {
+    targets               = local.file_match.messages.targets
+    forward_to            = [loki.write.default.receiver]
+    legacy_positions_file = "/tmp/promtail-positions.yaml"
+  }
+
+  discovery.relabel "journal" {
+    targets = []
+
+    rule {
+      source_labels = ["__journal__systemd_unit"]
+      regex         = "(.*?)\\.service"
+      target_label  = "unit"
+    }
+  }
+
+  loki.source.journal "journal" {
+    format_as_json = true
+    max_age = "12h0m0s"
+    path = "/var/log/journal"
+    relabel_rules = discovery.relabel.journal.rules
+    forward_to = [loki.write.default.receiver]
+    labels = {
+      host = "{{ inventory_hostname }}",
+      job = "systemd-journal",
+    }
+  }
+
+  {% if 'docker' in role_names %}
+  discovery.docker "docker_log_scrape" {
+    host             = "unix:///var/run/docker.sock"
+    refresh_interval = "10s"
+  }
+
+  discovery.relabel "docker_log_scrape" {
+    targets = []
+
+    rule {
+      source_labels = ["__meta_docker_container_name"]
+      regex         = "/(.*)"
+      target_label  = "container"
+    }
+
+    rule {
+      source_labels = ["__meta_docker_container_log_stream"]
+      target_label  = "logstream"
+    }
+
+    rule {
+      source_labels = ["__meta_docker_container_label_logging_jobname"]
+      target_label  = "job"
+    }
+  }
+
+  loki.source.docker "docker_log_scrape" {
+    host             = "unix:///var/run/docker.sock"
+    targets          = discovery.docker.docker_log_scrape.targets
+    forward_to       = [loki.write.default.receiver]
+    relabel_rules    = discovery.relabel.docker_log_scrape.rules
+    refresh_interval = "10s"
+  }
+  {% endif %}
+
+  loki.write "default" {
+    endpoint {
+      url = "https://loki.plexmox.com/loki/api/v1/push"
+    }
+    external_labels = {
+      host = "{{ inventory_hostname }}",
+    }
+  }
+
+go_arch_map:
+  i386: "386"
+  x86_64: "amd64"
+  aarch64: "arm64"
+  armv7l: "armv7"
+  armv6l: "armv6"
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"

@@ -8,7 +8,7 @@
     - common
     - user
     - node_exporter
-    - promtail
+    - alloy
 
   handlers:
     - name: restart raspotify
