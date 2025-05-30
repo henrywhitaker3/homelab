@@ -240,6 +240,8 @@ datasources:
         type: tempo
         url: http://tempo.monitoring.svc:3100
         jsonData:
+          serviceMap:
+            datasourceUid: Prometheus
           tracesToLogsV2:
             datasourceUid: Loki
             tags: [{ key: "host.name", value: "pod" }]
