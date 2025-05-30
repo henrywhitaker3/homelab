@@ -12,13 +12,21 @@ alloy_config_file: /etc/alloy.hcl
 
 alloy_stability_level: generally-available
 
-alloy_server_enabled: true
+alloy_server_enabled: false
 
 alloy_server_http_addr: 0.0.0.0:12345
 
 alloy_server_ui_path: /
 
+alloy_live_debugging_enabled: false
+
 alloy_config: |
+  {% if alloy_live_debugging_enabled %}
+  livedebugging {
+    enabled = true
+  }
+  {% endif %}
+
   local.file_match "messages" {
     path_targets = [{
       __address__ = "localhost",

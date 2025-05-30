@@ -54,6 +54,7 @@
     group: root
     mode: "0644"
     content: "{{ alloy_config }}"
+  notify: restart alloy
 
 - name: Copy over alloy service
   tags: alloy
