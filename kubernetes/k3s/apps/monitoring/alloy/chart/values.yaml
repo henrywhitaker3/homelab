@@ -1,0 +1,8 @@
+alloy:
+  configMap:
+    create: false
+
+    name: alloy-config
+    key: alloy.hcl
+  mounts:
+    varlog: true
