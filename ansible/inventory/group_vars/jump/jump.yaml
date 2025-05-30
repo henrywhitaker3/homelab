@@ -22,6 +22,8 @@ crog_verbose: true
 
 crog_server_ip: "{{ haproxy_config.ip }}"
 
+alloy_server_enabled: false
+
 haproxy_stats_bind: "{{ haproxy_config.ip }}"
 haproxy_stats_extras:
   - bind localhost:8404
