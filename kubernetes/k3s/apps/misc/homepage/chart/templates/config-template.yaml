@@ -20,6 +20,16 @@ data:
               enableUser: true
               showEpisodeNumber: true
               expandOneStreamToTwoRows: true
+        - Overseerr:
+            href: https://overseerr.plexmox.com
+            siteMonitor: https://overseerr.plexmox.com
+            widget:
+              type: overseerr
+              url: http://overseerr.media.svc.cluster.local:5055
+              key: "{{ `{{ .overseerr_token }}`}}"
+        - Grafana:
+            href: https://grafana.plexmox.com
+            siteMonitor: https://grafana.plexmox.com
 
   widgets.yaml: ""
   # widgets.yaml: |
