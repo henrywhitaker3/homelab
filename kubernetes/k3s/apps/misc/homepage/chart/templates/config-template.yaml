@@ -3,12 +3,24 @@ kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  # kubernetes.yaml: |
-  #   mode: cluster
-  kubernetes.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
   settings.yaml: ""
   bookmarks.yaml: ""
-  services.yaml: ""
+  services.yaml: |
+    - Services:
+        - Plex:
+            href: https://plex.plexmox.com
+            siteMonitor: https://plex.plexmox.com
+            icon: plex.png
+            widget:
+              type: tautulli
+              url: http://tautulli.media.svc.cluster.local
+              key: "{{ `{{ .tautulli_token }}` }}"
+              enableUser: true
+              showEpisodeNumber: true
+              expandOneStreamToTwoRows: true
+
   widgets.yaml: ""
   # widgets.yaml: |
   #   - kubernetes:
