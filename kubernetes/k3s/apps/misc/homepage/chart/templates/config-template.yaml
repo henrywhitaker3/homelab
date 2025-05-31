@@ -5,21 +5,15 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
-  settings.yaml: ""
+  settings.yaml: |
+    layout:
+      Services:
+        style: row
+        columns: 3
+        header: false
   bookmarks.yaml: ""
   services.yaml: |
     - Services:
-        - Plex:
-            href: https://plex.plexmox.com
-            siteMonitor: https://plex.plexmox.com
-            icon: plex.png
-            widget:
-              type: tautulli
-              url: http://tautulli.media.svc.cluster.local:8181/tautulli
-              key: "{{ `{{ .tautulli_token }}` }}"
-              enableUser: true
-              showEpisodeNumber: true
-              expandOneStreamToTwoRows: true
         - Overseerr:
             href: https://overseerr.plexmox.com
             siteMonitor: https://overseerr.plexmox.com
@@ -46,6 +40,17 @@ data:
               url: http://radarr.media.svc.cluster.local:7878
               key: "{{ `{{ .radarr_token }}`}}"
               enableQueue: true
+        - Plex:
+            href: https://plex.plexmox.com
+            siteMonitor: https://plex.plexmox.com
+            icon: plex.png
+            widget:
+              type: tautulli
+              url: http://tautulli.media.svc.cluster.local:8181/tautulli
+              key: "{{ `{{ .tautulli_token }}` }}"
+              enableUser: true
+              showEpisodeNumber: true
+              expandOneStreamToTwoRows: true
         - Prowlarr:
             href: https://plexmox.com/prowlarr
             siteMonitor: https://plexmox.com/prowlarr
