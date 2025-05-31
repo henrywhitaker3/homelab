@@ -15,7 +15,7 @@ data:
             icon: plex.png
             widget:
               type: tautulli
-              url: http://tautulli.media.svc.cluster.local:8181
+              url: http://tautulli.media.svc.cluster.local/tautulli:8181
               key: "{{ `{{ .tautulli_token }}` }}"
               enableUser: true
               showEpisodeNumber: true
@@ -44,7 +44,7 @@ data:
             widget:
               type: sonarr
               url: http://radarr.media.svc.cluster.local:8989
-              key: "{{ `{{ .sonarr_token }}`}}"
+              key: "{{ `{{ .radarr_token }}`}}"
               enableQueue: true
         - Prowlarr:
             href: https://plexmox.com/prowlarr
