@@ -71,12 +71,14 @@ data:
         - Speedtest:
             href: https://speedtest.plexmox.com
             siteMonitor: http://speedtest.misc.svc.cluster.local
+            icon: https://github.com/henrywhitaker3/Speedtest-Tracker/blob/master/public/icons/fav/apple-icon.png?raw=true
             widget:
               type: speedtest
               url: http://speedtest.misc.svc.cluster.local
         - Argo:
             href: https://argocd.plexmox.com
-            siteMonitor: http://argo-argocd-server.argo.svc.cluster.local
+            siteMonitor: https://argocd.plexmox.com
+            icon: argocd.png
 
   widgets.yaml: ""
   # widgets.yaml: |
