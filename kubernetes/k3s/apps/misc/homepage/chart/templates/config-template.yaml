@@ -9,11 +9,12 @@ data:
   settings.yaml: ""
   bookmarks.yaml: ""
   services.yaml: ""
-  widgets.yaml: |
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: k3s
+  widgets.yaml: ""
+  # widgets.yaml: |
+  #   - kubernetes:
+  #       cluster:
+  #         show: true
+  #         cpu: true
+  #         memory: true
+  #         showLabel: true
+  #         label: k3s
