@@ -19,6 +19,9 @@ generic:
     - name: logs
       emptyDir: {}
 
+  probes:
+    enabled: false
+
   volumeMounts:
     - mountPath: /app/config/bookmarks.yaml
       name: homepage-config
