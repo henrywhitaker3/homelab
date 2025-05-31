@@ -25,15 +25,15 @@ argo-cd:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.ingress.kubernetes.io/auth-method: 'GET'
-        nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
-        nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
-        nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+        nginx.ingress.kubernetes.io/auth-method: "GET"
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
+        nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
+        nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
       ingressClassName: "nginx"
 
       extraTls:
         - hosts:
-          - argocd.plexmox.com
+            - argocd.plexmox.com
           secretName: argocd-plexmox-com
 
       hosts:
@@ -84,3 +84,6 @@ argo-cd:
   configs:
     cm:
       kustomize.buildOptions: --enable-helm
+      accounts.readonly: apiKey
+    rbac:
+      policy.csv: "g, readonly, role:readonly"
