@@ -15,7 +15,7 @@ data:
             icon: plex.png
             widget:
               type: tautulli
-              url: http://tautulli.media.svc.cluster.local
+              url: http://tautulli.media.svc.cluster.local:8181
               key: "{{ `{{ .tautulli_token }}` }}"
               enableUser: true
               showEpisodeNumber: true
