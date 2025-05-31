@@ -68,6 +68,15 @@ data:
             href: https://grafana.plexmox.com
             siteMonitor: https://grafana.plexmox.com
             icon: grafana.png
+        - Speedtest:
+            href: https://speedtest.plexmox.com
+            siteMonitor: http://speedtest.misc.svc.cluster.local
+            widget:
+              type: speedtest
+              url: http://speedtest.misc.svc.cluster.local
+        - Argo:
+            href: https://argocd.plexmox.com
+            siteMonitor: http://argo-argocd-server.argo.svc.cluster.local
 
   widgets.yaml: ""
   # widgets.yaml: |
