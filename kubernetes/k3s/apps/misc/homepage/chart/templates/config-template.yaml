@@ -23,13 +23,28 @@ data:
         - Overseerr:
             href: https://overseerr.plexmox.com
             siteMonitor: https://overseerr.plexmox.com
+            icon: overseerr.png
             widget:
               type: overseerr
               url: http://overseerr.media.svc.cluster.local:5055
               key: "{{ `{{ .overseerr_token }}`}}"
+        - Sonarr:
+            href: https://plexmox.com/sonarr
+            siteMonitor: https://plexmox.com/sonarr
+            icon: sonarr.png
+        - Radarr:
+            href: https://plexmox.com/radarr
+            siteMonitor: https://plexmox.com/radarr
+            icon: sonarr.png
+        - Prowlarr:
+            href: https://plexmox.com/prowlarr
+            siteMonitor: https://plexmox.com/prowlarr
+            icon: prowlarr.png
+    - Lab:
         - Grafana:
             href: https://grafana.plexmox.com
             siteMonitor: https://grafana.plexmox.com
+            icon: grafana.png
 
   widgets.yaml: ""
   # widgets.yaml: |
