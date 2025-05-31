@@ -3,8 +3,9 @@ kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  kubernetes.yaml: |
-    mode: cluster
+  # kubernetes.yaml: |
+  #   mode: cluster
+  kubernetes.yaml: ""
   settings.yaml: ""
   bookmarks.yaml: ""
   services.yaml: ""
