@@ -1,0 +1,11 @@
+apiVersion: v2
+name: homepage
+description: homepage manifests
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+
+dependencies:
+  - name: generic
+    version: "v1.3.18"
+    repository: oci://ghcr.io/henrywhitaker3
