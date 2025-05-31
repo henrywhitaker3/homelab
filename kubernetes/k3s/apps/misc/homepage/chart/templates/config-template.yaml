@@ -55,6 +55,14 @@ data:
             href: https://plexmox.com/prowlarr
             siteMonitor: https://plexmox.com/prowlarr
             icon: prowlarr.png
+        - Transmission:
+            href: https://plexmox.com/transmission
+            siteMontior: https://plexmox.com/transmission
+            icon: transmission.png
+            widget:
+              type: transmission
+              url: http://transmission.media.svc.cluster.local:9091
+              rpcUrl: /transmission/
     - Lab:
         - Grafana:
             href: https://grafana.plexmox.com
