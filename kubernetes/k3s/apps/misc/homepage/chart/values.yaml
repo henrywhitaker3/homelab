@@ -22,6 +22,10 @@ generic:
   probes:
     enabled: false
 
+  env:
+    - name: HOMEPAGE_ALLOWED_HOSTS
+      value: homepage.plexmox.com
+
   volumeMounts:
     - mountPath: /app/config/bookmarks.yaml
       name: homepage-config
