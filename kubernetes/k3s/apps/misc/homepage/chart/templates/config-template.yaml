@@ -81,7 +81,7 @@ data:
             icon: argo-cd.png
             widget:
               type: argocd
-              url: https://argocd.plexmox.com
+              url: https://argo-argocd-server.argo.svc.cluster.local
               key: "{{ `{{ .argocd_token }}` }}"
 
   widgets.yaml: ""
