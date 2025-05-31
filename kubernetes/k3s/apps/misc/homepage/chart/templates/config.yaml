@@ -21,6 +21,7 @@ spec:
               - key: bookmarks.yaml
               - key: services.yaml
               - key: widgets.yaml
+              - key: settings.yaml
   dataFrom:
     - extract:
         key: homepage-secrets
