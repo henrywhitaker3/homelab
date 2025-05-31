@@ -15,7 +15,7 @@ generic:
   volumes:
     - name: homepage-config
       secret:
-        name: homepage-config
+        secretName: homepage-config
     - name: logs
       emptyDir: {}
 
