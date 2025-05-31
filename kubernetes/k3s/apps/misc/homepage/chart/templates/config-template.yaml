@@ -15,7 +15,7 @@ data:
             icon: plex.png
             widget:
               type: tautulli
-              url: http://tautulli.media.svc.cluster.local/tautulli:8181
+              url: http://tautulli.media.svc.cluster.local:8181/tautulli
               key: "{{ `{{ .tautulli_token }}` }}"
               enableUser: true
               showEpisodeNumber: true
@@ -34,7 +34,7 @@ data:
             icon: sonarr.png
             widget:
               type: sonarr
-              url: http://sonarr.media.svc.cluster.local:8989
+              url: http://sonarr.media.svc.cluster.local:8989/sonarr
               key: "{{ `{{ .sonarr_token }}`}}"
               enableQueue: true
         - Radarr:
@@ -43,7 +43,7 @@ data:
             icon: radarr.png
             widget:
               type: sonarr
-              url: http://radarr.media.svc.cluster.local:7878
+              url: http://radarr.media.svc.cluster.local:7878/radarr
               key: "{{ `{{ .radarr_token }}`}}"
               enableQueue: true
         - Prowlarr:
