@@ -43,7 +43,7 @@ data:
             icon: radarr.png
             widget:
               type: sonarr
-              url: http://radarr.media.svc.cluster.local/radarr:8989
+              url: http://radarr.media.svc.cluster.local:7878
               key: "{{ `{{ .radarr_token }}`}}"
               enableQueue: true
         - Prowlarr:
