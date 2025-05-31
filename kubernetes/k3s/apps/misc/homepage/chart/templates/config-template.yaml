@@ -78,7 +78,11 @@ data:
         - Argo:
             href: https://argocd.plexmox.com
             siteMonitor: https://argocd.plexmox.com
-            icon: argocd.png
+            icon: argo-cd.png
+            widget:
+              type: argocd
+              url: https://argocd.plexmox.com
+              key: "{{ `{{ .argocd_token }}` }}"
 
   widgets.yaml: ""
   # widgets.yaml: |
