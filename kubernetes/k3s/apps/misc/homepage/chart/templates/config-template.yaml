@@ -32,10 +32,20 @@ data:
             href: https://plexmox.com/sonarr
             siteMonitor: https://plexmox.com/sonarr
             icon: sonarr.png
+            widget:
+              type: sonarr
+              url: http://sonarr.media.svc.cluster.local:8989
+              key: "{{ `{{ .sonarr_token }}`}}"
+              enableQueue: true
         - Radarr:
             href: https://plexmox.com/radarr
             siteMonitor: https://plexmox.com/radarr
-            icon: sonarr.png
+            icon: radarr.png
+            widget:
+              type: sonarr
+              url: http://radarr.media.svc.cluster.local:8989
+              key: "{{ `{{ .sonarr_token }}`}}"
+              enableQueue: true
         - Prowlarr:
             href: https://plexmox.com/prowlarr
             siteMonitor: https://plexmox.com/prowlarr
