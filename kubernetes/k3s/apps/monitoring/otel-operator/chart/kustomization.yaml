@@ -7,3 +7,5 @@ helmCharts:
     repo: https://open-telemetry.github.io/opentelemetry-helm-charts
     version: 0.90.2
     valuesFile: values.yaml
+resources:
+  - instrumentation

@@ -12,6 +12,9 @@ generic:
   service:
     port: 8989
 
+  podAnnotations:
+    instrumentation.opentelemetry.io/inject-dotnet: "true"
+
   ingress:
     enabled: true
     annotations:
@@ -25,9 +28,9 @@ generic:
           - path: /sonarr
             pathType: ImplementationSpecific
     tls:
-    - secretName: plexmox-com-tls
-      hosts:
-        - plexmox.com
+      - secretName: plexmox-com-tls
+        hosts:
+          - plexmox.com
 
   pvc:
     enabled: true
