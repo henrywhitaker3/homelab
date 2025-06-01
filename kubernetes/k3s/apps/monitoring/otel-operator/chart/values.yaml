@@ -1,2 +1,3 @@
-crds:
-  create: true
+opentelemetry-operator:
+  crds:
+    create: true
