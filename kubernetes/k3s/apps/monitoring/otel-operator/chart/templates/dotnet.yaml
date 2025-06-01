@@ -7,7 +7,7 @@ metadata:
   namespace: media
 spec:
   exporter:
-    endpoint: http://alloy:4318
+    endpoint: http://alloy.monitoring.svc.cluster.local:4318
   propagators:
     - tracecontext
     - baggage
