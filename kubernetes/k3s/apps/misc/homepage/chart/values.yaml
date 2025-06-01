@@ -12,6 +12,9 @@ generic:
   service:
     port: 3000
 
+  podAnnotations:
+    instrumentation.opentelemetry.io/inject-nodejs: "true"
+
   volumes:
     - name: homepage-config
       secret:
