@@ -4,6 +4,7 @@ namespace: monitoring
 helmCharts:
   - name: opentelemetry-operator
     releaseName: otel-operator
+    namespace: monitoring
     repo: https://open-telemetry.github.io/opentelemetry-helm-charts
     version: 0.90.2
     valuesFile: values.yaml
