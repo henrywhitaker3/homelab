@@ -51,6 +51,9 @@ spec:
     pgBouncer:
       port: 5432
       replicas: 2
+      config:
+        global:
+          pool_mode: transaction
       service:
         type: LoadBalancer
         metadata:
