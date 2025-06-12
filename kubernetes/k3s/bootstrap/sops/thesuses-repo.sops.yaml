@@ -6,20 +6,16 @@ metadata:
         argo-zombies/ignore: "true"
     labels:
         argocd.argoproj.io/secret-type: repository
-    name: yourbuild-ghcr-repo
+    name: thesuses-ghcr-repo
     namespace: argo
 stringData:
     enableOCI: ENC[AES256_GCM,data:LI24ng==,iv:rYtyDGEDZC9Y7qOV9IJ8oJXxQlYdWQbbpp/c3FdZR9s=,tag:Jpt3G3aHXciQb9MNXAD1aw==,type:str]
     type: ENC[AES256_GCM,data:O2ibfg==,iv:X4T/4yflmxT6lLcCdgjpeduK/ir8x59kFewbAUPGnnk=,tag:fCnJu7iVTv7XNGgKzNHx+w==,type:str]
-    url: ENC[AES256_GCM,data:Iwe1XqQSJC9vIpQIZeiFmWz399w=,iv:6mDSJzf3G/UrVlXEF5obk8BoZYPcfcSQRSuxrS9M+pA=,tag:XeR43sC9ELwj90sTdmEWcg==,type:str]
+    url: ENC[AES256_GCM,data:nc51ks4R0ci/0HXVtHYFwQ==,iv:iMKmxt4q2i1hmVIylUSxPoKt3Tk+caKd9xAOE7ogAKk=,tag:PQydHa3yDxNMz0yVH2lBNQ==,type:str]
     username: ENC[AES256_GCM,data:63jDO5UBrX77gqAYxBI=,iv:HC3udB82bD/RTJHGI7fLU9UV4Vhh3mkI/CoLdjLh6s4=,tag:NL1MN3321/wHoOjIWZV90A==,type:str]
     password: ENC[AES256_GCM,data:YznwC5oFu3JoSftRJk3t6BbawsFtUD2mN5fVYndPL3ADv+3DJbKzGg==,iv:Ul+IpjRLuT99jfCTk5ijkrhkz24b4dkqh+Fx2rdWgAk=,tag:Wr4PxjVKhFKjk29jL1hTag==,type:str]
 type: Opaque
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
           enc: |
@@ -30,11 +26,10 @@ sops:
             NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
             Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-08-29T20:42:21Z"
-    mac: ENC[AES256_GCM,data:vM5G7VKEqjAJPPkyyNBbzIXYds/i0UubPyKDD8AjdNVCUz7evW0Xe09VO6ykQQhqJN8cNnbUxY0qIUziFH/ui3LXglgu9v7esanuUZ8s221NEAUu3Egvv47gM0p/VDCpymn9sQkXvnb6LYHc/UNVoVfki9GQW9ScUpkb7igNr84=,iv:vDeZgFKNc6cm9vAbHRH+fUmzrp7B7GavX4hMJJizhwc=,tag:r3Dfa7nKD2QGqQsbtH816g==,type:str]
-    pgp: []
+    lastmodified: "2025-06-12T18:03:47Z"
+    mac: ENC[AES256_GCM,data:fasmzyCJMOwUVnfrWMQOjgZ1GaZXi9oP6Tvnz9e1WZ4KD+o6BAP4bk/Wpz8DCCU14NyRbVvt0m93XuWdmHeihAypq/TDgyfIvYz4dGlACWVTrX50vr1q3i2zqUwH27k3plVMGNq/7U5F7AFJGOuNcuJsn4KwiYHnPgdw6F3hieE=,iv:PLDpO3SPuKcIwfje70v6d5KVmrDC+vEQbms8lw4PhjQ=,tag:7iR8EvdVYbLOZjXym67r6Q==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.9.0
+    version: 3.10.2
 ---
 apiVersion: v1
 kind: Secret
@@ -44,20 +39,16 @@ metadata:
         argo-zombies/ignore: "true"
     labels:
         argocd.argoproj.io/secret-type: repository
-    name: yourbuild-provisioning
+    name: thesuses-provisioning
     namespace: argo
 stringData:
     project: ENC[AES256_GCM,data:O0G5TVmyrBu7,iv:5fmzooWtph53Ki7nJTKxDdMDIpIKHCdyE0EkvfkMK0g=,tag:p1MpbveUwPr4w+Me3A7b3w==,type:str]
     type: ENC[AES256_GCM,data:409B,iv:T5aXTOa8WP9AmpNbR+8Yhj/UB/D7AdxlLtvdErHhsXE=,tag:G5asCDm9VoTxInCdgCeCmw==,type:str]
-    url: ENC[AES256_GCM,data:SvDkzFxs/nJOtERa1jlOL1/M0X0tPidHyAW1U9WNrt5HJDQtEWWwmGNO447F+TBj,iv:1FEIeGB6XXcT322d6OhAfnrsslzaLUIENV4+/22qA24=,tag:XazN3ymemUCedH5u+p+VFA==,type:str]
+    url: ENC[AES256_GCM,data:U4f0y1upXhY9QiV4TpdtpAZct1YwVRnHHrtfgmU5pdUzFPs4CcD7zzkNjmw=,iv:aZmtl7AvQgbICSydaDAOSsVw6+SrMqHx1kY1dmENsU0=,tag:Py3k1jL78GRxE2vI+hxdlQ==,type:str]
     username: ENC[AES256_GCM,data:63jDO5UBrX77gqAYxBI=,iv:HC3udB82bD/RTJHGI7fLU9UV4Vhh3mkI/CoLdjLh6s4=,tag:NL1MN3321/wHoOjIWZV90A==,type:str]
     password: ENC[AES256_GCM,data:YznwC5oFu3JoSftRJk3t6BbawsFtUD2mN5fVYndPL3ADv+3DJbKzGg==,iv:Ul+IpjRLuT99jfCTk5ijkrhkz24b4dkqh+Fx2rdWgAk=,tag:Wr4PxjVKhFKjk29jL1hTag==,type:str]
 type: Opaque
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
           enc: |
@@ -68,8 +59,7 @@ sops:
             NGlxeEZJYURrOE4xcXQwUERlazRITXcKmxVdyAh1cympA6ubmhvDwc/ZZkm1WzGk
             Zncsqr8hIMDwBtcGJyxUfUaeZpE0HaB+dMWdcuFhQ5K+OgjfQuma1g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-08-29T20:42:21Z"
-    mac: ENC[AES256_GCM,data:vM5G7VKEqjAJPPkyyNBbzIXYds/i0UubPyKDD8AjdNVCUz7evW0Xe09VO6ykQQhqJN8cNnbUxY0qIUziFH/ui3LXglgu9v7esanuUZ8s221NEAUu3Egvv47gM0p/VDCpymn9sQkXvnb6LYHc/UNVoVfki9GQW9ScUpkb7igNr84=,iv:vDeZgFKNc6cm9vAbHRH+fUmzrp7B7GavX4hMJJizhwc=,tag:r3Dfa7nKD2QGqQsbtH816g==,type:str]
-    pgp: []
+    lastmodified: "2025-06-12T18:03:47Z"
+    mac: ENC[AES256_GCM,data:fasmzyCJMOwUVnfrWMQOjgZ1GaZXi9oP6Tvnz9e1WZ4KD+o6BAP4bk/Wpz8DCCU14NyRbVvt0m93XuWdmHeihAypq/TDgyfIvYz4dGlACWVTrX50vr1q3i2zqUwH27k3plVMGNq/7U5F7AFJGOuNcuJsn4KwiYHnPgdw6F3hieE=,iv:PLDpO3SPuKcIwfje70v6d5KVmrDC+vEQbms8lw4PhjQ=,tag:7iR8EvdVYbLOZjXym67r6Q==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.9.0
+    version: 3.10.2

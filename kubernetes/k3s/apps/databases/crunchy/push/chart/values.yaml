@@ -8,6 +8,7 @@ users:
   - name: crunchy-pguser-immich
   - name: crunchy-pguser-yourbuild
   - name: crunchy-pguser-synthetigo
+  - name: crunchy-pguser-thesuses
   - name: crunchy-pguser-kuma
     fields:
       - host

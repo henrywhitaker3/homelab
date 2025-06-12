@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: thesuses-provisioning
+  namespace: argo
+  annotations:
+    argo-zombies/ignore: "true"
+spec:
+  destination:
+    namespace: thesuses
+    server: https://kubernetes.default.svc
+  project: thesuses
+  source:
+    path: kubernetes/dev/apps/services
+    repoURL: https://github.com/thesuses/provisioning.git
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      include: "*.app.yaml"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
