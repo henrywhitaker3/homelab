@@ -45,6 +45,11 @@ spec:
           remoteKey: {{ $name }}
           property: uri
     - match:
+        secretKey: pgbouncer-uri
+        remoteRef:
+          remoteKey: {{ $name }}
+          property: pgbouncer-uri
+    - match:
         secretKey: user
         remoteRef:
           remoteKey: {{ $name }}
