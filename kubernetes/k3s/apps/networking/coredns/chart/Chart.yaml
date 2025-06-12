@@ -9,4 +9,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: coredns
     repository: https://coredns.github.io/helm
-    version: 1.42.2
+    version: 1.42.3
