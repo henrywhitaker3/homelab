@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: thesuses
   source:
-    path: kubernetes/dev/apps/services
+    path: clusters/dev/apps/services
     repoURL: https://github.com/thesuses/provisioning.git
     targetRevision: HEAD
     directory:
