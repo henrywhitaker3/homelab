@@ -47,11 +47,15 @@ spec:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 10.0.0.36
 
+  proxy:
+    pgBouncer:
+      port: 5432
+      replicas: 2
+
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
       postgresql:
-        max_connections: 250
         synchronous_commit: "on"
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
