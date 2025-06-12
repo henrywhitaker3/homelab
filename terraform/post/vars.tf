@@ -60,8 +60,3 @@ variable "cronitor_api_key" {
   type      = string
   sensitive = true
 }
-
-variable "gitlab_token" {
-  type      = string
-  sensitive = true
-}
