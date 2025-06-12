@@ -25,6 +25,10 @@ terraform {
       source  = "henrywhitaker3/cronitor"
       version = "1.2.1"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "18.0.0"
+    }
   }
 
   backend "http" {
@@ -69,4 +73,8 @@ provider "grafana" {
 
 provider "cronitor" {
   api_key = var.cronitor_api_key
+}
+
+provider "gitlab" {
+  token = var.gitlab_token
 }

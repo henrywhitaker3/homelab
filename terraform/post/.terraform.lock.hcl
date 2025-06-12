@@ -68,6 +68,29 @@ provider "registry.terraform.io/cloudflare/cloudflare" {
   ]
 }
 
+provider "registry.terraform.io/gitlabhq/gitlab" {
+  version     = "18.0.0"
+  constraints = "18.0.0"
+  hashes = [
+    "h1:A6zb9pg/ECm2zeiKs/g9nyfGT7W0s0ql4fcQpORfjgs=",
+    "zh:0865c6b12726148595ea78550671e4a7aad03645a2c5b554066acc908222d357",
+    "zh:0d88bdfb6c5a31f52a6fbd1563168d83d940b30c50b313d2615b2ded9610ea06",
+    "zh:168c62665473ca2ad92195aef0353f16132f15c846480287b55bb5aa5fdd87bb",
+    "zh:1ea5068511b9aac6e4425f815edc20ab9488a331c6c06c157907afc68d535da8",
+    "zh:628969142900dea49e33853053238c272362a36a78aa51964a1118019285f9f3",
+    "zh:82a938106ef9b089e5d25a5751e0e734bfdbdb6c445f647b4f4f678f2676aab1",
+    "zh:832d3e556e5f0bc9e2e10dff202303314393c77e0df6af430d8f678eca6fcef6",
+    "zh:8794d5eab20dd91f59fd88be4d177c8959f2accce9b9f74831d04bf5eddbe81f",
+    "zh:98680eaa7efbeec45878da88df4d3065871291ae1f2ffebcdcf6b48b221e0597",
+    "zh:9e118b430d580a3d869a54055e897b98108a645481e0dd99d27a97d13c53dbc3",
+    "zh:b590daccb0967ca5b30f2f855b69e27c807d962fa826d3fb309957003cc2b0e8",
+    "zh:c4d305354c308119d916734491f59640209903da3d4bd500ca4e1220a703d11d",
+    "zh:c63f702ed6a960305339e9605d7b058301a97d6e17681d3b30c5cd9679868f30",
+    "zh:ddc426016be0ed33961cc70ccc3e9434ad8ae60da04debf9c42f50817cbbdbbf",
+    "zh:f809ab383cca0a5f83072981c64208cbd7fa67e986a86ee02dd2c82333221e32",
+  ]
+}
+
 provider "registry.terraform.io/gmichels/adguard" {
   version     = "1.6.2"
   constraints = "1.6.2"
