@@ -53,6 +53,10 @@ buckets = {
     name = "books"
     type = "r2"
   }
+  thesuses_state = {
+    name = "thesuses-state"
+    type = "r2"
+  }
 }
 
 minio_tokens = {
@@ -108,6 +112,10 @@ r2_tokens = {
   }
   books = {
     buckets = ["books"]
+    write   = true
+  }
+  thesuses_state = {
+    buckets = ["thesuses_state"]
     write   = true
   }
 }
