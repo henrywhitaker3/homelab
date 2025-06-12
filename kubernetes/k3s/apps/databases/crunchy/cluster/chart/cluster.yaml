@@ -51,6 +51,11 @@ spec:
     pgBouncer:
       port: 5432
       replicas: 2
+      service:
+        type: LoadBalancer
+        metadata:
+          annotations:
+            metallb.universe.tf/loadBalancerIPs: 10.0.0.40
 
   patroni:
     dynamicConfiguration:
