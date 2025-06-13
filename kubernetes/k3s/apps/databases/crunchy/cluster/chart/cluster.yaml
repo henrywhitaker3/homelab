@@ -50,16 +50,26 @@ spec:
   proxy:
     pgBouncer:
       port: 5432
-      replicas: 2
+      replicas: 3
       config:
         global:
           pool_mode: transaction
-          max_db_connections: "10"
+          max_db_connections: "20"
       service:
         type: LoadBalancer
         metadata:
           annotations:
             metallb.universe.tf/loadBalancerIPs: 10.0.0.40
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    postgres-operator.crunchydata.com/cluster: crunchy
+                    postgres-operator.crunchydata.com/role: pgbouncer
+                topologyKey: kubernetes.io/hostname
 
   patroni:
     dynamicConfiguration:
