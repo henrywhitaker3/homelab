@@ -35,3 +35,6 @@ engines:
 
 loki:
   enabled: false
+
+alloy:
+  enabled: false
