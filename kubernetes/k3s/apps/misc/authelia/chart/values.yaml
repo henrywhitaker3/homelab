@@ -16,6 +16,9 @@ pod:
             path: configuration.oidc.yaml
         secretName: authelia-secrets
 
+service:
+  clusterIP: null
+
 rbac:
   enabled: true
 
@@ -52,15 +55,15 @@ configMap:
     rules:
       - domain: argocd.plexmox.com
         resources:
-          - '^/api/webhook'
+          - "^/api/webhook"
         policy: bypass
       - domain:
-        - plexmox.com
-        - "*.plexmox.com"
+          - plexmox.com
+          - "*.plexmox.com"
         policy: two_factor
       - domain:
-        - henrywhitaker.com
-        - "*.henrywhitaker.com"
+          - henrywhitaker.com
+          - "*.henrywhitaker.com"
         policy: two_factor
 
   session:
