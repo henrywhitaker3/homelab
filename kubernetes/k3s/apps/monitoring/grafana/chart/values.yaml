@@ -238,7 +238,7 @@ datasources:
         orgId: 1
         access: proxy
         type: tempo
-        url: http://tempo.monitoring.svc:3100
+        url: http://tempo.monitoring.svc:3200
         jsonData:
           serviceMap:
             datasourceUid: Prometheus
