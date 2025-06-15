@@ -8,7 +8,7 @@ stages:
   - deploy
   - renovate
 
-image: henrywhitaker3/pipeline
+image: ghcr.io/henrywhitaker3/containers/pipelines:latest
 
 ##############
 # Kubernetes #
@@ -134,28 +134,6 @@ tf deploy:
   environment:
     name: $TF_DIR
   # when: manual
-
-##########
-# Docker #
-##########
-build docker image:
-  stage: deploy
-  image:
-    name: gcr.io/kaniko-project/executor:v1.24.0-debug
-    entrypoint: [""]
-  script:
-    - echo $DOCKER_TOKEN | base64 -d > /kaniko/.docker/config.json
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "henrywhitaker3/pipeline:latest"
-  rules:
-    - if: ($BUILD_DOCKER_IMAGES == "true") && $CI_COMMIT_BRANCH == "main"
-    - if: $SKIP_DOCKER_IMAGES == "true"
-      when: never
-    - if: $CI_COMMIT_BRANCH == "main"
-      changes:
-        - Dockerfile
 
 ############
 # Renovate #
