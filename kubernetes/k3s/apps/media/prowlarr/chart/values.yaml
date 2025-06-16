@@ -5,7 +5,7 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/onedr0p/prowlarr-develop
+    repository: ghcr.io/home-operations/prowlarr-develop
     pullPolicy: IfNotPresent
     tag: "1.32.2"
 
@@ -37,9 +37,9 @@ generic:
           - path: /prowlarr
             pathType: ImplementationSpecific
     tls:
-    - secretName: plexmox-com-tls
-      hosts:
-        - plexmox.com
+      - secretName: plexmox-com-tls
+        hosts:
+          - plexmox.com
 
   pvc:
     enabled: true
