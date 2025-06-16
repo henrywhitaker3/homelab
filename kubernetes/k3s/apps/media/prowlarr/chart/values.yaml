@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/home-operations/prowlarr-develop
+    repository: ghcr.io/home-operations/prowlarr
     pullPolicy: IfNotPresent
-    tag: "1.32.2"
+    tag: "1.37.0.5076"
 
   service:
     port: 9696

@@ -5,9 +5,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/home-operations/sonarr-develop
+    repository: ghcr.io/home-operations/sonarr
     pullPolicy: IfNotPresent
-    tag: "4.0.14.2938"
+    tag: "4.0.15.2940"
 
   service:
     port: 8989
