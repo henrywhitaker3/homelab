@@ -55,6 +55,7 @@ spec:
         global:
           pool_mode: transaction
           max_db_connections: "20"
+          max_client_conn: "500"
       service:
         type: LoadBalancer
         metadata:
