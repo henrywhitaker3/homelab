@@ -141,7 +141,7 @@ tf deploy:
 
 renovate:
   stage: renovate
-  image: ghcr.io/renovatebot/renovate:40
+  image: ghcr.io/renovatebot/renovate:41
   variables:
     RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
   rules:
