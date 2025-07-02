@@ -1,4 +1,4 @@
-domain: plexmox.com
+# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/chartrepo/refs/heads/master/charts/authelia/values.schema.json
 
 pod:
   extraVolumeMounts:
@@ -40,6 +40,8 @@ configMap:
     ldap:
       enabled: false
     file:
+      password:
+        algorithm: "argon2"
       enabled: true
       path: /custom/users_database.yaml
 
