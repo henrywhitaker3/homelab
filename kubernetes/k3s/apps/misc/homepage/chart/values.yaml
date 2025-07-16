@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/gethomepage/homepage
     pullPolicy: IfNotPresent
-    tag: v1.3.2
+    tag: v1.4.0
 
   service:
     port: 3000
