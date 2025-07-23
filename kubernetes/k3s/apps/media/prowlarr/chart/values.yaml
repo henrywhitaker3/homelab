@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/home-operations/prowlarr
     pullPolicy: IfNotPresent
-    tag: "1.37.0.5076"
+    tag: "2.0.2.5116"
 
   service:
     port: 9696
