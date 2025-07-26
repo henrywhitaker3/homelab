@@ -1,6 +1,6 @@
 dependencies:
 - name: metrics-server
   repository: https://kubernetes-sigs.github.io/metrics-server
-  version: 3.12.2
-digest: sha256:f9bd9da1afb20e7f0fbebdb184205983df07813845cfc77aaafc92b724ebb05c
-generated: "2024-10-07T22:02:38.097950595Z"
+  version: 3.13.0
+digest: sha256:86c8176e776c338fdb86f9167f2a4df497c5d9da4aab8fd91d1d9a7ff2103bc6
+generated: "2025-07-22T11:07:40.556115058Z"
