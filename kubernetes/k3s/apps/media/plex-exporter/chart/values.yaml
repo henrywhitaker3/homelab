@@ -1,0 +1,32 @@
+generic:
+  nameOverride: plex-exporter
+  fullnameOverride: plex-exporter
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/jsclayton/prometheus-plex-exporter
+    pullPolicy: Always
+    tag: latest
+
+  service:
+    port: 9000
+
+  ingress:
+    enabled: false
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+    initialDelaySeconds: 60
+
+  metrics:
+    enabled: true
+
+  config:
+    PLEX_SERVER: http://plex.media.svc.cluster.local:32400
+
+  secrets:
+    enabled: true
+    key: plex-exporter
