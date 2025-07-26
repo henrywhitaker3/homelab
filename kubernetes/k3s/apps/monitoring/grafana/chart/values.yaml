@@ -163,6 +163,9 @@ dashboards:
       revision: 7
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
+    plex:
+      url: https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/refs/heads/main/examples/dashboards/Media%20Server.json
+      datasource: Prometheus
     # keepalived:
     #   url: https://raw.githubusercontent.com/mehdy/keepalived-exporter/refs/heads/master/grafana/dashboards/keepalived-exporter.json
     #   datasource:
