@@ -3,6 +3,9 @@ falco:
     enabled: true
     interval: "5m"
 
+  serviceMonitor:
+    create: true
+
   falcosidekick:
     enabled: true
     webui:
