@@ -7,9 +7,9 @@ falco:
     create: true
 
   falcosidekick:
-    enabled: true
+    enabled: false
     webui:
-      enabled: true
+      enabled: false
 
       redis:
         enabled: false
