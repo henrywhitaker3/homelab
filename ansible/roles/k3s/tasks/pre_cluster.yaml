@@ -21,6 +21,10 @@
       value: "1"
     - name: net.ipv6.conf.all.accept_ra
       value: "2"
+    - name: fs.inotify.max_user_instances
+      value: "8192"
+    - name: fs.inotify.max_user_watches
+      value: "1048576"
   loop_control:
     label: "{{ item.name }}"
 
