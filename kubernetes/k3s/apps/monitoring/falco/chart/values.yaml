@@ -1,0 +1,9 @@
+falco:
+  falcosidekick:
+    enabled: true
+    webui:
+      enabled: true
+
+  grafana:
+    dashboards:
+      enabled: true
