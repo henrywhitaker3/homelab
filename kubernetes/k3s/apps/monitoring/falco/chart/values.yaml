@@ -1,9 +1,25 @@
 falco:
+  metrics:
+    enabled: true
+    interval: "5m"
+
   falcosidekick:
     enabled: true
     webui:
       enabled: true
 
+      redis:
+        enabled: false
+
+      externalRedis:
+        enabled: true
+        port: 6379
+        url: dragonfly.dragonfly.svc.cluster.local
+
   grafana:
     dashboards:
       enabled: true
+      configMaps:
+        falco:
+          folder: Falco
+          name: falco-grafana-dashboard
