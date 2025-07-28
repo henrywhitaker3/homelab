@@ -8,9 +8,6 @@ falco:
     webui:
       enabled: true
 
-      redis:
-        enabled: false
-
       externalRedis:
         enabled: true
         port: 6379
