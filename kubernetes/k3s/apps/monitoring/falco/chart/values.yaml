@@ -59,7 +59,7 @@ falco:
             comps: [=, =, startswith]
             values:
               - [docker.io/bitnami/kubectl, media, redeployer]
-      - rule: Redirect stdout/stdin to network connection
+      - rule: Redirect STDOUT/STDIN to Network Connection in Container
         override:
           exceptions: append
         exceptions:
@@ -68,7 +68,7 @@ falco:
             comps: [=, =]
             values:
               - [docker.io/longhornio/longhorn-manager, longhorn-system]
-      - rule: Shell spawned by untrusted binary
+      - rule: Run shell untrusted
         override:
           exceptions: append
         exceptions:
@@ -77,3 +77,13 @@ falco:
             comps: [=, =]
             values:
               - [crunchy, registry.developers.crunchydata.com/crunchydata/crunchy-postgres, postgres]
+      - rule: Drop and execute new binary in container
+        override:
+          exceptions: append
+        exceptions:
+          - name: plex
+            fields: [k8s.ns.name, container.image.repository, proc.exe]
+            comps: [=, =]
+            values:
+              - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Transcoder]
+              - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Media Scanner]
