@@ -38,3 +38,8 @@ falco:
             comps: [=]
             values:
               - [longhorn-manager]
+          - name: sidecar
+            fields: [container.image]
+            comps: [startswith]
+            values:
+              - [docker.io/kiwigrid/k8s-sidecar]
