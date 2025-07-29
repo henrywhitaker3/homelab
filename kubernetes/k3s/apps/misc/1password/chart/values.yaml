@@ -1,4 +1,4 @@
 connect:
   connect:
     # renovate: datasource=docker depName=1password/connect-api
-    version: 1.7.3
+    version: 1.7.4
