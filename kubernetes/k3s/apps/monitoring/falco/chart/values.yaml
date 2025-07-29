@@ -34,7 +34,7 @@ falco:
           exceptions: append
         exceptions:
           - name: longhorn
-            fields: [proc.name]
+            fields: [container.name]
             comps: [=]
             values:
-              - [longhorn-manage]
+              - [longhorn-manager]
