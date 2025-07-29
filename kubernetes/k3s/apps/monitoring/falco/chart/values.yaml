@@ -59,7 +59,7 @@ falco:
             comps: [=, =, startswith]
             values:
               - [docker.io/bitnami/kubectl, media, redeployer]
-      - rule: Notice Redirect stdout/stdin to network connection
+      - rule: Redirect stdout/stdin to network connection
         override:
           exceptions: append
         exceptions:
@@ -68,7 +68,7 @@ falco:
             comps: [=, =]
             values:
               - [docker.io/longhornio/longhorn-manager, longhorn-system]
-      - rule: Notice Shell spawned by untrusted binary
+      - rule: Shell spawned by untrusted binary
         override:
           exceptions: append
         exceptions:
