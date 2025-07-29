@@ -37,6 +37,7 @@ loki:
       type: s3
       bucketNames:
         chunks: loki-chunks
+        ruler: loki-ruler
       s3:
         s3: https://s3.plexmox.com
         endpoint: https://s3.plexmox.com
