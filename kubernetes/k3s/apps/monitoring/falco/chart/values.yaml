@@ -28,6 +28,10 @@ falco:
           name: falco-grafana-dashboard
 
   collectors:
+    docker:
+      enabled: false
+    crio:
+      enabled: false
     containerd:
       enabled: true
       socket: /run/k3s/containerd/containerd.sock
