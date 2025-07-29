@@ -59,3 +59,12 @@ falco:
             comps: [=, =, startswith]
             values:
               - [docker.io/bitnami/kubectl, media, redeployer]
+      - rule: Notice Redirect stdout/stdin to network connection
+        override:
+          exceptions: append
+        exceptions:
+          - name: longhorn
+            fields: [container.image.repository, k8s.ns.name]
+            cmps: [=, =]
+            values:
+              - [docker.io/longhornio/longhorn-manager, longhorn-system]
