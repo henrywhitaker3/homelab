@@ -52,3 +52,10 @@ falco:
               - [oci.external-secrets.io/external-secrets/external-secrets]
               - [ghcr.io/synthetigo/api]
               - [registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest]
+              - [registry.k8s.io/kube-state-metrics/kube-state-metrics]
+              - [registry.gitlab.com/gitlab-org/gitlab-runner]
+          - name: redeployer
+            fields: [container.image.repository, k8s.ns.name, k8s.pod.name]
+            comps: [=, =, startswith]
+            values:
+              - [docker.io/bitnami/kubectl, media, redeployer]
