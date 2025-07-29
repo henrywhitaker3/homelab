@@ -26,3 +26,15 @@ falco:
         falco:
           folder: Falco
           name: falco-grafana-dashboard
+
+  customRules:
+    default.yaml: |
+      - rule: Contact K8S API Server From Container
+        enabled: true
+        append: true
+        exceptions:
+          - name: longhorn
+            fields: [proc.name]
+            comps: [=]
+            values:
+              - [longhorn-manage]
