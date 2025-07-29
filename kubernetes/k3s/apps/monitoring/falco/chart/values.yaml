@@ -62,6 +62,7 @@ falco:
               - [registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest]
               - [registry.k8s.io/kube-state-metrics/kube-state-metrics]
               - [registry.gitlab.com/gitlab-org/gitlab-runner]
+              - [docker.io/longhornio/csi-provisioner]
           - name: redeployer
             fields: [container.image.repository, k8s.ns.name, k8s.pod.name]
             comps: [=, =, startswith]
