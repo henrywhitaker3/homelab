@@ -38,13 +38,17 @@ falco:
         override:
           exceptions: append
         exceptions:
-          - name: longhorn
-            fields: [container.name]
+          - name: operators
+            fields: [container.image.repository]
             comps: [=]
             values:
-              - [longhorn-manager]
-          - name: sidecar
-            fields: [container.image]
-            comps: [startswith]
-            values:
               - [docker.io/kiwigrid/k8s-sidecar]
+              - [quay.io/kiwigrid/k8s-sidecar]
+              - [registry.developers.crunchydata.com/crunchydata/postgres-operator]
+              - [quay.io/argoproj/argocd]
+              - [registry.k8s.io/ingress-nginx/controller]
+              - [docker.io/longhornio/longhorn-manager]
+              - [registry.developers.crunchydata.com/crunchydata/crunchy-postgres]
+              - [oci.external-secrets.io/external-secrets/external-secrets]
+              - [ghcr.io/synthetigo/api]
+              - [registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest]
