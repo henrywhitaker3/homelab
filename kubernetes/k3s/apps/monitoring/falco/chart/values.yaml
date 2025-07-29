@@ -83,7 +83,7 @@ falco:
         exceptions:
           - name: plex
             fields: [k8s.ns.name, container.image.repository, proc.exe]
-            comps: [=, =]
+            comps: [=, =, =]
             values:
               - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Transcoder]
               - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Media Scanner]
