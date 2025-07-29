@@ -27,6 +27,11 @@ falco:
           folder: Falco
           name: falco-grafana-dashboard
 
+  collectors:
+    containerd:
+      enabled: true
+      socket: /run/k3s/containerd/containerd.sock
+
   customRules:
     default.yaml: |
       - rule: Contact K8S API Server From Container
