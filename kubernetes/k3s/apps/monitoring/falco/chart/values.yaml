@@ -27,6 +27,14 @@ falco:
           folder: Falco
           name: falco-grafana-dashboard
 
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: null
+      memory: 1024Mi
+
   collectors:
     containerd:
       enabled: false
