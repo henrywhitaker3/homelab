@@ -30,8 +30,8 @@ falco:
   customRules:
     default.yaml: |
       - rule: Contact K8S API Server From Container
-        enabled: true
-        append: true
+        override:
+          exceptions: append
         exceptions:
           - name: longhorn
             fields: [proc.name]
