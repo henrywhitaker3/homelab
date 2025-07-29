@@ -63,6 +63,8 @@ falco:
               - [registry.k8s.io/kube-state-metrics/kube-state-metrics]
               - [registry.gitlab.com/gitlab-org/gitlab-runner]
               - [docker.io/longhornio/csi-provisioner]
+              - [ghcr.io/henrywhitaker3/argo-zombies]
+              - [docker.io/victoriametrics/operator]
           - name: redeployer
             fields: [container.image.repository, k8s.ns.name, k8s.pod.name]
             comps: [=, =, startswith]
