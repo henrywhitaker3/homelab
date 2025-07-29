@@ -65,7 +65,7 @@ falco:
         exceptions:
           - name: longhorn
             fields: [container.image.repository, k8s.ns.name]
-            cmps: [=, =]
+            comps: [=, =]
             values:
               - [docker.io/longhornio/longhorn-manager, longhorn-system]
       - rule: Notice Shell spawned by untrusted binary
@@ -74,6 +74,6 @@ falco:
         exceptions:
           - name: pgo
             fields: [k8s.ns.name, container.image.repository, proc.pname]
-            cmps: [=, =]
+            comps: [=, =]
             values:
               - [crunchy, registry.developers.crunchydata.com/crunchydata/crunchy-postgres, postgres]
