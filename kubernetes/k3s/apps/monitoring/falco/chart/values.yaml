@@ -65,6 +65,7 @@ falco:
               - [docker.io/longhornio/csi-provisioner]
               - [ghcr.io/henrywhitaker3/argo-zombies]
               - [docker.io/victoriametrics/operator]
+              - [ghcr.io/henrywhitaker3/crunchy-users]
           - name: redeployer
             fields: [container.image.repository, k8s.ns.name, k8s.pod.name]
             comps: [=, =, startswith]
@@ -98,3 +99,4 @@ falco:
             values:
               - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Transcoder]
               - [media, docker.io/linuxserver/plex, /usr/lib/plexmediaserver/Plex Media Scanner]
+              - [gitlab-runner, ghcr.io/renovatebot/renovate, /opt/containerbase/tools/helm/3.18.4/bin/helm]
