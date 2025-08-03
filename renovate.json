@@ -30,11 +30,8 @@
         },
         {
             "matchUpdateTypes": ["patch", "pin", "digest"],
+            "addLabels": ["dep/patch"],
             "automerge": true
-        },
-        {
-            "matchUpdateTypes": ["patch"],
-            "addLabels": ["dep/patch"]
         },
         {
             "matchUpdateTypes": ["major"],
