@@ -33,7 +33,7 @@ falco:
       memory: 512Mi
     limits:
       cpu: null
-      memory: 1024Mi
+      memory: 1536Mi
 
   collectors:
     containerd:
