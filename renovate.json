@@ -59,7 +59,6 @@
         },
         {
             "matchDatasources": "terraform",
-            "matchDepNames": ["proxmox", "cloudflare"],
             "automerge": false
         },
         {
