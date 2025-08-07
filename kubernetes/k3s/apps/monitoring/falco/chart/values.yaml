@@ -81,7 +81,7 @@ falco:
             fields: [container.image.repository, k8s.ns.name, k8s.pod.name]
             comps: [=, =, startswith]
             values:
-              - [docker.io/bitnami/kubectl, media, redeployer]
+              - [ghcr.io/henrywhitaker3/containers/kubectl, media, redeployer]
       - rule: Redirect STDOUT/STDIN to Network Connection in Container
         override:
           exceptions: append
