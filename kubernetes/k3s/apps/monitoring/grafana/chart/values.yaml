@@ -178,6 +178,9 @@ dashboards:
       url: https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/main/monitoring/grafana-dashboard.json
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
+    garage:
+      url: https://git.deuxfleurs.fr/Deuxfleurs/garage/raw/branch/main-v1/script/telemetry/grafana-garage-dashboard-prometheus.json
+
   postgres:
     pgbackrest:
       url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json
