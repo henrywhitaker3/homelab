@@ -18,6 +18,8 @@ pyroscope:
       storageClassName: longhorn-no-backups
 
     structuredConfig:
+      limits:
+        compactor_blocks_retention_period: 7d
       storage:
         backend: s3
         s3:
