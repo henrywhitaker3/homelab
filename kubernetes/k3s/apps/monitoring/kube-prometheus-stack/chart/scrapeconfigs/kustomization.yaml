@@ -11,3 +11,4 @@ resources:
   - minio.yaml
   - adguard.yaml
   - blackbox.yaml
+  - garage.yaml
