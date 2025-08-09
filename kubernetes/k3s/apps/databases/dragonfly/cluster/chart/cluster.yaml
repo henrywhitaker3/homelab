@@ -32,7 +32,7 @@ spec:
     - --proactor_threads=1
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --s3_endpoint=10.0.0.9:3900
+    - --s3_endpoint=garage.plexmox.com
     - --default_lua_flags=allow-undeclared-keys
 
   resources:
