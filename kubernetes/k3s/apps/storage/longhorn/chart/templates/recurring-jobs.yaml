@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/longhorn.io/recurringjob_v1beta2.json
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
@@ -13,6 +15,7 @@ spec:
   groups:
     - default
 ---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/longhorn.io/recurringjob_v1beta2.json
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:

@@ -15,6 +15,9 @@ spec:
       data:
         CIFS_USERNAME: "{{ `{{ .username }}` }}"
         CIFS_PASSWORD: "{{ `{{ .password }}` }}"
+        AWS_ACCESS_KEY_ID: "{{ `{{ .access_key_id }}` }}"
+        AWS_SECRET_ACCESS_KEY: "{{ `{{ .secret_access_key }}` }}"
+        AWS_ENDPOINTS: https://garage.plexmox.com
   dataFrom:
     - extract:
         key: k3s-smb
@@ -28,6 +31,6 @@ metadata:
   finalizers:
     - longhorn.io
 spec:
-  backupTargetURL: cifs://10.0.0.9/longhorn
+  backupTargetURL: s3://longhorn@garage/
   credentialSecret: longhorn-smb
   pollInterval: 5m0s
