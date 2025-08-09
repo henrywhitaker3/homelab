@@ -4,6 +4,11 @@ metadata:
   name: recording-rules
 spec:
   groups:
+    - name: jobs
+      rules:
+        - record: kube_job_execution_time_seconds
+          expr: |
+            kube_job_status_completion_time - kube_job_status_start_time
     - name: anomalies
       rules:
         - record: anomaly:longhorn_volume_write_latency:7d
