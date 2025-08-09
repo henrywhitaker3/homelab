@@ -183,6 +183,16 @@ dashboards:
       datasource:
         - { name: DS_DS_PROMETHEUS, value: Prometheus }
 
+  mysql:
+    galera:
+      gnetId: 13106
+      revision: 3
+      datasource: Prometheus
+    overview:
+      gnetId: 7362
+      revision: 5
+      datasource: Prometheus
+
   postgres:
     pgbackrest:
       url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json
