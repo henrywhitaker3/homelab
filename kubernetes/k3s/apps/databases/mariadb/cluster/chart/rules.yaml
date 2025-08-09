@@ -43,14 +43,14 @@ spec:
           annotations:
             summary: MySQL high threads running (instance {{ $labels.instance }})
         - alert: MysqlBackupNotRun
-          expr: (time() - kube_cronjob_status_last_successful_time{cronjob="mariabackup", namespace="mariadb"}) > 3600
+          expr: (time() - kube_cronjob_status_last_successful_time{cronjob="mariabackup-garage", namespace="mariadb"}) > 3600
           for: 15m
           labels:
             severity: critical
           annotations:
             summary: A backup for mysql in {{ $labels.namespace }} has not run for over an hour
         - alert: MysqlBackupMetircsMissing
-          expr: absent(kube_cronjob_status_last_successful_time{cronjob="mariabackup"})
+          expr: absent(kube_cronjob_status_last_successful_time{cronjob="mariabackup-garage"})
           for: 1h
           labels:
             severity: warning
