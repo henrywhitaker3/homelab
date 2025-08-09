@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
@@ -7,6 +9,11 @@ spec:
     - targets:
         - unraid.lab:3903
   metricsPath: /metrics
+  authorization:
+    type: Bearer
+    credentials:
+      key: metrics-token
+      name: garage-secrets
   relabelings:
     - targetLabel: job
       replacement: garage
