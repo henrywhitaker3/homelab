@@ -9,9 +9,9 @@ spec:
   cron: 0 */12 * * *
   task: backup
   concurrency: 1
-  retain: 4
+  retain: 6
   parameters:
-    full-backup-interval: "1"
+    full-backup-interval: "2"
   groups:
     - default
 ---
