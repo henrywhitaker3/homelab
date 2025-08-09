@@ -69,6 +69,10 @@ buckets = {
     name = "crunchy"
     type = "garage"
   }
+  dragonfly_local = {
+    name = "dragonfly"
+    type = "garage"
+  }
 }
 
 minio_tokens = {
@@ -146,6 +150,11 @@ garage_tokens = {
   crunchy = {
     name    = "crunchy"
     buckets = ["crunchy_local"]
+    write   = true
+  }
+  dragonfly = {
+    name    = "dragonfly"
+    buckets = ["dragonfly_local"]
     write   = true
   }
 }
