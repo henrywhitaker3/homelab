@@ -34,9 +34,10 @@ generic:
 
   env:
     - name: API_BASE_URL
-      value: https://garage-admin.plexmox.com
+      # TODO: update to use https when container supports it
+      value: http://10.0.0.9:3903
     - name: S3_ENDPOINT_URL
-      value: https://garage.plexmox.com
+      value: http://10.0.0.9:3900
     - name: S3_REGION
       value: garage
     - name: API_ADMIN_KEY
