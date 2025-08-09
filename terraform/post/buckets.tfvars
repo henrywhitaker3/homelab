@@ -61,6 +61,14 @@ buckets = {
     name = "longhorn"
     type = "garage"
   }
+  mariadb_local = {
+    name = "mariadb"
+    type = "garage"
+  }
+  crunchy_local = {
+    name = "crunchy"
+    type = "garage"
+  }
 }
 
 minio_tokens = {
@@ -128,6 +136,16 @@ garage_tokens = {
   longhorn = {
     name    = "longhorn"
     buckets = ["longhorn_local"]
+    write   = true
+  }
+  mariadb = {
+    name    = "mariadb"
+    buckets = ["mariadb_local"]
+    write   = true
+  }
+  crunchy = {
+    name    = "crunchy"
+    buckets = ["crunchy_local"]
     write   = true
   }
 }
