@@ -119,6 +119,14 @@ dashboardProviders:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/victoria
+      - name: mysql
+        orgId: 1
+        folder: Mysql
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/mysql
 
 dashboards:
   default:
