@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: crunchy-shipper
+  labels:
+    app.kubernetes.io/name: shipper
+    app.kubernetes.io/instance: crunchy
+spec:
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: shipper
+        app.kubernetes.io/instance: crunchy
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: shipper
+              image: rclone/rclone:1.66.0
+              imagePullPolicy: IfNotPresent
+              args:
+                - --config=/creds/s3.conf
+                - sync
+                - --s3-chunk-size=100M
+                - --s3-upload-cutoff=100M
+                - --progress
+                - --fast-list
+                - r2:crunchy/
+                - garage:/crunchy/
+              volumeMounts:
+                - mountPath: /creds
+                  name: creds
+          volumes:
+            - name: creds
+              secret:
+                secretName: shipper-crunchy-s3
+                items:
+                  - key: s3.conf
+                    path: s3.conf
