@@ -200,8 +200,8 @@ spec:
         - name: repo1
           s3:
             bucket: "crunchy"
-            endpoint: "https://18f48dd10c54918014c39a58f4133a1c.r2.cloudflarestorage.com"
-            region: "auto"
+            endpoint: "https://garage.plexmox.com"
+            region: "garage"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
             differential: "0 1 * * 1-6" # Mon-Sat at 01:00

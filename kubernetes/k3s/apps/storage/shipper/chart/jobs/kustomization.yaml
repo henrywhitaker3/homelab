@@ -4,4 +4,3 @@ resources:
   - longhorn.yaml
   - mariadb.yaml
   - books.yaml
-  - crunchy.yaml
