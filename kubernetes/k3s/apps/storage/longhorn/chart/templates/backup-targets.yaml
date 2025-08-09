@@ -3,7 +3,7 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: longhorn-smb
+  name: longhorn-storage
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -13,14 +13,12 @@ spec:
     template:
       engineVersion: v2
       data:
-        CIFS_USERNAME: "{{ `{{ .username }}` }}"
-        CIFS_PASSWORD: "{{ `{{ .password }}` }}"
-        AWS_ACCESS_KEY_ID: "{{ `{{ .access_key_id }}` }}"
-        AWS_SECRET_ACCESS_KEY: "{{ `{{ .secret_access_key }}` }}"
+        AWS_ACCESS_KEY_ID: "{{ `{{ .garage_access_key_id }}` }}"
+        AWS_SECRET_ACCESS_KEY: "{{ `{{ .garage_secret_access_key }}` }}"
         AWS_ENDPOINTS: https://garage.plexmox.com
   dataFrom:
     - extract:
-        key: k3s-smb
+        key: longhorn-storage
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/longhorn.io/backuptarget_v1beta2.json
 apiVersion: longhorn.io/v1beta2
