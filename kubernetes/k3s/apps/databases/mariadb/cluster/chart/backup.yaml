@@ -18,7 +18,7 @@ spec:
     s3:
       bucket: mariadb
       endpoint: s3.plexmox.com
-      region: garage
+      region: unraid
       accessKeyIdSecretKeyRef:
         name: mariadb-r2
         key: minio-access-key-id
