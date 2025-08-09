@@ -1,12 +1,12 @@
 terraform {
   required_providers {
     minio = {
-      source  = "registry.terraform.io/aminueza/minio"
+      source  = "aminueza/minio"
       version = "3.6.3"
     }
 
     adguard = {
-      source  = "registry.terraform.io/gmichels/adguard"
+      source  = "gmichels/adguard"
       version = "1.6.2"
     }
     cloudflare = {
@@ -22,7 +22,7 @@ terraform {
       version = "4.3.0"
     }
     cronitor = {
-      source  = "registry.terraform.io/henrywhitaker3/cronitor"
+      source  = "henrywhitaker3/cronitor"
       version = "1.2.1"
     }
     garage = {
