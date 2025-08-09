@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: garage
+spec:
+  ports:
+    - protocol: TCP
+      port: 3900
+      targetPort: 3900
+      name: s3
+    - protocol: TCP
+      port: 3902
+      targetPort: 3902
+      name: web
+    - protocol: TCP
+      port: 3902
+      targetPort: 3903
+      name: admin
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: garage
+subsets:
+  - addresses:
+      - ip: 10.0.0.9
+    ports:
+      - port: 3900
+        name: s3
+      - port: 3902
+        name: web
+      - port: 3903
+        name: admin
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: garage
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+spec:
+  ingressClassName: internal
+  rules:
+    - host: garage.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: garage
+                port:
+                  name: s3
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - garage.plexmox.com
+      secretName: garage-plexmox-com-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: garage-web
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+spec:
+  ingressClassName: internal
+  rules:
+    - host: garage-web.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: garage
+                port:
+                  name: web
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - garage-web.plexmox.com
+      secretName: garage-web-plexmox-com-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: garage-admin
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+spec:
+  ingressClassName: internal
+  rules:
+    - host: garage-admin.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: garage
+                port:
+                  name: admin
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - garage-admin.plexmox.com
+      secretName: garage-admin-plexmox-com-tls

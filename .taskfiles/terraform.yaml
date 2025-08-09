@@ -8,25 +8,25 @@ tasks:
     desc: Run terraform fmt
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform fmt {{ .CLI_ARGS }}
+      - tofu fmt {{ .CLI_ARGS }}
 
   plan:
     desc: Run terraform plan
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform plan $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}
+      - tofu plan $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}
 
   apply:
     desc: Run terraform apply
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform apply $(for file in *.tfvars; do echo "-var-file $file "; done){{ .CLI_ARGS }}
+      - tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done){{ .CLI_ARGS }}
 
   init:
     desc: Run terraform init
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform init {{ .CLI_ARGS }}
+      - tofu init {{ .CLI_ARGS }}
 
   lint:
     desc: Run tflint
@@ -38,10 +38,10 @@ tasks:
     desc: Run terraform output
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform output {{ .CLI_ARGS }}
+      - tofu output {{ .CLI_ARGS }}
 
   import:
     desc: Run terraform import
     dir: terraform/{{ .DIR }}
     cmds:
-      - terraform import {{ .CLI_ARGS }}
+      - tofu import {{ .CLI_ARGS }}

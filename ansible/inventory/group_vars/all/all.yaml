@@ -34,3 +34,9 @@ hosts_extras:
     ip: 10.0.0.27
   - name: victoria-logs.plexmox.com
     ip: 10.0.0.27
+  - name: garage.plexmox.com
+    ip: 10.0.0.27
+  - name: garage-web.plexmox.com
+    ip: 10.0.0.27
+  - name: garage-admin.plexmox.com
+    ip: 10.0.0.27
