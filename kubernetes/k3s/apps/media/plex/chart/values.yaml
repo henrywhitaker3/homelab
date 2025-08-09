@@ -7,7 +7,7 @@ generic:
   image:
     repository: linuxserver/plex
     pullPolicy: IfNotPresent
-    tag: "1.41.9"
+    tag: "1.42.1"
 
   service:
     port: 32400
