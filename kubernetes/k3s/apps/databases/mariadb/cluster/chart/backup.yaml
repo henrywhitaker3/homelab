@@ -3,35 +3,6 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
-  name: mariabackup
-spec:
-  mariaDbRef:
-    name: mariadb
-  schedule:
-    cron: "15 * * * *"
-  maxRetention: 72h
-
-  podSecurityContext:
-    runAsUser: 0
-
-  storage:
-    s3:
-      bucket: mariadb
-      endpoint: s3.plexmox.com
-      region: unraid
-      accessKeyIdSecretKeyRef:
-        name: mariadb-r2
-        key: minio-access-key-id
-      secretAccessKeySecretKeyRef:
-        name: mariadb-r2
-        key: minio-secret-access-key
-      tls:
-        enabled: true
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/backup_v1alpha1.json
-apiVersion: k8s.mariadb.com/v1alpha1
-kind: Backup
-metadata:
   name: mariabackup-garage
 spec:
   mariaDbRef:
