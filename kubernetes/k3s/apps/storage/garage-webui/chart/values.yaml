@@ -31,3 +31,16 @@ generic:
       - secretName: garage-webui-plexmox-com-tls
         hosts:
           - garage-webui.plexmox.com
+
+  env:
+    - name: API_BASE_URL
+      value: garage-admin.plexmox.com
+    - name: S3_ENDPOINT_URL
+      value: garage.plexomx.com
+    - name: S£_REGION
+      value: garage
+    - name: API_ADMIN_KEY
+      valueFrom:
+        secretKeyRef:
+          name: garage-secrets
+          key: admin-token
