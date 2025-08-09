@@ -70,7 +70,7 @@ ansible play:
 # Terraform #
 #############
 .terraform:base:
-  image: henrywhitaker3/pipeline
+  image: ghcr.io/henrywhitaker3/containers/pipelines
   before_script:
     - cd terraform/$TF_DIR
     - |
