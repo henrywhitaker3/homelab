@@ -36,7 +36,7 @@ generic:
     - name: API_BASE_URL
       value: https://garage-admin.plexmox.com
     - name: S3_ENDPOINT_URL
-      value: https://garage.plexomx.com
+      value: https://garage.plexmox.com
     - name: S3_REGION
       value: garage
     - name: API_ADMIN_KEY
