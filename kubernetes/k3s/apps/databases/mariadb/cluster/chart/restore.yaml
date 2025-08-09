@@ -12,13 +12,13 @@ spec:
 
   s3:
     bucket: mariadb
-    endpoint: s3.plexmox.com
+    endpoint: garage.plexmox.com
     region: unraid
     accessKeyIdSecretKeyRef:
       name: mariadb-r2
-      key: minio-access-key-id
+      key: garage-access-key-id
     secretAccessKeySecretKeyRef:
       name: mariadb-r2
-      key: minio-secret-access-key
+      key: garage-secret-access-key
     tls:
       enabled: true
