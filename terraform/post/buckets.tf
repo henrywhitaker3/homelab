@@ -15,7 +15,7 @@ variable "buckets" {
   validation {
     condition = length([
       for key, value in var.buckets : true
-      if contains(["minio", "r2"], value.type)
+      if contains(["minio", "r2", "garage"], value.type)
     ]) == length(var.buckets)
     error_message = "type must be one of: minio, r2"
   }
@@ -52,6 +52,26 @@ variable "r2_tokens" {
         if contains(keys(var.buckets), b_value)
       ]) == length(value.buckets)
     ]) == length(var.r2_tokens)
+    error_message = "buckets must be defined in var.buckets"
+  }
+}
+
+variable "garage_tokens" {
+  type = map(object({
+    name          = string
+    buckets       = list(string)
+    write         = optional(bool, false)
+    never_expires = optional(bool, true)
+  }))
+  default = {}
+  validation {
+    condition = length([
+      for key, value in var.garage_tokens : true
+      if length([
+        for b_key, b_value in value.buckets : true
+        if contains(keys(var.buckets), b_value)
+      ]) == length(value.buckets)
+    ]) == length(var.garage_tokens)
     error_message = "buckets must be defined in var.buckets"
   }
 }
@@ -186,4 +206,44 @@ resource "cloudflare_api_token" "this" {
 resource "random_bytes" "r2_tokens" {
   for_each = var.r2_tokens
   length   = 4
+}
+
+resource "garage_bucket" "this" {
+  for_each = {
+    for key, value in var.buckets : key => value if value.type == "garage"
+  }
+  name = each.value.name
+}
+
+resource "garage_access_key" "this" {
+  for_each = var.garage_tokens
+
+  name = each.value.name
+}
+
+locals {
+  garage_permissions = {
+    for value in flatten([
+      for t_key, t_value in var.garage_tokens : [
+        for bucket in t_value.buckets : {
+          key            = format("%s_%s", t_key, bucket)
+          bucket_key     = bucket
+          access_key_key = t_key
+          owner          = false
+          read           = true
+          write          = t_value.write
+        }
+      ]
+    ]) : value.key => value
+  }
+}
+
+resource "garage_permission" "this" {
+  for_each = local.garage_permissions
+
+  bucket_id     = garage_bucket.this[each.value.bucket_key].id
+  access_key_id = garage_access_key.this[each.value.access_key_key].id
+  owner         = each.value.owner
+  write         = each.value.write
+  read          = each.value.read
 }

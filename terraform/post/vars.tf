@@ -60,3 +60,17 @@ variable "cronitor_api_key" {
   type      = string
   sensitive = true
 }
+
+variable "garage_host" {
+  type = string
+}
+
+variable "garage_scheme" {
+  type    = string
+  default = "https"
+}
+
+variable "garage_token" {
+  type      = string
+  sensitive = true
+}

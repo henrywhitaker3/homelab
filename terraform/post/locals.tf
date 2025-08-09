@@ -79,6 +79,9 @@ locals {
     "orderly.henrywhitaker.com",
     "victoria.plexmox.com",
     "victoria-logs.plexmox.com",
+    "garage.plexmox.com",
+    "garage-web.plexmox.com",
+    "garage-admin.plexmox.com",
   ]
 
   upstream_dns = [

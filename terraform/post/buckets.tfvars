@@ -57,6 +57,10 @@ buckets = {
     name = "thesuses-state"
     type = "r2"
   }
+  longhorn_local = {
+    name = "longhorn"
+    type = "garage"
+  }
 }
 
 minio_tokens = {
@@ -116,6 +120,14 @@ r2_tokens = {
   }
   thesuses_state = {
     buckets = ["thesuses_state"]
+    write   = true
+  }
+}
+
+garage_tokens = {
+  longhorn = {
+    name    = "longhorn"
+    buckets = ["longhorn_local"]
     write   = true
   }
 }
