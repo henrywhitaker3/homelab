@@ -1,16 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: crunchy-shipper
+  name: crunchy-shipper-2
   labels:
     app.kubernetes.io/name: shipper
     app.kubernetes.io/instance: crunchy
 spec:
-  concurrencyPolicy: Forbid
-  metadata:
-    labels:
-      app.kubernetes.io/name: shipper
-      app.kubernetes.io/instance: crunchy
   template:
     spec:
       restartPolicy: Never
