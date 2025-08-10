@@ -8,7 +8,7 @@ pyroscope:
     service:
       type: LoadBalancer
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.38
+        metallb.io/loadBalancerIPs: 10.0.0.38
 
     repository: grafana/pyroscope
 

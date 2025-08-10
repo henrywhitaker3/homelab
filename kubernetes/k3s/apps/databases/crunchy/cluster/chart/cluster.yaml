@@ -45,7 +45,7 @@ spec:
     type: LoadBalancer
     metadata:
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 10.0.0.36
+        metallb.io/loadBalancerIPs: 10.0.0.36
 
   proxy:
     pgBouncer:
@@ -60,7 +60,7 @@ spec:
         type: LoadBalancer
         metadata:
           annotations:
-            metallb.universe.tf/loadBalancerIPs: 10.0.0.40
+            metallb.io/loadBalancerIPs: 10.0.0.40
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

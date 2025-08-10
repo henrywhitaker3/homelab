@@ -50,10 +50,10 @@ spec:
           app: dragonfly
           app.kubernetes.io/name: dragonfly
 
-  serviceSpec:
-    type: LoadBalancer
-    annotations:
-      metallb.universe.tf/loadBalancerIPs: 10.0.0.35
+  # serviceSpec:
+  #   type: LoadBalancer
+  #   annotations:
+  #     metallb.universe.tf/loadBalancerIPs: 10.0.0.35
 
   snapshot:
     dir: "s3://dragonfly"
