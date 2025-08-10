@@ -115,11 +115,6 @@ loki.process "cluster_events" {
     expression = ".*name=(?P<name>[^ ]+).*kind=(?P<kind>[^ ]+).*objectAPIversion=(?P<apiVersion>[^ ]+).*type=(?P<type>[^ ]+).*"
   }
 
-  stage.match {
-    expression = ".*kind=\"IPAddress\".*"
-    action     = "drop"
-  }
-
   stage.labels {
     values = {
       kubernetes_cluster_events = "job",
@@ -128,6 +123,11 @@ loki.process "cluster_events" {
       apiVersion                = "apiVersion",
       type                      = "type",
     }
+  }
+
+  stage.match {
+    selector = "{kind=\"IPAddress\"}"
+    action   = "drop"
   }
 }
 
