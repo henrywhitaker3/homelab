@@ -116,8 +116,8 @@ loki.process "cluster_events" {
   }
 
   stage.match {
-    selector = ".*kind=\"IPAddress\".*"
-    action   = "drop"
+    expression = ".*kind=\"IPAddress\".*"
+    action     = "drop"
   }
 
   stage.labels {
