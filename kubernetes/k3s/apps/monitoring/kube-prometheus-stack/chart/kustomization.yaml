@@ -21,6 +21,6 @@ helmCharts:
   - name: kube-prometheus-stack
     includeCRDs: true
     releaseName: kube-prometheus-stack
-    version: "76.2.1"
+    version: "76.3.0"
     repo: https://prometheus-community.github.io/helm-charts
     valuesFile: values.yaml
