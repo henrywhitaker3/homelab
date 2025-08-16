@@ -170,6 +170,7 @@ spec:
   monitoring:
     pgmonitor:
       exporter:
+        # renovate: datasource=docker depName=crunchydata/crunchy-postgres-exporter registry=registry.developers.crunchydata.com
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.7.3-0
 
   backups:
