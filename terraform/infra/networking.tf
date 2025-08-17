@@ -20,7 +20,7 @@ module "lb" {
   name      = "lb"
   image     = local.ubuntu_24_04
   ips       = ["10.0.0.4", "10.0.0.5"]
-  memory    = 512
+  memory    = 1024
   disk_size = "8G"
   nodes     = [1, 3]
 
