@@ -127,6 +127,14 @@ dashboardProviders:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/mysql
+      - name: nats
+        orgId: 1
+        folder: NATS
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/nats
 
 dashboards:
   default:
@@ -230,6 +238,16 @@ dashboards:
       gnetId: 12683
       revision: 21
       datasource: Victoria
+
+  nats:
+    server:
+      gnetId: 2279
+      revision: 1
+      datasource: Prometheus
+    jetstream:
+      gnetId: 14725
+      revision: 2
+      datasource: Prometheus
 
 datasources:
   datasources.yaml:
