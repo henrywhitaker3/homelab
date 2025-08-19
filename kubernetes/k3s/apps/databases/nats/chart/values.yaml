@@ -1,0 +1,10 @@
+nats:
+  config:
+    cluster:
+      enabled: true
+
+    jetstream:
+      enabled: true
+      fileStore:
+        size: 1Gi
+        storageClassName: longhorn-no-backups

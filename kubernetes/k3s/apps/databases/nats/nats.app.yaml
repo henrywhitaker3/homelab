@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nats
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: misc
+    server: https://kubernetes.default.svc
+  project: apps
+  source:
+    path: kubernetes/k3s/apps/databases/nats/chart
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
