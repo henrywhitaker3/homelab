@@ -15,8 +15,9 @@ nats:
     jetstream:
       enabled: true
       fileStore:
-        size: 1Gi
-        storageClassName: longhorn-no-backups
+        pvc:
+          size: 1Gi
+          storageClassName: longhorn-no-backups
 
 exporter:
   nameOverride: nats-exporter
