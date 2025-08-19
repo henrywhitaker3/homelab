@@ -39,6 +39,10 @@ exporter:
     args:
       - -varz
       - -jsz=all
+      - -connz
+      - -healthz
+      - -subz
+      - -routez
       - http://nats-headless.nats.svc.cluster.local:8222
 
   probes:
