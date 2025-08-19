@@ -38,6 +38,7 @@ exporter:
   entrypoint:
     args:
       - -varz
+      - -jsz=all
       - http://nats-headless.nats.svc.cluster.local:8222
 
   probes:
