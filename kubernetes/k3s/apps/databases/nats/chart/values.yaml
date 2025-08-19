@@ -1,4 +1,13 @@
 nats:
+  service:
+    enabled: true
+    merge:
+      metadata:
+        annotations:
+          metallb.io/loadBalancerIPs: 10.0.0.39
+      spec:
+        type: LoadBalancer
+
   config:
     cluster:
       enabled: true
