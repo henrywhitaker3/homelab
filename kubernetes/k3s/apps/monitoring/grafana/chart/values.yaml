@@ -247,7 +247,8 @@ dashboards:
     jetstream:
       gnetId: 14725
       revision: 2
-      datasource: Prometheus
+      datasource:
+        - { name: DS__NATS-PROMETHEUS, value: Prometheus }
 
 datasources:
   datasources.yaml:
