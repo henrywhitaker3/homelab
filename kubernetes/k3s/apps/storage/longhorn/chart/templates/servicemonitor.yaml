@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/monitoring.coreos.com/servicemonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -7,17 +9,17 @@ metadata:
   name: longhorn-prometheus-servicemonitor
 spec:
   endpoints:
-  - port: manager
-    metricRelabelings:
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: longhorn_rest_client_(rate_limiter|request)_latency_seconds_bucket
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: longhorn_workqueue_(work|queue)_duration_seconds_bucket
+    - port: manager
+      metricRelabelings:
+        - action: drop
+          sourceLabels: ["__name__"]
+          regex: longhorn_rest_client_(rate_limiter|request)_latency_seconds_bucket
+        - action: drop
+          sourceLabels: ["__name__"]
+          regex: longhorn_workqueue_(work|queue)_duration_seconds_bucket
   namespaceSelector:
     matchNames:
-    - longhorn-system
+      - longhorn-system
   selector:
     matchLabels:
       app: longhorn-manager
