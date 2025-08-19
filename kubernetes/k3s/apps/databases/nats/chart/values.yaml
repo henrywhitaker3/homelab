@@ -17,3 +17,20 @@ nats:
       fileStore:
         size: 1Gi
         storageClassName: longhorn-no-backups
+
+exporter:
+  nameOverride: nats-exporter
+  fullnameOverride: nats-exporter
+
+  replicaCount: 1
+
+  image:
+    repository: natsio/prometheus-nats-exporter
+    pullPolicy: IfNotPresent
+    tag: 0.17.3
+
+  service:
+    port: 7777
+
+  metrics:
+    enabled: true
