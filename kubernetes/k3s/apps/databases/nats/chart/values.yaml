@@ -34,3 +34,8 @@ exporter:
 
   metrics:
     enabled: true
+
+  entrypoint:
+    args:
+      - -varz
+      - http://nats-headless.nats.svc.cluster.local:8222
