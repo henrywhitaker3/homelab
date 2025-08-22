@@ -34,6 +34,7 @@
     owner: root
     group: root
     mode: "0755"
+  notify: restart alloy
 
 - name: Create alloy data directory
   tags: alloy
