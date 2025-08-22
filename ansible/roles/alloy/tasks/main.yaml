@@ -15,6 +15,7 @@
     url: "https://github.com/grafana/alloy/releases/download/{{ alloy_version }}/alloy-linux-{{ go_arch }}.zip"
     dest: "/tmp/alloy-{{ alloy_version }}-linux-{{ go_arch }}.zip"
     mode: "0755"
+  notify: restart alloy
 
 - name: Unzip alloy
   tags: alloy
