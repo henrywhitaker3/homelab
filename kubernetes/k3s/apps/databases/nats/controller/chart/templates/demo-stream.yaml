@@ -10,3 +10,4 @@ spec:
   storage: file
   replicas: 1
   discard: new
+  retention: workqueue
