@@ -23,7 +23,6 @@
     src: "/tmp/alloy-{{ alloy_version }}-linux-{{ go_arch }}.zip"
     remote_src: true
     dest: "/tmp"
-    creates: "/tmp/alloy-linux-{{ go_arch }}"
 
 - name: Move alloy binary to install dir
   tags: alloy
