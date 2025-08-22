@@ -1,0 +1,5 @@
+nack:
+  jetstream:
+    enabled: true
+    nats:
+      url: nats.nats.svc.cluster.local:4222

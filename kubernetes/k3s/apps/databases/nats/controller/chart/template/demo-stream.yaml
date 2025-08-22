@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/jetstream.nats.io/stream_v1beta2.json
+apiVersion: jetstream.nats.io/v1beta2
+kind: Stream
+metadata:
+  name: demo
+spec:
+  name: demo
+  subjects: ["demo.>"]
+  storage: file
+  replicas: 1
+  discard: new
