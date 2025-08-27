@@ -69,20 +69,11 @@
             "description": ["Process custom dependencies"],
             "fileMatch": ["ansible/.*/.*\\.yaml$", ".*.yaml$"],
             "matchStrings": [
+                "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n\\s+image: ghcr.io\\/dragonflydb\\/dragonfly:(?<currentValue>\\S+?)$)",
+                "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n\\s+- https:\\/\\/raw.githubusercontent\\.com\\/dragonflydb\\/dragonfly-operator\\/(?<currentValue>\\S+?))\\/manifests\\/crd.yaml$",
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
             ],
             "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
-        },
-        {
-            "customType": "regex",
-            "description": [
-                "Process any imageName keys in YAML files (cloudnative-pg)"
-            ],
-            "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"],
-            "matchStrings": [
-                "imageName: (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"
-            ],
-            "datasourceTemplate": "docker"
         }
     ]
 }
