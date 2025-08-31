@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/dvla-vehicle-exporter
     pullPolicy: Always
-    tag: v1.1.2
+    tag: v1.1.7
 
   entrypoint:
     command: [/dvla-vehicle-exporter]
