@@ -8,6 +8,16 @@ nats:
       spec:
         type: LoadBalancer
 
+  container:
+    image:
+      repository: nats
+      tag: 2.11.8-alpine
+
+  promExporter:
+    enabled: true
+    podMonitor:
+      enabled: true
+
   config:
     cluster:
       enabled: true
