@@ -34,34 +34,3 @@ nats:
         pvc:
           size: 1Gi
           storageClassName: longhorn-no-backups
-
-exporter:
-  nameOverride: nats-exporter
-  fullnameOverride: nats-exporter
-
-  replicaCount: 1
-
-  image:
-    repository: natsio/prometheus-nats-exporter
-    pullPolicy: IfNotPresent
-    tag: 0.17.3
-
-  service:
-    port: 7777
-
-  metrics:
-    enabled: true
-
-  entrypoint:
-    args:
-      - -varz
-      - -jsz=all
-      - -connz
-      - -healthz
-      - -subz
-      - -routez
-      - http://nats-headless.nats.svc.cluster.local:8222
-
-  probes:
-    options:
-      path: /metrics
