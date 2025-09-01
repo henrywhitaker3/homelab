@@ -18,6 +18,12 @@ nats:
     podMonitor:
       enabled: true
 
+  natsBox:
+    container:
+      image:
+        repository: natsio/nats-box
+        tag: 0.18.0
+
   config:
     cluster:
       enabled: true
