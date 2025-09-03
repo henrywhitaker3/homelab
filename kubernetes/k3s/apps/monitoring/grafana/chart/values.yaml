@@ -138,6 +138,10 @@ dashboardProviders:
 
 dashboards:
   default:
+    ingressNginx:
+      gnetId: 16677
+      revision: 3
+      datasource: Prometheus
     haproxy:
       gnetId: 12693
       revision: 7
