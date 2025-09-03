@@ -8,6 +8,11 @@ ingress-nginx:
       name: internal
       controllerValue: k8s.io/internal
 
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
     admissionWebhooks:
       objectSelector:
         matchExpressions:
@@ -17,4 +22,3 @@ ingress-nginx:
 
     service:
       loadBalancerIP: "10.0.0.27"
-
