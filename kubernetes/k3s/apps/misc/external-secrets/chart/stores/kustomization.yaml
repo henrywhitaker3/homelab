@@ -1,3 +1,2 @@
 resources:
-  - secrets.yaml
   - clusterstore.yaml

@@ -11,6 +11,7 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
+  - secrets
   - stores
 
 patches:
