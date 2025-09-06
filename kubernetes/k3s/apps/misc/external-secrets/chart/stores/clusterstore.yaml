@@ -16,3 +16,18 @@ spec:
             name: onepassword-token
             key: token
             namespace: 1password
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/clustersecretstore_v1.json
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: thesuses-api
+spec:
+  provider:
+    doppler:
+      auth:
+        secretRef:
+          dopplerToken:
+            name: doppler-thesues-api
+            namespace: external-secrets
+            key: password
