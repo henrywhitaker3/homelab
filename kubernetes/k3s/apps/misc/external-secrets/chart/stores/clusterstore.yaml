@@ -28,6 +28,6 @@ spec:
       auth:
         secretRef:
           dopplerToken:
-            name: doppler-thesues-api
+            name: doppler-thesuses-api
             namespace: external-secrets
             key: password
