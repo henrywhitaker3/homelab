@@ -1,6 +1,6 @@
 dependencies:
 - name: prompage-helm
   repository: oci://ghcr.io/henrywhitaker3
-  version: v0.1.22
-digest: sha256:552df6142aa97bbb663fec035581fdff4033d3722c67e117a26aa40e1108b84c
-generated: "2025-02-04T21:30:37.07252679Z"
+  version: v0.1.23
+digest: sha256:a7f13d4aec30d4171246a430f3b40897b87b27c03d76354f9a661ff32e234b73
+generated: "2025-09-07T22:40:03.271271+01:00"
