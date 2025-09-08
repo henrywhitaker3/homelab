@@ -27,7 +27,7 @@ terraform {
     }
     garage = {
       source  = "registry.terraform.io/henrywhitaker3/garage"
-      version = "1.0.2"
+      version = "1.0.3"
     }
   }
 
