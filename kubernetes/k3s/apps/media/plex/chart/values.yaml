@@ -77,9 +77,9 @@ generic:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: plex-plexmox-com-tls
-      hosts:
-        - plex.plexmox.com
+      - secretName: plex-plexmox-com-tls
+        hosts:
+          - plex.plexmox.com
 
   pvc:
     enabled: true
@@ -99,7 +99,7 @@ generic:
   config:
     PUID: "1000"
     PGID: "1000"
-    TZ:  Europe/London
+    TZ: Europe/London
     VERSION: latest
     ADVERTISE_IP: http://10.0.0.26:32400/
 
@@ -149,11 +149,14 @@ generic:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 1
-        preference:
-          matchExpressions:
-          - key: quicksync
-            operator: In
-            values:
-            - available
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: quicksync
+                operator: In
+                values:
+                  - available
 
+  secrets:
+    enabled: true
+    key: plex-secrets
