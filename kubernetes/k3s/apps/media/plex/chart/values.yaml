@@ -156,7 +156,3 @@ generic:
                 operator: In
                 values:
                   - available
-
-  secrets:
-    enabled: true
-    key: plex-secrets
