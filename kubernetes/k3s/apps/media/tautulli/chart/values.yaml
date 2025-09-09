@@ -7,7 +7,7 @@ generic:
   image:
     repository: linuxserver/tautulli
     pullPolicy: IfNotPresent
-    tag: "2.15.3"
+    tag: "2.16.0"
 
   service:
     port: 8181
