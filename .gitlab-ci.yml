@@ -74,7 +74,7 @@ ansible play:
   before_script:
     - cd terraform/$TF_DIR
     - |
-      terraform init \
+      terraform init -upgrade \
           -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE" \
           -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
           -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
