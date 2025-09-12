@@ -23,7 +23,7 @@ terraform {
     }
     cronitor = {
       source  = "henrywhitaker3/cronitor"
-      version = "1.2.1"
+      version = "1.2.2"
     }
     garage = {
       source  = "registry.terraform.io/henrywhitaker3/garage"
