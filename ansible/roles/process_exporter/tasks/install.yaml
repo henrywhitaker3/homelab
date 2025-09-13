@@ -63,7 +63,7 @@
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
-  when: process_exporter_service_copied
+  when: process_exporter_service_copied.changed
 
 - name: Start and enable process exporter
   tags: process_exporter

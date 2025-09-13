@@ -59,7 +59,7 @@
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
-  when: smartctl_exporter_service_copied
+  when: smartctl_exporter_service_copied.changed
 
 - name: Start and enable smartctl exporter
   tags: smartctl_exporter

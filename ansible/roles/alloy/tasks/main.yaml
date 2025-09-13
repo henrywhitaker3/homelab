@@ -74,7 +74,7 @@
   become: "{{ alloy_become }}"
   ansible.builtin.systemd:
     daemon_reload: true
-  when: alloy_service_copied
+  when: alloy_service_copied.changed
 
 - name: Start and enable alloy
   tags: alloy

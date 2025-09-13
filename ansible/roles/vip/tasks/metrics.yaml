@@ -35,7 +35,7 @@
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
-  when: keepalived_exporter_service_copied
+  when: keepalived_exporter_service_copied.changed
 
 - name: Start and enable metrics exporter
   become: true

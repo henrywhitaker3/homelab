@@ -71,7 +71,7 @@
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
-  when: node_exporter_service_copied
+  when: node_exporter_service_copied.changed
 
 - name: Start and enable node exporter
   tags: node_exporter
