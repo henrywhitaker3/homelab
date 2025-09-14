@@ -180,7 +180,7 @@ dashboards:
       datasource: Prometheus
     adguard:
       gnetId: 20799
-      revision: 7
+      revision: 8
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
     plex:
