@@ -1,15 +1,15 @@
 ---
-- name: Configure vpn servers
+- name: Configure jump server
 
-  hosts: vpn
+  hosts: jump
 
   roles:
     - hosts
     - user
     - common
-    - vip
+    - crog
     - node_exporter
     - process_exporter
-    - crog
+    - haproxy
     - alloy
     - wireguard

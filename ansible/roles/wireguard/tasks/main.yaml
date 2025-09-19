@@ -1,0 +1,47 @@
+---
+- name: Install wireguard
+  tags:
+    - vpn
+    - wireguard
+  become: "{{ wireguard_become }}"
+  ansible.builtin.apt:
+    name: wireguard
+    state: latest
+
+- name: Enable non local IP binding
+  tags:
+    - vpn
+    - wireguard
+  become: "{{ wireguard_become }}"
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: "1"
+    state: present
+    reload: true
+  loop:
+    - net.ipv6.conf.all.forwarding
+    - net.ipv4.ip_forward
+  when: wireguard_ip_forwarding
+
+- name: Copy over vpn config
+  tags:
+    - vpn
+    - wireguard
+  become: "{{ wireguard_become }}"
+  ansible.builtin.copy:
+    content: "{{ wireguard_config }}"
+    dest: "{{ wireguard_config_dir }}/{{ wireguard_config_name }}.conf"
+    owner: root
+    group: root
+    mode: "0700"
+  notify: restart wireguard
+
+- name: Start wireguard service
+  tags:
+    - vpn
+    - wireguard
+  become: "{{ wireguard_become }}"
+  ansible.builtin.service:
+    name: wg-quick@wg0.service
+    state: started
+    enabled: true

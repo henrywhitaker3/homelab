@@ -49,3 +49,5 @@ haproxy_listeners:
       - name: k3s-nginx
         host: "{{ haproxy_config.backend }}:443"
         options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
+
+wireguard_ip_forwarding: true

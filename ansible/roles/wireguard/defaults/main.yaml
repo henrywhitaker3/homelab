@@ -1,0 +1,10 @@
+---
+wireguard_become: true
+
+wireguard_config_dir: /etc/wireguard
+
+wireguard_config_name: wg0
+
+wireguard_config: ""
+
+wireguard_ip_forwarding: false

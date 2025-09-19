@@ -30,6 +30,7 @@ diffs:
     matrix:
       - PLAYBOOK:
           - vpn
+          - jump
           - k3s
           - haproxy
           - adguard

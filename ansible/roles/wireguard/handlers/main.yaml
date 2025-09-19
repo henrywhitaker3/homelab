@@ -1,0 +1,9 @@
+---
+- name: restart wireguard
+  tags:
+    - vpn
+    - wireguard
+  become: "{{ wireguard_become }}"
+  ansible.builtin.service:
+    name: "wg-quick@{{ wireguard_config_name }}.service"
+    state: restarted

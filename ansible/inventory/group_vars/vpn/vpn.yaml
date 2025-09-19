@@ -35,7 +35,6 @@ vip_check_script: |
     exit 0
   fi
 vip_metrics_enabled: true
-
 crog_actions:
   - name: Heartbeat
     command: ping -W 1 -c 1 10.0.0.1
@@ -45,3 +44,5 @@ crog_actions:
     when:
       start: "{{ healthcheck }}/start"
       success: "{{ healthcheck }}"
+
+wireguard_ip_forwarding: true
