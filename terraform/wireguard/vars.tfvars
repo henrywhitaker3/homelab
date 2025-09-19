@@ -14,6 +14,7 @@ peers = {
   }
   macbook = {
     mesh_ip = "10.8.0.2"
+    dns     = ["10.0.0.2", "10.0.0.3"]
     peers = {
       jump = {
         endpoint    = true
@@ -23,6 +24,7 @@ peers = {
   }
   phone = {
     mesh_ip = "10.8.0.3"
+    dns     = ["10.0.0.2", "10.0.0.3"]
     peers = {
       jump = {
         endpoint    = true
@@ -32,6 +34,7 @@ peers = {
   }
   steamdeck = {
     mesh_ip = "10.8.0.4"
+    dns     = ["10.0.0.2", "10.0.0.3"]
     peers = {
       jump = {
         endpoint    = true

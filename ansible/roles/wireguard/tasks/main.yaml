@@ -42,6 +42,6 @@
     - wireguard
   become: "{{ wireguard_become }}"
   ansible.builtin.service:
-    name: wg-quick@wg0.service
+    name: "wg-quick@{{ wireguard_config_name }}.service"
     state: started
     enabled: true
