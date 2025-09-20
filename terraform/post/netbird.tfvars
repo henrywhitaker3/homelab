@@ -114,6 +114,12 @@ netbird_resources = {
     groups  = ["All", "homelab"]
     address = "10.0.0.62/32"
   }
+  # TODO: remove this when netbird allows macs to talk properly
+  "mac-mini" = {
+    network = "home"
+    groups  = ["All"]
+    address = "10.0.0.54/32"
+  }
   "do-lon" = {
     network = "do-lon"
     groups  = ["All", "jump"]
