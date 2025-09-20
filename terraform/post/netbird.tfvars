@@ -7,6 +7,15 @@ netbird_setup_keys = {
   "jump" = {
     auto_groups = ["jump"]
   }
+  "proxmox-01" = {
+    auto_groups = ["proxmox"]
+  }
+  "proxmox-02" = {
+    auto_groups = ["proxmox"]
+  }
+  "proxmox-03" = {
+    auto_groups = ["proxmox"]
+  }
 }
 
 netbird_groups = {
@@ -22,6 +31,9 @@ netbird_groups = {
       "lb-2",
       "minio-1",
       "minio-2",
+      "proxmox-01",
+      "proxmox-02",
+      "proxmox-03",
     ]
   }
   "k3s" = {
@@ -30,6 +42,13 @@ netbird_groups = {
       "k3s-control-2",
       "k3s-control-3",
       "k3s-dedi-1",
+    ]
+  }
+  "proxmox" = {
+    peers = [
+      "proxmox-01",
+      "proxmox-02",
+      "proxmox-03",
     ]
   }
   "devices" = {
@@ -55,50 +74,58 @@ netbird_routers = {
 }
 
 netbird_peers = {
-  "phone"    = {}
-  "jump-k8s" = {}
-  "mbp"      = {}
+  "phone"      = {}
+  "jump-k8s"   = {}
+  "mbp"        = {}
+  "proxmox-01" = {}
+  "proxmox-02" = {}
+  "proxmox-03" = {}
 }
 
 netbird_resources = {
-  "home" = {
+  "external-ingress" = {
     network = "home"
-    groups  = ["homelab"]
-    address = "10.0.0.0/24"
+    groups  = ["All", "homelab", "k3s"]
+    address = "10.0.0.25/32"
+  }
+  "internal-ingress" = {
+    network = "home"
+    groups  = ["All", "homelab", "k3s"]
+    address = "10.0.0.27/32"
   }
   "adguard-1" = {
     network = "home"
-    groups  = ["homelab"]
+    groups  = ["All", "homelab"]
     address = "10.0.0.2/32"
   }
   "adguard-2" = {
     network = "home"
-    groups  = ["homelab"]
+    groups  = ["All", "homelab"]
     address = "10.0.0.3/32"
   }
-  "external-ingress" = {
+  "unraid" = {
     network = "home"
-    groups  = ["homelab"]
-    address = "10.0.0.25/32"
+    groups  = ["All", "homelab"]
+    address = "10.0.0.9/32"
   }
-  "loki" = {
+  "jetkvm" = {
     network = "home"
-    groups  = ["homelab"]
-    address = "10.0.0.27/32"
+    groups  = ["All", "homelab"]
+    address = "10.0.0.62/32"
   }
   "do-lon" = {
     network = "do-lon"
-    groups  = ["jump"]
+    groups  = ["All", "jump"]
     address = "10.100.0.0/24"
   }
 }
 
 netbird_nameservers = {
-  "jump-adguard" = {
-    description            = "Use adguard for plexmox and lab domains"
-    domains                = ["plexmox.com"]
+  "adguard-nameservers" = {
+    description            = "Use adguard for plexmox domain"
+    domains                = ["plexmox.com", "netbird.lab"]
     search_domains_enabled = true
-    groups                 = ["jump"]
+    groups                 = ["jump", "devices"]
     nameservers = {
       adguard-1 = {
         ip = "10.0.0.2"
@@ -133,26 +160,6 @@ netbird_policies = {
       destination_resource = "adguard-2"
     }
   }
-  "devices-to-home" = {
-    description = "Allow devices to access home network"
-    rule = {
-      description          = "Allow all from devices -> home"
-      action               = "accept"
-      protocol             = "all"
-      sources              = ["devices"]
-      destination_resource = "home"
-    }
-  }
-  "devices-to-do-lon" = {
-    description = "Allow devices to access all groups"
-    rule = {
-      description          = "Allow all from devices -> all"
-      action               = "accept"
-      protocol             = "all"
-      sources              = ["devices"]
-      destination_resource = "do-lon"
-    }
-  }
   "devices-to-all" = {
     description = "Allow devices to access all groups"
     rule = {
@@ -173,14 +180,14 @@ netbird_policies = {
       destination_resource = "external-ingress"
     }
   }
-  "allow-jump-to-loki" = {
-    description = "Allow access to loki"
+  "allow-jump-to-internal-ingress" = {
+    description = "Allow access to internal-ingress"
     rule = {
       action               = "accept"
       protocol             = "tcp"
       ports                = [80, 443]
       sources              = ["jump"]
-      destination_resource = "loki"
+      destination_resource = "internal-ingress"
     }
   }
   "allow-k3s-to-jump-telemetry" = {

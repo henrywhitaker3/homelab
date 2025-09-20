@@ -1,0 +1,16 @@
+netbird_setup_key: ENC[AES256_GCM,data:a2I3RubyKDSm5U9xjKNcxAdo/d0y70yqZWOEtGt3mpDkxYts,iv:oQ3piczbH2FpSkrl8GhTJTCnoB3+DvhYy1Akqf75HHE=,tag:2bVLYhHw9EXqcvF0ALlUGw==,type:str]
+sops:
+    age:
+        - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3VU82QUJxaHFtQ2dreTlZ
+            MTZrYTA1Njh5LzBuNFVFVlNxcTM5ejJLN2pvCmpNZlJKS0VLYWRKYnFmVGJYYWQ0
+            b2dMYktUTk1jOC80QTJ1UXoxbW4vNzgKLS0tIDZGYkE2WEd0Z2hYUGtINlFzSWFB
+            TlhNU3NZclN4TVdoUzBFZEZUTjR2bWMKexm75slr8HUUZp4fOFNNGoZHI9rmwWEs
+            zGq5S+c+QgQ2vS0g3YYwXAuk5f9da1oNSFYez6R5/FON2xHKDxI3RQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-20T19:54:21Z"
+    mac: ENC[AES256_GCM,data:6b0VoOYDwdMhGrnVK7RwHr6D9Ctsqx9khVZ0TdeioWya6X3oTI5k/iCJXtjajt2DvrilOaWS0FShpDwqJGPx/wUsRRl2wNE56JJHe1fRTb5rYN6L/lruG9pv+2oWchdbdfRi4tjKnokPvOAAVxnaaNnboNEu3Vp3E82iVDvX2yE=,iv:9BHlLlBTNRyLezmj3JNSr/5bMiENZpoBzho611p9NHw=,tag:z2ReyMiS3z6LShrE1zi83Q==,type:str]
+    unencrypted_suffix: _unencrypted
+    version: 3.10.2
