@@ -32,7 +32,7 @@ netbird_groups = {
     ]
   }
   "devices" = {
-    peers = ["phone"]
+    peers = ["phone", "mbp"]
   }
   "jump" = {
     peers = ["jump-k8s"]
@@ -52,6 +52,7 @@ netbird_routers = {
 netbird_peers = {
   "phone"    = {}
   "jump-k8s" = {}
+  "mbp"      = {}
 }
 
 netbird_resources = {
