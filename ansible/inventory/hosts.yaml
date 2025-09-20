@@ -7,13 +7,6 @@ all:
         adguard-2.lab:
           ansible_host: 10.0.0.3
 
-    vpn:
-      hosts:
-        vpn-1.lab:
-          ansible_host: 10.0.0.11
-        vpn-2.lab:
-          ansible_host: 10.0.0.12
-
     netbird:
       hosts:
         netbird.lab:

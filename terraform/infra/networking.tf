@@ -26,18 +26,3 @@ module "lb" {
 
   tags = ["lb", "networking", "ubuntu"]
 }
-
-module "vpn" {
-  source    = "./vm"
-  instances = 2
-
-  name      = "vpn"
-  image     = local.ubuntu_24_04
-  ips       = ["10.0.0.11", "10.0.0.12"]
-  memory    = 512
-  disk_size = "8G"
-  nodes     = [1, 2]
-
-  tags = ["networking", "ubuntu", "vpn"]
-}
-

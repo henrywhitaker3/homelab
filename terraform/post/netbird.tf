@@ -28,7 +28,6 @@ locals {
     for vm in flatten(concat(
       data.terraform_remote_state.infra.outputs.adguard_info,
       data.terraform_remote_state.infra.outputs.minio_info,
-      data.terraform_remote_state.infra.outputs.vpn_info,
       data.terraform_remote_state.infra.outputs.lb_info,
       data.terraform_remote_state.infra.outputs.k3s_control_info,
       data.terraform_remote_state.infra.outputs.k3s_dedi_info,
@@ -55,7 +54,7 @@ locals {
       for key, value in var.netbird_peers : key => value
     },
     {
-      for key, value in local.netbird_vms : key => value if !startswith(key, "vpn")
+      for key, value in local.netbird_vms : key => value
     },
   )
 }

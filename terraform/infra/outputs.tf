@@ -1,9 +1,6 @@
 output "lb_info" {
   value = module.lb.info
 }
-output "vpn_info" {
-  value = module.vpn.info
-}
 output "k3s_control_info" {
   value = module.k3s-control.info
 }

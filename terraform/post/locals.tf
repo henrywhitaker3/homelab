@@ -2,7 +2,6 @@ locals {
   vm_info = concat(
     data.terraform_remote_state.infra.outputs.adguard_info,
     data.terraform_remote_state.infra.outputs.minio_info,
-    data.terraform_remote_state.infra.outputs.vpn_info,
     data.terraform_remote_state.infra.outputs.lb_info,
     data.terraform_remote_state.infra.outputs.k3s_control_info,
     data.terraform_remote_state.infra.outputs.k3s_dedi_info,
