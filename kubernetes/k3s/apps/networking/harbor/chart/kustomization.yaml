@@ -8,6 +8,6 @@ resources:
 helmCharts:
   - name: harbor
     releaseName: harbor
-    version: "1.17.2"
+    version: "1.18.0"
     repo: https://helm.goharbor.io
     valuesFile: values.yaml
