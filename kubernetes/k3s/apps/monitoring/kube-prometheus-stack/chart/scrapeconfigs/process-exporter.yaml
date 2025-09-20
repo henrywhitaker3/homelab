@@ -9,7 +9,7 @@ spec:
         - "adguard-2.lab:9256"
         - "lb-1.lab:9256"
         - "lb-2.lab:9256"
-        - "jump-k8s.netbird.selfhosted:9256"
+        - "jump-k8s.netbird.lab:9256"
         - "k3s-control-1.lab:9256"
         - "k3s-control-2.lab:9256"
         - "k3s-control-3.lab:9256"

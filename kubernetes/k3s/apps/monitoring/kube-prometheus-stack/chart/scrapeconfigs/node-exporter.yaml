@@ -9,7 +9,7 @@ spec:
         - "adguard-2.lab:9100"
         - "lb-1.lab:9100"
         - "lb-2.lab:9100"
-        - "jump-k8s.netbird.selfhosted:9100"
+        - "jump-k8s.netbird.lab:9100"
         - "proxmox-1.lab:9100"
         - "proxmox-2.lab:9100"
         - "proxmox-3.lab:9100"
