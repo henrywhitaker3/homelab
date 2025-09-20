@@ -10,6 +10,7 @@ spec:
         - "lb-1.lab:9100"
         - "lb-2.lab:9100"
         - "jump-k8s.netbird.lab:9100"
+        - "netbird.netbird.lab:9256"
         - "proxmox-1.lab:9100"
         - "proxmox-2.lab:9100"
         - "proxmox-3.lab:9100"
