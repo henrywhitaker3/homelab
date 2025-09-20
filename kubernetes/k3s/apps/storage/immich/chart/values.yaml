@@ -46,7 +46,7 @@ server:
   ingress:
     main:
       enabled: true
-      className: internal
+      ingressClassName: internal
       annotations:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
