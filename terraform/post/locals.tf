@@ -13,6 +13,12 @@ locals {
     [{ name = "proxmox-3", ip = "10.0.0.154" }],
     [{ name = "mac-mini", ip = "10.0.0.54" }],
     [{ name = "jetkvm", ip = "10.0.0.62" }],
+    [
+      for key, value in var.netbird_peers : {
+        name = format("%s.netbird", key)
+        ip   = data.netbird_peer.this[key].ip
+      }
+    ],
   )
 
   dhcp_static_leases = [
