@@ -103,6 +103,19 @@ resource "digitalocean_firewall" "web" {
     port_range            = "123"
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
+
+  outbound_rule {
+    protocol                = "tcp"
+    destination_droplet_ids = [digitalocean_droplet.netbird.id]
+    port_range              = "1-65535"
+  }
+
+  outbound_rule {
+    protocol                = "udp"
+    destination_droplet_ids = [digitalocean_droplet.netbird.id]
+    port_range              = "1-65535"
+  }
+
 }
 
 resource "digitalocean_firewall" "netbird" {
@@ -157,6 +170,18 @@ resource "digitalocean_firewall" "netbird" {
   inbound_rule {
     protocol         = "icmp"
     source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol           = "tcp"
+    source_droplet_ids = [digitalocean_droplet.jump_k8s.id]
+    port_range         = "1-65535"
+  }
+
+  inbound_rule {
+    protocol           = "udp"
+    source_droplet_ids = [digitalocean_droplet.jump_k8s.id]
+    port_range         = "1-65535"
   }
 
   outbound_rule {

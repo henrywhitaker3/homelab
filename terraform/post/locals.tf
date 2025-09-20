@@ -5,7 +5,7 @@ locals {
     data.terraform_remote_state.infra.outputs.lb_info,
     data.terraform_remote_state.infra.outputs.k3s_control_info,
     data.terraform_remote_state.infra.outputs.k3s_dedi_info,
-    [{ name = "jump", ip = "10.8.0.1" }],
+    [{ name = "netbird.netbird", ip = "10.100.0.2" }],
     [{ name = "minio", ip = "10.0.0.6" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],

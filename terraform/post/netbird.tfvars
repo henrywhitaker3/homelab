@@ -1,5 +1,6 @@
 netbird_networks = {
-  "home" = {}
+  "home"   = {}
+  "do-lon" = {}
 }
 
 netbird_setup_keys = {
@@ -47,6 +48,10 @@ netbird_routers = {
     network     = "home"
     peer_groups = ["homelab"]
   }
+  "do-lon" = {
+    network     = "do-lon"
+    peer_groups = ["jump"]
+  }
 }
 
 netbird_peers = {
@@ -80,6 +85,11 @@ netbird_resources = {
     network = "home"
     groups  = ["homelab"]
     address = "10.0.0.27/32"
+  }
+  "do-lon" = {
+    network = "do-lon"
+    groups  = ["jump"]
+    address = "10.100.0.0/24"
   }
 }
 
@@ -133,6 +143,16 @@ netbird_policies = {
       destination_resource = "home"
     }
   }
+  "devices-to-do-lon" = {
+    description = "Allow devices to access all groups"
+    rule = {
+      description          = "Allow all from devices -> all"
+      action               = "accept"
+      protocol             = "all"
+      sources              = ["devices"]
+      destination_resource = "do-lon"
+    }
+  }
   "devices-to-all" = {
     description = "Allow devices to access all groups"
     rule = {
@@ -175,6 +195,19 @@ netbird_policies = {
       ]
       sources      = ["k3s"]
       destinations = ["jump"]
+    }
+  }
+  "allow-k3s-to-do-telemetry" = {
+    description = "Allow home network to access jump telemtry"
+    rule = {
+      action   = "accept"
+      protocol = "tcp"
+      ports = [
+        9100, # node exporter
+        9256, # process exporter
+      ]
+      sources              = ["k3s"]
+      destination_resource = "do-lon"
     }
   }
 }

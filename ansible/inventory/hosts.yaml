@@ -11,8 +11,8 @@ all:
       hosts:
         netbird.lab:
           ansible_host: 206.189.124.239
-          node_exporter_host: 10.8.0.99
-          process_exporter_host: 10.8.0.99
+          node_exporter_host: 0.0.0.0
+          process_exporter_host: 0.0.0.0
 
     haproxy:
       hosts:
