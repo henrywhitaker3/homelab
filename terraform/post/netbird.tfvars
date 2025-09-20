@@ -169,6 +169,7 @@ netbird_policies = {
       action   = "accept"
       protocol = "tcp"
       ports = [
+        8404, # haproxy
         9100, # node exporter
         9256, # process exporter
       ]
