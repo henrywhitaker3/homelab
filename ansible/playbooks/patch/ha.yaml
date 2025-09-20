@@ -2,7 +2,6 @@
 - name: Patch HA servers
 
   hosts:
-    - vpn
     - haproxy
 
   serial: 1
