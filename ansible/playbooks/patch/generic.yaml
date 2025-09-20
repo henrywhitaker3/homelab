@@ -5,6 +5,7 @@
     - jump
     - minio
     - adguard
+    - netbird
 
   serial: 1
 
