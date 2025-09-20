@@ -48,6 +48,7 @@ peers = {
       jump = {
         endpoint             = true
         persistent_keepalive = 15
+        allowed_ips          = ["10.8.0.0/24"]
       }
     }
     post_up          = ["iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE"]
