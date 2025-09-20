@@ -5,23 +5,21 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 'adguard-1.lab:9100'
-        - 'adguard-2.lab:9100'
-        - 'lb-1.lab:9100'
-        - 'lb-2.lab:9100'
-        - 'vpn-1.lab:9100'
-        - 'vpn-2.lab:9100'
-        - 'jump.lab:9100'
-        - 'proxmox-1.lab:9100'
-        - 'proxmox-2.lab:9100'
-        - 'proxmox-3.lab:9100'
-        - 'k3s-control-1.lab:9100'
-        - 'k3s-control-2.lab:9100'
-        - 'k3s-control-3.lab:9100'
-        - 'k3s-dedi-1.lab:9100'
-        - 'unraid.lab:9100'
-        - 'minio-1.lab:9100'
-        - 'minio-2.lab:9100'
+        - "adguard-1.lab:9100"
+        - "adguard-2.lab:9100"
+        - "lb-1.lab:9100"
+        - "lb-2.lab:9100"
+        - "jump-k8s.netbird.selfhosted:9100"
+        - "proxmox-1.lab:9100"
+        - "proxmox-2.lab:9100"
+        - "proxmox-3.lab:9100"
+        - "k3s-control-1.lab:9100"
+        - "k3s-control-2.lab:9100"
+        - "k3s-control-3.lab:9100"
+        - "k3s-dedi-1.lab:9100"
+        - "unraid.lab:9100"
+        - "minio-1.lab:9100"
+        - "minio-2.lab:9100"
   metricsPath: /metrics
   relabelings:
     - targetLabel: job

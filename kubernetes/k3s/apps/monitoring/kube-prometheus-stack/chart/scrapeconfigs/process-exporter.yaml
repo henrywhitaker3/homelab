@@ -5,19 +5,17 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 'adguard-1.lab:9256'
-        - 'adguard-2.lab:9256'
-        - 'lb-1.lab:9256'
-        - 'lb-2.lab:9256'
-        - 'vpn-1.lab:9256'
-        - 'vpn-2.lab:9256'
-        - 'jump.lab:9256'
-        - 'k3s-control-1.lab:9256'
-        - 'k3s-control-2.lab:9256'
-        - 'k3s-control-3.lab:9256'
-        - 'k3s-dedi-1.lab:9256'
-        - 'minio-1.lab:9256'
-        - 'minio-2.lab:9256'
+        - "adguard-1.lab:9256"
+        - "adguard-2.lab:9256"
+        - "lb-1.lab:9256"
+        - "lb-2.lab:9256"
+        - "jump-k8s.netbird.selfhosted:9256"
+        - "k3s-control-1.lab:9256"
+        - "k3s-control-2.lab:9256"
+        - "k3s-control-3.lab:9256"
+        - "k3s-dedi-1.lab:9256"
+        - "minio-1.lab:9256"
+        - "minio-2.lab:9256"
   metricsPath: /metrics
   relabelings:
     - targetLabel: job

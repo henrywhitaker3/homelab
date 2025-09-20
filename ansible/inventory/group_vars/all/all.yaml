@@ -14,8 +14,6 @@ user_authorized_keys:
   - sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBNDebpPJ0rruABeglsnkg3/Q7gh1Hi58oR5lQM53yi5AmBWJ0nDGfEaMzBgaVFW6OJ7nLSWXlj92Af62ef2I9VoAAAALdGVybWl1cy5jb20= 5c@phone
 
 hosts_extras:
-  - name: vpn.lab
-    ip: 10.0.0.13
   - name: plex.lab
     ip: 10.0.0.26
   - name: redis.lab
@@ -26,8 +24,6 @@ hosts_extras:
     ip: 10.0.0.6
   - name: mariadb-read.lab
     ip: 10.0.0.7
-  - name: jump.lab
-    ip: 10.8.0.1
   - name: loki.plexmox.com
     ip: 10.0.0.27
   - name: harbor.plexmox.com

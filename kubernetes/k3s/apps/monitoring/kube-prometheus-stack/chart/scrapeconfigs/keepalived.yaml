@@ -1,18 +1,3 @@
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: vpn-vip
-spec:
-  staticConfigs:
-    - targets:
-        - vpn-1.lab:9165
-        - vpn-2.lab:9165
-      labels:
-        vip: vpn
-  metricsPath: /metrics
-  relabelings:
-    - targetLabel: job
-      replacement: keepalived
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig

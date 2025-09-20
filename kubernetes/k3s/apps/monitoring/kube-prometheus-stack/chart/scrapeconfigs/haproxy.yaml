@@ -5,9 +5,9 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 'jump.lab:8404'
-        - 'lb-1.lab:8404'
-        - 'lb-2.lab:8404'
+        - "jump-k8s.netbird.selfhosted:8404"
+        - "lb-1.lab:8404"
+        - "lb-2.lab:8404"
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
