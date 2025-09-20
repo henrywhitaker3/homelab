@@ -14,6 +14,13 @@ all:
         vpn-2.lab:
           ansible_host: 10.0.0.12
 
+    netbird:
+      hosts:
+        netbird.lab:
+          ansible_host: 206.189.124.239
+          node_exporter_host: 10.8.0.99
+          process_exporter_host: 10.8.0.99
+
     haproxy:
       hosts:
         lb-1.lab:
@@ -25,19 +32,12 @@ all:
       hosts:
         jump-k8s.lab:
           ansible_host: 206.189.22.6
-          node_exporter_host: 10.8.0.1
-          process_exporter_host: 10.8.0.1
+          node_exporter_host: 100.96.90.32
+          process_exporter_host: 100.96.90.32
           haproxy_config:
-            ip: 10.8.0.1
+            ip: 100.96.90.32
             backend: 10.0.0.25
             proxy: true
-
-    speakers:
-      hosts:
-        living-room.lab:
-          ansible_host: 10.0.0.139
-          ansible_user: pi
-          spotify_name: Living Room
 
     proxmox:
       vars:

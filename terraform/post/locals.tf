@@ -83,6 +83,7 @@ locals {
     "garage-web.plexmox.com",
     "garage-admin.plexmox.com",
     "garage-webui.plexmox.com",
+    "immich.plexmox.com",
   ]
 
   upstream_dns = [

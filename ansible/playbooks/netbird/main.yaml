@@ -1,16 +1,14 @@
 ---
-- name: Configure haproxy server
+- name: Configure jump server
 
-  hosts: haproxy
+  hosts: netbird
 
   roles:
     - hosts
     - user
     - common
-    - vip
-    - crog
+    # - crog
     - node_exporter
     - process_exporter
-    - haproxy
     - alloy
-    - netbird
+    - docker

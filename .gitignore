@@ -31,6 +31,7 @@ override.tf.json
 !terraform/post/cronitor.tfvars
 !terraform/post/buckets.tfvars
 !terraform/post/gitlab.tfvars
+!terraform/post/netbird.tfvars
 !terraform/wireguard/vars.tfvars
 
 # Include override files you do wish to add to version control using negated pattern

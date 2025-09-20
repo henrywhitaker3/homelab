@@ -1,10 +1,10 @@
 terraform {
+  required_version = ">= 1.10.6"
   required_providers {
     minio = {
       source  = "aminueza/minio"
       version = "3.6.5"
     }
-
     adguard = {
       source  = "gmichels/adguard"
       version = "1.6.2"
@@ -28,6 +28,10 @@ terraform {
     garage = {
       source  = "registry.terraform.io/henrywhitaker3/garage"
       version = "1.0.3"
+    }
+    netbird = {
+      source  = "netbirdio/netbird"
+      version = "0.0.4"
     }
   }
 
@@ -79,4 +83,9 @@ provider "garage" {
   host   = var.garage_host
   scheme = var.garage_scheme
   token  = var.garage_token
+}
+
+provider "netbird" {
+  token          = var.netbird_token
+  management_url = "https://netbird.plexmox.com"
 }

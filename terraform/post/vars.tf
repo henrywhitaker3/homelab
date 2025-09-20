@@ -74,3 +74,8 @@ variable "garage_token" {
   type      = string
   sensitive = true
 }
+
+variable "netbird_token" {
+  type      = string
+  sensitive = true
+}

@@ -1,0 +1,41 @@
+---
+- name: Add nebird gpg key
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.builtin.apt_key:
+    url: https://pkgs.netbird.io/debian/public.key
+    keyring: /usr/share/keyrings/netbird-archive-keyring.gpg
+
+- name: Add netbird repo
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/netbird-archive-keyring.gpg] https://pkgs.netbird.io/debian stable main"
+
+- name: Install netbird packages
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - netbird
+
+- name: Enabled netbird service
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.builtin.command:
+    cmd: "netbird service start"
+  changed_when: true
+
+- name: Connect to netbird
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.builtin.command:
+    cmd: "netbird up --management-url {{ netbird_url }} --setup-key {{ netbird_setup_key }}"
+  register: up
+  until: "up is not failed"
+  retries: 10
+  delay: 15
+  changed_when: true

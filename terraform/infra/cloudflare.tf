@@ -47,6 +47,12 @@ module "plexmox-com" {
       type    = "A"
       proxied = false
     }
+    netbird = {
+      name    = "netbird"
+      value   = digitalocean_droplet.netbird.ipv4_address
+      type    = "A"
+      proxied = false
+    }
     star = {
       name    = "*"
       value   = "plexmox.com"

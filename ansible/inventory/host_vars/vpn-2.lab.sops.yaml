@@ -1,9 +1,6 @@
 healthcheck: ENC[AES256_GCM,data:YPzAXYsKDvr3URGxX0V8lfhJOsV0L+V1qb+sASdC57TBL5A7ZSxlyivL4xiq94AnTJonZ+nqKow=,iv:fJtBL2lKLqnkOT1qQvzeJmQ7PJRSUMNxGQzOOG+4laQ=,tag:Gw4F5lCWEEK71KXLSFrxcw==,type:str]
+netbird_setup_key: ENC[AES256_GCM,data:X2EIigdMLyEJwYdwZfxkhS7GbAyI0NvisHmL4qgxFgsKnVTe,iv:jBakTu1fUanf00KJy5Ex7KNOHG+lVt11NmEPhUtfous=,tag:UiHIwftIVoHDTbmYYNvvpw==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
           enc: |
@@ -14,8 +11,7 @@ sops:
             L2NIdVNTaExLSDJOdTFUTjN1Zk4yMjAKN3lp86c5TgaL7FTy7kah4ZaJVZ0cqmyO
             RqlIOpZhfrrIuAYwnD6cE1v7QaLqi1EF7QTTOQr/uW05uhoJMkVXSg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-26T20:41:45Z"
-    mac: ENC[AES256_GCM,data:RScbGozYtSvYZ0HEnYMW8rmOiuNKrSyXp2+fK5/0vr0aBaJVp1hhw+bhu17QiRa0ohW3OmqFlnSI0oB1mbKJiFbTB4ZSUrwblIVFU1gDbvcXtEL7S4ymvPxb6kgxzBnOMwe5UiGi4aYJ8Cl5L5QTy8+IwwlLoVgXpmh2uOtLatY=,iv:fVG3DcHV7HnhnP2OauF7ed6e79MtxvYPku33wKrISxU=,tag:rOTCf6y53Cdy1RId5SvmCA==,type:str]
-    pgp: []
+    lastmodified: "2025-09-20T10:51:26Z"
+    mac: ENC[AES256_GCM,data:A3RKEfnOCAXSRiDpJ7iIJ22///n+pLPSJBdGoFALa+z9arNIvF5tDiob8IxkB9Bi/OjIPzOkqJNnE6F5wBno/KkZTeOlvDYn3wnm/acaduTIAOkBTasbDLJKKZDHqhDy6gLibsWHbDPMu++5DnL696vnxx7epyNQt8ijYT8aa7g=,iv:jXfokaKmEAkCjB3Sq8xesXVqOUmWTZNL+qWD6OdCMEY=,tag:HyA72lfF74AgXsqD+8VFMA==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.7.3
+    version: 3.10.2

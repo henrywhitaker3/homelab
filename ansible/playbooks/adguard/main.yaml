@@ -12,6 +12,7 @@
     - process_exporter
     - alloy
     - docker
+    - netbird
 
   handlers:
     - name: Restart systemd-reolved
