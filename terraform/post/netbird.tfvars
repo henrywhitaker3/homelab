@@ -52,7 +52,7 @@ netbird_groups = {
     ]
   }
   "devices" = {
-    peers = ["phone", "mbp"]
+    peers = ["phone", "mbp", "mac-mini"]
   }
   "jump" = {
     peers = ["jump-k8s"]
@@ -77,6 +77,7 @@ netbird_peers = {
   "phone"      = {}
   "jump-k8s"   = {}
   "mbp"        = {}
+  "mac-mini"   = {}
   "proxmox-01" = {}
   "proxmox-02" = {}
   "proxmox-03" = {}
@@ -168,6 +169,17 @@ netbird_policies = {
       protocol     = "all"
       sources      = ["devices"]
       destinations = ["All"]
+    }
+  }
+  "deviecs-to-devices" = {
+    description = "Allow devices to talk to each other"
+    rule = {
+      description   = "Allow all ports from devices <-> devices"
+      action        = "accept"
+      protocol      = "all"
+      sources       = ["devices"]
+      destinations  = ["devices"]
+      bidirectional = true
     }
   }
   "allow-jump-to-public-ingress" = {
