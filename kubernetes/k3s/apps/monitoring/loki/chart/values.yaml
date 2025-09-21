@@ -91,11 +91,6 @@ loki:
           chunks:
             period: 24h
 
-    serviceAnnotations:
-      netbird.io/expose: "true"
-      netbird.io/resource-name: loki
-      netbird.io/groups: telemetry
-
   sidecar:
     rules:
       enabled: true
@@ -135,6 +130,12 @@ loki:
           secretKeyRef:
             name: loki-minio
             key: secret-key
+
+    service:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/resource-name: loki
+        netbird.io/groups: telemetry
 
   test:
     enabled: false
