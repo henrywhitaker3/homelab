@@ -29,11 +29,6 @@ loki:
         hosts:
           - loki.plexmox.com
 
-  serviceAnnotations:
-    netbird.io/expose: true
-    netbird.io/resource-name: loki
-    netbird.io/groups: telemetry
-
   loki:
     auth_enabled: false
     commonConfig:
@@ -95,6 +90,11 @@ loki:
             period: 24h
           chunks:
             period: 24h
+
+    serviceAnnotations:
+      netbird.io/expose: true
+      netbird.io/resource-name: loki
+      netbird.io/groups: telemetry
 
   sidecar:
     rules:
