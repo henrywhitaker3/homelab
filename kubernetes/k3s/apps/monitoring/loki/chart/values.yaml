@@ -134,7 +134,6 @@ loki:
     service:
       annotations:
         netbird.io/expose: "true"
-        netbird.io/resource-name: loki
         netbird.io/groups: telemetry
 
   test:
