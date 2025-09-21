@@ -57,6 +57,8 @@ netbird_groups = {
   "jump" = {
     peers = ["jump-k8s"]
   }
+  "telemetry" = {
+  }
   "All" = {
     data = true
   }
@@ -210,7 +212,7 @@ netbird_policies = {
     }
   }
   "allow-k3s-to-jump-telemetry" = {
-    description = "Allow home network to access jump telemtry"
+    description = "Allow home network to access jump telemetry"
     rule = {
       action   = "accept"
       protocol = "tcp"
@@ -224,7 +226,7 @@ netbird_policies = {
     }
   }
   "allow-k3s-to-do-telemetry" = {
-    description = "Allow home network to access jump telemtry"
+    description = "Allow home network to access jump telemetry"
     rule = {
       action   = "accept"
       protocol = "tcp"
@@ -234,6 +236,30 @@ netbird_policies = {
       ]
       sources              = ["k3s"]
       destination_resource = "do-lon"
+    }
+  }
+  "allow-all-to-k3s-telemetry" = {
+    description = "Allow all devices to connect to telemetry services running in k3s"
+    rule = {
+      action   = "accept"
+      protocol = "tcp"
+      ports = [
+        3100,  # loki http
+        9095,  # loki grpc
+        6831,  # tempo jaeger
+        6832,  # tempo jaeger-thrift-binary
+        3200,  # tempo prom-metrics
+        14268, # tempo jaeger-thrift-http
+        14250, # tempo grpc-jaeger
+        9411,  # tempo zipkin
+        55680, # tempo otlp-legacy
+        55681, # tempo otlp-http-legacy
+        4317,  # tempo grpc-otlp
+        4318,  # tempo otlp-http
+        55678, # tempo opencensus
+      ]
+      sources      = ["All"]
+      destinations = ["telemetry"]
     }
   }
 }
