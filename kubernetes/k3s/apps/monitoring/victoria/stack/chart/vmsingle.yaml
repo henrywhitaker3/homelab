@@ -7,6 +7,7 @@ metadata:
 spec:
   serviceSpec:
     spec: {}
+    useAsDefault: true
     metadata:
       annotations:
         netbird.io/expose: "true"
