@@ -5,6 +5,11 @@ kind: VMSingle
 metadata:
   name: metrics
 spec:
+  serviceSpec:
+    spec:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/groups: telemetry
   image:
     repository: victoriametrics/victoria-metrics
     tag: v1.106.0

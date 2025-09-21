@@ -257,6 +257,8 @@ netbird_policies = {
         4317,  # tempo grpc-otlp
         4318,  # tempo otlp-http
         55678, # tempo opencensus
+        8429,  # victoria-metrics
+        4040,  # pyroscope
       ]
       sources      = ["All"]
       destinations = ["telemetry"]
