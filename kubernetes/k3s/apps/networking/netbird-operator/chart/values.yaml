@@ -10,7 +10,7 @@ netbird-operator:
       enabled: true
 
   cluster:
-    name: k3s-cluster
+    name: k3s
 
   managementURL: https://netbird.plexmox.com
 
