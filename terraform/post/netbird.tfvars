@@ -201,16 +201,6 @@ netbird_policies = {
       destination_resource = "external-ingress"
     }
   }
-  "allow-jump-to-internal-ingress" = {
-    description = "Allow access to internal-ingress"
-    rule = {
-      action               = "accept"
-      protocol             = "tcp"
-      ports                = [80, 443]
-      sources              = ["jump"]
-      destination_resource = "internal-ingress"
-    }
-  }
   "allow-k3s-to-jump-telemetry" = {
     description = "Allow home network to access jump telemetry"
     rule = {
@@ -226,7 +216,7 @@ netbird_policies = {
     }
   }
   "allow-k3s-to-do-telemetry" = {
-    description = "Allow home network to access jump telemetry"
+    description = "Allow home network to access do telemetry"
     rule = {
       action   = "accept"
       protocol = "tcp"
