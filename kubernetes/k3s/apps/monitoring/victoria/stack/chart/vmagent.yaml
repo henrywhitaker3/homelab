@@ -3,6 +3,13 @@ kind: VMAgent
 metadata:
   name: metrics
 spec:
+  serviceSpec:
+    spec: {}
+    useAsDefault: true
+    metadata:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/groups: telemetry
   externalLabels:
     cluster: k3s
   extraArgs:
