@@ -92,7 +92,7 @@ loki:
             period: 24h
 
     serviceAnnotations:
-      netbird.io/expose: true
+      netbird.io/expose: "true"
       netbird.io/resource-name: loki
       netbird.io/groups: telemetry
 
