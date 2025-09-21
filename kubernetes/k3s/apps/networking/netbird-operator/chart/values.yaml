@@ -1,0 +1,20 @@
+netbird-operator:
+  operator:
+    image:
+      repository: netbirdio/kubernetes-operator
+      tag: 0.1.4
+
+  ingress:
+    enabled: true
+    router:
+      enabled: true
+
+  cluster:
+    name: k3s
+
+  managementURL: https://netbird.plexmox.com
+
+  netbirdAPI:
+    keyFromSecret:
+      name: netbird-operator-secrets
+      key: api-token
