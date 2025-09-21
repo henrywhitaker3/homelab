@@ -20,6 +20,8 @@ alloy_server_ui_path: /
 
 alloy_live_debugging_enabled: false
 
+alloy_loki_server_url: https://loki.plexmox.com
+
 alloy_config: |
   {% if alloy_live_debugging_enabled %}
   livedebugging {
@@ -101,7 +103,7 @@ alloy_config: |
 
   loki.write "default" {
     endpoint {
-      url = "https://loki.plexmox.com/loki/api/v1/push"
+      url = "{{ alloy_loki_server_url }}/loki/api/v1/push"
     }
     external_labels = {
       host = "{{ inventory_hostname }}",

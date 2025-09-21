@@ -23,6 +23,7 @@ crog_verbose: true
 crog_server_ip: "{{ haproxy_config.ip }}"
 
 alloy_server_enabled: false
+alloy_loki_server_url: http://loki.monitoring.svc.cluster.local:3100
 
 haproxy_stats_bind: "{{ haproxy_config.ip }}"
 haproxy_stats_extras:
