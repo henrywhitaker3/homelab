@@ -52,7 +52,7 @@ netbird_groups = {
     ]
   }
   "devices" = {
-    peers = ["phone", "mbp", "mac-mini"]
+    peers = ["phone", "mbp", "mac-mini", "tablet"]
   }
   "jump" = {
     peers = ["jump-k8s"]
@@ -78,6 +78,7 @@ netbird_peers = {
   "jump-k8s"   = {}
   "mbp"        = {}
   "mac-mini"   = {}
+  "tablet"     = {}
   "proxmox-01" = {}
   "proxmox-02" = {}
   "proxmox-03" = {}
