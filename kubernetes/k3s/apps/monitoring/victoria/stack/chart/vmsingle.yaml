@@ -6,7 +6,8 @@ metadata:
   name: metrics
 spec:
   serviceSpec:
-    spec:
+    spec: {}
+    metadata:
       annotations:
         netbird.io/expose: "true"
         netbird.io/groups: telemetry
