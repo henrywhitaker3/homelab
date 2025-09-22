@@ -9,7 +9,7 @@ all:
 
     netbird:
       hosts:
-        netbird.lab:
+        netbird.plexmox.com:
           ansible_host: 206.189.124.239
           node_exporter_host: 0.0.0.0
           process_exporter_host: 0.0.0.0
