@@ -7,15 +7,6 @@ netbird_setup_keys = {
   "jump" = {
     auto_groups = ["jump"]
   }
-  "proxmox-01" = {
-    auto_groups = ["proxmox"]
-  }
-  "proxmox-02" = {
-    auto_groups = ["proxmox"]
-  }
-  "proxmox-03" = {
-    auto_groups = ["proxmox"]
-  }
 }
 
 netbird_groups = {
@@ -31,9 +22,6 @@ netbird_groups = {
       "lb-2",
       "minio-1",
       "minio-2",
-      "proxmox-01",
-      "proxmox-02",
-      "proxmox-03",
     ]
   }
   "k3s" = {
@@ -42,13 +30,6 @@ netbird_groups = {
       "k3s-control-2",
       "k3s-control-3",
       "k3s-dedi-1",
-    ]
-  }
-  "proxmox" = {
-    peers = [
-      "proxmox-01",
-      "proxmox-02",
-      "proxmox-03",
     ]
   }
   "devices" = {
@@ -76,14 +57,11 @@ netbird_routers = {
 }
 
 netbird_peers = {
-  "phone"      = {}
-  "jump-k8s"   = {}
-  "mbp"        = {}
-  "mac-mini"   = {}
-  "tablet"     = {}
-  "proxmox-01" = {}
-  "proxmox-02" = {}
-  "proxmox-03" = {}
+  "phone"    = {}
+  "jump-k8s" = {}
+  "mbp"      = {}
+  "mac-mini" = {}
+  "tablet"   = {}
 }
 
 netbird_resources = {
@@ -109,7 +87,7 @@ netbird_resources = {
   }
   "unraid" = {
     network = "home"
-    groups  = ["All", "homelab"]
+    groups  = ["All"]
     address = "10.0.0.9/32"
   }
   "jetkvm" = {
