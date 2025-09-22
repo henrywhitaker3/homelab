@@ -77,7 +77,7 @@ generic:
           key: password
 
   vpn:
-    enabled: true
+    enabled: false
     image:
       repository: linuxserver/wireguard
       tag: v1.0.20210914-ls36
