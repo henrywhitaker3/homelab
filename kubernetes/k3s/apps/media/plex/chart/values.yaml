@@ -2,7 +2,7 @@ generic:
   nameOverride: plex
   fullnameOverride: plex
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: linuxserver/plex
