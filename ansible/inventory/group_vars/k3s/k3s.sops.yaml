@@ -4,12 +4,8 @@ k3s_registry_password: ENC[AES256_GCM,data:f35bARZ3AOtRt3JJjbQiYAEgChxWKSX8PY2/E
 smbStorage:
     username: ENC[AES256_GCM,data:c1Yr,iv:wmYrDfVB+04tuFwjWFfsWXohGKEImwshuGnfAtHU8z0=,tag:/OzxCQW20jDAcK4Y7eZnew==,type:str]
     password: ENC[AES256_GCM,data:rAODMoRRT83qsjKKTPea6Ile9X69KQbGzdFk461rdAllthuEIUWMytKMYCwuPLY3BNQRPhoROQWwI+7R5rvz+dTLUUZyoto/,iv:l53co3njZxoQtPRqGmchDV/QRnTGsdb/4S32cqQdpSE=,tag:YNkVV8bmrp5weFC6jLXHDw==,type:str]
-cifs_credentials: ENC[AES256_GCM,data:nnf1lEXoI7P7HzXTZfeHRvC9UeZuSbr2VK7MFkfQVFqtj7t0e9W5tVJbEVfsRSydRRZIddAmkJSNXV6EXLO37Smf2hr5Fw==,iv:FCFFwvi0kq/7jR5NkdPRI5ZRnUc6FzsFZNj/p++j568=,tag:vHNGZkjty0vpZ9i71Yr5Fw==,type:str]
+cifs_credentials: ENC[AES256_GCM,data:EBHbIu8pv2fBBLyEoPJLgPB3f67wL9+myvVtLHfdQnnKRRi1vhKomdtUxCDrQLMiqolbh6YNOl7ci8bVFT4mmjotyB5JltlGx5+CeceBp1eGLjV62fWNS3IhknHoXJE=,iv:8JEZZ5i0IXUuYbu5vW0bNLLmrfXOQq9SF1HPb7xeiqw=,tag:bwOTiLgPhrmg3KMqF9HqiQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
           enc: |
@@ -20,8 +16,7 @@ sops:
             Vkp4Wm9DdUlNQUV0dElONEdITEQyQ3MKaIQVXkjzaUq3A3e6G1uYnJm+f87DxhVb
             fIpK0fbBpTz+Ks7JJIlDhbHQqe7cw9qb3ns9s7LSmaGElb00hTt2Ew==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-09T19:15:23Z"
-    mac: ENC[AES256_GCM,data:mCuWHiGoEtqzjuFbWHj+C9JxgYstmbL2unLQm2+kUmgSp3WY7nxq2XDyDSZJy2lzpc7MIP8x+uMPwJk+hGbFCobLNHQ3Cr7onFqjZ+gEQWca1jBEvLnzOtaPyiNELFEr3F2uHA0Oh4IURf0xYMRSuyjpnFdFFkenjGHGrvC+EYk=,iv:MQaVtxY1tX+gIFRrVukPOhGsu8tbbXJ4rz0aPt2lIBo=,tag:Eh94I9KpaKzFVwCmQ1NvjQ==,type:str]
-    pgp: []
+    lastmodified: "2025-09-22T19:26:25Z"
+    mac: ENC[AES256_GCM,data:4rVCcpzxrcOcU/P1UNIVZXGgFLK9LqASGDY2FFz2DYGY8eQSttVOphcNO3zdj/ug0XgmHOJ3C62YG90QPtzSyj1Gvhr9Gehs6gwQMJ4/jMq0AklEaDrNvlloieUhUENEhZLjIGX1zt6KkRds4mGCjCoVf6tv7nxXfnZagrMJBn8=,iv:HN/4JemccZE1iHcRJIjEfr1TEoF1q8tqgq34mCRquas=,tag:d85tJEVusmPdhYKh9mlqRg==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.7.3
+    version: 3.10.2
