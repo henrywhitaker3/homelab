@@ -1,0 +1,29 @@
+services:
+  adguard:
+    image: adguard/adguardhome:v0.107.66
+    restart: unless-stopped
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 68:68/udp
+      - 68:68/tcp
+      - 80:80/tcp
+      - 443:443/tcp
+      - 443:443/udp
+      - 3000:3000/tcp
+    volumes:
+      - /home/{{ ansible_user }}/adguard/config:/opt/adguardhome/conf
+      - /home/{{ ansible_user }}/adguard/data:/opt/adguardhome/work
+    network_mode: host
+
+  exporter:
+    image: ghcr.io/henrywhitaker3/adguard-exporter:v1.2.1
+    restart: unless-stopped
+    ports:
+      - 9618:9618
+    environment:
+      - ADGUARD_SERVERS=http://{{ ansible_host }}
+      - ADGUARD_USERNAMES=henry
+      - ADGUARD_PASSWORDS={{ adguard_password }}
+      - DEBUG=true

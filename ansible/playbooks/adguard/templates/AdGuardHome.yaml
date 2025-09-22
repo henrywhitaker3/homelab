@@ -6,7 +6,7 @@ http:
   session_ttl: 720h
 users:
   - name: henry
-    password: {{ adguard_password_hash }}
+    password: "{{ adguard_password_hash }}"
 auth_attempts: 5
 block_auth_min: 15
 http_proxy: ""
@@ -14,7 +14,7 @@ language: ""
 theme: auto
 dns:
   bind_hosts:
-    - 0.0.0.0
+    - "{{ ansible_host }}"
   port: 53
   anonymize_client_ip: false
   ratelimit: 20
@@ -110,7 +110,7 @@ dhcp:
     lease_duration: 86400
     icmp_timeout_msec: 1000
     options:
-      - '6 ips 10.0.0.2,10.0.0.3'
+      - "6 ips 10.0.0.2,10.0.0.3"
   dhcpv6:
     range_start: ""
     lease_duration: 86400
