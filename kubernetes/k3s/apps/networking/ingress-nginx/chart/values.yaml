@@ -23,4 +23,7 @@ ingress-nginx:
       annotations-risk-level: Critical
 
     service:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/groups: "homelab,k3s"
       loadBalancerIP: "10.0.0.25"
