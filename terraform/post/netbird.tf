@@ -1,15 +1,25 @@
 variable "netbird_networks" {
   type = map(object({
     description = optional(string, null)
+    data        = optional(bool, false)
   }))
   default = {}
 }
 
 resource "netbird_network" "this" {
-  for_each = var.netbird_networks
+  for_each = {
+    for key, value in var.netbird_networks : key => value if !value.data
+  }
 
   name        = each.key
   description = each.value.description
+}
+
+data "netbird_network" "this" {
+  for_each = {
+    for key, value in var.netbird_networks : key => value if value.data
+  }
+  name = each.key
 }
 
 variable "netbird_setup_keys" {
@@ -137,7 +147,10 @@ resource "netbird_network_router" "this" {
   enabled    = each.value.enabled
   masquerade = each.value.masquerade
   metric     = each.value.metric
-  network_id = netbird_network.this[each.value.network].id
+  network_id = try(
+    netbird_network.this[each.value.network].id,
+    data.netbird_network.this[each.value.network].id,
+  )
   peer_groups = [
     for peer in each.value.peer_groups : try(
       netbird_group.this[peer].id,
@@ -148,9 +161,11 @@ resource "netbird_network_router" "this" {
 
 variable "netbird_resources" {
   type = map(object({
+    name        = optional(string, null)
+    data        = optional(bool, false)
     description = optional(string, null)
     network     = string
-    address     = string
+    address     = optional(string, null)
     groups      = optional(list(string), null)
     enabled     = optional(bool, true)
   }))
@@ -158,12 +173,17 @@ variable "netbird_resources" {
 }
 
 resource "netbird_network_resource" "this" {
-  for_each = var.netbird_resources
+  for_each = {
+    for key, value in var.netbird_resources : key => value if !value.data
+  }
 
   name        = each.key
   description = each.value.description
-  network_id  = netbird_network.this[each.value.network].id
-  address     = each.value.address
+  network_id = try(
+    netbird_network.this[each.value.network].id,
+    data.netbird_network.this[each.value.network].id,
+  )
+  address = each.value.address
   groups = [
     for group in each.value.groups : try(
       netbird_group.this[group].id,
@@ -171,6 +191,20 @@ resource "netbird_network_resource" "this" {
     )
   ]
   enabled = each.value.enabled
+}
+
+data "netbird_network_resource" "this" {
+  for_each = {
+    for key, value in var.netbird_resources : key => value if value.data
+  }
+  name = try(
+    each.value.name,
+    each.key,
+  )
+  network_id = try(
+    netbird_network.this[each.value.network].id,
+    data.netbird_network.this[each.value.network].id,
+  )
 }
 
 variable "netbird_policies" {
@@ -224,11 +258,17 @@ resource "netbird_policy" "this" {
       )
     ]
     source_resource = each.value.rule.source_resource == null ? null : {
-      id   = netbird_network_resource.this[each.value.rule.source_resource].id
+      id = try(
+        netbird_network_resource.this[each.value.rule.source_resource].id,
+        data.netbird_network_resource.this[each.value.rule.source_resource].id,
+      )
       type = ""
     }
     destination_resource = each.value.rule.destination_resource == null ? null : {
-      id   = netbird_network_resource.this[each.value.rule.destination_resource].id
+      id = try(
+        netbird_network_resource.this[each.value.rule.destination_resource].id,
+        data.netbird_network_resource.this[each.value.rule.destination_resource].id,
+      )
       type = ""
     }
   }

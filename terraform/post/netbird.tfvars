@@ -1,6 +1,9 @@
 netbird_networks = {
   "home"   = {}
   "do-lon" = {}
+  "k3s-cluster" = {
+    data = true
+  }
 }
 
 netbird_setup_keys = {
@@ -66,9 +69,9 @@ netbird_peers = {
 
 netbird_resources = {
   "external-ingress" = {
-    network = "home"
-    groups  = ["All", "homelab", "k3s"]
-    address = "10.0.0.25/32"
+    name    = "ingress-nginx-ingress-nginx-controller"
+    network = "k3s-cluster"
+    data    = true
   }
   "internal-ingress" = {
     network = "home"
