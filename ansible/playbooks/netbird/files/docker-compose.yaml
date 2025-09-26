@@ -113,7 +113,7 @@ services:
   zdb:
     restart: "always"
     networks: [netbird]
-    image: "postgres:16-alpine"
+    image: "postgres:18-alpine"
     env_file:
       - ./zdb.env
     volumes:
