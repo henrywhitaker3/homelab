@@ -135,6 +135,14 @@ dashboardProviders:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/nats
+      - name: slos
+        orgId: 1
+        folder: SLOs
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/slos
 
 dashboards:
   default:
@@ -202,6 +210,16 @@ dashboards:
       url: https://git.deuxfleurs.fr/Deuxfleurs/garage/raw/branch/main-v1/script/telemetry/grafana-garage-dashboard-prometheus.json
       datasource:
         - { name: DS_DS_PROMETHEUS, value: Prometheus }
+
+  slos:
+    detail:
+      gnetId: 14348
+      revision: 5
+      datasource: Prometheus
+    highLevel:
+      gnetId: 14643
+      revision: 2
+      datasource: Prometheus
 
   mysql:
     galera:
