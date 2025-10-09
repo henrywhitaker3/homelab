@@ -93,6 +93,11 @@ netbird_resources = {
     groups  = ["All"]
     address = "10.0.0.9/32"
   }
+  "k8s-api" = {
+    network = "home"
+    groups  = ["All"]
+    address = "10.0.0.7/32"
+  }
   "jetkvm" = {
     network = "home"
     groups  = ["All", "homelab"]
