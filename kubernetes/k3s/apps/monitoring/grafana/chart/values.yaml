@@ -215,7 +215,8 @@ dashboards:
     detail:
       gnetId: 14348
       revision: 5
-      datasource: Prometheus
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
     highLevel:
       gnetId: 14643
       revision: 2
