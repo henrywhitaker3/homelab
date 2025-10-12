@@ -20,7 +20,7 @@ resource "digitalocean_droplet" "jump_k8s" {
 
 resource "digitalocean_droplet" "netbird" {
   name     = "netbird"
-  size     = "s-1vcpu-1gb"
+  size     = "s-2vcpu-2gb"
   image    = "ubuntu-24-04-x64"
   region   = "lon1"
   vpc_uuid = digitalocean_vpc.jump_vpc.id
