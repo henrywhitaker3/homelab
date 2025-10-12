@@ -33,12 +33,17 @@ resource "proxmox_vm_qemu" "this" {
   name        = "talos-${var.cluster_name}-${each.value.type}-${each.key + 1}"
   target_node = var.proxmox_nodes[each.value.node - 1]
   agent       = 0
-  cores       = each.value.cpus
   memory      = each.value.memory
   onboot      = true
   scsihw      = "virtio-scsi-pci"
   qemu_os     = "l26"
   vm_state    = "running"
+
+  cpu {
+    cores   = each.value.cpus
+    type    = "host"
+    sockets = "1"
+  }
 
   disks {
     ide {
@@ -73,6 +78,7 @@ resource "proxmox_vm_qemu" "this" {
   }
 
   network {
+    id      = "1"
     model   = "virtio"
     bridge  = lookup(each.value, "network_bridge", "vmbr0")
     macaddr = each.value.mac_address

@@ -15,9 +15,6 @@ resource "proxmox_vm_qemu" "vm" {
 
   agent           = 1
   os_type         = "cloud-init"
-  cores           = var.cores
-  sockets         = "1"
-  cpu             = "host"
   memory          = var.memory
   onboot          = true
   scsihw          = "virtio-scsi-pci"
@@ -25,6 +22,12 @@ resource "proxmox_vm_qemu" "vm" {
   additional_wait = 0
   clone_wait      = 0
   vm_state        = "running"
+
+  cpu {
+    cores   = var.cores
+    type    = "host"
+    sockets = "1"
+  }
 
   disks {
     ide {
