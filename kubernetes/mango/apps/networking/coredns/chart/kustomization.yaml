@@ -4,6 +4,6 @@ namespace: kube-system
 
 helmCharts:
   - name: coredns
-    version: "1.44.3"
+    version: "1.45.0"
     repo: https://coredns.github.io/helm
     valuesFile: values.yaml
