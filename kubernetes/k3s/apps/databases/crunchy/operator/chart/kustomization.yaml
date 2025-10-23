@@ -10,5 +10,5 @@ helmCharts:
     includeCRDs: true
     releaseName: crunchy-postgres-operator
     namespace: databases
-    version: "5.8.3"
+    version: "5.8.4"
     repo: oci://registry.developers.crunchydata.com/crunchydata
