@@ -14,6 +14,7 @@ argo-zombies:
         - longhorn
         - ingress-nginx
         - cert-manager
+        - netbird
 
       resources:
         - name: argocd-initial-admin-secret
