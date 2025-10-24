@@ -36,6 +36,14 @@ argo-zombies:
           namespace: ingress-nginx
           kind: Secret
           version: v1
+        - name: mariadb-metrics-password
+          namespace: mariadb
+          kind: Secret
+          version: v1
+        - name: pgo-upgrade-check
+          namespace: databases
+          kind: ConfigMap
+          version: v1
 
       selectors:
         - labels:
