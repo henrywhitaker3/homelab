@@ -4,6 +4,6 @@ namespace: monitoring
 helmCharts:
   - name: sloth
     repo: https://slok.github.io/sloth
-    version: 0.14.0
+    version: 0.15.0
     releaseName: sloth
     includeCRDs: true
