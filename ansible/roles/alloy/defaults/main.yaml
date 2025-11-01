@@ -2,7 +2,7 @@
 alloy_become: true
 
 # renovate: datasource=github-releases depName=grafana/alloy
-alloy_version: v1.11.2
+alloy_version: v1.11.3
 
 alloy_install_dir: /opt/alloy
 
