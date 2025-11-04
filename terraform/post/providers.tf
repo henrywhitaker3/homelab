@@ -19,7 +19,7 @@ terraform {
     }
     grafana = {
       source  = "grafana/grafana"
-      version = "4.12.0"
+      version = "4.12.1"
     }
     cronitor = {
       source  = "henrywhitaker3/cronitor"
