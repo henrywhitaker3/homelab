@@ -1,6 +1,7 @@
 argo-zombies:
   config:
     dashboards:
+      title: Argo Zombies Dashboard
       gitlab:
         enabled: true
         repo: henrywhitaker3/homelab
