@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster
   source:
-    path: kubernetes/k3s/apps/networking/organizr/chart
+    path: kubernetes/k3s/apps/networking/vpn-gateway/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
