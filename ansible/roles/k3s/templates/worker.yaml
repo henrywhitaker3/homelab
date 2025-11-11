@@ -8,3 +8,10 @@ kubelet-arg:
   - {{ arg }}
 {% endfor %}
 {% endif %}
+
+{% if k3s_taints is defined and k3s_taints %}
+node-taint:
+{% for taint in k3s_taints %}
+  - {{ taint }}
+{% endfor %}
+{% endif %}

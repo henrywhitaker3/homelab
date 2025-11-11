@@ -38,6 +38,8 @@ k3s_service_cidr: "10.43.0.0/16"
 
 k3s_write_kubeconfig_mode: "644"
 
+k3s_taints: []
+
 k3s_registry_enabled: false
 k3s_registry_username: ""
 k3s_registry_password: ""

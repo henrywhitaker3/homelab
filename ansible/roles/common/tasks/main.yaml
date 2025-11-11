@@ -28,6 +28,7 @@
   loop:
     - vim
     - bashtop
+    - unzip
 
 - name: Unattended upgrades
   ansible.builtin.import_tasks: unattended-upgrades.yaml

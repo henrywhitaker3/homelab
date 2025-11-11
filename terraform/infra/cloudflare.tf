@@ -61,24 +61,3 @@ module "plexmox-com" {
     }
   }
 }
-
-module "srep-io" {
-  source = "./cloudflare"
-
-  zone = "srep.io"
-
-  records = {
-    root = {
-      name    = "srep.io"
-      value   = digitalocean_droplet.jump_k8s.ipv4_address
-      type    = "A"
-      proxied = true
-    }
-    api = {
-      name    = "api"
-      value   = digitalocean_droplet.jump_k8s.ipv4_address
-      type    = "A"
-      proxied = true
-    }
-  }
-}

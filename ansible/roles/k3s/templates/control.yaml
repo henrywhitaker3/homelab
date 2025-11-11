@@ -53,3 +53,10 @@ cluster-cidr: "{{ k3s_cluster_cidr }}"
 service-cidr: "{{ k3s_service_cidr }}"
 
 write-kubeconfig-mode: "{{ k3s_write_kubeconfig_mode }}"
+
+{% if k3s_taints is defined and k3s_taints %}
+node-taint:
+{% for taint in k3s_taints %}
+  - {{ taint }}
+{% endfor %}
+{% endif %}

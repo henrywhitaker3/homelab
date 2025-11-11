@@ -72,6 +72,22 @@ healthchecks_checks = {
     channels = ["discord", "webhook"]
     tags     = ["critical", "k3s"]
   }
+  k3s_vpn_1 = {
+    name     = "k3s-vpn-1"
+    grace    = 120
+    schedule = "* * * * *"
+    timezone = "UTC"
+    channels = ["discord", "webhook"]
+    tags     = ["critical", "k3s"]
+  }
+  k3s_vpn_2 = {
+    name     = "k3s-vpn-2"
+    grace    = 120
+    schedule = "* * * * *"
+    timezone = "UTC"
+    channels = ["discord", "webhook"]
+    tags     = ["critical", "k3s"]
+  }
   alertmanager = {
     name     = "Alertmanager"
     grace    = 120

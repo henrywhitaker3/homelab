@@ -48,6 +48,13 @@ resource "proxmox_vm_qemu" "vm" {
     }
   }
 
+  dynamic "serial" {
+    for_each = var.serial == true ? { serial = {} } : {}
+    content {
+      id = 0
+    }
+  }
+
   tags = join(";", var.tags)
 
   lifecycle {

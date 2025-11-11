@@ -76,3 +76,8 @@ variable "ssh_keys" {
   type    = list(string)
   default = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIXitHyVfx3WVv0NyJdIbfYP45oKBwEuMq3GZaTn6TB"]
 }
+
+variable "serial" {
+  type    = bool
+  default = false
+}
