@@ -2,7 +2,7 @@ generic:
   nameOverride: prowlarr
   fullnameOverride: prowlarr
 
-  replicaCount: 1
+  replicaCount: 0
 
   image:
     repository: ghcr.io/home-operations/prowlarr
