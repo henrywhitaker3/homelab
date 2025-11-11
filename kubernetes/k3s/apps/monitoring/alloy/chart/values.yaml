@@ -1,9 +1,9 @@
-alloy:
-  controller:
-    tolerations:
-      - key: vpn
-        operator: Exists
+controller:
+  tolerations:
+    - key: vpn
+      operator: Exists
 
+alloy:
   configMap:
     create: false
     name: alloy-config
