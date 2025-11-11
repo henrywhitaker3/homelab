@@ -2,7 +2,7 @@ generic:
   nameOverride: transmission
   fullnameOverride: transmission
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: linuxserver/transmission
