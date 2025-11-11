@@ -49,6 +49,8 @@ pod-gateway:
               key: addresses
       securityContext:
         privileged: true
+      networkPolicy:
+        enabled: false
 
     netshoot:
       enabled: true
@@ -58,6 +60,8 @@ pod-gateway:
           memory: 30M
         limits:
           memory: 30M
+
+  DNSPolicy: ClusterFirst
 
   routed_namespaces:
     - tunneled
