@@ -43,7 +43,7 @@ pod-gateway:
       securityContext:
         privileged: true
 
-  # DNS: 192.168.1.1
+  DNS: 10.64.0.1
 
   routed_namespaces:
     - tunneled
