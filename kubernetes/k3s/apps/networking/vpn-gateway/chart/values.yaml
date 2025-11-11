@@ -38,7 +38,7 @@ pod-gateway:
         - name: WIREGUARD_ADDRESSES
           valueFrom:
             secretKeyRef:
-              name: vpn-credentials
+              name: vpn-gateway-secrets
               key: addresses
       securityContext:
         privileged: true
