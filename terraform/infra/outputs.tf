@@ -5,10 +5,6 @@ output "k3s_control_info" {
   value = module.k3s-control.info
 }
 
-output "k3s_vpn_info" {
-  value = module.k3s-vpn.info
-}
-
 output "k3s_dedi_info" {
   value = [
     {

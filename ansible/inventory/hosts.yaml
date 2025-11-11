@@ -73,9 +73,3 @@ all:
 
         k3s-dedi-1.lab:
           ansible_host: 10.0.0.24
-
-        k3s-vpn-1.lab:
-          ansible_host: 10.0.0.20
-
-        k3s-vpn-2.lab:
-          ansible_host: 10.0.0.21

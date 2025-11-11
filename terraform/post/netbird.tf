@@ -40,7 +40,6 @@ locals {
       data.terraform_remote_state.infra.outputs.minio_info,
       data.terraform_remote_state.infra.outputs.lb_info,
       data.terraform_remote_state.infra.outputs.k3s_control_info,
-      data.terraform_remote_state.infra.outputs.k3s_vpn_info,
       data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     )) : vm.name => vm
   }
@@ -51,7 +50,6 @@ locals {
       data.terraform_remote_state.infra.outputs.minio_info,
       data.terraform_remote_state.infra.outputs.lb_info,
       data.terraform_remote_state.infra.outputs.k3s_control_info,
-      data.terraform_remote_state.infra.outputs.k3s_vpn_info,
       data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     )) : vm.name => vm
   }
