@@ -26,8 +26,10 @@ pod-gateway:
           value: "off"
         - name: DOT
           value: "off"
+        - name: SERVER_COUNTRIES
+          value: UK
         - name: SERVER_CITIES
-          value: London
+          value: Manchester
         - name: DNS_KEEP_NAMESERVER
           value: "on"
         - name: WIREGUARD_PRIVATE_KEY
@@ -42,8 +44,6 @@ pod-gateway:
               key: addresses
       securityContext:
         privileged: true
-
-  DNS: 10.64.0.1
 
   routed_namespaces:
     - tunneled
