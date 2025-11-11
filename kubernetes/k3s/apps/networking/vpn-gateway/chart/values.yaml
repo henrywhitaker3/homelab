@@ -3,6 +3,7 @@ pod-gateway:
     pullPolicy: IfNotPresent
     repository: ghcr.io/angelnu/pod-gateway
     tag: v1.13.0
+
   webhook:
     image:
       pullPolicy: IfNotPresent
@@ -30,8 +31,8 @@ pod-gateway:
           value: UK
         - name: SERVER_CITIES
           value: Manchester
-        - name: DNS_KEEP_NAMESERVER
-          value: "on"
+        - name: HEALTH_VPN_DURATION_INITIAL
+          value: 30s
         - name: WIREGUARD_PRIVATE_KEY
           valueFrom:
             secretKeyRef:
@@ -42,6 +43,8 @@ pod-gateway:
             secretKeyRef:
               name: vpn-gateway-secrets
               key: addresses
+        - name: WIREGUARD_DNS
+          value: 10.64.0.1
       securityContext:
         privileged: true
 
