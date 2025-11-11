@@ -27,7 +27,7 @@ pod-gateway:
         - name: DOT
           value: "off"
         - name: SERVER_CITIES
-          value: Manchester
+          value: London
         - name: DNS_KEEP_NAMESERVER
           value: "on"
         - name: WIREGUARD_PRIVATE_KEY
