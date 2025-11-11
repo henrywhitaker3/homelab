@@ -43,10 +43,17 @@ pod-gateway:
             secretKeyRef:
               name: vpn-gateway-secrets
               key: addresses
-        - name: WIREGUARD_DNS
-          value: 10.64.0.1
       securityContext:
         privileged: true
+
+    netshoot:
+      enabled: true
+      resources:
+        requests:
+          cpu: 15m
+          memory: 30M
+        limits:
+          memory: 30M
 
   routed_namespaces:
     - tunneled
