@@ -23,6 +23,8 @@ pod-gateway:
           value: mullvad
         - name: VPN_TYPE
           value: wireguard
+        - name: VPN_INTERFACE
+          value: wg0
         - name: FIREWALL
           value: "off"
         - name: DOT
@@ -33,6 +35,8 @@ pod-gateway:
           value: Manchester
         - name: HEALTH_VPN_DURATION_INITIAL
           value: 30s
+        - name: HEALTH_TARGET_ADDRESS
+          value: "1.1.1.1"
         - name: WIREGUARD_PRIVATE_KEY
           valueFrom:
             secretKeyRef:
