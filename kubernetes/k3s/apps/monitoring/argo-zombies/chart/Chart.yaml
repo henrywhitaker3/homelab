@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: argo-zombies
-    version: "0.1.39"
+    version: "0.1.40"
     repository: https://henrywhitaker3.github.io/argo-zombies/
