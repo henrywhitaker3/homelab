@@ -18,17 +18,16 @@ generic:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-url: https://plexmox.com/api/v2/auth?group=1
-      nginx.ingress.kubernetes.io/auth-signin: https://plexmox.com
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
     hosts:
       - host: speedtest.plexmox.com
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: speedtest-plexmox-com-tls
-      hosts:
-        - speedtest.plexmox.com
+      - secretName: speedtest-plexmox-com-tls
+        hosts:
+          - speedtest.plexmox.com
 
   pvc:
     enabled: true
@@ -43,7 +42,7 @@ generic:
     initialDelaySeconds: 60
 
   config:
-    TZ:  Europe/London
+    TZ: Europe/London
     PUID: "1000"
     PGID: "1000"
     OOKLA_EULA_GDPR: "true"
