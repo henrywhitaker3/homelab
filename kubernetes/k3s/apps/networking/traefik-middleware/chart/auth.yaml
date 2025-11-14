@@ -6,7 +6,7 @@ metadata:
   name: auth
 spec:
   forwardAuth:
-    address: https://auth.plexmox.com/api/verify
+    address: https://auth.plexmox.com/api/authz/forward-auth
     trustForwardHeader: true
     authResponseHeaders:
       - "Remote-User"
