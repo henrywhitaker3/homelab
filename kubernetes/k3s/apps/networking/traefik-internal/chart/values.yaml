@@ -30,6 +30,9 @@ traefik:
     isDefaultClass: false
     name: internal
 
+  gateway:
+    name: internal
+
   gatewayClass:
     name: internal
 
