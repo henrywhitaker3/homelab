@@ -8,10 +8,7 @@ longhorn:
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-method: "GET"
-      nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
-      nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
-      nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
+      traefik.ingress.kubernetes.io/router.middlewares: auth@kubernetescrd
 
   persistence:
     removeSnapshotsDuringFilesystemTrim: enabled
