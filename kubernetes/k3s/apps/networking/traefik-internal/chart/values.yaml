@@ -24,53 +24,19 @@ traefik:
       ingressClass: internal
     kubernetesGateway:
       enabled: true
-      # labelselector: traefik-instance=internal
+      labelselector: traefik-instance=internal
 
   ingressClass:
     isDefaultClass: false
     name: internal
 
   gateway:
-    name: internal
-    labels:
-      traefik-instance: internal
-    listeners:
-      web:
-        port: 8000
-        protocol: HTTP
-      plexmox:
-        port: 8443
-        protocol: HTTPS
-        hostname: "*.plexmox.com"
-        mode: Terminate
-        namespacePolicy:
-          from: All
-        certificateRefs:
-          - name: wildcard-plexmox-com-tls
-      henrywhitaker:
-        port: 8443
-        protocol: HTTPS
-        hostname: "*.henrywhitaker.com"
-        mode: Terminate
-        certificateRefs:
-          - name: wildcard-henrywhitaker-com-tls
-      syntehtigo:
-        port: 8443
-        protocol: HTTPS
-        hostname: "*.synthetigo.com"
-        mode: Terminate
-        certificateRefs:
-          - name: wildcard-synthetigo-dev-tls
-      yourbuild:
-        port: 8443
-        protocol: HTTPS
-        hostname: "*.yourbuild.com"
-        mode: Terminate
-        certificateRefs:
-          - name: wildcard-yourbuild-dev-tls
+    enabled: false
 
   gatewayClass:
     name: internal
+    labels:
+      traefik-instance: internal
 
   additionalArguments:
     - --experimental.kubernetesingressnginx
