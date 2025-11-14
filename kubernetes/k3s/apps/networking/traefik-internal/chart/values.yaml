@@ -20,7 +20,6 @@ traefik:
       labelSelector: traefik-instance=internal
     kubernetesIngress:
       ingressClass: internal
-      labelSelector: traefik-instance=internal
 
   ingressClass:
     isDefaultClass: false
@@ -29,6 +28,7 @@ traefik:
   additionalArguments:
     - --experimental.kubernetesingressnginx=true
     - --providers.kubernetesingressnginx=true
+    - --providers.kubernetesingressnginx.ingressclass=traefik-internal
 
   service:
     annotations:
