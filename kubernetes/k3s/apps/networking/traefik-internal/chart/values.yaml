@@ -22,7 +22,7 @@ traefik:
       ingressClass: internal
 
   ingressClass:
-    isDefaultClass: true
+    isDefaultClass: false
     name: internal
 
   additionalArguments:
