@@ -3,7 +3,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildacrd-plexmox-com
+  name: wildcard-plexmox-com
 spec:
   dnsNames:
     - "*.plexmox.com"
@@ -16,37 +16,37 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildacrd-henrywhitaker-com
+  name: wildcard-henrywhitaker-com
 spec:
   dnsNames:
     - "*.henrywhitaker.com"
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  secretName: wildacrd-henrywhitaker-com-tls
+  secretName: wildcard-henrywhitaker-com-tls
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildacrd-synthetigo-dev
+  name: wildcard-synthetigo-dev
 spec:
   dnsNames:
     - "*.synthetigo.dev"
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  secretName: wildacrd-synthetigo-dev-tls
+  secretName: wildcard-synthetigo-dev-tls
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildacrd-yourbuild-dev
+  name: wildcard-yourbuild-dev
 spec:
   dnsNames:
     - "*.yourbuild.dev"
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  secretName: wildacrd-yourbuild-dev-tls
+  secretName: wildcard-yourbuild-dev-tls
