@@ -24,7 +24,7 @@ traefik:
       ingressClass: internal
     kubernetesGateway:
       enabled: true
-      labelselector: traefik-instance=internal
+      # labelselector: traefik-instance=internal
 
   ingressClass:
     isDefaultClass: false
