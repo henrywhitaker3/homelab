@@ -6,6 +6,13 @@ spec:
   groups:
     - name: longhorn
       rules:
+        - alert: LonghornNodeDown
+          expr: (avg(longhorn_node_count_total) or on() vector(0)) - (count(longhorn_node_status{condition="ready"} == 1) or on() vector(0)) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: There are {{ $value }} longhorn nodes that are not schedulable
         - alert: LonghornBackupFailed
           expr: count by (backup, volume) (longhorn_backup_state > 3) > 0
           for: 10m
