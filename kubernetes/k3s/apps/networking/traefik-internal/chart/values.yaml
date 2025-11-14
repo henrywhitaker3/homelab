@@ -20,10 +20,7 @@ traefik:
       labelSelector: traefik-instance=internal
     kubernetesIngress:
       enabled: true
-      # Turn this on to get the rbac, but add filter so it doesn't match anything and duplicate
-      # the ingress-nginx provider
-      ingressClass: noop
-      labelSelector: traefik-instance=noop
+      ingressClass: internal
 
   ingressClass:
     isDefaultClass: false
@@ -31,8 +28,6 @@ traefik:
 
   additionalArguments:
     - --experimental.kubernetesingressnginx
-    - --providers.kubernetesingressnginx
-    - --providers.kubernetesingressnginx.ingressclass=internal
 
   service:
     annotations:
