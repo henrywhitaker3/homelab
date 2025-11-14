@@ -30,6 +30,9 @@ traefik:
     isDefaultClass: false
     name: internal
 
+  gatewayClass:
+    name: internal
+
   additionalArguments:
     - --experimental.kubernetesingressnginx
 
