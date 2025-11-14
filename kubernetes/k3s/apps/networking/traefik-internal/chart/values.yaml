@@ -9,6 +9,10 @@ traefik:
         traefik-instance: internal
       middlewares:
         - name: auth-internal
+      matchRule: Host(`traefik-internal.plexmox.com`) (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      entryPoints: ["websecure"]
+      tls:
+        secretName: traefik-internal-plexmox-com-tls
 
   providers:
     kubernetesCRD:
