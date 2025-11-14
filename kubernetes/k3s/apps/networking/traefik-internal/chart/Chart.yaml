@@ -1,6 +1,6 @@
 apiVersion: v2
-name: coredns
-description: coredns chart
+name: traefik-internal
+description: traefik-internal chart
 type: application
 
 version: 0.1.0

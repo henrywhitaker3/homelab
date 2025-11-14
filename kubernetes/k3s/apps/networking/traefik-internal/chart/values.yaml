@@ -12,8 +12,7 @@ traefik:
 
   providers:
     kubernetesCRD:
-      labelSelector:
-        traefik-instance: internal
+      labelSelector: traefik-instance=internal
 
   ingressClass:
     isDefaultClass: true
