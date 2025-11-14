@@ -13,7 +13,7 @@ traefik:
       matchRule: Host(`traefik-internal.plexmox.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       entryPoints: ["websecure"]
       tls:
-        secretName: traefik-internal-plexmox-com-tls
+        secretName: wildcard-plexmox-com-tls
 
   providers:
     kubernetesCRD:
@@ -32,10 +32,44 @@ traefik:
 
   gateway:
     name: internal
+    labels:
+      traefik-instance: internal
     listeners:
       web:
         port: 8000
         protocol: HTTP
+      plexmox:
+        port: 8443
+        protocol: HTTPS
+        hostname: "*.plexmox.com"
+        tls:
+          mode: Terminate
+          certificateRefs:
+            - name: wildcard-plexmox-com-tls
+      henrywhitaker:
+        port: 8443
+        protocol: HTTPS
+        hostname: "*.henrywhitaker.com"
+        tls:
+          mode: Terminate
+          certificateRefs:
+            - name: wildcard-henrywhitaker-com-tls
+      syntehtigo:
+        port: 8443
+        protocol: HTTPS
+        hostname: "*.synthetigo.com"
+        tls:
+          mode: Terminate
+          certificateRefs:
+            - name: wildcard-synthetigo-dev-tls
+      yourbuild:
+        port: 8443
+        protocol: HTTPS
+        hostname: "*.yourbuild.com"
+        tls:
+          mode: Terminate
+          certificateRefs:
+            - name: wildcard-yourbuild-dev-tls
 
   gatewayClass:
     name: internal

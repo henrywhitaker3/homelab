@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-middleware
+  name: traefik-extras
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: kubernetes/k3s/apps/networking/traefik-middleware/chart
+    path: kubernetes/k3s/apps/networking/traefik-extras/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
