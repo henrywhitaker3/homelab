@@ -3,7 +3,26 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: auth
+  name: auth-internal
+  labels:
+    traefik-instance: internal
+spec:
+  forwardAuth:
+    address: https://auth.plexmox.com/api/authz/forward-auth
+    trustForwardHeader: true
+    authResponseHeaders:
+      - "Remote-User"
+      - "Remote-Groups"
+      - "Remote-Email"
+      - "Remote-Name"
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-public
+  labels:
+    traefik-instance: public
 spec:
   forwardAuth:
     address: https://auth.plexmox.com/api/authz/forward-auth
