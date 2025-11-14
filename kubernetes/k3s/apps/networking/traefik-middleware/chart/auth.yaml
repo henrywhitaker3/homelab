@@ -6,7 +6,7 @@ metadata:
   name: auth
 spec:
   forwardAuth:
-    address: https://auth.plexmox.com/api/verify
+    address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://auth.plexmox.com
     trustForwardHeader: true
     authResponseHeaders:
       - "Remote-User"
