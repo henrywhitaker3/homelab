@@ -7,7 +7,7 @@ ingress-nginx:
     ingressClassResource:
       name: nginx # default: nginx
       enabled: true
-      default: true
+      default: false
       controllerValue: k8s.io/ingress-nginx
 
     metrics:
