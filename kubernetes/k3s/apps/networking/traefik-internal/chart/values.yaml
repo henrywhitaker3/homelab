@@ -32,6 +32,13 @@ traefik:
 
   gateway:
     name: internal
+    listeners:
+      web:
+        port: 8000
+        protocol: HTTP
+      websecure:
+        port: 8443
+        protocol: HTTP
 
   gatewayClass:
     name: internal
