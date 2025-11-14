@@ -1,5 +1,10 @@
 traefik:
   # yaml-language-server: $schema=https://github.com/traefik/traefik-helm-chart/raw/refs/heads/master/traefik/values.schema.json
+
+  image:
+    repository: traefik
+    tag: v3.6.0
+
   deployment:
     kind: DaemonSet
 
