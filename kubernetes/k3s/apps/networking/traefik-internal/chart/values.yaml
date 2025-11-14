@@ -1,4 +1,5 @@
 traefik:
+  # yaml-language-server: $schema=https://github.com/traefik/traefik-helm-chart/raw/refs/heads/master/traefik/values.schema.json
   deployment:
     kind: DaemonSet
 
@@ -21,6 +22,9 @@ traefik:
     kubernetesIngress:
       enabled: true
       ingressClass: internal
+    kubernetesGateway:
+      enabled: true
+      labelSelector: traefik-instance=internal
 
   ingressClass:
     isDefaultClass: false
