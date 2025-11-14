@@ -29,7 +29,7 @@ traefik:
   additionalArguments:
     - --experimental.kubernetesingressnginx
     - --providers.kubernetesingressnginx
-    - --providers.kubernetesingressnginx.ingressclass=traefik-internal
+    - --providers.kubernetesingressnginx.ingressclass=internal
 
   service:
     annotations:
