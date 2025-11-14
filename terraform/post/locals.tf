@@ -89,6 +89,8 @@ locals {
     "garage-admin.plexmox.com",
     "garage-webui.plexmox.com",
     "immich.plexmox.com",
+    "traefik.plexmox.com",
+    "traefik-internal.plexmox.com",
   ]
 
   upstream_dns = [
