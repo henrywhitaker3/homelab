@@ -8,7 +8,7 @@ traefik:
       labels:
         traefik-instance: internal
       middlewares:
-        - traefik-auth@kubernetescrd
+        - name: auth-internal
 
   providers:
     kubernetesCRD:
