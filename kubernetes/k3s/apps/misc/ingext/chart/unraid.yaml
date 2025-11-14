@@ -25,10 +25,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/auth-method: 'GET'
-    nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
-    nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
-    nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
 spec:
   ingressClassName: internal
   rules:
