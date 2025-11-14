@@ -39,6 +39,7 @@ metadata:
       }
   name: plex-subdir
 spec:
+  ingressClassName: nginx
   rules:
   - host: plexmox.com
     http:
