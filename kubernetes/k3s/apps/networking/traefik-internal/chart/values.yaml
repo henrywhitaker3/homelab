@@ -2,6 +2,19 @@ traefik:
   deployment:
     kind: DaemonSet
 
+  ingressRoute:
+    dashboard:
+      create: true
+      labels:
+        traefik-instance: internal
+      middlewares:
+        - traefik-auth@kubernetescrd
+
+  providers:
+    kubernetesCRD:
+      labelSelector:
+        traefik-instance: internal
+
   ingressClass:
     isDefaultClass: true
     name: internal
