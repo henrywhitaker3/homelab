@@ -1,0 +1,15 @@
+traefik:
+  deployment:
+    kind: DaemonSet
+
+  ingressClass:
+    isDefaultClass: true
+    name: internal
+
+  additionalArguments:
+    - --experimental.kubernetesingressnginx=true
+    - --providers.kubernetesingressnginx=true
+
+  service:
+    annotations:
+      metallb.io/loadBalancerIPs: 10.0.0.27

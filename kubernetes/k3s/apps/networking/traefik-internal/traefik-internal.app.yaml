@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx-internal
+  name: traefik-internal
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: ingress-nginx
+    namespace: kube-system
     server: https://kubernetes.default.svc
-  project: cluster
+  project: apps
   source:
-    path: kubernetes/k3s/apps/networking/ingress-nginx-internal/chart
+    path: kubernetes/k3s/apps/networking/traefik-internal/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
