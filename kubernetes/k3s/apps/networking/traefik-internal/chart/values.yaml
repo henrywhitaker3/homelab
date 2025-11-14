@@ -43,6 +43,8 @@ traefik:
         protocol: HTTPS
         hostname: "*.plexmox.com"
         mode: Terminate
+        namespacePolicy:
+          from: All
         certificateRefs:
           - name: wildcard-plexmox-com-tls
       henrywhitaker:
