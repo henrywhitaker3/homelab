@@ -36,9 +36,6 @@ traefik:
       web:
         port: 8000
         protocol: HTTP
-      websecure:
-        port: 8443
-        protocol: HTTPS
 
   gatewayClass:
     name: internal
