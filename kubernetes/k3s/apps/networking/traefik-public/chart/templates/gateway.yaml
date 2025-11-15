@@ -38,6 +38,19 @@ spec:
   - allowedRoutes:
       namespaces:
         from: All
+    hostname: 'plexmox.com'
+    name: plexmox
+    port: 8443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: wildcard-plexmox-com-tls
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
     hostname: '*.synthetigo.com'
     name: syntehtigo
     port: 8443
