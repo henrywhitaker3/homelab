@@ -8,6 +8,11 @@ traefik:
   deployment:
     kind: DaemonSet
 
+  metrics:
+    prometheus:
+      serviceMonitor:
+        enabled: true
+
   ports:
     web:
       proxyProtocol: &proxyProtocol
