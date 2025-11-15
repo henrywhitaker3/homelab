@@ -10,3 +10,6 @@ spec:
   replacePathRegex:
     regex: "^/plex(.*)"
     replacement: "$1"
+  stripPrefix:
+    prefixes:
+      - "/plex"
