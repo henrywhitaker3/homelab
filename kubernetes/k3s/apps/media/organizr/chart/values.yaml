@@ -19,13 +19,9 @@ generic:
 
   ingress:
     enabled: true
+    className: public
     annotations:
       kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/configuration-snippet: |
-        if ($http_referer ~* /plex) {
-          rewrite ^/web/(.*) /plex/web/$1? redirect;
-        }
     hosts:
       - host: plexmox.com
         paths:
