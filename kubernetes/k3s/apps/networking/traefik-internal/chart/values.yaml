@@ -8,6 +8,13 @@ traefik:
   deployment:
     kind: DaemonSet
 
+  ports:
+    web:
+      redirections:
+        entryPoint:
+          to: websecure
+          shceme: https
+
   logs:
     general:
       level: DEBUG

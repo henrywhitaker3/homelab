@@ -15,6 +15,10 @@ traefik:
 
   ports:
     web:
+      redirections:
+        entryPoint:
+          to: websecure
+          shceme: https
       proxyProtocol: &proxyProtocol
         enabled: true
         trustedIPs:
