@@ -79,6 +79,7 @@ prompage:
 
   ingress:
     enabled: true
+    className: public
     annotations:
       kubernetes.io/tls-acme: "true"
       cert-manager.io/issuer: cloudflare-issuer
