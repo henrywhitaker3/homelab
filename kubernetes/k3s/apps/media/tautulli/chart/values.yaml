@@ -14,27 +14,19 @@ generic:
 
   ingress:
     enabled: true
+    className: public
     annotations:
       kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/auth-url: https://plexmox.com/api/v2/auth?group=1
-      nginx.ingress.kubernetes.io/auth-signin: https://plexmox.com
-      nginx.ingress.kubernetes.io/configuration-snippet: |
-        proxy_set_header Accept-Encoding "";
-        sub_filter
-        '</head>'
-        '<link rel="stylesheet" type="text/css" href="https://theme-park.plexmox.com/css/base/tautulli/nord.css">
-        </head>';
-        sub_filter_once on;
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd,media-tautulli@kubernetescrd
     hosts:
       - host: plexmox.com
         paths:
           - path: /tautulli
             pathType: ImplementationSpecific
     tls:
-    - secretName: plexmox-com-tls
-      hosts:
-        - plexmox.com
+      - secretName: plexmox-com-tls
+        hosts:
+          - plexmox.com
 
   pvc:
     enabled: true
@@ -54,4 +46,4 @@ generic:
   config:
     PUID: "1000"
     PGID: "1000"
-    TZ:  Europe/London
+    TZ: Europe/London
