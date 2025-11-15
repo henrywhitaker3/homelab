@@ -16,7 +16,7 @@ traefik:
   ports:
     web:
       proxyProtocol: &proxyProtocol
-        enabled: true
+        enabled: false
         trustedIPs:
           - 10.96.0.0/16
       forwardHeaders: &forwardHeaders
