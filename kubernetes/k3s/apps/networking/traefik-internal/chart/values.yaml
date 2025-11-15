@@ -15,12 +15,6 @@ traefik:
           to: websecure
           shceme: https
 
-  logs:
-    general:
-      level: DEBUG
-    access:
-      enabled: true
-
   ingressRoute:
     dashboard:
       enabled: true
