@@ -21,15 +21,15 @@ argo-cd:
       enabled: true
       annotations:
         kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.ingress.kubernetes.io/auth-method: "GET"
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
-        nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
-        nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
-      ingressClassName: "nginx"
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-public@kubernetescrd
+        # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        # nginx.ingress.kubernetes.io/auth-method: "GET"
+        # nginx.ingress.kubernetes.io/auth-url: "https://auth.plexmox.com/api/authz/auth-request"
+        # nginx.ingress.kubernetes.io/auth-signin: "https://auth.plexmox.com?rm=$request_method"
+        # nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
+      ingressClassName: public
 
       extraTls:
         - hosts:
@@ -38,6 +38,7 @@ argo-cd:
 
       hosts:
         - argocd.plexmox.com
+
     config:
       url: https://argocd.plexmox.com
       repositories: |
@@ -85,58 +86,7 @@ argo-cd:
     cm:
       kustomize.buildOptions: --enable-helm
       accounts.readonly: apiKey
-      # resource.exclusions: |
-      #   - apiGroups:
-      #     - ''
-      #     - discovery.k8s.io
-      #     kinds:
-      #     - EndpointSlice
-      #   ### Internal Kubernetes resources excluded reduce the number of watched events
-      #   - apiGroups:
-      #     - coordination.k8s.io
-      #     kinds:
-      #     - Lease
-      #   ### Internal Kubernetes Authz/Authn resources excluded reduce the number of watched events
-      #   - apiGroups:
-      #     - authentication.k8s.io
-      #     - authorization.k8s.io
-      #     kinds:
-      #     - SelfSubjectReview
-      #     - TokenReview
-      #     - LocalSubjectAccessReview
-      #     - SelfSubjectAccessReview
-      #     - SelfSubjectRulesReview
-      #     - SubjectAccessReview
-      #   ### Intermediate Certificate Request excluded reduce the number of watched events
-      #   - apiGroups:
-      #     - certificates.k8s.io
-      #     kinds:
-      #     - CertificateSigningRequest
-      #   - apiGroups:
-      #     - cert-manager.io
-      #     kinds:
-      #     - CertificateRequest
-      #   ### Cilium internal resources excluded reduce the number of watched events and UI Clutter
-      #   - apiGroups:
-      #     - cilium.io
-      #     kinds:
-      #     - CiliumIdentity
-      #     - CiliumEndpoint
-      #     - CiliumEndpointSlice
-      #   ### Kyverno intermediate and reporting resources excluded reduce the number of watched events and improve performance
-      #   - apiGroups:
-      #     - kyverno.io
-      #     - reports.kyverno.io
-      #     - wgpolicyk8s.io
-      #     kinds:
-      #     - PolicyReport
-      #     - ClusterPolicyReport
-      #     - EphemeralReport
-      #     - ClusterEphemeralReport
-      #     - AdmissionReport
-      #     - ClusterAdmissionReport
-      #     - BackgroundScanReport
-      #     - ClusterBackgroundScanReport
-      #     - UpdateRequest
+    params:
+      server.insecure: true
     rbac:
       policy.csv: "g, readonly, role:readonly"
