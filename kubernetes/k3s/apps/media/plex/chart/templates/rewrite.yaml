@@ -10,6 +10,18 @@ spec:
   replacePathRegex:
     regex: "^/plex(.*)"
     replacement: "$1"
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: plex-prefix
+  labels:
+    traefik-instance: public
+spec:
+  replacePathRegex:
+    regex: "^/plex(.*)"
+    replacement: "$1"
   stripPrefix:
     prefixes:
       - "/plex"
