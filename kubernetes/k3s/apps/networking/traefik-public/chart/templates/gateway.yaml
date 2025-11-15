@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public
+  labels:
+    traefik-instance: public
+spec:
+  gatewayClassName: public
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.henrywhitaker.com'
+    name: henrywhitaker
+    port: 8443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: wildcard-henrywhitaker-com-tls
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.plexmox.com'
+    name: plexmox
+    port: 8443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: wildcard-plexmox-com-tls
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.synthetigo.com'
+    name: syntehtigo
+    port: 8443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: wildcard-synthetigo-dev-tls
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    name: web
+    port: 8000
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.yourbuild.com'
+    name: yourbuild
+    port: 8443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: wildcard-yourbuild-dev-tls
+      mode: Terminate

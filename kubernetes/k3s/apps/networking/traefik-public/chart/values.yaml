@@ -1,0 +1,83 @@
+traefik:
+  # yaml-language-server: $schema=https://github.com/traefik/traefik-helm-chart/raw/refs/heads/master/traefik/values.schema.json
+
+  image:
+    repository: traefik
+    tag: v3.6.0
+
+  deployment:
+    kind: DaemonSet
+
+  ports:
+    web:
+      forwardHeaders: &forwardHeaders
+        enabled: true
+        headerName: CF-Connecting-IP
+        trustedIPs:
+          - 173.245.48.0/20
+          - 103.21.244.0/22
+          - 103.22.200.0/22
+          - 103.31.4.0/22
+          - 141.101.64.0/18
+          - 108.162.192.0/18
+          - 190.93.240.0/20
+          - 188.114.96.0/20
+          - 197.234.240.0/22
+          - 198.41.128.0/17
+          - 162.158.0.0/15
+          - 104.16.0.0/12
+          - 172.64.0.0/13
+          - 131.0.72.0/22
+          - 2400:cb00::/32
+          - 2606:4700::/32
+          - 2803:f800::/32
+          - 2405:b500::/32
+          - 2405:8100::/32
+          - 2a06:98c0::/29
+          - 2c0f:f248::/32
+          - 10.0.0.0/8
+
+    websecure:
+      forwardHeaders: *forwardHeaders
+
+  ingressRoute:
+    dashboard:
+      enabled: true
+      labels:
+        traefik-instance: public
+      middlewares:
+        - name: auth-public
+      matchRule: Host(`traefik.plexmox.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      entryPoints: ["websecure"]
+      tls:
+        secretName: wildcard-plexmox-com-tls
+
+  providers:
+    kubernetesCRD:
+      ingressClass: public
+      labelSelector: traefik-instance=public
+    kubernetesIngress:
+      enabled: true
+      ingressClass: public
+    kubernetesGateway:
+      enabled: true
+      labelselector: traefik-instance=public
+
+  ingressClass:
+    isDefaultClass: false
+    name: public
+
+  gateway:
+    enabled: false
+
+  gatewayClass:
+    name: public
+    labels:
+      traefik-instance: public
+
+  additionalArguments:
+    - --experimental.kubernetesingressnginx
+
+  service:
+    annotations:
+      metallb.io/loadBalancerIPs: 10.0.0.29
