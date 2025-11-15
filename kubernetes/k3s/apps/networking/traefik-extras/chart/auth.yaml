@@ -43,4 +43,3 @@ metadata:
 spec:
   forwardAuth:
     address: https://plexmox.com/api/v2/auth/1
-    preserveLocationHeader: true
