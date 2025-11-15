@@ -15,7 +15,7 @@ generic:
 
   ingress:
     enabled: true
-    className: internal
+    className: public
     annotations:
       kubernetes.io/tls-acme: "true"
       traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
