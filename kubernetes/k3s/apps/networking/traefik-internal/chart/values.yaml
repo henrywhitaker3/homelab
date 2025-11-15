@@ -9,6 +9,8 @@ traefik:
     kind: DaemonSet
 
   logs:
+    general:
+      level: DEBUG
     access:
       enabled: true
 
