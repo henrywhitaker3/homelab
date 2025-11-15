@@ -30,7 +30,7 @@ generic:
       - port: 5055
         matches:
           - path:
-              type: Prefix
+              type: PathPrefix
               value: /
 
   ingress:
