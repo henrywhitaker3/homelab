@@ -9,7 +9,7 @@ metadata:
 spec:
   forwardAuth:
     address: https://auth.plexmox.com/api/authz/forward-auth
-    trustForwardHeader: true
+    # trustForwardHeader: true
     authResponseHeaders:
       - "Remote-User"
       - "Remote-Groups"
