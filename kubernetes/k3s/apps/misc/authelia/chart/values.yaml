@@ -25,7 +25,7 @@ rbac:
 ingress:
   enabled: true
 
-  className: nginx
+  className: public
 
   tls:
     enabled: true
