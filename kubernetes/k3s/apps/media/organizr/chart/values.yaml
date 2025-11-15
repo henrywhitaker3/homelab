@@ -11,8 +11,6 @@ generic:
 
   service:
     port: 80
-    labels:
-      traefik-instance: public
 
   resources:
     requests:
