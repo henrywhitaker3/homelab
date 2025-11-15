@@ -13,7 +13,7 @@ generic:
     port: 8989
 
   httpRoute:
-    enabled: true
+    enabled: false
     labels:
       traefik-instance: public
     hostnames: [plexmox.com]
@@ -42,7 +42,7 @@ generic:
               name: sonarr
 
   ingress:
-    enabled: false
+    enabled: true
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
