@@ -17,8 +17,24 @@ generic:
       cpu: 50m
       memory: 256Mi
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: http
+        matches:
+          - path:
+              type: Prefix
+              value: /
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
