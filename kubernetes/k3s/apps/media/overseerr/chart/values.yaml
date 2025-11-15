@@ -21,6 +21,7 @@ generic:
     enabled: true
     labels:
       traefik-instance: public
+    hostnames: [overseerr.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
@@ -32,6 +33,12 @@ generic:
           - path:
               type: PathPrefix
               value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: media-overseerr
 
   ingress:
     enabled: false
