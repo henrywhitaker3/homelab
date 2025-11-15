@@ -10,6 +10,10 @@ traefik:
 
   ports:
     web:
+      proxyProtocol: &proxyProtocol
+        enabled: true
+        trustedIPs:
+          - 100.96.90.32
       forwardHeaders: &forwardHeaders
         enabled: true
         headerName: CF-Connecting-IP
@@ -38,6 +42,7 @@ traefik:
           - 10.0.0.0/8
 
     websecure:
+      proxyProtocol: *proxyProtocol
       forwardHeaders: *forwardHeaders
 
   ingressRoute:
