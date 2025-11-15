@@ -29,7 +29,7 @@ generic:
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd,media-prowlarr@kubernetescrd
     hosts:
       - host: plexmox.com
         paths:
