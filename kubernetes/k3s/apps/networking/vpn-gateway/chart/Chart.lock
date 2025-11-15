@@ -1,6 +1,6 @@
 dependencies:
 - name: pod-gateway
   repository: https://angelnu.github.io/helm-charts
-  version: 6.4.0
-digest: sha256:af63a4429b5f1839bf3dc5b2ad9154d801221360d29e1e9db96ae66265351d24
-generated: "2025-11-11T20:22:20.750677Z"
+  version: 6.5.1
+digest: sha256:e50800239fa99e1ebc36f826fa06702fef9a569448e5b4c01135bc52f080fa7b
+generated: "2025-11-11T23:08:39.989302008Z"
