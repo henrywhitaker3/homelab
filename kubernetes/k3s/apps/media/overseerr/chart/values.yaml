@@ -27,7 +27,7 @@ generic:
         name: public
         namespace: traefik
     rules:
-      - port: http
+      - port: 5055
         matches:
           - path:
               type: Prefix
