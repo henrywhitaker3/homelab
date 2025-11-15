@@ -43,3 +43,10 @@ metadata:
 spec:
   forwardAuth:
     address: https://plexmox.com/api/v2/auth/1
+  errors:
+    status:
+      - "401"
+    service:
+      name: organizr
+      namespace: media
+      port: http
