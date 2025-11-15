@@ -11,6 +11,8 @@ generic:
 
   service:
     port: 80
+    labels:
+      traefik-instance: public
 
   resources:
     requests:
@@ -32,9 +34,9 @@ generic:
           - path: /
             pathType: ImplementationSpecific
     tls:
-    - secretName: plexmox-com-tls
-      hosts:
-        - plexmox.com
+      - secretName: plexmox-com-tls
+        hosts:
+          - plexmox.com
 
   pvc:
     enabled: true
@@ -54,4 +56,4 @@ generic:
     branch: "dev"
     PUID: "1000"
     PGID: "1000"
-    TZ:  Europe/London
+    TZ: Europe/London
