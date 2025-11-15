@@ -18,7 +18,7 @@ traefik:
       proxyProtocol: &proxyProtocol
         enabled: true
         trustedIPs:
-          - 100.96.90.32
+          - 10.96.0.0/16
       forwardHeaders: &forwardHeaders
         enabled: true
         headerName: CF-Connecting-IP
