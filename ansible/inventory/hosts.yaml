@@ -29,7 +29,7 @@ all:
           process_exporter_host: 100.96.90.32
           haproxy_config:
             ip: 100.96.90.32
-            backend: ingress-nginx-controller.ingress-nginx.svc.cluster.local
+            backend: traefik-public.traefik.svc.cluster.local
             proxy: true
 
     proxmox:

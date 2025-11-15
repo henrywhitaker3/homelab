@@ -278,6 +278,7 @@ resource "netbird_policy" "this" {
       id = try(
         netbird_network_resource.this[each.value.rule.destination_resource].id,
         data.netbird_network_resource.this[each.value.rule.destination_resource].id,
+        each.value.rule.destination_resource,
       )
       type = ""
     }

@@ -68,11 +68,11 @@ netbird_peers = {
 }
 
 netbird_resources = {
-  "external-ingress" = {
-    name    = "ingress-nginx-ingress-nginx-controller"
-    network = "k3s-cluster"
-    data    = true
-  }
+  # "external-ingress" = {
+  #   name    = "traefik-traefik-public"
+  #   network = "k3s-cluster"
+  #   data    = true
+  # }
   "internal-ingress" = {
     network = "home"
     groups  = ["All", "homelab", "k3s"]
@@ -180,11 +180,12 @@ netbird_policies = {
   "allow-jump-to-public-ingress" = {
     description = "Allow jump servers to access k8s ingress"
     rule = {
-      action               = "accept"
-      protocol             = "tcp"
-      ports                = [80, 443]
-      sources              = ["jump"]
-      destination_resource = "external-ingress"
+      action   = "accept"
+      protocol = "tcp"
+      ports    = [80, 443]
+      sources  = ["jump"]
+      # Gross hack because the provider is broken for now
+      destination_resource = "d4c5gkss1jvs73evevfg"
     }
   }
   "allow-k3s-to-jump-telemetry" = {
