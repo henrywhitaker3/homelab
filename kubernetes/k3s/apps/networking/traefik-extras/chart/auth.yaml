@@ -8,7 +8,7 @@ metadata:
     traefik-instance: internal
 spec:
   forwardAuth:
-    address: https://auth.plexmox.com/api/authz/forward-auth
+    address: http://authelia.authelia.svc.cluster.local/api/authz/forward-auth
     trustForwardHeader: true
     authResponseHeaders:
       - "Remote-User"
@@ -25,7 +25,7 @@ metadata:
     traefik-instance: public
 spec:
   forwardAuth:
-    address: https://auth.plexmox.com/api/authz/forward-auth
+    address: http://authelia.authelia.svc.cluster.local/api/authz/forward-auth
     trustForwardHeader: true
     authResponseHeaders:
       - "Remote-User"
