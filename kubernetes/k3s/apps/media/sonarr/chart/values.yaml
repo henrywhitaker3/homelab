@@ -33,12 +33,13 @@ generic:
             extensionRef:
               group: traefik.io
               kind: Middleware
-              name: traefik-organizr-auth-public
+              name: organizr-auth-public
+              namespace: traefik
           - type: ExtensionRef
             extensionRef:
               group: traefik.io
               kind: Middleware
-              name: media-sonarr
+              name: sonarr
 
   ingress:
     enabled: false

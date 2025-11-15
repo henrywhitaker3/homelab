@@ -38,7 +38,7 @@ generic:
             extensionRef:
               group: traefik.io
               kind: Middleware
-              name: media-overseerr
+              name: overseerr
 
   ingress:
     enabled: false
