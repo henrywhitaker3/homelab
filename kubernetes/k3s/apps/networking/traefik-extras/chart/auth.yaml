@@ -50,3 +50,4 @@ spec:
       name: organizr
       namespace: media
       port: http
+      kind: Service
