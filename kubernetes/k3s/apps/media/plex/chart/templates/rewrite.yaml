@@ -19,9 +19,6 @@ metadata:
   labels:
     traefik-instance: public
 spec:
-  replacePathRegex:
-    regex: "^/plex(.*)"
-    replacement: "$1"
   stripPrefix:
     prefixes:
       - "/plex"
