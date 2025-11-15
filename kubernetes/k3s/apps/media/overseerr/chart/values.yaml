@@ -19,6 +19,7 @@ generic:
 
   ingress:
     enabled: true
+    className: public
     annotations:
       kubernetes.io/tls-acme: "true"
       traefik.ingress.kubernetes.io/router.middlewares: traefik-oragnizr-auth-public@kubernetescrd,overseerr@kubernetescrd
