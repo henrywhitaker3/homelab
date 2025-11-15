@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: sonarr
+  labels:
+    traefik-instance: public
+spec:
+  plugin:
+    themepark:
+      app: sonarr
+      theme: nord
+      baseUrl: https://theme-park.plexmox.com
