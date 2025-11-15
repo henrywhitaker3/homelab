@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-user-auth-public@kubernetescrd,media-plex@kubernetescrd,media-plex-rewrite@kubernetescrd,media-plex-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-user-auth-public@kubernetescrd,media-plex@kubernetescrd,media-plex-prefix@kubernetescrd
   name: plex-subdir
 spec:
   ingressClassName: public
