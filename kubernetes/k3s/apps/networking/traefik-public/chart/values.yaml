@@ -63,6 +63,13 @@ traefik:
       enabled: true
       labelselector: traefik-instance=public
 
+  experimental:
+    plugins:
+      themepark:
+        moduleName: github.com/packruler/traefik-themepark
+        # renovate: datasource=github-releases depName=packruler/traefik-themepark
+        version: v1.4.2
+
   ingressClass:
     isDefaultClass: false
     name: public
