@@ -42,4 +42,15 @@ metadata:
     traefik-instance: public
 spec:
   forwardAuth:
-    address: https://plexmox.com/api/v2/auth/1
+    address: https://plexmox.com/api/v2/auth?group=1
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: organizr-user-auth-public
+  labels:
+    traefik-instance: public
+spec:
+  forwardAuth:
+    address: https://plexmox.com/api/v2/auth?group=4
