@@ -75,7 +75,7 @@ generic:
               name: plex
 
   ingress:
-    enabled: true
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
