@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: apps
   source:
-    path: kubernetes/k3s/apps/networking/traefik-extras/chart
+    path: kubernetes/k3s/apps/networking/traefik/crds/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
