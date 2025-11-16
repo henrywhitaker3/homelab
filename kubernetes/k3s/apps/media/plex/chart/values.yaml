@@ -55,7 +55,7 @@ generic:
     enabled: true
     labels:
       traefik-instance: public
-    hostnames: [ples.plexmox.com]
+    hostnames: [plex.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
