@@ -34,7 +34,6 @@ generic:
               group: traefik.io
               kind: Middleware
               name: auth-public
-              namespace: traefik
 
   ingress:
     enabled: false
