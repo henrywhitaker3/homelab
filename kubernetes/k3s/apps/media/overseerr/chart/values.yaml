@@ -26,19 +26,19 @@ generic:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: istio-system
+        namespace: raefik
     rules:
       - port: 5055
         matches:
           - path:
               type: PathPrefix
               value: /
-        # filters:
-        #   - type: ExtensionRef
-        #     extensionRef:
-        #       group: traefik.io
-        #       kind: Middleware
-        #       name: overseerr
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: overseerr
 
   ingress:
     enabled: false
