@@ -8,7 +8,7 @@ metadata:
     traefik-instance: internal
 spec:
   hostnames:
-    - henry.plexmox.com
+    - loki.plexmox.com
   rules:
     - backendRefs:
         - kind: Service
