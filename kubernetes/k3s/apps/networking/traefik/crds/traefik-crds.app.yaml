@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-extras
+  name: traefik-crds
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
