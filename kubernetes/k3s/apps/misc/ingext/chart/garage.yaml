@@ -32,80 +32,65 @@ subsets:
       - port: 3903
         name: admin
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: garage
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+  labels:
+    traefik-instance: internal
 spec:
-  ingressClassName: internal
+  hostnames:
+    - garage.plexmox.com
   rules:
-    - host: garage.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: garage
-                port:
-                  name: s3
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - garage.plexmox.com
-      secretName: garage-plexmox-com-tls
+    - backendRefs:
+        - kind: Service
+          name: garage
+          port: 3900
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: garage-web
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+  labels:
+    traefik-instance: internal
 spec:
-  ingressClassName: internal
+  hostnames:
+    - garage-web.plexmox.com
   rules:
-    - host: garage-web.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: garage
-                port:
-                  name: web
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - garage-web.plexmox.com
-      secretName: garage-web-plexmox-com-tls
+    - backendRefs:
+        - kind: Service
+          name: garage
+          port: 3902
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: garage-admin
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+  labels:
+    traefik-instance: internal
 spec:
-  ingressClassName: internal
+  hostnames:
+    - garage-web.plexmox.com
   rules:
-    - host: garage-admin.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: garage
-                port:
-                  name: admin
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - garage-admin.plexmox.com
-      secretName: garage-admin-plexmox-com-tls
+    - backendRefs:
+        - kind: Service
+          name: garage
+          port: 3903
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
