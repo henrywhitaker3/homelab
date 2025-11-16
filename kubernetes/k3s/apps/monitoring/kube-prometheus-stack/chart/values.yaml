@@ -10,23 +10,23 @@ alertmanager:
     useExistingSecret: true
     configSecret: alertmanager-config
 
-  ingress:
-    enabled: true
-
-    ingressClassName: internal
-
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
-
-    hosts:
-      - alerts.plexmox.com
-
-    tls:
-      - secretName: alerts-plexmox-com-tls
-        hosts:
-          - alerts.plexmox.com
+  route:
+    main:
+      enabled: true
+      labels:
+        traefik-instance: internal
+      hostnames: [alerts.plexmox.com]
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: internal
+          namespace: traefik
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: auth-internal
 
 nodeExporter:
   enabled: false
