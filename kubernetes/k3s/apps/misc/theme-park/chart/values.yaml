@@ -12,8 +12,25 @@ generic:
   service:
     port: 8080
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [theme-park.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 8080
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
