@@ -4,6 +4,7 @@ middlewares:
       - media
       - misc
       - traefik
+      - docs
   organizr:
     namespaces:
       - media
