@@ -30,7 +30,7 @@ generic:
         name: public
         namespace: traefik
     rules:
-      - port: 3000
+      - port: 8080
         matches:
           - path:
               type: PathPrefix
