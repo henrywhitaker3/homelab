@@ -56,23 +56,22 @@ grafana.ini:
 plugins:
   - https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource
 
-ingress:
-  enabled: true
-
-  ingressClassName: internal
-
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
-
-  hosts:
-    - grafana.plexmox.com
-
-  tls:
-    - secretName: grafana-plexmox-com-tls
-      hosts:
-        - grafana.plexmox.com
+route:
+  main:
+    enabled: true
+    labels:
+      traefik-instance: internal
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: traefik
+    filters:
+      - type: ExtensionRef
+        extensionRef:
+          group: traefik.io
+          kind: Middleware
+          name: auth-internal
 
 defaultDashboardsEditable: false
 
