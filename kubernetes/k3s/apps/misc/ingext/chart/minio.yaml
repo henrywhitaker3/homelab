@@ -39,7 +39,7 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: unraid
+          name: minio
           port: 9000
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -60,7 +60,7 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: unraid
+          name: minio
           port: 9001
   parentRefs:
     - group: gateway.networking.k8s.io
