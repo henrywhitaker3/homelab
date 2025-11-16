@@ -12,21 +12,28 @@ generic:
   service:
     port: 3909
 
-  ingress:
+  httpRoute:
     enabled: true
-    className: internal
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
-    hosts:
-      - host: garage-webui.plexmox.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: garage-webui-plexmox-com-tls
-        hosts:
-          - garage-webui.plexmox.com
+    labels:
+      traefik-instance: internal
+    hostnames: [garage-webui.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: traefik
+    rules:
+      - port: 3909
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: auth-internal
 
   env:
     - name: API_BASE_URL
