@@ -12,8 +12,36 @@ generic:
   service:
     port: 7878
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 7878
+        matches:
+          - path:
+              type: PathPrefix
+              value: /sonarr
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: organizr-auth-public
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: radarr
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
