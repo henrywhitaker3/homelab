@@ -58,6 +58,7 @@ metrics:
 
 trivy:
   resources:
-    requests: 250m
-    limits:
+    requests:
       cpu: 250m
+    limits:
+      cpu: null
