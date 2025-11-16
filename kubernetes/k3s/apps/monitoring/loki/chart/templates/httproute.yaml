@@ -16,8 +16,8 @@ spec:
           port: 3100
       matches:
         - path:
-            type: PathPrefix
-            value: /
+            type: RegularExpression
+            value: /.*
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
