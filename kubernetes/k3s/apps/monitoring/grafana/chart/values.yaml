@@ -61,6 +61,7 @@ route:
     enabled: true
     labels:
       traefik-instance: internal
+    hostnames: [grafana.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
