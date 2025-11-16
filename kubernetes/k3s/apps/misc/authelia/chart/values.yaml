@@ -23,7 +23,7 @@ rbac:
   enabled: true
 
 ingress:
-  enabled: false
+  enabled: true
 
   gatewayAPI:
     enabled: true
