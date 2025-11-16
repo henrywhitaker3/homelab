@@ -13,8 +13,31 @@ generic:
     portName: http
     port: 3001
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [kuma.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 3001
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: auth-public
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
