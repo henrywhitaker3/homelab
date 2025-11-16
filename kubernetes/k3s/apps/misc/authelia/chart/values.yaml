@@ -23,16 +23,14 @@ rbac:
   enabled: true
 
 ingress:
-  enabled: true
+  enabled: false
 
-  className: public
-
-  tls:
+  gatewayAPI:
     enabled: true
-
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    parentRefs:
+      - kind: Gateway
+        name: public
+        namespace: traefik
 
 secret:
   existingSecret: "authelia-secrets"
