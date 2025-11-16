@@ -27,7 +27,7 @@ generic:
         matches:
           - path:
               type: PathPrefix
-              value: /sonarr
+              value: /radarr
         filters:
           - type: ExtensionRef
             extensionRef:
