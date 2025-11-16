@@ -24,8 +24,36 @@ generic:
     # fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 7878
+        matches:
+          - path:
+              type: PathPrefix
+              value: /prowlarr
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: organizr-auth-public
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: prowlarr
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
