@@ -9,6 +9,8 @@ expose:
         name: internal
         namespace: traefik
     hosts: [harbor.plexmox.com]
+  tls:
+    enabled: false
 
 externalURL: https://harbor.plexmox.com
 
