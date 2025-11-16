@@ -6,6 +6,7 @@ middlewares:
       - traefik
       - docs
       - monitoring
+      - default
   organizr:
     namespaces:
       - media
