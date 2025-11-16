@@ -17,8 +17,25 @@ generic:
       cpu: 100m
       memory: 200Mi
 
-  ingress:
+  httpRoute:
     enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 80
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  ingress:
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
