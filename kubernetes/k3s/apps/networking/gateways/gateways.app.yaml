@@ -9,7 +9,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: kube-system
+    namespace: istio-system
     server: https://kubernetes.default.svc
   project: apps
   source:
