@@ -17,7 +17,7 @@ loki:
         prometheus.io/service-monitor: "false"
 
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: internal
     annotations:
       kubernetes.io/tls-acme: "true"

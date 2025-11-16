@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: loki
+  labels:
+    traefik-instance: internal
+spec:
+  hostnames:
+    - henry.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: loki
+          namespace: monitoring
+          port: 3100
+      matches:
+        - path:
+            type: PathPrefix
+            value: /api/prom/push
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/push
+        - path:
+            type: PathPrefix
+            value: /otlp/v1/logs
+        - path:
+            type: PathPrefix
+            value: /ui
+        - path:
+            type: PathPrefix
+            value: /api/prom/query
+        - path:
+            type: PathPrefix
+            value: /api/prom/label
+        - path:
+            type: PathPrefix
+            value: /api/prom/series
+        - path:
+            type: PathPrefix
+            value: /api/prom/tail
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/query
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/query_range
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/tail
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/label
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/labels
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/series
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/index/stats
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/index/volume
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/index/volume_range
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/format_query
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/detected_field
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/detected_fields
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/detected_labels
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/patterns
+        - path:
+            type: PathPrefix
+            value: /api/prom/rules
+        - path:
+            type: PathPrefix
+            value: /api/prom/api/v1/rules
+        - path:
+            type: PathPrefix
+            value: /api/prom/api/v1/alerts
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/rules
+        - path:
+            type: PathPrefix
+            value: /prometheus/api/v1/rules
+        - path:
+            type: PathPrefix
+            value: /prometheus/api/v1/alerts
+        - path:
+            type: PathPrefix
+            value: /loki/api/v1/delete
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
