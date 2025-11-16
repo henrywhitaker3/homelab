@@ -26,53 +26,44 @@ subsets:
       - port: 9001
         name: ui
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: minio
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100M
+  labels:
+    traefik-instance: internal
 spec:
-  ingressClassName: internal
+  hostnames:
+    - s3.plexmox.com
   rules:
-    - host: s3.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: minio
-                port:
-                  number: 9000
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - s3.plexmox.com
-      secretName: s3-plexmox-com-tls
+    - backendRefs:
+        - kind: Service
+          name: unraid
+          port: 9000
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  name: minio-ui
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
+  name: minio
+  labels:
+    traefik-instance: internal
 spec:
-  ingressClassName: internal
+  hostnames:
+    - minio.plexmox.com
   rules:
-    - host: minio.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: minio
-                port:
-                  number: 9001
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - minio.plexmox.com
-      secretName: minio-plexmox-com-tls
+    - backendRefs:
+        - kind: Service
+          name: unraid
+          port: 9001
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: traefik
