@@ -18,6 +18,9 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /
+        - path:
+            type: PathPrefix
             value: /api/prom/push
         - path:
             type: PathPrefix
