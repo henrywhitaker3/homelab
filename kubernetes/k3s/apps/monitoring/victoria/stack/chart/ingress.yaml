@@ -16,6 +16,12 @@ spec:
           name: vmsingle-metrics
           namespace: monitoring
           port: 8429
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: auth-internal
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
