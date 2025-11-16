@@ -55,3 +55,9 @@ metrics:
   enabled: true
   serviceMonitor:
     enabled: true
+
+trivy:
+  resources:
+    requests: 250m
+  limits:
+    cpu: null
