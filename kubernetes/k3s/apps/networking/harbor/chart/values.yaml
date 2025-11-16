@@ -60,4 +60,4 @@ trivy:
   resources:
     requests: 250m
     limits:
-      cpu: null
+      cpu: 250m
