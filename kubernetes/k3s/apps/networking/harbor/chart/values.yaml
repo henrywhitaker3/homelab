@@ -4,10 +4,11 @@ expose:
     labels:
       traefik-instance: internal
     parentRefs:
-      group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-      namespace: traefik
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: traefik
+    hosts: [harbor.plexmox.com]
 
 externalURL: https://harbor.plexmox.com
 
