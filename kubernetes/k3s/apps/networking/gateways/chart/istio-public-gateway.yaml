@@ -16,7 +16,7 @@ spec:
           from: All
       hostname: "*.henrywhitaker.com"
       name: henrywhitaker
-      port: 8443
+      port: 443
       protocol: HTTPS
       tls:
         certificateRefs:
@@ -29,7 +29,7 @@ spec:
           from: All
       hostname: "*.plexmox.com"
       name: star-plexmox
-      port: 8443
+      port: 443
       protocol: HTTPS
       tls:
         certificateRefs:
@@ -42,7 +42,7 @@ spec:
           from: All
       hostname: "plexmox.com"
       name: plexmox
-      port: 8443
+      port: 443
       protocol: HTTPS
       tls:
         certificateRefs:
@@ -55,7 +55,7 @@ spec:
           from: All
       hostname: "*.synthetigo.com"
       name: syntehtigo
-      port: 8443
+      port: 443
       protocol: HTTPS
       tls:
         certificateRefs:
@@ -65,16 +65,10 @@ spec:
         mode: Terminate
     - allowedRoutes:
         namespaces:
-          from: Same
-      name: web
-      port: 8000
-      protocol: HTTP
-    - allowedRoutes:
-        namespaces:
           from: All
       hostname: "*.yourbuild.com"
       name: yourbuild
-      port: 8443
+      port: 443
       protocol: HTTPS
       tls:
         certificateRefs:
