@@ -33,7 +33,6 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
     traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
-
 spec:
   ingressClassName: internal
   rules:
