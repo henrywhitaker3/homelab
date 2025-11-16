@@ -13,7 +13,7 @@ generic:
     port: 8989
 
   httpRoute:
-    enabled: false
+    enabled: true
     labels:
       traefik-instance: public
     hostnames: [plexmox.com]
@@ -34,7 +34,6 @@ generic:
               group: traefik.io
               kind: Middleware
               name: organizr-auth-public
-              namespace: traefik
           - type: ExtensionRef
             extensionRef:
               group: traefik.io
@@ -42,7 +41,7 @@ generic:
               name: sonarr
 
   ingress:
-    enabled: true
+    enabled: false
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
