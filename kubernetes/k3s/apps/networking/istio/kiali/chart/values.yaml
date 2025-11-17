@@ -1,0 +1,10 @@
+kiali-operator:
+  cr:
+    create: true
+    namespace: istio-system
+    spec:
+      auth:
+        strategy: anonymous
+      external_services:
+        prometheus:
+          url: http://vmsingle-metrics.monitoring.svc.cluster.local:8429
