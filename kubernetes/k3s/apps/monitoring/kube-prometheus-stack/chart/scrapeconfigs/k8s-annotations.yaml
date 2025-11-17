@@ -1,12 +1,12 @@
+---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: kubernetes-service-endpoints
+  name: kubernetes-service-endpoints-services
 spec:
   kubernetesSDConfigs:
     - role: service
-    - role: pod
-  relabelings:
+  relabelings: &relabelings
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
       regex: "true"
@@ -47,3 +47,12 @@ spec:
     - action: replace
       sourceLabels: [__meta_kubernetes_service_name]
       targetLabel: kubernetes_name
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: kubernetes-service-endpoints-pods
+spec:
+  kubernetesSDConfigs:
+    - role: pod
+  relabelings: *relabelings

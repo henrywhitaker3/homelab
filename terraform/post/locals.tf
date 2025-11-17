@@ -91,6 +91,7 @@ locals {
     "immich.plexmox.com",
     "traefik.plexmox.com",
     "traefik-internal.plexmox.com",
+    "kiali.plexmox.com",
   ]
 
   upstream_dns = [
