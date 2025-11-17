@@ -7,7 +7,6 @@ metadata:
 spec:
   kubernetesSDConfigs:
     - role: service
-    - role: pod
   relabelConfigs:
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
@@ -49,3 +48,46 @@ spec:
     - action: replace
       sourceLabels: [__meta_kubernetes_service_name]
       targetLabel: kubernetes_name
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/operator.victoriametrics.com/vmscrapeconfig_v1beta1.json
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMScrapeConfig
+metadata:
+  name: kubernetes-pod-endpoints
+spec:
+  kubernetesSDConfigs:
+    - role: service
+  relabelConfigs:
+    # annotation 'prometheus.io/scrape' must be set to 'true'
+    - action: keep
+      regex: "true"
+      sourceLabels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+
+    # service cannot be in kube-system or prom namespaces
+    - action: drop
+      regex: (kube-system|prom)
+      sourceLabels: [__meta_kubernetes_namespace]
+
+    # allow override of http scheme
+    - action: replace
+      regex: (https?)
+      sourceLabels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+      targetLabel: __scheme__
+
+    # allow override of default /metrics path
+    - action: replace
+      regex: (.+)
+      sourceLabels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+      targetLabel: __metrics_path__
+
+    # allow override of default port
+    - action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      sourceLabels:
+        [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      targetLabel: __address__
+
+    - action: replace
+      sourceLabels: [__meta_kubernetes_namespace]
+      targetLabel: kubernetes_namespace
