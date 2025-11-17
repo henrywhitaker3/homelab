@@ -4,3 +4,4 @@ namespaces:
   - dragonfly
   - synthetigo
   - traefik
+  - authelia
