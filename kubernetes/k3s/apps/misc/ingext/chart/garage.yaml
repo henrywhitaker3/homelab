@@ -83,7 +83,7 @@ metadata:
     traefik-instance: internal
 spec:
   hostnames:
-    - garage-web.plexmox.com
+    - garage-admin.plexmox.com
   rules:
     - backendRefs:
         - kind: Service
