@@ -139,6 +139,14 @@ dashboardProviders:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/slos
+      - name: istio
+        orgId: 1
+        folder: Istio
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/istio
 
 dashboards:
   default:
@@ -217,6 +225,33 @@ dashboards:
       gnetId: 14643
       revision: 2
       datasource: Prometheus
+
+  istio:
+    mesh:
+      gnetId: 7639
+      revision: 278
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    service:
+      gnetId: 7636
+      revision: 278
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    workload:
+      gnetId: 7630
+      revision: 278
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    performance:
+      gnetId: 11829
+      revision: 278
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
+    control:
+      gnetId: 7645
+      revision: 278
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
 
   mysql:
     galera:
