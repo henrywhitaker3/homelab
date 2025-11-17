@@ -4,8 +4,8 @@ metadata:
   name: kubernetes-service-endpoints
 spec:
   kubernetesSDConfigs:
-    - role: Service
-    - role: Pod
+    - role: service
+    - role: pod
   relabelings:
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
