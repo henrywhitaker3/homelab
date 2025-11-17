@@ -5,7 +5,7 @@ metadata:
   name: kubernetes-service-endpoints-services
 spec:
   kubernetesSDConfigs:
-    - role: Service
+    - role: service
   relabelings:
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
@@ -54,7 +54,7 @@ metadata:
   name: kubernetes-service-endpoints-pods
 spec:
   kubernetesSDConfigs:
-    - role: Pod
+    - role: pod
   relabelings:
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
