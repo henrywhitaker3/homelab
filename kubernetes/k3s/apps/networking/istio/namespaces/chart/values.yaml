@@ -2,3 +2,5 @@ namespaces:
   - crunchy
   - thesuses
   - dragonfly
+  - synthetigo
+  - traefik
