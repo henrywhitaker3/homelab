@@ -5,8 +5,8 @@ metadata:
   name: kubernetes-service-endpoints-services
 spec:
   kubernetesSDConfigs:
-    - role: service
-  relabelings: &relabelings
+    - role: Service
+  relabelings:
     # annotation 'prometheus.io/scrape' must be set to 'true'
     - action: keep
       regex: "true"
@@ -54,5 +54,45 @@ metadata:
   name: kubernetes-service-endpoints-pods
 spec:
   kubernetesSDConfigs:
-    - role: pod
-  relabelings: *relabelings
+    - role: Pod
+  relabelings:
+    # annotation 'prometheus.io/scrape' must be set to 'true'
+    - action: keep
+      regex: "true"
+      sourceLabels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+
+    # service cannot be in kube-system or prom namespaces
+    - action: drop
+      regex: (kube-system|prom)
+      sourceLabels: [__meta_kubernetes_namespace]
+
+    # allow override of http scheme
+    - action: replace
+      regex: (https?)
+      sourceLabels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+      targetLabel: __scheme__
+
+    # allow override of default /metrics path
+    - action: replace
+      regex: (.+)
+      sourceLabels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+      targetLabel: __metrics_path__
+
+    # allow override of default port
+    - action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      sourceLabels:
+        [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      targetLabel: __address__
+
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+
+    - action: replace
+      sourceLabels: [__meta_kubernetes_namespace]
+      targetLabel: kubernetes_namespace
+
+    - action: replace
+      sourceLabels: [__meta_kubernetes_service_name]
+      targetLabel: kubernetes_name
