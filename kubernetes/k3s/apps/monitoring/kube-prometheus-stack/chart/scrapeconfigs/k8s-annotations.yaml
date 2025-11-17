@@ -16,11 +16,6 @@ spec:
       regex: (kube-system|prom)
       sourceLabels: [__meta_kubernetes_namespace]
 
-    # service port name must end with word 'metrics'
-    - action: keep
-      regex: .*metrics
-      sourceLabels: [__meta_kubernetes_service_port_name]
-
     # allow override of http scheme
     - action: replace
       regex: (https?)
@@ -37,7 +32,8 @@ spec:
     - action: replace
       regex: ([^:]+)(?::\d+)?;(\d+)
       replacement: $1:$2
-      sourceLabels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      sourceLabels:
+        [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
       targetLabel: __address__
 
     - action: labelmap
