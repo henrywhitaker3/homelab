@@ -9,7 +9,6 @@ spec:
     - targets:
         - garage-admin.plexmox.com
   metricsPath: /metrics
-  scheme: HTTPS
   authorization:
     type: Bearer
     credentials:
