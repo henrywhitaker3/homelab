@@ -19,6 +19,9 @@ generic:
       path: /login
       port: http
 
+  deploymentStrategy:
+    type: Recreate
+
   env:
     - name: DATABASE_PATH
       value: /app/data/homie.db
