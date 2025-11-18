@@ -34,7 +34,7 @@ generic:
     - name: OIDC_ENABLED
       value: "true"
     - name: OIDC_BASE_URL
-      value: https://auth.plexmox.com
+      value: http://authelia.authelia.svc.cluster.local
     - name: ALLOWED_GROUPS
       value: "admin"
     - name: SESSION_COOKIE_SECURE
