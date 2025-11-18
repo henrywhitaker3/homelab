@@ -1,0 +1,42 @@
+generic:
+  nameOverride: homie
+  fullnameOverride: homie
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/brramble/homie
+    pullPolicy: IfNotPresent
+    tag: V1.4
+
+  service:
+    port: 5000
+
+  httpRoute:
+    enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [homie.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 5000
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: auth-public
+
+  pvc:
+    enabled: true
+    mountPath: /app/data
+    size: "1Gi"
+    storageClassName: longhorn
