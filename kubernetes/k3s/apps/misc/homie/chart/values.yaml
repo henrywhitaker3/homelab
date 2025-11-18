@@ -19,26 +19,26 @@ generic:
       path: /login
       port: http
 
-  env:
+  name:
     - name: DATABASE_PATH
       value: /app/data/homie.db
-    - env: FLASK_DEBUG
+    - name: FLASK_DEBUG
       value: "false"
-    - env: BASE_URL
+    - name: BASE_URL
       value: https://homie.plexmox.com
-    - env: PORT
+    - name: PORT
       value: "5000"
-    - env: OIDC_ENABLED
+    - name: OIDC_ENABLED
       value: "true"
-    - env: OIDC_BASE_URL
+    - name: OIDC_BASE_URL
       value: https://auth.plexmox.com
-    - env: ALLOWED_GROUPS
+    - name: ALLOWED_GROUPS
       value: "admin"
-    - env: SESSION_COOKIE_SECURE
+    - name: SESSION_COOKIE_SECURE
       value: "true"
-    - env: LOG_LEVEL
+    - name: LOG_LEVEL
       value: INFO
-    - env: PYTHONUNBUFFERED
+    - name: PYTHONUNBUFFERED
       value: "1"
 
   secrets:
