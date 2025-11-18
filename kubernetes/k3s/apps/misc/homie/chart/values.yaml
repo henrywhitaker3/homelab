@@ -12,6 +12,42 @@ generic:
   service:
     port: 5000
 
+  probes:
+    enabled: true
+    type: httpGet
+    options:
+      path: /login
+      port: http
+
+  env:
+    - name: DATABASE_PATH
+      value: /app/data/homie.db
+    - env: FLASK_DEBUG
+      value: "false"
+    - env: BASE_URL
+      value: https://homie.plexmox.com
+    - env: PORT
+      value: "5000"
+    - env: OIDC_ENABLED
+      value: "true"
+    - env: OIDC_BASE_URL
+      value: https://auth.plexmox.com
+    - env: ALLOWED_GROUPS
+      value: "admin"
+    - env: SESSION_COOKIE_SECURE
+      value: "true"
+    - env: LOG_LEVEL
+      value: INFO
+    - env: PYTHONUNBUFFERED
+      value: "1"
+
+  secrets:
+    enabled: true
+    key: homie-secrets
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: onepassword-connect
+
   httpRoute:
     enabled: true
     labels:
