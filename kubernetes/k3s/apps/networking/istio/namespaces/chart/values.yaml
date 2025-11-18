@@ -6,4 +6,4 @@ namespaces:
   - traefik
   - authelia
   - mariadb
-  - homie
+  - misc
