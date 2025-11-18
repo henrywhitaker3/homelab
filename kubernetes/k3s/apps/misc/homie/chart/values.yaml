@@ -19,7 +19,7 @@ generic:
       path: /login
       port: http
 
-  name:
+  env:
     - name: DATABASE_PATH
       value: /app/data/homie.db
     - name: FLASK_DEBUG
