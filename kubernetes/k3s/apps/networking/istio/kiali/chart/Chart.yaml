@@ -4,4 +4,4 @@ version: 1.0.0
 dependencies:
   - name: kiali-operator
     repository: https://kiali.org/helm-charts
-    version: 2.18.0
+    version: 2.19.0
