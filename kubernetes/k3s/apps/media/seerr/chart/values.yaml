@@ -1,0 +1,60 @@
+generic:
+  nameride: seerr
+  fullnameride: seerr
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/seerr-team/seerr
+    pullPolicy: IfNotPresent
+    tag: develop@sha256:2c48a3d8b8a54c9935dc837fb6f279a7aaac41731a399b748b45d10abbf6956f
+
+  service:
+    port: 5055
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+
+  httpRoute:
+    enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [seerr.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 5055
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: seerr
+
+  pvc:
+    enabled: true
+    mountPath: /app/config
+    storageClassName: longhorn
+    size: 1Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+
+    initialDelaySeconds: 20
+
+  config:
+    TZ: Europe/London
