@@ -48,13 +48,7 @@ generic:
               name: seerr
 
   entrypoint:
-    command:
-      - /bin/sh
-      - -c
-    args:
-      - tail
-      - -f
-      - /dev/null
+    command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
 
   pvc:
     enabled: true
