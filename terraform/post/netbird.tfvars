@@ -68,11 +68,11 @@ netbird_peers = {
 }
 
 netbird_resources = {
-  # "external-ingress" = {
-  #   name    = "traefik-traefik-public"
-  #   network = "k3s-cluster"
-  #   data    = true
-  # }
+  "external-ingress" = {
+    name    = "traefik-traefik-public"
+    network = "k3s-cluster"
+    data    = true
+  }
   "internal-ingress" = {
     network = "home"
     groups  = ["All", "homelab", "k3s"]
