@@ -36,7 +36,8 @@ netbird_groups = {
     ]
   }
   "devices" = {
-    peers = ["phone", "mbp", "mac-mini", "tablet"]
+    peers = ["phone", "mbp"]
+    peers = []
   }
   "jump" = {
     peers = ["jump-k8s"]
@@ -63,8 +64,6 @@ netbird_peers = {
   "phone"    = {}
   "jump-k8s" = {}
   "mbp"      = {}
-  "mac-mini" = {}
-  "tablet"   = {}
 }
 
 netbird_resources = {
@@ -180,12 +179,11 @@ netbird_policies = {
   "allow-jump-to-public-ingress" = {
     description = "Allow jump servers to access k8s ingress"
     rule = {
-      action   = "accept"
-      protocol = "tcp"
-      ports    = [80, 443]
-      sources  = ["jump"]
-      # Gross hack because the provider is broken for now
-      destination_resource = "d4c5gkss1jvs73evevfg"
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["jump"]
+      destination_resource = "external-ingress"
     }
   }
   "allow-k3s-to-jump-telemetry" = {
