@@ -48,11 +48,13 @@ generic:
               name: seerr
 
   entrypoint:
-    - /bin/sh
-    - -c
-    - tail
-    - -f
-    - /dev/null
+    command:
+      - /bin/sh
+    args:
+      - -c
+      - tail
+      - -f
+      - /dev/null
 
   pvc:
     enabled: true
