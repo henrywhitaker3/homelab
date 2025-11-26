@@ -47,6 +47,13 @@ generic:
               kind: Middleware
               name: seerr
 
+  entrypoint:
+    - /bin/sh
+    - -c
+    - tail
+    - -f
+    - /dev/null
+
   pvc:
     enabled: true
     mountPath: /app/config
