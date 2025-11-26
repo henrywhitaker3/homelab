@@ -1,6 +1,6 @@
 dependencies:
 - name: kubernetes-operator
   repository: https://netbirdio.github.io/helms
-  version: 0.1.14
-digest: sha256:132508d921e74956b516cbbd548e44731d4ffd4a02b09301bbcc85208bbf2894
-generated: "2025-09-21T09:50:07.177961809Z"
+  version: 0.1.15
+digest: sha256:8992570b8a59a6565198b8c47fefc78146b318de2f17f2978da5abb2d1d8c296
+generated: "2025-11-26T02:08:38.304868673Z"
