@@ -50,8 +50,8 @@ generic:
   entrypoint:
     command:
       - /bin/sh
-    args:
       - -c
+    args:
       - tail
       - -f
       - /dev/null
