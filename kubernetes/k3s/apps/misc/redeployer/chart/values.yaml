@@ -25,8 +25,8 @@ role:
   name: restart-deployment
 
 jobs:
-  - name: overseerr
-    command: kubectl -n media rollout restart deployment overseerr
+  - name: seerr
+    command: kubectl -n media rollout restart deployment seerr
     schedule: "0 4 * * *"
   - name: organizr
     command: kubectl -n media rollout restart deployment organizr
