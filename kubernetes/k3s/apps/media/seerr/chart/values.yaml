@@ -17,7 +17,7 @@ generic:
       cpu: 50m
       memory: 256Mi
 
-  securityContext:
+  podSecurityContext:
     runAsNonRoot: true
     runAsUser: 1000
     runAsGroup: 1000
@@ -47,8 +47,8 @@ generic:
               kind: Middleware
               name: seerr
 
-  entrypoint:
-    command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+  # entrypoint:
+  #   command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
 
   pvc:
     enabled: true
