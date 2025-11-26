@@ -37,7 +37,6 @@ netbird_groups = {
   }
   "devices" = {
     peers = ["phone", "mbp"]
-    peers = []
   }
   "jump" = {
     peers = ["jump-k8s"]
