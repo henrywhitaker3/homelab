@@ -1,5 +1,5 @@
 healthcheck: ENC[AES256_GCM,data:fMWPotGKMNEgJptLfMwbG/38qyS6411jxDY2J8QLI+WD7JvC2mgBte/KJgPVEOKDZC18/J0IBSY=,iv:t9WCKVcnjqVYLHjlQ5xPNgmAnbbE8OadQPUDzf8OZ5g=,tag:iXk1EyeaOP8ucnVyrDDR5A==,type:str]
-netbird_setup_key: ENC[AES256_GCM,data:QZ+5o+JtnL1KWjYiXq8V0vwVOdm4J5hGlJTkMueS6nWGIeSa,iv:KGwC2zx9+F+tWQJmUFvIWb9jKpXcYNA3Q23ZYdbB18I=,tag:a4GFiTt/a5+RZNMsh1OFsQ==,type:str]
+netbird_setup_key: ENC[AES256_GCM,data:353hutHbZmrqgkxeZwzacyNY5p1/wd6BeDJ4Vl2xnmfLiyWD,iv:oKqaRHWgoG+JkO0Kc1QHnNmpsXNQbuqcGr3jO9lQnBY=,tag:xl/5nM/Ppu7focwBOoJcZA==,type:str]
 sops:
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
@@ -11,7 +11,7 @@ sops:
             bVI3N21Id2tHTkVrR0Q2SFhIdHo3a1UKaQLcVxS0zc/kLoGYSHeYl9/1CPwNcb+h
             VLlXry2w74rTCfVppy7fAFElsbR4NkhbnEC9Di/89X+WORAE4b+EWA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-20T13:50:54Z"
-    mac: ENC[AES256_GCM,data:Db+u6Cw3La0CV5Aryi/oHH2BgW/UgVaTe3pGf+zrQmrxAMHOv3tkYvo7byA7kTSHMZ5HkmI8cfmwg/fZetP71veMf1PhvQW35SA3kA5fLBP64iCqDE3XrgcefJ2q+9gOD/G2IHxkeYuH/7K0tRIGBEEBMMDHZW9AELaWk8oOgEk=,iv:l5JeMu9uOKDIbq3m6qrrctOEZMaVsJKTJFZIhPeZ0Wo=,tag:IBUgZla5S3Te6XGi1FY0WA==,type:str]
+    lastmodified: "2025-11-26T21:12:26Z"
+    mac: ENC[AES256_GCM,data:6zLaylLw1WQM6/jErZ3OEkyE1pzED5YliaxSGCjNEVFKVJmEHEDIE80Ijw+zIIDkd/NF36ubhbhvxx4xiTd+T+DeziSnfVTdZpZtuYCkkVh5g/ZWse9oSLXQkJSls005XFQmsUQ6S9VZHqu78Pw3cKXGZl0hDjb1zPtBrIns354=,iv:W2hyCu+vCaVtYUzZd4MBWthUOIYID2Y1rnn05f73Nhs=,tag:p1EQwkFKpvVFLngTBzSzPw==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.11.0

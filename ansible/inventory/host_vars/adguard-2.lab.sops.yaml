@@ -1,4 +1,4 @@
-netbird_setup_key: ENC[AES256_GCM,data:fxvfhSfba8ZqdlWd6FnsOYSafVQUyorGnL0J+u4AKoOruARY,iv:naCpCzMNxqULRcUUeEX+USCzEXylisUProsGBOWUF4I=,tag:9WvEZ0g3SGKOitSK/BRnXw==,type:str]
+netbird_setup_key: ENC[AES256_GCM,data:EVIm4/bg2UG/jm/TlgKSwRkIVGfj3CwTSVHFIv/PD8O0IyC2,iv:MWl2RMz1cEB9tlFC+/PYxRUgQLiyVmn3k73y2z+ncKQ=,tag:eAA9bBxEmTCgK5PxsWhYCA==,type:str]
 sops:
     age:
         - recipient: age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
@@ -10,7 +10,7 @@ sops:
             V0FwdU5DbmNhdE5UU2g2TkI4SDNtcnMKD3AA46b7F/qb1Sl4TXHP8X8stz9zRZN+
             GdlH9qWJd4vcmp27so2agT4cqOgsDdGiMAuXedcRtCfKXwgLZZ1msw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-20T13:50:05Z"
-    mac: ENC[AES256_GCM,data:8+GC+sJnB8Hsscrs0UfVGW+BTBMjZ4EBcXcOx887UOrsVmhBrOWCvAf0R5n3rLexePy+YyLhKHQs3+qT6KY36Pu6umV++vpK8Nzz5gKY/9kfpMxLVPCCMO1mGJXdxJHZ/G3xYQP8RyDFEaTOsZnervkRRTaAtJcWrScaVWB9L0A=,iv:0AiEFcJiRQ2iUdydkBOqrQKV2muUyhcnfwrItoTuvtQ=,tag:ZZCz5Cb6TbcsdWctkCnlUg==,type:str]
+    lastmodified: "2025-11-26T21:13:05Z"
+    mac: ENC[AES256_GCM,data:imTHHiNb/vYajkulwEQ7jOrIqjn6cAb7+Sz7wT+1P11/t0s7tgba/SNwp4HYeQJdGzKkO17A1Oo6NOohs3rLzKq4fUfr41EJFy6r36XH51TTNG6Dz3H81xe2+lgZRHY3Z9VjuCU13eTqoj6KGCRaC9O61uxLcI53xySAI8Wza2M=,iv:nYr8hY4DK4hxFmzHkEpMCBK2aqJH5p7aZNyZvp1iUZI=,tag:24n5E/rP9hfE505bUReZlw==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.11.0
