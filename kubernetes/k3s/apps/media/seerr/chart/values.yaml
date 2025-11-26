@@ -1,6 +1,6 @@
 generic:
-  nameride: seerr
-  fullnameride: seerr
+  nameOverride: seerr
+  fullnameOverride: seerr
 
   replicaCount: 1
 
