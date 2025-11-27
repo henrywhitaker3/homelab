@@ -7,3 +7,7 @@ helmCharts:
     version: 0.15.0
     releaseName: sloth
     includeCRDs: true
+    valuesInline:
+      resources:
+        limits:
+          cpu: null
