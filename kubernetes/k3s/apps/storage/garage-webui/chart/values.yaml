@@ -40,7 +40,7 @@ generic:
       # TODO: update to use https when container supports it
       value: http://10.0.0.9:3903
     - name: S3_ENDPOINT_URL
-      value: http://10.0.0.9:3900
+      value: https://garage.plexmox.com
     - name: S3_REGION
       value: garage
     - name: API_ADMIN_KEY
