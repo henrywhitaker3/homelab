@@ -6,6 +6,6 @@ helmCharts:
   - name: victoria-metrics-operator
     releaseName: vm-operator
     namespace: monitoring
-    version: "0.56.4"
+    version: "0.57.0"
     repo: https://victoriametrics.github.io/helm-charts
     valuesFile: values.yaml
