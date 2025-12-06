@@ -8,5 +8,5 @@ appVersion: "1.16.0"
 dependencies:
   - name: origin-ca-issuer
     alias: cloudflare
-    version: "0.6.1"
+    version: "0.6.2"
     repository: oci://ghcr.io/cloudflare/origin-ca-issuer-charts
