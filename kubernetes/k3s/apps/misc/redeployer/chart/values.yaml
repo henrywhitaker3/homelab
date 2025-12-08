@@ -34,6 +34,9 @@ jobs:
   - name: kuma
     command: kubectl -n monitoring rollout restart deployment uptime-kuma
     schedule: "0 4 * * *"
+  - name: kuma
+    command: kubectl -n monitoring rollout restart deployment transmission
+    schedule: "0 4 * * *"
   - name: rebalanace-plex
     schedule: "*/5 * * * *"
     command: |
