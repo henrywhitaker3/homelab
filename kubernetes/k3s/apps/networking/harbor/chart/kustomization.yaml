@@ -9,6 +9,6 @@ helmCharts:
   - name: harbor
     releaseName: harbor
     namespace: harbor
-    version: "1.18.0"
+    version: "1.18.1"
     repo: https://helm.goharbor.io
     valuesFile: values.yaml
