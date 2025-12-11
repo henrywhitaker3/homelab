@@ -33,6 +33,6 @@ spec:
         storageClassName: longhorn-no-backups
         resources:
           requests:
-            storage: 1Gi
+            storage: 2Gi
   useStrictSecurity: true
   vmAgentExternalLabelName: prometheus
