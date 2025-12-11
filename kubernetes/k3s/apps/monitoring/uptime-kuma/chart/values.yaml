@@ -2,7 +2,7 @@ generic:
   nameOverride: uptime-kuma
   fullnameOverride: uptime-kuma
 
-  replicaCount: 1
+  replicaCount: 0
 
   image:
     repository: ghcr.io/louislam/uptime-kuma
@@ -12,9 +12,6 @@ generic:
   service:
     portName: http
     port: 3001
-
-  probes:
-    enabled: false
 
   httpRoute:
     enabled: true
@@ -39,22 +36,6 @@ generic:
               kind: Middleware
               name: auth-public
 
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-public@kubernetescrd
-    hosts:
-      - host: kuma.plexmox.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: kuma-plexmox-com-tls
-        hosts:
-          - kuma.plexmox.com
-
   pvc:
     enabled: true
     mountPath: /app/data
@@ -66,6 +47,18 @@ generic:
   config:
     PUID: "1000"
     PGID: "1000"
+    UPTIME_KUMA_DB_TYPE: mariadb
+    UPTIME_KUMA_DB_HOSTNAME: mariadb.mariadb.svc.cluster.local
+    UPTIME_KUMA_DB_PORT: "3306"
+    UPTIME_KUMA_DB_NAME: kuma
+    UPTIME_KUMA_DB_USERNAME: kuma
+
+  env:
+    - name: UPTIME_KUMA_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: uptime-kuma
+          key: password
 
   deploymentStrategy:
     type: Recreate
