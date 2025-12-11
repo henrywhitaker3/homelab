@@ -5,13 +5,16 @@ generic:
   replicaCount: 1
 
   image:
-    repository: louislam/uptime-kuma
-    pullPolicy: Always
-    tag: latest
+    repository: ghcr.io/louislam/uptime-kuma
+    pullPolicy: IfNotPresent
+    tag: 2.0.2
 
   service:
     portName: http
     port: 3001
+
+  probes:
+    enabled: false
 
   httpRoute:
     enabled: true
