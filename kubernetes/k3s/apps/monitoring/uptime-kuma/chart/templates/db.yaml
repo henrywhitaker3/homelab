@@ -14,6 +14,16 @@ spec:
     - extract:
         key: uptime-kuma
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/database_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: kuma
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/user_v1alpha1.json
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
@@ -26,6 +36,21 @@ spec:
   passwordSecretKeyRef:
     name: uptime-kuma
     key: password
+
+  mariaDbRef:
+    name: mariadb
+    namespace: mariadb
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/grant_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: kuma-grant
+spec:
+  database: kuma
+  table: "*"
+  privileges: [ALL]
+  username: kuma
 
   mariaDbRef:
     name: mariadb
