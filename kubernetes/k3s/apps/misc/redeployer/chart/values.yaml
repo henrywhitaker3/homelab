@@ -32,7 +32,7 @@ jobs:
     command: kubectl -n media rollout restart deployment organizr
     schedule: "0 4 * * *"
   - name: transmission
-    command: kubectl -n monitoring rollout restart deployment transmission
+    command: kubectl -n media rollout restart deployment transmission
     schedule: "0 4 * * *"
   - name: rebalanace-plex
     schedule: "*/5 * * * *"
