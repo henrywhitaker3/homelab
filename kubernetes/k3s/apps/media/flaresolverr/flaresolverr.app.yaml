@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flaresolverr
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  project: apps
+  source:
+    path: kubernetes/k3s/apps/media/flaresolverr/chart
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

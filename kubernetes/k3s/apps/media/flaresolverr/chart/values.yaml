@@ -1,0 +1,17 @@
+generic:
+  nameOverride: flaresolverr
+  fullnameOverride: flaresolverr
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/flaresolverr/flaresolverr
+    pullPolicy: IfNotPresent
+    tag: v3.4.6
+
+  service:
+    port: 8191
+
+  probes:
+    initialDelaySeconds: 30
+    timeoutSeconds: 3
