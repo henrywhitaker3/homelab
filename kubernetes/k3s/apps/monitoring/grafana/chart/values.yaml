@@ -158,6 +158,10 @@ dashboards:
       gnetId: 12693
       revision: 7
       datasource: Prometheus
+    traefik:
+      gnetId: 17346
+      revision: 9
+      datasource: Prometheus
     node_exporter:
       gnetId: 1860
       revision: 33
