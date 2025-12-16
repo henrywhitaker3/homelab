@@ -292,10 +292,10 @@ dashboards:
       url: https://raw.githubusercontent.com/henrywhitaker3/grafana-dashboards/refs/heads/main/crunchy/query_statistics.json
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
-    # pgbouncer:
-    #   url: https://raw.githubusercontent.com/henrywhitaker3/grafana-dashboards/refs/heads/main/crunchy/pgbouncer_direct.json
-    #   datasource:
-    #     - { name: DS_PROMETHEUS, value: Prometheus }
+    pgbouncer:
+      url: https://raw.githubusercontent.com/henrywhitaker3/grafana-dashboards/refs/heads/main/crunchy/pgbouncer_direct.json
+      datasource:
+        - { name: DS_PROMETHEUS, value: Prometheus }
 
   victoria:
     victoria-single:
