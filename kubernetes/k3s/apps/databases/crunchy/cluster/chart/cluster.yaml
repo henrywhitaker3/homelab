@@ -79,6 +79,7 @@ spec:
         synchronous_commit: "on"
         parameters:
           max_connections: 150
+          shared_preload_libraries: timescaledb
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
