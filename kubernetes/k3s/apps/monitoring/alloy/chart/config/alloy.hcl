@@ -160,7 +160,7 @@ otelcol.connector.servicegraph "default" {
 otelcol.processor.batch "default" {
   output {
     metrics = [otelcol.exporter.prometheus.default.input]
-    logs    = [otelcol.exporter.logging.default.input]
+    logs    = [otelcol.exporter.loki.default.input]
     traces  = [otelcol.exporter.otlp.default.input]
   }
 }
@@ -179,7 +179,7 @@ otelcol.exporter.prometheus "default" {
   forward_to = [prometheus.remote_write.default.receiver]
 }
 
-otelcol.exporter.logging "default" {
+otelcol.exporter.loki "default" {
   forward_to = [loki.write.default.receiver]
 }
 
