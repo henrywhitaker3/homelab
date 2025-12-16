@@ -169,6 +169,10 @@ spec:
     #     type: AlphaNumeric
 
   instrumentation:
+    logs:
+      exporters: ["otlp/logging"]
+    metrics:
+      exporters: ["otlp/metrics"]
     config:
       exporters:
         otlp/logging:
