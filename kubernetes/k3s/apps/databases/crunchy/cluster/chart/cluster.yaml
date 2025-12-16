@@ -170,16 +170,12 @@ spec:
 
   instrumentation:
     logs:
-      exporters: ["otlp/logging"]
+      exporters: ["otlp"]
     metrics:
-      exporters: ["otlp/metrics"]
+      exporters: ["otlp"]
     config:
       exporters:
-        otlp/logging:
-          endpoint: alloy.monitoring.svc.cluster.local:4317
-          tls:
-            insecure: true
-        otlp/metrics:
+        otlp:
           endpoint: alloy.monitoring.svc.cluster.local:4317
           tls:
             insecure: true
