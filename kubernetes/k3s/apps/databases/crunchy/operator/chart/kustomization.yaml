@@ -12,3 +12,7 @@ helmCharts:
     namespace: databases
     version: "5.8.5"
     repo: oci://registry.developers.crunchydata.com/crunchydata
+    valuesInline:
+      features:
+        OpenTelemetryLogging: true
+        OpenTelemetryMetrics: true
