@@ -14,5 +14,5 @@ helmCharts:
     repo: oci://registry.developers.crunchydata.com/crunchydata
     valuesInline:
       features:
-        OpenTelemetryLogging: true
+        OpenTelemetryLogs: true
         OpenTelemetryMetrics: true
