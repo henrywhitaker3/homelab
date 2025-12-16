@@ -159,8 +159,8 @@ otelcol.connector.servicegraph "default" {
 
 otelcol.processor.batch "default" {
   output {
-    metrics = [otelcol.exporter.otlp.default.input]
-    logs    = [otelcol.exporter.otlp.default.input]
+    metrics = [otelcol.exporter.prometheus.default.input]
+    logs    = [loki.write.default.receiver]
     traces  = [otelcol.exporter.otlp.default.input]
   }
 }
