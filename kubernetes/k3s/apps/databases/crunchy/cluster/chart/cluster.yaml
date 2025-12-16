@@ -168,11 +168,23 @@ spec:
     #   password:
     #     type: AlphaNumeric
 
-  monitoring:
-    pgmonitor:
-      exporter:
-        # renovate: datasource=docker depName=registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.7.3-0
+  instrumentation:
+    config:
+      exporters:
+        otlp/logging:
+          endpoint: alloy.monitoring.svc.cluster.local:4317
+          tls:
+            insecure: true
+        otlp/metrics:
+          endpoint: alloy.monitoring.svc.cluster.local:4317
+          tls:
+            insecure: true
+
+  # monitoring:
+  #   pgmonitor:
+  #     exporter:
+  #       # renovate: datasource=docker depName=registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter
+  #       image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.7.3-0
 
   backups:
     pgbackrest:
