@@ -20,7 +20,7 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: 'Postgres Exporter running on {{ $labels.job }} (instance: {{ $labels.instance }}) is encountering scrape errors processing queries. Error count: ( {{ $value }} )'
+            summary: "Postgres Exporter running on {{ $labels.job }} (instance: {{ $labels.instance }}) is encountering scrape errors processing queries. Error count: ( {{ $value }} )"
 
         - alert: PGIsUp
           expr: pg_up < 1
@@ -28,7 +28,7 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: 'postgres_exporter running on {{ $labels.job }} is unable to communicate with the configured database'
+            summary: "postgres_exporter running on {{ $labels.job }} is unable to communicate with the configured database"
 
         - alert: PGNodeInRecovery
           expr: ccp_is_in_recovery_status{role="replica"} > 1
@@ -39,7 +39,7 @@ spec:
             description: Replica {{ $labels.pod }} is in recovery status
 
         - alert: PGConnectionAbsent
-          expr: absent(ccp_connection_stats_max_connections{job="crunchy/crunchy"})
+          expr: absent(ccp_connection_stats_max_connections{pg_cluster="crunchy:crunchy"})
           for: 10s
           labels:
             severity: critical
@@ -60,7 +60,7 @@ spec:
           labels:
             severity: warning
           annotations:
-            description: '{{ $labels.job }} has at least one session idle in transaction for over 5 minutes.'
+            description: "{{ $labels.job }} has at least one session idle in transaction for over 5 minutes."
             summary: PGSQL Instance {{ $labels.job }} idle transactions
 
         - alert: PGIdleTxn
@@ -157,7 +157,7 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: 'Count of sequences on instance {{ $labels.job }} at over 75% usage: {{ $value }}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
+            summary: "Count of sequences on instance {{ $labels.job }} at over 75% usage: {{ $value }}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75"
 
         - alert: PGBackRestLastCompletedFull
           expr: ccp_backrest_last_full_backup_time_since_completion_seconds{stanza="db"} > 648000
@@ -173,5 +173,4 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: 'Incremental backup for stanza [db] on system {{ $labels.job }} has not completed in the last 24 hours.'
-
+            summary: "Incremental backup for stanza [db] on system {{ $labels.job }} has not completed in the last 24 hours."
