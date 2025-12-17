@@ -49,7 +49,7 @@ spec:
       postgres-operator.crunchydata.com/cluster: crunchy
       postgres-operator.crunchydata.com/crunchy-otel-collector: "true"
   podMetricsEndpoints:
-    - port: exporter
+    - port: otel-metrics
       relabelings:
         - sourceLabels: [__meta_kubernetes_pod_container_port_number]
           action: keep
