@@ -6,5 +6,5 @@ metadata:
   name: crunchy-upgrade
 spec:
   postgresClusterName: crunchy
-  fromPostgresVersion: 16
-  toPostgresVersion: 17
+  fromPostgresVersion: 17
+  toPostgresVersion: 18
