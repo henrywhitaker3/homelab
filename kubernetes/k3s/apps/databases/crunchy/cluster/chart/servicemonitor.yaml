@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
@@ -7,15 +9,23 @@ spec:
     - port: exporter
       relabelings:
         - action: replace
-          sourceLabels: [__meta_kubernetes_namespace,__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster]
+          sourceLabels:
+            [
+              __meta_kubernetes_namespace,
+              __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster,
+            ]
           targetLabel: pg_cluster
           separator: ":"
-          replacement: '$1$2'
+          replacement: "$1$2"
         - action: replace
-          sourceLabels: [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance]
+          sourceLabels:
+            [
+              __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance,
+            ]
           targetLabel: deployment
         - action: replace
-          sourceLabels: [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
+          sourceLabels:
+            [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
           targetLabel: role
   namespaceSelector:
     matchNames:
@@ -24,3 +34,50 @@ spec:
     matchLabels:
       postgres-operator.crunchydata.com/cluster: crunchy
       postgres-operator.crunchydata.com/crunchy-postgres-exporter: "true"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/podmonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: crunchy-otel-collector
+spec:
+  namespaceSelector:
+    matchNames:
+      - crunchy
+  selector:
+    matchLabels:
+      postgres-operator.crunchydata.com/cluster: crunchy
+      postgres-operator.crunchydata.com/crunchy-otel-collector: "true"
+  podMetricsEndpoints:
+    - port: exporter
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_pod_container_port_number]
+          action: keep
+          regex: "9187"
+        - sourceLabels: [__meta_kubernetes_namespace]
+          targetLabel: kubernetes_namespace
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: pod
+        - sourceLabels:
+            - __meta_kubernetes_namespace
+            - __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster
+          targetLabel: pg_cluster
+          separator: ":"
+          replacement: "$1$2"
+        - sourceLabels: [__meta_kubernetes_pod_ip]
+          targetLabel: ip
+        - sourceLabels:
+            - __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance
+          targetLabel: deployment
+        - sourceLabels:
+            [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
+          targetLabel: role
+        - sourceLabels:
+            [__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role]
+          targetLabel: exp_type
+        - sourceLabels:
+            - __meta_kubernetes_namespace
+            - __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster
+          targetLabel: cluster_name
+          separator: ":"
+          replacement: "$1$2"
