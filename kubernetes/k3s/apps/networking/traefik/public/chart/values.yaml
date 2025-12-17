@@ -8,6 +8,10 @@ traefik:
   deployment:
     kind: DaemonSet
 
+  logs:
+    access:
+      enabled: true
+
   metrics:
     prometheus:
       serviceMonitor:
