@@ -38,7 +38,7 @@ prompage:
       - name: Postgres
         group: Infra
         query:
-          query: avg(pg_up)
+          query: avg(up{job="crunchy/crunchy-otel-collector"})
           expression: float(result) == 1
           bool: true
         extras:
