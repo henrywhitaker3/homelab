@@ -88,13 +88,18 @@ netbird_resources = {
   }
   "unraid" = {
     network = "home"
-    groups  = ["All"]
+    groups  = ["All", "homelab"]
     address = "10.0.0.9/32"
   }
   "k8s-api" = {
     network = "home"
-    groups  = ["All"]
+    groups  = ["All", "homelab"]
     address = "10.0.0.7/32"
+  }
+  "k8s-internal-gateway" = {
+    network = "home"
+    groups  = ["All", "homelab"]
+    address = "10.0.0.27/32"
   }
   "jetkvm" = {
     network = "home"
