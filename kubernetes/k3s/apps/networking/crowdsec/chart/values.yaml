@@ -24,10 +24,12 @@ crowdsec:
 
   lapi:
     replicas: 3
-    storeCAPICredentialsInSecret: true
+    # storeCAPICredentialsInSecret: true
     persistentVolume:
       config:
-        enabled: false
+        enabled: true
+        accessModes:
+          - ReadWriteMany
       data:
         enabled: false
     dashboard:
