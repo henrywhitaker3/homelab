@@ -57,10 +57,12 @@ traefik:
     websecure:
       proxyProtocol: *proxyProtocol
       forwardedHeaders: *forwardHeaders
+      middlewares:
+        - traefik-bouncer@kubernetescrd
 
   ingressRoute:
     dashboard:
-      enabled: false
+      enabled: true
       labels:
         traefik-instance: public
       middlewares:
