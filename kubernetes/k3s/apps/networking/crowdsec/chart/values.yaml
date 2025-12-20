@@ -24,6 +24,7 @@ crowdsec:
 
   lapi:
     replicas: 3
+    storeCAPICredentialsInSecret: true
     persistentVolume:
       config:
         enabled: false
