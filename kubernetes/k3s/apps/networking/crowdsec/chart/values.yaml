@@ -38,11 +38,11 @@ crowdsec:
       serviceMonitor:
         enabled: true
     env:
-      - name: ENROLL_KEY
-        valueFrom:
-          secretKeyRef:
-            name: crowdsec-secrets
-            key: enroll-key
+      # - name: ENROLL_KEY
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: crowdsec-secrets
+      #       key: enroll-key
       - name: ENROLL_INSTANCE_NAME
         value: "k3s"
       - name: DB_PASSWORD
