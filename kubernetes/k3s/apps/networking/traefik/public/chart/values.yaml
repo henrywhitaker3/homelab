@@ -89,6 +89,11 @@ traefik:
         # renovate: datasource=github-releases depName=packruler/traefik-themepark
         version: v1.4.2
 
+  volumes:
+    - name: crowdsec-bouncer-tls
+      mountPath: /etc/traefik/crowdsec-certs/
+      type: secret
+
   ingressClass:
     isDefaultClass: false
     name: public
