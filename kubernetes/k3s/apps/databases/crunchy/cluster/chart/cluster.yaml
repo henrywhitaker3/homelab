@@ -162,6 +162,10 @@ spec:
       databases:
         - thesuses
 
+    - name: crowdsec
+      databases:
+        - crowdsec
+
     # Benchmarking user
     # - name: bench
     #   databases:
