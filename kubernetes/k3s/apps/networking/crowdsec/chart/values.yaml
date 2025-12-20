@@ -64,7 +64,7 @@ crowdsec:
         user:     crowdsec
         password: "${DB_PASSWORD}"
         db_name:  crowdsec
-        host:     crunchy-ha.crunchy.svc.cluster.local
+        host:     crunchy-pgbouncer.crunchy.svc
         port:     5432
       api:
         server:
