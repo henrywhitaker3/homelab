@@ -150,10 +150,6 @@ dashboardProviders:
 
 dashboards:
   default:
-    ingressNginx:
-      gnetId: 16677
-      revision: 3
-      datasource: Prometheus
     haproxy:
       gnetId: 12693
       revision: 7
@@ -161,6 +157,10 @@ dashboards:
     traefik:
       gnetId: 17346
       revision: 9
+      datasource: Prometheus
+    crowdsec:
+      gnetId: 21689
+      revision: 1
       datasource: Prometheus
     node_exporter:
       gnetId: 1860
