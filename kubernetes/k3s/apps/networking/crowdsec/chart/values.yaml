@@ -2,6 +2,9 @@
 crowdsec:
   container_runtime: containerd
   agent:
+    metrics:
+      serviceMonitor:
+        enabled: true
     acquisition:
       - namespace: traefik
         podName: traefik-public-*
@@ -22,6 +25,9 @@ crowdsec:
       enabled: false
       ingress:
         enabled: false
+    metrics:
+      serviceMonitor:
+        enabled: true
     env:
       - name: ENROLL_KEY
         valueFrom:
