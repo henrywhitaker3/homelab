@@ -23,7 +23,13 @@ crowdsec:
         enabled: false
 
   lapi:
-    replicas: 1
+    replicas: 3
+    storeCAPICredentialsInSecret: true
+    persistentVolume:
+      config:
+        enabled: false
+      data:
+        enabled: false
     dashboard:
       enabled: false
       ingress:
