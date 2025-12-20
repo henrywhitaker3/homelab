@@ -12,7 +12,7 @@ spec:
       enabled: true
       LogLevel: DEBUG
       crowdsecMode: none
-      crowdsecLapiHost: crowdsec:8080
+      crowdsecLapiHost: crowdsec-service:8080
       crowdsecLapiScheme: https
       crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-certs/ca.crt
       crowdsecLapiTLSCertificateBouncerFile: /etc/traefik/crowdsec-certs/tls.crt
