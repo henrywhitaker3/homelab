@@ -38,6 +38,8 @@ crowdsec:
       serviceMonitor:
         enabled: true
     env:
+      - name: DISABLE_ONLINE_API
+        value: "true"
       - name: ENROLL_KEY
         valueFrom:
           secretKeyRef:
