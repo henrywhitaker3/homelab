@@ -45,3 +45,9 @@ crowdsec:
             key: enroll-key
       - name: ENROLL_INSTANCE_NAME
         value: "k3s"
+
+  secrets:
+    externalSecret:
+      name: crowdsec-secrets
+      csLapiSecretKey: cs-lapi-secret
+      registrationTokenKey: registration-token
