@@ -47,9 +47,34 @@ crowdsec:
             key: enroll-key
       - name: ENROLL_INSTANCE_NAME
         value: "k3s"
+      - name: DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: crowdsec-db-secrets
+            key: password
 
   secrets:
     externalSecret:
       name: crowdsec-secrets
       csLapiSecretKey: cs-lapi-secret
       registrationTokenKey: registration-token
+
+  config:
+    config.yaml.local: |
+      db_config:
+        type:     postgresql
+        user:     crowdsec
+        password: ${DB_PASSWORD}
+        db_name:  crowdsec
+        host:     crunchy-ha.crunchy.svc.cluster.local
+        port:     5432
+      api:
+        server:
+          auto_registration: # Activate if not using TLS for authentication
+            enabled: true
+            token: "${REGISTRATION_TOKEN}" # /!\ Do not modify this variable (auto-generated and handled by the chart)
+            allowed_ranges: # /!\ Make sure to adapt to the pod IP ranges used by your cluster
+              - "127.0.0.1/32"
+              - "192.168.0.0/16"
+              - "10.0.0.0/8"
+              - "172.16.0.0/12"
