@@ -8,9 +8,9 @@ traefik:
   deployment:
     kind: DaemonSet
 
-  # logs:
-  #   access:
-  #     enabled: true
+  logs:
+    access:
+      enabled: true
 
   metrics:
     prometheus:

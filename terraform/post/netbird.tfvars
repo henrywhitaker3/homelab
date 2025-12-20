@@ -185,6 +185,16 @@ netbird_policies = {
       destination_resource = "external-ingress"
     }
   }
+  "allow-devices-to-private-ingress" = {
+    description = "Allow devices to access k8s private gateway"
+    rule = {
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["devices"]
+      destination_resource = "internal-ingress"
+    }
+  }
   "allow-k3s-to-jump-telemetry" = {
     description = "Allow home network to access jump telemetry"
     rule = {

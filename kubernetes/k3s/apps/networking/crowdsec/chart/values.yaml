@@ -1,0 +1,32 @@
+---
+crowdsec:
+  container_runtime: containerd
+  agent:
+    acquisition:
+      - namespace: traefik
+        podName: traefik-public-*
+        program: traefik
+    env:
+      - name: PARSERS
+        value: "crowdsecurity/cri-logs"
+      - name: COLLECTIONS
+        value: "crowdsecurity/traefik"
+      - name: DISABLE_PARSERS
+        value: "crowdsecurity/whitelists"
+    persistentVolume:
+      config:
+        enabled: false
+
+  lapi:
+    dashboard:
+      enabled: false
+      ingress:
+        enabled: false
+    env:
+      - name: ENROLL_KEY
+        valueFrom:
+          secretKeyRef:
+            secretName: crowdsec-secrets
+            key: enroll-key
+      - name: ENROLL_INSTANCE_NAME
+        value: "k3s"
