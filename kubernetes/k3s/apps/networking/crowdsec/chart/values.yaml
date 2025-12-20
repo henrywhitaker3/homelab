@@ -23,7 +23,7 @@ crowdsec:
         enabled: false
 
   lapi:
-    replicas: 2
+    replicas: 1
     dashboard:
       enabled: false
       ingress:
