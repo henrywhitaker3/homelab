@@ -88,6 +88,10 @@ traefik:
         moduleName: github.com/packruler/traefik-themepark
         # renovate: datasource=github-releases depName=packruler/traefik-themepark
         version: v1.4.2
+      bouncer:
+        moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+        # renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
+        version: v1.4.7
 
   volumes:
     - name: crowdsec-bouncer-tls
