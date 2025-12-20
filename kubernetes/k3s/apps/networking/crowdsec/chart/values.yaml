@@ -26,7 +26,7 @@ crowdsec:
       - name: ENROLL_KEY
         valueFrom:
           secretKeyRef:
-            secretName: crowdsec-secrets
+            name: crowdsec-secrets
             key: enroll-key
       - name: ENROLL_INSTANCE_NAME
         value: "k3s"
