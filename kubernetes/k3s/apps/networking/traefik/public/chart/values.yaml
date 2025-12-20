@@ -27,9 +27,8 @@ traefik:
         enabled: true
         trustedIPs:
           - 10.0.0.0/8
-      forwardHeaders: &forwardHeaders
+      forwardedHeaders: &forwardHeaders
         enabled: true
-        headerName: CF-Connecting-IP
         trustedIPs:
           - 173.245.48.0/20
           - 103.21.244.0/22
@@ -57,7 +56,7 @@ traefik:
 
     websecure:
       proxyProtocol: *proxyProtocol
-      forwardHeaders: *forwardHeaders
+      forwardedHeaders: *forwardHeaders
 
   ingressRoute:
     dashboard:
