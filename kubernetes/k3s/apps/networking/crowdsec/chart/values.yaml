@@ -38,11 +38,11 @@ crowdsec:
       serviceMonitor:
         enabled: true
     env:
-      # - name: ENROLL_KEY
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: crowdsec-secrets
-      #       key: enroll-key
+      - name: ENROLL_KEY
+        valueFrom:
+          secretKeyRef:
+            name: crowdsec-secrets
+            key: enroll-key
       - name: ENROLL_INSTANCE_NAME
         value: "k3s"
       - name: DB_PASSWORD
@@ -60,12 +60,12 @@ crowdsec:
   config:
     config.yaml.local: |
       db_config:
-        type:     postgresql
-        user:     crowdsec
+        type: postgresql
+        user: crowdsec
         password: "${DB_PASSWORD}"
-        db_name:  crowdsec
-        host:     crunchy-pgbouncer.crunchy.svc
-        port:     5432
+        db_name: crowdsec
+        host: crunchy-pgbouncer.crunchy.svc
+        port: 5432
       api:
         server:
           auto_registration:
