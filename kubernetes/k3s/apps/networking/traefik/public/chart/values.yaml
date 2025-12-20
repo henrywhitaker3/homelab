@@ -57,8 +57,8 @@ traefik:
     websecure:
       proxyProtocol: *proxyProtocol
       forwardedHeaders: *forwardHeaders
-      middlewares:
-        - traefik-bouncer@kubernetescrd
+      # middlewares:
+      #   - traefik-bouncer@kubernetescrd
 
   ingressRoute:
     dashboard:
