@@ -68,10 +68,10 @@ crowdsec:
         port:     5432
       api:
         server:
-          auto_registration: # Activate if not using TLS for authentication
+          auto_registration:
             enabled: true
-            token: "${REGISTRATION_TOKEN}" # /!\ Do not modify this variable (auto-generated and handled by the chart)
-            allowed_ranges: # /!\ Make sure to adapt to the pod IP ranges used by your cluster
+            token: "${REGISTRATION_TOKEN}"
+            allowed_ranges:
               - "127.0.0.1/32"
               - "192.168.0.0/16"
               - "10.0.0.0/8"
