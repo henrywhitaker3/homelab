@@ -62,7 +62,7 @@ crowdsec:
       db_config:
         type:     postgresql
         user:     crowdsec
-        password: ${DB_PASSWORD}
+        password: "${DB_PASSWORD}"
         db_name:  crowdsec
         host:     crunchy-ha.crunchy.svc.cluster.local
         port:     5432
