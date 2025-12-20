@@ -29,9 +29,7 @@ crowdsec:
       config:
         enabled: false
       data:
-        enabled: true
-        accessModes:
-          - ReadWriteMany
+        enabled: false
     dashboard:
       enabled: false
       ingress:
