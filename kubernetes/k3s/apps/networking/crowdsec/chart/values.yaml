@@ -4,6 +4,11 @@ crowdsec:
   tls:
     enabled: true
   agent:
+    resources:
+      requests:
+        cpu: 150m
+        memory: 250Mi
+      limits: null
     metrics:
       serviceMonitor:
         enabled: true
@@ -24,6 +29,11 @@ crowdsec:
 
   lapi:
     replicas: 3
+    resources:
+      requests:
+        cpu: 150m
+        memory: 250Mi
+      limits: null
     storeCAPICredentialsInSecret: true
     persistentVolume:
       config:
