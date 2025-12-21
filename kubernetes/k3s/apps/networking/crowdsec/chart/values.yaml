@@ -29,6 +29,8 @@ crowdsec:
 
   lapi:
     replicas: 3
+    strategy:
+      type: RollingUpdate
     resources:
       requests:
         cpu: 150m
