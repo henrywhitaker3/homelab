@@ -17,8 +17,6 @@ crowdsec:
         podName: traefik-public-*
         program: traefik
     env:
-      - name: DISABLE_ONLINE_API
-        value: "true"
       - name: PARSERS
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
@@ -50,8 +48,8 @@ crowdsec:
       serviceMonitor:
         enabled: true
     env:
-      - name: DISABLE_ONLINE_API
-        value: "true"
+      # - name: DISABLE_ONLINE_API
+      #   value: "true"
       - name: ENROLL_KEY
         valueFrom:
           secretKeyRef:
