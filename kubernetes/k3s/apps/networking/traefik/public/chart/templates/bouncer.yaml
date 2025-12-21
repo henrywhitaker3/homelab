@@ -10,17 +10,13 @@ spec:
   plugin:
     bouncer:
       enabled: true
-      LogLevel: DEBUG
-      crowdsecMode: none
+      LogLevel: INFO
+      crowdsecMode: stream
       crowdsecLapiHost: crowdsec-service.traefik.svc.cluster.local:8080
       crowdsecLapiScheme: https
       crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-certs/ca.crt
       crowdsecLapiTLSCertificateBouncerFile: /etc/traefik/crowdsec-certs/tls.crt
       crowdsecLapiTLSCertificateBouncerKeyFile: /etc/traefik/crowdsec-certs/tls.key
-      # crowdsecCapiScenarios:
-      #   - crowdsecurity/http-path-traversal-probing
-      #   - crowdsecurity/http-xss-probing
-      #   - crowdsecurity/http-generic-bf
       forwardedHeadersTrustedIPs:
         - 173.245.48.0/20
         - 103.21.244.0/22
