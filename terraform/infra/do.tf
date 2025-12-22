@@ -45,13 +45,13 @@ resource "digitalocean_firewall" "web" {
   inbound_rule {
     protocol         = "tcp"
     port_range       = "80"
-    source_addresses = data.cloudflare_ip_ranges.this.ipv4_cidr_blocks
+    source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
   inbound_rule {
     protocol         = "tcp"
     port_range       = "443"
-    source_addresses = data.cloudflare_ip_ranges.this.ipv4_cidr_blocks
+    source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
   inbound_rule {
