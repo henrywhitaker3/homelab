@@ -16,11 +16,14 @@ crowdsec:
       - namespace: traefik
         podName: traefik-public-*
         program: traefik
+      - namespace: authelia
+        podName: authelia-*
+        program: authelia
     env:
       - name: PARSERS
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
-        value: "crowdsecurity/traefik"
+        value: "crowdsecurity/traefik,LePresidente/authelia"
       - name: DISABLE_PARSERS
         value: "crowdsecurity/whitelists"
     persistentVolume:
@@ -71,19 +74,19 @@ crowdsec:
       csLapiSecretKey: cs-lapi-secret
       registrationTokenKey: registration-token
 
-  # config:
-  #   config.yaml.local: |
-  #     db_config:
-  #       type: postgresql
-  #       user: crowdsec
-  #       password: "${DB_PASSWORD}"
-  #       db_name: crowdsec
-  #       host: crunchy-pgbouncer.crunchy.svc
-  #       port: 5432
-  #     api:
-  #       server:
-  #         auto_registration:
-  #           enabled: true
-  #           token: "${REGISTRATION_TOKEN}"
-  #           allowed_ranges:
-  #             - "10.0.0.0/8"
+  config:
+    config.yaml.local: |
+      db_config:
+        type: postgresql
+        user: crowdsec
+        password: ${DB_PASSWORD}
+        db_name: crowdsec
+        host: "crunchy-pgbouncer.crunchy.svc"
+        port: 5432
+      api:
+        server:
+          auto_registration:
+            enabled: true
+            token: "${REGISTRATION_TOKEN}"
+            allowed_ranges:
+              - "10.0.0.0/8"
