@@ -24,6 +24,8 @@ crowdsec:
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
         value: "crowdsecurity/traefik LePresidente/authelia"
+      - name: SCENARIOS
+        value: "LePresidente/authelia-bf"
       - name: DISABLE_PARSERS
         value: "crowdsecurity/whitelists"
     persistentVolume:
