@@ -159,7 +159,7 @@ dashboards:
       revision: 9
       datasource: Prometheus
     crowdsec:
-      gnetId: 21689
+      gnetId: 24049
       revision: 1
       datasource:
         - { name: DS_PROMETHEUS, value: Prometheus }
