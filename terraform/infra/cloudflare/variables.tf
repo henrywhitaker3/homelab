@@ -16,5 +16,5 @@ variable "records" {
 variable "geo_block" {
   type        = list(string)
   description = "Country codes to geo-block"
-  default     = ["RU", "CN", "BY", "IR", "PK", "SG", "IN", "PH" ]
+  default     = ["RU", "CN", "BY", "IR", "PK", "SG", "IN", "PH", "HK", "JP", "KR"]
 }

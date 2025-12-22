@@ -27,6 +27,8 @@ resource "digitalocean_droplet" "netbird" {
   ssh_keys = [digitalocean_ssh_key.laptop.fingerprint]
 }
 
+data "cloudflare_ip_ranges" "this" {}
+
 resource "digitalocean_firewall" "web" {
   name = "only-22-80-and-443"
 
@@ -43,13 +45,13 @@ resource "digitalocean_firewall" "web" {
   inbound_rule {
     protocol         = "tcp"
     port_range       = "80"
-    source_addresses = ["0.0.0.0/0", "::/0"]
+    source_addresses = data.cloudflare_ip_ranges.this.ipv4_cidr_blocks
   }
 
   inbound_rule {
     protocol         = "tcp"
     port_range       = "443"
-    source_addresses = ["0.0.0.0/0", "::/0"]
+    source_addresses = data.cloudflare_ip_ranges.this.ipv4_cidr_blocks
   }
 
   inbound_rule {
