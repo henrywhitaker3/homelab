@@ -162,11 +162,11 @@ spec:
       databases:
         - thesuses
 
-    # - name: crowdsec
-    #   databases:
-    #     - crowdsec
-    #   password:
-    #     type: AlphaNumeric
+    - name: crowdsec
+      databases:
+        - crowdsec
+      password:
+        type: AlphaNumeric
 
     # Benchmarking user
     # - name: bench
