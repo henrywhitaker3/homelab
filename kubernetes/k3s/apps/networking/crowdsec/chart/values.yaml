@@ -45,10 +45,6 @@ crowdsec:
         enabled: false
       data:
         enabled: false
-    dashboard:
-      enabled: true
-      ingress:
-        enabled: false
     metrics:
       serviceMonitor:
         enabled: true
