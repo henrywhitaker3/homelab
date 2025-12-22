@@ -23,7 +23,7 @@ crowdsec:
       - name: PARSERS
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
-        value: "crowdsecurity/traefik,LePresidente/authelia"
+        value: "crowdsecurity/traefik LePresidente/authelia"
       - name: DISABLE_PARSERS
         value: "crowdsecurity/whitelists"
     persistentVolume:
