@@ -46,7 +46,7 @@ crowdsec:
       data:
         enabled: false
     dashboard:
-      enabled: false
+      enabled: true
       ingress:
         enabled: false
     metrics:
