@@ -32,7 +32,7 @@ crowdsec:
       config:
         enabled: false
   appsec:
-    enabled: true
+    enabled: false
     replicas: 2
     resources:
       requests:
