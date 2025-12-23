@@ -31,9 +31,18 @@ crowdsec:
     persistentVolume:
       config:
         enabled: false
-
+  appsec:
+    enabled: true
+    replicas: 2
+    resources:
+      requests:
+        cpu: 250m
+        memory: 250Mi
+      limits: null
+    strategy:
+      type: RollingUpdate
   lapi:
-    replicas: 3
+    replicas: 2
     strategy:
       type: RollingUpdate
     resources:
