@@ -21,6 +21,6 @@ data:
               sum_over_time(
                 {app="traefik", instance=~"$service-traefik"} |= `Bouncer` | logfmt
                 | drop filename, container, node_name, window_size, stream, detected_level, job
-                | label_format instance=`{{.instance | trimSuffix "-traefik" }}`
+                | label_format instance={{ `{{.instance | trimSuffix "-traefik" }}` }}
                 | unwrap blocked_requests [$__auto]
               )
