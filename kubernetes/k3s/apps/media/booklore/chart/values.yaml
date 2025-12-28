@@ -15,8 +15,8 @@ generic:
   config:
     BOOKLORE_PORT: "9568"
     TZ: Europe/London
-    PUID: "1000"
-    PGID: "1000"
+    # PUID: "1000"
+    # PGID: "1000"
     DATABASE_URL: jdbc:mariadb://mariadb.mariadb.svc.cluster.local:3306/booklore
     DB_USER: booklore
 
@@ -27,12 +27,12 @@ generic:
           name: booklore-creds
           key: db-password
 
-  podSecurityContext:
-    # runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
-    fsGroupChangePolicy: OnRootMismatch
+  # podSecurityContext:
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
+  #   runAsGroup: 1000
+  #   fsGroup: 1000
+  #   fsGroupChangePolicy: OnRootMismatch
 
   httpRoute:
     enabled: true
