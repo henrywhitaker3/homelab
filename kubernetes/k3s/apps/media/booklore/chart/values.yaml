@@ -13,7 +13,7 @@ generic:
     port: 9568
 
   config:
-    BOOKLORE_PORT: 9568
+    BOOKLORE_PORT: "9568"
     TZ: Europe/London
     PUID: "1000"
     PGID: "1000"
