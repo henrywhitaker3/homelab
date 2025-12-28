@@ -1,0 +1,85 @@
+generic:
+  nameOverride: booklore
+  fullnameOverride: booklore
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/booklore/booklore
+    pullPolicy: IfNotPresent
+    tag: "v1.16.0"
+
+  service:
+    port: 9568
+
+  config:
+    BOOKLORE_PORT: 9568
+    TZ: Europe/London
+    PUID: "1000"
+    PGID: "1000"
+    DATABASE_URL: jdbc:mariadb://mariadb.mariadb.svc.cluster.local:3306/booklore
+    DB_USER: booklore
+
+  env:
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: booklore-creds
+          key: db-password
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    labels:
+      traefik-instance: public
+    hostnames: [books.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: traefik
+    rules:
+      - port: 9568
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: auth-public
+
+  pvc:
+    enabled: true
+    mountPath: /app/data
+    storageClassName: longhorn
+    size: 1Gi
+
+  volumes:
+    - name: books
+      hostPath:
+        path: /plex/Media/Booklore/books
+    - name: bookdrop
+      hostPath:
+        path: /plex/Media/Booklore/bookdrop
+
+  volumeMounts:
+    - mountPath: /books
+      name: books
+    - mountPath: /bookdrop
+      name: bookdrop
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
