@@ -18,10 +18,10 @@ generic:
     # PUID: "1000"
     # PGID: "1000"
     DATABASE_URL: jdbc:mariadb://mariadb.mariadb.svc.cluster.local:3306/booklore
-    DB_USERNAME: booklore
+    DATABASE_USERNAME: booklore
 
   env:
-    - name: DB_PASSWORD
+    - name: DATABASE_PASSWORD
       valueFrom:
         secretKeyRef:
           name: booklore-creds
