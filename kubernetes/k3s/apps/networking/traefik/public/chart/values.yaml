@@ -81,7 +81,7 @@ traefik:
       ingressClass: public
     kubernetesGateway:
       enabled: true
-      labelselector: traefik-instance=public
+      labelSelector: traefik-instance=public
       experimentalChannel: true
 
   experimental:
