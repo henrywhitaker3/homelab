@@ -30,7 +30,7 @@ services:
         max-file: "2"
   # Signal
   signal:
-    image: netbirdio/signal:0.60.7
+    image: netbirdio/signal:0.61.0
     restart: unless-stopped
     networks: [netbird]
     logging:
