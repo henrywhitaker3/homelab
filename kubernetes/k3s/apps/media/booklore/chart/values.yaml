@@ -49,6 +49,11 @@ generic:
         matches:
           - path:
               type: PathPrefix
+              value: /api/v1/opds
+      - port: 9568
+        matches:
+          - path:
+              type: PathPrefix
               value: /
         filters:
           - type: ExtensionRef
