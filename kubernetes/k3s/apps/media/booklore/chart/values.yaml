@@ -54,6 +54,11 @@ generic:
         matches:
           - path:
               type: PathPrefix
+              value: /api/koreader
+      - port: 9568
+        matches:
+          - path:
+              type: PathPrefix
               value: /
         filters:
           - type: ExtensionRef
