@@ -2,7 +2,7 @@ generic:
   nameOverride: booklore
   fullnameOverride: booklore
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: ghcr.io/booklore-app/booklore
