@@ -78,7 +78,7 @@ services:
         max-file: "2"
   # Coturn, AKA relay server
   coturn:
-    image: coturn/coturn:4.7.0
+    image: coturn/coturn:4.8.0
     restart: unless-stopped
     volumes:
       - ./turnserver.conf:/etc/turnserver.conf:ro
