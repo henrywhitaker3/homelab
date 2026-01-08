@@ -42,40 +42,23 @@ immich:
 controller:
   strategy: Recreate
 
-route:
-  main:
-    enabled: true
-    hostnames: [immich.plexmox.com]
-    kind: HTTPRoute
-    parentRefs:
-      - group: gateway.networking.k8s.io
-        kind: Gateway
-        name: internal
-        namespace: traefik
-    rules:
-      - backendRefs:
-          - kind: Service
-            name: immich-server
-            port: 2283
-        matches:
-          - path:
-              type: PathPrefix
-              value: /
-
 server:
-  ingress:
+  route:
     main:
       enabled: true
-      ingressClassName: internal
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      hosts:
-        - host: immich.plexmox.com
-          paths:
-            - path: /
-      tls:
-        - secretName: immich-plexmox-com-tls
-          hosts:
-            - immich.plexmox.com
+      hostnames: [immich.plexmox.com]
+      kind: HTTPRoute
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: internal
+          namespace: traefik
+      rules:
+        - backendRefs:
+            - kind: Service
+              name: immich-server
+              port: 2283
+          matches:
+            - path:
+                type: PathPrefix
+                value: /
