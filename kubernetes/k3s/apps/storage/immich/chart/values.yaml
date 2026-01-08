@@ -2,31 +2,6 @@ image:
   # renovate: datasource=github-releases depName=immich-app/immich
   tag: "v2.4.1"
 
-env:
-  REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
-  DB_VECTOR_EXTENSION: pgvector
-  DB_HOSTNAME:
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-immich
-        key: host
-  DB_USERNAME:
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-immich
-        key: user
-  DB_PASSWORD:
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-immich
-        key: password
-  DB_DATABASE_NAME:
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-immich
-        key: dbname
-  TZ: Europe/London
-
 valkey:
   enabled: false
 
@@ -39,6 +14,30 @@ immich:
 
 server:
   strategy: Recreate
+  env:
+    REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
+    DB_VECTOR_EXTENSION: pgvector
+    DB_HOSTNAME:
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-immich
+          key: host
+    DB_USERNAME:
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-immich
+          key: user
+    DB_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-immich
+          key: password
+    DB_DATABASE_NAME:
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-immich
+          key: dbname
+    TZ: Europe/London
   ingress:
     main:
       enabled: true
