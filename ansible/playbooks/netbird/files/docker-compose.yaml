@@ -18,7 +18,7 @@ services:
         max-file: "2"
   # UI dashboard
   dashboard:
-    image: netbirdio/dashboard:v2.25.0
+    image: netbirdio/dashboard:v2.26.1
     restart: unless-stopped
     networks: [netbird]
     env_file:
