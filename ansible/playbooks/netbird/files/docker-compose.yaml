@@ -40,7 +40,7 @@ services:
         max-file: "2"
   # Relay
   relay:
-    image: netbirdio/relay:0.61.2
+    image: netbirdio/relay:0.62.1
     restart: unless-stopped
     networks: [netbird]
     env_file:
