@@ -48,6 +48,7 @@ server:
       enabled: true
       hostnames: [immich.plexmox.com]
       kind: HTTPRoute
+      version: v1
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
