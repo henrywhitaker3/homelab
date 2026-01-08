@@ -13,31 +13,33 @@ immich:
       existingClaim: immich
 
 server:
-  strategy: Recreate
-  env:
-    REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
-    DB_VECTOR_EXTENSION: pgvector
-    DB_HOSTNAME:
-      valueFrom:
-        secretKeyRef:
-          name: crunchy-pguser-immich
-          key: host
-    DB_USERNAME:
-      valueFrom:
-        secretKeyRef:
-          name: crunchy-pguser-immich
-          key: user
-    DB_PASSWORD:
-      valueFrom:
-        secretKeyRef:
-          name: crunchy-pguser-immich
-          key: password
-    DB_DATABASE_NAME:
-      valueFrom:
-        secretKeyRef:
-          name: crunchy-pguser-immich
-          key: dbname
-    TZ: Europe/London
+  controllers:
+    main:
+      strategy: Recreate
+      env:
+        REDIS_HOSTNAME: dragonfly.dragonfly.svc.cluster.local
+        DB_VECTOR_EXTENSION: pgvector
+        DB_HOSTNAME:
+          valueFrom:
+            secretKeyRef:
+              name: crunchy-pguser-immich
+              key: host
+        DB_USERNAME:
+          valueFrom:
+            secretKeyRef:
+              name: crunchy-pguser-immich
+              key: user
+        DB_PASSWORD:
+          valueFrom:
+            secretKeyRef:
+              name: crunchy-pguser-immich
+              key: password
+        DB_DATABASE_NAME:
+          valueFrom:
+            secretKeyRef:
+              name: crunchy-pguser-immich
+              key: dbname
+        TZ: Europe/London
   ingress:
     main:
       enabled: true
