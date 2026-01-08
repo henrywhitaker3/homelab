@@ -27,6 +27,9 @@ env:
         key: dbname
   TZ: Europe/London
 
+valkey:
+  enabled: false
+
 immich:
   metrics:
     enabled: true
