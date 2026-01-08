@@ -34,10 +34,8 @@ immich:
     library:
       existingClaim: immich
 
-controller:
-  strategy: Recreate
-
 server:
+  strategy: Recreate
   ingress:
     main:
       enabled: true
