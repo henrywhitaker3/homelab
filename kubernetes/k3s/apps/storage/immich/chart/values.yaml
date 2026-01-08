@@ -27,11 +27,6 @@ env:
         key: dbname
   TZ: Europe/London
 
-postgresql:
-  gloabl:
-    auth:
-      existingSecret: crunchy-pguser-immich
-
 immich:
   metrics:
     enabled: true
