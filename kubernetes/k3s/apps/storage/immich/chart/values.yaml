@@ -60,6 +60,7 @@ server:
         - backendRefs:
             - kind: Service
               name: immich-server
+              namespace: immich
               port: 2283
           matches:
             - path:
