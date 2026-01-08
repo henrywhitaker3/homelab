@@ -11,7 +11,7 @@ helmCharts:
     includeCRDs: true
     releaseName: mariadb-operator
     namespace: databases
-    version: "25.10.3"
+    version: "25.10.4"
     repo: https://helm.mariadb.com/mariadb-operator
     valuesFile: values.yaml
   - name: mariadb-operator-crds
