@@ -120,6 +120,10 @@ locals {
       dest = data.terraform_remote_state.infra.outputs.digitalocean_vms.netbird.ip
     },
     {
+      src  = "plexmox.com"
+      dest = "10.0.0.29"
+    },
+    {
       src  = "*.plexmox.com"
       dest = "10.0.0.29"
     },
