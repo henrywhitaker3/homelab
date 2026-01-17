@@ -13,13 +13,3 @@ data:
           - record: systemd_logs_count
             expr: |
               sum by(unit, host) (count_over_time({service_name="systemd-journal"} | unit != `` [30s]))
-      - name: traefik
-        interval: 30s
-        rules:
-          - record: cs_traefik_blocked_requests
-            expr: |
-              sum_over_time(
-                {app="traefik"} |= `Bouncer` | logfmt
-                | drop filename, container, node_name, window_size, stream, detected_level, job
-                | unwrap blocked_requests [30s]
-              ) or vector(0)
