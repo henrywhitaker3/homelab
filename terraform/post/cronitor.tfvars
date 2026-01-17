@@ -39,6 +39,7 @@ cronitor_heartbeat_monitors = {
     schedule           = "* * * * *"
     grace_seconds      = 10
     schedule_tolerance = 2
+    paused             = true
     timezone           = "UTC"
     notify = [
       "grafana"

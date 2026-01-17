@@ -19,3 +19,14 @@ output "minio_info" {
 output "adguard_info" {
   value = module.adguard.info
 }
+
+output "digitalocean_vms" {
+  value = {
+    netbird = {
+      ip = digitalocean_droplet.netbird.ipv4_address
+    }
+    jump = {
+      ip = digitalocean_droplet.jump_k8s.ipv4_address
+    }
+  }
+}

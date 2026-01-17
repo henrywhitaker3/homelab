@@ -71,6 +71,11 @@ netbird_resources = {
     network = "k3s-cluster"
     data    = true
   }
+  "external-ingress-ip" = {
+    network = "home"
+    groups  = ["All", "homelab", "k3s"]
+    address = "10.0.0.29/32"
+  }
   "internal-ingress" = {
     network = "home"
     groups  = ["All", "homelab", "k3s"]
@@ -193,6 +198,16 @@ netbird_policies = {
       ports                = [80, 443]
       sources              = ["devices"]
       destination_resource = "internal-ingress"
+    }
+  }
+  "allow-devices-to-public-ingress-ip" = {
+    description = "Allow devices to access k8s public gateway ip"
+    rule = {
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["devices"]
+      destination_resource = "external-ingress-ip"
     }
   }
   "allow-k3s-to-jump-telemetry" = {

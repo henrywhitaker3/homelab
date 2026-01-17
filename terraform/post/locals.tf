@@ -115,6 +115,14 @@ locals {
       src  = "*.orderly.dev"
       dest = "127.0.0.1"
     },
+    {
+      src  = "netbird.plexmox.com"
+      dest = data.terraform_remote_state.infra.outputs.digitalocean_vms.netbird.ip
+    },
+    {
+      src  = "*.plexmox.com"
+      dest = "10.0.0.29"
+    },
   ]
 
   filter_lists = [

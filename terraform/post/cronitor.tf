@@ -35,6 +35,7 @@ variable "cronitor_heartbeat_monitors" {
     schedule_tolerance = number
     timezone           = optional(string, "UTC")
     notify             = optional(list(string), null)
+    paused             = optional(bool, false)
   }))
   validation {
     condition = length([
