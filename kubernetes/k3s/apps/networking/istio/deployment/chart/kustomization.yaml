@@ -22,5 +22,5 @@ helmCharts:
   - name: ztunnel
     releaseName: istio-ztunnel
     repo: https://istio-release.storage.googleapis.com/charts
-    version: 1.28.2
+    version: 1.28.3
     namespace: istio-system
