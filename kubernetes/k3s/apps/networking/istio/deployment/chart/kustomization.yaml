@@ -16,7 +16,7 @@ helmCharts:
   - name: cni
     releaseName: istio-cni
     repo: https://istio-release.storage.googleapis.com/charts
-    version: 1.28.2
+    version: 1.28.3
     namespace: istio-system
     valuesFile: cni.yaml
   - name: ztunnel
