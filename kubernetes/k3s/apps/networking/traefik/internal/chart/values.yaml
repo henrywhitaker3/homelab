@@ -19,10 +19,11 @@ traefik:
 
   ports:
     web:
-      redirections:
-        entryPoint:
-          to: websecure
-          shceme: https
+      http:
+        redirections:
+          entryPoint:
+            to: websecure
+            shceme: https
 
   ingressRoute:
     dashboard:
