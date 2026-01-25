@@ -9,4 +9,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: traefik-crds
     repository: https://traefik.github.io/charts
-    version: 1.13.1
+    version: 1.14.0
