@@ -9,4 +9,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: crowdsec
     repository: https://crowdsecurity.github.io/helm-charts
-    version: 0.21.1
+    version: 0.22.0
