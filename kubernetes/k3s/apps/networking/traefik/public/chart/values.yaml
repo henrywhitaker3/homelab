@@ -64,11 +64,11 @@ traefik:
 
   ingressRoute:
     dashboard:
-      enabled: true
+      enabled: false
       labels:
-        traefik-instance: internal
+        traefik-instance: public
       middlewares:
-        - name: auth-internal
+        - name: auth-public
       matchRule: Host(`traefik.plexmox.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       entryPoints: ["websecure"]
       tls:
