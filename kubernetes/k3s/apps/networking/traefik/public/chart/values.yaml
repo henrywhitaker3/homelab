@@ -66,9 +66,9 @@ traefik:
     dashboard:
       enabled: false
       labels:
-        traefik-instance: public
+        traefik-instance: internal
       middlewares:
-        - name: auth-public
+        - name: auth-internal
       matchRule: Host(`traefik.plexmox.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       entryPoints: ["websecure"]
       tls:
