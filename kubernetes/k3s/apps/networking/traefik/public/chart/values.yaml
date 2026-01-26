@@ -64,7 +64,7 @@ traefik:
 
   ingressRoute:
     dashboard:
-      enabled: false
+      enabled: true
       labels:
         traefik-instance: internal
       middlewares:
