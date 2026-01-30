@@ -7,5 +7,5 @@ appVersion: 1.16.0
 
 dependencies:
   - name: nack
-    version: 0.31.1
+    version: 0.32.0
     repository: https://nats-io.github.io/k8s/helm/charts/
