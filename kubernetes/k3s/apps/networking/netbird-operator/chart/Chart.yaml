@@ -10,4 +10,4 @@ dependencies:
   - name: kubernetes-operator
     alias: netbird-operator
     repository: https://netbirdio.github.io/helms
-    version: 0.1.15
+    version: 0.2.0
