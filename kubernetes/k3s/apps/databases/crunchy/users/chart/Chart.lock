@@ -1,6 +1,6 @@
 dependencies:
 - name: crunchy-users-helm
   repository: oci://ghcr.io/henrywhitaker3
-  version: 1.0.7
-digest: sha256:9228c0132cccc95536e9f5d81e2593d30e9416f75e4ad522072e229c29b45fbc
-generated: "2025-08-31T01:06:05.923718649Z"
+  version: 1.0.8
+digest: sha256:7a83170db61e7980cd4d281e104872a5d1dfd4f6d17696499a192140e8f6883d
+generated: "2026-02-05T18:05:05.494177Z"
