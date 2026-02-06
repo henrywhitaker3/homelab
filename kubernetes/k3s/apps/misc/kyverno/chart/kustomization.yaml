@@ -14,5 +14,5 @@ resources:
   - https://github.com/kyverno/policies/pod-security
 patches:
   - path: patches/apparmor.yaml
-  - path: patches/policies.yaml
+  # - path: patches/policies.yaml
   - path: patches/clusterpolicies.yaml
