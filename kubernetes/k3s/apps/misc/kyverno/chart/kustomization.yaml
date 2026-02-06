@@ -2,14 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kyverno
 
-resources:
-  - https://github.com/kyverno/policies/pod-security
-
-patches:
-  - path: patches/apparmor.yaml
-  - path: patches/policies.yaml
-  - path: patches/clusterpolicies.yaml
-
 helmCharts:
   - name: kyverno
     releaseName: kyverno
@@ -17,3 +9,10 @@ helmCharts:
     version: "3.7.0"
     repo: https://kyverno.github.io/kyverno
     valuesFile: values.yaml
+
+resources:
+  - https://github.com/kyverno/policies/pod-security
+patches:
+  - path: patches/apparmor.yaml
+  - path: patches/policies.yaml
+  - path: patches/clusterpolicies.yaml
