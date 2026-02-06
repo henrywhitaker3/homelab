@@ -15,4 +15,4 @@ resources:
 patches:
   - path: patches/apparmor.yaml
   # - path: patches/policies.yaml
-  - path: patches/clusterpolicies.yaml
+  # - path: patches/clusterpolicies.yaml
