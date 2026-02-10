@@ -22,7 +22,7 @@ releases:
   - name: kubelet-csr-approver
     namespace: kube-system
     chart: postfinance/kubelet-csr-approver
-    version: 1.2.12
+    version: 1.2.13
     values: ["../../../apps/system/kubelet-csr-approver/chart/values.yaml"]
     needs:
       - kube-system/cilium
