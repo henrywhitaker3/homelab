@@ -32,12 +32,12 @@ spec:
           annotations:
             summary: Target {{ $labels.instance }} is DOWN
         - alert: VMMemoryPressure
-          expr: (sum by (instance) (node_memory_MemAvailable_bytes) / sum by (instance) (node_memory_MemTotal_bytes) * 100) < 15
+          expr: (sum by (instance) (node_memory_MemAvailable_bytes) / sum by (instance) (node_memory_MemTotal_bytes) * 100) < 5
           for: 5m
           labels:
             severity: critical
           annotations:
-            summary: VM {{ $labels.instance }} has < 15% memory free for 5 mins
+            summary: VM {{ $labels.instance }} has < 5% memory free for 5 mins
         - alert: CPULoad5Anomaly
           expr: (anomaly:node_load5:7d > 4) and on(instance) (node_load5 > 2)
           for: 10m
