@@ -36,15 +36,15 @@ loki:
     storage:
       type: s3
       bucketNames:
-        chunks: loki-chunks
+        chunks: loki
         ruler: loki-ruler
       s3:
-        s3: https://s3.plexmox.com
-        endpoint: https://s3.plexmox.com
-        region: unraid
+        s3: https://garage.plexmox.com
+        endpoint: https://garage.plexmox.com
+        region: garage
         insecure: false
-        accessKeyId: ${MINIO_ACCESS_KEY}
-        secretAccessKey: ${MINIO_SECRET_KEY}
+        accessKeyId: ${GARAGE_ACCESS_KEY}
+        secretAccessKey: ${GARAGE_SECRET_KEY}
         s3ForcePathStyle: true
 
     memberlist:
@@ -120,16 +120,16 @@ loki:
       - -config.expand-env=true
 
     extraEnv:
-      - name: MINIO_ACCESS_KEY
+      - name: GARAGE_ACCESS_KEY
         valueFrom:
           secretKeyRef:
             name: loki-minio
-            key: access-key
-      - name: MINIO_SECRET_KEY
+            key: garage-access-key
+      - name: GARAGE_SECRET_KEY
         valueFrom:
           secretKeyRef:
             name: loki-minio
-            key: secret-key
+            key: garage-secret-key
 
     service:
       annotations:
