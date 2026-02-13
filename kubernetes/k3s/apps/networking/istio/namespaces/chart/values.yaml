@@ -1,9 +1,0 @@
-namespaces:
-  - crunchy
-  - thesuses
-  - dragonfly
-  - synthetigo
-  - traefik
-  - authelia
-  - mariadb
-  - misc
