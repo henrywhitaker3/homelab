@@ -18,21 +18,21 @@ spec:
       valueFrom:
         secretKeyRef:
           name: dragonfly-minio
-          key: minio-access-key-id
+          key: garage-access-key
     - name: AWS_SECRET_ACCESS_KEY
       valueFrom:
         secretKeyRef:
           name: dragonfly-minio
-          key: minio-secret-access-key
+          key: garage-secret-key
     - name: AWS_DEFAULT_REGION
-      value: unraid
+      value: garage
 
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=1
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --s3_endpoint=s3.plexmox.com
+    - --s3_endpoint=garage.plexmox.com
     - --default_lua_flags=allow-undeclared-keys
 
   resources:
