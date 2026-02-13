@@ -17,11 +17,11 @@ tempo:
         backend: s3
         s3:
           bucket: tempo
-          endpoint: s3.plexmox.com
-          region: unraid
+          endpoint: garage.plexmox.com
+          region: garage
           insecure: false
-          access_key: ${MINIO_ACCESS_KEY}
-          secret_key: ${MINIO_SECRET_KEY}
+          access_key: ${GARAGE_ACCESS_KEY}
+          secret_key: ${GARAGE_SECRET_KEY}
           forcepathstyle: true
 
     metricsGenerator:
@@ -35,16 +35,16 @@ tempo:
     extraArgs:
       config.expand-env: true
     extraEnv:
-      - name: MINIO_ACCESS_KEY
+      - name: GARAGE_ACCESS_KEY
         valueFrom:
           secretKeyRef:
             name: tempo-minio
-            key: aws-access-key-id
-      - name: MINIO_SECRET_KEY
+            key: garage-access-key
+      - name: GARAGE_SECRET_KEY
         valueFrom:
           secretKeyRef:
             name: tempo-minio
-            key: aws-secret-access-key
+            key: garage-secret-key
 
   config: |
     multitenancy_enabled: {{ .Values.tempo.multitenancyEnabled }}
