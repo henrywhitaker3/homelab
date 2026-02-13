@@ -26,23 +26,23 @@ pyroscope:
         backend: s3
         s3:
           bucket_name: pyroscope
-          endpoint: s3.plexmox.com
-          region: unraid
+          endpoint: garage.plexmox.com
+          region: garage
           insecure: false
-          access_key_id: ${MINIO_ACCESS_KEY}
-          secret_access_key: ${MINIO_SECRET_KEY}
+          access_key_id: ${GARAGE_ACCESS_KEY}
+          secret_access_key: ${GARAGE_SECRET_KEY}
 
     extraArgs:
       config.expand-env: true
 
     extraEnvVars:
-      MINIO_ACCESS_KEY:
+      GARAGE_ACCESS_KEY:
         valueFrom:
           secretKeyRef:
             name: pyroscope-minio
-            key: aws-access-key-id
-      MINIO_SECRET_KEY:
+            key: garage-access-key
+      GARAGE_SECRET_KEY:
         valueFrom:
           secretKeyRef:
             name: pyroscope-minio
-            key: aws-secret-access-key
+            key: garage-secret-key
