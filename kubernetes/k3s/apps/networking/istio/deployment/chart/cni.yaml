@@ -1,4 +1,0 @@
-global:
-  platform: k3s
-
-profile: ambient
