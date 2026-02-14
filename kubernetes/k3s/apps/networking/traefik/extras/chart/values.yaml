@@ -7,7 +7,6 @@ middlewares:
       - docs
       - monitoring
       - default
-      - istio-system
   organizr:
     namespaces:
       - media
