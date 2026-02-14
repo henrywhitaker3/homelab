@@ -1,12 +1,10 @@
 locals {
   vm_info = concat(
     data.terraform_remote_state.infra.outputs.adguard_info,
-    data.terraform_remote_state.infra.outputs.minio_info,
     data.terraform_remote_state.infra.outputs.lb_info,
     data.terraform_remote_state.infra.outputs.k3s_control_info,
     data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     [{ name = "netbird.netbird", ip = "10.100.0.2" }],
-    [{ name = "minio", ip = "10.0.0.6" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],
     [{ name = "proxmox-2", ip = "10.0.0.152" }],
@@ -69,7 +67,6 @@ locals {
 
   internal_ingress = [
     "unraid.plexmox.com",
-    "minio.plexmox.com",
     "s3.plexmox.com",
     "prometheus.plexmox.com",
     "alerts.plexmox.com",

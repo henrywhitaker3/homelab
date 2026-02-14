@@ -23,8 +23,6 @@ netbird_groups = {
       "k3s-dedi-1",
       "lb-1",
       "lb-2",
-      "minio-1",
-      "minio-2",
     ]
   }
   "k3s" = {
