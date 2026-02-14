@@ -13,9 +13,6 @@ output "k3s_dedi_info" {
     }
   ]
 }
-output "minio_info" {
-  value = module.minio.info
-}
 output "adguard_info" {
   value = module.adguard.info
 }
