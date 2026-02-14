@@ -15,8 +15,6 @@ spec:
         - "k3s-control-2.lab:9256"
         - "k3s-control-3.lab:9256"
         - "k3s-dedi-1.lab:9256"
-        - "minio-1.lab:9256"
-        - "minio-2.lab:9256"
   metricsPath: /metrics
   relabelings:
     - targetLabel: job

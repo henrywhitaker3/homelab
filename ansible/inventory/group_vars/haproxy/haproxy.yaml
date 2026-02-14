@@ -29,20 +29,3 @@ haproxy_listeners:
       server {{ host }} {{ hostvars[host].ansible_host }}:6443 check-ssl verify none
       {% endif %}
       {% endfor %}
-
-  - name: minio-api
-    bind: 10.0.0.6:9000
-    mode: tcp
-    balance: leastconn
-    servers: |
-      {% for host in groups['minio'] %}
-      server {{ host }} {{ hostvars[host].ansible_host }}:9000 check
-      {% endfor %}
-  - name: minio-ui
-    bind: 10.0.0.6:9001
-    mode: tcp
-    balance: leastconn
-    servers: |
-      {% for host in groups['minio'] %}
-      server {{ host }} {{ hostvars[host].ansible_host }}:9001 check
-      {% endfor %}

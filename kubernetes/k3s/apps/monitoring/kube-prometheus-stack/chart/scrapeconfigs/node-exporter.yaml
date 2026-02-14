@@ -19,8 +19,6 @@ spec:
         - "k3s-control-3.lab:9100"
         - "k3s-dedi-1.lab:9100"
         - "unraid.lab:9100"
-        - "minio-1.lab:9100"
-        - "minio-2.lab:9100"
   metricsPath: /metrics
   relabelings:
     - targetLabel: job

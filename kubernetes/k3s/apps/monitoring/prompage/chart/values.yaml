@@ -68,12 +68,6 @@ prompage:
           - name: Throughput
             units: rps
             query: sum(rate(dragonfly_commands_processed_total[5m]))
-      - name: MinIO
-        group: Infra
-        query:
-          query: sum(minio_cluster_nodes_offline_total)
-          expression: int(result) == 0
-          bool: true
 
   replicaCount: 2
 

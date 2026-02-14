@@ -8,7 +8,6 @@ resources:
   - pve.yaml
   - k8s-annotations.yaml
   - keepalived.yaml
-  - minio.yaml
   - adguard.yaml
   - blackbox.yaml
   - garage.yaml
