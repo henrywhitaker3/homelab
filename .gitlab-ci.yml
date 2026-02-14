@@ -33,7 +33,6 @@ diffs:
           - k3s
           - haproxy
           - adguard
-          - minio
           - proxmox
           - netbird
   rules:

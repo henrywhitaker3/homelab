@@ -1,3 +1,0 @@
----
-docker_compose_env_enabled: true
-docker_compose_env_template: templates/docker.env
