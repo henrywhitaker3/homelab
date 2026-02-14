@@ -1,42 +1,4 @@
 buckets = {
-  dragonfly = {
-    name      = "dragonfly"
-    retention = 3
-    acl       = "private"
-    type      = "minio"
-  }
-  loki = {
-    name      = "loki-chunks"
-    acl       = "private"
-    type      = "minio"
-    retention = 60
-  }
-  mariadb = {
-    name = "mariadb"
-    acl  = "private"
-    type = "minio"
-  }
-  orderly = {
-    name      = "orderly"
-    acl       = "private"
-    type      = "minio"
-    retention = 3
-  }
-  pyroscope = {
-    name = "pyroscope"
-    acl  = "private"
-    type = "minio"
-  }
-  tempo = {
-    name = "tempo"
-    acl  = "private"
-    type = "minio"
-  }
-  yourbuild = {
-    name = "yourbuild"
-    acl  = "private"
-    type = "minio"
-  }
   longhorn = {
     name = "longhorn"
     type = "r2"
@@ -73,43 +35,17 @@ buckets = {
     name = "dragonfly"
     type = "garage"
   }
-}
-
-minio_tokens = {
-  dragonfly = {
-    name    = "dragonfly"
-    buckets = ["dragonfly"]
-    write   = true
+  loki_local = {
+    name = "loki"
+    type = "garage"
   }
-  loki = {
-    name    = "loki"
-    buckets = ["loki"]
-    write   = true
+  tempo_local = {
+    name = "tempo"
+    type = "garage"
   }
-  mariadb = {
-    name    = "mariadb"
-    buckets = ["mariadb"]
-    write   = true
-  }
-  orderly = {
-    name    = "orderly"
-    buckets = ["orderly"]
-    write   = true
-  }
-  pyroscope = {
-    name    = "pyroscope"
-    buckets = ["pyroscope"]
-    write   = true
-  }
-  tempo = {
-    name    = "tempo"
-    buckets = ["tempo"]
-    write   = true
-  }
-  yourbuild = {
-    name    = "yourbuild"
-    buckets = ["yourbuild"]
-    write   = true
+  pyroscope_local = {
+    name = "pyroscope"
+    type = "garage"
   }
 }
 
@@ -123,7 +59,7 @@ r2_tokens = {
     write   = true
   }
   mariadb = {
-    buckets = ["mariadb"]
+    buckets = ["mariadb_r2"]
     write   = true
   }
   books = {
@@ -155,6 +91,21 @@ garage_tokens = {
   dragonfly = {
     name    = "dragonfly"
     buckets = ["dragonfly_local"]
+    write   = true
+  }
+  loki = {
+    name    = "loki"
+    buckets = ["loki_local"]
+    write   = true
+  }
+  tempo = {
+    name    = "tempo"
+    buckets = ["tempo_local"]
+    write   = true
+  }
+  pyroscope = {
+    name    = "pyroscope"
+    buckets = ["pyroscope_local"]
     write   = true
   }
 }

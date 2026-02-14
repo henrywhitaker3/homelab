@@ -1,10 +1,6 @@
 terraform {
   required_version = ">= 1.10.6"
   required_providers {
-    minio = {
-      source  = "aminueza/minio"
-      version = "3.17.0"
-    }
     adguard = {
       source  = "gmichels/adguard"
       version = "1.6.2"
@@ -37,13 +33,6 @@ terraform {
 
   backend "http" {
   }
-}
-
-provider "minio" {
-  minio_server   = var.minio_server
-  minio_user     = var.minio_user
-  minio_password = var.minio_password
-  minio_ssl      = true
 }
 
 provider "adguard" {

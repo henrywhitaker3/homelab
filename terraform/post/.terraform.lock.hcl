@@ -1,41 +1,6 @@
 # This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.opentofu.org/aminueza/minio" {
-  version     = "3.17.0"
-  constraints = "3.17.0"
-  hashes = [
-    "h1:2tHVjtW5mX0KNYbfKxaGFNYIdMJXmQ5bt/jfAIWxjJ4=",
-    "h1:370bQQlAqx0YHTHsFPVVoETBZZi+CLvjIG+lCqtuyfE=",
-    "h1:KjguglPs0rcnn40uNbi2CGymqS8EW0Sv1OErzd+70Ik=",
-    "h1:MysLpBW0AxYAisOdMACmWfJ3O0AU7rwHJDVWdwUZpJc=",
-    "h1:NX3KL8rrbNEvmOBt6uTlJNSR5iE6MP12MLOBSP4Umtg=",
-    "h1:Q++DK/NSVSBIsf+5DdtNMw7KQPuTb5pxrWuHy4BK+yQ=",
-    "h1:SniNUsa+zrQMKAKOLgwcnBC7h0rXwJBcslC6/sl7Oe4=",
-    "h1:VOymWLeot8AOWdQATDB9LZaidB7Y2HQGKyLBfan+k18=",
-    "h1:aiv4LpVblAuKproIK/P+zkvRDkBATpf4H7Fi3s+N56o=",
-    "h1:gTB9rR0Itgf4CXYbwojXRh2g+1VF4xkI0waCyT72cFc=",
-    "h1:leenULM5+D7yVgi4f/tt3eg30WDDa/eAQ7RsRe1G5fc=",
-    "h1:mD4rGh9j4ym/rSAphcMwUzkyJxWUcwJpVCT2cXrkaxc=",
-    "h1:oRhr8LvdnGTqfIya9MCX00Yy6FzOL5LkqITkXVyaIxg=",
-    "h1:q2bHtiXkaDV8Q8xan2HzULMj4n8TwC4Orj0G6lsH0JA=",
-    "zh:0c6cc3e9a8ba0e8de7a48aa97e1bf5cebf85fcb390378e9eb44cef5e2fffac33",
-    "zh:1532438124ef4f363fa509a781de6ac9ef044e1737079d9f584ae92d578815ba",
-    "zh:2dca2bc2c45d38d67a60288fca66ad73fc8e87328235925d242337d6980c6c82",
-    "zh:3f304f4867cc92587a55eca729ab4a32b0e47a9862577b75f2c6d54b15d142f4",
-    "zh:432eae4d9ca2f8e09a0d1345b7a694b81ca50ca7738f1570dec704145784aeb8",
-    "zh:440e17023beb8a5606cbeafd9997c6b6fd206905747d3dfc98a63898a40c4385",
-    "zh:58ece4d24b305937f842138fa2e6fa2a7237ef5bfa5278089337fe724bcb63df",
-    "zh:8fff5399ddf32afedff81ba63eaf891318d01eb0f02284b017208d0bf6842a76",
-    "zh:ada059db191dc1c5be16e3d4b175a8040a6f143a2360ad525d13af1cca4c4c3d",
-    "zh:b8c4558178d083a08ba696dbb626410aa33848158e954711564d0b097a74e3d8",
-    "zh:b8efc2e2f62514eca7e45df5c1a55bd14a9eded657c26249dbda8ef52f0166fd",
-    "zh:bb808f09439f1f3c8443afb275c9091ace8dadc8de7f481f535dfbc59a35f2e7",
-    "zh:c2142a813e2a7d2d27c21a4012e4288fd2560f683a97c4de2dfe1d5ed5a38ff3",
-    "zh:d4d18534a38570a99e9beb3c8b75d6d381a4a407814032a169731d6a68a91382",
-  ]
-}
-
 provider "registry.opentofu.org/cloudflare/cloudflare" {
   version     = "4.52.5"
   constraints = "4.52.5"
