@@ -11,6 +11,7 @@ module "adguard_1" {
   upstream_dns             = local.upstream_dns
   bootstrap_dns            = local.bootstrap_dns
   filter_lists             = local.filter_lists
+  filter_rules             = local.filter_rules
 
   dhcp_enabled       = true
   dhcp_interface     = "eth0"
@@ -31,6 +32,7 @@ module "adguard_2" {
   upstream_dns             = local.upstream_dns
   bootstrap_dns            = local.bootstrap_dns
   filter_lists             = local.filter_lists
+  filter_rules             = local.filter_rules
 
   dhcp_enabled       = false
   dhcp_interface     = "eth0"

@@ -116,14 +116,6 @@ locals {
       src  = "netbird.plexmox.com"
       dest = data.terraform_remote_state.infra.outputs.digitalocean_vms.netbird.ip
     },
-    {
-      src  = "plexmox.com"
-      dest = "10.0.0.29"
-    },
-    {
-      src  = "*.plexmox.com"
-      dest = "10.0.0.29"
-    },
   ]
 
   filter_lists = [
@@ -135,5 +127,13 @@ locals {
       name = "AdGuard Default Blocklist",
       url  = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
     }
+  ]
+
+  filter_rules = [
+    "@@||pl.allsportsflix.xyz^$important",
+    "@@||bmedia-gcore.justservingfiles.net^$important",
+    "@@||media.trafficjunky.net^$client='10.0.0.49'",
+    "||*.plexmox.com^$dnstype=A,dnsrewrite=NOERROR;A;10.0.0.29",
+    "||plexmox.com^$dnstype=A,dnsrewrite=NOERROR;A;10.0.0.29",
   ]
 }
