@@ -7,7 +7,7 @@ tempo:
       netbird.io/groups: telemetry
 
   tempo:
-    retention: 24h
+    retention: 6h
 
     resources:
       requests:
