@@ -8,6 +8,14 @@ tempo:
 
   tempo:
     retention: 24h
+
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        memory: 512Mi
+
     storage:
       trace:
         local:
