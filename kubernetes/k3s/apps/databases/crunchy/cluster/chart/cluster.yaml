@@ -205,8 +205,6 @@ spec:
         repo1-retention-diff: "21"
         repo1-path: "/crunchy"
         repo1-s3-uri-style: path
-        repo1-storage-verify-tls: "n"
-        repo1-storage-port: "3900"
         repo1-bundle: "y"
       metadata:
         labels:
@@ -215,7 +213,7 @@ spec:
         - name: repo1
           s3:
             bucket: "crunchy"
-            endpoint: "10.0.0.9"
+            endpoint: "https://garage.plexmox.com"
             region: "garage"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
