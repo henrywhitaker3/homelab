@@ -143,7 +143,7 @@ otelcol.receiver.otlp "default" {
   output {
     metrics = [otelcol.processor.batch.default.input]
     logs    = [otelcol.processor.batch.default.input]
-    traces  = [otelcol.connector.servicegraph.default.input, otelcol.processor.batch.default.input]
+    traces  = [otelcol.connector.servicegraph.default.input, otelcol.processor.tail_sampling.default.input]
   }
 }
 
@@ -162,6 +162,30 @@ otelcol.processor.batch "default" {
     metrics = [otelcol.exporter.prometheus.default.input]
     logs    = [otelcol.exporter.loki.default.input]
     traces  = [otelcol.exporter.otlp.default.input]
+  }
+}
+
+otelcol.processor.tail_sampling "default" {
+  decision_wait = "10s"
+
+  policy {
+    name = "keep-errors"
+    type = "status_code"
+    status_code {
+      status_codes = ["ERROR"]
+    }
+  }
+
+  policy {
+    name = "sample-half"
+    type = "probabilistic"
+    probabilistic {
+      sampling_percentage = 50
+    }
+  }
+
+  output {
+    traces = [otelcol.exporter.otlp.default.input]
   }
 }
 
