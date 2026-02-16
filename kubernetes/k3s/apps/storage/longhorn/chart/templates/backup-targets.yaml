@@ -15,7 +15,7 @@ spec:
       data:
         AWS_ACCESS_KEY_ID: "{{ `{{ .garage_access_key_id }}` }}"
         AWS_SECRET_ACCESS_KEY: "{{ `{{ .garage_secret_access_key }}` }}"
-        AWS_ENDPOINTS: https://garage.plexmox.com
+        AWS_ENDPOINTS: http://10.0.0.9:3900
   dataFrom:
     - extract:
         key: longhorn-storage
