@@ -206,6 +206,7 @@ spec:
         repo1-path: "/crunchy"
         repo1-s3-uri-style: path
         repo1-storage-verify-tls: "n"
+        repo1-storage-port: "3900"
         repo1-bundle: "y"
       metadata:
         labels:
@@ -214,7 +215,7 @@ spec:
         - name: repo1
           s3:
             bucket: "crunchy"
-            endpoint: "http://10.0.0.9:3900"
+            endpoint: "10.0.0.9"
             region: "garage"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
