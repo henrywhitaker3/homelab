@@ -1,67 +1,68 @@
-children:
-  adguard:
-    hosts:
-      adguard-1.lab:
-        ansible_host: 10.0.0.2
-      adguard-2.lab:
-        ansible_host: 10.0.0.3
+all:
+  children:
+    adguard:
+      hosts:
+        adguard-1.lab:
+          ansible_host: 10.0.0.2
+        adguard-2.lab:
+          ansible_host: 10.0.0.3
 
-  netbird:
-    hosts:
-      netbird.plexmox.com:
-        ansible_host: 206.189.124.239
-        node_exporter_host: 0.0.0.0
-        process_exporter_host: 0.0.0.0
+    netbird:
+      hosts:
+        netbird.plexmox.com:
+          ansible_host: 206.189.124.239
+          node_exporter_host: 0.0.0.0
+          process_exporter_host: 0.0.0.0
 
-  haproxy:
-    hosts:
-      lb-1.lab:
-        ansible_host: 10.0.0.4
-      lb-2.lab:
-        ansible_host: 10.0.0.5
+    haproxy:
+      hosts:
+        lb-1.lab:
+          ansible_host: 10.0.0.4
+        lb-2.lab:
+          ansible_host: 10.0.0.5
 
-  jump:
-    hosts:
-      jump-k8s.lab:
-        ansible_host: 206.189.22.6
-        node_exporter_host: 100.111.30.225
-        process_exporter_host: 100.111.30.225
-        haproxy_config:
-          ip: 100.111.30.225
-          backend: traefik-public.traefik.svc.cluster.local
-          proxy: true
+    jump:
+      hosts:
+        jump-k8s.lab:
+          ansible_host: 206.189.22.6
+          node_exporter_host: 100.111.30.225
+          process_exporter_host: 100.111.30.225
+          haproxy_config:
+            ip: 100.111.30.225
+            backend: traefik-public.traefik.svc.cluster.local
+            proxy: true
 
-  proxmox:
-    vars:
-      ansible_user: root
-    hosts:
-      proxmox-1.lab:
-        ansible_host: 10.0.0.150
-        proxmox_node: 1
-        id_mod: 0
-      proxmox-2.lab:
-        ansible_host: 10.0.0.152
-        proxmox_node: 2
-        id_mod: 1
-      proxmox-3.lab:
-        ansible_host: 10.0.0.154
-        proxmox_node: 3
-        id_mod: 2
+    proxmox:
+      vars:
+        ansible_user: root
+      hosts:
+        proxmox-1.lab:
+          ansible_host: 10.0.0.150
+          proxmox_node: 1
+          id_mod: 0
+        proxmox-2.lab:
+          ansible_host: 10.0.0.152
+          proxmox_node: 2
+          id_mod: 1
+        proxmox-3.lab:
+          ansible_host: 10.0.0.154
+          proxmox_node: 3
+          id_mod: 2
 
-  k3s:
-    hosts:
-      k3s-control-1.lab:
-        ansible_host: 10.0.0.23
-        k3s_control_plane: true
-        k3s_control_primary: true
+    k3s:
+      hosts:
+        k3s-control-1.lab:
+          ansible_host: 10.0.0.23
+          k3s_control_plane: true
+          k3s_control_primary: true
 
-      k3s-control-2.lab:
-        ansible_host: 10.0.0.22
-        k3s_control_plane: true
+        k3s-control-2.lab:
+          ansible_host: 10.0.0.22
+          k3s_control_plane: true
 
-      k3s-control-3.lab:
-        ansible_host: 10.0.0.19
-        k3s_control_plane: true
+        k3s-control-3.lab:
+          ansible_host: 10.0.0.19
+          k3s_control_plane: true
 
-      k3s-dedi-1.lab:
-        ansible_host: 10.0.0.24
+        k3s-dedi-1.lab:
+          ansible_host: 10.0.0.24
