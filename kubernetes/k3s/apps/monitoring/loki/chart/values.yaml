@@ -105,7 +105,7 @@ loki:
     replicas: 0
 
   singleBinary:
-    replicas: 3
+    replicas: 1
     persistence:
       storageClass: longhorn-no-backups
       size: 5Gi
