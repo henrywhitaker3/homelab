@@ -38,6 +38,10 @@ generic:
     enabled: true
     labels:
       traefik-instance: public
+    annotations:
+      gaptime.henrywhitaker.com/monitor: "true"
+      gaptime.henrywhitaker.com/code: "401"
+      gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [books.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
