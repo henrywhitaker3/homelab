@@ -19,6 +19,7 @@ generic:
     annotations:
       gaptime.henrywhitaker.com/monitor: "true"
       gaptime.henrywhitaker.com/code: "401"
+      gaptime.henrywhitaker.com/code:/api/koreader: "403"
       gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [docs.plexmox.com]
     parentRefs:
