@@ -50,7 +50,7 @@ generic:
         }
       gaptime.henrywhitaker.com/expected-headers_api_koreader: "{}"
       gaptime.henrywhitaker.com/expected-headers_api_v1_opds: "{}"
-      gaptime.henrywhitaker.com/resolver: "1.1.1.1"
+      # gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [books.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
