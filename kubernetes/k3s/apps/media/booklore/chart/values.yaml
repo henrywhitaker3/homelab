@@ -40,13 +40,14 @@ generic:
       traefik-instance: public
     annotations:
       gaptime.henrywhitaker.com/monitor: "true"
-      gaptime.henrywhitaker.com/code: "302"
+      gaptime.henrywhitaker.com/code: "401"
       gaptime.henrywhitaker.com/code_api_koreader: "403"
       gaptime.henrywhitaker.com/code_api_v1_opds: "401"
       gaptime.henrywhitaker.com/follow-redirects: "false"
       gaptime.henrywhitaker.com/expected-headers: |
         {
-          "location": "https://auth.plexmox.com/?rd=https%3A%2F%2Fbooks.plexmox.com%2F&rm=GET"
+          "location": "https://auth.plexmox.com/?rd=https%3A%2F%2Fbooks.plexmox.com%2F&rm=GET",
+          "apple": "bingo"
         }
       gaptime.henrywhitaker.com/expected-headers_api_koreader: "{}"
       gaptime.henrywhitaker.com/expected-headers_api_v1_opds: "{}"
