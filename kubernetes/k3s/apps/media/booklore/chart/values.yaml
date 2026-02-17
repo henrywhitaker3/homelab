@@ -40,7 +40,9 @@ generic:
       traefik-instance: public
     annotations:
       gaptime.henrywhitaker.com/monitor: "true"
-      gaptime.henrywhitaker.com/code: "401"
+      gaptime.henrywhitaker.com/code: "302"
+      gaptime.henrywhitaker.com/code_api_koreader: "403"
+      gaptime.henrywhitaker.com/code_api_v1_opds: "401"
       gaptime.henrywhitaker.com/follow-redirects: "false"
       gaptime.henrywhitaker.com/expected-headers: |
         {
@@ -48,7 +50,6 @@ generic:
         }
       gaptime.henrywhitaker.com/expected-headers_api_koreader: "{}"
       gaptime.henrywhitaker.com/expected-headers_api_v1_opds: "{}"
-      gaptime.henrywhitaker.com/code_api_koreader: "403"
       gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [books.plexmox.com]
     parentRefs:
