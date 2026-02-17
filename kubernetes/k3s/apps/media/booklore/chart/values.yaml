@@ -46,6 +46,8 @@ generic:
         {
           "location": "https://auth.plexmox.com/?rd=https%3A%2F%2Fbooks.plexmox.com%2F&rm=GET"
         }
+      gaptime.henrywhitaker.com/expected-headers_api_koreader: "{}"
+      gaptime.henrywhitaker.com/expected-headers_api_v1_opds: "{}"
       gaptime.henrywhitaker.com/code_api_koreader: "403"
       gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [books.plexmox.com]
