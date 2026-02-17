@@ -41,6 +41,7 @@ generic:
     annotations:
       gaptime.henrywhitaker.com/monitor: "true"
       gaptime.henrywhitaker.com/code: "401"
+      gaptime.henrywhitaker.com/follow-redircts: "false"
       gaptime.henrywhitaker.com/code_api_koreader: "403"
       gaptime.henrywhitaker.com/resolver: "1.1.1.1"
     hostnames: [books.plexmox.com]
