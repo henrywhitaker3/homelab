@@ -30,8 +30,6 @@ traefik:
       enabled: true
       labels:
         traefik-instance: internal
-      annotations:
-        kubernetes.io/tls-acme: "true"
       middlewares:
         - name: auth-internal
       matchRule: Host(`traefik-internal.plexmox.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
