@@ -16,6 +16,8 @@ generic:
     enabled: true
     labels:
       traefik-instance: public
+    annotations:
+      gaptime-exporter.henrywhitaker.com/monitor: "true"
     hostnames: [docs.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
