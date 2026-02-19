@@ -1,4 +1,14 @@
 longhorn:
+  preUpgradeChecker:
+    jobEnabled: false
+  upgradeCheck:
+    enabled: false
+  image:
+    longhorn:
+      manager:
+        tag: v1.11.0-hotfix-1
+      instanceManager:
+        tag: v1.11.0-hotfix-1
   ingress:
     enabled: true
     ingressClassName: internal
