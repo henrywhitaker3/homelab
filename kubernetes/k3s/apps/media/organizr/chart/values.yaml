@@ -15,7 +15,7 @@ generic:
   resources:
     requests:
       cpu: 100m
-      memory: 200Mi
+      memory: 128Mi
 
   httpRoute:
     enabled: true

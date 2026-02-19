@@ -12,6 +12,11 @@ generic:
   service:
     port: 8989
 
+  resources:
+    requests:
+      cpu: 50m
+      memory: 200Mi
+
   httpRoute:
     enabled: true
     labels:

@@ -1,3 +1,5 @@
+---
+# yaml-language-server $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/operator.victoriametrics.com/vmalert_v1beta1.json
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
@@ -20,4 +22,8 @@ spec:
   remoteWrite:
     url: http://vmagent-metrics.monitoring.svc:8429
   replicaCount: 2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
   selectAllByDefault: true

@@ -9,6 +9,11 @@ generic:
     pullPolicy: IfNotPresent
     tag: "1.43.0"
 
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 512Mi
+
   service:
     port: 32400
 

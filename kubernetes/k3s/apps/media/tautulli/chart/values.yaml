@@ -12,6 +12,11 @@ generic:
   service:
     port: 8181
 
+  resources:
+    requests:
+      cpu: 50m
+      memory: 350Mi
+
   httpRoute:
     enabled: true
     labels:

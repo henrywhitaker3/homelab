@@ -25,9 +25,9 @@ spec:
   retentionPeriod: "8w"
   resources:
     limits:
-      cpu: 1200m
       memory: 2Gi
     requests:
+      cpu: 150m
       memory: 1Gi
   storage:
     accessModes: [ReadWriteOnce]

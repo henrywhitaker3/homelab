@@ -5,6 +5,11 @@ pyroscope:
   pyroscope:
     replicaCount: 1
 
+    resources:
+      requests:
+        cpu: 50m
+        memory: 256Mi
+
     service:
       type: LoadBalancer
       annotations:

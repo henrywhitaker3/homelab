@@ -12,6 +12,11 @@ generic:
   service:
     port: 9091
 
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
   httpRoute:
     enabled: true
     labels:

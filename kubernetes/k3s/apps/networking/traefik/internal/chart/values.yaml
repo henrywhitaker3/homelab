@@ -12,6 +12,11 @@ traefik:
     access:
       enabled: true
 
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
   metrics:
     prometheus:
       serviceMonitor:

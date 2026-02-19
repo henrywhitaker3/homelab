@@ -12,6 +12,11 @@ generic:
   service:
     port: 9568
 
+  resources:
+    requests:
+      cpu: 100m
+      memory: 750Mi
+
   config:
     BOOKLORE_PORT: "9568"
     TZ: Europe/London

@@ -1,5 +1,5 @@
 tempo:
-  replicas: 0
+  replicas: 1
 
   service:
     annotations:
@@ -12,8 +12,6 @@ tempo:
     resources:
       requests:
         cpu: 500m
-        memory: 512Mi
-      limits:
         memory: 512Mi
 
     storage:

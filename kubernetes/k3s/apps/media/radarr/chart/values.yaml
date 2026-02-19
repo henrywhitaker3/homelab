@@ -12,6 +12,11 @@ generic:
   service:
     port: 7878
 
+  resources:
+    requests:
+      cpu: 50m
+      memory: 650Mi
+
   httpRoute:
     enabled: true
     labels:
