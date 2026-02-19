@@ -8,7 +8,7 @@ longhorn:
       manager:
         tag: v1.11.0-hotfix-1
       instanceManager:
-        tag: v1.11.0-hotfix-1
+        tag: v1.11.0-hotfix-2
   ingress:
     enabled: true
     ingressClassName: internal
