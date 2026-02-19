@@ -1,6 +1,7 @@
 longhorn:
   preUpgradeChecker:
     jobEnabled: false
+    upgradeVersionCheck: false
   upgradeCheck:
     enabled: false
   image:
