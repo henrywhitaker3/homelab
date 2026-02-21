@@ -80,7 +80,7 @@ metadata:
 spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
-      kind: Gateway
+      kind: HTTPRoute
       matchLabels:
         auth: organizr
   traffic:
