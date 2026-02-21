@@ -1,4 +1,4 @@
 ---
 agentgateway:
   controller:
-    logLevel: debug
+    logLevel: info
