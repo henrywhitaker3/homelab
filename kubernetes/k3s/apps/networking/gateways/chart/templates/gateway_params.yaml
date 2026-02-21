@@ -4,6 +4,8 @@ kind: AgentgatewayParameters
 metadata:
   name: gateway
 spec:
+  logging:
+    format: json
   resources:
     requests:
       cpu: 100m
