@@ -100,25 +100,3 @@ spec:
         path: "'/api/v2/auth?group=1'"
         redirect: "'https://plexmox.com'"
 {{- end }}
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: booklore-agentgateway
-  namespace: media
-  labels:
-    auth: authelia
-spec:
-  hostnames:
-    - books.plexmox.com
-  rules:
-    - backendRefs:
-        - kind: Service
-          name: booklore
-          port: 9568
-  parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-      namespace: gateways

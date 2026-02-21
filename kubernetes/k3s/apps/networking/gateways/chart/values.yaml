@@ -36,4 +36,3 @@ middlewares:
           - radarr
           - tautulli
           - transmission
-          - booklore-agentgateway
