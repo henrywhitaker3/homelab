@@ -31,7 +31,7 @@ spec:
         namespace: authelia
         port: 80
       http:
-        path: /api/authz/ext-authz/
+        path: "'/api/authz/ext-authz'"
         redirect: has(response.headers.location) && response.headers.location
         allowedRequestHeaders:
           - "accept"
