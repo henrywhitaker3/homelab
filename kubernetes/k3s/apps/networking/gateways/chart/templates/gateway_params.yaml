@@ -4,6 +4,15 @@ kind: AgentgatewayParameters
 metadata:
   name: gateway
 spec:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
+  podDisruptionBudget:
+    spec:
+      minAvailable: 1
   horizontalPodAutoscaler:
     spec:
       minReplicas: 3
