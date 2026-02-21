@@ -31,7 +31,7 @@ spec:
         namespace: authelia
         port: 80
       http:
-        path: "'/api/authz/forward-auth'"
+        path: "'/api/authz/forward-auth?rd=' + request.uri + '&rm=' + request.method"
         redirect: has(response.headers.location) && response.headers.location
         allowedRequestHeaders:
           - "accept"
