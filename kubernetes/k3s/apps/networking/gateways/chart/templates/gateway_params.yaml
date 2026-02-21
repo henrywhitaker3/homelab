@@ -10,6 +10,17 @@ spec:
       memory: 128Mi
     limits:
       memory: 512Mi
+  deployment:
+    spec:
+      template:
+        spec:
+          topologySpreadConstraints:
+            - labelSelector:
+                matchLabels:
+                  gateway.networking.k8s.io/gateway-name: internal
+              maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
   podDisruptionBudget:
     spec:
       minAvailable: 1
