@@ -1,0 +1,49 @@
+---
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayPolicy
+metadata:
+  name: authelia
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+  traffic:
+    extAuth:
+      backendRef:
+        name: authelia
+        namespace: authelia
+        port: 80
+      http:
+        path: /api/authz/ext-authz/
+        allowedRequestHeaders:
+          - "accept"
+          - "cookie"
+          - "authorization"
+          - "proxy-authorization"
+          - "x-forwarded-proto"
+        allowedResponseHeaders:
+          - "location"
+          - "Remote-User"
+          - "Remote-Groups"
+          - "Remote-Email"
+          - "Remote-Name"
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: booklore
+spec:
+  hostnames:
+    - books.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: booklore
+          namespace: media
+          port: 9568
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
