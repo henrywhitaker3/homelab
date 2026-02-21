@@ -2,13 +2,37 @@
 middlewares:
   authelia:
     namespaces:
-      - media
-      - misc
-      - traefik
-      - docs
-      - monitoring
-      - default
+      - name: media
+        http:
+          - booklore
+      - name: misc
+        http:
+          - garage-webui
+          - speedtest
+      - name: docs
+        http:
+          - outline
+      - name: monitoring
+        http:
+          - grafana
+          - kube-prometheus-stack-alertmanager
+          - vm-metrics
+          - uptime-kuma
+      - name: immich
+        http:
+          - immich-server
+      - name: harbor
+        http:
+          - harbor-route
+      - name: default
+        http:
+          - unraid
+
   organizr:
     namespaces:
-      - media
-      - traefik
+      - name: media
+        http:
+          - prowlarr
+          - radarr
+          - tautulli
+          - transmission
