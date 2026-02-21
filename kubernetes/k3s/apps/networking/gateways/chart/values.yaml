@@ -5,6 +5,7 @@ middlewares:
       - name: media
         http:
           - booklore
+          - booklore-agentgateway
       - name: misc
         http:
           - garage-webui
