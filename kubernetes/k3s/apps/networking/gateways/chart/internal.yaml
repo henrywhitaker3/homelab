@@ -86,9 +86,3 @@ spec:
         target:
           type: AverageValue
           averageValue: 75
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: AverageValue
-          averageValue: 250Mi
