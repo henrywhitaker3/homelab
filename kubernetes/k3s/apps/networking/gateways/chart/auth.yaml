@@ -32,10 +32,7 @@ spec:
         port: 80
       http:
         path: /api/authz/ext-authz/
-        redirect: |
-          response.code in [301, 302, 303, 307, 308] && response.headers["location"] != ""
-            ? response.headers["location"]
-            : null
+        redirect: response.headers["location"]
         allowedRequestHeaders:
           - "accept"
           - "cookie"
