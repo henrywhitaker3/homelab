@@ -1,2 +1,4 @@
 ---
-agentgateway: {}
+agentgateway:
+  controller:
+    logLevel: debug
