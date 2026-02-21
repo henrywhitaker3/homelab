@@ -20,10 +20,7 @@ kind: AgentgatewayPolicy
 metadata:
   name: authelia
 spec:
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
+  targetRefs: []
   traffic:
     extAuth:
       backendRef:
@@ -50,6 +47,25 @@ spec:
           - "Remote-Groups"
           - "Remote-Email"
           - "Remote-Name"
+---
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayPolicy
+metadata:
+  name: organizr
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+  traffic:
+    extAuth:
+      backendRef:
+        name: organizr
+        namespace: media
+        port: 80
+      http:
+        path: "'/api/v2/auth?group=1'"
+        redirect: "'https://plexmox.com'"
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
