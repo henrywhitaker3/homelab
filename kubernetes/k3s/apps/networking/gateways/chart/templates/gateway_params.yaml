@@ -1,0 +1,17 @@
+---
+apiVersion: agentgateway.dev/v1alpha1
+kind: AgentgatewayParameters
+metadata:
+  name: gateway
+spec:
+  horizontalPodAutoscaler:
+    spec:
+      minReplicas: 3
+      maxReplicas: 6
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 75

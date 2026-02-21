@@ -8,6 +8,10 @@ metadata:
 spec:
   gatewayClassName: agentgateway
   infrastructure:
+    parametersRef:
+      group: agentgateway.dev
+      kind: AgentgatewayParameters
+      name: gateway
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.25
   listeners:
@@ -67,22 +71,3 @@ spec:
             name: wildcard-yourbuild-dev-tls
             namespace: gateways
         mode: Terminate
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: internal
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: internal
-  minReplicas: 3
-  maxReplicas: 6
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: AverageValue
-          averageValue: 75
