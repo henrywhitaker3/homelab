@@ -24,6 +24,9 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-  - name: kgateway
+  - name: agentgateway-crds
     version: "v2.2.1"
-    repository: oci://cr.kgateway.dev/kgateway-dev/charts
+    repository: oci://ghcr.io/kgateway-dev/charts
+  - name: agentgateway
+    version: "v2.2.1"
+    repository: oci://ghcr.io/kgateway-dev/charts

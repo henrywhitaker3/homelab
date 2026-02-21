@@ -3,10 +3,10 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: internal-kgateway
+  name: internal
   namespace: gateways
 spec:
-  gatewayClassName: kgateway
+  gatewayClassName: agentgateway
   infrastructure:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.25
@@ -67,3 +67,28 @@ spec:
             name: wildcard-yourbuild-dev-tls
             namespace: gateways
         mode: Terminate
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: internal
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: internal
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: AverageValue
+          averageValue: 75%
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 250Mi
