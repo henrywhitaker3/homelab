@@ -62,6 +62,10 @@ generic:
         kind: Gateway
         name: public
         namespace: traefik
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
     rules:
       - port: 9568
         matches:
