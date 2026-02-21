@@ -45,7 +45,7 @@ spec:
       redisCacheEnabled: true
       redisCacheHost: "dragonfly.dragonfly.svc.cluster.local:6379"
       redisCachePassword: password
-      redisCacheDatabase: "5"
+      redisCacheDatabase: "7"
       redisCacheUnreachableBlock: true
       traceHeadersCustomName: X-Request-ID
       metricsUpdateIntervalSeconds: 600
