@@ -22,8 +22,9 @@ metadata:
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: public
+      kind: HTTPRoute
+      matchLabels:
+        auth: authelia
   traffic:
     extAuth:
       backendRef:
@@ -75,7 +76,8 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: internal
+      matchLabels:
+        auth: organizr
   traffic:
     extAuth:
       backendRef:
@@ -92,6 +94,8 @@ kind: HTTPRoute
 metadata:
   name: booklore-agentgateway
   namespace: media
+  labels:
+    auth: authelia
 spec:
   hostnames:
     - books.plexmox.com
@@ -100,12 +104,6 @@ spec:
         - kind: Service
           name: booklore
           port: 9568
-      filters:
-        - type: ExtensionRef
-          extensionRef:
-            group: agentgateway.dev
-            kind: AgentgatewayPolicy
-            name: organizr
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
