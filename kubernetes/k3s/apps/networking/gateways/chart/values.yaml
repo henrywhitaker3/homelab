@@ -5,7 +5,6 @@ middlewares:
       - name: media
         http:
           - booklore
-          - booklore-agentgateway
       - name: misc
         http:
           - garage-webui
@@ -37,3 +36,4 @@ middlewares:
           - radarr
           - tautulli
           - transmission
+          - booklore-agentgateway
