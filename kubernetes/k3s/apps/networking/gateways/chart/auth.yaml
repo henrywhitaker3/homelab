@@ -100,6 +100,12 @@ spec:
         - kind: Service
           name: booklore
           port: 9568
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: agentgateway.dev
+            kind: AgentgatewayPolicy
+            name: organizr
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
