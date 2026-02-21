@@ -15,22 +15,6 @@ spec:
       kind: Service
       name: authelia
 ---
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: booklore
-  namespace: media
-spec:
-  from:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      namespace: gateways
-  to:
-    - group: ""
-      kind: Service
-      name: media
----
 apiVersion: agentgateway.dev/v1alpha1
 kind: AgentgatewayPolicy
 metadata:
@@ -65,7 +49,8 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: booklore
+  name: booklore-agentgateway
+  namespace: media
 spec:
   hostnames:
     - books.plexmox.com
@@ -73,9 +58,9 @@ spec:
     - backendRefs:
         - kind: Service
           name: booklore
-          namespace: media
           port: 9568
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: internal
+      namespace: gateways
