@@ -69,15 +69,30 @@ netbird_resources = {
     network = "k3s-cluster"
     data    = true
   }
+  "external-agw" = {
+    name    = "gateways-public"
+    network = "k3s-cluster"
+    data    = true
+  }
   "external-ingress-ip" = {
     network = "home"
     groups  = ["All", "homelab", "k3s"]
     address = "10.0.0.29/32"
   }
+  "external-agw-ip" = {
+    network = "home"
+    groups  = ["All", "homelab", "k3s"]
+    address = "10.0.0.30/32"
+  }
   "internal-ingress" = {
     network = "home"
     groups  = ["All", "homelab", "k3s"]
     address = "10.0.0.27/32"
+  }
+  "internal-agw" = {
+    network = "home"
+    groups  = ["All", "homelab", "k3s"]
+    address = "10.0.0.25/32"
   }
   "adguard-1" = {
     network = "home"
@@ -188,6 +203,16 @@ netbird_policies = {
       destination_resource = "external-ingress"
     }
   }
+  "allow-jump-to-public-agw" = {
+    description = "Allow jump servers to access k8s ingress"
+    rule = {
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["jump"]
+      destination_resource = "external-agw"
+    }
+  }
   "allow-devices-to-private-ingress" = {
     description = "Allow devices to access k8s private gateway"
     rule = {
@@ -198,6 +223,16 @@ netbird_policies = {
       destination_resource = "internal-ingress"
     }
   }
+  "allow-devices-to-private-agw" = {
+    description = "Allow devices to access k8s private gateway"
+    rule = {
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["devices"]
+      destination_resource = "internal-agw"
+    }
+  }
   "allow-devices-to-public-ingress-ip" = {
     description = "Allow devices to access k8s public gateway ip"
     rule = {
@@ -206,6 +241,16 @@ netbird_policies = {
       ports                = [80, 443]
       sources              = ["devices"]
       destination_resource = "external-ingress-ip"
+    }
+  }
+  "allow-devices-to-public-agw-ip" = {
+    description = "Allow devices to access k8s public gateway ip"
+    rule = {
+      action               = "accept"
+      protocol             = "tcp"
+      ports                = [80, 443]
+      sources              = ["devices"]
+      destination_resource = "external-agw-ip"
     }
   }
   "allow-k3s-to-jump-telemetry" = {
