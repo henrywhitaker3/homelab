@@ -70,7 +70,3 @@ resource "adguard_rewrite" "custom_rewrites" {
   domain = each.key
   answer = each.value.dest
 }
-
-resource "adguard_user_rules" "this" {
-  rules = var.filter_rules
-}

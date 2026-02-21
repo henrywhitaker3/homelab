@@ -31,11 +31,6 @@ variable "custom_rewrites" {
   default = []
 }
 
-variable "filter_rules" {
-  type    = list(string)
-  default = []
-}
-
 variable "internal_ingress_ip" {
   type    = string
   default = "10.0.0.27"

@@ -2,8 +2,7 @@ locals {
   vm_info = concat(
     data.terraform_remote_state.infra.outputs.adguard_info,
     data.terraform_remote_state.infra.outputs.lb_info,
-    data.terraform_remote_state.infra.outputs.k3s_control_info,
-    data.terraform_remote_state.infra.outputs.k3s_dedi_info,
+    data.terraform_remote_state.infra.outputs.k3s_control_info, data.terraform_remote_state.infra.outputs.k3s_dedi_info,
     [{ name = "netbird.netbird", ip = "10.100.0.2" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],
@@ -65,31 +64,7 @@ locals {
     subnet_mask    = "255.255.255.0"
   }
 
-  internal_ingress = [
-    "unraid.plexmox.com",
-    "s3.plexmox.com",
-    "prometheus.plexmox.com",
-    "alerts.plexmox.com",
-    "longhorn.plexmox.com",
-    "grafana.plexmox.com",
-    "maxscale.plexmox.com",
-    "thanos.plexmox.com",
-    "proxmox.plexmox.com",
-    "speedtest.plexmox.com",
-    "loki.plexmox.com",
-    "harbor.plexmox.com",
-    "orderly.henrywhitaker.com",
-    "victoria.plexmox.com",
-    "victoria-logs.plexmox.com",
-    "garage.plexmox.com",
-    "garage-web.plexmox.com",
-    "garage-admin.plexmox.com",
-    "garage-webui.plexmox.com",
-    "immich.plexmox.com",
-    "traefik.plexmox.com",
-    "traefik-internal.plexmox.com",
-    "kiali.plexmox.com",
-  ]
+  internal_ingress = []
 
   upstream_dns = [
     "https://cloudflare-dns.com/dns-query",
@@ -127,13 +102,5 @@ locals {
       name = "AdGuard Default Blocklist",
       url  = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
     }
-  ]
-
-  filter_rules = [
-    "@@||pl.allsportsflix.xyz^$important",
-    "@@||bmedia-gcore.justservingfiles.net^$important",
-    "@@||media.trafficjunky.net^$client='10.0.0.49'",
-    "||*.plexmox.com^$dnstype=A,dnsrewrite=NOERROR;A;10.0.0.29",
-    "||plexmox.com^$dnstype=A,dnsrewrite=NOERROR;A;10.0.0.29",
   ]
 }
