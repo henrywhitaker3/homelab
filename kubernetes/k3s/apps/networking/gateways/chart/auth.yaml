@@ -36,7 +36,7 @@ spec:
         addRequestHeaders:
           X-Forwarded-Method: request.method
           X-Forwarded-Proto: request.scheme
-          X-Forwarded-Host: reqeust.host
+          X-Forwarded-Host: request.host
           X-Forwarded-URI: request.path
           X-Forwarded-For: source.address
         allowedRequestHeaders:
