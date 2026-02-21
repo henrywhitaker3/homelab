@@ -3,7 +3,8 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: gateway-authelia
+  name: authelia
+  namespace: authelia
 spec:
   from:
     - group: gateway.networking.k8s.io
@@ -13,6 +14,22 @@ spec:
     - group: ""
       kind: Service
       name: authelia
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: booklore
+  namespace: media
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateways
+  to:
+    - group: ""
+      kind: Service
+      name: media
 ---
 apiVersion: agentgateway.dev/v1alpha1
 kind: AgentgatewayPolicy
