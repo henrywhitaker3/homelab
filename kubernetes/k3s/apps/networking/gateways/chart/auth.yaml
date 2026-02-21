@@ -20,7 +20,10 @@ kind: AgentgatewayPolicy
 metadata:
   name: authelia
 spec:
-  targetRefs: []
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public
   traffic:
     extAuth:
       backendRef:
@@ -47,6 +50,22 @@ spec:
           - "Remote-Groups"
           - "Remote-Email"
           - "Remote-Name"
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: organizr
+  namespace: media
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateways
+  to:
+    - group: ""
+      kind: Service
+      name: organizr
 ---
 apiVersion: agentgateway.dev/v1alpha1
 kind: AgentgatewayPolicy
