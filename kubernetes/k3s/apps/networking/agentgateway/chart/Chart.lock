@@ -1,6 +1,9 @@
 dependencies:
-- name: kgateway
-  repository: oci://cr.kgateway.dev/kgateway-dev/charts
+- name: agentgateway-crds
+  repository: oci://ghcr.io/kgateway-dev/charts
   version: v2.2.1
-digest: sha256:0fb8d346bd6d16376f010c1fc04b12287d08276fd7e07e0364530f57bf90f34f
-generated: "2026-02-21T06:24:29.196587Z"
+- name: agentgateway
+  repository: oci://ghcr.io/kgateway-dev/charts
+  version: v2.2.1
+digest: sha256:d8df9a72e63a7567f55da3c212f94898c02b36fedd237a15ddea6bf64056ec45
+generated: "2026-02-21T08:47:50.52759Z"
