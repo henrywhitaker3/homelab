@@ -15,10 +15,28 @@ spec:
       kind: Service
       name: authelia
 ---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: organizr
+  namespace: media
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateways
+  to:
+    - group: ""
+      kind: Service
+      name: organizr
+{{- range .Values.middlewares.authelia.namespaces }}
+---
 apiVersion: agentgateway.dev/v1alpha1
 kind: AgentgatewayPolicy
 metadata:
   name: authelia
+  namespace: "{{ . }}"
 spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
@@ -51,27 +69,14 @@ spec:
           - "Remote-Groups"
           - "Remote-Email"
           - "Remote-Name"
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: organizr
-  namespace: media
-spec:
-  from:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      namespace: gateways
-  to:
-    - group: ""
-      kind: Service
-      name: organizr
+{{- end }}
+{{- range .Values.middlewares.organizr.namespaces }}
 ---
 apiVersion: agentgateway.dev/v1alpha1
 kind: AgentgatewayPolicy
 metadata:
   name: organizr
+  namespace: "{{ . }}"
 spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
@@ -87,6 +92,7 @@ spec:
       http:
         path: "'/api/v2/auth?group=1'"
         redirect: "'https://plexmox.com'"
+{{- end }}
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1

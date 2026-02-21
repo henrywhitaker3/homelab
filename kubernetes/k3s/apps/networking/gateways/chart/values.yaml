@@ -1,0 +1,14 @@
+---
+middlewares:
+  authelia:
+    namespaces:
+      - media
+      - misc
+      - traefik
+      - docs
+      - monitoring
+      - default
+  organizr:
+    namespaces:
+      - media
+      - traefik
