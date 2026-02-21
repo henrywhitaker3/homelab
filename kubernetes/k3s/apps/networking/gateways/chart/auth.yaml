@@ -20,7 +20,7 @@ kind: AgentgatewayPolicy
 metadata:
   name: authelia
 spec:
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       matchLabels:
@@ -73,7 +73,7 @@ kind: AgentgatewayPolicy
 metadata:
   name: organizr
 spec:
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
       matchLabels:
