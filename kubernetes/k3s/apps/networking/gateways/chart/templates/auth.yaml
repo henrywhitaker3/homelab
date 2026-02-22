@@ -45,7 +45,7 @@ spec:
   #       auth: authelia
   targetRefs:
     - group: gateway.networking.k8s.io
-      kind: Gateways
+      kind: Gateway
       name: "public"
   traffic:
     extAuth:
