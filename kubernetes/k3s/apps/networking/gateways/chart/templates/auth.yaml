@@ -86,6 +86,10 @@ metadata:
   namespace: "{{ .name }}"
 spec:
   targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: "public"
+      namespace: gateways
     {{- range .http }}
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
