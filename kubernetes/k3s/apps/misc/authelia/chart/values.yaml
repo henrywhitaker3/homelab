@@ -78,7 +78,7 @@ configMap:
     redis:
       enabled: true
       host: dragonfly.dragonfly.svc
-      database_index: 5
+      database_index: 3
 
   storage:
     postgres:
