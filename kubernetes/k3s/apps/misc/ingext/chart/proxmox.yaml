@@ -20,21 +20,33 @@ subsets:
     ports:
       - port: 8006
 ---
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: proxmox
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "http-cookie"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
 spec:
-  hostnames:
-    - proxmox.plexmox.com
+  ingressClassName: internal
   rules:
-    - backendRefs:
-        - kind: Service
-          name: proxmox
-          port: 8006
-  parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-      namespace: gateways
+    - host: proxmox.plexmox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: proxmox
+                port:
+                  number: 8006
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - proxmox.plexmox.com
+      secretName: proxmox-plexmox-com-tls
