@@ -86,11 +86,10 @@ metadata:
   namespace: "{{ .name }}"
 spec:
   targetRefs:
-    {{- range .http }}
     - group: gateway.networking.k8s.io
-      kind: HTTPRoute
-      name: "{{ . }}"
-    {{- end }}
+      kind: Gateway
+      name: "public"
+      namespace: gateways
   traffic:
     extAuth:
       backendRef:
