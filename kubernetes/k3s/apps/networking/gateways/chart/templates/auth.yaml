@@ -44,9 +44,11 @@ spec:
   #     matchLabels:
   #       auth: authelia
   targetRefs:
+    {{- range .http }}
     - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: "public"
+      kind: HTTPRoute
+      name: "{{ . }}"
+    {{- end }}
   traffic:
     extAuth:
       backendRef:
