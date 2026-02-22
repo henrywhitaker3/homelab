@@ -22,6 +22,8 @@ spec:
     - --lock_on_hashtags
     - --default_lua_flags=allow-undeclared-keys
 
+  memcachedPort: 11211
+
   resources:
     requests:
       cpu: 100m
