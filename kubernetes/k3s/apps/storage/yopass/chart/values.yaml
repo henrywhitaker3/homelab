@@ -37,5 +37,16 @@ generic:
       - port: 1337
         matches:
           - path:
+              type: Exact
+              value: /
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: traefik.io
+              kind: Middleware
+              name: auth-public
+      - port: 1337
+        matches:
+          - path:
               type: PathPrefix
               value: /
