@@ -2,7 +2,7 @@ generic:
   nameOverride: organizr
   fullnameOverride: organizr
 
-  replicaCount: 0
+  replicaCount: 1
 
   image:
     repository: organizr/organizr
