@@ -10,16 +10,6 @@ longhorn:
         tag: v1.11.0-hotfix-1
       instanceManager:
         tag: v1.11.0-hotfix-2
-  ingress:
-    enabled: true
-    ingressClassName: internal
-    host: longhorn.plexmox.com
-    tls: true
-    tlsSecret: longhorn-plexmox-com-tls
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
 
   persistence:
     removeSnapshotsDuringFilesystemTrim: enabled
