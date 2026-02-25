@@ -8,6 +8,7 @@ middlewares:
       - monitoring
       - default
       - longhorn-system
+      - argo
   organizr:
     namespaces:
       - media
