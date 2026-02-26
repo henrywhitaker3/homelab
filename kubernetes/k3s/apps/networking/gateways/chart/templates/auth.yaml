@@ -56,7 +56,7 @@ spec:
         namespace: authelia
         port: 80
       http:
-        path: "'/api/authz/forward-auth'"
+        path: "'/api/authz/ext-authz/'"
         redirect: has(response.headers.location) && response.headers.location
         addRequestHeaders:
           X-Forwarded-Method: request.method
