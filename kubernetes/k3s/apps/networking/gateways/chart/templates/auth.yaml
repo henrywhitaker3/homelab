@@ -57,7 +57,7 @@ spec:
         port: 80
       http:
         path: "'/api/authz/ext-authz/'"
-        # redirect: has(response.headers.location) && response.headers.location
+        redirect: "'https://auth.plexmox.com?rd=' + request.scheme + '://' + request.host + request.path + '&rm=' + request.method"
         addRequestHeaders:
           X-Forwarded-Method: request.method
           X-Forwarded-Proto: request.scheme
