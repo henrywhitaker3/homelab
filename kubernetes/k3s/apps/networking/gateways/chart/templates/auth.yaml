@@ -56,8 +56,9 @@ spec:
         namespace: authelia
         port: 80
       http:
-        path: "'/api/authz/forward-auth'"
-        redirect: has(response.headers.location) && response.headers.location
+        path: "'/api/authz/ext-authz'"
+        redirect: |
+          https://auth.plexmox.com
         addRequestHeaders:
           X-Forwarded-Method: request.method
           X-Forwarded-Proto: request.scheme
