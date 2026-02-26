@@ -65,6 +65,7 @@ spec:
           X-Forwarded-Host: request.host
           X-Forwarded-URI: request.path
           X-Forwarded-For: source.address
+          Cookie: has(request.header.cookie) && request.header.cookie
         allowedRequestHeaders:
           - Cookie
         allowedResponseHeaders:
