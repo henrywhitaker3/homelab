@@ -39,22 +39,6 @@ generic:
               kind: Middleware
               name: auth-public
 
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-public@kubernetescrd
-    hosts:
-      - host: docs.plexmox.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: docs-plexmox-com-tls
-        hosts:
-          - docs.plexmox.com
-
   pvc:
     enabled: true
     mountPath: /var/lib/outline/data
