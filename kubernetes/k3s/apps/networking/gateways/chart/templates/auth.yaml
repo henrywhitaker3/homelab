@@ -58,7 +58,7 @@ spec:
       http:
         path: "'/api/authz/forward-auth'"
         redirect: |
-          "https://auth.plexmox.com?rd=" + request.scheme + "://" + request.host + request.path
+          "https://auth.plexmox.com?rd=" + request.scheme + "://" + request.host + request.path + "&rm=" + request.method
         addRequestHeaders:
           X-Forwarded-Method: request.method
           X-Forwarded-Proto: request.scheme
