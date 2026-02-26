@@ -56,25 +56,21 @@ spec:
         namespace: authelia
         port: 80
       http:
-        path: "'/api/authz/ext-authz/'"
-        redirect: "'https://auth.plexmox.com?rd=' + request.scheme + '://' + request.host + request.path + '&rm=' + request.method"
+        path: "'/api/authz/forward-auth'"
+        redirect: has(response.headers.location) && response.headers.location
         addRequestHeaders:
           X-Forwarded-Method: request.method
           X-Forwarded-Proto: request.scheme
           X-Forwarded-Host: request.host
           X-Forwarded-URI: request.path
           X-Forwarded-For: source.address
-          Cookie: has(request.headers.cookie) && request.headers.cookie
         allowedRequestHeaders:
-          - "accept"
-          - "cookie"
-          - "authorization"
-          - "proxy-authorization"
+          - Cookie
         allowedResponseHeaders:
-          - "Remote-User"
-          - "Remote-Groups"
-          - "Remote-Email"
-          - "Remote-Name"
+          - Remote-User
+          - Remote-Groups
+          - Remote-Email
+          - Remote-Name
 {{- end }}
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
