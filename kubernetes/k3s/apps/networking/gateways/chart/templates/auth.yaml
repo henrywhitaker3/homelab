@@ -71,12 +71,10 @@ spec:
           - "authorization"
           - "proxy-authorization"
         allowedResponseHeaders:
-          - "location"
           - "Remote-User"
           - "Remote-Groups"
           - "Remote-Email"
           - "Remote-Name"
-          - "Set-Cookie"
 {{- end }}
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
