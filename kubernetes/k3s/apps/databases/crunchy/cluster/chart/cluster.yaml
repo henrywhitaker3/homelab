@@ -168,6 +168,10 @@ spec:
       password:
         type: AlphaNumeric
 
+    - name: lldap
+      databases:
+        - lldap
+
     # Benchmarking user
     # - name: bench
     #   databases:
