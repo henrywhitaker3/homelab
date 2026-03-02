@@ -2,7 +2,7 @@ generic:
   nameOverride: lldap
   fullnameOverride: lldap
 
-  replicaCount: 1
+  replicaCount: 3
 
   image:
     repository: ghcr.io/lldap/lldap
