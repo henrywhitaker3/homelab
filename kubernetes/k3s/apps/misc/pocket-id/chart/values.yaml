@@ -41,7 +41,7 @@ generic:
     - name: LDAP_ENABLED
       value: "true"
     - name: LDAP_URL
-      value: ldap://ldap.identity.svc.cluster.local:3890
+      value: ldap://lldap.identity.svc.cluster.local:3890
     - name: LDAP_BIND_DN
       value: UID=pocketid,OU=people,DC=plexmox,DC=com
     - name: LDAP_BASE
