@@ -36,6 +36,8 @@ generic:
       value: "true"
     - name: S3_ENDPOINT
       value: https://garage.plexmox.com
+    - name: UI_CONFIG_DISABLED
+      value: "true"
     - name: LDAP_ENABLED
       value: "true"
     - name: LDAP_URL
