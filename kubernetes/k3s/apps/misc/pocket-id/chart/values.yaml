@@ -1,0 +1,70 @@
+generic:
+  nameOverride: pocket-id
+  fullnameOverride: pocket-id
+
+  replicaCount: 3
+
+  image:
+    repository: ghcr.io/pocket-id/pocket-id
+    pullPolicy: IfNotPresent
+    tag: "v2.3.0"
+
+  service:
+    port: 1411
+
+  env:
+    - name: APP_URL
+      value: https://pocket.plexmox.com
+    - name: LOG_JSON
+      value: "true"
+    - name: VERSION_CHECK_DISABLED
+      value: "true"
+    - name: FILE_BACKEND
+      value: s3
+    - name: ANALYTICS_DISABLED
+      value: "true"
+    - name: TRUST_PROXY
+      value: "true"
+    - name: S3_BUCKET
+      value: pocketid
+    - name: S3_REGION
+      value: garage
+    - name: S3_FORCE_PATH_STYLE
+      value: "true"
+    - name: S3_ENDPOINT
+      value: https://garage.plexmox.com
+    - name: S3_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-config
+          key: access-key-id
+    - name: S3_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-config
+          key: secret-access-key
+    - name: DB_CONNECTION_STRING
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-pocketid
+          key: uri
+    - name: ENCRYPTION_KEY
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-config
+          key: encryption-ket
+
+  httpRoute:
+    enabled: true
+    hostnames: ["pocket.plexmox.com"]
+    labels:
+      traefik-instance: public
+    parentRefs:
+      - name: public
+        namespace: traefik
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        port: 1411
