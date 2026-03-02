@@ -4,6 +4,9 @@ generic:
 
   replicaCount: 1
 
+  deploymentStrategy:
+    type: Recreate
+
   image:
     repository: ghcr.io/pocket-id/pocket-id
     pullPolicy: IfNotPresent
@@ -41,6 +44,8 @@ generic:
       value: UID=pocketid,OU=people,DC=plexmox,DC=com
     - name: LDAP_BASE
       value: DC=plexmox,DC=com
+    - name: LDAP_ADMIN_GROUP_NAME
+      value: admin
     - name: LDAP_BIND_PASSWORD
       valueFrom:
         secretKeyRef:
