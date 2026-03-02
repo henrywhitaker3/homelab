@@ -37,7 +37,7 @@ generic:
             extensionRef:
               group: traefik.io
               kind: Middleware
-              name: authelia
+              name: auth-public
 
   pvc:
     enabled: true
