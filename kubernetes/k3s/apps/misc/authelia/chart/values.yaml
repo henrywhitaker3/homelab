@@ -10,8 +10,6 @@ pod:
     - name: custom
       secret:
         items:
-          - key: users_database.yaml
-            path: users_database.yaml
           - key: configuration.oidc.yaml
             path: configuration.oidc.yaml
         secretName: authelia-secrets
@@ -44,10 +42,7 @@ configMap:
       base_dn: "DC=plexmox,DC=com"
       user: "UID=authelia,OU=people,DC=plexmox,DC=com"
     file:
-      password:
-        algorithm: "argon2"
       enabled: false
-      path: /custom/users_database.yaml
 
   telemetry:
     metrics:
