@@ -52,7 +52,7 @@ generic:
       valueFrom:
         secretKeyRef:
           name: pocket-id-config
-          key: encryption-ket
+          key: encryption-key
 
   httpRoute:
     enabled: true
