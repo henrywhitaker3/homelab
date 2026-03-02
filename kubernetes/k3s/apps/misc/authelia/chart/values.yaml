@@ -38,11 +38,15 @@ secret:
 configMap:
   authentication_backend:
     ldap:
-      enabled: false
+      enabled: true
+      implementation: lldap
+      address: "ldap://lldap.identity.svc.cluster.local:3890"
+      base_dn: "DC=plexmox,DC=com"
+      user: "UID=authelia,OU=people,DC=plexmox,DC=com"
     file:
       password:
         algorithm: "argon2"
-      enabled: true
+      enabled: false
       path: /custom/users_database.yaml
 
   telemetry:
