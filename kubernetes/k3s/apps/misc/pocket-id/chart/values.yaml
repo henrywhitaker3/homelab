@@ -48,6 +48,22 @@ generic:
       value: DC=plexmox,DC=com
     - name: LDAP_ADMIN_GROUP_NAME
       value: admin
+    - name: LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER
+      value: uuid
+    - name: LDAP_ATTRIBUTE_USER_USERNAME
+      value: uid
+    - name: LDAP_ATTRIBUTE_USER_EMAIL
+      value: mail
+    - name: LDAP_ATTRIBUTE_USER_FIRST_NAME
+      value: givenName
+    - name: LDAP_ATTRIBUTE_USER_LAST_NAME
+      value: sn
+    - name: LDAP_ATTRIBUTE_USER_PROFILE_PICTURE
+      value: jpegPhoto
+    - name: LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER
+      value: uuid
+    - name: LDAP_ATTRIBUTE_GROUP_NAME
+      value: cn
     - name: LDAP_BIND_PASSWORD
       valueFrom:
         secretKeyRef:
