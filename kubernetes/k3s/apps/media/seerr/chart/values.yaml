@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/seerr-team/seerr
     pullPolicy: IfNotPresent
-    tag: v3.0.1
+    tag: v3.1.0
 
   service:
     port: 5055
