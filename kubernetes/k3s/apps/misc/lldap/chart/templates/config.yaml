@@ -25,12 +25,6 @@ spec:
                 secretKeyRef:
                   name: lldap-config
                   key: admin-password
-            - name: LLDAP_DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: crunchy-pguser-lldap
-                  key: uri
-
             - name: DO_CLEANUP
               value: "true"
           volumeMounts:
