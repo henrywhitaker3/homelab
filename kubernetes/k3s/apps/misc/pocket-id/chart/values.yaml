@@ -2,7 +2,7 @@ generic:
   nameOverride: pocket-id
   fullnameOverride: pocket-id
 
-  replicaCount: 3
+  replicaCount: 1
 
   image:
     repository: ghcr.io/pocket-id/pocket-id
@@ -33,6 +33,19 @@ generic:
       value: "true"
     - name: S3_ENDPOINT
       value: https://garage.plexmox.com
+    - name: LDAP_ENABLED
+      value: "true"
+    - name: LDAP_URL
+      value: ldap://ldap.identity.svc.cluster.local:3890
+    - name: LDAP_BIND_DN
+      value: UID=pocketid,OU=people,DC=plexmox,DC=com
+    - name: LDAP_BASE
+      value: DC=plexmox,DC=com
+    - name: LDAP_BIND_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-config
+          key: ldap-password
     - name: S3_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:
