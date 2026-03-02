@@ -1,0 +1,44 @@
+generic:
+  nameOverride: lldap
+  fullnameOverride: lldap
+
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/lldap/lldap
+    pullPolicy: IfNotPresent
+    tag: "2026-02-27"
+
+  additionalPorts:
+    - name: ldap
+      containerPort: 3890
+      protocol: TCP
+
+  service:
+    port: 17170
+    additionalPorts:
+      - name: ldap
+        port: 3890
+        protocol: TCP
+        targetPort: ldap
+
+  env:
+    - name: TZ
+      value: Europe/London
+    - name: LLDAP_JWT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: lldap-config
+          key: jwt-secret
+    - name: LLDAP_KEY_SEED
+      valueFrom:
+        secretKeyRef:
+          name: lldap-config
+          key: seed
+    - name: LLDAP_LDAP_USER_PASS
+      valueFrom:
+        secretKeyRef:
+          name: lldap-config
+          key: admin-password
+    - name: LLDAP_LDAP_BASE_DN
+      value: dc=plexmox,dc=com
