@@ -47,6 +47,10 @@ buckets = {
     name = "pyroscope"
     type = "garage"
   }
+  pocketid = {
+    name = "pocketid"
+    type = "garage"
+  }
 }
 
 r2_tokens = {
@@ -106,6 +110,11 @@ garage_tokens = {
   pyroscope = {
     name    = "pyroscope"
     buckets = ["pyroscope_local"]
+    write   = true
+  }
+  pocketid = {
+    name    = "pocketid"
+    buckets = ["pocketid"]
     write   = true
   }
 }
