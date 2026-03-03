@@ -21,6 +21,8 @@ generic:
           cpu: 10m
           memory: 40Mi
       env:
+        - name: LOG_LEVEL
+          value: debug
         - name: ORGANIZR_HOST
           value: organizr.media.svc.cluster.local
         - name: ORGANIZR_SCHEME
