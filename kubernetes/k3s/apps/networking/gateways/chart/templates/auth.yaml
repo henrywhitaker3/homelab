@@ -10,6 +10,12 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       namespace: gateways
+    {{- range .Values.middlewares.authelia.namespaces }}
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: "{{ .name }}"
+      name: authelia
+    {{- end }}
   to:
     - group: ""
       kind: Service
@@ -26,6 +32,12 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       namespace: gateways
+    {{- range .Values.middlewares.organizr.namespaces }}
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: "{{ .name }}"
+      name: organizr
+    {{- end }}
   to:
     - group: ""
       kind: Service
