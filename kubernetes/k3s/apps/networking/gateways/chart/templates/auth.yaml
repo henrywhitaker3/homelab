@@ -14,7 +14,6 @@ spec:
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: "{{ .name }}"
-      name: authelia
     {{- end }}
   to:
     - group: ""
@@ -36,7 +35,6 @@ spec:
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: "{{ .name }}"
-      name: organizr
     {{- end }}
   to:
     - group: ""
