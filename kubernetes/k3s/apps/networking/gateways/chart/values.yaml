@@ -24,6 +24,9 @@ middlewares:
       - name: default
         http:
           - unraid
+      - name: longhorn-system
+        http:
+          - longhorn
 
   organizr:
     namespaces:
