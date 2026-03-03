@@ -50,13 +50,13 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  compressor:
-    - type: Zstd
-      zstd: {}
-    - type: Brotli
-      brotli: {}
-    - type: Gzip
-      gzip: {}
+  # compressor:
+  #   - type: Zstd
+  #     zstd: {}
+  #   - type: Brotli
+  #     brotli: {}
+  #   - type: Gzip
+  #     gzip: {}
   retry:
     numRetries: 2
     retryOn:
