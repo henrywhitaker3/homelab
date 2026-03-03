@@ -101,9 +101,9 @@ spec:
       - x-forwarded-proto
     failOpen: false
     http:
-      path: "/api/v2/auth?group=1"
+      path: "/auth/ext-authz"
       backendRefs:
         - name: organizr
           namespace: media
-          port: 80
+          port: 12345
 {{- end }}
