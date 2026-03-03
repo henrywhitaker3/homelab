@@ -57,14 +57,19 @@ spec:
     {{- end }}
   extAuth:
     headersToExtAuth:
-      - 'cookie'
+      - accept
+      - cookie
+      - location
+      - authorization
+      - proxy-authorization
+      - x-forwarded-proto
     failOpen: false
     http:
       backendRefs:
         - name: 'authelia'
           namespace: 'authelia'
           port: 80
-      path: '/api/verify'
+      path: '/api/authz/ext-authz/'
       headersToBackend:
         - Remote-User
         - Remote-Groups
