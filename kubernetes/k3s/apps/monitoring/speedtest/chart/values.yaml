@@ -14,26 +14,18 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: internal
     hostnames: [speedtest.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: internal
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 80
         matches:
           - path:
               type: PathPrefix
               value: /
-        filters:
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: auth-internal
 
   pvc:
     enabled: true
