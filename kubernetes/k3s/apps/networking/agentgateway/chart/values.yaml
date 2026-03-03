@@ -1,4 +1,0 @@
----
-agentgateway:
-  controller:
-    logLevel: info

@@ -32,52 +32,44 @@ spec:
       name: organizr
 {{- range .Values.middlewares.authelia.namespaces }}
 ---
-apiVersion: agentgateway.dev/v1alpha1
-kind: AgentgatewayPolicy
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
 metadata:
   name: authelia
   namespace: "{{ .name }}"
 spec:
-  # targetSelectors:
-  #   - group: gateway.networking.k8s.io
-  #     kind: HTTPRoute
-  #     matchLabels:
-  #       auth: authelia
   targetRefs:
     {{- range .http }}
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: "{{ . }}"
     {{- end }}
-  traffic:
-    extAuth:
-      backendRef:
-        name: authelia
-        namespace: authelia
-        port: 80
-      http:
-        path: "'/api/authz/forward-auth'"
-        redirect: |
-          "https://auth.plexmox.com?rd=" + request.scheme + "://" + request.host + request.path + "&rm=" + request.method
-        addRequestHeaders:
-          X-Forwarded-Method: request.method
-          X-Forwarded-Proto: request.scheme
-          X-Forwarded-Host: request.host
-          X-Forwarded-URI: request.path
-          X-Forwarded-For: source.address
-          Cookie: has(request.header.cookie) && request.header.cookie
-        allowedRequestHeaders:
-          - Cookie
-        allowedResponseHeaders:
-          - Remote-User
-          - Remote-Groups
-          - Remote-Email
-          - Remote-Name
+  extAuth:
+    headersToExtAuth:
+      - 'accept'
+      - 'cookie'
+      - 'authorization'
+      - 'proxy-authorization'
+      - 'x-forwarded-proto'
+    failOpen: false
+    http:
+      backendRefs:
+        - name: 'authelia'
+          namespace: 'authelia'
+          port: 80
+      path: '/api/authz/ext-authz/'
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email
 {{- end }}
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
-apiVersion: agentgateway.dev/v1alpha1
-kind: AgentgatewayPolicy
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
 metadata:
   name: organizr
   namespace: "{{ .name }}"
@@ -88,13 +80,12 @@ spec:
       kind: HTTPRoute
       name: "{{ . }}"
     {{- end }}
-  traffic:
-    extAuth:
-      backendRef:
-        name: organizr
-        namespace: media
-        port: 80
-      http:
-        path: "'/api/v2/auth?group=1'"
-        redirect: "'https://plexmox.com'"
+  extAuth:
+    failOpen: false
+    http:
+      path: "/api/v2/auth?group=1"
+      backendRefs:
+        - name: organizr
+          namespace: media
+          port: 80
 {{- end }}
