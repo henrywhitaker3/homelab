@@ -76,6 +76,7 @@ spec:
         - Remote-Email
         - Location
         - Content-Type
+        - Set-Cookie
 {{- end }}
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
