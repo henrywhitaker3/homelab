@@ -59,20 +59,12 @@ plugins:
 route:
   main:
     enabled: true
-    labels:
-      traefik-instance: internal
     hostnames: [grafana.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: internal
-        namespace: traefik
-    filters:
-      - type: ExtensionRef
-        extensionRef:
-          group: traefik.io
-          kind: Middleware
-          name: auth-internal
+        namespace: gateways
 
 defaultDashboardsEditable: false
 
