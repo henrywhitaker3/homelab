@@ -24,9 +24,9 @@ generic:
         - name: LOG_LEVEL
           value: debug
         - name: ORGANIZR_HOST
-          value: organizr.media.svc.cluster.local
+          value: plexmox.com
         - name: ORGANIZR_SCHEME
-          value: http
+          value: https
         - name: ORGANIZR_GROUP
           value: "1"
         - name: ORGANIZR_UUID
