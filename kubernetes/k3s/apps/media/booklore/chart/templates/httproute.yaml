@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: booklore-api
+spec:
+  hostnames:
+    - books.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: booklore
+          port: 9568
+      matches:
+        - path:
+            type: PathPrefix
+            value: /api/v1/opds
+        - path:
+            type: PathPrefix
+            value: /api/koreader
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public
+      namespace: gateways
