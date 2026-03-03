@@ -74,9 +74,6 @@ spec:
         - Remote-Groups
         - Remote-Name
         - Remote-Email
-        - Location
-        - Content-Type
-        - Set-Cookie
 {{- end }}
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
