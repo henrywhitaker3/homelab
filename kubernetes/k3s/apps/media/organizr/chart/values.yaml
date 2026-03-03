@@ -9,8 +9,37 @@ generic:
     pullPolicy: Always
     tag: latest
 
+  extraContainers:
+    - name: authz
+      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.0
+      ports:
+        - name: authz
+          containerPort: 12345
+          protocol: TCP
+      resources:
+        requests:
+          cpu: 10m
+          memory: 40Mi
+      env:
+        - name: ORGANIZR_HOST
+          value: organizr.media.svc.cluster.local
+        - name: ORGANIZR_SCHEME
+          value: http
+        - name: ORGANIZR_GROUP
+          value: "1"
+        - name: ORGANIZR_UUID
+          valueFrom:
+            secretKeyRef:
+              name: organizr-auth
+              key: uuid
+
   service:
     port: 80
+    additionalPorts:
+      - name: authz
+        port: 12345
+        targetPort: authz
+        protocol: TCP
 
   resources:
     requests:
@@ -33,21 +62,6 @@ generic:
           - path:
               type: PathPrefix
               value: /
-
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-    hosts:
-      - host: plexmox.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: plexmox-com-tls
-        hosts:
-          - plexmox.com
 
   pvc:
     enabled: true
