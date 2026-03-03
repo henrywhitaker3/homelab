@@ -18,9 +18,6 @@ middlewares:
           - kube-prometheus-stack-alertmanager
           - vm-metrics
           - uptime-kuma
-      - name: immich
-        http:
-          - immich-server
       - name: harbor
         http:
           - harbor-route
