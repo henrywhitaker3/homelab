@@ -15,7 +15,7 @@ middlewares:
       - name: monitoring
         http:
           - grafana
-          # - kube-prometheus-stack-alertmanager
+          - kube-prometheus-stack-alertmanager
           - vm-metrics
           - uptime-kuma
       - name: default
@@ -27,9 +27,6 @@ middlewares:
 
   organizr:
     namespaces:
-      - name: monitoring
-        http:
-          - kube-prometheus-stack-alertmanager
       - name: media
         http:
           - prowlarr
