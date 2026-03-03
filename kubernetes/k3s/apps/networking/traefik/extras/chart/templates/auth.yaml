@@ -30,5 +30,5 @@ metadata:
     traefik-instance: public
 spec:
   forwardAuth:
-    address: https://plexmox.com/api/v2/auth?group=1
+    address: http://organizr.media.svc.cluster.local:12345/auth/ext-authz
 {{- end }}
