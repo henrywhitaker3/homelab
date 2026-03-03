@@ -10,6 +10,7 @@
 
 - name: Generate haproxy config
   become: "{{ haproxy_become }}"
+  tags: haproxy
   ansible.builtin.template:
     src: templates/haproxy.cfg
     dest: "{{ haproxy_config_dir }}/haproxy.cfg"

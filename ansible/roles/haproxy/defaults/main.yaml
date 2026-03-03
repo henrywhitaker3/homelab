@@ -38,6 +38,10 @@ haproxy_defaults:
 #   servers: []
 haproxy_listeners: []
 
+haproxy_frontends: []
+
+haproxy_backends: []
+
 haproxy_stats_enabled: true
 
 haproxy_stats_bind: "*"
