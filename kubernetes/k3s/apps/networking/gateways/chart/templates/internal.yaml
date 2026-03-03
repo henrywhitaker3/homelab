@@ -6,12 +6,8 @@ metadata:
   name: internal
   namespace: gateways
 spec:
-  gatewayClassName: agentgateway
+  gatewayClassName: envoy
   infrastructure:
-    parametersRef:
-      group: agentgateway.dev
-      kind: AgentgatewayParameters
-      name: gateway
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.25
   listeners:

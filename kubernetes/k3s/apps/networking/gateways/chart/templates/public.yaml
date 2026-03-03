@@ -6,12 +6,8 @@ metadata:
   name: public
   namespace: gateways
 spec:
-  gatewayClassName: agentgateway
+  gatewayClassName: envoy
   infrastructure:
-    parametersRef:
-      group: agentgateway.dev
-      kind: AgentgatewayParameters
-      name: gateway
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.30
       netbird.io/expose: "true"
