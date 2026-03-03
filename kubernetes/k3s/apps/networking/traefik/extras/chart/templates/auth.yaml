@@ -4,24 +4,6 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: auth-internal
-  namespace: "{{ . }}"
-  labels:
-    traefik-instance: internal
-spec:
-  forwardAuth:
-    address: http://authelia.authelia.svc.cluster.local/api/authz/forward-auth
-    trustForwardHeader: true
-    authResponseHeaders:
-      - "Remote-User"
-      - "Remote-Groups"
-      - "Remote-Email"
-      - "Remote-Name"
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
   name: auth-public
   namespace: "{{ . }}"
   labels:
@@ -49,16 +31,4 @@ metadata:
 spec:
   forwardAuth:
     address: https://plexmox.com/api/v2/auth?group=1
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/traefik.io/middleware_v1alpha1.json
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: organizr-user-auth-public
-  namespace: "{{ . }}"
-  labels:
-    traefik-instance: public
-spec:
-  forwardAuth:
-    address: https://plexmox.com/api/v2/auth?group=4
 {{- end }}
