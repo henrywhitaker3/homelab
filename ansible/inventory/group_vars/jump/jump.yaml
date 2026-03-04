@@ -54,6 +54,8 @@ haproxy_frontends:
     backendIf:
       - backend: k3s-envoy
         host: docs.plexmox.com
+      - backend: k3s-envoy
+        host: books.plexmox.com
 
 haproxy_backends:
   - name: k3s-traefik
