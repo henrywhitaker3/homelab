@@ -39,8 +39,8 @@ spec:
             local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
             if count > 0 then
-                headers:replace("content-length", tostring(#new_body))
-                body:setBytes(new_body)
+              body:setBytes(new_body)
+              response_handle:headers():replace("content-length", tostring(#new_body))
             end
         end
 {{- end }}
