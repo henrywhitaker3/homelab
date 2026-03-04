@@ -32,12 +32,19 @@ spec:
 
           if content_type and string.find(content_type, "text/html") then
             local body = response_handle:body(true)
-            local body_str = body:getBytes(0, body:length())
+            local len = body:length()
 
-            local css_tag = '<link rel="stylesheet" href="https://theme-park.plexmox.com/css/base/plex/nord.css">'
-            local new_body = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
+            if len == 0 then return end
 
-            body:setBytes(new_body)
-            headers:replace("content-length", tostring(#new_body))
+            local body_str = body:getBytes(0, len)
+
+            local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
+            local css_tag = '<link rel="stylesheet" href="' .. url .. '">'
+            local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
+
+            if count > 0 then
+              body:setBytes(new_body)
+              headers:replace("content-length", tostring(#new_body))
+            end
           end
         end
