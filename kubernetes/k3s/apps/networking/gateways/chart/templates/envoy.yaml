@@ -78,7 +78,7 @@ metadata:
 spec:
   clientIPDetection:
     xForwardedFor:
-      numTrustedHops: 1
+      numTrustedHops: 2
       trustedCIDRs:
         - 10.42.0.0/16
         - 10.43.0.0/16
