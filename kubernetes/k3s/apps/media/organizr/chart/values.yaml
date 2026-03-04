@@ -11,7 +11,7 @@ generic:
 
   extraContainers:
     - name: authz
-      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.7
+      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.8
       ports:
         - name: authz
           containerPort: 12345
