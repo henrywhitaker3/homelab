@@ -11,7 +11,7 @@ generic:
 
   extraContainers:
     - name: authz
-      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.5
+      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.7
       ports:
         - name: authz
           containerPort: 12345
@@ -21,14 +21,16 @@ generic:
           cpu: 10m
           memory: 40Mi
       env:
-        # - name: LOG_LEVEL
-        #   value: debug
+        - name: LOG_LEVEL
+          value: debug
         - name: ORGANIZR_HOST
-          value: plexmox.com
+          value: localhost
         - name: ORGANIZR_SCHEME
-          value: https
+          value: http
         - name: ORGANIZR_GROUP
           value: "1"
+        - name: REDIRECT_TO
+          value: https://plexmox.com
 
   service:
     port: 80
