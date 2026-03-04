@@ -12,3 +12,35 @@ spec:
       app: plex
       theme: nord
       baseUrl: https://theme-park.plexmox.com
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: plex
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: plex
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_response(response_handle)
+          local headers = response_handle:headers()
+          local content_type = headers:get("content-type")
+          local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
+
+          -- Only modify HTML responses
+          if content_type and string.find(content_type, "text/html") then
+            local body = response_handle:body()
+            local body_str = tostring(body:getBytes(0, body:length()))
+
+            -- Inject CSS before </head>
+            local css_tag = '<link rel="stylesheet" href="' .. url .. '">'
+            local new_body = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
+
+            local new_len = body:setBytes(new_body)
+            headers:replace("content-length", tostring(new_len))
+          end
+        end
