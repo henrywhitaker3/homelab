@@ -1,0 +1,39 @@
+{{- range .Values.themes }}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: "{{ .route }}"
+  namespace: "{{ .namespace }}"
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: "{{ .route }}"
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_response(response_handle)
+          local headers = response_handle:headers()
+          local content_type = headers:get("content-type")
+
+          if content_type and string.find(content_type, "text/html") then
+            local body = response_handle:body(true)
+            local len = body:length()
+
+            if len == 0 then return end
+
+            local body_str = body:getBytes(0, len)
+
+            local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
+            local css_tag = '<link rel="stylesheet" href="' .. url .. '">'
+            local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
+
+            if count > 0 then
+              body:setBytes(new_body)
+              headers:replace("content-length", tostring(#new_body))
+            end
+          end
+        end
+{{- end }}

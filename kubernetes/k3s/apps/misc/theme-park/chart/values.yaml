@@ -1,3 +1,9 @@
+themes:
+  - route: plex
+    namespace: media
+    app: plex
+    theme: nord
+
 generic:
   nameOverride: theme-park
   fullnameOverride: theme-park
