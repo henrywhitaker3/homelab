@@ -15,14 +15,22 @@ spec:
     - type: Inline
       inline: |
         function envoy_on_response(response_handle)
-          local headers = response_handle:headers()
-          local content_type = headers:get("content-type")
+            local headers = response_handle:headers()
+            local content_type = headers:get("content-type")
 
-          if content_type and string.find(content_type, "text/html") then
-            local body = response_handle:body(true)
+            if not (content_type and string.find(content_type, "text/html")) then
+                return
+            end
+
+            local body = response_handle:body()
+            if body == nil then
+                return
+            end
+
             local len = body:length()
-
-            if len == 0 then return end
+            if len == 0 then
+                return
+            end
 
             local body_str = body:getBytes(0, len)
 
@@ -31,9 +39,8 @@ spec:
             local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
             if count > 0 then
-              body:setBytes(new_body)
-              headers:replace("content-length", tostring(#new_body))
+                body:setBytes(new_body)
+                headers:replace("content-length", tostring(#new_body))
             end
-          end
         end
 {{- end }}
