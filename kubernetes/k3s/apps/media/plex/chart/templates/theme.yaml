@@ -26,21 +26,19 @@ spec:
   lua:
     - type: Inline
       inline: |
+        local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
         function envoy_on_response(response_handle)
           local headers = response_handle:headers()
           local content_type = headers:get("content-type")
-          local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
 
-          -- Only modify HTML responses
           if content_type and string.find(content_type, "text/html") then
-            local body = response_handle:body()
-            local body_str = tostring(body:getBytes(0, body:length()))
+            local body = response_handle:body(true)
+            local body_str = body:getBytes(0, body:length())
 
-            -- Inject CSS before </head>
-            local css_tag = '<link rel="stylesheet" href="' .. url .. '">'
+            local css_tag = '<link rel="stylesheet" href="'.. url .. '">'
             local new_body = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
-            local new_len = body:setBytes(new_body)
-            headers:replace("content-length", tostring(new_len))
+            body:setBytes(new_body)
+            headers:replace("content-length", tostring(#new_body))
           end
         end
