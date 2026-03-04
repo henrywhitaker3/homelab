@@ -26,7 +26,6 @@ spec:
   lua:
     - type: Inline
       inline: |
-        local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
         function envoy_on_response(response_handle)
           local headers = response_handle:headers()
           local content_type = headers:get("content-type")
@@ -35,6 +34,7 @@ spec:
             local body = response_handle:body(true)
             local body_str = body:getBytes(0, body:length())
 
+            local url = "https://theme-park.plexmox.com/css/base/plex/nord.css"
             local css_tag = '<link rel="stylesheet" href="'.. url .. '">'
             local new_body = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
