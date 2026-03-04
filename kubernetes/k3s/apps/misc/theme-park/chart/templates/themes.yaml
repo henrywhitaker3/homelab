@@ -39,8 +39,8 @@ spec:
             local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
             if count > 0 then
-                body:setBytes(new_body)
                 headers:replace("content-length", tostring(#new_body))
+                body:setBytes(new_body)
             end
         end
 {{- end }}
