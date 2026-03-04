@@ -79,9 +79,9 @@ spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 2
-      trustedCIDRs:
-        - 10.42.0.0/16
-        - 10.43.0.0/16
+      # trustedCIDRs:
+      #   - 10.42.0.0/16
+      #   - 10.43.0.0/16
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
