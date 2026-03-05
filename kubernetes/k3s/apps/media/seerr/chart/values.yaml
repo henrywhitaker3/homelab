@@ -26,26 +26,18 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: public
     hostnames: [overseerr.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 5055
         matches:
           - path:
               type: PathPrefix
               value: /
-        filters:
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: seerr
 
   # entrypoint:
   #   command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
