@@ -14,7 +14,7 @@ spec:
       key: username
       name: uptime-kuma-creds
     password:
-      key: api-key
+      key: password # empty field
       name: uptime-kuma-creds
   relabelings:
     - targetLabel: job
