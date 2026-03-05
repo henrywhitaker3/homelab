@@ -10,6 +10,9 @@ spec:
         - uptime-kuma.monitoring.svc.cluster.local:3001
   metricsPath: /metrics
   basicAuth:
+    username:
+      key: username
+      name: uptime-kuma-creds
     password:
       key: api-key
       name: uptime-kuma-creds
