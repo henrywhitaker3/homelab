@@ -7,12 +7,13 @@ spec:
     - targets:
         - https://plexmox.com
         - https://plex.plexmox.com
-        - https://overseerr.plexmox.com
         - https://auth.plexmox.com
-        # - https://victoria.plexmox.com
-        # - https://grafana.plexmox.com
-        - https://yourbuild.dev
         - https://api.yourbuild.dev/auth/login
+        - https://plexmox.com/sonarr
+        - https://plexmox.com/radarr
+        - https://plexmox.com/prowlarr
+        - https://plexmox.com/tautulli
+        - https://plexmox.com/transmission
   metricsPath: /probe
   params:
     module: [http_2xx]
