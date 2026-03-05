@@ -3,6 +3,9 @@ adguard-1:
     - ingress
     - service
     - gateway-httproute
+  extraArgs:
+    - --gateway-name=internal
+    - --gateway-namespace=gateways
   provider:
     name: webhook
     webhook:
@@ -43,6 +46,9 @@ adguard-2:
     - ingress
     - service
     - gateway-httproute
+  extraArgs:
+    - --gateway-name=internal
+    - --gateway-namespace=gateways
   provider:
     name: webhook
     webhook:
