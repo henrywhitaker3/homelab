@@ -76,9 +76,6 @@ prompage:
     className: public
     annotations:
       kubernetes.io/tls-acme: "true"
-      cert-manager.io/issuer: cloudflare-issuer
-      cert-manager.io/issuer-kind: ClusterOriginIssuer
-      cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
     hosts:
       - host: status.henrywhitaker.com
         paths:
