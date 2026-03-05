@@ -93,11 +93,9 @@ generic:
   httpRoute:
     enabled: true
     hostnames: ["pocket.plexmox.com"]
-    labels:
-      traefik-instance: public
     parentRefs:
       - name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - matches:
           - path:
