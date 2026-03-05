@@ -28,7 +28,7 @@ ingress:
     parentRefs:
       - kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
 
 secret:
   existingSecret: "authelia-secrets"
