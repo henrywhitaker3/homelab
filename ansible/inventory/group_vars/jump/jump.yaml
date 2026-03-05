@@ -50,14 +50,14 @@ haproxy_frontends:
       - option tcpka
       - tcp-request inspect-delay 5s
       - tcp-request content accept if { req.ssl_hello_type 1 }
-    backend: k3s-traefik
+    backend: k3s-envoy
     backendIf:
-      - backend: k3s-envoy
-        host: docs.plexmox.com
-      - backend: k3s-envoy
-        host: books.plexmox.com
-      - backend: k3s-envoy
-        host: plex.plexmox.com
+      - host: status.henrywhitaker.com
+        backend: k3s-traefik
+      - host: api.yourbuild.dev
+        backend: k3s-traefik
+      - host: shorturl.yourbuild.dev
+        backend: k3s-traefik
 
 haproxy_backends:
   - name: k3s-traefik
