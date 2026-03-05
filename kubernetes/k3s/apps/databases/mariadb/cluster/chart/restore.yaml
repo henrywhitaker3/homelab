@@ -13,7 +13,7 @@ spec:
   s3:
     bucket: mariadb
     endpoint: garage.plexmox.com
-    region: unraid
+    region: garage
     accessKeyIdSecretKeyRef:
       name: mariadb-r2
       key: garage-access-key-id
