@@ -20,13 +20,6 @@ spec:
             severity: critical
           annotations:
             summary: Organizr might be down...
-        - alert: OverseerrDown
-          expr: probe_http_status_code{instance="https://overseerr.plexmox.com"} != 200
-          for: 5m
-          labels:
-            severity: critical
-          annotations:
-            summary: Overseerr might be down...
         - alert: SynthetigoUIDown
           expr: probe_http_status_code{instance="https://synthetigo.dev"} != 200
           for: 5m
