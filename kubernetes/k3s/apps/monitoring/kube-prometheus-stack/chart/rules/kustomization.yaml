@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - misc.yaml
   - vms.yaml
-  - blackbox.yaml
+  - kuma.yaml
   - smartctl.yaml
   - longhorn.yaml
   - recording.yaml

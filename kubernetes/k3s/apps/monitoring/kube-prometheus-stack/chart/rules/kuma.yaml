@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: uptime-kuma
+spec:
+  groups:
+    - name: kuma
+      rules:
+        - alert: UptimeKumaMonitorDown
+          expr: monitor_status != 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: The monitor {{ $labels.monitor_name }} is down

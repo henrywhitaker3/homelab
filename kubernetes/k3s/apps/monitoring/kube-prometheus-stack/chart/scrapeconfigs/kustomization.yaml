@@ -9,6 +9,5 @@ resources:
   - k8s-annotations.yaml
   - keepalived.yaml
   - adguard.yaml
-  - blackbox.yaml
   - garage.yaml
   - kuma.yaml
