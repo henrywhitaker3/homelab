@@ -30,8 +30,22 @@ spec:
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: "*.plexmox.com"
+      hostname: "plexmox.com"
       name: plexmox
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-plexmox-com-tls
+            namespace: gateways
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "*.plexmox.com"
+      name: wildcard-plexmox
       port: 443
       protocol: HTTPS
       tls:
