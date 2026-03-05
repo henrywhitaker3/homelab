@@ -5,8 +5,6 @@ kind: HTTPRoute
 metadata:
   name: argo
   namespace: argo
-  labels:
-    traefik-instance: public
 spec:
   hostnames:
     - argocd.plexmox.com
@@ -19,14 +17,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: ExtensionRef
-          extensionRef:
-            group: traefik.io
-            kind: Middleware
-            name: auth-public
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: public
-      namespace: traefik
+      namespace: gateways
