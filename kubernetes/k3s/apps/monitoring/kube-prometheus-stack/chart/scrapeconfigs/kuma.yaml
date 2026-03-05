@@ -11,10 +11,10 @@ spec:
   metricsPath: /metrics
   basicAuth:
     username:
-      key: username
+      key: password # empty field
       name: uptime-kuma-creds
     password:
-      key: password # empty field
+      key: api-key
       name: uptime-kuma-creds
   relabelings:
     - targetLabel: job
