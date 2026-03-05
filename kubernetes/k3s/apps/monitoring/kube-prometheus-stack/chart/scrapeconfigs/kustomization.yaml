@@ -11,3 +11,4 @@ resources:
   - adguard.yaml
   - blackbox.yaml
   - garage.yaml
+  - kuma.yaml

@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: uptime-kuma
+spec:
+  staticConfigs:
+    - targets:
+        - uptime-kuma.monitoring.svc.cluster.local:3001
+  metricsPath: /metrics
+  authorization:
+    type: Bearer
+    credentials:
+      key: api-key
+      name: uptime-kuma-creds
