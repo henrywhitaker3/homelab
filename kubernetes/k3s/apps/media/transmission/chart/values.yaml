@@ -19,26 +19,18 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: public
     hostnames: [plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 9091
         matches:
           - path:
               type: PathPrefix
               value: /transmission
-        filters:
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: organizr-auth-public
 
   ingress:
     enabled: false

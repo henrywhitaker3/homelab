@@ -19,47 +19,18 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: public
     hostnames: [plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 8989
         matches:
           - path:
               type: PathPrefix
               value: /sonarr
-        filters:
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: organizr-auth-public
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: sonarr
-
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd,media-sonarr@kubernetescrd
-    hosts:
-      - host: plexmox.com
-        paths:
-          - path: /sonarr
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: plexmox-com-tls
-        hosts:
-          - plexmox.com
 
   pvc:
     enabled: true

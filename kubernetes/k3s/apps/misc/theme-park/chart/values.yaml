@@ -40,14 +40,12 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: public
     hostnames: [theme-park.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 8080
         matches:

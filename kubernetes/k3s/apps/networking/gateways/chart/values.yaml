@@ -33,6 +33,7 @@ middlewares:
       - name: media
         http:
           - prowlarr
+          - sonarr
           - radarr
           - tautulli
           - transmission

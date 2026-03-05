@@ -19,31 +19,18 @@ generic:
 
   httpRoute:
     enabled: true
-    labels:
-      traefik-instance: public
     hostnames: [plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
         name: public
-        namespace: traefik
+        namespace: gateways
     rules:
       - port: 8181
         matches:
           - path:
               type: PathPrefix
               value: /tautulli
-        filters:
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: organizr-auth-public
-          - type: ExtensionRef
-            extensionRef:
-              group: traefik.io
-              kind: Middleware
-              name: tautulli
 
   ingress:
     enabled: false
