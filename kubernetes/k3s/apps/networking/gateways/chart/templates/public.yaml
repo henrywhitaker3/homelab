@@ -9,7 +9,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      metallb.io/loadBalancerIPs: 10.0.0.30
+      metallb.io/loadBalancerIPs: 10.0.0.27
       netbird.io/expose: "true"
       netbird.io/groups: "homelab,k3s"
   listeners:
