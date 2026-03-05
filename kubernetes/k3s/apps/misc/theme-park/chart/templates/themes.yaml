@@ -18,11 +18,7 @@ spec:
             local headers = response_handle:headers()
             local content_type = headers:get("content-type")
 
-            local path = request_handle:headers():get(":path")
-            request_handle:logInfo("[{{ .app }}]:: Request received for path: " .. path)
-
             if not (content_type and string.find(content_type, "text/html")) then
-                request_handle:logInfo("[{{ .app }}]:: skipping as not a htlm document")
                 return
             end
 
@@ -43,8 +39,8 @@ spec:
             local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
 
             if count > 0 then
-              body:setBytes(new_body)
-              response_handle:headers():replace("content-length", tostring(#new_body))
+                body:setBytes(new_body)
+                response_handle:headers():replace("content-length", tostring(#new_body))
             end
         end
 {{- end }}
