@@ -9,8 +9,7 @@ spec:
     - targets:
         - uptime-kuma.monitoring.svc.cluster.local:3001
   metricsPath: /metrics
-  authorization:
-    type: Bearer
-    credentials:
+  basicAuth:
+    password:
       key: api-key
       name: uptime-kuma-creds
