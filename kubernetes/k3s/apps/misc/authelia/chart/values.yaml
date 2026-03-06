@@ -41,8 +41,6 @@ configMap:
       address: "ldap://lldap.identity.svc.cluster.local:3890"
       base_dn: "DC=plexmox,DC=com"
       user: "UID=authelia,OU=people,DC=plexmox,DC=com"
-    file:
-      enabled: false
 
   telemetry:
     metrics:

@@ -15,6 +15,9 @@ middlewares:
       - name: docs
         http:
           - outline
+      - name: misc
+        http:
+          - echo
       - name: monitoring
         http:
           - grafana
