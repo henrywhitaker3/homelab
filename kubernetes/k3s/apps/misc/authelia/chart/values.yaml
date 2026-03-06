@@ -42,6 +42,9 @@ configMap:
       base_dn: "DC=plexmox,DC=com"
       user: "UID=authelia,OU=people,DC=plexmox,DC=com"
 
+  log:
+    level: debug
+
   telemetry:
     metrics:
       enabled: true
