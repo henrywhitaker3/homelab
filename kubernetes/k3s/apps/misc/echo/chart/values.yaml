@@ -1,0 +1,35 @@
+generic:
+  nameOverride: echo
+  fullnameOverride: echo
+
+  replicaCount: 3
+
+  image:
+    repository: ghcr.io/mendhak/http-https-echo
+    pullPolicy: IfNotPresent
+    tag: "39"
+
+  service:
+    port: 8080
+
+  httpRoute:
+    enabled: true
+    hostnames: [echo.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 8080
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  resources:
+    requests:
+      cpu: 5m
+      memory: 10Mi
+    limits:
+      memory: 50Mi
