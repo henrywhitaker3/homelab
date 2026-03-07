@@ -9,3 +9,5 @@ gateway-helm:
         kubernetes:
           deploy:
             type: GatewayNamespace
+      extensionApis:
+        enableBackend: true
