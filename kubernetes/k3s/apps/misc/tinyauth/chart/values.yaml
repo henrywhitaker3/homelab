@@ -2,15 +2,15 @@ generic:
   nameOverride: tinyauth
   fullnameOverride: tinyauth
 
-  replicaCount: 1
+  replicaCount: 3
 
   image:
-    repository: ghcr.io/steveiliop56/tinyauth:v5.0.1-distroless
+    repository: ghcr.io/steveiliop56/tinyauth
     pullPolicy: IfNotPresent
-    tag: "v5.0.1"
+    tag: "v5.0.1-distroless"
 
   service:
-    port: 8080
+    port: 3000
 
   env:
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTID
@@ -32,6 +32,13 @@ generic:
       value: openid email profile groups
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME
       value: Pocket
+
+  probes:
+    enabled: true
+    type: httpGet
+    options:
+      path: /api/healthz
+      port: http
 
   httpRoute:
     enabled: true
