@@ -2,15 +2,15 @@
 middlewares:
   pocket:
     namespaces:
+      - name: argo
+        http:
+          - argo
       - name: media
         http:
           - booklore
 
   authelia:
     namespaces:
-      - name: argo
-        http:
-          - argo
       # - name: media
       #   http:
       #     - booklore
