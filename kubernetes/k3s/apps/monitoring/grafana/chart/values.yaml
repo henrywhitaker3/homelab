@@ -7,10 +7,10 @@ admin:
   existingSecret: grafana-creds
 
 env:
-  GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.plexmox.com/api/oidc/userinfo
-  GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.plexmox.com/api/oidc/authorization
-  GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
-  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.plexmox.com/api/oidc/token
+  GF_AUTH_GENERIC_OAUTH_API_URL: https://pocket.plexmox.com/api/oidc/userinfo
+  GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://pocket.plexmox.com/authorize
+  GF_AUTH_GENERIC_OAUTH_CLIENT_ID: 2918a050-87dc-4759-900f-eed43aed7b3e
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://pocket.plexmox.com/api/oidc/token
   GF_DATABASE_NAME: grafana
   GF_DATABASE_HOST: mariadb.mariadb.svc:3306
   GF_DATABASE_USER: grafana
@@ -25,7 +25,7 @@ envValueFrom:
   GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
     secretKeyRef:
       name: grafana-creds
-      key: client_secret
+      key: pocket_id_client_secret
 
 grafana.ini:
   server:
