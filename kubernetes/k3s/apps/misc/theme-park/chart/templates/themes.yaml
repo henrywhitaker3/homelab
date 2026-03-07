@@ -32,6 +32,7 @@ spec:
 
             local len = body:length()
             if len == 0 then
+                response_handle:logInfo("the length is 0")
                 return
             end
 
