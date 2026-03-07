@@ -45,4 +45,11 @@ oidc_clients = {
     url           = "https://proxmox.plexmox.com"
     callback_urls = ["https://proxmox.plexmox.com"]
   }
+  "tinyauth" = {
+    name = "TinyAuth"
+    url  = "https://tiny.plexmox.com"
+    callback_urls = [
+      "https://tiny.plexmox.com/api/oauth/callback/pocketid"
+    ]
+  }
 }
