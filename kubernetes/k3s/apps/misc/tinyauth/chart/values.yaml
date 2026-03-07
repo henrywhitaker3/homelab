@@ -13,6 +13,8 @@ generic:
     port: 3000
 
   env:
+    - name: TINYAUTH_APPURL
+      value: https://tiny.plexmox.com
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTID
       value: acdccf69-524f-4269-a07c-7565c86ae053
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTSECRET
