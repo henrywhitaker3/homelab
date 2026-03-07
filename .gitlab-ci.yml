@@ -98,6 +98,8 @@ ansible play:
         TF_DIR: post
         TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
         TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
+      - TF_STATE: apps
+        TF_DIR: apps
 
 tf validate:
   stage: lint
