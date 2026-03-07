@@ -27,7 +27,6 @@ middlewares:
           - grafana
           - kube-prometheus-stack-alertmanager
           - vm-metrics
-          - uptime-kuma
       - name: default
         http:
           - unraid
