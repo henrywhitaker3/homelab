@@ -40,7 +40,7 @@ generic:
       value: "true"
     - name: TINYAUTH_SESSION_DRIVER
       value: redis
-    - name: TINYAUTH_DATABASE_REDIS_URL
+    - name: TINYAUTH_DATABASE_REDISURL
       value: dragonfly.dragonfly.svc.cluster.local:6379
 
   probes:
