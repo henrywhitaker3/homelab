@@ -1,52 +1,38 @@
-apiVersion: v1
-kind: Service
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
 metadata:
   name: proxmox
+  namespace: default
 spec:
-  ports:
-    - protocol: TCP
-      port: 8006
-      targetPort: 8006
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: proxmox
-subsets:
-  - addresses:
-      - ip: 10.0.0.150
-      - ip: 10.0.0.152
-      - ip: 10.0.0.154
-    ports:
-      - port: 8006
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: proxmox
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "http-cookie"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/tls-acme: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-auth-internal@kubernetescrd
-spec:
-  ingressClassName: internal
-  rules:
-    - host: proxmox.plexmox.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: proxmox
-                port:
-                  number: 8006
-            path: /
-            pathType: ImplementationSpecific
+  endpoints:
+    - ip:
+        address: 10.0.0.150
+        port: 8006
+    - ip:
+        address: 10.0.0.152
+        port: 8006
+    - ip:
+        address: 10.0.0.154
+        port: 8006
   tls:
-    - hosts:
-        - proxmox.plexmox.com
-      secretName: proxmox-plexmox-com-tls
+    insecureSkipVerify: true
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: proxmox
+spec:
+  hostnames:
+    - proxmox.plexmox.com
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: proxmox
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
