@@ -5,9 +5,11 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/steveiliop56/tinyauth
+    # repository: ghcr.io/steveiliop56/tinyauth
+    repository: harbor.plexmox.com/library/tinyauth
     pullPolicy: IfNotPresent
-    tag: "v5.0.1-distroless"
+    # tag: "v5.0.1-distroless"
+    tag: redis-1
 
   service:
     port: 3000
@@ -36,6 +38,10 @@ generic:
       value: Pocket
     - name: TINYAUTH_LOG_JSON
       value: "true"
+    - name: TINYAUTH_SESSION_DRIVER
+      value: redis
+    - name: TINYAUTH_DATABASE_REDIS_URL
+      value: dragonfly.dragonfly.svc.cluster.local:6379
 
   probes:
     enabled: true
