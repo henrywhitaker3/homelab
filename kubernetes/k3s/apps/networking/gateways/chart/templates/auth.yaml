@@ -24,7 +24,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: tinyauth
+  name: oauth2-proxy
   namespace: identity
 spec:
   from:
@@ -39,7 +39,7 @@ spec:
   to:
     - group: ""
       kind: Service
-      name: tinyauth
+      name: oauth2-proxy
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
 apiVersion: gateway.networking.k8s.io/v1beta1
