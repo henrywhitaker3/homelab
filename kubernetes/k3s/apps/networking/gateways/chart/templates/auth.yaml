@@ -129,10 +129,10 @@ spec:
     failOpen: false
     http:
       backendRefs:
-        - name: oauth2-proxy
+        - name: tinyauth
           namespace: identity
-          port: 80
-      path: /oauth2/auth
+          port: 3000
+      path: /api/auth/envoy?path=
       headersToBackend:
         - Remote-User
         - Remote-Groups
