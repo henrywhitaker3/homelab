@@ -104,6 +104,18 @@ spec:
         - 10.96.0.0/16
         - 10.42.0.0/16
         - 10.43.0.0/16
+  headers:
+    enableEnvoyHeaders: true
+    earlyRequestHeaders:
+      set:
+        - name: X-Forwarded-Proto
+          value: "https"
+        - name: X-Forwarded-Host
+          value: "%REQ(:AUTHORITY)%"
+        - name: X-Forwarded-Uri
+          value: "%REQ(:PATH)%"
+        - name: X-Forwarded-Method
+          value: "%REQ(:METHOD)%"
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
