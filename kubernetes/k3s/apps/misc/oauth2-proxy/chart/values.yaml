@@ -1,0 +1,51 @@
+---
+oauth:
+  config:
+    configFile: |
+      provider = "oidc"
+      oidc_issuer_url = "https://pocket.plexmox.com"
+      email_domains = ["*"]
+      cookie_secure = true
+      upstreams = ["static://200"]
+      redirect_url = "https://guard.plexmox.com/oauth2/callback"
+      scope = "openid email profile groups"
+      pass_access_token = true
+      pass_authorization_header = true
+      pass_user_headers = true
+      set_authorization_header = true
+      cookie_domains = ".plexmox.com"
+      cookie_name = "_oauth2_proxy"
+      cookie_refresh = "2m"
+      cookie_expire = "24h"
+      code_challenge_method = "S256"
+      cookie_name = "__Host-oauth2-proxy"
+
+  extraEnv:
+    - name: OAUTH2_PROXY_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: oauth2-proxy
+          key: client-id
+    - name: OAUTH2_PROXY_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: oauth2-proxy
+          key: client-secret
+    - name: OAUTH2_PROXY_COOKIE_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: oauth2-proxy
+          key: cookie-secret
+
+  extraArgs:
+    exclude-logging-path: "/ping"
+    whielist-domain: ".plexmox.com"
+    provider-display-name: Pocket
+    reverse-proxy: "true"
+
+  gatewayApi:
+    enabled: true
+    gatewayRef:
+      name: public
+      namespace: gateways
+    hostnames: ["guard.plexmox.com"]

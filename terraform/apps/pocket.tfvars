@@ -52,4 +52,12 @@ oidc_clients = {
       "https://tiny.plexmox.com/api/oauth/callback/pocketid"
     ]
   }
+  "oauth2-proxy" = {
+    name = "Guard"
+    url  = "https://guard.plexmox.com"
+    callback_urls = [
+      "https://guard.plexmox.com/oauth2/callback"
+    ]
+    pkce_enabled = true
+  }
 }
