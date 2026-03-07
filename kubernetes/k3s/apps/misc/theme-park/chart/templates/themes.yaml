@@ -53,6 +53,11 @@ spec:
             local new_body, count = string.gsub(body_str, "</body>", css_tag .. "</body>", 1)
             {{- end }}
 
+            if count == 0 then
+                response_handle:logInfo(context .. "replacement count is 0")
+                return
+            end
+
             body:setBytes(new_body)
             response_handle:headers():replace("content-length", tostring(#new_body))
         end
