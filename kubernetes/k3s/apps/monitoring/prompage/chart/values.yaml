@@ -20,7 +20,7 @@ prompage:
       - name: Plex
         group: Services
         query:
-          query: monitor_status{monitor_name="Plex (external)"}
+          query: monitor_status{monitor_name="Plex"}
           expression: int(result) == 1
           bool: true
       - name: Auth
