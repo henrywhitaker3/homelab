@@ -3,6 +3,7 @@ themes:
     namespace: media
     app: plex
     theme: nord
+    head: true
   - route: sonarr
     namespace: media
     app: sonarr
@@ -19,6 +20,7 @@ themes:
     namespace: media
     app: seerr
     theme: nord
+    head: true
   - route: tautulli
     namespace: media
     app: tautulli
