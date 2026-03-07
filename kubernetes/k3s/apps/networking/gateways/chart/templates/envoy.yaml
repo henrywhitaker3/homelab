@@ -107,8 +107,6 @@ spec:
   headers:
     enableEnvoyHeaders: true
     earlyRequestHeaders:
-      remove:
-        - Accept-Encoding
       set:
         - name: X-Forwarded-Proto
           value: "https"
