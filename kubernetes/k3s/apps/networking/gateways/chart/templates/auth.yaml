@@ -111,6 +111,11 @@ spec:
           namespace: identity
           port: 3000
       path: /api/auth/envoy?path=
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email
 {{- end }}
 
 {{- range .Values.middlewares.organizr.namespaces }}
