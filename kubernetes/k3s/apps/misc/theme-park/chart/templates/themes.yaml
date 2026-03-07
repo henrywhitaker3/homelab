@@ -24,6 +24,7 @@ spec:
                 response_handle:logInfo("not a html file it's a " .. content_type)
                 return
             end
+            response_handle:logInfo("its html, continuing the replacement")
 
             local body = response_handle:body()
             if body == nil then
