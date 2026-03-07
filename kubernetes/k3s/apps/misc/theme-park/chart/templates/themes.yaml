@@ -35,16 +35,14 @@ spec:
             local body_str = body:getBytes(0, len)
 
             local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
-            local css_tag = '<link rel="stylesheet" href="' .. url .. '">'
+            local css_tag = '<link rel="stylesheet" type="text/css" href="' .. url .. '">'
             {{- if .head }}
             local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
             {{- else }}
             local new_body, count = string.gsub(body_str, "</body>", css_tag .. "</body>", 1)
             {{- end }}
 
-            if count > 0 then
-                body:setBytes(new_body)
-                response_handle:headers():replace("content-length", tostring(#new_body))
-            end
+            body:setBytes(new_body)
+            response_handle:headers():replace("content-length", tostring(#new_body))
         end
 {{- end }}
