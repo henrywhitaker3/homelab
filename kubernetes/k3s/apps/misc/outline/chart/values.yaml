@@ -83,7 +83,7 @@ generic:
       valueFrom:
         secretKeyRef:
           name: outline
-          key: authelia-client-secret
+          key: pocket-client-secret
 
   securityContext:
     runAsUser: 0
