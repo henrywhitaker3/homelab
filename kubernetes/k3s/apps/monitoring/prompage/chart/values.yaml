@@ -17,6 +17,10 @@ prompage:
           query: monitor_status{monitor_name="Organizr (external)"}
           expression: int(result) == 1
           bool: true
+        extras:
+          - name: Latency
+            units: ms
+            query: sum(avg_over_time(monitor_response_time_seconds{monitor_name="Organizr (external)"}[5m])) * 1000
       - name: Plex
         group: Services
         query:
