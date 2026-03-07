@@ -30,7 +30,6 @@ spec:
                 return
             end
 
-            local len - body:length()
             local body_str = body:getBytes(0, len)
 
             local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
