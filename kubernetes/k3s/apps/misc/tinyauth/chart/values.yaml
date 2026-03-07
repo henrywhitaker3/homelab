@@ -51,7 +51,7 @@ generic:
         name: public
         namespace: gateways
     rules:
-      - port: 8080
+      - port: 3000
         matches:
           - path:
               type: PathPrefix
