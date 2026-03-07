@@ -23,6 +23,10 @@ prompage:
           query: monitor_status{monitor_name="Plex"}
           expression: int(result) == 1
           bool: true
+        extras:
+          - name: Latency
+            units: ms
+            query: sum(avg_over_time(monitor_response_time_seconds{monitor_name="Plex"}[5m])) * 1000
       - name: Auth
         group: Services
         query:
