@@ -43,6 +43,8 @@ spec:
 
             local body_str = body:getBytes(0, len)
 
+            response_handle:logInfo(body_str)
+
             local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
             local css_tag = '<link rel="stylesheet" type="text/css" href="' .. url .. '">'
             {{- if .head }}
