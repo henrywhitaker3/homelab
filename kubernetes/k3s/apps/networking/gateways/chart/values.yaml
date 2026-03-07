@@ -18,12 +18,10 @@ middlewares:
         http:
           - garage-webui
           - speedtest
+          - echo
       - name: docs
         http:
           - outline
-      - name: misc
-        http:
-          - echo
       - name: monitoring
         http:
           - grafana
