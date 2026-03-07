@@ -14,9 +14,11 @@ spec:
   lua:
     - type: Inline
       inline: |
+        function envoy_on_request(request_handle)
+            path = request_handle:headers():get(":path") or ""
+            request_handle:logInfo("running lua filter for {{ .app }} on " .. path)
+        end
         function envoy_on_response(response_handle)
-            local path = response_handle:headers():get(":path") or ""
-            response_handle:logInfo("running lua filter for {{ .app }} on " .. path)
             local headers = response_handle:headers()
             local content_type = headers:get("content-type")
 
