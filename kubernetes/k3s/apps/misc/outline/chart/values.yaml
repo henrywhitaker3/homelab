@@ -55,12 +55,12 @@ generic:
     FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
     FILE_STORAGE_UPLOAD_MAX_SIZE: "26214400"
 
-    OIDC_CLIENT_ID: outline
-    OIDC_AUTH_URI: https://auth.plexmox.com/api/oidc/authorization
-    OIDC_TOKEN_URI: https://auth.plexmox.com/api/oidc/token
-    OIDC_USERINFO_URI: https://auth.plexmox.com/api/oidc/userinfo
+    OIDC_CLIENT_ID: 3c8a4ad7-f75b-4e1a-8263-45d554964582
+    OIDC_AUTH_URI: https://pocket.plexmox.com/authorize
+    OIDC_TOKEN_URI: https://pocket.plexmox.com/api/oidc/token
+    OIDC_USERINFO_URI: https://pocket.plexmox.com/api/oidc/userinfo
     OIDC_USERNAME_CLAIM: preferred_username
-    OIDC_DISPLAY_NAME: Authelia
+    OIDC_DISPLAY_NAME: Pocket
     OIDC_SCOPES: "openid offline_access profile email"
 
   env:
