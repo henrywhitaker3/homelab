@@ -1,13 +1,19 @@
 ---
 middlewares:
+  pocket:
+    namespaces:
+      - name: media
+        http:
+          - booklore
+
   authelia:
     namespaces:
       - name: argo
         http:
           - argo
-      - name: media
-        http:
-          - booklore
+      # - name: media
+      #   http:
+      #     - booklore
       - name: misc
         http:
           - garage-webui

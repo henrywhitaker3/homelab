@@ -40,6 +40,7 @@ spec:
     - group: ""
       kind: Service
       name: organizr
+
 {{- range .Values.middlewares.authelia.namespaces }}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
@@ -77,6 +78,41 @@ spec:
         - Remote-Name
         - Remote-Email
 {{- end }}
+
+{{- range .Values.middlewares.pocket.namespaces }}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: pocket
+  namespace: "{{ .name }}"
+spec:
+  targetRefs:
+    {{- range .http }}
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: "{{ . }}"
+    {{- end }}
+  extAuth:
+    headersToExtAuth:
+      - accept
+      - cookie
+      - location
+      - authorization
+      - proxy-authorization
+      - x-forwarded-proto
+      - x-forwarded-for
+      - x-forwarded-host
+    failOpen: false
+    http:
+      backendRefs:
+        - name: tinyauth
+          namespace: identity
+          port: 3000
+      path: /api/auth/envoy?path=
+{{- end }}
+
 {{- range .Values.middlewares.organizr.namespaces }}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
