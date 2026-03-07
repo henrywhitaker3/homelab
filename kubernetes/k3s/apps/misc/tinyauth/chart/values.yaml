@@ -29,7 +29,7 @@ generic:
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL
       value: https://pocket.plexmox.com/api/oidc/userinfo
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL
-      value: https://tinyauth.example.com/api/oauth/callback/pocketid
+      value: https://tiny.plexmox.com/api/oauth/callback/pocketid
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES
       value: openid email profile groups
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME

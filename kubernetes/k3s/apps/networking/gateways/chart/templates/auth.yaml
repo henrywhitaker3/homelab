@@ -104,6 +104,7 @@ spec:
       - x-forwarded-proto
       - x-forwarded-for
       - x-forwarded-host
+      - x-forwarded-method
     failOpen: false
     http:
       backendRefs:
