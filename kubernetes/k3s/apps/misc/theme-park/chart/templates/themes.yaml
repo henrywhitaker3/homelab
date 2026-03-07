@@ -14,29 +14,32 @@ spec:
   lua:
     - type: Inline
       inline: |
+        local path = nil
+        local context = "[{{ .app }}] - "
         function envoy_on_request(request_handle)
             path = request_handle:headers():get(":path") or ""
-            request_handle:logInfo("running lua filter for {{ .app }} on " .. path)
+            context = context .. path .. " - "
+            request_handle:logInfo(context .. "running filter")
         end
         function envoy_on_response(response_handle)
             local headers = response_handle:headers()
-            local content_type = headers:get("content-type")
+            local content_type = headers:get("content-type") or ""
 
             if not (content_type and string.find(content_type, "text/html")) then
-                response_handle:logInfo("not a html file it's a " .. content_type)
+                response_handle:logInfo(context .. "not a html file it's a " .. content_type)
                 return
             end
-            response_handle:logInfo("its html, continuing the replacement")
+            response_handle:logInfo(context .. "its html, continuing the replacement")
 
             local body = response_handle:body()
             if body == nil then
-                response_handle:logInfo("the body is nil")
+                response_handle:logInfo(context .. "the body is nil")
                 return
             end
 
             local len = body:length()
             if len == 0 then
-                response_handle:logInfo("the length is 0")
+                response_handle:logInfo(context .. "the length is 0")
                 return
             end
 
