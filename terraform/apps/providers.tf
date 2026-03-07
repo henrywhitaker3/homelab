@@ -5,6 +5,10 @@ terraform {
       source  = "trozz/pocketid"
       version = "0.1.7"
     }
+    uptimekuma = {
+      source  = "breml/uptimekuma"
+      version = "0.1.10"
+    }
   }
 
   backend "http" {
@@ -19,4 +23,15 @@ variable "pocketid_api_token" {
 provider "pocketid" {
   base_url  = "https://pocket.plexmox.com"
   api_token = var.pocketid_api_token
+}
+
+variable "uptime_kuma_password" {
+  type      = string
+  sensitive = true
+}
+
+provider "uptimekuma" {
+  endpoint = "https://kuma.plexmox.com"
+  username = "henry"
+  password = var.uptime_kuma_password
 }

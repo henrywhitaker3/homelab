@@ -1,6 +1,28 @@
 # This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
+provider "registry.opentofu.org/breml/uptimekuma" {
+  version     = "0.1.10"
+  constraints = "0.1.10"
+  hashes = [
+    "h1:SYl528G2LAQKRY0Y8Zjtc+XELH04IRojEfr+IRmafXE=",
+    "zh:096b74aa5aaca7a8391239d751eb851fc1e9947a643d74b1bb5db074c5d4925e",
+    "zh:0ca0ba7710e1e999eb0a2468b84ccedf9e326740462f357f460d845c69c60104",
+    "zh:1ac06b7bf0fe109784f2b8070c8b9f5155ed77105a4185d66dcb1eaa79272652",
+    "zh:2e4150721ddfd67ccb3610a93a72d5977bda99e12a3b20d01ef8ca74acb24787",
+    "zh:60a3ff04e22e439694ecd09fb7ba4b61b393ac32fb3ad570320d79bf4ea11570",
+    "zh:623687dad2700bcbf867f3926a8d77840b35fd730971b74f218c5e87db0b3337",
+    "zh:6b180b0b544cd8f3d6937feb17701f5363bec531fe517d703e6886f7097ab1e1",
+    "zh:6c36077c4cabb2636b2e870d41d5793c193da82150ae69b9058c5b6fde0378f1",
+    "zh:71265e131aa792b8ab3e0418ecf55ef3030c6b311495688b416ef6ca7f5cf35c",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:9b67c19d2c35f5fcb07279e7b0d5099f14034fb6f096decfd1c751bd6fab2b44",
+    "zh:a3a7bb0e5798af5d8e28d0b58d851688b6ba0db4d43e20876749d1031cd63e22",
+    "zh:bc6355a8b4a63fe7e37901628628f3785d9b0021cf2aae1ed06db09d342f92a2",
+    "zh:d5979d29db551cb219d4bbfc0210db83c48308d53b8f5a53983fd29163804a92",
+  ]
+}
+
 provider "registry.opentofu.org/trozz/pocketid" {
   version     = "0.1.7"
   constraints = "0.1.7"
