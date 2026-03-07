@@ -15,15 +15,18 @@ spec:
     - type: Inline
       inline: |
         function envoy_on_response(response_handle)
+            response_handle:logInfo("running lua filter for {{ .app }}")
             local headers = response_handle:headers()
             local content_type = headers:get("content-type")
 
             if not (content_type and string.find(content_type, "text/html")) then
+                response_handle:logInfo("not a html file")
                 return
             end
 
             local body = response_handle:body()
             if body == nil then
+                response_handle:logInfo("the body is nil")
                 return
             end
 
