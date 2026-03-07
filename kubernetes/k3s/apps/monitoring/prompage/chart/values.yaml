@@ -20,7 +20,7 @@ prompage:
         extras:
           - name: Latency
             units: ms
-            query: sum(avg_over_time(monitor_response_time_seconds{monitor_name="Organizr (external)"}[5m])) * 1000
+            query: sum(avg_over_time(monitor_response_time{monitor_name="Organizr (external)"}[5m]))
       - name: Plex
         group: Services
         query:
@@ -30,7 +30,7 @@ prompage:
         extras:
           - name: Latency
             units: ms
-            query: sum(avg_over_time(monitor_response_time_seconds{monitor_name="Plex"}[5m])) * 1000
+            query: sum(avg_over_time(monitor_response_time{monitor_name="Plex"}[5m]))
       - name: Auth
         group: Services
         query:
