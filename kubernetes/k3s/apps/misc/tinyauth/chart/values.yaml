@@ -2,7 +2,7 @@ generic:
   nameOverride: tinyauth
   fullnameOverride: tinyauth
 
-  replicaCount: 3
+  replicaCount: 1
 
   image:
     # repository: ghcr.io/steveiliop56/tinyauth
@@ -38,8 +38,8 @@ generic:
       value: Pocket
     - name: TINYAUTH_LOG_JSON
       value: "true"
-    - name: TINYAUTH_SESSION_DRIVER
-      value: redis
+    # - name: TINYAUTH_SESSION_DRIVER
+    #   value: redis
     - name: TINYAUTH_DATABASE_REDIS_URL
       value: dragonfly.dragonfly.svc.cluster.local:6379
     - name: TINYAUTH_DATABASE_REDIS_DB
