@@ -15,7 +15,8 @@ spec:
     - type: Inline
       inline: |
         function envoy_on_response(response_handle)
-            response_handle:logInfo("running lua filter for {{ .app }} on " .. response_handle:headers():get(":path"))
+            local path = response_handle:headers():get(":path") or ""
+            response_handle:logInfo("running lua filter for {{ .app }} on " .. path)
             local headers = response_handle:headers()
             local content_type = headers:get("content-type")
 
