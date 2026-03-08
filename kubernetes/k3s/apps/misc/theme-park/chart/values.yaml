@@ -25,6 +25,7 @@ themes:
     namespace: media
     app: tautulli
     theme: nord
+    encoding: true
 
 generic:
   nameOverride: theme-park
