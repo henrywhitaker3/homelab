@@ -16,10 +16,11 @@ spec:
       inline: |
         function envoy_on_request(request_handle)
             local path = request_handle:headers():get(":path") or ""
-            local content_type = headers:get("content-type") or ""
-            local accept_encoding = headers:get("accept-encoding") or ""
+            local content_type = request_handle:headers():get("content-type") or ""
+            local accept_encoding = request_handle:headers():get("accept-encoding") or ""
             request_handle:logInfo("[{{ .app }}] - " .. path .. " content-type: " .. content_type .. ", accept-encoding: " .. accept_encoding)
         end
+
         function envoy_on_response(response_handle)
             local headers = response_handle:headers()
             local content_type = headers:get("content-type") or ""
