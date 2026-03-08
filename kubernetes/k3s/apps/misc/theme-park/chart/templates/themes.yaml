@@ -38,7 +38,7 @@ spec:
             end
 
             {{- if .encoding }}
-            local body_str = tostring(body:getBytes(0, len))
+            local body_str = body:getBytes(0, len)
             {{- else }}
             local body_str = body:getBytes(0, len)
             {{- end }}
