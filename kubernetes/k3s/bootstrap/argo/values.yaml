@@ -64,7 +64,16 @@ argo-cd:
     cm:
       kustomize.buildOptions: --enable-helm
       accounts.readonly: apiKey
+      oidc.config: |
+        name: Pocket
+        issuer: https://pocket.plexmox.com
+        enablePKCEAuthentication: true
+        requestedScopes: ["openid", "profile", "email", "groups"]
+        clientID: $pocket-oidc-credentials:client_id
+        clientSecret: $pocket-oidc-credentials:client_secret
     params:
       server.insecure: true
     rbac:
-      policy.csv: "g, readonly, role:readonly"
+      policy.csv: |
+        g, admin, role:admin
+        g, readonly, role:readonly

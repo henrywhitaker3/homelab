@@ -52,4 +52,12 @@ oidc_clients = {
       "https://tiny.plexmox.com/api/oauth/callback/pocketid"
     ]
   }
+  "argocd" = {
+    name         = "ArgoCD"
+    url          = "https://argocd.plexmox.com"
+    pkce_enabled = true
+    callback_urls = [
+      "https://argocd.plexmox.com/auth/callback"
+    ]
+  }
 }
