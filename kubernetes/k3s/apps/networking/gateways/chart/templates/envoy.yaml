@@ -43,6 +43,16 @@ spec:
       prometheus:
         compression:
           type: Zstd
+    accessLog:
+      settings:
+        - format:
+            type: Text
+            text: |
+              "upstream=%UPSTREAM_REMOTE_ADDRESS% xff=%REQ(X-FORWARDED-FOR)% x-real-ip=%REQ(X-REAL-IP)% downstream=%DOWNSTREAM_REMOTE_ADDRESS%\n"
+          sinks:
+            - type: File
+              file:
+                path: /dev/stdout
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
