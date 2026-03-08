@@ -60,7 +60,7 @@ bouncer:
     bouncer:
       enabled: true
       metrics: true
-      lapiURL: http://crowdsec-service.gateways.svc.cluster.local:8080
+      lapiURL: https://crowdsec-service.gateways.svc.cluster.local:8080
       tls:
         certPath: /etc/ssl/crowdsec/tls.crt
         keyPath: /etc/ssl/crowdsec/tls.key
