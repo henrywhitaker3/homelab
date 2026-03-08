@@ -16,10 +16,6 @@ themes:
     namespace: media
     app: prowlarr
     theme: nord
-  - route: transmission
-    namespace: media
-    app: transmission
-    theme: nord
   # - route: seerr
   #   namespace: media
   #   app: seerr
