@@ -123,6 +123,8 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
+  proxyProtocol:
+    optional: true
   tls:
     minVersion: "1.2"
     alpnProtocols:
