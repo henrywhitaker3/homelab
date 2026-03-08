@@ -16,15 +16,15 @@ themes:
     namespace: media
     app: prowlarr
     theme: nord
-  - route: seerr
-    namespace: media
-    app: seerr
-    theme: nord
-    head: true
-  - route: tautulli
-    namespace: media
-    app: tautulli
-    theme: nord
+  # - route: seerr
+  #   namespace: media
+  #   app: seerr
+  #   theme: nord
+  #   head: true
+  # - route: tautulli
+  #   namespace: media
+  #   app: tautulli
+  #   theme: nord
 
 generic:
   nameOverride: theme-park
