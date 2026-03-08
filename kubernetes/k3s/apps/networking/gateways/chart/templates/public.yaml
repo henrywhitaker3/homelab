@@ -16,6 +16,12 @@ spec:
     - allowedRoutes:
         namespaces:
           from: Same
+      name: http
+      port: 80
+      protocol: HTTP
+    - allowedRoutes:
+        namespaces:
+          from: All
       hostname: "*.henrywhitaker.com"
       name: henrywhitaker
       port: 443
@@ -57,7 +63,7 @@ spec:
         mode: Terminate
     - allowedRoutes:
         namespaces:
-          from: Same
+          from: All
       hostname: "*.synthetigo.com"
       name: syntehtigo
       port: 443
@@ -71,7 +77,7 @@ spec:
         mode: Terminate
     - allowedRoutes:
         namespaces:
-          from: Same
+          from: All
       hostname: "*.yourbuild.com"
       name: yourbuild
       port: 443
