@@ -95,7 +95,7 @@ spec:
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
         - name: X-Real-IP
-          value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
+          value: "%REQ(X-ENVOY-EXTERNAL-ADDRESS)%"
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
