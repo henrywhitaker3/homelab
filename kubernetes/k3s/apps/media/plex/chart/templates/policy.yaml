@@ -1,16 +1,23 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: ClientTrafficPolicy
+kind: EnvoyExtensionPolicy
 metadata:
-  name: plex
+  name: plex-real-ip
 spec:
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: plex
-  headers:
-    earlyRequestHeaders:
-      set:
-        - name: x-real-ip
-          value: "%REQ(X-ENVOY-EXTERNAL-ADDRESS)%"
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: plex
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_request(request_handle)
+          local real_ip = request_handle:headers():get("x-envoy-external-address")
+          if real_ip then
+            request_handle:headers():remove("x-forwarded-for")
+            request_handle:headers():add("x-forwarded-for", real_ip)
+            request_handle:headers():remove("x-real-ip")
+            request_handle:headers():add("x-real-ip", real_ip)
+          end
+        end
