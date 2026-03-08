@@ -2,5 +2,5 @@ dependencies:
 - name: envoy-proxy-bouncer
   repository: https://kdwils.github.io/envoy-proxy-crowdsec-bouncer
   version: 0.5.2
-digest: sha256:6cfa18e34ffbcd9b9dc183d252cfe3af334d7a581805301b0825d29359984bd8
-generated: "2026-03-08T16:25:19.817125Z"
+digest: sha256:85589b67e8b07b02efb954655a1ad2313894c999dc96c83b60e77e0adef72c05
+generated: "2026-03-08T16:27:50.704928Z"
