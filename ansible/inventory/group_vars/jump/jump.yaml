@@ -29,6 +29,8 @@ haproxy_stats_bind: "{{ haproxy_config.ip }}"
 haproxy_stats_extras:
   - bind localhost:8404
 
+haproxy_listeners: []
+
 haproxy_frontends:
   - name: http
     bind: "*:80"
