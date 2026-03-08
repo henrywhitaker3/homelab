@@ -14,39 +14,33 @@ spec:
   lua:
     - type: Inline
       inline: |
+        function envoy_on_request(request_handle)
+          local accept_header = request_handle:headers():get("accept") or ""
+          if string.find(string.lower(accept_header), "text/html") then
+            request_handle:headers():remove("accept-encoding")
+          end
+        end
+
         function envoy_on_response(response_handle)
-            local headers = response_handle:headers()
-            local content_type = headers:get("content-type") or ""
+          local contentType = response_handle:headers():get("content-type") or ""
 
-            if not (content_type and string.find(content_type, "text/html")) then
-                return
+          if string.find(string.lower(contentType), "text/html") and not response_handle:headers():get("content-encoding") then
+            local body_obj = response_handle:body()
+            if body_obj and body_obj:length() > 0 then
+              local css_url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
+
+              {{- if .head }}
+              local search = "</[Hh][Ee][Aa][Dd]>"
+              local replace = "</head>"
+              {{- else }}
+              local search = "</[Bb][Oo][Dd][Yy]>"
+              local replace = "</body>"
+              {{- end }}
+
+              local inject_str = '<link rel="stylesheet" type="text/css" href="' .. css_url .. '">' .. replace
+              body_obj:setBytes(string.gsub(body_obj:getBytes(0, body_obj:length()), search, inject_str))
+              response_handle:headers():replace("content-length", tostring(body_obj:length()))
             end
-
-            local body = response_handle:body()
-            if body == nil then
-                return
-            end
-
-            local len = body:length()
-            if len == 0 then
-                return
-            end
-
-            local body_str = body:getBytes(0, len)
-
-            local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
-            local css_tag = '<link rel="stylesheet" type="text/css" href="' .. url .. '">'
-            {{- if .head }}
-            local new_body, count = string.gsub(body_str, "</head>", css_tag .. "</head>", 1)
-            {{- else }}
-            local new_body, count = string.gsub(body_str, "</body>", css_tag .. "</body>", 1)
-            {{- end }}
-
-            if count == 0 then
-                return
-            end
-
-            body:setBytes(new_body)
-            response_handle:headers():replace("content-length", tostring(#new_body))
+          end
         end
 {{- end }}

@@ -8,24 +8,23 @@ themes:
     namespace: media
     app: sonarr
     theme: nord
-  # - route: radarr
-  #   namespace: media
-  #   app: radarr
-  #   theme: nord
-  # - route: prowlarr
-  #   namespace: media
-  #   app: prowlarr
-  #   theme: nord
-  # - route: seerr
-  #   namespace: media
-  #   app: seerr
-  #   theme: nord
-  #   head: true
-  # - route: tautulli
-  #   namespace: media
-  #   app: tautulli
-  #   theme: nord
-  #   encoding: true
+  - route: radarr
+    namespace: media
+    app: radarr
+    theme: nord
+  - route: prowlarr
+    namespace: media
+    app: prowlarr
+    theme: nord
+  - route: seerr
+    namespace: media
+    app: seerr
+    theme: nord
+    head: true
+  - route: tautulli
+    namespace: media
+    app: tautulli
+    theme: nord
 
 generic:
   nameOverride: theme-park
