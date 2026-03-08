@@ -34,6 +34,7 @@ spec:
 
             {{- if .encoding }}
             local body_str = tostring(body:getBytes(0, len))
+            response_handle:logInfo("[{{ .app }}] - " .. body_str)
             {{- else }}
             local body_str = body:getBytes(0, len)
             {{- end }}
