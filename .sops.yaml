@@ -1,8 +1,8 @@
 creation_rules:
-    - age: >-
-        age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
-      encrypted_regex: "^(data|stringData)$"
-      path_regex: argo/bootstrap/.*\.sops\.ya?ml
+  - age: >-
+      age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+    encrypted_regex: "^(data|stringData)$"
+    path_regex: kubernetes/[A-Za-z0-9]+/bootstrap/sops/.*\.sops\.ya?ml
 
-    - age: >-
-        age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
+  - age: >-
+      age1hvnnk2zl3ygs4ya3az7j0z2pktpftheypu8ykkwwh3qvdjue4scsmf4zax
