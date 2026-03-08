@@ -19,6 +19,7 @@ spec:
           if string.find(string.lower(accept_header), "text/html") then
             request_handle:headers():remove("accept-encoding")
           end
+          request_handle:logInfo("[{{.app}}] - on ip " .. (request_handle:headers():get("x-forwarded-for") or "nil"))
         end
 
         function envoy_on_response(response_handle)
