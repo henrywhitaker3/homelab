@@ -13,8 +13,8 @@ crowdsec:
       serviceMonitor:
         enabled: true
     acquisition:
-      - namespace: traefik
-        podName: traefik-public-*
+      - namespace: gateways
+        podName: public-*
         program: traefik
       - namespace: authelia
         podName: authelia-*
