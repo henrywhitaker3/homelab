@@ -20,7 +20,7 @@ spec:
             request_handle:headers():remove("accept-encoding")
           end
           {{- if .realIP }}
-          local real_ip = request_handle:headers():get("x-envoy-external-address")
+          local real_ip = request_handle:streamInfo():downstreamRemoteAddress()
           request_handle:logInfo("handling the ip " .. (real_ip or "nil"))
           if real_ip then
             request_handle:headers():remove("x-forwarded-for")
