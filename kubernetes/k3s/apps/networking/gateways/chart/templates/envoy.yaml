@@ -76,9 +76,12 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
+  proxyProtocol:
+    optional: true
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
+        - 10.0.0.0/8
         - 10.96.0.0/16
         - 10.42.0.0/16
         - 10.43.0.0/16
