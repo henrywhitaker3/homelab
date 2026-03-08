@@ -19,12 +19,6 @@ spec:
           if string.find(string.lower(accept_header), "text/html") then
             request_handle:headers():remove("accept-encoding")
           end
-          local headers = request_handle:headers()
-          local output = ""
-          for key, value in pairs(headers) do
-            output = output .. "'" .. key .. ":" .. value .. "',"
-          end
-          request_handle:logInfo("[{{.app}}] - " .. output)
         end
 
         function envoy_on_response(response_handle)
