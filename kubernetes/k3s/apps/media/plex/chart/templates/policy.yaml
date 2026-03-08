@@ -14,6 +14,7 @@ spec:
       inline: |
         function envoy_on_request(request_handle)
           local real_ip = request_handle:headers():get("x-envoy-external-address")
+          request_handle:logInfo("handling the ip " .. (real_ip or "nil"))
           if real_ip then
             request_handle:headers():remove("x-forwarded-for")
             request_handle:headers():add("x-forwarded-for", real_ip)
