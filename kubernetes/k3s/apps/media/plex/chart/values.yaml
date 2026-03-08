@@ -70,6 +70,17 @@ generic:
           - path:
               type: PathPrefix
               value: /
+      # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
+      - port: 32400
+        matches:
+          - path:
+              type: PathPrefix
+              value: /library/streams
+        filters:
+          - type: RequestHeaderModifier
+            requestHeaderModifier:
+              remove:
+                - Range
 
   ingress:
     enabled: false
