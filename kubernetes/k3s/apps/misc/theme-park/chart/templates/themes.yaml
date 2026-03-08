@@ -20,13 +20,15 @@ spec:
             request_handle:headers():remove("accept-encoding")
           end
           {{- if .realIP }}
-          local real_ip = request_handle:streamInfo():downstreamRemoteAddress()
-          request_handle:logInfo("handling the ip " .. (real_ip or "nil"))
-          if real_ip then
-            request_handle:headers():remove("x-forwarded-for")
-            request_handle:headers():add("x-forwarded-for", real_ip)
-            request_handle:headers():remove("x-real-ip")
-            request_handle:headers():add("x-real-ip", real_ip)
+          local xff = request_handle:headers():get("x-forwarded-for")
+          request_handle:logInfo("checking ip " .. (xff or "nil"))
+          if xff then
+            local real_ip = xff:match("^%s*([^,]+)%s*,")
+            request_handle:logInfo("picked real_ip " .. (real_ip or "nil"))
+            if real_ip then
+              request_handle:headers():remove("x-real-ip")
+              request_handle:headers():add("x-real-ip", real_ip)
+            end
           end
           {{- end }}
         end
