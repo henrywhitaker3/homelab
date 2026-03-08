@@ -78,10 +78,11 @@ metadata:
 spec:
   clientIPDetection:
     xForwardedFor:
-      trustedCIDRs:
-        - 10.96.0.0/16
-        - 10.42.0.0/16
-        - 10.43.0.0/16
+      numTrustedHops: 1
+      # trustedCIDRs:
+      #   - 10.96.0.0/16
+      #   - 10.42.0.0/16
+      #   - 10.43.0.0/16
   headers:
     enableEnvoyHeaders: true
     earlyRequestHeaders:
@@ -94,8 +95,6 @@ spec:
           value: "%REQ(:PATH)%"
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
-        - name: "x-forwarded-for"
-          value: "%REQ(X-ENVOY-EXTERNAL-ADDRESS)%"
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
