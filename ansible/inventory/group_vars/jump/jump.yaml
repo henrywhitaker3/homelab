@@ -29,19 +29,15 @@ haproxy_stats_bind: "{{ haproxy_config.ip }}"
 haproxy_stats_extras:
   - bind localhost:8404
 
-haproxy_listeners:
+haproxy_frontends:
   - name: http
     bind: "*:80"
     mode: tcp
     balance: leastconn
+    backend: k3s-envoy
     extras:
       - option tcpka
-    servers:
-      - name: k3s-nginx
-        host: "{{ haproxy_config.backend }}:80"
-        options: "check port 80 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
-
-haproxy_frontends:
+    backendIf: []
   - name: https
     bind: "*:443"
     mode: tcp
@@ -58,6 +54,8 @@ haproxy_frontends:
         backend: k3s-traefik
       - host: shorturl.yourbuild.dev
         backend: k3s-traefik
+      - host: plex.plexmox.com
+        backend: k3s-envoy-proxy-protocol
 
 haproxy_backends:
   - name: k3s-traefik
@@ -65,6 +63,10 @@ haproxy_backends:
     host: "{{ haproxy_config.backend }}:443"
     options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
   - name: k3s-envoy
+    mode: tcp
+    host: "public.gateways.svc.cluster.local:443"
+    options: "check port 443"
+  - name: k3s-envoy-proxy-protocol
     mode: tcp
     host: "public.gateways.svc.cluster.local:443"
     options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
