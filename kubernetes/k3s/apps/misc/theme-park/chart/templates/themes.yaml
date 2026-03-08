@@ -37,9 +37,10 @@ spec:
                 return
             end
 
-            local body_str = body:getBytes(0, len)
             {{- if .encoding }}
-            response_handle:logInfo("[{{ .app }}] - " .. (tostring(body_str) or "nil"))
+            local body_str = tostring(body:getBytes(0, len))
+            {{- else }}
+            local body_str = body:getBytes(0, len)
             {{- end }}
 
             local url = "https://theme-park.plexmox.com/css/base/{{ .app }}/{{ .theme }}.css"
