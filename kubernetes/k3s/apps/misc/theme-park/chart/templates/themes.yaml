@@ -19,10 +19,6 @@ spec:
           if string.find(string.lower(accept_header), "text/html") then
             request_handle:headers():remove("accept-encoding")
           end
-          local h = request_handle:headers()
-          request_handle:logInfo("[{{.app}}] - x-forwarded-for: " .. (h:get("x-forwarded-for") or "nil"))
-          request_handle:logInfo("[{{.app}}] - x-real-ip: " .. (h:get("x-real-ip") or "nil"))
-          request_handle:logInfo("[{{.app}}] - x-envoy-external-address: " .. (h:get("x-envoy-external-address") or "nil"))
         end
 
         function envoy_on_response(response_handle)
