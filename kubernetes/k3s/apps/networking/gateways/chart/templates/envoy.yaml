@@ -94,6 +94,8 @@ spec:
           value: "%REQ(:PATH)%"
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
+        - name: X-Real-IP
+          value: "%REQ(X-ENVOY-EXTERNAL-ADDRESS)%"
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
