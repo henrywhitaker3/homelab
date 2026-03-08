@@ -55,14 +55,14 @@ ansible lint:
   extends: .playbooks
   script:
     - task ci:age:key AGE_KEY="$AGE_KEY"
-    - task ci:lint playbook=ansible/playbooks/$PLAYBOOK/main.yaml
+    - task ci:lint playbook="ansible/playbooks/$PLAYBOOK/main.yaml"
 
 ansible play:
   stage: deploy
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task ci:playbook playbook=ansible/playbooks/$PLAYBOOK/main.yaml AGE_KEY="$AGE_KEY" SSH_KEY="$SSH_KEY"
+    - task ci:playbook playbook="ansible/playbooks/$PLAYBOOK/main.yaml" AGE_KEY="$AGE_KEY" SSH_KEY="$SSH_KEY"
   environment:
     name: "$PLAYBOOK"
 
