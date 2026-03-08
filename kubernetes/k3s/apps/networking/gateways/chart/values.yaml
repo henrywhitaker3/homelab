@@ -43,3 +43,14 @@ middlewares:
           - radarr
           - tautulli
           - transmission
+
+bouncer:
+  config:
+    bouncer:
+      enabled: true
+      metrics: true
+      lapiURL: http://crowdsec-service.gateways.svc.cluster.local:8080
+      tls:
+        certPath: /etc/ssl/crowdsec/tls.crt
+        keyPath: /etc/ssl/crowdsec/tls.key
+        caPath: /etc/ssl/crowdsec/ca.crt

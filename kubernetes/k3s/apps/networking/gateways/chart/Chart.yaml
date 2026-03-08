@@ -1,3 +1,8 @@
 apiVersion: v3
 name: gateways
 version: v1.0.0
+dependencies:
+  - name: envoy-proxy-bouncer
+    alias: bouncer
+    repository: https://kdwils.github.io/envoy-proxy-crowdsec-bouncer
+    version: 0.5.2
