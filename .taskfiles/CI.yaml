@@ -38,6 +38,7 @@ tasks:
       vars:
         - playbook
     cmds:
+      - echo 'printing {{ .playbook }}'
       - SOPS_AGE_KEY_FILE=~/.age.key ansible-lint {{ .playbook }}
 
   init:
