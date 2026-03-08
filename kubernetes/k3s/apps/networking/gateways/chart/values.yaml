@@ -45,6 +45,7 @@ middlewares:
           - transmission
 
 bouncer:
+  replicaCount: 2
   image:
     repository: ghcr.io/kdwils/envoy-proxy-bouncer
     tag: sha-dc5e8fa978ffc5814e8a553ce73489d42e80c8fc
