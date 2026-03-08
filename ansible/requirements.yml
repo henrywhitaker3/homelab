@@ -1,3 +1,5 @@
 collections:
   - name: community.sops
     version: 2.2.7
+  - name: ansible.posix
+    version: 2.1.0
