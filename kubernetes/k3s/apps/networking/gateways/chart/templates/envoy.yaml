@@ -57,10 +57,6 @@ spec:
   #     brotli: {}
   #   - type: Gzip
   #     gzip: {}
-  connection:
-    bufferLimit: 10Mi
-  requestBuffer:
-    limit: 10485760
   retry:
     numRetries: 2
     retryOn:
@@ -80,8 +76,6 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
-  connection:
-    bufferLimit: 10Mi
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:

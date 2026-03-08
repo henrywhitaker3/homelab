@@ -31,12 +31,6 @@ generic:
           - path:
               type: PathPrefix
               value: /tautulli
-        filters:
-          - type: RequestHeaderModifier
-            requestHeaderModifier:
-              set:
-                - name: accept-encoding
-                  value: identity
 
   ingress:
     enabled: false
