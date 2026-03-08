@@ -20,9 +20,9 @@ spec:
             request_handle:headers():remove("accept-encoding")
           end
           local headers = request_handle:headers()
-          local output = "Headers:\n"
+          local output = ""
           for key, value in pairs(headers) do
-            output = output .. key .. ": " .. value .. "\n"
+            output = output .. "'" .. key .. ":" .. value .. "',"
           end
           request_handle:logInfo("[{{.app}}] - " .. output)
         end
