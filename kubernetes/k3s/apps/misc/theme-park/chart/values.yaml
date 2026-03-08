@@ -21,10 +21,11 @@ themes:
   #   app: seerr
   #   theme: nord
   #   head: true
-  # - route: tautulli
-  #   namespace: media
-  #   app: tautulli
-  #   theme: nord
+  - route: tautulli
+    namespace: media
+    app: tautulli
+    theme: nord
+    encoding: true
 
 generic:
   nameOverride: theme-park
