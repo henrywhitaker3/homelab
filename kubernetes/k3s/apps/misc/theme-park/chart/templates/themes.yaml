@@ -14,11 +14,6 @@ spec:
   lua:
     - type: Inline
       inline: |
-        {{- if .encoding }}
-        function envoy_on_request(request_handle)
-            request_handle:headers():replace("accept-encoding", "identity")
-        end
-        {{- end }}
         function envoy_on_response(response_handle)
             local headers = response_handle:headers()
             local content_type = headers:get("content-type") or ""
@@ -38,7 +33,7 @@ spec:
             end
 
             {{- if .encoding }}
-            local body_str = body:getBytes(0, len)
+            local body_str = tostring(body:getBytes(0, len))
             {{- else }}
             local body_str = body:getBytes(0, len)
             {{- end }}
