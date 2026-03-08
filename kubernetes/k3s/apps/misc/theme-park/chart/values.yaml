@@ -4,6 +4,7 @@ themes:
     app: plex
     theme: nord
     head: true
+    realIP: true
   - route: sonarr
     namespace: media
     app: sonarr

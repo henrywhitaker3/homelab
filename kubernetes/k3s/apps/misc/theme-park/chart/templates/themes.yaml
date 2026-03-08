@@ -19,6 +19,16 @@ spec:
           if string.find(string.lower(accept_header), "text/html") then
             request_handle:headers():remove("accept-encoding")
           end
+          {{- if .realIP }}
+          local real_ip = request_handle:headers():get("x-envoy-external-address")
+          request_handle:logInfo("handling the ip " .. (real_ip or "nil"))
+          if real_ip then
+            request_handle:headers():remove("x-forwarded-for")
+            request_handle:headers():add("x-forwarded-for", real_ip)
+            request_handle:headers():remove("x-real-ip")
+            request_handle:headers():add("x-real-ip", real_ip)
+          end
+          {{- end }}
         end
 
         function envoy_on_response(response_handle)
