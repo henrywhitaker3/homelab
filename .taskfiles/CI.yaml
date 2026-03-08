@@ -2,26 +2,41 @@ version: "3"
 
 tasks:
   ssh:key:
+    requires:
+      vars:
+        - ssh_key
     cmds:
       - echo "{{ .ssh_key }}" | base64 -d | ssh-add -
     silent: true
 
   ssh:keyscan:
+    requires:
+      vars:
+        - target_ips
     cmds:
       - ssh-keyscan -H {{ .target_ips }} >> ~/.ssh/known_hosts
     silent: true
 
   age:key:
+    requires:
+      vars:
+        - age_key
     cmds:
       - echo {{ .age_key }} > ~/.age.key
 
   playbook:
     deps: [age:key, ssh:key, init]
+    requires:
+      vars:
+        - playbook
     cmds:
       - SOPS_AGE_KEY_FILE=~/.age.key ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook {{ .playbook }}
 
   lint:
     deps: [init]
+    requires:
+      vars:
+        - playbook
     cmds:
       - SOPS_AGE_KEY_FILE=~/.age.key ansible-lint {{ .playbook }}
 
