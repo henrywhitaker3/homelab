@@ -59,6 +59,8 @@ spec:
   #     gzip: {}
   connection:
     bufferLimit: 10Mi
+  requestBuffer:
+    limit: 10485760
   retry:
     numRetries: 2
     retryOn:
