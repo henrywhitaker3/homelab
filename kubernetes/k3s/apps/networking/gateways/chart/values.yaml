@@ -8,28 +8,23 @@ middlewares:
       - name: media
         http:
           - booklore
-
-  authelia:
-    namespaces:
-      # - name: media
-      #   http:
-      #     - booklore
+      - name: docs
+        http:
+          - outline
+      - name: default
+        http:
+          - unraid
+          - proxmox
       - name: misc
         http:
           - garage-webui
           - speedtest
           - echo
-      - name: docs
-        http:
-          - outline
       - name: monitoring
         http:
           - grafana
           - kube-prometheus-stack-alertmanager
           - vm-metrics
-      - name: default
-        http:
-          - unraid
       - name: longhorn-system
         http:
           - longhorn
