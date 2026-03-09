@@ -29,6 +29,9 @@ middlewares:
         http:
           - longhorn
 
+  authelia:
+    namespaces: []
+
   organizr:
     namespaces:
       - name: media
