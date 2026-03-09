@@ -26,6 +26,13 @@ http_monitors = {
     url  = "http://longhorn-frontend.longhorn-system.svc.cluster.local"
     tags = ["infra"]
   }
+  longhorn_auth = {
+    name          = "Longhorn (auth)"
+    url           = "https://longhorn.plexmox.com"
+    max_redirects = 0
+    status_codes  = ["307"]
+    tags          = ["infra", "auth"]
+  }
   organizr = {
     name = "Organizr (external)"
     url  = "https://plexmox.com"
@@ -105,6 +112,27 @@ http_monitors = {
     name = "Transmission (internal)"
     url  = "http://transmission.media.svc.cluster.local:9091"
     tags = ["media"]
+  }
+  unraid_auth = {
+    name          = "Unraid (auth)"
+    url           = "https://unraid.plexmox.com"
+    max_redirects = 0
+    status_codes  = ["307"]
+    tags          = ["infra", "auth"]
+  }
+  proxmox_auth = {
+    name          = "Proxmox (auth)"
+    url           = "https://proxmox.plexmox.com"
+    max_redirects = 0
+    status_codes  = ["307"]
+    tags          = ["infra", "auth"]
+  }
+  argo_auth = {
+    name          = "ArgoCD (auth)"
+    url           = "https://argocd.plexmox.com"
+    max_redirects = 0
+    status_codes  = ["307"]
+    tags          = ["infra", "auth"]
   }
 }
 
