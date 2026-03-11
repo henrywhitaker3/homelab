@@ -1,7 +1,5 @@
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: lldap
-  fullnameOverride: lldap
-
   replicaCount: 3
 
   image:
