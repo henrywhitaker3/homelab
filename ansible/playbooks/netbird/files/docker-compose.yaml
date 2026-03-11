@@ -52,7 +52,7 @@ services:
         max-file: "2"
   # Management
   management:
-    image: netbirdio/management:0.66.2
+    image: netbirdio/management:0.66.4
     restart: unless-stopped
     networks: [netbird]
     volumes:
