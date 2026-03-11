@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/booklore-app/booklore
     pullPolicy: IfNotPresent
-    tag: "v2.0.6"
+    tag: "v2.2.0"
 
   service:
     port: 9568
