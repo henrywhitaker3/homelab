@@ -1,7 +1,6 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: plex
-  fullnameOverride: plex
-
   replicaCount: 1
 
   image:
@@ -81,22 +80,10 @@ generic:
             requestHeaderModifier:
               remove:
                 - Range
-
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: media-plex@kubernetescrd
-    hosts:
-      - host: plex.plexmox.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: plex-plexmox-com-tls
-        hosts:
-          - plex.plexmox.com
+          - type: ResponseHeaderModifier
+            responseHeaderModifier:
+              remove:
+                - Content-Length
 
   pvc:
     enabled: true
