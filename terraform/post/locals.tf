@@ -64,9 +64,7 @@ locals {
     subnet_mask    = "255.255.255.0"
   }
 
-  internal_ingress = [
-    "plex.plexmox.com"
-  ]
+  internal_ingress = []
 
   upstream_dns = [
     "https://cloudflare-dns.com/dns-query",
