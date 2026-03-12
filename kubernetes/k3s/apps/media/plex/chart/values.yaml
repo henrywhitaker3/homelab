@@ -16,11 +16,6 @@ generic:
   service:
     port: 32400
 
-    loadBalancer:
-      enabled: true
-      ip: "10.0.0.26"
-      externalTrafficPolicy: Local
-
     additionalPorts:
       - name: dlna
         port: 1900
