@@ -80,10 +80,6 @@ generic:
             requestHeaderModifier:
               remove:
                 - Range
-          - type: ResponseHeaderModifier
-            responseHeaderModifier:
-              remove:
-                - Content-Length
 
   pvc:
     enabled: true
