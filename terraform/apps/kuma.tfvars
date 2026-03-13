@@ -15,11 +15,13 @@ http_monitors = {
     max_redirects = 0
     status_codes  = ["302", "307"]
     tags          = ["media", "auth"]
+    active        = false
   }
   booklore = {
-    name = "Booklore (internal)"
-    url  = "http://booklore.media.svc.cluster.local:9568"
-    tags = ["media"]
+    name   = "Booklore (internal)"
+    url    = "http://booklore.media.svc.cluster.local:9568"
+    tags   = ["media"]
+    active = false
   }
   longhorn = {
     name = "Longhorn"
