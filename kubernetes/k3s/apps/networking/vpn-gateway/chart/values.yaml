@@ -31,7 +31,7 @@ pod-gateway:
                 secretKeyRef:
                   name: vpn-gateway-secrets
                   key: addresses
-            - name: WIREGUARD_ENDPOINT
+            - name: WIREGUARD_ENDPOINT_IP
               valueFrom:
                 secretKeyRef:
                   name: vpn-gateway-secrets
