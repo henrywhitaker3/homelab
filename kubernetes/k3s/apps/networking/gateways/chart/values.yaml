@@ -8,6 +8,7 @@ middlewares:
       - name: media
         http:
           - booklore
+          - stump
       - name: docs
         http:
           - outline

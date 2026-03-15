@@ -1,0 +1,96 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: aaronleopold/stump
+    pullPolicy: IfNotPresent
+    tag: "nightly@sha256:56ec43f2a34761fd3d61579948d13209906bb559a635b57c48a4857bec1df0c8"
+
+  service:
+    port: 10801
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsNonRoot: true
+    privileged: false
+    capabilities:
+      drop:
+        - ALL
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [stump.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 9568
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: ENABLE_KOREADER_SYNC
+      value: "true"
+    - name: ENABLE_UPLOAD
+      value: "true"
+    - name: STUMP_OIDC_ENABLED
+      value: "true"
+    - name: STUMP_OIDC_ISSUER_URL
+      value: https://pocket.plexmox.com
+    - name: STUMP_OIDC_SCOPES
+      value: "openid,email,profile,groups"
+    - name: STUMP_OIDC_ALLOW_REGISTRATION
+      value: "fasle"
+    - name: STUMP_OIDC_DISABLE_LOCAL_AUTH
+      value: "false"
+    - name: STUMP_OIDC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: stump-secrets
+          key: oidc-client-id
+    - name: STUMP_OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: stump-secrets
+          key: oidc-client-secret
+
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 1Gi
+
+  volumes:
+    - name: books
+      hostPath:
+        path: /plex/Media/Stump/books
+
+  volumeMounts:
+    - mountPath: /books
+      name: books
+      readOnly: true
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 5

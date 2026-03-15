@@ -60,4 +60,11 @@ oidc_clients = {
       "https://argocd.plexmox.com/auth/callback"
     ]
   }
+  "stump" = {
+    name = "Stump"
+    url  = "https://stump.plexmox.com"
+    callback_urls = [
+      "https://stump.plexmox.com/auth/oidc/callback"
+    ]
+  }
 }
