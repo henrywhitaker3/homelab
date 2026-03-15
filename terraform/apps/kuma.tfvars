@@ -21,6 +21,18 @@ http_monitors = {
     url  = "http://booklore.media.svc.cluster.local:9568"
     tags = ["media"]
   }
+  stump_auth = {
+    name          = "Stump (auth)"
+    url           = "https://stump.plexmox.com"
+    max_redirects = 0
+    status_codes  = ["302", "307"]
+    tags          = ["media", "auth"]
+  }
+  stump = {
+    name = "Stump (internal)"
+    url  = "http://stump.media.svc.cluster.local:10801"
+    tags = ["media"]
+  }
   longhorn = {
     name = "Longhorn"
     url  = "http://longhorn-frontend.longhorn-system.svc.cluster.local"
