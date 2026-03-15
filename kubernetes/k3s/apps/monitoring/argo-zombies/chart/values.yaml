@@ -16,6 +16,7 @@ argo-zombies:
         - ingress-nginx
         - cert-manager
         - netbird
+        - istio
 
       resources:
         - name: argocd-initial-admin-secret
