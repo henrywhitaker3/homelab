@@ -34,6 +34,8 @@ pod-gateway:
                 secretKeyRef:
                   name: vpn-gateway-secrets
                   key: server_ip
+            - name: WIREGUARD_ENDPOINT_PORT
+              value: "51820"
             - name: WIREGUARD_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
