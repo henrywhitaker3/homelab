@@ -6,7 +6,7 @@ pod-gateway:
           enabled: true
           env:
             - name: VPN_SERVICE_PROVIDER
-              value: mullvad
+              value: custom
             - name: VPN_TYPE
               value: wireguard
             - name: VPN_INTERFACE
@@ -15,8 +15,6 @@ pod-gateway:
               value: "off"
             - name: DOT
               value: "off"
-            - name: SERVER_CITIES
-              value: Manchester
             # - name: HEALTH_VPN_DURATION_INITIAL
             #   value: 30s
             # - name: HEALTH_TARGET_ADDRESS
