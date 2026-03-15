@@ -35,10 +35,6 @@ pod-gateway:
           value: 30s
         - name: HEALTH_TARGET_ADDRESS
           value: "1.1.1.1"
-        - name: VPN_LOCAL_CIDRS
-          value: "10.0.0.0/8"
-        - name: NOT_ROUTED_TO_GATEWAY_CIDRS
-          value: "10.43.0.0/16 10.0.0.0/24"
         - name: WIREGUARD_PRIVATE_KEY
           valueFrom:
             secretKeyRef:
@@ -66,6 +62,10 @@ pod-gateway:
           memory: 30M
         limits:
           memory: 30M
+
+  settings:
+    NOT_ROUTED_TO_GATEWAY_CIDRS: "10.43.0.0/16 10.0.0.0/24"
+    VPN_LOCAL_CIDRS: 10.0.0.0/8
 
   DNSPolicy: ClusterFirst
 
