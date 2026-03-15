@@ -14,11 +14,17 @@ spec:
           port: 10801
       matches:
         - path:
-            type: PathPrefix
-            value: /opds/v1.2/catalog
+            type: RegularExpression
+            value: /opds/v1.2/.*
         - path:
-            type: PathPrefix
-            value: /opds/v2.0/catalog
+            type: RegularExpression
+            value: /opds/.*/v1.2/.*
+        - path:
+            type: RegularExpression
+            value: /opds/.*/v2.0/.*
+        - path:
+            type: RegularExpression
+            value: /koreader/.*
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
