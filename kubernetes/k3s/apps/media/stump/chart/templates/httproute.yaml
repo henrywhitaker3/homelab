@@ -10,8 +10,8 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: booklore
-          port: 9568
+          name: stump
+          port: 10801
       matches:
         - path:
             type: PathPrefix
