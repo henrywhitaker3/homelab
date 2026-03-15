@@ -15,6 +15,9 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /opds/v1.2/catalog
+        - path:
+            type: PathPrefix
             value: /opds/v2.0/catalog
   parentRefs:
     - group: gateway.networking.k8s.io
