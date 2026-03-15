@@ -47,6 +47,10 @@ generic:
               value: /
 
   env:
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
     - name: ENABLE_KOREADER_SYNC
       value: "true"
     - name: ENABLE_UPLOAD
