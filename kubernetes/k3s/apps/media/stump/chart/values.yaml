@@ -44,9 +44,9 @@ generic:
       value: "10801"
     - name: STUMP_VERBOSITY
       value: "3"
-    - name: ENABLE_KOREADER_SYNC
+    - name: STUMP_ENABLE_KOREADER_SYNC
       value: "true"
-    - name: ENABLE_UPLOAD
+    - name: STUMP_ENABLE_UPLOAD
       value: "true"
     - name: STUMP_OIDC_ENABLED
       value: "true"
