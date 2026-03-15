@@ -29,7 +29,7 @@ generic:
         name: public
         namespace: gateways
     rules:
-      - port: 9568
+      - port: 10801
         matches:
           - path:
               type: PathPrefix
@@ -40,6 +40,8 @@ generic:
       value: "1000"
     - name: PGID
       value: "1000"
+    - name: STUMP_PORT
+      value: "10801"
     - name: ENABLE_KOREADER_SYNC
       value: "true"
     - name: ENABLE_UPLOAD
