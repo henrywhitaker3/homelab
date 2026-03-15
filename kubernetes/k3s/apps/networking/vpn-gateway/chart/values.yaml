@@ -6,7 +6,7 @@ pod-gateway:
           enabled: true
           env:
             - name: VPN_SERVICE_PROVIDER
-              value: custom
+              value: mullvad
             - name: VPN_TYPE
               value: wireguard
             - name: VPN_INTERFACE
@@ -15,10 +15,8 @@ pod-gateway:
               value: "off"
             - name: DOT
               value: "off"
-            # - name: HEALTH_VPN_DURATION_INITIAL
-            #   value: 30s
-            # - name: HEALTH_TARGET_ADDRESS
-            #   value: "1.1.1.1"
+            - name: SERVER_COUNTRIES
+              value: UK
             - name: WIREGUARD_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
@@ -29,18 +27,6 @@ pod-gateway:
                 secretKeyRef:
                   name: vpn-gateway-secrets
                   key: addresses
-            - name: WIREGUARD_ENDPOINT_IP
-              valueFrom:
-                secretKeyRef:
-                  name: vpn-gateway-secrets
-                  key: server_ip
-            - name: WIREGUARD_ENDPOINT_PORT
-              value: "51820"
-            - name: WIREGUARD_PUBLIC_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: vpn-gateway-secrets
-                  key: server_public_key
 
   settings:
     NOT_ROUTED_TO_GATEWAY_CIDRS: "10.43.0.0/16 10.0.0.0/24"
