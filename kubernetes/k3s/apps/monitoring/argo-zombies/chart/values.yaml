@@ -6,7 +6,7 @@ argo-zombies:
         enabled: true
         repo: henrywhitaker3/homelab
         tokenSecretRef:
-          name: argo-zombies-tokens
+          name: argo-zombies-secrets
           key: gitlab-token
 
     exclusions:
