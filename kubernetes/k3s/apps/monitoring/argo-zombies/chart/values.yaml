@@ -17,6 +17,8 @@ argo-zombies:
         - cert-manager
         - netbird
         - istio
+        - kyverno
+        - kiali
 
       resources:
         - name: argocd-initial-admin-secret
