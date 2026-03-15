@@ -51,3 +51,23 @@ pod-gateway:
 
   routed_namespaces:
     - tunneled
+
+  networkpolicies:
+    main:
+      enabled: true
+      controller: main
+      policyTypes:
+        - Egress
+      rules:
+        egress:
+          # Allow only VPN traffic to Internet
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            ports:
+              - port: 51820
+                protocol: UDP
+          # Allow any traffic within k8s
+          - to:
+              - ipBlock:
+                  cidr: 10.0.0.0/8
