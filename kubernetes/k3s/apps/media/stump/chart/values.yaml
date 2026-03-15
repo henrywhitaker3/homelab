@@ -16,13 +16,6 @@ generic:
       cpu: 100m
       memory: 128Mi
 
-  securityContext:
-    allowPrivilegeEscalation: false
-    privileged: false
-    capabilities:
-      drop:
-        - ALL
-
   podSecurityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
@@ -74,7 +67,7 @@ generic:
 
   pvc:
     enabled: true
-    mountPath: /data
+    mountPath: /config
     storageClassName: longhorn
     size: 1Gi
 
@@ -86,7 +79,6 @@ generic:
   volumeMounts:
     - mountPath: /books
       name: books
-      readOnly: true
 
   deploymentStrategy:
     type: Recreate
