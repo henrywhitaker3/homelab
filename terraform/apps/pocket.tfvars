@@ -64,7 +64,7 @@ oidc_clients = {
     name = "Stump"
     url  = "https://stump.plexmox.com"
     callback_urls = [
-      "https://stump.plexmox.com/auth/oidc/callback"
+      "https://stump.plexmox.com/api/v2/auth/oidc/callback"
     ]
   }
 }
