@@ -27,7 +27,7 @@ spec:
       envoyDeployment:
         replicas: 3
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.4
+          # image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.4
           resources:
             requests:
               cpu: 100m
@@ -71,7 +71,7 @@ spec:
     kubernetes:
       envoyDaemonSet:
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.4
+          # image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.4
           resources:
             requests:
               cpu: 100m
