@@ -1,7 +1,6 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: tautulli
-  fullnameOverride: tautulli
-
   replicaCount: 1
 
   image:
