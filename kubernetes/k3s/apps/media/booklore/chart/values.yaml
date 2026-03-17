@@ -92,7 +92,7 @@ generic:
               matchLabels:
                 gateway.networking.k8s.io/gateway-name: public
         ports:
-          - port: 9569
+          - port: 9568
     egress:
       - to:
           - namespaceSelector:
