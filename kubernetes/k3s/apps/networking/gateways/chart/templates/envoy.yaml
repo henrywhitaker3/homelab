@@ -112,7 +112,7 @@ spec:
   tcpKeepalive: {}
   timeout:
     http:
-      requestTimeout: 30s
+      requestTimeout: 90s
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
