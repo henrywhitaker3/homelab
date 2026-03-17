@@ -111,6 +111,15 @@ generic:
         ports:
           - port: 7878
       - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: tautulli
+        ports:
+          - port: 8181
+      - to:
           - ipBlock:
               cidr: 0.0.0.0/0
               except:
