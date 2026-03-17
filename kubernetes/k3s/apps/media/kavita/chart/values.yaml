@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/kareadita/kavita
+    pullPolicy: IfNotPresent
+    tag: "0.8.9"
+
+  service:
+    port: 5000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [kavita.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 5000
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: TZ
+      value: Europe/London
+
+  pvc:
+    enabled: true
+    mountPath: /kavita/config
+    storageClassName: longhorn
+    size: 2Gi
+
+  volumes:
+    - name: books
+      hostPath:
+        path: /plex/Media/Kavita
+
+  volumeMounts:
+    - mountPath: /books
+      name: books
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
