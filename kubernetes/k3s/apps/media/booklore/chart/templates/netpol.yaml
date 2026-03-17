@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: booklore
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: booklore
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: gateways
+          podSelector:
+            matchLabels:
+              gateway.networking.k8s.io/gateway-name: public
+      ports:
+        - port: 9568
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: mariadb
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: mariadb
+      ports:
+        - port: 3306
