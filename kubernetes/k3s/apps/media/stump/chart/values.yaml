@@ -88,5 +88,4 @@ generic:
     type: Recreate
 
   probes:
-    initialDelaySeconds: 15
-    timeoutSeconds: 5
+    enabled: true
