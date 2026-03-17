@@ -7,6 +7,9 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: booklore
+  policyTypes:
+    - Ingress
+    - Egress
   ingress:
     - from:
         - namespaceSelector:
@@ -21,9 +24,26 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: coredns
+      ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: mariadb
           podSelector:
             matchLabels:
               app.kubernetes.io/name: mariadb
       ports:
         - port: 3306
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/24
