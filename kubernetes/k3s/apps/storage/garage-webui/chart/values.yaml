@@ -1,7 +1,6 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: garage-webui
-  fullnameOverride: garage-webui
-
   replicaCount: 1
 
   image:

@@ -1,7 +1,6 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: prowlarr
-  fullnameOverride: prowlarr
-
   replicaCount: 1
 
   image:
@@ -73,16 +72,3 @@ generic:
         secretKeyRef:
           name: crunchy-pguser-prowlarr
           key: password
-
-  vpn:
-    enabled: false
-    image:
-      repository: linuxserver/wireguard
-      tag: v1.0.20210914-ls36
-    script: |
-      gateway=$(ip route list | grep default | cut -d' ' -f 3)
-      echo Update gateway placeholder with $gateway
-      sed "s/K8S_GATEWAY/$gateway/g" /wg/wg0.conf > /config/wg0.conf
-      echo Copying wireguard config to shared volume
-    secret:
-      key: prowlarr-tunnel

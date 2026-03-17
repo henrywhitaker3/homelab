@@ -1,6 +1,5 @@
-nameOverride: dragonfly-operator
-fullnameOverride: dragonfly-operator
-
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/values.schema.json
 replicaCount: 1
 
 image:
