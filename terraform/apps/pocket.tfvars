@@ -67,11 +67,4 @@ oidc_clients = {
       "https://stump.plexmox.com/api/v2/auth/oidc/callback"
     ]
   }
-  "kavita" = {
-    name = "Kavita"
-    url  = "https://kavita.plexmox.com"
-    callback_urls = [
-      "https://kavita.plexmox.com/signin-oidc"
-    ]
-  }
 }
