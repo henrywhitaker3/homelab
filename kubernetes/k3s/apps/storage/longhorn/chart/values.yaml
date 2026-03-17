@@ -1,9 +1,9 @@
 longhorn:
-  preUpgradeChecker:
-    jobEnabled: false
-    upgradeVersionCheck: false
-  upgradeCheck:
-    enabled: false
+  # preUpgradeChecker:
+  #   jobEnabled: false
+  #   upgradeVersionCheck: false
+  # upgradeCheck:
+  #   enabled: false
 
   persistence:
     removeSnapshotsDuringFilesystemTrim: enabled
