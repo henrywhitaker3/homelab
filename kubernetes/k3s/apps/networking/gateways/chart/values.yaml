@@ -9,6 +9,7 @@ middlewares:
         http:
           - booklore
           - stump
+          - kavita
       - name: docs
         http:
           - outline
