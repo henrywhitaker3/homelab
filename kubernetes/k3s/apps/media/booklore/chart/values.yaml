@@ -1,7 +1,6 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  nameOverride: booklore
-  fullnameOverride: booklore
-
   replicaCount: 1
 
   image:
@@ -80,3 +79,32 @@ generic:
   probes:
     initialDelaySeconds: 15
     timeoutSeconds: 5
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 9568
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: mariadb
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: mariadb
+        ports:
+          - port: 3306
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/24
