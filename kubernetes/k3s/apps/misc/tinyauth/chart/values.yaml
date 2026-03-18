@@ -35,6 +35,8 @@ generic:
       value: openid email profile groups
     - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME
       value: Pocket
+    - name: TINYAUTH_LOG_LEVEL
+      value: "debug"
     - name: TINYAUTH_LOG_JSON
       value: "true"
     - name: TINYAUTH_SESSION_DRIVER
