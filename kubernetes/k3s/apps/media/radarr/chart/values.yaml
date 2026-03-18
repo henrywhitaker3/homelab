@@ -82,3 +82,88 @@ generic:
   volumeMounts:
     - mountPath: /data
       name: media
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 7878
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 7878
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: seerr
+        ports:
+          - port: 7878
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: organizr
+        ports:
+          - port: 7878
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prowlarr
+        ports:
+          - port: 7878
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prowlarr
+        ports:
+          - port: 9696
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: transmission
+        ports:
+          - port: 9091
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: crunchy
+            podSelector:
+              matchLabels:
+                postgres-operator.crunchydata.com/cluster: crunchy
+        ports:
+          - port: 5432
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443
