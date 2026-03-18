@@ -154,6 +154,15 @@ generic:
       - to:
           - namespaceSelector:
               matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: plex
+        ports:
+          - port: 32400
+      - to:
+          - namespaceSelector:
+              matchLabels:
                 kubernetes.io/metadata.name: crunchy
             podSelector:
               matchLabels:
