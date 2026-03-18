@@ -115,6 +115,15 @@ generic:
                 kubernetes.io/metadata.name: media
             podSelector:
               matchLabels:
+                app.kubernetes.io/name: seerr
+        ports:
+          - port: 8989
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
                 app.kubernetes.io/name: organizr
         ports:
           - port: 8989
