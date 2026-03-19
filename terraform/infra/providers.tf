@@ -8,7 +8,7 @@ terraform {
 
     digitalocean = {
       source  = "digitalocean/digitalocean"
-      version = "2.79.0"
+      version = "2.80.0"
     }
 
     healthchecksio = {
