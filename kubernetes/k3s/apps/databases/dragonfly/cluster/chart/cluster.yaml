@@ -24,6 +24,8 @@ spec:
 
   memcachedPort: 11211
 
+  networkPolicyEnabled: false
+
   resources:
     requests:
       cpu: 100m
