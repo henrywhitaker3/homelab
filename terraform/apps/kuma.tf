@@ -28,6 +28,7 @@ variable "http_monitors" {
     status_codes  = optional(list(string), ["200-299"])
     max_redirects = optional(number, 10)
     channels      = optional(list(string), ["discord"])
+    headers       = optional(map(string), null)
     tags          = optional(list(string), [])
   }))
   default = {}
@@ -44,6 +45,11 @@ resource "uptimekuma_monitor_http" "this" {
   max_redirects         = each.value.max_redirects
   accepted_status_codes = each.value.status_codes
   active                = each.value.active
+  headers = (
+    each.value.headers == null ?
+    null :
+    jsonencode(each.value.headers)
+  )
   notification_ids = [
     for name in each.value.channels : try(
       data.uptimekuma_notification_discord.this[name].id

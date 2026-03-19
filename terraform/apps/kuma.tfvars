@@ -13,8 +13,10 @@ http_monitors = {
     name          = "Booklore (auth)"
     url           = "https://books.plexmox.com"
     max_redirects = 0
-    status_codes  = ["302", "307"]
-    tags          = ["media", "auth"]
+    status_codes  = ["307"]
+    // Force tinyauth redirect
+    headers = { "User-Agent" : "Gecko" }
+    tags    = ["media", "auth"]
   }
   booklore = {
     name = "Booklore (internal)"
@@ -25,7 +27,8 @@ http_monitors = {
     name          = "Stump (auth)"
     url           = "https://stump.plexmox.com"
     max_redirects = 0
-    status_codes  = ["302", "307"]
+    status_codes  = ["307"]
+    headers       = { "User-Agent" : "Gecko" }
     tags          = ["media", "auth"]
   }
   stump = {
@@ -43,6 +46,7 @@ http_monitors = {
     url           = "https://longhorn.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
+    headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
   organizr = {
@@ -130,6 +134,7 @@ http_monitors = {
     url           = "https://unraid.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
+    headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
   proxmox_auth = {
@@ -137,6 +142,7 @@ http_monitors = {
     url           = "https://proxmox.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
+    headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
   argo_auth = {
@@ -144,6 +150,7 @@ http_monitors = {
     url           = "https://argocd.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
+    headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
 }
