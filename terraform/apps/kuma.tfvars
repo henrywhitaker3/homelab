@@ -43,7 +43,7 @@ http_monitors = {
     url           = "https://longhorn.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
-    tags          = ["infra", "auth"]
+    tags          = ["auth", "infra"]
   }
   organizr = {
     name = "Organizr (external)"
@@ -130,21 +130,21 @@ http_monitors = {
     url           = "https://unraid.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
-    tags          = ["infra", "auth"]
+    tags          = ["auth", "infra"]
   }
   proxmox_auth = {
     name          = "Proxmox (auth)"
     url           = "https://proxmox.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
-    tags          = ["infra", "auth"]
+    tags          = ["auth", "infra"]
   }
   argo_auth = {
     name          = "ArgoCD (auth)"
     url           = "https://argocd.plexmox.com"
     max_redirects = 0
     status_codes  = ["307"]
-    tags          = ["infra", "auth"]
+    tags          = ["auth", "infra"]
   }
 }
 
