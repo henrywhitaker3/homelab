@@ -86,6 +86,7 @@ spec:
       - proxy-authorization
       - x-forwarded-proto
       - x-forwarded-for
+      - user-agent
     failOpen: false
     http:
       backendRefs:
