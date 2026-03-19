@@ -8,7 +8,7 @@ generic:
     repository: harbor.plexmox.com/library/tinyauth
     pullPolicy: IfNotPresent
     # tag: "v5.0.1-distroless"
-    tag: redis-6-ua-log
+    tag: redis-6-ua-log-2
 
   service:
     port: 3000
