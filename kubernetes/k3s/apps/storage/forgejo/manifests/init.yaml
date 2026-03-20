@@ -1,0 +1,69 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: forgejo-bootstrap
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: forgejo-data
+        - name: config
+          persistentVolumeClaim:
+            claimName: forgejo-config
+      volumeMounts:
+        - mountPath: /var/lib/gitea
+          name: data
+        - mountPath: /etc/gitea
+          name: config
+      containers:
+        - name: auth-init
+          image: codeberg.org/forgejo/forgejo:14.0.3-rootless
+          env:
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo-secrets
+                  key: client-id
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo-secrets
+                  key: client-secret
+            - name: OIDC_DISCOVERY_URL
+              value: "https://pocket.plexmox.com/.well-known/openid-configuration"
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/gitea
+            - name: config
+              mountPath: /etc/gitea
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+
+              echo "Waiting for Forgejo to be ready..."
+              until forgejo admin user list > /dev/null 2>&1; do
+                sleep 3
+              done
+
+              if forgejo admin auth list | grep -q "Pocket"; then
+                echo "OIDC auth source already registered, skipping."
+                exit 0
+              fi
+
+              echo "Registering OIDC auth source..."
+              forgejo admin auth add-oauth \
+                --name "Pocket" \
+                --provider openidConnect \
+                --key "${OIDC_CLIENT_ID}" \
+                --secret "${OIDC_CLIENT_SECRET}" \
+                --auto-discover-url "${OIDC_DISCOVERY_URL}" \
+                --scopes "openid email profile groups"
