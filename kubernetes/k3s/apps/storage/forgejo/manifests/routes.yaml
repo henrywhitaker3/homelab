@@ -1,4 +1,27 @@
 ---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: forgejo
+spec:
+  hostnames:
+    - git.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: forgejo-http
+          port: 3000
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.networking.k8s.io/experimental/tcproute_v1alpha2.json
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TCPRoute
