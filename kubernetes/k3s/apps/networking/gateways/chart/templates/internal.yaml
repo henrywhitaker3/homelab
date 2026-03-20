@@ -45,10 +45,10 @@ spec:
             name: wildcard-plexmox-com-tls
             namespace: gateways
         mode: Terminate
+    # Forgejo SSH
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: "git.plexmox.com"
       name: plexmox
       port: 22
       protocol: TCP
