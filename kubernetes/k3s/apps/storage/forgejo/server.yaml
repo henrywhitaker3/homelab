@@ -45,6 +45,8 @@ gitea:
       value: postgres
     - name: FORGEJO__database__HOST
       value: crunchy-pgbouncer.crunchy.svc:5432
+    - name: FORGEJO__database__SSL_MODE
+      value: require
     - name: FORGEJO__database__NAME
       valueFrom:
         secretKeyRef:
