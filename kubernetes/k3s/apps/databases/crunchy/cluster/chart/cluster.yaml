@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgres-operator.crunchydata.com/postgrescluster_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/postgres-operator.crunchydata.com/postgrescluster_v1.json
 apiVersion: postgres-operator.crunchydata.com/v1
 kind: PostgresCluster
 metadata:
@@ -176,12 +176,9 @@ spec:
       databases:
         - pocketid
 
-    # Benchmarking user
-    # - name: bench
-    #   databases:
-    #     - bench
-    #   password:
-    #     type: AlphaNumeric
+    - name: forgejo
+      databases:
+        - forgejo
 
   instrumentation:
     logs:

@@ -13,6 +13,7 @@ users:
   - name: crunchy-pguser-lldap
   - name: crunchy-pguser-pocketid
   - name: crunchy-pguser-kuma
+  - name: crunchy-pguser-forgejo
     fields:
       - host
       - password
