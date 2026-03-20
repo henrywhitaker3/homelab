@@ -16,7 +16,7 @@ gitea:
 
   oauth:
     - name: Pocket
-      provider: openidconnect
+      provider: openidConnect
       autoDiscoverUrl: https://pocket.plexmox.com/.well-known/openid-configuration
       existingSecret: forgejo-oauth-secrets
       groupClaimName: admin
