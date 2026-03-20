@@ -12,8 +12,8 @@ users:
   - name: crunchy-pguser-crowdsec
   - name: crunchy-pguser-lldap
   - name: crunchy-pguser-pocketid
-  - name: crunchy-pguser-kuma
   - name: crunchy-pguser-forgejo
+  - name: crunchy-pguser-kuma
     fields:
       - host
       - password
