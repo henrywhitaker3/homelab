@@ -1,0 +1,170 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/values.schema.json
+
+replicaCount: 1
+
+image:
+  repository: codeberg.org/forgejo/forgejo
+  pullPolicy: IfNotPresent
+  tag: "14.0.3-rootless"
+
+additionalPorts:
+  - name: ssh
+    containerPort: 22
+    protocol: TCP
+
+service:
+  port: 3000
+  additionalPorts:
+    - name: ssh
+      port: 22
+      protocol: TCP
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: [ALL]
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroupChangePolicy: OnMismatch
+  fsGroup: 1000
+
+httpRoute:
+  enabled: true
+  hostnames: [git.plexmox.com]
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+  rules:
+    - port: 3000
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+
+probes:
+  enabled: true
+  type: httpGet
+
+volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: forgejo-data
+  - name: config
+    persistentVolumeClaim:
+      claimName: forgejo-config
+
+volumeMounts:
+  - mountPath: /var/lib/gitea
+    name: data
+  - mountPath: /etc/gitea
+    name: config
+
+env:
+  - name: USER_UID
+    value: "1000"
+  - name: USER_GID
+    value: "1000"
+  - name: FORGEJO__database__DB_TYPE
+    value: postgres
+  - name: FORGEJO__database__HOST
+    value: crunchy-pgbouncer.svc:5432
+  - name: FORGEJO__database__NAME
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-forgejo
+        key: dbname
+  - name: FORGEJO__database__USER
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-forgejo
+        key: user
+  - name: FORGEJO__database__PASSWD
+    valueFrom:
+      secretKeyRef:
+        name: crunchy-pguser-forgejo
+        key: password
+  - name: FORGEJO__storage__STORAGE_TYPE
+    value: minio
+  - name: FORGEJO__storage__MINIO_ENDPOINT
+    value: s3.plexmox.com
+  - name: FORGEJO__storage__MINIO_BUCKET
+    value: git
+  - name: FORGEJO__storage__MINIO_LOCATION
+    value: garage
+  - name: FORGEJO__storage__MINIO_USE_SSL
+    value: "true"
+  - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
+    value: path
+  - name: FORGEJO__metrics_ENABLED
+    value: "true"
+  - name: FORGEJO__storage__MINIO_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        name: forgejo-secrets
+        key: access-key-id
+  - name: FORGEJO__storage__MINIO_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: forgejo-secrets
+        key: secret-access-key
+
+metrics:
+  enabled: true
+  port: http
+
+initContainers:
+  - name: auth-init
+    image: codeberg.org/forgejo/forgejo:14.0.3-rootless
+    env:
+      - name: OIDC_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-secrets
+            key: client-id
+      - name: OIDC_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-secrets
+            key: client-secret
+      - name: OIDC_DISCOVERY_URL
+        value: "https://pocket.plexmox.com/.well-known/openid-configuration"
+    volumeMounts:
+      - name: data
+        mountPath: /var/lib/gitea
+      - name: config
+        mountPath: /etc/gitea
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+
+        echo "Waiting for Forgejo to be ready..."
+        until forgejo admin user list > /dev/null 2>&1; do
+          sleep 3
+        done
+
+        if forgejo admin auth list | grep -q "Pocket"; then
+          echo "OIDC auth source already registered, skipping."
+          exit 0
+        fi
+
+        echo "Registering OIDC auth source..."
+        forgejo admin auth add-oauth \
+          --name "Pocket" \
+          --provider openidConnect \
+          --key "${OIDC_CLIENT_ID}" \
+          --secret "${OIDC_CLIENT_SECRET}" \
+          --auto-discover-url "${OIDC_DISCOVERY_URL}" \
+          --scopes "openid email profile groups"

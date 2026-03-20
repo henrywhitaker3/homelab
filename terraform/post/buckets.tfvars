@@ -51,6 +51,10 @@ buckets = {
     name = "pocketid"
     type = "garage"
   }
+  git = {
+    name = "git"
+    type = "garage"
+  }
 }
 
 r2_tokens = {
@@ -115,6 +119,11 @@ garage_tokens = {
   pocketid = {
     name    = "pocketid"
     buckets = ["pocketid"]
+    write   = true
+  }
+  git = {
+    name    = "git"
+    buckets = ["git"]
     write   = true
   }
 }

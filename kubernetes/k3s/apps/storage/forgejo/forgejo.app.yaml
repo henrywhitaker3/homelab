@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/argoproj.io/application_v1alpha1.json
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: forgejo
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: forgejo
+    server: https://kubernetes.default.svc
+  project: apps
+  sources:
+    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s/apps/storage/forgejo/manifests
+    - repoURL: oci://ghcr.io/henrywhitaker3
+      chart: generic
+      targetRevision: v1.4.5
+      helm:
+        valueFiles:
+          - $values/kubernetes/k3s/apps/storage/forgejo/server.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
