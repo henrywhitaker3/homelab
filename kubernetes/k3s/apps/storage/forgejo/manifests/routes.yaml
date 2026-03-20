@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.networking.k8s.io/experimental/tcproute_v1alpha2.json
-apiVersion: networking.k8s.io/v1alpha2
+apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TCPRoute
 metadata:
   name: forgejo-ssh
