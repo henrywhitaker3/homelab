@@ -37,7 +37,8 @@ gitea:
       autoDiscoverUrl: https://pocket.plexmox.com/.well-known/openid-configuration
       existingSecret: forgejo-oauth-secrets
       scopes: openid,profile,email,groups
-      groupClaimName: admin
+      groupClaimName: groups
+      adminGroup: admin
       iconUrl: https://pocket.plexmox.com/api/application-images/logo?light=false
 
   metrics:
@@ -48,17 +49,18 @@ gitea:
   config:
     indexer:
       REPO_INDEXER_ENABLED: true
-  queue:
-    TYPE: redis
-    CONN_STR: redis://dragonfly.dragonfly.svc.cluster.local:6379/8
 
-  cache:
-    ADAPTER: redis
-    HOST: redis://dragonfly.dragonfly.svc.cluster.local:6379/9
+    queue:
+      TYPE: redis
+      CONN_STR: redis://dragonfly.dragonfly.svc.cluster.local:6379/8
 
-  session:
-    PROVIDER: redis
-    PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
+    cache:
+      ADAPTER: redis
+      HOST: redis://dragonfly.dragonfly.svc.cluster.local:6379/9
+
+    session:
+      PROVIDER: redis
+      PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
 
   additionalConfigFromEnvs:
     - name: FORGEJO__database__DB_TYPE
