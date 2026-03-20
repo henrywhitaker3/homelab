@@ -12,7 +12,7 @@ persistence:
 
 gitea:
   admin:
-    existingSecret: forgejo-secrets
+    existingSecret: forgejo-admin-secrets
 
   oauth:
     - name: Pocket
