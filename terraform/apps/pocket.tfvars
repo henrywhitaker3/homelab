@@ -67,4 +67,11 @@ oidc_clients = {
       "https://stump.plexmox.com/api/v2/auth/oidc/callback"
     ]
   }
+  "forgejo" = {
+    name = "Forgejo"
+    url  = "https://git.plexmox.com"
+    callback_urls = [
+      "https://git.plexmox.com/user/oauth2/Pocket/callback"
+    ]
+  }
 }
