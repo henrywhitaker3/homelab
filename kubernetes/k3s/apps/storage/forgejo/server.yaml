@@ -66,7 +66,7 @@ gitea:
     - name: FORGEJO__storage__STORAGE_TYPE
       value: minio
     - name: FORGEJO__storage__MINIO_ENDPOINT
-      value: s3.plexmox.com
+      value: garage.plexmox.com
     - name: FORGEJO__storage__MINIO_BUCKET
       value: git
     - name: FORGEJO__storage__MINIO_LOCATION
