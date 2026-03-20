@@ -63,12 +63,16 @@ volumes:
   - name: config
     persistentVolumeClaim:
       claimName: forgejo-config
+  - name: tmp
+    emptyDir: {}
 
 volumeMounts:
   - mountPath: /var/lib/gitea
     name: data
   - mountPath: /etc/gitea
     name: config
+  - mountPath: /tmp
+    name: tmp
 
 env:
   - name: USER_UID
