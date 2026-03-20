@@ -84,3 +84,6 @@ gitea:
         secretKeyRef:
           name: forgejo-secrets
           key: secret-access-key
+
+serviceAccount:
+  create: true
