@@ -73,8 +73,8 @@ gitea:
       value: garage
     - name: FORGEJO__storage__MINIO_USE_SSL
       value: "true"
-    - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
-      value: path
+    # - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
+    #   value: path
     - name: FORGEJO__metrics_ENABLED
       value: "true"
     - name: FORGEJO__storage__MINIO_ACCESS_KEY_ID
