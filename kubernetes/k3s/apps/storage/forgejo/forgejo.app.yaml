@@ -19,9 +19,9 @@ spec:
     - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
       targetRevision: HEAD
       path: kubernetes/k3s/apps/storage/forgejo/manifests
-    - repoURL: oci://ghcr.io/henrywhitaker3/generic
+    - repoURL: oci://code.forgejo.org/forgejo-helm/forgejo
       path: .
-      targetRevision: v1.4.7
+      targetRevision: 16.2.1
       helm:
         valueFiles:
           - $values/kubernetes/k3s/apps/storage/forgejo/server.yaml

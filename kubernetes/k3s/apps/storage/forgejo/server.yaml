@@ -1,145 +1,85 @@
 ---
-# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/values.schema.json
-
-replicaCount: 1
-
 image:
-  repository: codeberg.org/forgejo/forgejo
-  pullPolicy: IfNotPresent
-  tag: "14.0.3-rootless"
+  registry: code.forgejo.org
+  repository: forgejo/forgejo
+  tag: 14.0.3
+  rootless: true
 
-deploymentStrategy:
-  type: Recreate
-
-additionalPorts:
-  - name: ssh
-    containerPort: 22
-    protocol: TCP
-
-service:
-  port: 3000
-  additionalPorts:
-    - name: ssh
-      port: 22
-      protocol: TCP
-
-securityContext:
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop: [ALL]
-  privileged: false
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
-  fsGroup: 1000
-
-httpRoute:
+persistence:
   enabled: true
-  hostnames: [git.plexmox.com]
-  parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-      namespace: gateways
-  rules:
-    - port: 3000
-      matches:
-        - path:
-            type: PathPrefix
-            value: /
+  claimName: forgejo-data
 
-probes:
-  enabled: true
-  type: httpGet
-  options:
-    path: /api/healthz
+gitea:
+  admin:
+    existingSecret: forgejo-secrets
 
-volumes:
-  - name: data
-    persistentVolumeClaim:
-      claimName: forgejo-data
-  - name: config
-    persistentVolumeClaim:
-      claimName: forgejo-config
-  - name: tmp
-    emptyDir: {}
+  oauth:
+    - name: Pocket
+      provider: openidconnect
+      autoDiscoveryUrl: https://pocket.plexmox.com/.well-known/openid-configuration
+      existingSecret: forgejo-oauth-secret
 
-volumeMounts:
-  - mountPath: /var/lib/gitea
-    name: data
-  - mountPath: /etc/gitea
-    name: config
-  - mountPath: /tmp
-    name: tmp
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 
-env:
-  - name: USER_UID
-    value: "1000"
-  - name: USER_GID
-    value: "1000"
-  - name: FORGEJO__database__DB_TYPE
-    value: postgres
-  - name: FORGEJO__database__HOST
-    value: crunchy-pgbouncer.svc:5432
-  - name: FORGEJO__database__NAME
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-forgejo
-        key: dbname
-  - name: FORGEJO__database__USER
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-forgejo
-        key: user
-  - name: FORGEJO__database__PASSWD
-    valueFrom:
-      secretKeyRef:
-        name: crunchy-pguser-forgejo
-        key: password
-  - name: FORGEJO__storage__STORAGE_TYPE
-    value: minio
-  - name: FORGEJO__storage__MINIO_ENDPOINT
-    value: s3.plexmox.com
-  - name: FORGEJO__storage__MINIO_BUCKET
-    value: git
-  - name: FORGEJO__storage__MINIO_LOCATION
-    value: garage
-  - name: FORGEJO__storage__MINIO_USE_SSL
-    value: "true"
-  - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
-    value: path
-  - name: FORGEJO__metrics_ENABLED
-    value: "true"
-  - name: FORGEJO__storage__MINIO_ACCESS_KEY_ID
-    valueFrom:
-      secretKeyRef:
-        name: forgejo-secrets
-        key: access-key-id
-  - name: FORGEJO__storage__MINIO_SECRET_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: forgejo-secrets
-        key: secret-access-key
-  - name: OIDC_CLIENT_ID
-    valueFrom:
-      secretKeyRef:
-        name: forgejo-secrets
-        key: client-id
-  - name: OIDC_CLIENT_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: forgejo-secrets
-        key: client-secret
-  - name: OIDC_DISCOVERY_URL
-    value: https://pocket.plexmox.com/.well-known/openid-configuration
+  config:
+    indexer:
+      REPO_INDEXER_ENABLED: true
+  queue:
+    TYPE: redis
+    CONN_STR: redis://dragonfly.dragonfly.svc.cluster.local:6379/8
 
-metrics:
-  enabled: true
-  port: http
+  cache:
+    ADAPTER: redis
+    HOST: redis://dragonfly.dragonfly.svc.cluster.local:6379/9
+
+  session:
+    PROVIDER: redis
+    PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
+
+  additionalConfigFromEnvs:
+    - name: FORGEJO__database__DB_TYPE
+      value: postgres
+    - name: FORGEJO__database__HOST
+      value: crunchy-pgbouncer.svc:5432
+    - name: FORGEJO__database__NAME
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-forgejo
+          key: dbname
+    - name: FORGEJO__database__USER
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-forgejo
+          key: user
+    - name: FORGEJO__database__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-forgejo
+          key: password
+    - name: FORGEJO__storage__STORAGE_TYPE
+      value: minio
+    - name: FORGEJO__storage__MINIO_ENDPOINT
+      value: s3.plexmox.com
+    - name: FORGEJO__storage__MINIO_BUCKET
+      value: git
+    - name: FORGEJO__storage__MINIO_LOCATION
+      value: garage
+    - name: FORGEJO__storage__MINIO_USE_SSL
+      value: "true"
+    - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
+      value: path
+    - name: FORGEJO__metrics_ENABLED
+      value: "true"
+    - name: FORGEJO__storage__MINIO_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: forgejo-secrets
+          key: access-key-id
+    - name: FORGEJO__storage__MINIO_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: forgejo-secrets
+          key: secret-access-key
