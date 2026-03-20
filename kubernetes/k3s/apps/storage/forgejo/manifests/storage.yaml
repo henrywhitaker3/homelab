@@ -9,14 +9,3 @@ spec:
     requests:
       storage: 10Gi
   accessModes: [ReadWriteOnce]
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: forgejo-config
-spec:
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 50Mi
-  accessModes: [ReadWriteOnce]
