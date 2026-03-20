@@ -21,7 +21,7 @@ spec:
       path: kubernetes/k3s/apps/storage/forgejo/manifests
     - repoURL: oci://ghcr.io/henrywhitaker3/generic
       path: .
-      targetRevision: v1.4.5
+      targetRevision: v1.4.7
       helm:
         valueFiles:
           - $values/kubernetes/k3s/apps/storage/forgejo/server.yaml
