@@ -19,6 +19,7 @@ gitea:
       provider: openidconnect
       autoDiscoverUrl: https://pocket.plexmox.com/.well-known/openid-configuration
       existingSecret: forgejo-oauth-secrets
+      groupClaimName: admin
 
   metrics:
     enabled: true
