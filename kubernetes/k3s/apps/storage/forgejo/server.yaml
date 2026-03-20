@@ -10,6 +10,23 @@ persistence:
   create: false
   claimName: forgejo-data
 
+httpRoute:
+  enabled: true
+  hostnames: [git.plexmox.com]
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+
+tcpRoute:
+  enabled: true
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+
 gitea:
   admin:
     existingSecret: forgejo-admin-secrets
@@ -40,9 +57,6 @@ gitea:
   session:
     PROVIDER: redis
     PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
-
-  server:
-    DOMAIN: git.plexmox.com
 
   additionalConfigFromEnvs:
     - name: FORGEJO__database__DB_TYPE
