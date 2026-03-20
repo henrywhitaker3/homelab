@@ -15,6 +15,6 @@ spec:
       backendRefs:
         - group: ""
           kind: Service
-          name: forgejo
+          name: forgejo-ssh
           weight: 1
           port: 22
