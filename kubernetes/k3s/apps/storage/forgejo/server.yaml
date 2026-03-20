@@ -17,7 +17,7 @@ gitea:
   oauth:
     - name: Pocket
       provider: openidconnect
-      autoDiscoveryUrl: https://pocket.plexmox.com/.well-known/openid-configuration
+      autoDiscoverUrl: https://pocket.plexmox.com/.well-known/openid-configuration
       existingSecret: forgejo-oauth-secrets
 
   metrics:
