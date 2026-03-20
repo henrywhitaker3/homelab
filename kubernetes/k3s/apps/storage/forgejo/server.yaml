@@ -143,22 +143,3 @@ env:
 metrics:
   enabled: true
   port: http
-
-lifecycle:
-  postStart:
-    exec:
-      command:
-        - /bin/sh
-        - -c
-        - |
-          until forgejo admin user list > /dev/null 2>&1; do
-            sleep 2
-          done
-          if ! forgejo admin auth list | grep -q "Pocket"; then
-            forgejo admin auth add-oauth \
-              --name "Pocket" \
-              --provider openidConnect \
-              --key "${OIDC_CLIENT_ID}" \
-              --secret "${OIDC_CLIENT_SECRET}" \
-              --auto-discover-url "${OIDC_DISCOVERY_URL}"
-          fi
