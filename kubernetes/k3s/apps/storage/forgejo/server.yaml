@@ -41,6 +41,9 @@ gitea:
     PROVIDER: redis
     PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
 
+  server:
+    DOMAIN: git.plexmox.com
+
   additionalConfigFromEnvs:
     - name: FORGEJO__database__DB_TYPE
       value: postgres
