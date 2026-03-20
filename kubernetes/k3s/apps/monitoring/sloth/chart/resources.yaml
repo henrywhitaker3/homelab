@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sloth
+  namespace: monitoring
 spec:
   template:
     spec:
@@ -11,10 +12,10 @@ spec:
             requests:
               cpu: 50m
               memory: 75Mi
-            limits: {}
+            limits: null
         - name: git-sync-plugins
           resources:
             requests:
               cpu: 50m
               memory: 75Mi
-            limits: {}
+            limits: null
