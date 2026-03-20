@@ -7,6 +7,7 @@ image:
 
 persistence:
   enabled: true
+  create: false
   claimName: forgejo-data
 
 gitea:
