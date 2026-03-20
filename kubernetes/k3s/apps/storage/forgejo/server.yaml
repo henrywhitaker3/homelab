@@ -55,6 +55,8 @@ httpRoute:
 probes:
   enabled: true
   type: httpGet
+  options:
+    path: /api/healthz
 
 volumes:
   - name: data
@@ -122,7 +124,38 @@ env:
       secretKeyRef:
         name: forgejo-secrets
         key: secret-access-key
+  - name: OIDC_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: forgejo-secrets
+        key: client-id
+  - name: OIDC_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: forgejo-secrets
+        key: client-secret
+  - name: OIDC_DISCOVERY_URL
+    value: https://pocket.plexmox.com/.well-known/openid-configuration
 
 metrics:
   enabled: true
   port: http
+
+lifecycle:
+  postStart:
+    exec:
+      command:
+        - /bin/sh
+        - -c
+        - |
+          until forgejo admin user list > /dev/null 2>&1; do
+            sleep 2
+          done
+          if ! forgejo admin auth list | grep -q "Pocket"; then
+            forgejo admin auth add-oauth \
+              --name "Pocket" \
+              --provider openidConnect \
+              --key "${OIDC_CLIENT_ID}" \
+              --secret "${OIDC_CLIENT_SECRET}" \
+              --auto-discover-url "${OIDC_DISCOVERY_URL}"
+          fi
