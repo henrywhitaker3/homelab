@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sloth
+spec:
+  template:
+    spec:
+      containers:
+        - name: sloth
+          resources:
+            requests:
+              cpu: 50m
+              memory: 75Mi
+            limits: {}
+        - name: git-sync-plugins
+          resources:
+            requests:
+              cpu: 50m
+              memory: 75Mi
+            limits: {}
