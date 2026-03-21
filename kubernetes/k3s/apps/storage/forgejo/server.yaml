@@ -51,8 +51,8 @@ gitea:
       REPO_INDEXER_ENABLED: true
 
     ui:
-      THEMES: forgejo-auto,forgejo-light,forgejo-dark,catpuccin-mauve-auto,catpuccin-mauve-latte,catpuccin-mauve-macchiato
-      DEFAULT_THEME: catpuccin-mauve-auto
+      THEMES: forgejo-auto,forgejo-light,forgejo-dark,catppuccin-mauve-auto,catppuccin-mauve-latte,catppuccin-mauve-macchiato
+      DEFAULT_THEME: catppuccin-mauve-auto
 
     queue:
       TYPE: redis
