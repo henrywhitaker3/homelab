@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 kind: ConfigMap
-metdata:
+metadata:
   name: forgejo-themes
 data:
   catpuccin-mauve-auto.css: |
