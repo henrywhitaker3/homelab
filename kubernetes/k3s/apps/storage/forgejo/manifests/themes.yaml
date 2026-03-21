@@ -4,10 +4,10 @@ kind: ConfigMap
 metadata:
   name: forgejo-themes
 data:
-  catppuccin-mauve-auto.css: |
+  theme-catppuccin-mauve-auto.css: |
     @import "./catppuccin-latte-mauve.css" (prefers-color-scheme: light);
     @import "./catppuccin-macchiato-mauve.css" (prefers-color-scheme: dark);
-  catppuccin-macchiato-mauve.css: |
+  theme-catppuccin-macchiato-mauve.css: |
     :root {
       color-scheme: dark;
       --is-dark-theme: true;
@@ -881,7 +881,7 @@ data:
     .monaco-editor .bracket-highlighting-5 {
       color: rgb(199.6, 180.4, 245.6) !important;
     }
-  catppuccin-latte-mauve.css: |
+  theme-catppuccin-latte-mauve.css: |
     :root {
       color-scheme: light;
       --is-dark-theme: false;

@@ -129,4 +129,4 @@ extraVolumes:
 extraVolumeMounts:
   - name: themes
     readOnly: true
-    mountPath: /var/lib/gitea/public/assets/css
+    mountPath: /data/gitea/public/assets/css
