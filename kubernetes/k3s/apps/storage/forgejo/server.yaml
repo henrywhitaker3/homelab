@@ -50,6 +50,10 @@ gitea:
     indexer:
       REPO_INDEXER_ENABLED: true
 
+    ui:
+      THEMES: forgejo-auto,forgejo-light,forgejo-dark,catpuccin-mauve-auto,catpuccin-mauve-latte,catpuccin-mauve-macchiato
+      DEFAULT_THEME: catpuccin-mauve-auto
+
     queue:
       TYPE: redis
       CONN_STR: redis://dragonfly.dragonfly.svc.cluster.local:6379/8
@@ -61,6 +65,11 @@ gitea:
     session:
       PROVIDER: redis
       PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
+
+    repository:
+      DISABLE_HTTP_GIT: true
+      ENABLE_PUSH_CREATE_USER: true
+      ENABLE_PUSH_CREATE_ORG: true
 
   additionalConfigFromEnvs:
     - name: FORGEJO__database__DB_TYPE
@@ -111,3 +120,13 @@ gitea:
 
 serviceAccount:
   create: true
+
+extraVolumes:
+  - name: themes
+    configMap:
+      name: forgejo-themes
+
+extraVolumeMounts:
+  - name: themes
+    readOnly: true
+    mountPath: /data/gitea/public/assets/css
