@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: forgejo-themes
 data:
-  catpuccin-mauve-auto.css: |
+  catppuccin-mauve-auto.css: |
     @import "./catppuccin-latte-mauve.css" (prefers-color-scheme: light);
     @import "./catppuccin-macchiato-mauve.css" (prefers-color-scheme: dark);
   catppuccin-macchiato-mauve.css: |
