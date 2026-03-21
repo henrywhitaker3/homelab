@@ -25,6 +25,9 @@ role:
   name: restart-deployment
 
 jobs:
+  - name: booklore
+    command: kubectl -n media rollout restart deployment booklore
+    schedule: "0 4 * * *"
   - name: seerr
     command: kubectl -n media rollout restart deployment seerr
     schedule: "0 4 * * *"
