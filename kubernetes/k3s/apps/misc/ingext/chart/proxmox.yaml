@@ -33,6 +33,10 @@ spec:
         - group: gateway.envoyproxy.io
           kind: Backend
           name: proxmox
+      sessionPersistence:
+        type: Cookie
+        cookieConfig:
+          lifetimeType: Session
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
