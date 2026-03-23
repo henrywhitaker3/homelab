@@ -219,7 +219,7 @@ spec:
         - name: repo1
           s3:
             bucket: "crunchy"
-            endpoint: "http://10.0.0.9:3900"
+            endpoint: "https://garage.plexmox.com"
             region: "garage"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
