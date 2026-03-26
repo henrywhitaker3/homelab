@@ -100,7 +100,7 @@ generic:
     PGID: "1000"
     TZ: Europe/London
     VERSION: latest
-    ADVERTISE_IP: http://10.0.0.26:32400/
+    ADVERTISE_IP: https://plex.plexmox.com:443
 
   securityContext:
     privileged: true
