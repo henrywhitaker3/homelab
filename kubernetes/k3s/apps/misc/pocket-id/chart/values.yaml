@@ -9,7 +9,7 @@ generic:
   image:
     repository: ghcr.io/pocket-id/pocket-id
     pullPolicy: IfNotPresent
-    tag: "v2.4.0"
+    tag: "v2.5.0"
 
   service:
     port: 1411
