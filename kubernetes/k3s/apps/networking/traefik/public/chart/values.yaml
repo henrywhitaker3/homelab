@@ -3,7 +3,7 @@ traefik:
 
   image:
     repository: traefik
-    tag: v3.6.12
+    tag: v3.6.11
 
   deployment:
     kind: DaemonSet
