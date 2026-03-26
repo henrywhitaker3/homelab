@@ -51,7 +51,7 @@ generic:
         targetPort: dlnat
 
   httpRoute:
-    enabled: true
+    enabled: false
     hostnames: [plex.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
