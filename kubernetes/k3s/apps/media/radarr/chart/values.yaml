@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/home-operations/radarr
     pullPolicy: IfNotPresent
-    tag: "6.1.1.10317"
+    tag: "6.1.2.10359"
 
   service:
     port: 7878
