@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/renovate-operator.mogenius.com/renovatejob_v1alpha1.json
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: renovate-gitlab
+  namespace: renovate-operator
+spec:
+  schedule: "0 * * * *"
+  discoveryFilter: "henrywhitaker3/*"
+  image: renovate/renovate:43.95.0
+  secretRef: renovate-gitlab-secrets
+  provider:
+    name: gitlab
+  parallelism: 1
+  webhook:
+    enabled: true
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renovate-gitlab-secrets
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  data:
+    - remoteRef:
+        key: renovate-secrets
+        property: gitlab-token
+      secretKey: RENOVATE_TOKEN
