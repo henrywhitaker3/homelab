@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renovate-dockerhub-secrets
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: dockerhub-auth
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-dockerhub-config
+data:
+  config.js: |
+    module.exports = {
+      hostRules: [
+        {
+          hostType: 'docker',
+          matchHost: 'docker.io',
+          username: 'henrywhitaker3',
+          password: process.env.DOCKER_HUB_PASSWORD,
+        },
+      ],
+    };

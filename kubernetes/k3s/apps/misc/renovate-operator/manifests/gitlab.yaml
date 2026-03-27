@@ -11,6 +11,23 @@ spec:
   secretRef: renovate-gitlab-secrets
   provider:
     name: gitlab
+  extraEnv:
+    - name: RENOVATE_ADDITIONAL_CONFIG_FILE
+      value: /config/config.js
+    - name: DOCKER_HUB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: renoate-dockerhub-secrets
+          name: api-token
+  extraVolumes:
+    - name: dockerhub-config
+      configMap:
+        name: renovate-dockerhub-config
+  extraVolumeMounts:
+    - name: dockerhub-config
+      mountPath: /config/config.js
+      subPath: config.js
+      readOnly: true
   parallelism: 1
   webhook:
     enabled: true
