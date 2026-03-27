@@ -21,7 +21,7 @@ metadata:
 data:
   config.js: |
     module.exports = {
-      redisUrl: 'redis://dragonfly.dragonfly.svc.cluster.local:6379/2'
+      redisUrl: 'redis://dragonfly.dragonfly.svc.cluster.local:6379/2',
       hostRules: [
         {
           hostType: 'docker',
