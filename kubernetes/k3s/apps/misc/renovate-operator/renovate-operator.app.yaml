@@ -21,7 +21,7 @@ spec:
       targetRevision: 3.9.0
       helm:
         valueFiles:
-          - $values/kubernetes/apps/misc/renovate-operator/values.yaml
+          - $values/kubernetes/k3s/apps/misc/renovate-operator/values.yaml
     - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
       targetRevision: main
       path: kubernetes/k3s/apps/misc/renovate-operator/manifests
