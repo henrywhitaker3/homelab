@@ -48,4 +48,4 @@ spec:
     - remoteRef:
         key: renovate-secrets
         property: gitlab-token
-      secretKey: gitlab-token
+      secretKey: gitlab_token
