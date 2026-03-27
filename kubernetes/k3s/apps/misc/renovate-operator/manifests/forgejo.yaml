@@ -53,7 +53,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        RENOVATE_TOKEN: "{{ .forjegjo_token }}"
+        RENOVATE_TOKEN: "{{ .forgejo_token }}"
         GITHUB_COM_TOKEN: "{{ .token }}"
   dataFrom:
     - sourceRef:
