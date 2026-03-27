@@ -62,7 +62,6 @@ metadata:
 spec:
   refreshInterval: "30m0s"
   target:
-    name: renovate-secret
     template:
       type: Opaque
       engineVersion: v2
