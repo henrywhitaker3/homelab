@@ -1,4 +1,8 @@
 ---
+crd:
+  install: true
+  mode: template
+
 route:
   enabled: true
   hostnames: [renovate.plexmox.com]
