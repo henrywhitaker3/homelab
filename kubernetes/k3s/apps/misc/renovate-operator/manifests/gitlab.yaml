@@ -4,7 +4,6 @@ apiVersion: renovate-operator.mogenius.com/v1alpha1
 kind: RenovateJob
 metadata:
   name: renovate-gitlab
-  namespace: renovate-operator
 spec:
   schedule: "0 * * * *"
   discoveryFilter: "henrywhitaker3/*"
