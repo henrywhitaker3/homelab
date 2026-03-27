@@ -1,0 +1,68 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/renovate-operator.mogenius.com/renovatejob_v1alpha1.json
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: forgejo
+spec:
+  schedule: "0 * * * *"
+  discoveryFilter: "*"
+  image: renovate/renovate:43.95.0
+  secretRef: renovate-forgejo-secrets
+  provider:
+    name: gitlab
+  extraEnv:
+    - name: RENOVATE_ADDITIONAL_CONFIG_FILE
+      value: /config/config.js
+    - name: DOCKER_HUB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: renovate-dockerhub-secrets
+          key: api-token
+  extraVolumes:
+    - name: dockerhub-config
+      configMap:
+        name: renovate-dockerhub-config
+  extraVolumeMounts:
+    - name: dockerhub-config
+      mountPath: /config/config.js
+      subPath: config.js
+      readOnly: true
+  parallelism: 1
+  webhook:
+    enabled: true
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renovate-forgejo-secrets
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RENOVATE_TOKEN: "{{ .forjegjo_token }}"
+        GITHUB_COM_TOKEN: "{{ .token }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          name: github-auth-token
+  data:
+    - remoteRef:
+        key: renovate-secrets
+        property: forgejo-token
+      secretKey: forgejo_token
