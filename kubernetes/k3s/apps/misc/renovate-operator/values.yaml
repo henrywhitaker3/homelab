@@ -1,0 +1,24 @@
+---
+route:
+  enabled: true
+  hostnames: [renovate.plexmox.com]
+  parentRefs:
+    - name: internal
+      namespace: gateways
+
+webhook:
+  enabled: true
+  route:
+    enabled: true
+    hostnames: [renovate-webhook.plexmox.com]
+    parentRefs:
+      - name: public
+        namespace: gateways
+
+auth:
+  oidc:
+    enabled: true
+    issuerUrl: https://pocket.plexmox.com
+    clientId: 420b110f-0f85-4e3d-ab77-7fd8ce61db71
+    existingSecret: renovate-operator-secrets
+    secretKey: client-secret
