@@ -5,7 +5,6 @@ kind: Dragonfly
 metadata:
   name: dragonfly
 spec:
-  # renovate: datasource=github-releases depName=dragonflydb/dragonfly
   image: ghcr.io/dragonflydb/dragonfly:v1.37.0
   replicas: 3
   env:

@@ -71,7 +71,6 @@
             "managerFilePatterns": ["/ansible/.*/.*\\.yaml$/", "/.*.yaml$/"],
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\n\\s+- https://raw\\.githubusercontent\\.com/dragonflydb/dragonfly-operator/(?<currentValue>v[^/]+)/manifests/crd\\.yaml",
-                "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\n\\s+image: ghcr\\.io/dragonflydb/dragonfly:(?<currentValue>v[^\\s\"]+)",
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
             ],
             "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
