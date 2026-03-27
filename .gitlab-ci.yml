@@ -141,11 +141,11 @@ tf deploy:
 # Renovate #
 ############
 
-renovate:
-  stage: renovate
-  image: ghcr.io/renovatebot/renovate:43
-  variables:
-    RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-    - if: '$CI_PIPELINE_SOURCE == "push"'
+# renovate:
+#   stage: renovate
+#   image: ghcr.io/renovatebot/renovate:43
+#   variables:
+#     RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#     - if: '$CI_PIPELINE_SOURCE == "push"'
