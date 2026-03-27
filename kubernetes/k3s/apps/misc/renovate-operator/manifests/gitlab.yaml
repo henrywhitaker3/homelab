@@ -33,8 +33,19 @@ spec:
     name: onepassword-connect
   target:
     creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RENOVATE_TOKEN: "{{ .gitlab_token }}"
+        GITHUB_COM_TOKEN: "{{ .token }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          name: github-auth-token
   data:
     - remoteRef:
         key: renovate-secrets
         property: gitlab-token
-      secretKey: RENOVATE_TOKEN
+      secretKey: gitlab-token

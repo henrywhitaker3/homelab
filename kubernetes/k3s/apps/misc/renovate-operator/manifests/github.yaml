@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/renovate-operator.mogenius.com/renovatejob_v1alpha1.json
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: github
+spec:
+  schedule: "0 * * * *"
+  discoveryFilter: "henrywhitaker3/*"
+  image: renovate/renovate:43.95.0
+  skipForks: true
+  secretRef: renovate-github-secrets
+  provider:
+    name: github
+  parallelism: 2
+  webhook:
+    enabled: true
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/generators.external-secrets.io/githubaccesstoken_v1alpha1.json
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: GithubAccessToken
+metadata:
+  name: github-auth-token
+spec:
+  appID: "3202884"
+  installID: "119466785"
+  auth:
+    privateKey:
+      secretRef:
+        name: renovate-github-auth-secrets
+        key: github-app-private-key
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renovate-github-auth-secrets
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+  data:
+    - remoteRef:
+        key: renovate-secrets
+        property: github-app-private-key
+      secretKey: github-app-private-key
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renovate-github-secrets
+spec:
+  refreshInterval: "30m0s"
+  target:
+    name: renovate-secret
+    template:
+      type: Opaque
+      engineVersion: v2
+      data:
+        GITHUB_COM_TOKEN: "{{ .token }}"
+        GITHUB_COM_USER: henrywhitaker3
+        RENOVATE_TOKEN: "{{ .token }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          name: github-auth-token
