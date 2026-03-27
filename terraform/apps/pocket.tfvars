@@ -74,4 +74,11 @@ oidc_clients = {
       "https://git.plexmox.com/user/oauth2/Pocket/callback"
     ]
   }
+  "renovate-operator" = {
+    name = "Renovate Operator"
+    url  = "https://renovate.plexmox.com"
+    callback_urls = [
+      "http://renovate.plexmox.com/auth/callback"
+    ]
+  }
 }
