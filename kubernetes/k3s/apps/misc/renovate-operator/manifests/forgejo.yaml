@@ -10,7 +10,8 @@ spec:
   image: renovate/renovate:43.95.0
   secretRef: renovate-forgejo-secrets
   provider:
-    name: gitlab
+    name: forgejo
+    endpoint: https://git.plexmox.com/api/v1
   extraEnv:
     - name: RENOVATE_ADDITIONAL_CONFIG_FILE
       value: /config/config.js
