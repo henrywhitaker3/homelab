@@ -32,8 +32,8 @@
             "matchUpdateTypes": ["patch", "pin", "digest"],
             "addLabels": ["dep/patch"],
             "automerge": true,
-            "automergeType": "branch",
-            "platformAutomerge": "true"
+            "automergeType": "pr",
+            "platformAutomerge": true
         },
         {
             "matchUpdateTypes": ["major"],
@@ -44,29 +44,19 @@
             "addLabels": ["dep/minor"]
         },
         {
-            "matchDatasources": ["helm"],
+            "matchDatasources": ["terraform"],
+            "automerge": false
+        },
+        {
             "matchPackageNames": [
+                "/k3s/",
+                "/netbirdio/",
+                "/longhorn/",
+                "/cilium/",
                 "ghcr.io/immich-app/immich-server",
-                "ghcr.io/immich-app/immich-machine-learning"
+                "ghcr.io/immich-app/immich-machine-learning",
+                "/netbirdio/"
             ],
-            "automerge": false
-        },
-        {
-            "matchDatasources": ["helm"],
-            "matchPackageNames": ["/longhorn/", "/cilium/"],
-            "automerge": false
-        },
-        {
-            "matchDatasources": ["docker"],
-            "matchPackageNames": ["/netbirdio/"],
-            "automerge": false
-        },
-        {
-            "matchDatasources": "terraform",
-            "automerge": false
-        },
-        {
-            "matchPackageNames": ["/k3s/"],
             "automerge": false
         },
         {
