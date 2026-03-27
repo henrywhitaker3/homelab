@@ -17,7 +17,7 @@ spec:
     - name: DOCKER_HUB_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: renoate-dockerhub-secrets
+          name: renovate-dockerhub-secrets
           key: api-token
   extraVolumes:
     - name: dockerhub-config
