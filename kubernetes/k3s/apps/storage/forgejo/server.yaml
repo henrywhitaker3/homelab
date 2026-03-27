@@ -67,7 +67,7 @@ gitea:
       PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
 
     repository:
-      DISABLE_HTTP_GIT: true
+      DISABLE_HTTP_GIT: false
       ENABLE_PUSH_CREATE_USER: true
       ENABLE_PUSH_CREATE_ORG: true
 
