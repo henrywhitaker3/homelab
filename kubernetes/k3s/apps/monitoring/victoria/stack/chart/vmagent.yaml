@@ -16,6 +16,7 @@ spec:
     cluster: k3s
   extraArgs:
     promscrape.streamParse: "true"
+    promscarpe.maxScarpeSize: 20Mi
   remoteWrite:
     - url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
   replicaCount: 2
