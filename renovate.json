@@ -48,6 +48,18 @@
             "automerge": false
         },
         {
+            "matchUpdateTypes": ["minor"],
+            "matchPackageNames": [
+                "/sonarr/",
+                "/radarr/",
+                "/prowlarr/",
+                "/tautulli/",
+                "/plex/",
+                "/grimmory/"
+            ],
+            "automerge": true
+        },
+        {
             "matchPackageNames": [
                 "/k3s/",
                 "/netbirdio/",
