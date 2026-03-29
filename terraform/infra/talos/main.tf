@@ -30,14 +30,14 @@ resource "proxmox_vm_qemu" "this" {
     for index, node in var.nodes : index => node
   }
 
-  name        = "talos-${var.cluster_name}-${each.value.type}-${each.key + 1}"
-  target_node = var.proxmox_nodes[each.value.node - 1]
-  agent       = 0
-  memory      = each.value.memory
-  onboot      = true
-  scsihw      = "virtio-scsi-pci"
-  qemu_os     = "l26"
-  vm_state    = "running"
+  name               = "talos-${var.cluster_name}-${each.value.type}-${each.key + 1}"
+  target_node        = var.proxmox_nodes[each.value.node - 1]
+  agent              = 0
+  memory             = each.value.memory
+  start_at_node_boot = true
+  scsihw             = "virtio-scsi-pci"
+  qemu_os            = "l26"
+  vm_state           = "running"
 
   cpu {
     cores   = each.value.cpus
@@ -82,6 +82,12 @@ resource "proxmox_vm_qemu" "this" {
     model   = "virtio"
     bridge  = lookup(each.value, "network_bridge", "vmbr0")
     macaddr = each.value.mac_address
+  }
+
+  startup_shutdown {
+    order            = -1
+    shutdown_timeout = -1
+    startup_delay    = -1
   }
 
   tags = join(";", concat(lookup(each.value, "tags", []), ["talos", var.cluster_name, each.value.type]))
