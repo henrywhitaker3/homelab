@@ -94,13 +94,6 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  # compressor:
-  #   - type: Zstd
-  #     zstd: {}
-  #   - type: Brotli
-  #     brotli: {}
-  #   - type: Gzip
-  #     gzip: {}
   retry:
     numRetries: 2
     retryOn:
@@ -137,9 +130,6 @@ spec:
           value: "%REQ(:PATH)%"
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
-  http2:
-    onInvalidMessage: TerminateStream
-  http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
