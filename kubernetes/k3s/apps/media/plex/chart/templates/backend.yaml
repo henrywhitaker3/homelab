@@ -37,4 +37,17 @@ spec:
       matches:
         - path:
             type: PathPrefix
+            value: /library/streams
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove:
+              - Range
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: plex
+      matches:
+        - path:
+            type: PathPrefix
             value: /
