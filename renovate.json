@@ -44,10 +44,6 @@
             "addLabels": ["dep/minor"]
         },
         {
-            "matchDatasources": ["terraform"],
-            "automerge": false
-        },
-        {
             "matchUpdateTypes": ["minor"],
             "matchPackageNames": [
                 "/sonarr/",
@@ -69,6 +65,10 @@
                 "ghcr.io/immich-app/immich-machine-learning",
                 "/netbirdio/"
             ],
+            "automerge": false
+        },
+        {
+            "matchDatasources": ["terraform"],
             "automerge": false
         },
         {
