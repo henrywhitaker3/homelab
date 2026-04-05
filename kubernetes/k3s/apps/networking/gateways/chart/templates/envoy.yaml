@@ -39,11 +39,6 @@ spec:
   shutdown:
     drainTimeout: 180s
   telemetry:
-    tracing:
-      provider:
-        port: 4317
-        type: OpenTelemetry
-        host: alloy.monitoring.svc.cluster.local
     metrics:
       prometheus:
         compression:
