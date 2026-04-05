@@ -6,7 +6,7 @@ metadata:
   name: internal
   namespace: gateways
 spec:
-  gatewayClassName: envoy-daemonset
+  gatewayClassName: envoy
   infrastructure:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.25
