@@ -56,6 +56,10 @@
             "automerge": true
         },
         {
+            "matchPackageNames": ["/kube-prometheus-stack/"],
+            "automerge": true
+        },
+        {
             "matchPackageNames": [
                 "/k3s/",
                 "/netbirdio/",
