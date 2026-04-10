@@ -4,7 +4,7 @@ controllers:
       main:
         image:
           # renovate: datasource=github-releases depName=immich-app/immich
-          tag: v2.7.3
+          tag: v2.7.4
 
 valkey:
   enabled: false
