@@ -22,10 +22,10 @@ spec:
     vmalert.proxyURL: http://vmalert-metrics.monitoring.svc:8080
   replicaCount: 1
   # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
-  retentionPeriod: "8w"
+  retentionPeriod: "6w"
   resources:
     limits:
-      memory: 2Gi
+      memory: 3Gi
     requests:
       cpu: 150m
       memory: 1Gi
