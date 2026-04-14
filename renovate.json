@@ -60,6 +60,18 @@
             "automerge": true
         },
         {
+            "matchPackageNames": [
+                "/netbirdio\/signal/",
+                "/netbirdio\/relay/",
+                "/netbirdio\/management/",
+                "/netbirdio\/dashboard/",
+                "/coturn\/coturn/"
+            ],
+            "automerge": false,
+            "groupName": "Netbird Dependenices",
+            "groupSlug": "netbird"
+        },
+        {
             "matchPackageNames": ["/nats/"],
             "automerge": true,
             "minimumReleaseAge": "3 days"
