@@ -6,7 +6,6 @@ metadata:
   name: forgejo
 spec:
   schedule: "0 * * * *"
-  discoveryFilters: ["*"]
   image: renovate/renovate:43.95.0
   secretRef: renovate-forgejo-secrets
   provider:
@@ -32,6 +31,7 @@ spec:
   parallelism: 1
   webhook:
     enabled: true
+  discoveryFilters: ["*"]
   resources:
     requests:
       cpu: "100m"
