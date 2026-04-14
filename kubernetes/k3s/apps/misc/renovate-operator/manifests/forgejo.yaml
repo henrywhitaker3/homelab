@@ -6,7 +6,7 @@ metadata:
   name: forgejo
 spec:
   schedule: "0 * * * *"
-  discoveryFilter: "*"
+  discoveryFilters: ["*"]
   image: renovate/renovate:43.95.0
   secretRef: renovate-forgejo-secrets
   provider:

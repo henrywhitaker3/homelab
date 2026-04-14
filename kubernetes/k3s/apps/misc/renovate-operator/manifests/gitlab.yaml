@@ -6,7 +6,7 @@ metadata:
   name: renovate-gitlab
 spec:
   schedule: "0 * * * *"
-  discoveryFilter: "henrywhitaker3/*"
+  discoveryFilter: ["henrywhitaker3/*"]
   image: renovate/renovate:43.95.0
   secretRef: renovate-gitlab-secrets
   provider:

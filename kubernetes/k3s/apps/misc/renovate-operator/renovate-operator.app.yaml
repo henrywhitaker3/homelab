@@ -18,7 +18,8 @@ spec:
       ref: values
     - repoURL: oci://ghcr.io/mogenius/helm-charts/renovate-operator
       path: .
-      targetRevision: 3.9.0
+      # renovate: datasource=github-releases depName=mogenius/renovate-operator
+      targetRevision: 4.3.0
       helm:
         valueFiles:
           - $values/kubernetes/k3s/apps/misc/renovate-operator/values.yaml

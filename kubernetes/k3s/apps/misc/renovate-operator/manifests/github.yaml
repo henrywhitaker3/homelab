@@ -6,7 +6,7 @@ metadata:
   name: github
 spec:
   schedule: "0 * * * *"
-  discoveryFilter: "henrywhitaker3/*"
+  discoveryFilters: ["henrywhitaker3/*"]
   image: renovate/renovate:43.95.0
   skipForks: true
   secretRef: renovate-github-secrets
