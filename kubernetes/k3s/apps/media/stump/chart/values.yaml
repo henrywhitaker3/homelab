@@ -42,6 +42,8 @@ generic:
       value: "1000"
     - name: STUMP_PORT
       value: "10801"
+    - name: STUMP_LOG_DIR
+      value: /var/log/stump
     # - name: STUMP_VERBOSITY
     #   value: "3"
     - name: STUMP_ENABLE_KOREADER_SYNC
@@ -79,10 +81,14 @@ generic:
     - name: books
       hostPath:
         path: /plex/Media/Stump/books
+    - name: logs
+      emptyDir: {}
 
   volumeMounts:
     - mountPath: /books
       name: books
+    - mountPath: /var/log/stump
+      name: logs
 
   deploymentStrategy:
     type: Recreate
