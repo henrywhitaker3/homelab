@@ -60,6 +60,11 @@
             "automerge": true
         },
         {
+            "matchPackageNames": ["/nats/"],
+            "automerge": true,
+            "minimumReleaseAge": "3 days"
+        },
+        {
             "matchPackageNames": [
                 "/k3s/",
                 "/netbirdio/",
