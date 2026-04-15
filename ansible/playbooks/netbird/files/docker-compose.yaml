@@ -1,139 +1,152 @@
 services:
-  # Caddy reverse proxy
-  caddy:
-    image: caddy:2.11.2
+  # Traefik reverse proxy (automatic TLS via Let's Encrypt)
+  traefik:
+    image: traefik:v3.6
+    container_name: netbird-traefik
     restart: unless-stopped
-    networks: [netbird]
+    networks:
+      netbird:
+        ipv4_address: 172.30.0.10
+    command:
+      # Logging
+      - "--log.level=INFO"
+      - "--accesslog=true"
+      # Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=netbird"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.allowACMEByPass=true"
+      # Disable timeouts for long-lived gRPC streams
+      - "--entrypoints.websecure.transport.respondingTimeouts.readTimeout=0"
+      - "--entrypoints.websecure.transport.respondingTimeouts.writeTimeout=0"
+      - "--entrypoints.websecure.transport.respondingTimeouts.idleTimeout=0"
+      # HTTP to HTTPS redirect
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      # Let's Encrypt ACME
+      - "--certificatesresolvers.letsencrypt.acme.email=henrywhitaker3@outlook.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      # gRPC transport settings
+      - "--serverstransport.forwardingtimeouts.responseheadertimeout=0s"
+      - "--serverstransport.forwardingtimeouts.idleconntimeout=0s"
+      - "--providers.file.filename=/etc/traefik/dynamic.yaml"
     ports:
-      - "443:443"
-      - "443:443/udp"
-      - "80:80"
+      - '443:443'
+      - '80:80'
     volumes:
-      - netbird_caddy_data:/data
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - netbird_traefik_letsencrypt:/letsencrypt
+      - ./traefik-dynamic.yaml:/etc/traefik/dynamic.yaml:ro
     logging:
       driver: "json-file"
       options:
         max-size: "500m"
         max-file: "2"
+
   # UI dashboard
   dashboard:
-    image: netbirdio/dashboard:v2.36.0
+    image: netbirdio/dashboard:latest
+    container_name: netbird-dashboard
     restart: unless-stopped
     networks: [netbird]
     env_file:
       - ./dashboard.env
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.netbird-dashboard.rule=Host(`netbird.plexmox.com`)
+      - traefik.http.routers.netbird-dashboard.entrypoints=websecure
+      - traefik.http.routers.netbird-dashboard.tls=true
+      - traefik.http.routers.netbird-dashboard.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-dashboard.service=dashboard
+      - traefik.http.routers.netbird-dashboard.priority=1
+      - traefik.http.services.dashboard.loadbalancer.server.port=80
     logging:
       driver: "json-file"
       options:
         max-size: "500m"
         max-file: "2"
-  # Signal
-  signal:
-    image: netbirdio/signal:0.68.3
+
+  # Combined server (Management + Signal + Relay + STUN)
+  netbird-server:
+    image: netbirdio/netbird-server:latest
+    container_name: netbird-server
     restart: unless-stopped
     networks: [netbird]
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "500m"
-        max-file: "2"
-  # Relay
-  relay:
-    image: netbirdio/relay:0.68.3
-    restart: unless-stopped
-    networks: [netbird]
-    env_file:
-      - ./relay.env
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "500m"
-        max-file: "2"
-  # Management
-  management:
-    image: netbirdio/management:0.68.3
-    restart: unless-stopped
-    networks: [netbird]
+    ports:
+      - '3478:3478/udp'
     volumes:
-      - netbird_management:/var/lib/netbird
-      - ./management.json:/etc/netbird/management.json
-    command:
-      [
-        "--port",
-        "80",
-        "--log-file",
-        "console",
-        "--log-level",
-        "info",
-        "--disable-anonymous-metrics=false",
-        "--single-account-mode-domain=netbird.selfhosted",
-        "--dns-domain=netbird.selfhosted",
-        "--idp-sign-key-refresh-enabled",
-      ]
+      - netbird_data:/var/lib/netbird
+      - ./config.yaml:/etc/netbird/config.yaml
+    command: ["--config", "/etc/netbird/config.yaml"]
+    labels:
+      - traefik.enable=true
+      # gRPC router (needs h2c backend for HTTP/2 cleartext)
+      - traefik.http.routers.netbird-grpc.rule=Host(`netbird.plexmox.com`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))
+      - traefik.http.routers.netbird-grpc.entrypoints=websecure
+      - traefik.http.routers.netbird-grpc.tls=true
+      - traefik.http.routers.netbird-grpc.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-grpc.service=netbird-server-h2c
+      - traefik.http.routers.netbird-grpc.priority=100
+      # Backend router (relay, WebSocket, API, OAuth2)
+      - traefik.http.routers.netbird-backend.rule=Host(`netbird.plexmox.com`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))
+      - traefik.http.routers.netbird-backend.entrypoints=websecure
+      - traefik.http.routers.netbird-backend.tls=true
+      - traefik.http.routers.netbird-backend.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-backend.service=netbird-server
+      - traefik.http.routers.netbird-backend.priority=100
+      # Services
+      - traefik.http.services.netbird-server.loadbalancer.server.port=80
+      - traefik.http.services.netbird-server-h2c.loadbalancer.server.port=80
+      - traefik.http.services.netbird-server-h2c.loadbalancer.server.scheme=h2c
     logging:
       driver: "json-file"
       options:
         max-size: "500m"
         max-file: "2"
-  # Coturn, AKA relay server
-  coturn:
-    image: coturn/coturn:4.10.0
+
+  # NetBird Proxy - exposes internal resources to the internet
+  proxy:
+    image: netbirdio/reverse-proxy:latest
+    container_name: netbird-proxy
+    ports:
+    - 51820:51820/udp
     restart: unless-stopped
-    volumes:
-      - ./turnserver.conf:/etc/turnserver.conf:ro
-    network_mode: host
-    command:
-      - -c /etc/turnserver.conf
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "500m"
-        max-file: "2"
-  # Zitadel - identity provider
-  zitadel:
-    restart: "always"
     networks: [netbird]
-    image: "ghcr.io/zitadel/zitadel:v4.13.1"
-    command: "start-from-init --masterkeyFromEnv --tlsMode external"
-    env_file:
-      - ./zitadel.env
     depends_on:
-      zdb:
-        condition: "service_healthy"
-    volumes:
-      - ./machinekey:/machinekey
-      - netbird_zitadel_certs:/zdb-certs:ro
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "500m"
-        max-file: "2"
-  # Postgres for Zitadel
-  zdb:
-    restart: "always"
-    networks: [netbird]
-    image: "postgres:16-alpine"
+      - netbird-server
     env_file:
-      - ./zdb.env
+      - ./proxy.env
     volumes:
-      - netbird_zdb_data:/var/lib/postgresql/data:rw
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
-      interval: 5s
-      timeout: 60s
-      retries: 10
-      start_period: 5s
+      - netbird_proxy_certs:/certs
+    labels:
+      # TCP passthrough for any unmatched domain (proxy handles its own TLS)
+      - traefik.enable=true
+      - traefik.tcp.routers.proxy-passthrough.entrypoints=websecure
+      - traefik.tcp.routers.proxy-passthrough.rule=HostSNI(`*`)
+      - traefik.tcp.routers.proxy-passthrough.tls.passthrough=true
+      - traefik.tcp.routers.proxy-passthrough.service=proxy-tls
+      - traefik.tcp.routers.proxy-passthrough.priority=1
+      - traefik.tcp.services.proxy-tls.loadbalancer.server.port=8443
+      - traefik.tcp.services.proxy-tls.loadbalancer.serverstransport=pp-v2@file
     logging:
       driver: "json-file"
       options:
         max-size: "500m"
         max-file: "2"
+
 volumes:
-  netbird_zdb_data:
-  netbird_management:
-  netbird_caddy_data:
-  netbird_zitadel_certs:
+  netbird_data:
+  netbird_traefik_letsencrypt:
+  netbird_proxy_certs:
 
 networks:
   netbird:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+          gateway: 172.30.0.1
