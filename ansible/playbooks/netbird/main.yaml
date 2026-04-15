@@ -12,21 +12,22 @@
     - process_exporter
     - alloy
     - docker
-  #
-  # handlers:
-  #   - name: docker compose up
-  #     become: true
-  #     ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose -f docker-compose.yaml up -d --remove-orphans"
-  #     changed_when: true
-  #
-  # tasks:
-  #   - name: Copy over docker compose file
-  #     tags: netbird
-  #     become: true
-  #     ansible.builtin.template:
-  #       src: files/docker-compose.yaml
-  #       dest: "/home/{{ ansible_user }}/docker-compose.yaml"
-  #       owner: "{{ ansible_user }}"
-  #       group: "{{ ansible_user }}"
-  #       mode: "0644"
-  #     notify: docker compose up
+
+  handlers:
+    - name: docker compose up
+      tags: netbird
+      become: true
+      ansible.builtin.shell: "cd /home/{{ ansible_user }} && docker compose -f docker-compose.yaml up -d --remove-orphans"
+      changed_when: true
+
+  tasks:
+    - name: Copy over docker compose file
+      tags: netbird
+      become: true
+      ansible.builtin.template:
+        src: files/docker-compose.yaml
+        dest: "/home/{{ ansible_user }}/docker-compose.yaml"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
+      notify: docker compose up

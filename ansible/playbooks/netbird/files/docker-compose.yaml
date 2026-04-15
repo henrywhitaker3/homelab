@@ -1,7 +1,7 @@
 services:
   # Traefik reverse proxy (automatic TLS via Let's Encrypt)
   traefik:
-    image: traefik:v3.6
+    image: traefik:v3.6.13
     container_name: netbird-traefik
     restart: unless-stopped
     networks:
@@ -35,8 +35,8 @@ services:
       - "--serverstransport.forwardingtimeouts.idleconntimeout=0s"
       - "--providers.file.filename=/etc/traefik/dynamic.yaml"
     ports:
-      - '443:443'
-      - '80:80'
+      - "443:443"
+      - "80:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - netbird_traefik_letsencrypt:/letsencrypt
@@ -49,7 +49,7 @@ services:
 
   # UI dashboard
   dashboard:
-    image: netbirdio/dashboard:latest
+    image: netbirdio/dashboard:v2.36.0
     container_name: netbird-dashboard
     restart: unless-stopped
     networks: [netbird]
@@ -72,12 +72,12 @@ services:
 
   # Combined server (Management + Signal + Relay + STUN)
   netbird-server:
-    image: netbirdio/netbird-server:latest
+    image: netbirdio/netbird-server:0.68.3
     container_name: netbird-server
     restart: unless-stopped
     networks: [netbird]
     ports:
-      - '3478:3478/udp'
+      - "3478:3478/udp"
     volumes:
       - netbird_data:/var/lib/netbird
       - ./config.yaml:/etc/netbird/config.yaml
@@ -110,10 +110,10 @@ services:
 
   # NetBird Proxy - exposes internal resources to the internet
   proxy:
-    image: netbirdio/reverse-proxy:latest
+    image: netbirdio/reverse-proxy:0.68.3
     container_name: netbird-proxy
     ports:
-    - 51820:51820/udp
+      - 51820:51820/udp
     restart: unless-stopped
     networks: [netbird]
     depends_on:
