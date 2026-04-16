@@ -26,6 +26,11 @@ spec:
     kubernetes:
       envoyDeployment:
         replicas: 3
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
         container:
           # image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.4
           resources:
