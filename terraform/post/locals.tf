@@ -3,7 +3,7 @@ locals {
     data.terraform_remote_state.infra.outputs.adguard_info,
     data.terraform_remote_state.infra.outputs.lb_info,
     data.terraform_remote_state.infra.outputs.k3s_control_info, data.terraform_remote_state.infra.outputs.k3s_dedi_info,
-    [{ name = "netbird.netbird", ip = "10.100.0.2" }],
+    [{ name = "netbird.netbird", ip = "10.100.0.4" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],
     [{ name = "proxmox-2", ip = "10.0.0.152" }],
