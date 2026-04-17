@@ -9,4 +9,4 @@ appVersion: "1.16.0"
 dependencies:
   - name: traefik
     repository: https://traefik.github.io/charts
-    version: v39.0.7
+    version: 39.0.8
