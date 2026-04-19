@@ -60,6 +60,8 @@ generic:
       value: "fasle"
     - name: STUMP_OIDC_DISABLE_LOCAL_AUTH
       value: "false"
+    - name: STUMP_TRUST_PROXY_HEADERS
+      value: "true"
     - name: STUMP_OIDC_CLIENT_ID
       valueFrom:
         secretKeyRef:
