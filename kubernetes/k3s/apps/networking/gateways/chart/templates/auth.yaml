@@ -3,27 +3,6 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: authelia
-  namespace: authelia
-spec:
-  from:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      namespace: gateways
-    {{- range .Values.middlewares.authelia.namespaces }}
-    - group: gateway.envoyproxy.io
-      kind: SecurityPolicy
-      namespace: "{{ .name }}"
-    {{- end }}
-  to:
-    - group: ""
-      kind: Service
-      name: authelia
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
   name: tinyauth
   namespace: identity
 spec:
@@ -61,45 +40,6 @@ spec:
     - group: ""
       kind: Service
       name: organizr
-
-{{- range .Values.middlewares.authelia.namespaces }}
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: SecurityPolicy
-metadata:
-  name: authelia
-  namespace: "{{ .name }}"
-spec:
-  targetRefs:
-    {{- range .http }}
-    - group: gateway.networking.k8s.io
-      kind: HTTPRoute
-      name: "{{ . }}"
-    {{- end }}
-  extAuth:
-    headersToExtAuth:
-      - accept
-      - cookie
-      - location
-      - authorization
-      - proxy-authorization
-      - x-forwarded-proto
-      - x-forwarded-for
-      - user-agent
-    failOpen: false
-    http:
-      backendRefs:
-        - name: 'authelia'
-          namespace: 'authelia'
-          port: 80
-      path: '/api/authz/ext-authz/'
-      headersToBackend:
-        - Remote-User
-        - Remote-Groups
-        - Remote-Name
-        - Remote-Email
-{{- end }}
 
 {{- range .Values.middlewares.pocket.namespaces }}
 ---
