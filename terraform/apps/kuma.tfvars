@@ -1,9 +1,4 @@
 http_monitors = {
-  authelia = {
-    name = "Authelia"
-    url  = "https://auth.plexmox.com"
-    tags = ["auth"]
-  }
   argo = {
     name = "ArgoCD"
     url  = "http://argo-argocd-server.argo.svc.cluster.local"
