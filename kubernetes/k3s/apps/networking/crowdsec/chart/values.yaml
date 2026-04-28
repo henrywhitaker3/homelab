@@ -16,16 +16,11 @@ crowdsec:
       - namespace: gateways
         podName: public-*
         program: traefik
-      - namespace: authelia
-        podName: authelia-*
-        program: authelia
     env:
       - name: PARSERS
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
-        value: "crowdsecurity/traefik LePresidente/authelia"
-      - name: SCENARIOS
-        value: "LePresidente/authelia-bf"
+        value: "yanis-kouidri/envoy"
       - name: DISABLE_PARSERS
         value: "crowdsecurity/whitelists"
     persistentVolume:
