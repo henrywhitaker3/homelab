@@ -72,7 +72,7 @@ services:
 
   # Combined server (Management + Signal + Relay + STUN)
   netbird-server:
-    image: netbirdio/netbird-server:0.69.0
+    image: netbirdio/netbird-server:0.70.4
     container_name: netbird-server
     restart: unless-stopped
     networks: [netbird]
@@ -110,7 +110,7 @@ services:
 
   # NetBird Proxy - exposes internal resources to the internet
   proxy:
-    image: netbirdio/reverse-proxy:0.69.0
+    image: netbirdio/reverse-proxy:0.70.4
     container_name: netbird-proxy
     ports:
       - 51820:51820/udp
