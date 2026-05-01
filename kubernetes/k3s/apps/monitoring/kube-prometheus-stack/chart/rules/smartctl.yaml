@@ -28,8 +28,8 @@ spec:
           annotations:
             summary: The {{ $labels.device }} drive in {{ $labels.instance }} has media errors
         - alert: SmartDeviceHighTemperature
-          expr: smartctl_device_temperature > 65
-          for: 15m
+          expr: smartctl_device_temperature > 70
+          for: 30m
           labels:
             severity: critical
           annotations:
