@@ -6,7 +6,7 @@ generic:
   image:
     repository: linuxserver/plex
     pullPolicy: IfNotPresent
-    tag: "1.43.1"
+    tag: "1.43.1@sha256:ffed84c09e3b99ae191d665fc4408ece0e83fe4a9ca74e27d109c22b1395d573"
 
   resources:
     requests:

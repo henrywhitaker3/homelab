@@ -44,7 +44,7 @@
             "addLabels": ["dep/minor"]
         },
         {
-            "matchUpdateTypes": ["minor"],
+            "matchUpdateTypes": ["minor", "digest"],
             "matchPackageNames": [
                 "/sonarr/",
                 "/radarr/",
