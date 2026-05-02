@@ -69,16 +69,16 @@ generic:
               type: PathPrefix
               value: /
       # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
-      # - port: 32400
-      #   matches:
-      #     - path:
-      #         type: PathPrefix
-      #         value: /library/streams
-      #   filters:
-      #     - type: RequestHeaderModifier
-      #       requestHeaderModifier:
-      #         remove:
-      #           - Range
+      - port: 32400
+        matches:
+          - path:
+              type: PathPrefix
+              value: /library/streams
+        filters:
+          - type: RequestHeaderModifier
+            requestHeaderModifier:
+              remove:
+                - Range
 
   pvc:
     enabled: true
@@ -138,12 +138,16 @@ generic:
     - name: quicksync
       hostPath:
         path: /dev/dri
+    - name: transcode
+      emptyDir: {}
 
   volumeMounts:
     - mountPath: /plex
       name: media
     - mountPath: /dev/dri
       name: quicksync
+    - mountPath: /transcode
+      name: transcode
 
   affinity:
     nodeAffinity:
