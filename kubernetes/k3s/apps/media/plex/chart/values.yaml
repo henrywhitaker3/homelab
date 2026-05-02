@@ -93,7 +93,7 @@ generic:
     type: tcpSocket
     options:
       port: http
-    initialDelaySeconds: 60
+    initialDelaySeconds: 10
 
   config:
     PUID: "1000"
