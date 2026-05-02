@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/grimmory-tools/grimmory
     pullPolicy: IfNotPresent
-    tag: "v3.0.2"
+    tag: "v3.0.3"
 
   service:
     port: 9568
