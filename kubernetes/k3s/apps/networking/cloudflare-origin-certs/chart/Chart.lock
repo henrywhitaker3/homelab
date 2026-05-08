@@ -1,6 +1,6 @@
 dependencies:
 - name: origin-ca-issuer
   repository: oci://ghcr.io/cloudflare/origin-ca-issuer-charts
-  version: 0.6.5
-digest: sha256:bee21ce3e0ae8cadd64940ab099aaba5247485f780d40b0693fe5c24fbd45929
-generated: "2026-05-08T12:01:55.563836268Z"
+  version: 0.6.6
+digest: sha256:6fe0a4e79a569d14947f39be80d1ec033e3a42355f4299c5bca5404913071831
+generated: "2026-05-08T13:01:48.967810653Z"
