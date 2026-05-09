@@ -82,13 +82,15 @@ generic:
   volumes:
     - name: books
       hostPath:
-        path: /plex/Media/Stump/books
+        # path: /plex/Media/Stump/books
+        path: /plex/Media/Booklore/books
     - name: logs
       emptyDir: {}
 
   volumeMounts:
     - mountPath: /books
       name: books
+      readOnly: true
     - mountPath: /var/log/stump
       name: logs
 
