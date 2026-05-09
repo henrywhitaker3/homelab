@@ -79,6 +79,8 @@ generic:
   probes:
     initialDelaySeconds: 15
     timeoutSeconds: 5
+    periodSeconds: 15
+    failureThreshold: 5
 
   netpol:
     enabled: true
