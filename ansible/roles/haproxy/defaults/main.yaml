@@ -49,3 +49,8 @@ haproxy_stats_port: 8404
 haproxy_stats_uri: /stats
 haproxy_stats_refresh: 5s
 haproxy_stats_extras: ""
+
+# - name: ""
+#   host: ""
+#   port: 0
+haproxy_port_checks: []

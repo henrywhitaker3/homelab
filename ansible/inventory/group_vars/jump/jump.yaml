@@ -73,4 +73,12 @@ haproxy_backends:
     host: "public.gateways.svc.cluster.local:443"
     options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
 
+haproxy_port_checks:
+  - name: public envoy gateway
+    host: public.gateways.svc.cluster.local
+    port: 443
+  - name: public traefik
+    host: traefik-public.traefik.svc.cluster.local
+    port: 443
+
 wireguard_ip_forwarding: true

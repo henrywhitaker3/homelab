@@ -1,0 +1,26 @@
+---
+- name: Copy port check script
+  become: "{{ haproxy_become }}"
+  tags: haproxy
+  ansible.builtin.copy:
+    src: files/port_check.sh
+    dest: "{{ haproxy_config_dir }}/port_check.sh"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Setup cronjob
+  become: "{{ haproxy_become }}"
+  tags: haproxy
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    minute: "*"
+    hour: "*"
+    day: "*"
+    weekday: "*"
+    month: "*"
+    state: present
+    job: "{{ haproxy_config_dir }}/port_check.sh {{ item.host }} {{ item.port }}"
+  loop: "{{ haproxy_port_checks }}"
+  loop_control:
+    label: "{{ item.name }}"

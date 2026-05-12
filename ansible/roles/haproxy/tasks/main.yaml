@@ -5,5 +5,8 @@
 - name: Configure haproxy
   ansible.builtin.import_tasks: task_configure.yaml
 
+- name: Configure port checks
+  ansible.builtin.import_tasks: task_port_check.yaml
+
 - name: Start/stop haproxy
   ansible.builtin.import_tasks: task_state.yaml
