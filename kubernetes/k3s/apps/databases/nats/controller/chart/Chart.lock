@@ -1,6 +1,6 @@
 dependencies:
 - name: nack
   repository: https://nats-io.github.io/k8s/helm/charts/
-  version: 0.33.2
-digest: sha256:601398a13123dfc3572d1e11b44219ca0f8bc899b328e546be6c52961dc9361b
-generated: "2026-02-13T08:06:39.906489502Z"
+  version: 0.34.0
+digest: sha256:1d1ec868d098d147c049c44b2a2ffd8d6baa672359805d8dd363896d7e3ddd71
+generated: "2026-05-12T15:02:20.37429993Z"
