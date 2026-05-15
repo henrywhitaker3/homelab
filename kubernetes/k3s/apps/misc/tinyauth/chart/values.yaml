@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  replicaCount: 3
+  replicaCount: 1
 
   image:
     repository: ghcr.io/steveiliop56/tinyauth
