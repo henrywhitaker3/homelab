@@ -3,12 +3,13 @@
 generic:
   replicaCount: 1
 
+  deploymentStrategy:
+    type: Recreate
+
   image:
     repository: ghcr.io/steveiliop56/tinyauth
-    # repository: harbor.plexmox.com/library/tinyauth
     pullPolicy: IfNotPresent
     tag: "v5.0.7-distroless"
-    # tag: redis-6
 
   service:
     port: 3000
@@ -39,12 +40,15 @@ generic:
       value: "debug"
     - name: TINYAUTH_LOG_JSON
       value: "true"
-    # - name: TINYAUTH_SESSION_DRIVER
-    #   value: redis
-    # - name: TINYAUTH_DATABASE_REDIS_URL
-    #   value: dragonfly.dragonfly.svc.cluster.local:6379
-    # - name: TINYAUTH_DATABASE_REDIS_DB
-    #   value: "11"
+    - name: TINYAUTH_DATABASE_PATH
+      value: /config/tinyauth.db
+
+  pvc:
+    enabled: true
+    accessModes: [ReadWriteOnce]
+    mountPath: /config
+    size: 128Mi
+    storageClassName: longhorn-no-backups
 
   probes:
     enabled: true
