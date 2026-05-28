@@ -6,7 +6,7 @@ generic:
   image:
     repository: aaronleopold/stump
     pullPolicy: IfNotPresent
-    tag: "nightly@sha256:61e6e56830d470523872b191dd9e851c7485c0e1054b041bada332e66d7e5ad7"
+    tag: "nightly@sha256:a7b957f7dd59e944ace40261923a73e58c6ed196922609c7bd2c8e3fe57a5406"
 
   service:
     port: 10801
