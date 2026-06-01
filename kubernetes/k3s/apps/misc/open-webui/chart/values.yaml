@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  nameOverride: open-webui
+  fullnameOverride: open-webui
+
+  replicaCount: 1
+
+  deploymentStrategy:
+    type: Recreate
+
+  image:
+    repository: ghcr.io/open-webui/open-webui
+    pullPolicy: IfNotPresent
+    tag: "v0.9.6"
+
+  service:
+    port: 8080
+
+  probes:
+    enabled: true
+    type: tcpSocket
+    options:
+      port: http
+
+  httpRoute:
+    enabled: true
+    hostnames: [ai.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: private
+        namespace: gateways
+    rules:
+      - port: 8080
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  config:
+    OLLAMA_BASE_URLS: http://mac-mini.lab:11434
+
+  pvc:
+    enabled: true
+    size: 5Gi
+    storageClassName: longhorn
+    mountPath: /app/backend/data
+
+  tty: true
