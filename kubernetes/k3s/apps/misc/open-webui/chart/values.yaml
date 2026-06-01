@@ -18,7 +18,7 @@ generic:
     port: 8080
 
   probes:
-    enabled: true
+    enabled: false
     type: tcpSocket
     options:
       port: http
