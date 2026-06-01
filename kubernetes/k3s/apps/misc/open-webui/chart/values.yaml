@@ -29,7 +29,7 @@ generic:
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
-        name: private
+        name: internal
         namespace: gateways
     rules:
       - port: 8080
