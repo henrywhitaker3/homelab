@@ -12,11 +12,11 @@ helmCharts:
     releaseName: mariadb-operator
     namespace: databases
     version: "26.6.0"
-    repo: https://helm.mariadb.com/mariadb-operator
+    repo: oci://ghcr.io/mariadb-operator/charts
     valuesFile: values.yaml
   - name: mariadb-operator-crds
     includeCRDs: true
     releaseName: mariadb-operator-crds
     namespace: databases
     version: "26.3.0"
-    repo: https://helm.mariadb.com/mariadb-operator
+    repo: oci://ghcr.io/mariadb-operator/charts
