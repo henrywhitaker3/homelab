@@ -68,6 +68,8 @@ ansible play:
   image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:d97b1a45a06c42c214634ecc4d35adb330a946ee514457d3a7f7fe7004471388
   before_script:
     - task age_key="$AGE_KEY" ci:age:key
+    - git rev-parse --show-toplevel
+    - git status
     - task tm:init
   rules:
     - if: $SKIP_TERRAFORM == "true"
