@@ -1,5 +1,5 @@
 module "henrywhitaker-com" {
-  source = "./cloudflare"
+  source = "../modules/cloudflare"
 
   zone = "henrywhitaker.com"
   records = {
@@ -25,7 +25,7 @@ module "henrywhitaker-com" {
 }
 
 module "plexmox-com" {
-  source = "./cloudflare"
+  source = "../modules/cloudflare"
 
   zone = "plexmox.com"
   records = {

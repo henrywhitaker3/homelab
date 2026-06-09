@@ -1,5 +1,5 @@
 module "adguard" {
-  source    = "./vm"
+  source    = "../modules/vm"
   instances = 2
 
   name       = "adguard"
@@ -14,7 +14,7 @@ module "adguard" {
 }
 
 module "lb" {
-  source    = "./vm"
+  source    = "../modules/vm"
   instances = 2
 
   name      = "lb"
