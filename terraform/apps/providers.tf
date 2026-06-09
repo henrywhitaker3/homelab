@@ -10,9 +10,6 @@ terraform {
       version = "0.3.3"
     }
   }
-
-  backend "http" {
-  }
 }
 
 variable "pocketid_api_token" {
