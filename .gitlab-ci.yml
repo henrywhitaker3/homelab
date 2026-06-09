@@ -22,6 +22,7 @@ diffs:
 .playbooks:
   variables:
     ANSIBLE_CONFIG: ./ansible.cfg
+    SOPS_AGE_KEY: $AGE_KEY
   parallel:
     matrix:
       - PLAYBOOK:
@@ -49,7 +50,6 @@ ansible lint:
   stage: lint
   extends: .playbooks
   script:
-    - task age_key="$AGE_KEY" ci:age:key
     - task playbook="ansible/playbooks/$PLAYBOOK/main.yaml" ci:lint
 
 ansible play:
@@ -57,7 +57,7 @@ ansible play:
   extends: .playbooks
   script:
     - eval $(ssh-agent -s)
-    - task playbook="ansible/playbooks/$PLAYBOOK/main.yaml" age_key="$AGE_KEY" ssh_key="$SSH_KEY" ci:playbook
+    - task playbook="ansible/playbooks/$PLAYBOOK/main.yaml" ssh_key="$SSH_KEY" ci:playbook
   environment:
     name: "$PLAYBOOK"
 
@@ -67,7 +67,6 @@ ansible play:
 .terraform:base:
   image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:d97b1a45a06c42c214634ecc4d35adb330a946ee514457d3a7f7fe7004471388
   before_script:
-    - task age_key="$AGE_KEY" ci:age:key
     - git config --global --add safe.directory /builds/henrywhitaker3/homelab
     - task tm:init
   rules:
@@ -82,7 +81,6 @@ ansible play:
     GIT_STRATEGY: clone
     TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
     TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
-    SOPS_AGE_KEY_FILE: ~/.age.key
     SOPS_AGE_KEY: $AGE_KEY
 
 tf plan:

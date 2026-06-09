@@ -25,7 +25,7 @@ tasks:
       - echo {{ .age_key }} > ~/.age.key
 
   playbook:
-    deps: [age:key, ssh:key, init]
+    deps: [ssh:key, init]
     requires:
       vars:
         - playbook
