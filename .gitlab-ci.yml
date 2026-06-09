@@ -68,7 +68,7 @@ ansible play:
   image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:d97b1a45a06c42c214634ecc4d35adb330a946ee514457d3a7f7fe7004471388
   before_script:
     - task age_key="$AGE_KEY" ci:age:key
-    - task tm:init
+    - cd terraform && task tm:init
   rules:
     - if: $SKIP_TERRAFORM == "true"
       when: never
@@ -87,7 +87,7 @@ tf plan:
   extends:
     - .terraform:base
   script:
-    - task tm:plan -- -out out.tfplan
+    - cd terraform && task tm:plan -- -out out.tfplan
   artifacts:
     paths:
       - terraform/**/out.tfplan
@@ -99,7 +99,7 @@ tf deploy:
   extends:
     - .terraform:base
   script:
-    - task tm:apply -- -auto-approve out.tfplan
+    - cd terraform && task tm:apply -- -auto-approve out.tfplan
   dependencies:
     - tf plan
   when: manual

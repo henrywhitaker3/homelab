@@ -17,8 +17,13 @@ tasks:
 
   apply:
     desc: Run terraform apply
+    vars:
+      with_plan: "false"
     cmds:
-      - terramate run --parallel 5 {{if eq .changed "true"}}--changed{{end}} -- bash -c 'tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}'
+      - |
+        terramate run --parallel 5 \
+        {{if eq .changed "true"}}--changed{{end}} \
+        {{if eq .with_plan "true"}}--terraform-plan-file=out.tfplan{{end}} -- bash -c 'tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}'
 
   init:
     desc: Run terraform init
