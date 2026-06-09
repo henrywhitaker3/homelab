@@ -30,9 +30,6 @@ terraform {
       version = "0.0.9"
     }
   }
-
-  backend "http" {
-  }
 }
 
 provider "adguard" {

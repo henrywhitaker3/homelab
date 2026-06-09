@@ -1,5 +1,5 @@
 module "adguard_1" {
-  source = "./adguard"
+  source = "../modules/adguard"
 
   adguard_host     = data.terraform_remote_state.infra.outputs.adguard_info[0].ip
   adguard_user     = var.adguard_user
@@ -19,7 +19,7 @@ module "adguard_1" {
 }
 
 module "adguard_2" {
-  source = "./adguard"
+  source = "../modules/adguard"
 
   adguard_host     = data.terraform_remote_state.infra.outputs.adguard_info[1].ip
   adguard_user     = var.adguard_user

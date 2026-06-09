@@ -1,5 +1,5 @@
 module "k3s-control" {
-  source    = "./vm"
+  source    = "../modules/vm"
   instances = 3
 
   name       = "k3s-control"

@@ -54,7 +54,7 @@ locals {
 }
 
 module "talos" {
-  source = "./talos"
+  source = "../modules/talos"
 
   for_each = local.talos_clusters
 

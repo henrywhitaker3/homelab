@@ -5,17 +5,14 @@ terraform {
       source  = "telmate/proxmox"
       version = "3.0.2-rc07"
     }
-
     digitalocean = {
       source  = "digitalocean/digitalocean"
       version = "2.87.0"
     }
-
     healthchecksio = {
       source  = "kristofferahl/healthchecksio"
       version = "2.3.0"
     }
-
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "4.52.7"
@@ -28,9 +25,6 @@ terraform {
       source  = "siderolabs/talos"
       version = "0.11.0"
     }
-  }
-
-  backend "http" {
   }
 }
 
