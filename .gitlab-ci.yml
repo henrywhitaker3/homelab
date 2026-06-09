@@ -77,6 +77,8 @@ ansible play:
         - terraform/**/*
         - .gitlab-ci.yml
   variables:
+    GIT_DEPTH: 0
+    GIT_STRATEGY: clone
     TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
     TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
     SOPS_AGE_KEY_FILE: ~/.age.key
