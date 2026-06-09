@@ -8,6 +8,8 @@
 *.tfstate
 *.tfstate.*
 
+out.tfplan
+
 # Crash log files
 crash.log
 crash.*.log
