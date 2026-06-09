@@ -43,7 +43,6 @@ diffs:
         - ansible/inventory/**/*
         - ansible/roles/**/*
         - ansible/inventory
-        - .gitlab-ci.yml
         - .ansible-lint
 
 ansible lint:
@@ -75,11 +74,12 @@ ansible play:
       when: never
     - if: $CI_COMMIT_BRANCH == "main" && $SKIP_TERRAFORM != "true"
       changes:
-        - terraform/$TF_DIR/*
+        - terraform/**/*
         - .gitlab-ci.yml
   variables:
     TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
     TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
+    SOPS_AGE_KEY_FILE: ~/.age.key
 
 tf plan:
   stage: plan
@@ -89,7 +89,7 @@ tf plan:
     - task tm:plan -- -out out.tfplan
   artifacts:
     paths:
-      - terraform/*/out.tfplan
+      - terraform/**/out.tfplan
   rules:
     - !reference [.terraform:base, rules]
 
@@ -98,7 +98,7 @@ tf deploy:
   extends:
     - .terraform:base
   script:
-    - task tm:apply -- -auto-approve
+    - task tm:apply -- -auto-approve out.tfplan
   dependencies:
     - tf plan
   when: manual
