@@ -9,6 +9,10 @@ terraform {
       source  = "breml/uptimekuma"
       version = "0.3.3"
     }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.3.0"
+    }
   }
 }
 
