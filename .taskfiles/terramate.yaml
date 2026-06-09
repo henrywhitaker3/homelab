@@ -18,7 +18,7 @@ tasks:
   apply:
     desc: Run terraform apply
     cmds:
-      - terramate run --parallel 5 {{if eq .changed "true"}}--changed{{end}} -- bash -c 'tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done){{ .CLI_ARGS }}'
+      - terramate run --parallel 5 {{if eq .changed "true"}}--changed{{end}} -- bash -c 'tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}'
 
   init:
     desc: Run terraform init

@@ -4,7 +4,7 @@ stages:
   - deploy
   - renovate
 
-image: ghcr.io/henrywhitaker3/containers/pipelines:latest
+image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:d97b1a45a06c42c214634ecc4d35adb330a946ee514457d3a7f7fe7004471388
 
 ##############
 # Kubernetes #
@@ -66,19 +66,10 @@ ansible play:
 # Terraform #
 #############
 .terraform:base:
-  image: ghcr.io/henrywhitaker3/containers/pipelines
+  image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:d97b1a45a06c42c214634ecc4d35adb330a946ee514457d3a7f7fe7004471388
   before_script:
-    - cd terraform/$TF_DIR
-    - |
-      terraform init -upgrade \
-          -backend-config="address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE" \
-          -backend-config="lock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
-          -backend-config="unlock_address=https://gitlab.com/api/v4/projects/45412263/terraform/state/$TF_STATE/lock" \
-          -backend-config="username=henrywhitaker3" \
-          -backend-config="password=$TERRAFORM_ACCESS_TOKEN" \
-          -backend-config="lock_method=POST" \
-          -backend-config="unlock_method=DELETE" \
-          -backend-config="retry_wait_min=5"
+    - task age_key="$AGE_KEY" ci:age:key
+    - task tm:init
   rules:
     - if: $SKIP_TERRAFORM == "true"
       when: never
@@ -86,38 +77,19 @@ ansible play:
       changes:
         - terraform/$TF_DIR/*
         - .gitlab-ci.yml
-  parallel:
-    matrix:
-      - TF_STATE: tf-state
-        TF_DIR: infra
-      - TF_STATE: post
-        TF_DIR: post
-        TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
-        TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
-      - TF_STATE: apps
-        TF_DIR: apps
-
-tf validate:
-  stage: lint
-  extends:
-    - .terraform:base
-  script:
-    - terraform validate
-  rules:
-    - !reference [.terraform:base, rules]
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
-        - terraform/*
+  variables:
+    TF_VAR_infra_state_url: https://gitlab.com/api/v4/projects/45412263/terraform/state/tf-state
+    TF_VAR_infra_state_token: $TERRAFORM_ACCESS_TOKEN
 
 tf plan:
   stage: plan
   extends:
     - .terraform:base
   script:
-    - terraform plan $(for file in *.tfvars; do echo "-var-file $file "; done) -out planfile
+    - task tm:plan -- -out out.tfplan
   artifacts:
     paths:
-      - terraform/$TF_DIR/planfile
+      - terraform/*/out.tfplan
   rules:
     - !reference [.terraform:base, rules]
 
@@ -126,22 +98,7 @@ tf deploy:
   extends:
     - .terraform:base
   script:
-    - terraform apply -auto-approve planfile
+    - task tm:apply -- -auto-approve
   dependencies:
     - tf plan
-  environment:
-    name: $TF_DIR
-  # when: manual
-
-############
-# Renovate #
-############
-
-# renovate:
-#   stage: renovate
-#   image: ghcr.io/renovatebot/renovate:43
-#   variables:
-#     RENOVATE_EXTRA_FLAGS: henrywhitaker3/homelab
-#   rules:
-#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-#     - if: '$CI_PIPELINE_SOURCE == "push"'
+  when: manual
