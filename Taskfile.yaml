@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 dotenv: [.env]
 
@@ -8,6 +8,7 @@ includes:
   argo: .taskfiles/argo.yaml
   k3s: .taskfiles/k3s.yaml
   tf: .taskfiles/terraform.yaml
+  tm: .taskfiles/terramate.yaml
   new: .taskfiles/new.yaml
   postgres: .taskfiles/postgres.yaml
   galera: .taskfiles/galera.yaml
