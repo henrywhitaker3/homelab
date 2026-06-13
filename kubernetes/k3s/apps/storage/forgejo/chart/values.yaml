@@ -1,0 +1,133 @@
+---
+forgejo:
+  image:
+    registry: code.forgejo.org
+    repository: forgejo/forgejo
+    tag: 15.0.3
+    rootless: true
+
+  persistence:
+    enabled: true
+    create: false
+    claimName: forgejo-data
+
+  httpRoute:
+    enabled: true
+    hostnames: [git.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
+
+  tcpRoute:
+    enabled: true
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
+
+  gitea:
+    admin:
+      existingSecret: forgejo-admin-secrets
+
+    oauth:
+      - name: Pocket
+        provider: openidConnect
+        autoDiscoverUrl: https://pocket.plexmox.com/.well-known/openid-configuration
+        existingSecret: forgejo-oauth-secrets
+        scopes: openid,profile,email,groups
+        groupClaimName: groups
+        adminGroup: admin
+        iconUrl: https://pocket.plexmox.com/api/application-images/logo?light=false
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+    config:
+      indexer:
+        REPO_INDEXER_ENABLED: true
+
+      ui:
+        THEMES: forgejo-auto,forgejo-light,forgejo-dark,catppuccin-mauve-auto,catppuccin-mauve-latte,catppuccin-mauve-macchiato
+        DEFAULT_THEME: catppuccin-mauve-auto
+
+      queue:
+        TYPE: redis
+        CONN_STR: redis://dragonfly.dragonfly.svc.cluster.local:6379/8
+
+      cache:
+        ADAPTER: redis
+        HOST: redis://dragonfly.dragonfly.svc.cluster.local:6379/9
+
+      session:
+        PROVIDER: redis
+        PROVIDER_CONFIG: redis://dragonfly.dragonfly.svc.cluster.local:6379/10
+
+      repository:
+        DISABLE_HTTP_GIT: false
+        ENABLE_PUSH_CREATE_USER: true
+        ENABLE_PUSH_CREATE_ORG: true
+
+    additionalConfigFromEnvs:
+      - name: FORGEJO__database__DB_TYPE
+        value: postgres
+      - name: FORGEJO__database__HOST
+        value: crunchy-pgbouncer.crunchy.svc:5432
+      - name: FORGEJO__database__SSL_MODE
+        value: require
+      - name: FORGEJO__database__NAME
+        valueFrom:
+          secretKeyRef:
+            name: crunchy-pguser-forgejo
+            key: dbname
+      - name: FORGEJO__database__USER
+        valueFrom:
+          secretKeyRef:
+            name: crunchy-pguser-forgejo
+            key: user
+      - name: FORGEJO__database__PASSWD
+        valueFrom:
+          secretKeyRef:
+            name: crunchy-pguser-forgejo
+            key: password
+      - name: FORGEJO__storage__STORAGE_TYPE
+        value: minio
+      - name: FORGEJO__storage__MINIO_ENDPOINT
+        value: garage.plexmox.com
+      - name: FORGEJO__storage__MINIO_BUCKET
+        value: git
+      - name: FORGEJO__storage__MINIO_LOCATION
+        value: garage
+      - name: FORGEJO__storage__MINIO_USE_SSL
+        value: "true"
+      - name: FORGEJO__storage__MINIO_BUCKET_LOOKUP
+        value: path
+      - name: FORGEJO__metrics_ENABLED
+        value: "true"
+      - name: FORGEJO__storage__MINIO_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-secrets
+            key: access-key-id
+      - name: FORGEJO__storage__MINIO_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-secrets
+            key: secret-access-key
+
+  serviceAccount:
+    create: true
+
+  extraVolumes:
+    - name: themes
+      configMap:
+        name: forgejo-themes
+
+  extraVolumeMounts:
+    - name: themes
+      readOnly: true
+      mountPath: /data/gitea/public/assets/css

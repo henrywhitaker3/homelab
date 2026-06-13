@@ -1,0 +1,11 @@
+apiVersion: v2
+name: forgejo
+description: forgejo manifests
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+
+dependencies:
+  - name: forgejo
+    version: "16.2.1"
+    repository: oci://code.forgejo.org/forgejo-helm
