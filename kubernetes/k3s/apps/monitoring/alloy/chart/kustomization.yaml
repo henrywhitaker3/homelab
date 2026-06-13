@@ -5,7 +5,7 @@ helmCharts:
   - name: alloy
     releaseName: alloy
     repo: https://grafana.github.io/helm-charts
-    version: 1.9.0
+    version: 1.10.0
     valuesFile: values.yaml
 resources:
   - config
