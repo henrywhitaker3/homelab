@@ -1,9 +1,9 @@
 ---
 forgejo:
   image:
-    registry: code.forgejo.org
-    repository: forgejo/forgejo
-    tag: 15.0.3
+    # registry: code.forgejo.org
+    # repository: forgejo/forgejo
+    # tag: 15.0.3
     rootless: true
 
   persistence:
