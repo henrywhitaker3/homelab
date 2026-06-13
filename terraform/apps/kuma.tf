@@ -23,7 +23,7 @@ variable "http_monitors" {
     url           = string
     interval      = optional(number, 60)
     timeout       = optional(number, 30)
-    max_retries   = optional(number, 0)
+    max_retries   = optional(number, 3)
     active        = optional(bool, true)
     status_codes  = optional(list(string), ["200-299"])
     max_redirects = optional(number, 10)
