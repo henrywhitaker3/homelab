@@ -4,7 +4,7 @@ stages:
   - deploy
   - renovate
 
-image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:ead93b432f4885ba5105288e978fea9411acc757677747aefcc5650cc599684c
+image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:2786ea531ed892b822121acc91654dfe2fa3b9dab818df9ef720a686867d7f10
 
 ##############
 # Kubernetes #
@@ -65,7 +65,7 @@ ansible play:
 # Terraform #
 #############
 .terraform:base:
-  image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:ead93b432f4885ba5105288e978fea9411acc757677747aefcc5650cc599684c
+  image: ghcr.io/henrywhitaker3/containers/pipelines@sha256:2786ea531ed892b822121acc91654dfe2fa3b9dab818df9ef720a686867d7f10
   before_script:
     - git config --global --add safe.directory /builds/henrywhitaker3/homelab
     - task tm:init
