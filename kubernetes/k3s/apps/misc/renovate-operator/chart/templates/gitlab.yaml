@@ -53,8 +53,8 @@ spec:
     template:
       engineVersion: v2
       data:
-        RENOVATE_TOKEN: "{{ .gitlab_token }}"
-        GITHUB_COM_TOKEN: "{{ .token }}"
+        RENOVATE_TOKEN: "{{ `{{ .gitlab_token }}` }}"
+        GITHUB_COM_TOKEN: "{{ `{{ .token }}` }}"
   dataFrom:
     - sourceRef:
         generatorRef:
