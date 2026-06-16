@@ -1,13 +1,3 @@
-variable "infra_state_url" {
-  type        = string
-  description = "The URL for the infra remote state"
-}
-
-variable "infra_state_token" {
-  type        = string
-  description = "The token to access the infra remote state"
-}
-
 variable "adguard_user" {
   type = string
 }

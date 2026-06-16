@@ -36,19 +36,19 @@ variable "netbird_setup_keys" {
 locals {
   netbird_vms = {
     for vm in flatten(concat(
-      data.terraform_remote_state.infra.outputs.adguard_info,
-      data.terraform_remote_state.infra.outputs.lb_info,
-      data.terraform_remote_state.infra.outputs.k3s_control_info,
-      data.terraform_remote_state.infra.outputs.k3s_dedi_info,
+      var.adguard_info,
+      var.lb_info,
+      var.k3s_control_info,
+      var.k3s_dedi_info,
     )) : vm.name => vm
   }
 
   netbird_peer_vms = {
     for vm in flatten(concat(
-      data.terraform_remote_state.infra.outputs.adguard_info,
-      data.terraform_remote_state.infra.outputs.lb_info,
-      data.terraform_remote_state.infra.outputs.k3s_control_info,
-      data.terraform_remote_state.infra.outputs.k3s_dedi_info,
+      var.adguard_info,
+      var.lb_info,
+      var.k3s_control_info,
+      var.k3s_dedi_info,
     )) : vm.name => vm
   }
 
