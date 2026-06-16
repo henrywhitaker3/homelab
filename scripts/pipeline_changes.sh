@@ -82,7 +82,7 @@ comment_json() {
 # Run the diff cli to generate a diff string
 # Usage: [target] [changes]
 diffs() {
-    output=$(dyff between -b $1 $2)
+    output=$(dyff between --output gitlab -b $1 $2)
     echo "$output"
 }
 
