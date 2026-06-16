@@ -5,7 +5,7 @@ renovate-operator:
     mode: template
 
   route:
-    enabled: true
+    enabled: false
     hostnames: [renovate.plexmox.com]
     parentRefs:
       - name: internal

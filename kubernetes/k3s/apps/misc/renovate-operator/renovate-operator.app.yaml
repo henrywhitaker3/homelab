@@ -12,10 +12,10 @@ spec:
     namespace: misc
     server: https://kubernetes.default.svc
   project: apps
-  sources:
-    - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: main
-      path: kubernetes/k3s/apps/misc/renovate-operator/chart
+  source:
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: main
+    path: kubernetes/k3s/apps/misc/renovate-operator/chart
   syncPolicy:
     automated:
       prune: true
