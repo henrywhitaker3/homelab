@@ -3,7 +3,7 @@ terraform {
   required_providers {
     pocketid = {
       source  = "trozz/pocketid"
-      version = "0.1.8"
+      version = "2.1.0"
     }
     uptimekuma = {
       source  = "breml/uptimekuma"
