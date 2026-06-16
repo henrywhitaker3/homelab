@@ -34,7 +34,7 @@ terraform {
 
 provider "adguard" {
   alias    = "adguard-1"
-  host     = data.terraform_remote_state.infra.outputs.adguard_info[0].ip
+  host     = var.adguard_info[0].ip
   username = var.adguard_user
   password = var.adguard_password
   scheme   = "http"
@@ -43,7 +43,7 @@ provider "adguard" {
 
 provider "adguard" {
   alias    = "adguard-2"
-  host     = data.terraform_remote_state.infra.outputs.adguard_info[1].ip
+  host     = var.adguard_info[1].ip
   username = var.adguard_user
   password = var.adguard_password
   scheme   = "http"
