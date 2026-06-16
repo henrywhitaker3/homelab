@@ -13,11 +13,11 @@ randstr() {
 
 clone() {
     dir="/tmp/$(randstr)"
-    git clone -b $1 $git_url $dir 2> /dev/null
+    git clone -b $1 $git_url $dir 2>/dev/null
     echo $dir
 }
 
-clenaup() {
+cleanup() {
     rm -rf $1 $2
 }
 
@@ -43,7 +43,7 @@ get_root_dir() {
         dir=$(realpath -s "$dir/..")
     done
     full=$(realpath -s "$dir/..")
-    echo ${full/"$source/"}
+    echo ${full/"$source/"/}
 }
 
 guess_format() {
@@ -89,14 +89,14 @@ diffs() {
 # Output the diffs of 2 helm charts
 # Usage: [app dir] [app name]
 helm_diffs() {
-    helm dependency update "$target/$1/chart" > /dev/null
-    helm dependency update "$source/$1/chart" > /dev/null
+    helm dependency update "$target/$1/chart" >/dev/null
+    helm dependency update "$source/$1/chart" >/dev/null
 
     target_file="/tmp/$(randstr).yaml"
     source_file="/tmp/$(randstr).yaml"
 
-    helm template $2 "$target/$1/chart" > $target_file
-    helm template $2 "$source/$1/chart" > $source_file
+    helm template $2 "$target/$1/chart" >$target_file
+    helm template $2 "$source/$1/chart" >$source_file
 
     echo "$(diffs $target_file $source_file)"
 }
@@ -107,8 +107,8 @@ kustomize_diffs() {
     target_file="/tmp/$(randstr).yaml"
     source_file="/tmp/$(randstr).yaml"
 
-    kustomize build --enable-helm "$target/$1/chart" > $target_file
-    kustomize build --enable-helm "$source/$1/chart" > $source_file
+    kustomize build --enable-helm "$target/$1/chart" >$target_file
+    kustomize build --enable-helm "$source/$1/chart" >$source_file
 
     echo "$(diffs $target_file $source_file)"
 }
@@ -128,7 +128,7 @@ source=$(clone $source_branch)
 
 cd $source
 
-changed=$(git diff --name-only "origin/$target_branch")
+changed=$(git diff --name-only "$(git merge-base HEAD "origin/$target_branch")")
 
 for file in $changed; do
     is_k8s=$(is_k8s_change $file)
@@ -154,4 +154,4 @@ for file in $changed; do
 done
 
 echo Cleaning up
-clenaup $source $target
+cleanup $source $target
