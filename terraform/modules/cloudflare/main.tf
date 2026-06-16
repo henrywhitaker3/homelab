@@ -10,7 +10,7 @@ locals {
 }
 
 resource "cloudflare_ruleset" "geo_block" {
-  zone_id     = data.cloudflare_zone.zone.name_id
+  zone_id     = data.cloudflare_zone.zone.id
   name        = "Geo block"
   description = "Blocks access from specified coutries"
   kind        = "zone"
@@ -27,7 +27,7 @@ resource "cloudflare_ruleset" "geo_block" {
 resource "cloudflare_dns_record" "records" {
   for_each = var.records
 
-  zone_id = data.cloudflare_zone.zone.name_id
+  zone_id = data.cloudflare_zone.zone.id
   name    = each.value.name
   content = each.value.value
   type    = each.value.type
