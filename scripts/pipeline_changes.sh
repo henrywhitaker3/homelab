@@ -67,7 +67,7 @@ get_app_name() {
 # Usage: [app name] [diff]
 diff_to_md() {
     echo "# $1"
-    echo "\`\`\`"
+    echo "\`\`\`diff"
     echo "$2"
     echo "\`\`\`"
 }
