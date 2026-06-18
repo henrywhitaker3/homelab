@@ -67,7 +67,7 @@ get_app_name() {
 # Usage: [app name] [diff]
 diff_to_md() {
     echo "# $1"
-    echo "\`\`\`"
+    echo "\`\`\`diff"
     echo "$2"
     echo "\`\`\`"
 }
@@ -82,7 +82,7 @@ comment_json() {
 # Run the diff cli to generate a diff string
 # Usage: [target] [changes]
 diffs() {
-    output=$(dyff between -b $1 $2)
+    output=$(dyff between --output gitlab -b $1 $2)
     echo "$output"
 }
 
