@@ -13,14 +13,19 @@ traefik:
       cpu: 250m
       memory: 100Mi
 
-  logs:
-    access:
-      enabled: true
-
   metrics:
     prometheus:
       serviceMonitor:
         enabled: true
+
+  # log:
+  #   format: json
+  #   otlp:
+  #     enabled: true
+  #     grpc:
+  #       enabled: true
+  #       endpoint: http://alloy.monitoring.svc.cluster.local:4317
+  #       insecure: true
 
   ports:
     web:
@@ -89,6 +94,7 @@ traefik:
       experimentalChannel: true
 
   experimental:
+    otlpLogs: true
     plugins:
       themepark:
         moduleName: github.com/packruler/traefik-themepark
