@@ -66,7 +66,13 @@ resource "cloudflare_r2_bucket" "this" {
   name       = each.value.name
 }
 
-data "cloudflare_api_token_permission_groups" "this" {}
+data "cloudflare_api_token_permission_groups_list" "read" {
+  name = urlencode("Workers R2 Storage Bucket Item Read")
+}
+
+data "cloudflare_api_token_permission_groups_list" "write" {
+  name = urlencode("Workers R2 Storage Bucket Item Write")
+}
 
 resource "cloudflare_api_token" "this" {
   for_each = var.r2_tokens
@@ -78,19 +84,21 @@ resource "cloudflare_api_token" "this" {
     random_bytes.r2_tokens[each.key].hex,
   )
 
-  policy {
-    permission_groups = compact([
-      data.cloudflare_api_token_permission_groups.this.r2["Workers R2 Storage Bucket Item Read"],
-      each.value.write ? data.cloudflare_api_token_permission_groups.this.r2["Workers R2 Storage Bucket Item Write"] : null,
-    ])
-    resources = {
+  policies = [{
+    resources = jsonencode({
       for bucket in each.value.buckets : format(
         "com.cloudflare.edge.r2.bucket.%s_default_%s",
         lookup(each.value, "account_id", var.cloudflare_account_id),
         var.buckets[bucket].name,
       ) => "*"
-    }
-  }
+    })
+    effect = "allow"
+    permission_groups = [{
+      id = data.cloudflare_api_token_permission_groups_list.read.result[0].id
+      }, {
+      id = data.cloudflare_api_token_permission_groups_list.write.result[0].id
+    }]
+  }]
 }
 
 resource "random_bytes" "r2_tokens" {
