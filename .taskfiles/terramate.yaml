@@ -32,5 +32,4 @@ tasks:
     cmds:
       - |
         terramate run --parallel 1 \
-          {{if eq .changed "true"}}--changed{{end}} \
           -- bash -c 'tofu init {{ .CLI_ARGS }}'
