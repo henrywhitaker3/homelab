@@ -1,6 +1,6 @@
 dependencies:
 - name: renovate-operator
   repository: oci://ghcr.io/mogenius/helm-charts
-  version: 4.12.4
-digest: sha256:fb7d064f39388cc63550896049ab8beb7d2ba42c122033ca59b51d5cfdb1789a
-generated: "2026-06-17T21:02:02.292849305Z"
+  version: 4.13.0
+digest: sha256:71d52fc95b8235e6e0c3755e6601530ad4161ee7da57547bd128eea6ade2fbe7
+generated: "2026-06-22T13:02:02.529747088Z"
