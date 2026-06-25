@@ -22,6 +22,7 @@ data:
   config.js: |
     module.exports = {
       redisUrl: 'redis://dragonfly.dragonfly.svc.cluster.local:6379/2',
+      extends: ['config:recommended', 'helpers:pinGitHubActionDigests'],
       prHourlyLimit: 0,
       prConcurrentLimit: 0,
       hostRules: [
