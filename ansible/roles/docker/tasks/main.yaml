@@ -3,7 +3,7 @@
   tags: docker
   become: true
   ansible.builtin.deb822_repository:
-    name: docker
+    name: azlux
     types: deb
     uris: https://download.docker.com/linux/ubuntu
     suites: '{{ ansible_facts["distribution_release"] }}'
