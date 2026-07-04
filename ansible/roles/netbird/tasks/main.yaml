@@ -1,16 +1,23 @@
 ---
-- name: Add nebird gpg key
-  tags: netbird
+- name: Remove old repo
   become: "{{ netbird_become }}"
-  ansible.builtin.apt_key:
-    url: https://pkgs.netbird.io/debian/public.key
-    keyring: /usr/share/keyrings/netbird-archive-keyring.gpg
+  tags: netbird
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/pkgs_netbird_io_debian.list
+    state: absent
 
-- name: Add netbird repo
+- name: Add netbird apt repository
   tags: netbird
   become: "{{ netbird_become }}"
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/netbird-archive-keyring.gpg] https://pkgs.netbird.io/debian stable main"
+  ansible.builtin.deb822_repository:
+    name: netbird
+    types: deb
+    uris: https://pkgs.netbird.io/debian
+    suites: stable
+    components: main
+    architectures: amd64
+    signed_by: https://pkgs.netbird.io/debian/public.key
+    state: present
 
 - name: Install netbird packages
   tags: netbird

@@ -1,8 +1,20 @@
 ---
-- name: Configure haproxy repo
+- name: Remove old repo
   become: "{{ haproxy_become }}"
-  ansible.builtin.apt_repository:
-    repo: "ppa:vbernat/haproxy-{{ haproxy_version }}"
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/ppa_vbernat_haproxy_3_0_noble.list
+    state: absent
+
+- name: Add haproxy apt repository
+  become: "{{ haproxy_become }}"
+  ansible.builtin.deb822_repository:
+    name: haproxy
+    types: deb
+    uris: https://ppa.launchpadcontent.net/vbernat/haproxy-{{ haproxy_version }}/ubuntu
+    suites: '{{ ansible_facts["distribution_release"] }}'
+    components: main
+    architectures: amd64
+    signed_by: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3D653970FBAB0A890E4E4E9A0F14D8B0CF4EFE96"
     state: present
 
 - name: Install haproxy

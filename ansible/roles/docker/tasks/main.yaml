@@ -1,9 +1,16 @@
 ---
+- name: Remove old repo
+  tags: docker
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
+    state: absent
+
 - name: Add docker apt repository
   tags: docker
   become: true
   ansible.builtin.deb822_repository:
-    name: azlux
+    name: docker
     types: deb
     uris: https://download.docker.com/linux/ubuntu
     suites: '{{ ansible_facts["distribution_release"] }}'

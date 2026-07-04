@@ -1,13 +1,20 @@
 ---
+- name: Remove old repo
+  tags: common
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/packages_azlux_fr_debian.list
+    state: absent
+
 - name: Add azlux apt repository
-  tags: docker
+  tags: common
   become: true
   ansible.builtin.deb822_repository:
-    name: docker
+    name: azlux
     types: deb
     uris: https://packages.azlux.fr/debian/
-    suites: "bullseye"
-    components: stable
+    suites: trixie
+    components: main
     architectures: amd64
     signed_by: https://azlux.fr/repo.gpg
     state: present
