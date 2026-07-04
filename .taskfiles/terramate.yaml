@@ -33,3 +33,13 @@ tasks:
       - |
         terramate run --parallel 1 \
           -- bash -c 'tofu init {{ .CLI_ARGS }}'
+
+  output:
+    desc: Run terraform output
+    requires:
+      vars: [module]
+    dir: terraform
+    cmds:
+      - |
+        terramate run --parallel 1 -C "{{ .module }}" \
+          -- bash -c 'tofu output {{ .CLI_ARGS }}'

@@ -23,6 +23,13 @@ resource "proxmox_vm_qemu" "vm" {
   clone_wait      = 0
   vm_state        = "running"
 
+  network {
+    id       = 0
+    bridge   = "vmbr0"
+    model    = "virtio"
+    firewall = false
+  }
+
   cpu {
     cores   = var.cores
     type    = "host"
@@ -65,7 +72,7 @@ resource "proxmox_vm_qemu" "vm" {
 
   lifecycle {
     ignore_changes = [
-      network,
+      # network,
       ciuser,
       sshkeys,
     ]
