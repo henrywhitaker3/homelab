@@ -4,6 +4,7 @@ locals {
     var.lb_info,
     var.k3s_control_info,
     var.k3s_dedi_info,
+    var.dev_info,
     [{ name = "netbird.netbird", ip = "10.100.0.4" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
     [{ name = "proxmox-1", ip = "10.0.0.150" }],

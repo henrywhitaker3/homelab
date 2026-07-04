@@ -12,6 +12,9 @@ variable "k3s_control_info" {
 variable "k3s_dedi_info" {
   type = any
 }
+variable "dev_info" {
+  type = any
+}
 variable "digitalocean_vms" {
   type = any
 }

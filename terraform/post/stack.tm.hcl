@@ -29,6 +29,12 @@ input "k3s_dedi_info" {
   value         = outputs.vms.value.k3s_dedi
 }
 
+input "dev_info" {
+  backend       = "default"
+  from_stack_id = "26657b10-825a-416f-b0f4-16d821c773e8"
+  value         = outputs.vms.value.dev
+}
+
 input "digitalocean_vms" {
   backend       = "default"
   from_stack_id = "26657b10-825a-416f-b0f4-16d821c773e8"
