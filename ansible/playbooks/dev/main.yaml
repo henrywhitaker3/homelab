@@ -1,0 +1,14 @@
+---
+- name: dev
+
+  hosts: dev
+
+  roles:
+    - hosts
+    - qemu
+    - common
+    - user
+    - node_exporter
+    - process_exporter
+    - alloy
+    - docker

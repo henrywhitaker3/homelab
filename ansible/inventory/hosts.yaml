@@ -49,6 +49,11 @@ all:
           proxmox_node: 3
           id_mod: 2
 
+    dev:
+      hosts:
+        dev.lab:
+          ansible_host: 10.0.0.15
+
     k3s:
       hosts:
         k3s-control-1.lab:
