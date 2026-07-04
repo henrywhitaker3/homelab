@@ -6,7 +6,6 @@
   roles:
     - hosts
     - qemu
-    - common
     - user
     - node_exporter
     - process_exporter
