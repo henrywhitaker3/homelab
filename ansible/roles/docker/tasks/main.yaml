@@ -1,16 +1,16 @@
 ---
-- name: Add docker gpg key
+- name: Add docker apt repository
   tags: docker
   become: true
-  ansible.builtin.apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    keyring: /usr/share/keyrings/docker.gpg
-
-- name: Add docker repo
-  tags: docker
-  become: true
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable"
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/ubuntu
+    suites: '{{ ansible_facts["distribution_release"] }}'
+    components: stable
+    architectures: amd64
+    signed_by: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
 - name: Install docker packages
   tags: docker

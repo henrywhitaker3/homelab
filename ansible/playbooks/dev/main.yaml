@@ -6,5 +6,8 @@
   roles:
     - hosts
     - qemu
+    - common
     - user
+    - alloy
+    - node_exporter
     - docker

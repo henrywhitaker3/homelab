@@ -53,6 +53,7 @@ all:
       hosts:
         dev.lab:
           ansible_host: 10.0.0.15
+          copy_dotfiles: false
 
     k3s:
       hosts:
