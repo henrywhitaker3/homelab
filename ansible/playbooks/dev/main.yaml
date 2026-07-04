@@ -7,7 +7,4 @@
     - hosts
     - qemu
     - user
-    - node_exporter
-    - process_exporter
-    - alloy
     - docker
