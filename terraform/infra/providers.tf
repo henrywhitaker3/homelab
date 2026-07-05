@@ -3,7 +3,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.2-rc07"
+      version = "3.0.2-rc08"
     }
     digitalocean = {
       source  = "digitalocean/digitalocean"
