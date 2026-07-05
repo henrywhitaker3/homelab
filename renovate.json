@@ -15,6 +15,10 @@
     },
     "packageRules": [
         {
+            "matchDatasources": ["terraform-module", "terraform-provider"],
+            "automerge": false
+        },
+        {
             "matchManagers": ["kubernetes"],
             "matchDatasources": ["kubernetes-api"],
             "enabled": false
@@ -84,10 +88,6 @@
                 "ghcr.io/immich-app/immich-machine-learning",
                 "/netbirdio/"
             ],
-            "automerge": false
-        },
-        {
-            "matchDatasources": ["terraform"],
             "automerge": false
         },
         {
