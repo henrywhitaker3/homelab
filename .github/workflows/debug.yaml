@@ -1,0 +1,12 @@
+name: debug
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  debug:
+    runs-on: homelab
+    steps:
+      - name: echo
+        run: echo "hi"
