@@ -13,9 +13,11 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster
   sources:
-    - path: kubernetes/k3s/bootstrap/manifests/projects.yaml
+    - path: kubernetes/k3s/bootstrap/manifests
       repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: HEAD
+      targetRevision: main
+      directory:
+        include: projects.yaml
   syncPolicy:
     automated:
       prune: true
