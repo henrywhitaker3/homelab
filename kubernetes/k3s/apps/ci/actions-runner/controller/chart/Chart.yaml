@@ -1,5 +1,5 @@
-apiVersion: v3
-name: actions-runner-controller
+apiVersion: v2
+name: arc
 version: 1.0.0
 dependencies:
   - name: gha-runner-scale-set-controller
