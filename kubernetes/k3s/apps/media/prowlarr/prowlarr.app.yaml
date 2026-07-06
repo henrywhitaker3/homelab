@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: media
     server: https://kubernetes.default.svc
-  project: apps
+  project: media
   source:
     path: kubernetes/k3s/apps/media/prowlarr/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

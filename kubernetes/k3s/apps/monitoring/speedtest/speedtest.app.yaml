@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: misc
     server: https://kubernetes.default.svc
-  project: apps
+  project: observability
   source:
     path: kubernetes/k3s/apps/monitoring/speedtest/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

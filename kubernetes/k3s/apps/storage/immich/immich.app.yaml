@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: immich
     server: https://kubernetes.default.svc
-  project: apps
+  project: storage
   source:
     path: kubernetes/k3s/apps/storage/immich/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

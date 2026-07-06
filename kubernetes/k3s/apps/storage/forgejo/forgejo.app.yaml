@@ -11,7 +11,7 @@ spec:
   destination:
     namespace: forgejo
     server: https://kubernetes.default.svc
-  project: apps
+  project: storage
   sources:
     - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
       targetRevision: HEAD

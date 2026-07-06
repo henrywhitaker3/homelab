@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: shipper
     server: https://kubernetes.default.svc
-  project: apps
+  project: storage
   source:
     path: kubernetes/k3s/apps/storage/shipper/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

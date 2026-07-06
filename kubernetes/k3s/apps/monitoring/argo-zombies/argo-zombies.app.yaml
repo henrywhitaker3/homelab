@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: argo
     server: https://kubernetes.default.svc
-  project: cluster
+  project: observability
   source:
     path: kubernetes/k3s/apps/monitoring/argo-zombies/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

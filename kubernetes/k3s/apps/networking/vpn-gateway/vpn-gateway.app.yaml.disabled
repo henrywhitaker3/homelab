@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: vpn-gateway
     server: https://kubernetes.default.svc
-  project: cluster
+  project: networking
   source:
     path: kubernetes/k3s/apps/networking/vpn-gateway/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

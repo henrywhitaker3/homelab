@@ -11,7 +11,7 @@ spec:
   destination:
     namespace: gitlab-runner
     server: https://kubernetes.default.svc
-  project: apps
+  project: ci
   source:
     path: kubernetes/k3s/apps/ci/gitlab-runner/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

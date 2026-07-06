@@ -11,7 +11,7 @@ spec:
   destination:
     namespace: traefik
     server: https://kubernetes.default.svc
-  project: apps
+  project: networking
   source:
     path: kubernetes/k3s/apps/networking/traefik/public/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

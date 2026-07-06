@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
-  project: cluster
+  project: storage
   source:
     path: kubernetes/k3s/apps/storage/longhorn/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

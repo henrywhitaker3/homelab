@@ -11,7 +11,7 @@ spec:
   destination:
     namespace: gateways
     server: https://kubernetes.default.svc
-  project: apps
+  project: networking
   source:
     path: kubernetes/k3s/apps/networking/gateways/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
