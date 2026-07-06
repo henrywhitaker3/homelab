@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitlab-runner
+  name: projects
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,11 +11,11 @@ spec:
   destination:
     namespace: gitlab-runner
     server: https://kubernetes.default.svc
-  project: apps
-  source:
-    path: kubernetes/k3s/apps/ci/gitlab-runner/chart
-    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-    targetRevision: HEAD
+  project: cluster
+  sources:
+    - path: kubernetes/k3s/bootstrap/manifests/projects.yaml
+      repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+      targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
