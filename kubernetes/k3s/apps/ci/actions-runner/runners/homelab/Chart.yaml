@@ -3,5 +3,6 @@ name: homelab
 version: 1.0.0
 dependencies:
   - name: gha-runner-scale-set
+    alias: runner
     repository: oci://ghcr.io/actions/actions-runner-controller-charts
     version: 0.14.2

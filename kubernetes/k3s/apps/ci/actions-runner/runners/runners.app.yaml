@@ -14,10 +14,10 @@ spec:
   project: apps
   sources:
     - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: HEAD
+      targetRevision: main
       path: kubernetes/k3s/apps/ci/actions-runner/runners/shared
     - repoURL: https://gitlab.com/henrywhitaker3/homelab.git
-      targetRevision: HEAD
+      targetRevision: main
       path: kubernetes/k3s/apps/ci/actions-runner/runners/homelab
   syncPolicy:
     automated:
