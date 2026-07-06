@@ -2,4 +2,5 @@
 githubConfigUrl: https://github.com/henrywhitaker3/homelab
 githubConfigSecret: arc-creds
 controllerServiceAccount:
-  name: arc-runners
+  name: actions-runner-controller-gha-rs-controller
+  namespace: actions-system
