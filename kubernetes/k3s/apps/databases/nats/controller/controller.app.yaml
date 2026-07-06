@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: nats
     server: https://kubernetes.default.svc
-  project: apps
+  project: databases
   source:
     path: kubernetes/k3s/apps/databases/nats/controller/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
