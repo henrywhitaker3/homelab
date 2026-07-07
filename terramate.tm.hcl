@@ -1,6 +1,6 @@
 terramate {
   config {
-    disable_safeguards = ["git-uncommitted"]
+    disable_safeguards = ["git-uncommitted", "git-untracked"]
     experiments = [
       "outputs-sharing"
     ]

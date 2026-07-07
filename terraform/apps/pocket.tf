@@ -26,6 +26,7 @@ resource "pocketid_client" "this" {
 output "oidc_clients" {
   value = {
     for key, val in var.oidc_clients : key => {
+      client_id     = pocketid_client.this[key].id
       client_secret = pocketid_client.this[key].client_secret
     }
   }

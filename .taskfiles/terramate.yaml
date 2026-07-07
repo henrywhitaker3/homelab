@@ -12,7 +12,7 @@ tasks:
     desc: Run terraform plan
     dir: terraform
     cmds:
-      - terramate run --enable-sharing --parallel 5 {{if eq .changed "true"}}--changed{{end}} --  bash -c 'tofu plan $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}'
+      - terramate run --enable-sharing --parallel 5 {{ .CLI_ARGS }} {{if eq .changed "true"}}--changed{{end}} --  bash -c 'tofu plan $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)'
 
   apply:
     desc: Run terraform apply
@@ -22,9 +22,9 @@ tasks:
     cmds:
       - |
         terramate run --parallel 5 \
-        --enable-sharing \
+        --enable-sharing  {{ .CLI_ARGS }} \
         {{if eq .changed "true"}}--changed{{end}} \
-        {{if eq .with_plan "true"}}--terraform-plan-file=out.tfplan{{end}} -- bash -c 'tofu apply $(for file in *.tfvars; do echo "-var-file $file "; done) {{ .CLI_ARGS }}'
+        {{if eq .with_plan "true"}}--terraform-plan-file=out.tfplan{{end}} -- bash -c 'tofu apply $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)'
 
   init:
     desc: Run terraform init
