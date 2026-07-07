@@ -6,7 +6,7 @@ image:
   repository: ghcr.io/henrywhitaker3/containers/kubectl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v1.1.1
+  tag: v1.1.5
 
 imagePullSecrets: []
 nameOverride: ""
