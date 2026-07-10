@@ -89,7 +89,7 @@ tf plan:
   extends:
     - .terraform:base
   script:
-    - task tm:plan -- -out out.tfplan
+    - task tm:plan
   artifacts:
     paths:
       - terraform/**/out.tfplan
@@ -101,7 +101,7 @@ tf deploy:
   extends:
     - .terraform:base
   script:
-    - task tm:apply -- -auto-approve out.tfplan
+    - task tm:apply
   dependencies:
     - tf plan
   when: manual

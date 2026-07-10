@@ -12,26 +12,26 @@ tasks:
     desc: Run terraform plan
     dir: terraform
     cmds:
-      - terramate run --enable-sharing --parallel 5 {{ .CLI_ARGS }} {{if eq .changed "true"}}--changed{{end}} --  bash -c 'tofu plan $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)'
+      - terramate run --enable-sharing --parallel 5 {{ .CLI_ARGS }} {{if eq .changed "true"}}--changed{{end}} --  bash -c 'tofu plan $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done) -out out.tfplan'
 
   apply:
     desc: Run terraform apply
     dir: terraform
-    vars:
-      with_plan: "false"
     cmds:
-      - |
-        terramate run --parallel 5 \
-        --enable-sharing  {{ .CLI_ARGS }} \
-        {{if eq .changed "true"}}--changed{{end}} \
-        {{if eq .with_plan "true"}}--terraform-plan-file=out.tfplan{{end}} -- bash -c 'tofu apply $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)'
+      - >
+        terramate run --parallel 5
+        --enable-sharing  {{ .CLI_ARGS }}
+        {{ if eq .changed "true" }}--changed{{ end }}
+        -- bash -c 'tofu apply
+        $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)
+        {{ if eq .with_plan "true" }}out.tfplan{{ end }}'
 
   init:
     desc: Run terraform init
     dir: terraform
     cmds:
       - |
-        terramate run --parallel 1 \
+        terramate run --parallel 2 \
           -- bash -c 'tofu init {{ .CLI_ARGS }}'
 
   output:
