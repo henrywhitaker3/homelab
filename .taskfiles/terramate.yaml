@@ -30,9 +30,10 @@ tasks:
     desc: Run terraform init
     dir: terraform
     cmds:
-      - |
-        terramate run --parallel 2 \
-          -- bash -c 'tofu init {{ .CLI_ARGS }}'
+      - >
+        terramate run --parallel 1
+        --include-all-dependencies
+        -- bash -c 'tofu init {{ .CLI_ARGS }}'
 
   output:
     desc: Run terraform output

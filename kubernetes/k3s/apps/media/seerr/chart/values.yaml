@@ -82,6 +82,15 @@ generic:
                 app.kubernetes.io/name: uptime-kuma
         ports:
           - port: 5055
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: organizr
+        ports:
+          - port: 5055
     egress:
       - to:
           - namespaceSelector:
