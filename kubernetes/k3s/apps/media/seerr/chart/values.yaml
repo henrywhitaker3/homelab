@@ -133,6 +133,9 @@ generic:
               cidr: 0.0.0.0/0
               except:
                 - 10.0.0.0/8
+        ports:
+          - port: 443
+      - to:
           - ipBlock:
               cidr: 10.0.0.25/32
         ports:
