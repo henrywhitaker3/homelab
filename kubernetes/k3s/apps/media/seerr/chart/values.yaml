@@ -130,6 +130,8 @@ generic:
           - port: 8181
       - to:
           - ipBlock:
+              cidr: 10.0.0.25/32
+          - ipBlock:
               cidr: 0.0.0.0/0
               except:
                 - 10.0.0.0/8
