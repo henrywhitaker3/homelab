@@ -17,14 +17,18 @@ tasks:
   apply:
     desc: Run terraform apply
     dir: terraform
+    vars:
+      approve: '{{ .approve | default "false" }}'
+      with_plan: '{{ .with_plan | default "true" }}'
     cmds:
       - >
         terramate run --parallel 5
         --enable-sharing  {{ .CLI_ARGS }}
         {{ if eq .changed "true" }}--changed{{ end }}
         -- bash -c 'tofu apply
-        $(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done)
-        {{ if eq .with_plan "true" }}out.tfplan{{ end }}'
+        {{ if eq .approve "true" }}-auto-approve{{ end }}
+        {{ if eq .with_plan "true" }}out.tfplan{{ end }}
+        {{ if eq .with_plan "false" }}$(shopt -s nullglob; for file in *.tfvars; do echo "-var-file $file "; done){{ end }}'
 
   init:
     desc: Run terraform init
