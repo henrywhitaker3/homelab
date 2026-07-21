@@ -3,6 +3,6 @@ age = "v1.3.1"
 ansible = { version = "14.1.0", pipx_args = "--include-deps", uvx = false }
 helm = "4.2.3"
 kubectl = "v1.36.2"
-opentofu = "1.12.4"
+opentofu = "1.12.5"
 sops = "v3.13.2"
 terramate = "0.17.1"
