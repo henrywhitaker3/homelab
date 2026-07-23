@@ -4,5 +4,5 @@ ansible = { version = "14.1.0", pipx_args = "--include-deps", uvx = false }
 helm = "4.2.3"
 kubectl = "1.36.3"
 opentofu = "1.12.5"
-sops = "v3.13.2"
+sops = "3.13.3"
 terramate = "0.17.1"
