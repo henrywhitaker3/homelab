@@ -97,17 +97,9 @@ prompage:
 
   replicaCount: 2
 
-  ingress:
+  httpRoute:
     enabled: true
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-    hosts:
-      - host: status.henrywhitaker.com
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: status-henrywhitaker-com-tls
-        hosts:
-          - status.henrywhitaker.com
+    hostnames: [status.henrywhitaker.com]
+    parentRefs:
+      - name: public
+        namespace: gateways
