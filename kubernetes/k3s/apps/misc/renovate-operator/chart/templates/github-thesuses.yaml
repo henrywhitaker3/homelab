@@ -3,10 +3,10 @@
 apiVersion: renovate-operator.mogenius.com/v1alpha1
 kind: RenovateJob
 metadata:
-  name: github
+  name: thesuses
 spec:
   schedule: "0 * * * *"
-  discoveryFilters: ["henrywhitaker3/*"]
+  discoveryFilters: ["thesuses/*"]
   image: renovate/renovate:43.95.0
   skipForks: true
   secretRef: renovate-github-secrets
@@ -44,10 +44,10 @@ spec:
 apiVersion: generators.external-secrets.io/v1alpha1
 kind: GithubAccessToken
 metadata:
-  name: github-auth-token
+  name: github-thesuses-auth-token
 spec:
   appID: "3202884"
-  installID: "119466785"
+  installID: "149124665"
   auth:
     privateKey:
       secretRef:
@@ -58,24 +58,7 @@ spec:
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: renovate-github-auth-secrets
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: onepassword-connect
-  target:
-    creationPolicy: Owner
-  data:
-    - remoteRef:
-        key: renovate-secrets
-        property: github-app-private-key
-      secretKey: github-app-private-key
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: renovate-github-secrets
+  name: renovate-github-thesuses-secrets
 spec:
   refreshInterval: "30m0s"
   target:
@@ -91,4 +74,4 @@ spec:
         generatorRef:
           apiVersion: generators.external-secrets.io/v1alpha1
           kind: GithubAccessToken
-          name: github-auth-token
+          name: github-thesuses-auth-token
