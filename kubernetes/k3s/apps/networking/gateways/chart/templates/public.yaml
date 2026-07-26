@@ -78,7 +78,7 @@ spec:
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: "*.yourbuild.com"
+      hostname: "*.yourbuild.dev"
       name: yourbuild
       port: 443
       protocol: HTTPS
