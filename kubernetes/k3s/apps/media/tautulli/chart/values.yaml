@@ -31,22 +31,6 @@ generic:
               type: PathPrefix
               value: /tautulli
 
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd,media-tautulli@kubernetescrd
-    hosts:
-      - host: plexmox.com
-        paths:
-          - path: /tautulli
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: plexmox-com-tls
-        hosts:
-          - plexmox.com
-
   pvc:
     enabled: true
     mountPath: /config

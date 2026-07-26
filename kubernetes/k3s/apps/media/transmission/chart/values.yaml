@@ -31,22 +31,6 @@ generic:
               type: PathPrefix
               value: /transmission
 
-  ingress:
-    enabled: false
-    className: public
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-organizr-auth-public@kubernetescrd,media-transmission@kubernetescrd
-    hosts:
-      - host: plexmox.com
-        paths:
-          - path: /transmission
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: plexmox-com-tls
-        hosts:
-          - plexmox.com
-
   pvc:
     enabled: true
     mountPath: /config
