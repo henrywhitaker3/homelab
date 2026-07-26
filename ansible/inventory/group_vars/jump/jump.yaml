@@ -52,10 +52,6 @@ haproxy_frontends:
     backendIf:
       - host: status.henrywhitaker.com
         backend: k3s-traefik
-      - host: api.yourbuild.dev
-        backend: k3s-traefik
-      - host: shorturl.yourbuild.dev
-        backend: k3s-traefik
       - host: plex.plexmox.com
         backend: k3s-envoy-proxy-protocol
 
