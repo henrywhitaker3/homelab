@@ -9,7 +9,7 @@ spec:
   discoveryFilters: ["thesuses/*"]
   image: renovate/renovate:43.95.0
   skipForks: true
-  secretRef: renovate-github-secrets
+  secretRef: renovate-github-thesuses-secrets
   extraEnv:
     - name: RENOVATE_ADDITIONAL_CONFIG_FILE
       value: /config/config.js
