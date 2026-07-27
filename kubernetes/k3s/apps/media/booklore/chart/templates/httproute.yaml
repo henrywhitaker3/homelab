@@ -16,6 +16,17 @@ spec:
         - path:
             type: PathPrefix
             value: /api/v1/opds
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            add:
+              - name: Accept
+                value: application/atom+xml
+    - backendRefs:
+        - kind: Service
+          name: booklore
+          port: 9568
+      matches:
         - path:
             type: PathPrefix
             value: /api/koreader
