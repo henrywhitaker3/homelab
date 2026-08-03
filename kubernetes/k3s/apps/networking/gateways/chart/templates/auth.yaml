@@ -56,6 +56,15 @@ spec:
       kind: HTTPRoute
       name: "{{ . }}"
     {{- end }}
+  cors:
+    allowOrigins:
+      - "https://*.plexmox.com"
+      - "https://*.henrywhitaker.com"
+    allowMethods:
+      - "*"
+    allowHeaders:
+      - "*"
+    allowCredentials: true
   extAuth:
     headersToExtAuth:
       - accept
@@ -63,6 +72,7 @@ spec:
       - location
       - authorization
       - proxy-authorization
+      - origin
       - x-forwarded-proto
       - x-forwarded-for
       - x-forwarded-host
