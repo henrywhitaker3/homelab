@@ -64,11 +64,6 @@ netbird_peers = {
 }
 
 netbird_resources = {
-  "external-ingress" = {
-    name    = "traefik-traefik-public"
-    network = "k3s-cluster"
-    data    = true
-  }
   "external-agw" = {
     name    = "gateways-public"
     network = "k3s-cluster"
@@ -191,16 +186,6 @@ netbird_policies = {
       sources       = ["devices"]
       destinations  = ["devices"]
       bidirectional = true
-    }
-  }
-  "allow-jump-to-public-ingress" = {
-    description = "Allow jump servers to access k8s ingress"
-    rule = {
-      action               = "accept"
-      protocol             = "tcp"
-      ports                = [80, 443]
-      sources              = ["jump"]
-      destination_resource = "external-ingress"
     }
   }
   "allow-jump-to-public-agw" = {
