@@ -29,6 +29,7 @@ variable "http_monitors" {
     max_redirects = optional(number, 10)
     channels      = optional(list(string), ["discord"])
     headers       = optional(map(string), null)
+    domain_expiry = optional(bool, true)
     tags          = optional(list(string), [])
   }))
   default = {}
@@ -37,14 +38,15 @@ variable "http_monitors" {
 resource "uptimekuma_monitor_http" "this" {
   for_each = var.http_monitors
 
-  name                  = each.value.name
-  url                   = each.value.url
-  interval              = each.value.interval
-  timeout               = each.value.timeout
-  max_retries           = each.value.max_retries
-  max_redirects         = each.value.max_redirects
-  accepted_status_codes = each.value.status_codes
-  active                = each.value.active
+  name                       = each.value.name
+  url                        = each.value.url
+  interval                   = each.value.interval
+  timeout                    = each.value.timeout
+  max_retries                = each.value.max_retries
+  max_redirects              = each.value.max_redirects
+  accepted_status_codes      = each.value.status_codes
+  domain_expiry_notification = each.value.domain_expiry
+  active                     = each.value.active
   headers = (
     each.value.headers == null ?
     null :
