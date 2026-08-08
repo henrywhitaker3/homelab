@@ -77,14 +77,20 @@ generic:
         path: /dev/dri
     - name: transcode
       emptyDir: {}
+    - name: cache
+      persistentVolumeClaim:
+        claimName: jellyfin-cache
 
   volumeMounts:
     - mountPath: /plex
       name: media
+      readOnly: true
     - mountPath: /dev/dri
       name: quicksync
     - mountPath: /config/transcodes
       name: transcode
+    - mountPath: /cache
+      name: cache
 
   affinity:
     nodeAffinity:
