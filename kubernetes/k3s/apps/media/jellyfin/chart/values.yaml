@@ -45,7 +45,7 @@ generic:
     enabled: true
     mountPath: /config
     storageClassName: longhorn
-    size: 20Gi
+    size: 35Gi
 
   deploymentStrategy:
     type: Recreate
