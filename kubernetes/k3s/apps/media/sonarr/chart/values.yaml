@@ -167,6 +167,15 @@ generic:
       - to:
           - namespaceSelector:
               matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: jellyfin
+        ports:
+          - port: 8096
+      - to:
+          - namespaceSelector:
+              matchLabels:
                 kubernetes.io/metadata.name: crunchy
             podSelector:
               matchLabels:
