@@ -1,7 +1,7 @@
 [tools]
 age = "v1.3.1"
 ansible = { version = "14.1.0", pipx_args = "--include-deps", uvx = false }
-helm = "4.2.3"
+helm = "4.2.4"
 kubectl = "1.36.3"
 opentofu = "1.12.5"
 sops = "3.13.3"
