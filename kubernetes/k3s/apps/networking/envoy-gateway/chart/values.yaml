@@ -2,6 +2,10 @@
 gateway-helm:
   global:
     imageRegistry: mirror.gcr.io
+  crds:
+    gatewayAPI:
+      safeUpgradePolicy:
+        enabled: false
   config:
     envoyGateway:
       provider:
