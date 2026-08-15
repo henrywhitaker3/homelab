@@ -11,3 +11,4 @@ gateway-helm:
             type: GatewayNamespace
       extensionApis:
         enableBackend: true
+        enableLua: true
