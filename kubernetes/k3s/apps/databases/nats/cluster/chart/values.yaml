@@ -11,7 +11,7 @@ nats:
   container:
     image:
       repository: nats
-      tag: 2.14.4-alpine
+      tag: 2.14.5-alpine
 
   promExporter:
     enabled: true
