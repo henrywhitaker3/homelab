@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=./local-values.schema.json
 renovate-operator:
   crd:
     install: true
@@ -27,3 +28,10 @@ renovate-operator:
       clientId: 420b110f-0f85-4e3d-ab77-7fd8ce61db71
       existingSecret: renovate-operator-secrets
       secretKey: client-secret
+      additionalScopes: [groups]
+
+  authorization:
+    enabled: true
+    defaults:
+      adminGroups:
+        - admin
