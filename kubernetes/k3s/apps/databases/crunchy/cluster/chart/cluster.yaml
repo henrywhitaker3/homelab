@@ -19,6 +19,10 @@ metadata:
           "database": "immich",
           "extension": "earthdistance",
           "cascade": true
+        },
+        {
+          "database": "bookorbit",
+          "extension": "vector"
         }
       ]
   #   postgres-operator.crunchydata.com/pgbackrest-restore: "2024-05-19 11:21:00"
