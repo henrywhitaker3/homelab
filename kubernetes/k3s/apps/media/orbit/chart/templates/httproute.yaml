@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: stump-api
+spec:
+  hostnames:
+    - stump.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: stump
+          port: 10801
+      matches:
+        - path:
+            type: RegularExpression
+            value: /opds/v1.2/.*
+        - path:
+            type: RegularExpression
+            value: /opds/.*/v1.2/.*
+        - path:
+            type: RegularExpression
+            value: /opds/.*/v2.0/.*
+        - path:
+            type: RegularExpression
+            value: /koreader/.*
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public
+      namespace: gateways

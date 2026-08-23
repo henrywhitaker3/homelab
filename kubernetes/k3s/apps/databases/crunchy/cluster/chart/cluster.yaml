@@ -180,6 +180,10 @@ spec:
       databases:
         - forgejo
 
+    - name: bookorbit
+      databases:
+        - bookorbit
+
   instrumentation:
     logs:
       exporters: ["otlp"]

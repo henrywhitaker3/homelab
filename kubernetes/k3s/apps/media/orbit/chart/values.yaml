@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/bookorbit/bookorbit
+    pullPolicy: IfNotPresent
+    tag: 2.7.0
+
+  service:
+    port: 3000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [orbit.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 3000
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: PORT
+      value: "3000"
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-bookorbit
+          key: uri
+    - name: APP_URL
+      value: https://orbit.plexmox.com
+    - name: JWT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: jwt-secret
+    - name: SETUP_BOOTSTRAP_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: setup-token
+
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 5Gi
+
+  volumes:
+    - name: books
+      hostPath:
+        path: /plex/Media/Booklore/books
+
+  volumeMounts:
+    - mountPath: /books
+      name: books
+      readOnly: true
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    enabled: true
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 10801
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 3000
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: crunchy
+            podSelector:
+              matchLabels:
+                postgres-operator.crunchydata.com/cluster: crunchy
+                postgres-operator.crunchydata.com/role: master
+        ports:
+          - port: 5432
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443
