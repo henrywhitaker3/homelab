@@ -8,6 +8,7 @@ middlewares:
       - name: media
         http:
           - booklore
+          - orbit
           - stump
           - kavita
       - name: docs
