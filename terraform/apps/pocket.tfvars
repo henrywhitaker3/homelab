@@ -1,13 +1,4 @@
 oidc_clients = {
-  "booklore" = {
-    name = "Booklore"
-    url  = "https://books.plexmox.com"
-    callback_urls = [
-      "https://books.plexmox.com/oauth2-callback",
-      "https://books.plexmox.com/*",
-    ]
-    pkce_enabled = true
-  }
   "outline" = {
     name = "Outline"
     url  = "https://docs.plexmox.com"
@@ -58,13 +49,6 @@ oidc_clients = {
     pkce_enabled = true
     callback_urls = [
       "https://argocd.plexmox.com/auth/callback"
-    ]
-  }
-  "stump" = {
-    name = "Stump"
-    url  = "https://stump.plexmox.com"
-    callback_urls = [
-      "https://stump.plexmox.com/api/v2/auth/oidc/callback"
     ]
   }
   "forgejo" = {

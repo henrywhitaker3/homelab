@@ -8,8 +8,6 @@ middlewares:
       - name: media
         http:
           - orbit
-          - stump
-          - kavita
       - name: docs
         http:
           - outline
