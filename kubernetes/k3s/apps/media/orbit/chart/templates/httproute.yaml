@@ -18,7 +18,7 @@ spec:
             value: /api/v1/opds
     - backendRefs:
         - kind: Service
-          name: booklore
+          name: orbit
           port: 3000
       matches:
         - path:
