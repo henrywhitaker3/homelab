@@ -6,7 +6,7 @@ metadata:
   name: bookorbit-api
 spec:
   hostnames:
-    - orbit.plexmox.com
+    - books.plexmox.com
   rules:
     - backendRefs:
         - kind: Service

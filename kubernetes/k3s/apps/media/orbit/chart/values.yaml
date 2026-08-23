@@ -22,7 +22,7 @@ generic:
 
   httpRoute:
     enabled: true
-    hostnames: [orbit.plexmox.com]
+    hostnames: [books.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
@@ -78,7 +78,6 @@ generic:
   volumeMounts:
     - mountPath: /books
       name: books
-      readOnly: true
 
   deploymentStrategy:
     type: Recreate

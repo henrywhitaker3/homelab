@@ -7,7 +7,6 @@ middlewares:
           - argo
       - name: media
         http:
-          - booklore
           - orbit
           - stump
           - kavita
