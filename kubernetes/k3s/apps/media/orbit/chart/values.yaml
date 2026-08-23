@@ -50,9 +50,9 @@ generic:
           name: crunchy-pguser-bookorbit
           key: uri
     - name: APP_URL
-      value: https://orbit.plexmox.com
+      value: https://books.plexmox.com
     - name: CLIENT_URL
-      value: https://orbit.plexmox.com
+      value: https://books.plexmox.com
     - name: JWT_SECRET
       valueFrom:
         secretKeyRef:
