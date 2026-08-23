@@ -81,4 +81,11 @@ oidc_clients = {
       "http://renovate.plexmox.com/auth/callback"
     ]
   }
+  "bookorbit" = {
+    name = "Bookorbit"
+    url  = "https://orbit.plexmox.com"
+    callback_urls = [
+      "http://orbit.plexmox.com/oauth2-callback"
+    ]
+  }
 }
