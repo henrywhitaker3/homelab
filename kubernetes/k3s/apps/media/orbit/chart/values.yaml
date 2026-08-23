@@ -84,6 +84,8 @@ generic:
 
   probes:
     enabled: true
+    initialDelaySeconds: 30
+    type: tcpSocket
 
   netpol:
     enabled: true
