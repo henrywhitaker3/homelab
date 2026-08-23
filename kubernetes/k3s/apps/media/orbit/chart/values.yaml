@@ -51,6 +51,8 @@ generic:
           key: uri
     - name: APP_URL
       value: https://orbit.plexmox.com
+    - name: CLIENT_URL
+      value: https://orbit.plexmox.com
     - name: JWT_SECRET
       valueFrom:
         secretKeyRef:
