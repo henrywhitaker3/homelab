@@ -8,6 +8,7 @@ middlewares:
       - name: media
         http:
           - orbit
+          - shelfmark
       - name: docs
         http:
           - outline
