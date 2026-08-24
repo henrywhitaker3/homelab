@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/bookorbit/bookorbit
+    pullPolicy: IfNotPresent
+    tag: 2.7.0
+
+  service:
+    port: 8084
+
+  resources:
+    requests:
+      cpu: 20m
+      memory: 256Mi
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [shelf.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
+    rules:
+      - port: 8084
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: INGEST_DIR
+      value: /bookdrop
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 128Mi
+
+  volumes:
+    - name: bookdrop
+      hostPath:
+        path: /plex/Media/Booklore/bookdrop
+
+  volumeMounts:
+    - mountPath: /bookdrop
+      name: bookdrop
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    enabled: true
+    initialDelaySeconds: 10
+    type: tcpSocket
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: internal
+        ports:
+          - port: 8084
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 8084
+    egress:
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443
