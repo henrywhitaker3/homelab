@@ -44,6 +44,8 @@ generic:
       value: "1000"
     - name: PGID
       value: "1000"
+    - name: BOOK_DOCK_PATH
+      value: /bookdrop
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
@@ -74,10 +76,15 @@ generic:
     - name: books
       hostPath:
         path: /plex/Media/Booklore/books
+    - name: bookdrop
+      hostPath:
+        path: /plex/Media/Booklore/bookdrop
 
   volumeMounts:
     - mountPath: /books
       name: books
+    - mountPath: /bookdrop
+      name: bookdrop
 
   deploymentStrategy:
     type: Recreate
