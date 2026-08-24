@@ -95,6 +95,15 @@ generic:
         ports:
           - port: 9696
       - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: transmission
+        ports:
+          - port: 9091
+      - to:
           - ipBlock:
               cidr: 0.0.0.0/0
               except:
