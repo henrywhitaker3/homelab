@@ -60,32 +60,6 @@ jobs:
 
       echo Preferred node unavailable
       exit 0
-  - name: rebalanace-jellyfin
-    schedule: "*/5 * * * *"
-    command: |
-      #!/bin/bash
-
-      nodes=$(kubectl get nodes -l quicksync -o json | jq -r '.items[].metadata.name')
-      current_node=$(kubectl -n media get pod -l app.kubernetes.io/name=jellyfin -o json | jq -r '.items[0].spec.nodeName')
-
-      for node in $nodes; do
-        if [ $current_node == $node ]; then
-          echo Jellyfin running on preferred node
-          exit 0
-        fi
-      done
-
-      echo Jellyfin not running on preferred node
-
-      ready=$(kubectl get nodes -l quicksync | grep -E "(.*)\s+(Ready)\s+(control-plane|<none>)" | cut -d' ' -f 1)
-      for node in $ready; do
-        echo Preferred node available
-        kubectl -n media rollout restart deployment plex
-        exit 0
-      done
-
-      echo Preferred node unavailable
-      exit 0
   - name: kill-prowlarr
     schedule: "*/5 * * * *"
     command: |
