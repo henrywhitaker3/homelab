@@ -4,9 +4,9 @@ generic:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/bookorbit/bookorbit
+    repository: ghcr.io/calibrain/shelfmark
     pullPolicy: IfNotPresent
-    tag: 2.7.0
+    tag: v1.3.11
 
   service:
     port: 8084
