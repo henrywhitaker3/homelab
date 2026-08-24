@@ -7,9 +7,9 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 10.0.0.9:3903
+        - garage-admin.plexmox.com
   metricsPath: /metrics
-  scheme: HTTP
+  scheme: HTTPS
   authorization:
     type: Bearer
     credentials:
