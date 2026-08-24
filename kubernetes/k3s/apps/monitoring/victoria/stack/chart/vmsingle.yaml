@@ -14,6 +14,7 @@ spec:
         netbird.io/groups: telemetry
   image:
     repository: victoriametrics/victoria-metrics
+    # renovate: datasource=github-releases depName=victoriametrics/VictoriaMetrics
     tag: v1.150.0
   extraArgs:
     dedup.minScrapeInterval: 15s
