@@ -14,7 +14,7 @@ spec:
         netbird.io/groups: telemetry
   image:
     repository: victoriametrics/victoria-metrics
-    tag: v1.106.0
+    tag: v1.150.0
   extraArgs:
     dedup.minScrapeInterval: 15s
     # maxLabelsPerTimeseries: "40"
