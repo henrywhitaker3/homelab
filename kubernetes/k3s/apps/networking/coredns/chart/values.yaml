@@ -22,11 +22,9 @@ coredns:
           use_tcp: true
       port: 53
       plugins:
-        - name: log
         - name: errors
         - name: health
-          configBlock:
-            lameduck 5s
+          configBlock: lameduck 5s
         - name: ready
         - name: prometheus
           parameters: 0.0.0.0:9153
@@ -66,12 +64,12 @@ coredns:
   replicaCount: 3
 
   affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
-                  operator: Exists
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
