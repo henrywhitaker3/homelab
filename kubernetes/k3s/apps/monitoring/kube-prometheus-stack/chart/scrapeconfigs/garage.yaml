@@ -9,6 +9,7 @@ spec:
     - targets:
         - garage-admin.plexmox.com
   metricsPath: /metrics
+  scrapeTimeout: 20s
   scheme: HTTPS
   authorization:
     type: Bearer
