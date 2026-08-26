@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: orbit-csp
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: orbit
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_response(response_handle)
+          local headers = response_handle:headers()
+          local csp = headers:get("content-security-policy")
+
+          if csp == nil or string.find(csp, "https://tiny.plexmox.com", 1, true) then
+            return
+          end
+
+          local updated, changes = string.gsub(
+            csp,
+            "(connect%-src%s+[^;]+)",
+            "%1 https://tiny.plexmox.com",
+            1
+          )
+
+          if changes == 1 then
+            headers:replace("content-security-policy", updated)
+          end
+        end

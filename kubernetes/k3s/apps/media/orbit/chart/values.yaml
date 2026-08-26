@@ -34,14 +34,6 @@ generic:
           - path:
               type: PathPrefix
               value: /
-        # BookOrbit sets its own CSP. Its frontend needs to follow the
-        # external-auth redirect returned by TinyAuth.
-        filters:
-          - type: ResponseHeaderModifier
-            responseHeaderModifier:
-              set:
-                - name: Content-Security-Policy
-                  value: "default-src 'self'; base-uri 'self'; font-src 'self' data: blob: https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'self'; img-src 'self' data: blob: https:; object-src 'none'; script-src 'self' 'wasm-unsafe-eval'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com; connect-src 'self' ws: wss: https://tiny.plexmox.com https://cdn.jsdelivr.net https://api.dictionaryapi.dev https://*.wiktionary.org https://translate.googleapis.com; media-src 'self' data: blob:; frame-src 'self' blob:; worker-src 'self' blob:"
 
   env:
     - name: NODE_ENV
