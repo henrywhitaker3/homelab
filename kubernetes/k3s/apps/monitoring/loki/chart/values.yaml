@@ -38,7 +38,7 @@ loki:
       join_members: ["loki-memberlist"]
 
     limits_config:
-      retention_period: 30d
+      retention_period: 14d
       ingestion_rate_strategy: local
       # Uncomment this if running a single replica
       # split_queries_by_interval: 0
