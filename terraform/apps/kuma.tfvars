@@ -4,20 +4,6 @@ http_monitors = {
     url  = "http://argo-argocd-server.argo.svc.cluster.local"
     tags = ["infra"]
   }
-  booklore_auth = {
-    name          = "Booklore (auth)"
-    url           = "https://books.plexmox.com"
-    max_redirects = 0
-    status_codes  = ["307"]
-    // Force tinyauth redirect
-    headers = { "User-Agent" : "Gecko" }
-    tags    = ["media", "auth"]
-  }
-  booklore = {
-    name = "Booklore (internal)"
-    url  = "http://booklore.media.svc.cluster.local:9568"
-    tags = ["media"]
-  }
   bookorbit_auth = {
     name          = "Bookorbit (auth)"
     url           = "https://books.plexmox.com"

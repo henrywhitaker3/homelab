@@ -6,7 +6,7 @@ variable "oidc_clients" {
     pkce_enabled              = optional(bool, false)
     requires_reauthentication = optional(bool, false)
     url                       = optional(string, null)
-    allowed_groups            = optional(list(string), null)
+    allowed_groups            = optional(list(string), ["admin"])
   }))
   default = {}
 }
