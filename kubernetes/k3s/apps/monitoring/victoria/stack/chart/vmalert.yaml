@@ -8,7 +8,7 @@ spec:
   image:
     repository: victoriametrics/vmalert
     # renovate: datasource=github-releases depName=victoriametrics/VictoriaMetrics
-    tag: v1.150.0
+    tag: v1.151.0
   datasource:
     url: http://vmsingle-metrics.monitoring.svc:8429
   evaluationInterval: 1m
