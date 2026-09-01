@@ -1,6 +1,6 @@
 apiVersion: v2
-name: orbit
-description: orbit manifests
+name: ticktick
+description: ticktick manifests
 type: application
 version: 0.1.0
 appVersion: "1.16.0"
