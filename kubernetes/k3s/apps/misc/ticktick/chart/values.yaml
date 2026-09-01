@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/henrywhitaker3/ticktick-events
+    pullPolicy: IfNotPresent
+    tag: v1.0.0
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 24Mi
+
+  env:
+    - name: TICKTICK_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: ticktick-secrets
+          key: ticktick-token
+    - name: PAVLOK_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: ticktick-secrets
+          key: pavlok-token
