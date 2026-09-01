@@ -18,6 +18,9 @@ generic:
       - --redis-url
       - dragonfly.dragonfly.svc.cluster.local:6379
 
+  probes:
+    enabled: false
+
   env:
     - name: TICKTICK_TOKEN
       valueFrom:
