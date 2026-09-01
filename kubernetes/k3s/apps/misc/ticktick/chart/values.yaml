@@ -24,3 +24,5 @@ generic:
         secretKeyRef:
           name: ticktick-secrets
           key: pavlok-token
+    - name: REDIS_URL
+      value: dragonfly.dragonfly.svc.cluster.local:6379
