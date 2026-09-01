@@ -13,6 +13,11 @@ generic:
       cpu: 15m
       memory: 24Mi
 
+  entrypoint:
+    args:
+      - --redis-url
+      - dragonfly.dragonfly.svc.cluster.local:6379
+
   env:
     - name: TICKTICK_TOKEN
       valueFrom:
@@ -24,5 +29,3 @@ generic:
         secretKeyRef:
           name: ticktick-secrets
           key: pavlok-token
-    - name: REDIS_URL
-      value: dragonfly.dragonfly.svc.cluster.local:6379
