@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/calibrain/shelfmark
     pullPolicy: IfNotPresent
-    tag: v1.3.14
+    tag: v1.3.15
 
   service:
     port: 8084
