@@ -4,15 +4,6 @@ metadata:
   name: misc
 spec:
   groups:
-    - name: garage
-      rules:
-        - alert: GarageDown
-          expr: up{job="garage"} < 1
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            summary: The garage server is down
     - name: cert-manager
       rules:
         - alert: CertManagerCertExpiring21Days
