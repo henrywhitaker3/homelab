@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 1.10.6"
   required_providers {
     pocketid = {
-      source  = "trozz/pocketid"
-      version = "2.3.0"
+      source  = "registry.terraform.io/henrywhitaker3/pocketid"
+      version = "2.3.1"
     }
     uptimekuma = {
       source  = "breml/uptimekuma"

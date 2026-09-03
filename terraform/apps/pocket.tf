@@ -11,6 +11,18 @@ variable "oidc_clients" {
   default = {}
 }
 
+locals {
+  pocketid_groups = toset(concat([
+    for key, val in var.oidc_clients : val.allowed_groups
+  ]...))
+}
+
+data "pocketid_group" "this" {
+  for_each = local.pocketid_groups
+
+  name = each.value
+}
+
 resource "pocketid_client" "this" {
   for_each = var.oidc_clients
 
@@ -20,7 +32,9 @@ resource "pocketid_client" "this" {
   pkce_enabled              = each.value.pkce_enabled
   requires_reauthentication = each.value.requires_reauthentication
   launch_url                = each.value.url
-  allowed_user_groups       = each.value.allowed_groups
+  allowed_user_groups = [
+    for val in each.value.allowed_groups : data.pocketid_group.this[val].id
+  ]
 }
 
 output "oidc_clients" {

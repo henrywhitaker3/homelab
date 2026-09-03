@@ -69,7 +69,7 @@ oidc_clients = {
     name = "Bookorbit"
     url  = "https://books.plexmox.com"
     callback_urls = [
-      "http://books.plexmox.com/oauth2-callback"
+      "https://books.plexmox.com/oauth2-callback"
     ]
   }
 }
