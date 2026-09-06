@@ -34,6 +34,19 @@ generic:
           - path:
               type: PathPrefix
               value: /
+      - filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: gateway.envoyproxy.io
+              kind: HTTPRouteFilter
+              name: bookorbit-no-service-worker
+        matches:
+          - path:
+              type: Exact
+              value: /registerSW.js
+          - path:
+              type: Exact
+              value: /sw.js
 
   env:
     - name: NODE_ENV
