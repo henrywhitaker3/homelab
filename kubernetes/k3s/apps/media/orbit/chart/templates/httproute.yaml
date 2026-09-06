@@ -8,33 +8,6 @@ spec:
   hostnames:
     - books.plexmox.com
   rules:
-    # BookOrbit must discover its configured providers before a user is signed in.
-    - backendRefs:
-        - kind: Service
-          name: orbit
-          port: 3000
-      matches:
-        - path:
-            type: Exact
-            value: /api/v1/app-settings/oidc/providers/public
-    # These endpoints begin and complete BookOrbit's own OIDC flow.
-    - backendRefs:
-        - kind: Service
-          name: orbit
-          port: 3000
-      matches:
-        - path:
-            type: PathPrefix
-            value: /api/v1/auth/oidc
-    # The OIDC provider redirects the browser back to this SPA route.
-    - backendRefs:
-        - kind: Service
-          name: orbit
-          port: 3000
-      matches:
-        - path:
-            type: Exact
-            value: /oauth2-callback
     - backendRefs:
         - kind: Service
           name: orbit
