@@ -39,7 +39,7 @@ generic:
             extensionRef:
               group: gateway.envoyproxy.io
               kind: HTTPRouteFilter
-              name: bookorbit-no-service-worker
+              name: bookorbit-404
         matches:
           - path:
               type: Exact
