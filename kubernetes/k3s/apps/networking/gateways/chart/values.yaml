@@ -8,6 +8,7 @@ middlewares:
       - name: media
         http:
           - orbit
+          - orbit-login
           - shelfmark
       - name: docs
         http:

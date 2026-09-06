@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.networking.k8s.io/experimental/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -24,6 +24,27 @@ spec:
         - path:
             type: PathPrefix
             value: /api/v1/koreader
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public
+      namespace: gateways
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.networking.k8s.io/experimental/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: orbit-login
+spec:
+  hostnames:
+    - orbit.plexmox.com
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            hostname: books.plexmox.com
+            scheme: https
+            statusCode: 302
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
