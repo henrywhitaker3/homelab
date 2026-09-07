@@ -78,6 +78,11 @@ generic:
         secretKeyRef:
           name: bookorbit-secrets
           key: setup-token
+    - name: BOOK_REQUEST_ENCRYPTION_KEY
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: requests-encryption-key
 
   pvc:
     enabled: true
