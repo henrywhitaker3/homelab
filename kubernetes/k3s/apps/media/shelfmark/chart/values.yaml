@@ -58,6 +58,8 @@ generic:
       value: admin
     - name: OIDC_BUTTON_LABEL
       value: Pocket
+    - name: DISABLE_LOCAL_AUTH
+      value: "true"
 
   pvc:
     enabled: true
