@@ -72,4 +72,11 @@ oidc_clients = {
       "https://books.plexmox.com/oauth2-callback"
     ]
   }
+  "shelfmark" = {
+    name = "Shelfmark"
+    url  = "https://shelf.plexmox.com"
+    callback_urls = [
+      "https://shelf.plexmox.com/api/auth/oidc/callback",
+    ]
+  }
 }
