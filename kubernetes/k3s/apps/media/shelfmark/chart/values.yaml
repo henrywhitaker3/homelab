@@ -38,6 +38,26 @@ generic:
   env:
     - name: INGEST_DIR
       value: /bookdrop
+    - name: AUTH_METHOD
+      value: oidc
+    - name: OIDC_DISCOVERY_URL
+      value: https://pocket.plexmox.com/.well-known/openid-configuration
+    - name: OIDC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: shelfmark-secrets
+          key: oidc-client-id
+    - name: OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: shelfmark-secrets
+          key: oidc-client-secret
+    - name: OIDC_SCOPES
+      value: openid,email,profile,groups
+    - name: OIDC_ADMIN_GROUP
+      value: admin
+    - name: OIDC_BUTTON_LABEL
+      value: Pocket
 
   pvc:
     enabled: true
