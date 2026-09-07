@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
     pullPolicy: IfNotPresent
-    tag: v1.0.4
+    tag: v1.1.0
 
   resources:
     requests:
@@ -32,3 +32,17 @@ generic:
         secretKeyRef:
           name: ticktick-secrets
           key: pavlok-token
+    - name: QUIET_TIMES_MONDAY
+      value: &weekday "23:00:00-08:00:00"
+    - name: QUIET_TIMES_TUESDAY
+      value: *weekday
+    - name: QUIET_TIMES_WEDNESDAY
+      value: *weekday
+    - name: QUIET_TIMES_THURSDAY
+      value: *weekday
+    - name: QUIET_TIMES_FRIDAY
+      value: *weekday
+    - name: QUIET_TIMES_SATURDAY
+      value: &weekend "00:00:00-10:00:00"
+    - name: QUIET_TIMES_SUNDAY
+      value: *weekend
