@@ -1,4 +1,8 @@
+---
+# yaml-language-server: $schema=local-values.schema.json
+#
 adguard-1:
+  policy: upsert-only
   sources:
     - ingress
     - service
@@ -42,6 +46,7 @@ adguard-1:
           value: "false"
 
 adguard-2:
+  policy: upsert-only
   sources:
     - ingress
     - service

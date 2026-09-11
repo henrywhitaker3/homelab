@@ -1,0 +1,12 @@
+{
+    "type": "object",
+    "properties": {
+        "adguard-1": {
+            "$ref": "https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/charts/external-dns/values.schema.json"
+        },
+        "adguard-2": {
+            "$ref": "https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/charts/external-dns/values.schema.json"
+        }
+    },
+    "additionalProperties": false
+}
