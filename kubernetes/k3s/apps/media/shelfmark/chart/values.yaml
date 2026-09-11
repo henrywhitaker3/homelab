@@ -96,7 +96,7 @@ generic:
                 kubernetes.io/metadata.name: gateways
             podSelector:
               matchLabels:
-                gateway.networking.k8s.io/gateway-name: internal
+                gateway.networking.k8s.io/gateway-name: public
         ports:
           - port: 8084
       - from:
