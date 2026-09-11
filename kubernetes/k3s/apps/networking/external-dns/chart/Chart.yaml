@@ -6,8 +6,8 @@ dependencies:
   - name: external-dns
     repository: https://kubernetes-sigs.github.io/external-dns/
     alias: adguard-1
-    version: 1.21.1
+    version: 1.22.0
   - name: external-dns
     repository: https://kubernetes-sigs.github.io/external-dns/
     alias: adguard-2
-    version: 1.21.1
+    version: 1.22.0
