@@ -6,7 +6,7 @@ module "dev" {
   ips       = ["10.0.0.15"]
   cores     = 4
   memory    = 4096
-  disk_size = "64G"
+  disk_size = "96G"
   nodes     = [1]
   serial    = true
 
