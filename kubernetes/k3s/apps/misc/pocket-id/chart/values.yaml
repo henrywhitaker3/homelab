@@ -89,11 +89,9 @@ generic:
           name: pocket-id-config
           key: encryption-key
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: http://alloy.monitoring.svc:4317
+      value: http://alloy.monitoring.svc:4318
     - name: OTEL_TRACES_EXPORTER
       value: otlp
-    - name: OTEL_EXPORTER_OTLP_PROTOCOL
-      value: http/protobuf
 
   httpRoute:
     enabled: true
