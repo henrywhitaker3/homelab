@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/louislam/uptime-kuma
     pullPolicy: IfNotPresent
-    tag: 2.5.4
+    tag: 2.5.5
 
   service:
     portName: http
