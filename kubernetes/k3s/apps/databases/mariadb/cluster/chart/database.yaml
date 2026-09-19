@@ -17,9 +17,8 @@ spec:
   image: mariadb:12.3.3
   # image: mariadb:11.8.5
 
-  env:
-    - name: MARIADB_AUTO_UPDATE
-      value: "1"
+  pointInTimeRecoveryRef:
+    name: pitr-garage
 
   # 4-node cluster, galera doesn't work well with even numbers, so don't
   # schedule on the worker node
