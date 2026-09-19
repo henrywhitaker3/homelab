@@ -1,6 +1,6 @@
 [tools]
-age = "v1.3.1"
-ansible = { version = "14.1.0", pipx_args = "--include-deps", uvx = false }
+age = "v1.3.2"
+ansible = { version = "14.4.0", expose = ["ansible-core"] }
 helm = "4.3.0"
 kubectl = "1.37.0"
 opentofu = "1.12.6"
