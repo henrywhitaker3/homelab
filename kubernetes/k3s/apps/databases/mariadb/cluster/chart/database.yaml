@@ -19,6 +19,10 @@ spec:
   pointInTimeRecoveryRef:
     name: pitr-garage
 
+  myCnf: |
+    [mariadb]
+    max_binlog_size=128M
+
   # 4-node cluster, galera doesn't work well with even numbers, so don't
   # schedule on the worker node
   # affinity:
