@@ -37,7 +37,7 @@ metadata:
 spec:
   archiveTimeout: 1h
   physicalBackupRef:
-    name: mariadbbackup-garage
+    name: mariabackup-garage
   compression: zstd
   storage:
     s3:
