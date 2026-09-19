@@ -16,8 +16,8 @@ spec:
 
   image: mariadb:12.3.3
 
-  # pointInTimeRecoveryRef:
-  #   name: pitr-garage
+  pointInTimeRecoveryRef:
+    name: pitr-garage
 
   # 4-node cluster, galera doesn't work well with even numbers, so don't
   # schedule on the worker node
