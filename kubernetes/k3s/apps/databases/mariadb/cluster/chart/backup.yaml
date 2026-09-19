@@ -1,7 +1,7 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/k8s.mariadb.com/backups_v1alpha1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/k8s.mariadb.com/physicalbackup_v1alpha1.json
 apiVersion: k8s.mariadb.com/v1alpha1
-kind: Backup
+kind: PhysicalBackup
 metadata:
   name: mariabackup-garage
 spec:
@@ -19,6 +19,32 @@ spec:
       bucket: mariadb
       endpoint: garage.plexmox.com
       region: garage
+      prefix: physical
+      accessKeyIdSecretKeyRef:
+        name: mariadb-r2
+        key: garage-access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-r2
+        key: garage-secret-access-key
+      tls:
+        enabled: true
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/k8s.mariadb.com/pointintimerecovery_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PointInTimeRecovery
+metadata:
+  name: pitr-garage
+spec:
+  archiveTimeout: 1h
+  physicalBackupRef:
+    name: mariadbbackup-garage
+  compression: zstd
+  storage:
+    s3:
+      bucket: mariadb
+      endpoint: garage.plexmox.com
+      region: garage
+      prefix: pitr
       accessKeyIdSecretKeyRef:
         name: mariadb-r2
         key: garage-access-key-id
