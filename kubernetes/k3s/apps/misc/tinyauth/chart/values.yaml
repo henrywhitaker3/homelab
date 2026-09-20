@@ -7,7 +7,7 @@ generic:
     type: Recreate
 
   image:
-    repository: ghcr.io/steveiliop56/tinyauth
+    repository: ghcr.io/tinyauthapp/tinyauth
     pullPolicy: IfNotPresent
     # renovate: datasource=github-releases depName=tinyauthapp/tinyauth
     tag: "v5.2.0-distroless"
