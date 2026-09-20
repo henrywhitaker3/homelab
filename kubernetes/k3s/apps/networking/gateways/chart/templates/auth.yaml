@@ -70,6 +70,8 @@ spec:
       - cookie
       - x-forwarded-proto
       - x-forwarded-for
+      - x-forwarded-host
+      - x-forwarded-method
       - user-agent
     failOpen: false
     http:
