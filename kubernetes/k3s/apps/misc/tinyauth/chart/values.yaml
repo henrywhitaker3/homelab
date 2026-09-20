@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  replicaCount: 1
+  replicaCount: 3
 
   deploymentStrategy:
     type: Recreate
@@ -42,11 +42,16 @@ generic:
       value: "debug"
     - name: TINYAUTH_LOG_JSON
       value: "true"
+    - name: TINYAUTH_DATABASE_DRIVER
+      value: postgres
     - name: TINYAUTH_DATABASE_PATH
-      value: /config/tinyauth.db
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-tinyauth
+          key: pgbouncer-uri
 
   pvc:
-    enabled: true
+    enabled: false
     accessModes: [ReadWriteOnce]
     mountPath: /config
     size: 128Mi
