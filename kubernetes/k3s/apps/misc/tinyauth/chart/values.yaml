@@ -79,6 +79,10 @@ generic:
           - path:
               type: PathPrefix
               value: /
+        sessionPersistence:
+          type: Cookie
+          cookieConfig:
+            lifetimeType: Session
 
   resources:
     requests:
