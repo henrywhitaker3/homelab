@@ -56,7 +56,7 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: garage
+          name: seaweed
           port: 23646
   parentRefs:
     - group: gateway.networking.k8s.io
