@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - seaweed.default.svc:9327
+        - http://seaweed.default.svc:9327
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
