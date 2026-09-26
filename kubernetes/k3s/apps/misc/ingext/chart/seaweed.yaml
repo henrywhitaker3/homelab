@@ -23,40 +23,6 @@ spec:
         address: 10.0.0.9
         port: 23646
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: seaweed
-spec:
-  ports:
-    - protocol: TCP
-      port: 8333
-      targetPort: 8333
-      name: s3
-    - protocol: TCP
-      port: 23646
-      targetPort: 23646
-      name: web
-    - protocol: TCP
-      port: 9327
-      targetPort: 9327
-      name: metrics
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: seaweed
-subsets:
-  - addresses:
-      - ip: 10.0.0.9
-    ports:
-      - port: 8333
-        name: s3
-      - port: 23646
-        name: web
-      - port: 9327
-        name: metrics
----
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -67,8 +33,9 @@ spec:
     - seaweed.plexmox.com
   rules:
     - backendRefs:
-        - kind: Service
-          name: seaweed
+        - kind: Backend
+          group: gateway.envoyproxy.io
+          name: seaweed-s3
           port: 8333
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -90,10 +57,6 @@ spec:
           group: gateway.envoyproxy.io
           name: seaweed-ui
           port: 23646
-      matches:
-        - path:
-            type: PathPrefix
-            value: /
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
