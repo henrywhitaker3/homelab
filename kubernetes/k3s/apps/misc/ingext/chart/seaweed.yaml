@@ -3,13 +3,22 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
-  name: seaweed
+  name: seaweed-s3
 spec:
   type: Endpoints
   endpoints:
     - ip:
         address: 10.0.0.9
         port: 8333
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: seaweed-ui
+spec:
+  type: Endpoints
+  endpoints:
     - ip:
         address: 10.0.0.9
         port: 23646
@@ -79,7 +88,7 @@ spec:
     - backendRefs:
         - kind: Backend
           group: gateway.envoyproxy.io
-          name: seaweed
+          name: seaweed-ui
           port: 23646
       matches:
         - path:
