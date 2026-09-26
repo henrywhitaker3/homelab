@@ -7,10 +7,8 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - seaweed.default.svc
+        - seaweed.default.svc:9327
   metricsPath: /metrics
-  scrapeInterval: 2m
-  scrapeTimeout: 90s
   relabelings:
     - targetLabel: job
       replacement: seaweed
