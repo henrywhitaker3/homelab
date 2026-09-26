@@ -231,8 +231,8 @@ spec:
         - name: repo1
           s3:
             bucket: "crunchy"
-            endpoint: "https://garage.plexmox.com"
-            region: "garage"
+            endpoint: "https://seaweed.plexmox.com"
+            region: "us-east-1"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
             differential: "0 1 * * 1-6" # Mon-Sat at 01:00
