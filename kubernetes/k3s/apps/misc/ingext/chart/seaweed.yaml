@@ -1,3 +1,19 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: seaweed
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 8333
+    - ip:
+        address: 10.0.0.9
+        port: 23646
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -61,9 +77,14 @@ spec:
     - seaweed-web.plexmox.com
   rules:
     - backendRefs:
-        - kind: Service
+        - kind: Backend
+          group: gateway.envoyproxy.io
           name: seaweed
           port: 23646
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
