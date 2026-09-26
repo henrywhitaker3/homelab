@@ -212,6 +212,11 @@ dashboards:
       url: https://git.deuxfleurs.fr/Deuxfleurs/garage/raw/branch/main-v1/script/telemetry/grafana-garage-dashboard-prometheus.json
       datasource:
         - { name: DS_DS_PROMETHEUS, value: Prometheus }
+    seaweed:
+      url: https://raw.githubusercontent.com/chrislusf/seaweedfs/refs/heads/master/other/metrics/grafana_seaweedfs.json
+      datasource:
+        - { name: DS_DS_PROMETHEUS, value: Prometheus }
+
     kuma:
       gnetId: 18667
       revision: 1
