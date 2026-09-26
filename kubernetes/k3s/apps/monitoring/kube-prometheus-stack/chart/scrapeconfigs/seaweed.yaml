@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: seaweed-cluster
+spec:
+  staticConfigs:
+    - targets:
+        - seaweed.default.svc
+  metricsPath: /metrics
+  scrapeInterval: 2m
+  scrapeTimeout: 90s
+  relabelings:
+    - targetLabel: job
+      replacement: seaweed

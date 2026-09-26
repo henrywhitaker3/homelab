@@ -12,6 +12,10 @@ spec:
       port: 23646
       targetPort: 23646
       name: web
+    - protocol: TCP
+      port: 9327
+      targetPort: 9327
+      name: metrics
 ---
 apiVersion: v1
 kind: Endpoints
@@ -25,6 +29,8 @@ subsets:
         name: s3
       - port: 23646
         name: web
+      - port: 9327
+        name: metrics
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
