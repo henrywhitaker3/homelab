@@ -11,3 +11,4 @@ resources:
   - adguard.yaml
   - garage.yaml
   - kuma.yaml
+  - seaweed.yaml

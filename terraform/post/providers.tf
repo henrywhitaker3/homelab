@@ -29,6 +29,10 @@ terraform {
       source  = "netbirdio/netbird"
       version = "0.0.10"
     }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "6.66.0"
+    }
   }
 }
 
@@ -74,4 +78,19 @@ provider "garage" {
 provider "netbird" {
   token          = var.netbird_token
   management_url = "https://netbird.plexmox.com"
+}
+
+provider "aws" {
+  endpoints {
+    s3  = "https://seaweed.plexmox.com"
+    iam = "https://seaweed.plexmox.com"
+  }
+  s3_use_path_style           = true
+  skip_credentials_validation = true
+  skip_metadata_api_check     = true
+  skip_requesting_account_id  = true
+  skip_region_validation      = true
+
+  access_key = var.seaweed_access_key_id
+  secret_key = var.seaweed_secret_access_key
 }

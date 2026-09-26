@@ -53,6 +53,16 @@ variable "garage_token" {
   sensitive = true
 }
 
+variable "seaweed_access_key_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "seaweed_secret_access_key" {
+  type      = string
+  sensitive = true
+}
+
 variable "netbird_token" {
   type      = string
   sensitive = true

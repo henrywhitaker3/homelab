@@ -15,9 +15,9 @@ variable "buckets" {
   validation {
     condition = length([
       for key, value in var.buckets : true
-      if contains(["r2", "garage"], value.type)
+      if contains(["r2", "garage", "seaweed"], value.type)
     ]) == length(var.buckets)
-    error_message = "type must be one of: r2, garage"
+    error_message = "type must be one of: r2, garage, seaweed"
   }
 }
 
@@ -54,6 +54,24 @@ variable "garage_tokens" {
         if contains(keys(var.buckets), b_value)
       ]) == length(value.buckets)
     ]) == length(var.garage_tokens)
+    error_message = "buckets must be defined in var.buckets"
+  }
+}
+
+variable "seaweed_tokens" {
+  type = map(object({
+    buckets = list(string)
+    write   = optional(bool, false)
+  }))
+  default = {}
+  validation {
+    condition = length([
+      for key, value in var.seaweed_tokens : true
+      if length([
+        for b_key, b_value in value.buckets : true
+        if contains(keys(var.buckets), b_value)
+      ]) == length(value.buckets)
+    ]) == length(var.seaweed_tokens)
     error_message = "buckets must be defined in var.buckets"
   }
 }
@@ -144,4 +162,75 @@ resource "garage_permission" "this" {
   owner         = each.value.owner
   write         = each.value.write
   read          = each.value.read
+}
+
+resource "aws_s3_bucket" "seaweed" {
+  for_each = {
+    for key, value in var.buckets : key => value if value.type == "seaweed"
+  }
+  bucket = each.value.name
+}
+
+resource "aws_iam_user" "seaweed" {
+  for_each = var.seaweed_tokens
+
+  name = each.key
+}
+
+locals {
+  aws_s3_read_bucket_actions = [
+    "s3:ListBucket",
+  ]
+  aws_s3_write_bucket_actions = [
+    "s3:ListBucket",
+  ]
+  aws_s3_read_actions = [
+    "s3:GetObject",
+  ]
+  aws_s3_write_actions = [
+    "s3:GetObject",
+    "s3:PutObject",
+    "s3:DeleteObject",
+  ]
+}
+
+resource "aws_iam_user_policy" "seaweed" {
+  for_each = var.seaweed_tokens
+
+  user = aws_iam_user.seaweed[each.key].name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Sid    = "BucketOperations"
+        Effect = "Allow"
+
+        Action = each.value.write ? local.aws_s3_write_bucket_actions : local.aws_s3_read_bucket_actions
+
+        Resource = [
+          for bucket in each.value.buckets : "arn:aws:s3:::${var.buckets[bucket].name}"
+        ]
+      },
+      {
+        Sid    = "${each.value.write ? "Write" : "Read"}Objects"
+        Effect = "Allow"
+
+        Action = each.value.write ? local.aws_s3_write_actions : local.aws_s3_read_actions
+
+        Resource = [
+          for bucket in each.value.buckets : "arn:aws:s3:::${var.buckets[bucket].name}/*"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_access_key" "seaweed" {
+  for_each = var.seaweed_tokens
+
+  user = aws_iam_user.seaweed[each.key].name
+
+  depends_on = [aws_iam_user_policy.seaweed]
 }
