@@ -26,9 +26,9 @@ loki:
         chunks: loki
         ruler: loki-ruler
       s3:
-        s3: https://garage.plexmox.com
-        endpoint: https://garage.plexmox.com
-        region: garage
+        s3: https://seaweed.plexmox.com
+        endpoint: https://seaweed.plexmox.com
+        region: us-east-1
         insecure: false
         accessKeyId: ${GARAGE_ACCESS_KEY}
         secretAccessKey: ${GARAGE_SECRET_KEY}

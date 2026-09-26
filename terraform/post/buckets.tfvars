@@ -59,6 +59,14 @@ buckets = {
     name = "pocket"
     type = "seaweed"
   }
+  crunchy_weed = {
+    name = "crunchy"
+    type = "seaweed"
+  }
+  loki_weed = {
+    name = "loki"
+    type = "seaweed"
+  }
 }
 
 r2_tokens = {
@@ -135,6 +143,14 @@ garage_tokens = {
 seaweed_tokens = {
   pocket = {
     buckets = ["pocket_weed"]
+    write   = true
+  }
+  crunchy = {
+    buckets = ["crunchy_weed"]
+    write   = true
+  }
+  loki = {
+    buckets = ["loki_weed"]
     write   = true
   }
 }
