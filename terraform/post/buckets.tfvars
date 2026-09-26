@@ -56,7 +56,7 @@ buckets = {
     type = "garage"
   }
   pocket_weed = {
-    name = "seaweed"
+    name = "pocket"
     type = "seaweed"
   }
 }

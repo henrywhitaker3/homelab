@@ -34,7 +34,7 @@ generic:
     - name: S3_FORCE_PATH_STYLE
       value: "true"
     - name: S3_ENDPOINT
-      value: https://garage.plexmox.com
+      value: https://seaweed.plexmox.com
     - name: UI_CONFIG_DISABLED
       value: "true"
     - name: LDAP_ENABLED
