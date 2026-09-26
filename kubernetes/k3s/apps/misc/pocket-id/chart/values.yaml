@@ -28,7 +28,7 @@ generic:
     - name: TRUST_PROXY
       value: "true"
     - name: S3_BUCKET
-      value: pocketid
+      value: pocket
     - name: S3_REGION
       value: garage
     - name: S3_FORCE_PATH_STYLE
