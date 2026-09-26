@@ -31,6 +31,9 @@ middlewares:
       - name: longhorn-system
         http:
           - longhorn
+      - name: default
+        http:
+          - seaweed-web
 
   organizr:
     namespaces:

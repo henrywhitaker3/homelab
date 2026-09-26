@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweed
+spec:
+  ports:
+    - protocol: TCP
+      port: 8333
+      targetPort: 8333
+      name: s3
+    - protocol: TCP
+      port: 23646
+      targetPort: 23646
+      name: web
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: garage
+subsets:
+  - addresses:
+      - ip: 10.0.0.9
+    ports:
+      - port: 8333
+        name: s3
+      - port: 23646
+        name: web
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: seaweed
+spec:
+  hostnames:
+    - seaweed.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: seaweed
+          port: 8333
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: seaweed-web
+spec:
+  hostnames:
+    - seaweed-web.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: garage
+          port: 23646
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
