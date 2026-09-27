@@ -75,6 +75,10 @@ buckets = {
     name = "tempo"
     type = "seaweed"
   }
+  git_weed = {
+    name = "git"
+    type = "seaweed"
+  }
 }
 
 r2_tokens = {
@@ -167,6 +171,10 @@ seaweed_tokens = {
   }
   tempo = {
     buckets = ["tempo_weed"]
+    write   = true
+  }
+  git = {
+    buckets = ["git_weed"]
     write   = true
   }
 }
