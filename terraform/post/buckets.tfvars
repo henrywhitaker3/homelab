@@ -67,6 +67,14 @@ buckets = {
     name = "loki"
     type = "seaweed"
   }
+  mariadb_weed = {
+    name = "mariadb"
+    type = "seaweed"
+  }
+  tempo_weed = {
+    name = "tempo"
+    type = "seaweed"
+  }
 }
 
 r2_tokens = {
@@ -151,6 +159,14 @@ seaweed_tokens = {
   }
   loki = {
     buckets = ["loki_weed"]
+    write   = true
+  }
+  mariadb = {
+    buckets = ["mariadb_weed"]
+    write   = true
+  }
+  tempo = {
+    buckets = ["tempo_weed"]
     write   = true
   }
 }

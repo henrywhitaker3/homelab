@@ -23,7 +23,7 @@ tempo:
         backend: s3
         s3:
           bucket: tempo
-          endpoint: garage.plexmox.com
+          endpoint: seaweed.plexmox.com
           region: garage
           insecure: false
           access_key: ${GARAGE_ACCESS_KEY}
