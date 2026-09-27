@@ -29,6 +29,6 @@ metadata:
   finalizers:
     - longhorn.io
 spec:
-  backupTargetURL: s3://longhorn@garage/
+  backupTargetURL: s3://longhorn@seaweed/
   credentialSecret: longhorn-storage
   pollInterval: 5m0s
