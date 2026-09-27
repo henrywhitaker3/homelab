@@ -79,6 +79,10 @@ buckets = {
     name = "git"
     type = "seaweed"
   }
+  longhorn_weed = {
+    name = "longhorn"
+    type = "seaweed"
+  }
 }
 
 r2_tokens = {
@@ -175,6 +179,10 @@ seaweed_tokens = {
   }
   git = {
     buckets = ["git_weed"]
+    write   = true
+  }
+  longhorn = {
+    buckets = ["longhorn_weed"]
     write   = true
   }
 }
