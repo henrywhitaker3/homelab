@@ -17,7 +17,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: garage.plexmox.com
+      endpoint: seaweed.plexmox.com
       region: garage
       prefix: physical
       accessKeyIdSecretKeyRef:
@@ -42,7 +42,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: garage.plexmox.com
+      endpoint: seaweed.plexmox.com
       region: garage
       prefix: pitr
       accessKeyIdSecretKeyRef:
