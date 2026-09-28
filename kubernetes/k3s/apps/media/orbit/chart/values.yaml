@@ -97,18 +97,12 @@ generic:
     - name: bookdrop
       hostPath:
         path: /plex/Media/Booklore/bookdrop
-    - name: audibooks
-      hostPath:
-        path: /plex/Media/Audiobooks
 
   volumeMounts:
     - mountPath: /books
       name: books
     - mountPath: /bookdrop
       name: bookdrop
-    - mountPath: /audibooks
-      name: audibooks
-      readOnly: true
 
   deploymentStrategy:
     type: Recreate
