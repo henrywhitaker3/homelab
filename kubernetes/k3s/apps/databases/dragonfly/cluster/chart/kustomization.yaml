@@ -1,6 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: dragonfly
+configurations:
+  - kustomizeconfig.yaml
+images:
+  - name: dragonfly
+    newName: ghcr.io/dragonflydb/dragonfly
+    # renovate: datasource=github-releases depName=dragonflydb/dragonfly
+    newTag: v2.0.0
 resources:
   - cluster.yaml
   - secrets.yaml
