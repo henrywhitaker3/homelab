@@ -8,7 +8,7 @@ http_monitors = {
     name          = "Bookorbit (auth)"
     url           = "https://books.plexmox.com"
     max_redirects = 0
-    status_codes  = ["307"]
+    status_codes  = ["307", "302"]
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["media", "auth"]
   }
@@ -26,7 +26,7 @@ http_monitors = {
     name          = "Longhorn (auth)"
     url           = "https://longhorn.plexmox.com"
     max_redirects = 0
-    status_codes  = ["307"]
+    status_codes  = ["307", "302"]
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
@@ -114,7 +114,7 @@ http_monitors = {
     name          = "Unraid (auth)"
     url           = "https://unraid.plexmox.com"
     max_redirects = 0
-    status_codes  = ["307"]
+    status_codes  = ["307", "302"]
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
@@ -122,7 +122,7 @@ http_monitors = {
     name          = "Proxmox (auth)"
     url           = "https://proxmox.plexmox.com"
     max_redirects = 0
-    status_codes  = ["307"]
+    status_codes  = ["307", "302"]
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
@@ -130,7 +130,7 @@ http_monitors = {
     name          = "ArgoCD (auth)"
     url           = "https://argocd.plexmox.com"
     max_redirects = 0
-    status_codes  = ["307"]
+    status_codes  = ["307", "302"]
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
