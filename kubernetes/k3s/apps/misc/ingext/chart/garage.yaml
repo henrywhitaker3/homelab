@@ -1,36 +1,39 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: garage
-spec:
-  ports:
-    - protocol: TCP
-      port: 3900
-      targetPort: 3900
-      name: s3
-    - protocol: TCP
-      port: 3902
-      targetPort: 3902
-      name: web
-    - protocol: TCP
-      port: 3903
-      targetPort: 3903
-      name: admin
 ---
-apiVersion: v1
-kind: Endpoints
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
 metadata:
-  name: garage
-subsets:
-  - addresses:
-      - ip: 10.0.0.9
-    ports:
-      - port: 3900
-        name: s3
-      - port: 3902
-        name: web
-      - port: 3903
-        name: admin
+  name: garage-s3
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 3900
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: garage-web
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 3902
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: garage-admin
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 3903
 ---
 # yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -42,8 +45,9 @@ spec:
     - garage.plexmox.com
   rules:
     - backendRefs:
-        - kind: Service
-          name: garage
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: garage-s3
           port: 3900
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -61,9 +65,10 @@ spec:
     - garage-web.plexmox.com
   rules:
     - backendRefs:
-        - kind: Service
-          name: garage
-          port: 3902
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: garage-web
+          port: 3900
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -80,8 +85,9 @@ spec:
     - garage-admin.plexmox.com
   rules:
     - backendRefs:
-        - kind: Service
-          name: garage
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: garage-admin
           port: 3903
   parentRefs:
     - group: gateway.networking.k8s.io
