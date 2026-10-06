@@ -56,16 +56,16 @@ haproxy_frontends:
 haproxy_backends:
   - name: k3s-envoy
     mode: tcp
-    host: "public.gateways.svc.cluster.local:443"
+    host: "public.gateways.svc.cluster.local.:443"
     options: "check port 443"
   - name: k3s-envoy-proxy-protocol
     mode: tcp
-    host: "public.gateways.svc.cluster.local:443"
+    host: "public.gateways.svc.cluster.local.:443"
     options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
 
 haproxy_port_checks:
   - name: public envoy gateway
-    host: public.gateways.svc.cluster.local
+    host: public.gateways.svc.cluster.local.
     port: 443
 
 wireguard_ip_forwarding: true
