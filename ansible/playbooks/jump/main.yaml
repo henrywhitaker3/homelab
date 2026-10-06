@@ -10,7 +10,6 @@
     - crog
     - node_exporter
     - process_exporter
-    - haproxy
     - alloy
-    # - wireguard
     - netbird
+    - haproxy

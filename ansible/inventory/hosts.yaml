@@ -24,11 +24,11 @@ all:
     jump:
       hosts:
         jump-k8s.lab:
-          ansible_host: 134.122.106.118
-          node_exporter_host: 100.96.11.182
-          process_exporter_host: 100.96.11.182
+          ansible_host: 138.68.189.134
+          node_exporter_host: 100.96.230.173
+          process_exporter_host: 100.96.230.173
           haproxy_config:
-            ip: 100.96.11.182
+            ip: 100.96.230.173
             backend: traefik-public.traefik.svc.cluster.local
             proxy: true
 
