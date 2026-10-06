@@ -17,6 +17,7 @@ middlewares:
         http:
           - unraid
           - proxmox
+          - seaweed-web
       - name: misc
         http:
           - garage-webui
@@ -31,9 +32,6 @@ middlewares:
       - name: longhorn-system
         http:
           - longhorn
-      - name: default
-        http:
-          - seaweed-web
 
   organizr:
     namespaces:
