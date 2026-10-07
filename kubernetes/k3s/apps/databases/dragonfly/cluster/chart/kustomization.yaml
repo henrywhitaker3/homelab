@@ -7,7 +7,7 @@ images:
   - name: dragonfly
     newName: ghcr.io/dragonflydb/dragonfly
     # renovate: datasource=github-releases depName=dragonflydb/dragonfly
-    newTag: v2.0.0
+    newTag: v2.0.2
 resources:
   - cluster.yaml
   - secrets.yaml
