@@ -10,21 +10,31 @@ if [ $# -ne 1 ]; then
 fi
 
 media=(
-sonarr
-radarr
-plex
-transmission
+    sonarr
+    radarr
+    plex
+    plex-exporter
+    transmission
+    orbit
+    shelfmark
 )
 
 scale() {
-    sed -E -i "s/replicaCount: [0-9]+/replicaCount: $2/g" "kubernetes/k3s/apps/media/$1/chart/values.yaml"
+    local values_file="kubernetes/k3s/apps/media/$1/chart/values.yaml"
+    local expression="s/replicaCount: [0-9]+/replicaCount: $2/g"
+
+    if [[ "$OSTYPE" == darwin* ]]; then
+        sed -E -i '' "$expression" "$values_file"
+    else
+        sed -E -i "$expression" "$values_file"
+    fi
 }
 
-for service in ${media[@]}; do
-    if [ $1 == "up" ]; then
-        scale $service 1
-    elif [ $1 == "down" ]; then
-        scale $service 0
+for service in "${media[@]}"; do
+    if [ "$1" == "up" ]; then
+        scale "$service" 1
+    elif [ "$1" == "down" ]; then
+        scale "$service" 0
     else
         help
         exit 1
