@@ -2,6 +2,7 @@
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
   replicaCount: 3
+  kind: statefulset
 
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
@@ -19,10 +20,12 @@ generic:
   env:
     - name: LOG_LEVEL
       value: debug
-    - name: RUNTIME_HOST
+    - name: POD_NAME
       valueFrom:
         fieldRef:
           fieldPath: metadata.name
+    - name: RUNTIME_HOST
+      value: "$(POD_NAME).ticktick-peers"
     - name: RUNTIME_DB_URL
       valueFrom:
         secretKeyRef:
