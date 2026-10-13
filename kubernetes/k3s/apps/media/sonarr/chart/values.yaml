@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/home-operations/sonarr
     pullPolicy: IfNotPresent
-    tag: "4.0.20.3012"
+    tag: "5.0.0.2569"
 
   service:
     port: 8989
