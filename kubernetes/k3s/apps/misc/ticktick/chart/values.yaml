@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
     pullPolicy: IfNotPresent
-    tag: v2.0.0
+    tag: v2.0.1
 
   resources:
     requests:
@@ -43,8 +43,6 @@ generic:
         secretKeyRef:
           name: ticktick-secrets
           key: pavlok-token
-    - name: OTEL_TRACES_EXPORTER
-      value: otlp
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
       value: "http://alloy.monitoring.svc:4318"
     - name: QUIET_TIMES_MONDAY
