@@ -41,7 +41,7 @@ generic:
     type: Recreate
 
   probes:
-    initialDelaySeconds: 15
+    initialDelaySeconds: 30
     type: tcpSocket
     options:
       port: http
