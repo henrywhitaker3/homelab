@@ -15,6 +15,7 @@ users:
   - name: crunchy-pguser-forgejo
   - name: crunchy-pguser-bookorbit
   - name: crunchy-pguser-tinyauth
+  - name: crunchy-pguser-ticktick
   - name: crunchy-pguser-kuma
     fields:
       - host
