@@ -24,6 +24,15 @@ generic:
   service:
     portName: metrics
     port: 8080
+    additionalPorts:
+      - name: francis
+        port: 7571
+        protocol: TCP
+
+  additionalPorts:
+    - name: francis
+      containerPort: 7571
+      protocol: TCP
 
   metrics:
     enabled: true
