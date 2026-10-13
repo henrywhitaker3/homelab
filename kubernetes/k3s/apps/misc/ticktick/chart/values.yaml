@@ -27,7 +27,7 @@ generic:
 
   metrics:
     enabled: true
-    port: 8080
+    port: metrics
     path: /metrics
 
   env:
