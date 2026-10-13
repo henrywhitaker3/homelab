@@ -1,29 +1,38 @@
 ---
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  replicaCount: 1
+  replicaCount: 3
 
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
     pullPolicy: IfNotPresent
-    tag: v1.1.1
+    tag: v2.0.0
 
   resources:
     requests:
       cpu: 15m
       memory: 24Mi
 
-  entrypoint:
-    args:
-      - --log-level
-      - debug
-      - --redis-url
-      - dragonfly.dragonfly.svc.cluster.local:6379
-
   probes:
     enabled: false
 
   env:
+    - name: LOG_LEVEL
+      value: debug
+    - name: RUNTIME_HOST
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: RUNTIME_DB_URL
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-ticktick
+          key: pgbouncer-uri
+    - name: RUNTIME_PSK
+      valueFrom:
+        secretKeyRef:
+          name: ticktick-secrets
+          key: runtime-psk
     - name: TICKTICK_TOKEN
       valueFrom:
         secretKeyRef:
