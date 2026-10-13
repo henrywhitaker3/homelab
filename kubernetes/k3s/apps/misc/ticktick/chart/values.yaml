@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
     pullPolicy: IfNotPresent
-    tag: v2.0.2
+    tag: v2.0.3
 
   resources:
     requests:
@@ -15,7 +15,20 @@ generic:
       memory: 24Mi
 
   probes:
-    enabled: false
+    enabled: true
+    type: httpGet
+    options:
+      path: /healthz
+      port: metrics
+
+  service:
+    portName: metrics
+    port: 8080
+
+  metrics:
+    enabled: true
+    port: 8080
+    path: /metrics
 
   env:
     - name: LOG_LEVEL
