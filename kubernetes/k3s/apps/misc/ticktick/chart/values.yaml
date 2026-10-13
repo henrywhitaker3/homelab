@@ -84,3 +84,5 @@ generic:
       value: &weekend "00:00:00-10:00:00"
     - name: QUIET_TIMES_SUNDAY
       value: *weekend
+    - name: USER
+      value: nonroot
