@@ -38,7 +38,7 @@ spec:
       memory: "128Mi"
     limits:
       cpu: "500m"
-      memory: "1Gi"
+      memory: "2Gi"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/generators.external-secrets.io/githubaccesstoken_v1alpha1.json
 apiVersion: generators.external-secrets.io/v1alpha1
