@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/ticktick-events
     pullPolicy: IfNotPresent
-    tag: v2.0.4
+    tag: v2.0.5
 
   resources:
     requests:
@@ -84,5 +84,3 @@ generic:
       value: &weekend "00:00:00-10:00:00"
     - name: QUIET_TIMES_SUNDAY
       value: *weekend
-    - name: USER
-      value: nonroot
