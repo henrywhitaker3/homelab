@@ -17,8 +17,24 @@ generate_hcl "generated_talos.tf" {
     control_plane_ip = tm_try(global.talos.control_plane_ip, null)
     nodes            = tm_try(global.talos.nodes, {})
     node_keys        = tm_sort(tm_keys(let.nodes))
-    routes           = tm_try(global.talos.routes, [])
-    patches          = tm_try(global.talos.patches, [])
+    node_disks = {
+      for node_name, node in let.nodes : node_name => {
+        for disk_name in tm_sort(tm_keys(tm_try(node.disks, {}))) : disk_name => {
+          filesystem = tm_try(node.disks[disk_name].filesystem, "ext4")
+          mountpoint = tm_try(node.disks[disk_name].mountpoint, tm_format("/var/mnt/%s", disk_name))
+          selector = tm_try(
+            node.disks[disk_name].disk_selector,
+            tm_format(
+              "disk.size == %su * GiB && !system_disk",
+              tm_trimsuffix(node.disks[disk_name].size, "Gi"),
+            ),
+          )
+          size = node.disks[disk_name].size
+        }
+      }
+    }
+    routes  = tm_try(global.talos.routes, [])
+    patches = tm_try(global.talos.patches, [])
 
     cluster_service_cidr = tm_try(global.talos.cluster_service_cidr, "10.96.0.0/16")
     cluster_pod_cidr     = tm_try(global.talos.cluster_pod_cidr, "10.69.0.0/16")
@@ -117,35 +133,29 @@ generate_hcl "generated_talos.tf" {
         sockets = "1"
       }
 
-      disks {
-        ide {
-          ide2 {
-            cdrom {
-              iso = format("local:iso/%s", proxmox_storage_iso.this[let.proxmox_nodes[each.value.node - 1]].filename)
-            }
-          }
-        }
-        scsi {
-          scsi0 {
-            disk {
-              storage = lookup(each.value, "storage", "local-lvm")
-              size    = 30
-              format  = "raw"
-            }
-          }
-          dynamic "scsi1" {
-            for_each = {
-              for index, disk in lookup(each.value, "disks", {}) : index => disk
-            }
+      disk {
+        type = "cdrom"
+        slot = "ide2"
+        iso  = format("local:iso/%s", proxmox_storage_iso.this[let.proxmox_nodes[each.value.node - 1]].filename)
+      }
 
-            content {
-              disk {
-                storage = lookup(scsi1.value, "storage", "local-lvm")
-                size    = scsi1.value.size
-                format  = "raw"
-              }
-            }
-          }
+      disk {
+        type    = "disk"
+        slot    = "scsi0"
+        storage = lookup(each.value, "storage", "local-lvm")
+        size    = 30
+        format  = "raw"
+      }
+
+      dynamic "disk" {
+        for_each = values(lookup(each.value, "disks", {}))
+
+        content {
+          type    = "disk"
+          slot    = format("scsi%d", disk.key + 1)
+          storage = lookup(disk.value, "storage", "local-lvm")
+          size    = disk.value.size
+          format  = "raw"
         }
       }
 
@@ -299,6 +309,15 @@ generate_hcl "generated_talos.tf" {
               extraArgs = {
                 "rotate-server-certificates" = "true"
               }
+              extraMounts = [
+                for disk_name, disk in let.node_disks[node.value] : {
+                  destination = disk.mountpoint
+                  source      = tm_format("/var/mnt/%s", disk_name)
+                  type        = "bind"
+                  options     = ["bind", "rshared", "rw"]
+                }
+                if disk.mountpoint != tm_format("/var/mnt/%s", disk_name)
+              ]
             }),
             yamlencode({
               machine = {
@@ -319,6 +338,23 @@ generate_hcl "generated_talos.tf" {
               name       = let.control_plane_ip
               link       = "net0"
             }),
+          ],
+          [
+            for disk_name, disk in let.node_disks[node.value] : yamlencode({
+              apiVersion = "v1alpha1"
+              kind       = "UserVolumeConfig"
+              name       = disk_name
+              provisioning = {
+                diskSelector = {
+                  match = disk.selector
+                }
+                minSize = disk.size
+                maxSize = disk.size
+              }
+              filesystem = {
+                type = disk.filesystem
+              }
+            })
           ],
           [
             for patch in tm_try(let.nodes[node.value].patches, []) : yamlencode(patch)
