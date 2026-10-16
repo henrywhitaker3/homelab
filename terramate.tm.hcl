@@ -12,3 +12,7 @@ sharing_backend "default" {
   filename = "sharing_generated.tf"
   command  = ["tofu", "output", "-json"]
 }
+
+import {
+  source = "/terraform/generators/talos.tm.hcl"
+}

@@ -7,10 +7,9 @@ repositories:
     url: https://coredns.github.io/helm
 
 helmDefaults:
-  wait: true
+  wait: false
   waitForJobs: false
   timeout: 600
-  recreatePods: true
   force: true
 
 releases:
@@ -45,10 +44,10 @@ releases:
     needs:
       - monitoring/prometheus-operator-crds
 
-  - name: argo
-    namespace: argo
-    chart: ../../argo
-    values: ["../../argo/values.yaml"]
-    needs:
-      - kube-system/cilium
-      - monitoring/prometheus-operator-crds
+  # - name: argo
+  #   namespace: argo
+  #   chart: ../../argo
+  #   values: ["../../argo/values.yaml"]
+  #   needs:
+  #     - kube-system/cilium
+  #     - monitoring/prometheus-operator-crds
