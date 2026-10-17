@@ -4,7 +4,9 @@ if [[ $# -ne 1 ]]; then
     echo "Provide a cluster context name first"
 fi
 
-for secret in kubernetes/$1/bootstrap/sops/*.sops.yaml; do
-    echo $secret
-    sops --decrypt $secret | kubectl apply -f -
+kubectl create ns argo || true
+
+for secret in kubernetes/"$1"/bootstrap/sops/*.sops.yaml; do
+    echo "$secret"
+    sops --decrypt "$secret" | kubectl apply -f -
 done
