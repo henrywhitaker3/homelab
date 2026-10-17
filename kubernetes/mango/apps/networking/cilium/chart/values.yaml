@@ -3,7 +3,7 @@
 
 autoDirectNodeRoutes: true
 bandwidthManager:
-  bbr: true
+  bbr: false
   enabled: true
 bpf:
   hostLegacyRouting: true
