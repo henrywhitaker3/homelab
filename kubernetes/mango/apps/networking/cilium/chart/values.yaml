@@ -3,10 +3,8 @@
 
 autoDirectNodeRoutes: true
 bandwidthManager:
-  bbr: false
+  bbr: true
   enabled: true
-bpf:
-  hostLegacyRouting: true
 cgroup:
   autoMount:
     enabled: false
