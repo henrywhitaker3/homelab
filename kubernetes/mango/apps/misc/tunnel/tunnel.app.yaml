@@ -7,9 +7,9 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: media
+    namespace: misc
     server: https://kubernetes.default.svc
-  project: media
+  project: apps
   source:
     path: kubernetes/mango/apps/misc/tunnel/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
