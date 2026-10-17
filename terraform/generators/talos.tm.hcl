@@ -75,6 +75,15 @@ generate_hcl "generated_talos.tf" {
     message   = "Must provide at least 1 controlplane node"
   }
 
+  assert {
+    assertion = tm_alltrue(tm_flatten([
+      for disks in tm_values(let.node_disks) : [
+        for disk_name, disk in disks : disk.mountpoint == tm_format("/var/mnt/%s", disk_name)
+      ]
+    ]))
+    message = "Talos user volumes must use /var/mnt/<disk name> as their mountpoint"
+  }
+
   content {
     data "talos_image_factory_extensions_versions" "this" {
       talos_version = let.talos_version
@@ -154,7 +163,7 @@ generate_hcl "generated_talos.tf" {
           type    = "disk"
           slot    = format("scsi%d", disk.key + 1)
           storage = lookup(disk.value, "storage", "local-lvm")
-          size    = disk.value.size
+          size    = trimsuffix(disk.value.size, "i")
           format  = "raw"
         }
       }
@@ -309,15 +318,6 @@ generate_hcl "generated_talos.tf" {
               extraArgs = {
                 "rotate-server-certificates" = "true"
               }
-              extraMounts = [
-                for disk_name, disk in let.node_disks[node.value] : {
-                  destination = disk.mountpoint
-                  source      = tm_format("/var/mnt/%s", disk_name)
-                  type        = "bind"
-                  options     = ["bind", "rshared", "rw"]
-                }
-                if disk.mountpoint != tm_format("/var/mnt/%s", disk_name)
-              ]
             }),
             yamlencode({
               machine = {
@@ -473,8 +473,27 @@ generate_hcl "generated_talos.tf" {
       ]
     }
 
-    resource "terraform_data" "bootstrap_apps" {
-      triggers_replace = [tm_hcl_expression("filesha256(\"../../kubernetes/${let.name}/bootstrap/talos/apps/helmfile.yaml\")")]
+    locals {
+      helmfile_hash = tm_filesha256("../../kubernetes/${let.name}/bootstrap/talos/apps/helmfile.yaml")
+      bootstrap_hash = tm_sha256(tm_jsonencode({
+        for file in tm_fileset("../../kubernetes/${let.name}/bootstrap", "**") :
+        file => tm_filesha256("../../kubernetes/${let.name}/bootstrap/${file}")
+      }))
+    }
+
+    # Wait for the arp to propogate api IP
+    resource "terraform_data" "sleep" {
+      triggers_replace = [local.helmfile_hash]
+
+      provisioner "local-exec" {
+        command = "sleep 15"
+      }
+
+      depends_on = [talos_cluster.this]
+    }
+
+    resource "terraform_data" "bootstrap_cni" {
+      triggers_replace = [local.helmfile_hash]
 
       provisioner "local-exec" {
         command = <<-EOT
@@ -495,7 +514,38 @@ generate_hcl "generated_talos.tf" {
         working_dir = tm_format("../../kubernetes/%s/bootstrap/talos/apps", let.name)
       }
 
-      depends_on = [talos_cluster.this]
+      depends_on = [terraform_data.sleep]
+    }
+
+    resource "terraform_data" "bootstrap_argo" {
+      triggers_replace = [local.bootstrap_hash]
+
+      provisioner "local-exec" {
+        command = <<-EOT
+          set -eu
+          kubeconfig="$(mktemp)"
+          trap 'rm -f "$kubeconfig"' EXIT
+          printf '%s' "$KUBECONFIG_RAW" > "$kubeconfig"
+          export KUBECONFIG="$kubeconfig"
+          current_context="$(kubectl config current-context)"
+          if [ "$current_context" != "$CLUSTER_NAME" ]; then
+            kubectl config rename-context "$current_context" "$CLUSTER_NAME"
+          fi
+          task argo:repo
+          task argo:bootstrap "cluster=$CLUSTER_NAME"
+        EOT
+
+        environment = {
+          KUBECONFIG_RAW = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
+          CLUSTER_NAME   = let.name
+        }
+
+        interpreter = ["/bin/sh", "-c"]
+        quiet       = true
+        working_dir = "../../"
+      }
+
+      depends_on = [terraform_data.bootstrap_cni]
     }
 
     resource "talos_cluster_kubeconfig" "this" {
