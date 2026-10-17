@@ -14,4 +14,4 @@ localProvisioner:
     enabled: true
     name: openebs-hostpath
     isDefaultClass: false
-    basePath: /var/openebs/local
+    basePath: /var/mnt/openebs

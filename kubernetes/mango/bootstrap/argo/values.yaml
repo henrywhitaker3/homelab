@@ -1,5 +1,5 @@
 global:
-  domain: taloscd.plexmox.com
+  domain: mangocd.plexmox.com
 
 argo-cd:
   dex:
@@ -17,29 +17,8 @@ argo-cd:
           prometheus.io/port: 8082
 
   server:
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.ingress.kubernetes.io/auth-method: 'GET'
-        nginx.ingress.kubernetes.io/auth-url: 'https://auth.plexmox.com/api/authz/auth-request'
-        nginx.ingress.kubernetes.io/auth-signin: 'https://auth.plexmox.com?rm=$request_method'
-        nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
-      ingressClassName: "nginx"
-
-      extraTls:
-        - hosts:
-          - taloscd.plexmox.com
-          secretName: taloscd-plexmox-com
-
-      hosts:
-        - taloscd.plexmox.com
     config:
-      url: https://argocd.plexmox.com
+      url: https://mangocd.plexmox.com
       repositories: |
         - type: helm
           name: stable
@@ -84,3 +63,17 @@ argo-cd:
   configs:
     cm:
       kustomize.buildOptions: --enable-helm
+      accounts.readonly: apiKey
+      oidc.config: |
+        name: Pocket
+        issuer: https://pocket.plexmox.com
+        enablePKCEAuthentication: true
+        requestedScopes: ["openid", "profile", "email", "groups"]
+        clientID: $pocket-oidc-credentials:client_id
+        clientSecret: $pocket-oidc-credentials:client_secret
+    params:
+      server.insecure: true
+    rbac:
+      policy.csv: |
+        g, admin, role:admin
+        g, readonly, role:readonly
