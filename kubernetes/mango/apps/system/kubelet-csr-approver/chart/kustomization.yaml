@@ -7,3 +7,4 @@ helmCharts:
     version: "1.2.15"
     repo: https://postfinance.github.io/kubelet-csr-approver
     valuesFile: values.yaml
+    releaseName: kubelet-csr-approver
