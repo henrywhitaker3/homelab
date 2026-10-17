@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: kube-system
     server: https://kubernetes.default.svc
-  project: cluster
+  project: networking
   source:
     path: kubernetes/mango/apps/networking/coredns/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git

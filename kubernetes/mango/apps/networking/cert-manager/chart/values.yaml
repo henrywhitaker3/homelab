@@ -8,6 +8,6 @@ cert-manager:
   prometheus:
     enabled: true
     servicemonitor:
-      enabled: false
+      enabled: true
 
 cloudflareApiToken: cloudflare-api-token
