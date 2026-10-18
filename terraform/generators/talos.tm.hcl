@@ -188,6 +188,15 @@ generate_hcl "generated_talos.tf" {
       talos_version = let.talos_version
     }
 
+    data "talos_client_configuration" "this" {
+      cluster_name         = let.name
+      client_configuration = talos_machine_secrets.this.client_configuration
+      endpoints = [
+        for key in let.node_keys : let.nodes[key].ip if let.nodes[key].type == "controlplane"
+      ]
+      nodes = [[for key in let.node_keys : let.nodes[key].ip if let.nodes[key].type == "controlplane"][0]]
+    }
+
     ephemeral "talos_cluster_kubeconfig" "upgrade" {
       cluster_name    = let.name
       endpoint        = "https://${let.control_plane_ip}:6443"
@@ -348,7 +357,7 @@ generate_hcl "generated_talos.tf" {
                 diskSelector = {
                   match = disk.selector
                 }
-                minSize = disk.size
+                grow    = true
                 maxSize = disk.size
               }
               filesystem = {
@@ -560,6 +569,12 @@ generate_hcl "generated_talos.tf" {
       description = "The kubeconfig of the talos cluster"
       sensitive   = true
       value       = talos_cluster_kubeconfig.this.kubeconfig_raw
+    }
+
+    output "talos_config" {
+      description = "The Talos client configuration"
+      sensitive   = true
+      value       = data.talos_client_configuration.this.talos_config
     }
 
     # data "talos_cluster_health" "this" {
