@@ -9,3 +9,6 @@ longhorn:
     serviceMonitor:
       # Disabled until helm metricrelabiling is possible
       enabled: false
+
+  defaultSettings:
+    defaultDataPath: /var/mnt/longhorn
