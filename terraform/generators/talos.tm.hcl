@@ -131,7 +131,7 @@ generate_hcl "generated_talos.tf" {
 
     resource "proxmox_vm_qemu" "this" {
       for_each = {
-        for index, node in let.nodes : index => node
+        for index, node in let.nodes : index => node if tm_try(node.vm, true) == true
       }
 
       name               = format("talos-${let.name}-%s-%d", each.value.type, index(let.node_keys, each.key) + 1)

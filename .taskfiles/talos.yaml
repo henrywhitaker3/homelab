@@ -4,6 +4,17 @@
 version: "3"
 
 tasks:
+  kubeconfig:
+    desc: Merge the kubeconfig with ~/.kube/config
+    requires:
+      vars:
+        - stack
+    cmds:
+      - task: ctl
+        vars:
+          stack: "{{ .stack }}"
+          CLI_ARGS: kubeconfig
+
   ctl:
     desc: Run talosctl commands
     requires:
