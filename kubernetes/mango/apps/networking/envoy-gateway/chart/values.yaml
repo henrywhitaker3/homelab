@@ -1,0 +1,14 @@
+---
+gateway-helm:
+  global:
+    imageRegistry: mirror.gcr.io
+  config:
+    envoyGateway:
+      provider:
+        type: Kubernetes
+        kubernetes:
+          deploy:
+            type: GatewayNamespace
+      extensionApis:
+        enableBackend: true
+        enableLua: true

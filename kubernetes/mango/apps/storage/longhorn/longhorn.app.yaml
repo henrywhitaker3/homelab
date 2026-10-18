@@ -5,6 +5,8 @@ kind: Application
 metadata:
   name: longhorn
   namespace: argo
+  annotations:
+    argocd.argoproj.io/sync-wave: "-20"
 spec:
   destination:
     namespace: longhorn-system
