@@ -38,16 +38,16 @@ pod-gateway:
                   name: vpn-gateway-secrets
                   key: addresses
 
-  persistence:
-    iptables:
-      type: configMap
-      name: vpn-gateway-post-rules
-      advancedMounts:
-        main:
-          gluetun:
-            - path: /iptables/post-rules.txt
-              subPath: post-rules.txt
-              readOnly: true
+  # persistence:
+  #   iptables:
+  #     type: configMap
+  #     name: vpn-gateway-post-rules
+  #     advancedMounts:
+  #       main:
+  #         gluetun:
+  #           - path: /iptables/post-rules.txt
+  #             subPath: post-rules.txt
+  #             readOnly: true
 
   settings:
     NOT_ROUTED_TO_GATEWAY_CIDRS: "10.96.0.0/16 10.69.0.0/16 10.0.0.0/24"
