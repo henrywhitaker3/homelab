@@ -6,7 +6,7 @@ pod-gateway:
           enabled: true
           env:
             - name: VPN_SERVICE_PROVIDER
-              value: mullvad
+              value: custom
             - name: VPN_TYPE
               value: wireguard
             - name: VPN_INTERFACE
