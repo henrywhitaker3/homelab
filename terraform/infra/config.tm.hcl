@@ -1,7 +1,7 @@
 globals "talos" {
   name = "mango"
   # renovate: datasource=github-releases depName=siderolabs/talos
-  version = "v1.14.3"
+  version = "v1.14.4"
   # renovate: datasource=github-releases depName=kubernetes/kubernetes
   kubernetes_version = "v1.37.1"
 
