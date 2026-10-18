@@ -15,8 +15,15 @@ pod-gateway:
               value: "off"
             - name: DOT
               value: "off"
-            - name: SERVER_COUNTRIES
-              value: UK
+            # - name: SERVER_COUNTRIES
+            #   value: UK
+            - name: WIREGUARD_ENDPOINT_IP
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: server_ip
+            - name: WIREGUARD_ENDPOINT_PORT
+              value: "51820"
             - name: WIREGUARD_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
