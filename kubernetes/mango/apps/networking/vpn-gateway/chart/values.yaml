@@ -17,6 +17,11 @@ pod-gateway:
               value: "off"
             # - name: SERVER_COUNTRIES
             #   value: UK
+            - name: WIREGUARD_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: server_public_key
             - name: WIREGUARD_ENDPOINT_IP
               valueFrom:
                 secretKeyRef:
