@@ -15,6 +15,8 @@ generate_hcl "generated_talos.tf" {
     ])
 
     control_plane_ip = tm_try(global.talos.control_plane_ip, null)
+    network_prefix   = tm_try(global.talos.network_prefix, null)
+    network_gateway  = tm_try(global.talos.network_gateway, null)
     nodes            = tm_try(global.talos.nodes, {})
     node_keys        = tm_sort(tm_keys(let.nodes))
     node_disks = {
@@ -63,6 +65,11 @@ generate_hcl "generated_talos.tf" {
   assert {
     assertion = let.control_plane_ip != null
     message   = "global.talos.control_plane_ip must be set"
+  }
+
+  assert {
+    assertion = let.network_prefix != null && let.network_gateway != null
+    message   = "global.talos.network_prefix and global.talos.network_gateway must be set"
   }
 
   assert {
@@ -129,12 +136,15 @@ generate_hcl "generated_talos.tf" {
 
       name               = format("talos-${let.name}-%s-%d", each.value.type, index(let.node_keys, each.key) + 1)
       target_node        = let.proxmox_nodes[each.value.node - 1]
-      agent              = 0
+      agent              = 1
       memory             = each.value.memory
       start_at_node_boot = true
       scsihw             = "virtio-scsi-pci"
       qemu_os            = "l26"
       power_state        = "running"
+      os_type            = "cloud-init"
+      ipconfig0          = format("ip=%s/%d,gw=%s", each.value.ip, let.network_prefix, let.network_gateway)
+      nameserver         = join(" ", let.nameservers)
 
       cpu {
         cores   = each.value.cpus
@@ -146,6 +156,12 @@ generate_hcl "generated_talos.tf" {
         type = "cdrom"
         slot = "ide2"
         iso  = format("local:iso/%s", proxmox_storage_iso.this[let.proxmox_nodes[each.value.node - 1]].filename)
+      }
+
+      disk {
+        type    = "cloudinit"
+        slot    = "sata0"
+        storage = lookup(each.value, "storage", "local-lvm")
       }
 
       disk {
@@ -169,10 +185,10 @@ generate_hcl "generated_talos.tf" {
       }
 
       network {
-        id      = "1"
+        id      = "0"
         model   = "virtio"
         bridge  = lookup(each.value, "network_bridge", "vmbr0")
-        macaddr = each.value.mac_address
+        macaddr = lookup(each.value, "mac_address", null)
       }
 
       startup_shutdown {
@@ -272,28 +288,20 @@ generate_hcl "generated_talos.tf" {
             }),
             yamlencode({
               apiVersion = "v1alpha1"
-              kind       = "LinkAliasConfig"
-              name       = "net0"
-              selector = {
-                match = tm_format("mac(link.permanent_addr) == \"%s\"", let.nodes[node.value].mac_address)
-              }
-            }),
-            yamlencode({
-              apiVersion = "v1alpha1"
               kind       = "LinkConfig"
-              name       = "net0"
+              name       = tm_try(let.nodes[node.value].network_interface, "eth0")
               mtu        = 1500
-              routes = [
+              addresses = [{
+                address = tm_format("%s/%d", let.nodes[node.value].ip, let.network_prefix)
+              }]
+              routes = concat([{
+                gateway = let.network_gateway
+                }], [
                 for route in let.routes : {
                   destination = route.network
                   gateway     = route.gateway
                 }
-              ]
-            }),
-            yamlencode({
-              apiVersion = "v1alpha1"
-              kind       = "DHCPv4Config"
-              name       = "net0"
+              ])
             }),
             yamlencode({
               apiVersion = "v1alpha1"
@@ -345,7 +353,7 @@ generate_hcl "generated_talos.tf" {
               apiVersion = "v1alpha1"
               kind       = "Layer2VIPConfig"
               name       = let.control_plane_ip
-              link       = "net0"
+              link       = tm_try(let.nodes[node.value].network_interface, "eth0")
             }),
           ],
           [
