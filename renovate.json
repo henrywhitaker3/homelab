@@ -105,6 +105,14 @@
                 "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)"
             ],
             "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
+        },
+        {
+            "customType": "regex",
+            "description": ["Process annotated Terraform and HCL dependencies"],
+            "managerFilePatterns": ["/\\.(tf|hcl)$/"],
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?: repository=(?<registryUrl>[^\\s]+))?\\r?\\n[ \\t]*[A-Za-z_][A-Za-z0-9_-]*[ \\t]*=[ \\t]*\"(?<currentValue>[^\"\\s]+)\""
+            ]
         }
     ]
 }

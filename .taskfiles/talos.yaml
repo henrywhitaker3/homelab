@@ -1,116 +1,18 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
 version: "3"
 
 tasks:
-  .context:
-    requires:
-      vars:
-        - cluster
-    cmds:
-      - kubectl config use-context {{ .cluster }}
-
-  gensecret:
-    desc: Generate talos secrets
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper gensecret > talsecret.sops.yaml
-      - sops -e -i talsecret.sops.yaml
-
-  genconfig:
-    desc: Generate talos configs
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper genconfig --secret-file talsecret.sops.yaml
-
-  bootstrap:
-    deps:
-      - apply
-      - apps
-
-  .apply:
-    requires:
-      vars:
-        - cluster
-    vars:
-      args: '{{ .args | default "" }}'
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper gencommand apply {{ .args }} | bash
-
-  apply:
-    desc: Apply the cluster configuration
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - task: .apply
-        vars:
-          args: --extra-flags=--insecure
-      - sleep 120
-      - talhelper gencommand bootstrap | bash
-
-  reapply:
-    desc: Re-apply a new configuration
-    cmds:
-      - task: .apply
-
-  apps:
-    desc: Install the required k8s apps
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - task: .context
-      - helmfile --file ./apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-
   ctl:
     desc: Run talosctl commands
     requires:
       vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
+        - stack
+    vars:
+      config: /tmp/talos-{{ .stack }}.yaml
+    silent: true
     cmds:
-      - talosctl --talosconfig clusterconfig/talosconfig {{ .CLI_ARGS }}
-
-  kubeconfig:
-    desc: Fetch the kubeconfig file
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper gencommand kubeconfig | bash
-      - sed -i 's/admin@{{ .cluster }}/{{ .cluster }}/g' ~/.kube/config
-
-  nuke:
-    desc: Nuke the cluster and start over
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
-
-  upgrade:
-    desc: Run a cluster upgrade
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmds:
-      - talhelper gencommand upgrade | bash
-
-  iso:
-    desc: Generate iso url
-    requires:
-      vars:
-        - cluster
-    dir: 'kubernetes/{{ .cluster }}/bootstrap/talos'
-    cmd: talhelper genurl iso
+      - task tm:output module={{ .stack }} -- -raw talos_config > "{{ .config }}"
+      - defer: rm "{{ .config }}"
+      - talosctl --talosconfig "{{ .config }}" {{ .CLI_ARGS }}
