@@ -16,9 +16,9 @@ globals "talos" {
       ip          = "10.0.0.30"
       mac_address = "18:2f:a3:3e:dc:7a"
       disks = {
-        # longhorn = {
-        #   size = "500Gi"
-        # }
+        longhorn = {
+          size = "50Gi"
+        }
         openebs = {
           size = "50Gi"
         }
