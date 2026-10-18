@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: longhorn-storage
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        AWS_ACCESS_KEY_ID: "{{ `{{ .garage_access_key_id }}` }}"
+        AWS_SECRET_ACCESS_KEY: "{{ `{{ .garage_secret_access_key }}` }}"
+        AWS_ENDPOINTS: https://seaweed.plexmox.com
+  dataFrom:
+    - extract:
+        key: longhorn-storage
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/longhorn.io/backuptarget_v1beta2.json
+apiVersion: longhorn.io/v1beta2
+kind: BackupTarget
+metadata:
+  name: default
+  namespace: longhorn-system
+  finalizers:
+    - longhorn.io
+spec:
+  backupTargetURL: s3://longhorn@seaweed/
+  credentialSecret: longhorn-storage
+  pollInterval: 5m0s

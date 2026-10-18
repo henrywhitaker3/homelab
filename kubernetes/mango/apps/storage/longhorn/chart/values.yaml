@@ -1,0 +1,14 @@
+longhorn:
+  # preUpgradeChecker:
+  #   jobEnabled: false
+  #   upgradeVersionCheck: false
+  # upgradeCheck:
+  #   enabled: false
+
+  persistence:
+    removeSnapshotsDuringFilesystemTrim: enabled
+
+  metrics:
+    serviceMonitor:
+      # Disabled until helm metricrelabiling is possible
+      enabled: false

@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/longhorn.io/recurringjob_v1beta2.json
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: nightly
+spec:
+  name: nightly
+  cron: 0 */12 * * *
+  task: backup
+  concurrency: 1
+  retain: 6
+  parameters:
+    full-backup-interval: "2"
+  groups:
+    - default
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/longhorn.io/recurringjob_v1beta2.json
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: six-hourly-trim
+spec:
+  name: six-hourly-trim
+  cron: 0 */6 * * *
+  task: filesystem-trim
+  concurrency: 1
+  retain: 0
+  groups:
+    - default
+    - no-backup

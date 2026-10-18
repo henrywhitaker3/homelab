@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/argoproj.io/application_v1alpha1.json
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argo
+spec:
+  destination:
+    namespace: longhorn-system
+    server: https://kubernetes.default.svc
+  project: storage
+  source:
+    path: kubernetes/mango/apps/storage/longhorn/chart
+    repoURL: https://gitlab.com/henrywhitaker3/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+    - kind: CustomResourceDefinition
+      name: engineimages.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: engines.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: instancemanagers.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: nodes.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: replicas.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: settings.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - kind: CustomResourceDefinition
+      name: volumes.longhorn.io
+      group: apiextensions.k8s.io
+      jsonPointers:
+        - /spec/preserveUnknownFields
