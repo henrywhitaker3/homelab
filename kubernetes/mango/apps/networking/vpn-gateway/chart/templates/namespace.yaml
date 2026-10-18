@@ -12,3 +12,4 @@ metadata:
   name: tunneled
   labels:
     routed-gateway: "true"
+    pod-security.kubernetes.io/enforce: privileged
