@@ -1,0 +1,75 @@
+pod-gateway:
+  controllers:
+    main:
+      containers:
+        gluetun:
+          enabled: true
+          env:
+            - name: VPN_SERVICE_PROVIDER
+              value: custom
+            - name: VPN_TYPE
+              value: wireguard
+            - name: VPN_INTERFACE
+              value: wg0
+            - name: FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT
+              value: "off"
+            - name: DOT
+              value: off
+            - name: DNS_SERVER
+              value: "off"
+            # - name: SERVER_COUNTRIES
+            #   value: UK
+            - name: WIREGUARD_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: server_public_key
+            - name: WIREGUARD_ENDPOINT_IP
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: server_ip
+            - name: WIREGUARD_ENDPOINT_PORT
+              value: "51820"
+            - name: WIREGUARD_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: private_key
+            - name: WIREGUARD_ADDRESSES
+              valueFrom:
+                secretKeyRef:
+                  name: vpn-gateway-secrets
+                  key: addresses
+
+  settings:
+    NOT_ROUTED_TO_GATEWAY_CIDRS: "10.42.0.0/16 10.43.0.0/16 10.0.0.0/24"
+    VPN_LOCAL_CIDRS: "10.42.0.0/16 10.43.0.0/16 10.0.0.0/24"
+    VPN_INTERFACE: wg0
+    VPN_TRAFFIC_PORT: 51820
+    VXLAN_PORT: 4789
+
+  DNSPolicy: ClusterFirst
+
+  routed_namespaces:
+    - tunneled
+
+  networkpolicies:
+    main:
+      enabled: false
+      controller: main
+      policyTypes:
+        - Egress
+      rules:
+        egress:
+          # Allow only VPN traffic to Internet
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            ports:
+              - port: 51820
+                protocol: UDP
+          # Allow any traffic within k8s
+          - to:
+              - ipBlock:
+                  cidr: 10.0.0.0/8

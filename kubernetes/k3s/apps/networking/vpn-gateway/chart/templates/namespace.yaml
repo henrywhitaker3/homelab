@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vpn-gateway
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tunneled
+  labels:
+    routed-gateway: "true"
+    pod-security.kubernetes.io/enforce: privileged
