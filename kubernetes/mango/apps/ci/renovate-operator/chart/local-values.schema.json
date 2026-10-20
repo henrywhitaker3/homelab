@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "renovate-operator": {
+            "$ref": "https://raw.githubusercontent.com/mogenius/renovate-operator/refs/heads/main/charts/renovate-operator/values.schema.json"
+        }
+    },
+    "additionalProperties": false
+}

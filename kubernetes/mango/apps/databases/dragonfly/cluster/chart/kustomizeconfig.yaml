@@ -1,0 +1,3 @@
+images:
+  - kind: Dragonfly
+    path: spec/image

@@ -1,0 +1,104 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: recording-rules
+spec:
+  groups:
+    - name: jobs
+      rules:
+        - record: kube_job_execution_time_seconds
+          expr: |
+            kube_job_status_completion_time - kube_job_status_start_time
+    - name: anomalies
+      rules:
+        - record: anomaly:longhorn_volume_write_latency:7d
+          expr: |
+            sum by (pvc) (
+              (
+                avg_over_time(longhorn_volume_write_latency[5m])
+                  -
+                avg_over_time(longhorn_volume_write_latency[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(longhorn_volume_write_latency[7d])
+              )
+            )
+        - record: anomaly:longhorn_volume_read_latency:7d
+          expr: |
+            sum by (pvc) (
+              (
+                avg_over_time(longhorn_volume_read_latency[5m])
+                  -
+                avg_over_time(longhorn_volume_read_latency[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(longhorn_volume_read_latency[7d])
+              )
+            )
+        - record: anomaly:node_cpu_seconds_idle:7d
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_cpu_seconds_total{mode="idle"}[3m])
+                  -
+                rate(node_cpu_seconds_total{mode="idle"}[3m] offset 6d23h58m30s)
+              )
+                /
+              (
+                stddev_over_time(node_cpu_seconds_total{mode="idle"}[7d])
+              )
+            )
+        - record: anomaly:node_network_receive_bytes:7d
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_network_receive_bytes_total[3m])
+                  -
+                rate(node_network_receive_bytes_total[3m] offset 6d23h58m30s)
+              )
+                /
+              (
+                stddev_over_time(node_network_receive_bytes_total[7d])
+              )
+            )
+        - record: anomaly:node_network_transmit_bytes:7d
+          expr: |
+            sum by (instance) (
+              (
+                rate(node_network_transmit_bytes_total[3m])
+                  -
+                rate(node_network_transmit_bytes_total[3m] offset 6d23h58m30s)
+              )
+                /
+              (
+                stddev_over_time(node_network_transmit_bytes_total[7d])
+              )
+            )
+        - record: anomaly:node_load5:7d
+          expr: |
+            sum by (instance) (
+              (
+                avg_over_time(node_load5[5m])
+                  -
+                avg_over_time(node_load5[5m] offset 6d23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(node_load5[7d])
+              )
+            )
+        - record: anomaly:systemd_logs_count:1d
+          expr: |
+            sum by (host, unit) (
+              (
+                rate(systemd_logs_count[5m])
+                  -
+                avg_over_time(systemd_logs_count[5m] offset 23h57m30s)
+              )
+                /
+              (
+                stddev_over_time(systemd_logs_count[1d])
+              )
+            )

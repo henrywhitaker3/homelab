@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: seaweed-s3
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 8333
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: seaweed-ui
+spec:
+  type: Endpoints
+  endpoints:
+    - ip:
+        address: 10.0.0.9
+        port: 23646
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: seaweed
+spec:
+  hostnames:
+    - seaweed.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Backend
+          group: gateway.envoyproxy.io
+          name: seaweed-s3
+          port: 8333
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: seaweed-web
+spec:
+  hostnames:
+    - seaweed-web.plexmox.com
+  rules:
+    - backendRefs:
+        - kind: Backend
+          group: gateway.envoyproxy.io
+          name: seaweed-ui
+          port: 23646
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: gateways

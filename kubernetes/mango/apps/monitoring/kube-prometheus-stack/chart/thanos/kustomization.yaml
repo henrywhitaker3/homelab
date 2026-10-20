@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+configMapGenerator:
+  - name: thanos-objstore-tpl
+    files:
+      - config.yaml=./objstore.yaml
+    options:
+      disableNameSuffixHash: true
+resources:
+  - objstore-secret.yaml

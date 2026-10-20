@@ -1,0 +1,38 @@
+{{- $global := . -}}
+{{- range $job := .Values.jobs }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: "{{ include "redeployer.fullname" $global }}-{{ $job.name }}"
+  labels:
+    {{- include "redeployer.labels" $global | nindent 4 }}
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  schedule: {{ $job.schedule | quote }}
+  jobTemplate:
+    metadata:
+      {{- with $global.Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "redeployer.selectorLabels" $global | nindent 8 }}
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          serviceAccountName: {{ include "redeployer.serviceAccountName" $global }}
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: "{{ $global.Values.image.repository }}:{{ $global.Values.image.tag }}"
+              imagePullPolicy: {{ $global.Values.image.pullPolicy }}
+              command:
+                - /bin/bash
+                - -c
+                - {{ $job.command | quote }}
+---
+{{- end }}

@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/k8s.mariadb.com/physicalbackup_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: mariabackup-garage
+spec:
+  mariaDbRef:
+    name: mariadb
+  schedule:
+    cron: "20 * * * *"
+  maxRetention: 168h
+
+  podSecurityContext:
+    runAsUser: 0
+
+  storage:
+    s3:
+      bucket: mariadb
+      endpoint: seaweed.plexmox.com
+      region: us-east-1
+      prefix: physical
+      accessKeyIdSecretKeyRef:
+        name: mariadb-r2
+        key: garage-access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-r2
+        key: garage-secret-access-key
+      tls:
+        enabled: true
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/k8s.mariadb.com/pointintimerecovery_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PointInTimeRecovery
+metadata:
+  name: pitr-garage
+spec:
+  archiveTimeout: 1h
+  physicalBackupRef:
+    name: mariabackup-garage
+  compression: zstd
+  storage:
+    s3:
+      bucket: mariadb
+      endpoint: seaweed.plexmox.com
+      region: us-east-1
+      prefix: pitr
+      accessKeyIdSecretKeyRef:
+        name: mariadb-r2
+        key: garage-access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-r2
+        key: garage-secret-access-key
+      tls:
+        enabled: true

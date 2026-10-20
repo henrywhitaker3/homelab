@@ -1,0 +1,68 @@
+argo-zombies:
+  config:
+    dashboards:
+      title: Argo Zombies Dashboard
+      gitlab:
+        enabled: true
+        repo: henrywhitaker3/homelab
+        tokenSecretRef:
+          name: argo-zombies-secrets
+          key: gitlab-token
+
+    exclusions:
+      bundles:
+        - k3s
+        - longhorn
+        - ingress-nginx
+        - cert-manager
+        - netbird
+        - istio
+        - kyverno
+        - kiali
+
+      resources:
+        - name: argocd-initial-admin-secret
+          namespace: argo
+          kind: Secret
+          version: v1
+        - name: export-minio-[0-9]+
+          namespace: minio
+          kind: PersistentVolumeClaim
+          version: v1
+        - name: kube-prometheus-stack-admission
+          namespace: monitoring
+          kind: Secret
+          version: v1
+        - name: kube-prometheus-stack-kubelet
+          namespace: kube-system
+          kind: Service
+          version: v1
+        - name: ingress-nginx-internal-admission
+          namespace: ingress-nginx
+          kind: Secret
+          version: v1
+        - name: mariadb-metrics-password
+          namespace: mariadb
+          kind: Secret
+          version: v1
+        - name: pgo-upgrade-check
+          namespace: databases
+          kind: ConfigMap
+          version: v1
+
+      selectors:
+        - labels:
+            app.kubernetes.io/part-of: argocd
+          annotations:
+            meta.helm.sh/release-name: argo
+        - labels:
+            postgres-operator.crunchydata.com/cluster: crunchy
+        - labels:
+            app.kubernetes.io/instance: mariadb
+        - labels:
+            app.kubernetes.io/managed-by: prometheus-operator
+
+      gvrs:
+        - group: apiextensions.k8s.io
+          version: v1
+          resource: customresourcedefinitions

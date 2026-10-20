@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public
+  namespace: gateways
+spec:
+  gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      metallb.io/loadBalancerIPs: 10.0.0.27
+      netbird.io/expose: "true"
+      netbird.io/groups: "homelab,k3s"
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: Same
+      name: http
+      port: 80
+      protocol: HTTP
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "*.henrywhitaker.com"
+      name: henrywhitaker
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-henrywhitaker-com-tls
+            namespace: gateways
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "plexmox.com"
+      name: plexmox
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-plexmox-com-tls
+            namespace: gateways
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "*.plexmox.com"
+      name: wildcard-plexmox
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-plexmox-com-tls
+            namespace: gateways
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "*.synthetigo.com"
+      name: syntehtigo
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-synthetigo-dev-tls
+            namespace: gateways
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "*.yourbuild.dev"
+      name: yourbuild
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: wildcard-yourbuild-dev-tls
+            namespace: gateways
+        mode: Terminate

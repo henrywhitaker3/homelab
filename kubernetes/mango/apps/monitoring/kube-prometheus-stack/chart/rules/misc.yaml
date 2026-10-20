@@ -1,0 +1,147 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: misc
+spec:
+  groups:
+    - name: cert-manager
+      rules:
+        - alert: CertManagerCertExpiring21Days
+          expr: |
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group!="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24 * 21)
+          for: 60m
+          labels:
+            severity: warning
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 21 days
+        - alert: CertManagerCertExpiring7Days
+          expr: |
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group!="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24 * 7)
+          for: 60m
+          labels:
+            severity: critical
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 7 days
+        - alert: CertManagerCloudflareCertExpiring1Days
+          expr: |
+            sum by (name, exported_namespace) (
+              certmanager_certificate_expiration_timestamp_seconds{issuer_group="cert-manager.k8s.cloudflare.com"} - time()
+            ) < (60 * 60 * 24)
+          for: 60m
+          labels:
+            severity: critical
+          annotations:
+            summary: Cloudflare Origin Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is expiring in 1 day
+    # - name: dvla
+    #   rules:
+    #     - alert: VehicleTaxExpired
+    #       expr: absent(dvla_vehicle_details_tax_status) or dvla_vehicle_details_tax_status < 1
+    #       for: 5m
+    #       labels:
+    #         severity: critical
+    #       annotations:
+    #         summary: The tax for {{ $labels.reg }} has expired
+    #     - alert: VehicleMotExpired
+    #       expr: absent(dvla_vehicle_details_mot_status) or dvla_vehicle_details_mot_status < 1
+    #       for: 5m
+    #       labels:
+    #         severity: critical
+    #       annotations:
+    #         summary: The tax for {{ $labels.reg }} has expired
+    #     - alert: VehicleTaxNearExpiring
+    #       expr: absent(dvla_vehicle_details_tax_expiry_seconds) or dvla_vehicle_details_tax_expiry_seconds < 60 * 60 * 24 * 30
+    #       for: 5m
+    #       labels:
+    #         severity: warning
+    #       annotations:
+    #         summary: The tax for {{ $labels.reg }} is expiring in less 30 days
+    #     - alert: VehicleTaxExpiring
+    #       expr: absent(dvla_vehicle_details_tax_expiry_seconds) or dvla_vehicle_details_tax_expiry_seconds < 60 * 60 * 24 * 7
+    #       for: 5m
+    #       labels:
+    #         severity: critical
+    #       annotations:
+    #         summary: The tax for {{ $labels.reg }} is expiring in less than a week
+    #     - alert: VehicleMotExpiring
+    #       expr: absent(dvla_vehicle_details_mot_expiry_seconds) or dvla_vehicle_details_mot_expiry_seconds < 60 * 60 * 24 * 7
+    #       for: 5m
+    #       labels:
+    #         severity: critical
+    #       annotations:
+    #         summary: The MOT for {{ $labels.reg }} is expiring in less than a week
+    #     - alert: VehicleMotNearExpiring
+    #       expr: absent(dvla_vehicle_details_mot_expiry_seconds) or dvla_vehicle_details_mot_expiry_seconds < 60 * 60 * 24 * 30
+    #       for: 5m
+    #       labels:
+    #         severity: warning
+    #       annotations:
+    #         summary: The MOT for {{ $labels.reg }} is expiring in less than 30 days
+    #     - alert: VehicleDetailsScrapeErrors
+    #       expr: sum by (reg) (dvla_vehicle_details_collection_errors_count) > 0
+    #       for: 5m
+    #       labels:
+    #         severity: warning
+    #       annotations:
+    #         summary: There were errors getting vehicle details for {{ $labels.reg }}
+    - name: adguard
+      rules:
+        - alert: AdguardScrapeError
+          expr: adguard_scrape_errors > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Aguard exporter has seen errors for the last 5 mins
+    - name: loki
+      rules:
+        - alert: LokiClusterCountMismatch
+          expr: loki_memberlist_client_cluster_members_count < on() group_left kube_statefulset_replicas{statefulset="loki"}
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Loki cluster count is less than the desired replicas for 10 mins
+        - alert: LokiMetricsWriteFailed
+          expr: increase (loki_ruler_wal_prometheus_remote_storage_samples_failed_total[1m]) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Loki failed to write metrics to prometheus
+    - name: k8s
+      rules:
+        - alert: OOMKilled
+          expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+          labels:
+            severity: critical
+          annotations:
+            summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+    - name: haproxy
+      rules:
+        - alert: HaproxyServerNotUp
+          expr: haproxy_server_status{state!="UP"} > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Haproxy Server {{ $labels.server }} is not UP for backend {{ $labels.proxy }}
+    - name: argo
+      rules:
+        - alert: ArgocdServiceUnhealthy
+          expr: sum by (name) (argocd_app_info{health_status!="Healthy"}) != 0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: ArgoCD service unhealthy (instance {{ $labels.name }})
+        - alert: ArgocdServiceNotSynced
+          expr: sum by (name) (argocd_app_info{sync_status!="Synced"}) != 0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: ArgoCD service not synced (instance {{ $labels.name }})

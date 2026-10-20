@@ -1,0 +1,28 @@
+controller:
+  tolerations:
+    - key: vpn
+      operator: Exists
+
+alloy:
+  configMap:
+    create: false
+    name: alloy-config
+    key: alloy.hcl
+
+  extraPorts:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
+      protocol: TCP
+
+  mounts:
+    varlog: true
+
+service:
+  type: LoadBalancer
+  annotations:
+    metallb.io/loadBalancerIPs: 10.0.0.37

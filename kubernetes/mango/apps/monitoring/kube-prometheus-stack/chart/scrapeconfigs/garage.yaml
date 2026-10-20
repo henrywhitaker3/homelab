@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: garage-cluster
+spec:
+  staticConfigs:
+    - targets:
+        - garage-admin.plexmox.com
+  metricsPath: /metrics
+  scrapeInterval: 2m
+  scrapeTimeout: 90s
+  scheme: HTTPS
+  authorization:
+    type: Bearer
+    credentials:
+      key: metrics-token
+      name: garage-secrets
+  relabelings:
+    - targetLabel: job
+      replacement: garage

@@ -1,0 +1,16 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: lb-vip
+spec:
+  staticConfigs:
+    - targets:
+        - lb-1.lab:9165
+        - lb-2.lab:9165
+      labels:
+        vip: lb
+  metricsPath: /metrics
+  relabelings:
+    - targetLabel: job
+      replacement: keepalived

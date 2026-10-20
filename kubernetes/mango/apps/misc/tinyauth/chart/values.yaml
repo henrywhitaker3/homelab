@@ -1,0 +1,92 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 3
+
+  deploymentStrategy:
+    type: Recreate
+
+  image:
+    repository: ghcr.io/tinyauthapp/tinyauth
+    pullPolicy: IfNotPresent
+    # renovate: datasource=github-releases depName=tinyauthapp/tinyauth
+    tag: "v5.2.0-distroless"
+
+  service:
+    port: 3000
+
+  env:
+    - name: TINYAUTH_APPURL
+      value: https://tiny.plexmox.com
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTID
+      value: acdccf69-524f-4269-a07c-7565c86ae053
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTSECRET
+      valueFrom:
+        secretKeyRef:
+          name: tinyauth
+          key: client-secret
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL
+      value: https://pocket.plexmox.com/authorize
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL
+      value: https://pocket.plexmox.com/api/oidc/token
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL
+      value: https://pocket.plexmox.com/api/oidc/userinfo
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL
+      value: https://tiny.plexmox.com/api/oauth/callback/pocketid
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES
+      value: openid email profile groups
+    - name: TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME
+      value: Pocket
+    - name: TINYAUTH_OAUTH_AUTOREDIRECT
+      value: "pocketid"
+    - name: TINYAUTH_LOG_LEVEL
+      value: "debug"
+    - name: TINYAUTH_LOG_JSON
+      value: "true"
+    - name: TINYAUTH_DATABASE_DRIVER
+      value: postgres
+    - name: TINYAUTH_DATABASE_PATH
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-tinyauth
+          key: pgbouncer-uri
+
+  pvc:
+    enabled: false
+    accessModes: [ReadWriteOnce]
+    mountPath: /config
+    size: 128Mi
+    storageClassName: longhorn-no-backups
+
+  probes:
+    enabled: true
+    type: httpGet
+    options:
+      path: /api/healthz
+      port: http
+
+  httpRoute:
+    enabled: true
+    hostnames: [tiny.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 3000
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        sessionPersistence:
+          type: Cookie
+          cookieConfig:
+            lifetimeType: Session
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 25Mi
+    limits:
+      memory: 50Mi

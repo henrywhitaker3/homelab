@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/henrywhitaker3/dvla-vehicle-exporter
+    pullPolicy: Always
+    tag: v1.1.7
+
+  entrypoint:
+    command: [/dvla-vehicle-exporter]
+    args: [run]
+
+  service:
+    port: 9876
+
+  probes:
+    enabled: false
+
+  secrets:
+    enabled: true
+    key: dvla-vehicle-exporter
+
+  metrics:
+    enabled: true
+
+  env:
+    - name: LOG_LEVEL
+      value: debug

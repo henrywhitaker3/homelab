@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: synthetigo
+spec:
+  groups:
+    - name: synthetigo
+      rules:
+        - alert: MultipleLeaders
+          expr: sum by (region, shard) (orchestrator_is_leader) > 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Multiple orchestrators are the leader in {{ $labels.region }}:{{ $labels.shard }}
+        - alert: NoLeaders
+          expr: sum by (region, shard) (orchestrator_is_leader) < 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: No orchestrator leader in {{ $labels.region }}:{{ $labels.shard }}
+        - alert: TestExecutionLag
+          expr: histogram_quantile(0.95, sum(rate(test_execution_lag_seconds_bucket[5m])) by (le)) > 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Test execution lag is greater than 2 seconds
+        - alert: QueueLatency
+          expr: max by (queue) (asynq_queue_latency_seconds{namespace="synthetigo"}) > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Average queue latency for {{ $labels.queue }} is over 10 seconds

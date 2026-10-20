@@ -1,0 +1,9 @@
+gitlab-runner:
+  concurrent: 10
+  gitlabUrl: https://gitlab.com
+  runners:
+    secret: gitlab-runner-secret
+    # tags: "home"
+  rbac:
+    create: true
+  unregisterRunners: true

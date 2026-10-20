@@ -1,0 +1,56 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-plexmox-com
+spec:
+  dnsNames:
+    - "*.plexmox.com"
+    - "plexmox.com"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  secretName: wildcard-plexmox-com-tls
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-henrywhitaker-com
+spec:
+  dnsNames:
+    - "*.henrywhitaker.com"
+    - "henrywhitaker.com"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  secretName: wildcard-henrywhitaker-com-tls
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-synthetigo-dev
+spec:
+  dnsNames:
+    - "*.synthetigo.dev"
+    - "synthetigo.dev"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  secretName: wildcard-synthetigo-dev-tls
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-yourbuild-dev
+spec:
+  dnsNames:
+    - "*.yourbuild.dev"
+    - "yourbuild.dev"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  secretName: wildcard-yourbuild-dev-tls
