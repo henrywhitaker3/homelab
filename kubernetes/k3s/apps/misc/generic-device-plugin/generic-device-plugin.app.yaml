@@ -8,7 +8,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: misc
+    namespace: kube-system
     server: https://kubernetes.default.svc
   project: apps
   source:
