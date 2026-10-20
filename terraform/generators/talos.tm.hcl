@@ -35,8 +35,18 @@ generate_hcl "generated_talos.tf" {
         }
       }
     }
-    routes  = tm_try(global.talos.routes, [])
-    patches = tm_try(global.talos.patches, [])
+    routes           = tm_try(global.talos.routes, [])
+    patches          = tm_try(global.talos.patches, [])
+    registry_mirrors = tm_try(global.talos.registry_mirrors, {})
+    registry_mirror_patches = [
+      for registry, mirror in let.registry_mirrors : {
+        apiVersion   = "v1alpha1"
+        kind         = "RegistryMirrorConfig"
+        name         = registry
+        endpoints    = mirror.endpoints
+        skipFallback = tm_try(mirror.skip_fallback, false)
+      }
+    ]
 
     cluster_service_cidr = tm_try(global.talos.cluster_service_cidr, "10.96.0.0/16")
     cluster_pod_cidr     = tm_try(global.talos.cluster_pod_cidr, "10.69.0.0/16")
@@ -255,6 +265,8 @@ generate_hcl "generated_talos.tf" {
             }
           ]
         }),
+        ], [
+        for mirror in let.registry_mirror_patches : yamlencode(mirror)
         ], let.cluster_cni == "none" ? [
         yamlencode({
           apiVersion = "v1alpha1"
