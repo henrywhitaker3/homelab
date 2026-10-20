@@ -45,6 +45,10 @@ generic:
   service:
     port: 8080
 
+  probes:
+    enabled: true
+    type: tcpSocket
+
   resources:
     requests:
       cpu: 50m
