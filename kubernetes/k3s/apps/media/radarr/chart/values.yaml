@@ -145,7 +145,7 @@ generic:
       - to:
           - namespaceSelector:
               matchLabels:
-                kubernetes.io/metadata.name: media
+                kubernetes.io/metadata.name: tunneled
             podSelector:
               matchLabels:
                 app.kubernetes.io/name: transmission
