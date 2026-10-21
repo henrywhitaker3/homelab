@@ -193,6 +193,9 @@ generic:
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
               k8s:app.kubernetes.io/name: plex-exporter
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: media
+              k8s:app.kubernetes.io/name: organizr
         toPorts:
           - ports:
               - port: "32400"
