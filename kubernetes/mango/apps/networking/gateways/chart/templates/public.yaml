@@ -11,7 +11,6 @@ spec:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.27
       netbird.io/expose: "true"
-      service.cilium.io/forwarding-mode: snat
       netbird.io/groups: "homelab,k3s"
   listeners:
     - allowedRoutes:

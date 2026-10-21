@@ -10,7 +10,6 @@ spec:
   infrastructure:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.25
-      service.cilium.io/forwarding-mode: snat
   listeners:
     - allowedRoutes:
         namespaces:
