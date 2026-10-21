@@ -1,9 +1,6 @@
 netbird_networks = {
   "home"   = {}
   "do-lon" = {}
-  "k3s-cluster" = {
-    data = true
-  }
 }
 
 netbird_setup_keys = {
@@ -22,14 +19,15 @@ netbird_groups = {
   "k3s" = {
     peers = []
   }
+  "talos" = {}
   "devices" = {
     peers = ["phone", "mbp"]
   }
   "jump" = {
     peers = ["jump-k8s"]
   }
-  "telemetry" = {
-  }
+  "telemetry" = {}
+  "gateway"   = {}
   "All" = {
     data = true
   }
@@ -52,30 +50,32 @@ netbird_peers = {
   "mbp"      = {}
 }
 
-netbird_resources = {
-  "external-agw" = {
-    name    = "gateways-public"
-    network = "k3s-cluster"
-    data    = true
+netbird_dns_zones = {
+  "k8s.talos.internal" = {
+    domain = "k8s.talos.internal"
+    groups = ["jump", "devices"]
   }
+}
+
+netbird_resources = {
   "external-ingress-ip" = {
     network = "home"
-    groups  = ["All", "homelab", "k3s"]
+    groups  = ["All", "homelab", "talos"]
     address = "10.0.0.29/32"
   }
   "external-agw-ip" = {
     network = "home"
-    groups  = ["All", "homelab", "k3s"]
+    groups  = ["All", "homelab", "talos"]
     address = "10.0.0.30/32"
   }
   "internal-ingress" = {
     network = "home"
-    groups  = ["All", "homelab", "k3s"]
+    groups  = ["All", "homelab", "talos"]
     address = "10.0.0.27/32"
   }
   "internal-agw" = {
     network = "home"
-    groups  = ["All", "homelab", "k3s"]
+    groups  = ["All", "homelab", "talos"]
     address = "10.0.0.25/32"
   }
   "adguard-1" = {
@@ -96,7 +96,7 @@ netbird_resources = {
   "k8s-api" = {
     network = "home"
     groups  = ["All", "homelab"]
-    address = "10.0.0.7/32"
+    address = "10.0.0.8/32"
   }
   "jetkvm" = {
     network = "home"
@@ -180,11 +180,11 @@ netbird_policies = {
   "allow-jump-to-public-agw" = {
     description = "Allow jump servers to access k8s ingress"
     rule = {
-      action               = "accept"
-      protocol             = "tcp"
-      ports                = [80, 443]
-      sources              = ["jump"]
-      destination_resource = "external-agw"
+      action       = "accept"
+      protocol     = "tcp"
+      ports        = [80, 443]
+      sources      = ["jump", "devices"]
+      destinations = ["gateway"]
     }
   }
   "allow-devices-to-private-ingress" = {

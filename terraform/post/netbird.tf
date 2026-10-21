@@ -314,3 +314,34 @@ resource "netbird_nameserver_group" "this" {
     }
   ]
 }
+
+variable "netbird_dns_zones" {
+  type = map(object({
+    domain               = string
+    enabled              = optional(bool, true)
+    enable_search_domain = optional(bool, true)
+    groups               = optional(set(string), [])
+  }))
+  description = "Custom dns zones to create in the mesh"
+  default     = {}
+}
+
+resource "netbird_dns_zone" "this" {
+  for_each = var.netbird_dns_zones
+
+  name                 = each.key
+  domain               = each.value.domain
+  enabled              = each.value.enabled
+  enable_search_domain = each.value.enable_search_domain
+  distribution_groups = [
+    for group in each.value.groups : try(
+      netbird_group.this[group].id,
+      data.netbird_group.this[group].id,
+    )
+  ]
+}
+
+moved {
+  from = netbird_dns_zone.this["talos"]
+  to   = netbird_dns_zone.this["k8s.talos.internal"]
+}
