@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: media
   source:
-    path: kubernetes/k3s/apps/media/transmission/chart
+    path: kubernetes/mango/apps/media/transmission/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:
