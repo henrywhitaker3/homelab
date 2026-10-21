@@ -24,22 +24,6 @@ healthchecks_checks = {
     channels = ["discord", "webhook"]
     tags     = ["critical", "vpn"]
   }
-  lb_1 = {
-    name     = "LB 1"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["warning", "lb"]
-  }
-  lb_2 = {
-    name     = "LB 2"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["warning", "lb"]
-  }
   alertmanager = {
     name     = "Alertmanager"
     grace    = 120
