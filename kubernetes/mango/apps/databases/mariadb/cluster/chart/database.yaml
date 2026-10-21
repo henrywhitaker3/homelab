@@ -35,6 +35,7 @@ spec:
     backupRef:
       name: mariabackup-garage
       kind: PhysicalBackup
+    targetRecoveryTime: 2026-10-20T22:00:00Z
 
   galera:
     enabled: true
