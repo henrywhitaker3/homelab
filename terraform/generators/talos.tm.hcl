@@ -7,11 +7,13 @@ generate_hcl "generated_talos.tf" {
     talos_version      = tm_try(global.talos.version, null)
     kubernetes_version = tm_try(global.talos.kubernetes_version, null)
     image_filters = tm_try(global.talos.image_filters, [
+      "siderolabs/i915",
       "siderolabs/i915-ucode",
       "siderolabs/intel-ucode",
-      "qemu-quest-agent",
-      "iscsi-tools",
-      "util-linux-tools",
+      "siderolabs/mei",
+      "siderolabs/qemu-guest-agent",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
     ])
 
     control_plane_ip = tm_try(global.talos.control_plane_ip, null)
@@ -19,6 +21,12 @@ generate_hcl "generated_talos.tf" {
     network_gateway  = tm_try(global.talos.network_gateway, null)
     nodes            = tm_try(global.talos.nodes, {})
     node_keys        = tm_sort(tm_keys(let.nodes))
+    node_image_filters = {
+      for node_name, node in let.nodes : node_name => [
+        for filter in let.image_filters : filter
+        if !tm_contains(tm_try(node.image_filters_exclude, []), filter)
+      ]
+    }
     node_disks = {
       for node_name, node in let.nodes : node_name => {
         for disk_name in tm_sort(tm_keys(tm_try(node.disks, {}))) : disk_name => {
@@ -102,6 +110,8 @@ generate_hcl "generated_talos.tf" {
   }
 
   content {
+    # Keep a shared ISO for VM bootstrapping. Node-specific images below are
+    # used for installation and upgrades, where the extension set matters.
     data "talos_image_factory_extensions_versions" "this" {
       talos_version = let.talos_version
       filters = {
@@ -124,6 +134,34 @@ generate_hcl "generated_talos.tf" {
     data "talos_image_factory_urls" "this" {
       platform      = "nocloud"
       schematic_id  = talos_image_factory_schematic.this.id
+      talos_version = let.talos_version
+    }
+
+    data "talos_image_factory_extensions_versions" "node" {
+      for_each = let.node_image_filters
+      talos_version = let.talos_version
+      filters = {
+        names = each.value
+      }
+    }
+
+    resource "talos_image_factory_schematic" "node" {
+      for_each = data.talos_image_factory_extensions_versions.node
+      schematic = yamlencode(
+        {
+          customization = {
+            systemExtensions = {
+              officialExtensions = each.value.extensions_info.*.name
+            }
+          }
+        }
+      )
+    }
+
+    data "talos_image_factory_urls" "node" {
+      for_each     = talos_image_factory_schematic.node
+      platform      = "nocloud"
+      schematic_id  = each.value.id
       talos_version = let.talos_version
     }
 
@@ -151,6 +189,7 @@ generate_hcl "generated_talos.tf" {
       start_at_node_boot = true
       scsihw             = "virtio-scsi-pci"
       qemu_os            = "l26"
+      machine            = length(lookup(each.value, "pci_devices", [])) > 0 ? "q35" : null
       power_state        = "running"
       os_type            = "cloud-init"
       ipconfig0          = format("ip=%s/%d,gw=%s", each.value.ip, let.network_prefix, let.network_gateway)
@@ -194,6 +233,18 @@ generate_hcl "generated_talos.tf" {
         }
       }
 
+      dynamic "pci" {
+        for_each = {
+          for idx, id in lookup(each.value, "pci_devices", []) : idx => id
+        }
+
+        content {
+          id         = pci.key
+          mapping_id = pci.value
+          pcie       = true
+        }
+      }
+
       network {
         id      = "0"
         model   = "virtio"
@@ -231,18 +282,6 @@ generate_hcl "generated_talos.tf" {
 
     locals {
       patches = concat([
-        yamlencode({
-          apiVersion = "v1alpha1"
-          kind       = "UnattendedInstallConfig"
-          installer = {
-            image = data.talos_image_factory_urls.this.urls.installer
-          }
-          provisioning = {
-            diskSelector = {
-              match = "disk.dev_path == \"/dev/sda\""
-            }
-          }
-        }),
         yamlencode({
           apiVersion     = "v1alpha1"
           kind           = "KubeNetworkConfig"
@@ -291,6 +330,18 @@ generate_hcl "generated_talos.tf" {
         config_patches = concat(
           local.patches,
           [
+            yamlencode({
+              apiVersion = "v1alpha1"
+              kind       = "UnattendedInstallConfig"
+              installer = {
+                image = data.talos_image_factory_urls.node[node.value].urls.installer
+              }
+              provisioning = {
+                diskSelector = {
+                  match = "disk.dev_path == \"/dev/sda\""
+                }
+              }
+            }),
             yamlencode({
               apiVersion = "v1alpha1"
               kind       = "KubeNodeConfig"
@@ -463,7 +514,7 @@ generate_hcl "generated_talos.tf" {
       content {
         client_configuration            = talos_machine_secrets.this.client_configuration
         ignore_kubernetes_upgrade_drift = true
-        image                           = data.talos_image_factory_urls.this.urls.installer
+        image                           = data.talos_image_factory_urls.node[node.value].urls.installer
         kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
         machine_configuration           = tm_hcl_expression("data.talos_machine_configuration.node_${node.value}.machine_configuration")
         node                            = let.nodes[node.value].ip
@@ -482,7 +533,7 @@ generate_hcl "generated_talos.tf" {
       content {
         client_configuration            = talos_machine_secrets.this.client_configuration
         ignore_kubernetes_upgrade_drift = true
-        image                           = data.talos_image_factory_urls.this.urls.installer
+        image                           = data.talos_image_factory_urls.node[node.value].urls.installer
         kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
         machine_configuration           = tm_hcl_expression("data.talos_machine_configuration.node_${node.value}.machine_configuration")
         node                            = let.nodes[node.value].ip

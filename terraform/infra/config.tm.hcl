@@ -39,6 +39,9 @@ globals "talos" {
           size = "100Gi"
         }
       }
+      pci_devices = [
+        "intel-igpu-01"
+      ]
     },
     control-2 = {
       node   = 2
@@ -69,12 +72,18 @@ globals "talos" {
           size = "100Gi"
         }
       }
+      pci_devices = [
+        "intel-igpu-03"
+      ]
     }
     worker-1 = {
       vm                = false
       ip                = "10.0.0.33"
       type              = "worker"
       network_interface = "enp3s0"
+      image_filters_exclude = [
+        "siderolabs/qemu-guest-agent"
+      ]
       disks = {
         longhorn = {
           size          = "150Gi"

@@ -3,11 +3,13 @@
 data "talos_image_factory_extensions_versions" "this" {
   filters = {
     names = [
+      "siderolabs/i915",
       "siderolabs/i915-ucode",
       "siderolabs/intel-ucode",
-      "qemu-quest-agent",
-      "iscsi-tools",
-      "util-linux-tools",
+      "siderolabs/mei",
+      "siderolabs/qemu-guest-agent",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
     ]
   }
   talos_version = "v1.14.4"
@@ -24,6 +26,65 @@ resource "talos_image_factory_schematic" "this" {
 data "talos_image_factory_urls" "this" {
   platform      = "nocloud"
   schematic_id  = talos_image_factory_schematic.this.id
+  talos_version = "v1.14.4"
+}
+data "talos_image_factory_extensions_versions" "node" {
+  filters = {
+    names = each.value
+  }
+  for_each = {
+    control-1 = [
+      "siderolabs/i915",
+      "siderolabs/i915-ucode",
+      "siderolabs/intel-ucode",
+      "siderolabs/mei",
+      "siderolabs/qemu-guest-agent",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
+    ]
+    control-2 = [
+      "siderolabs/i915",
+      "siderolabs/i915-ucode",
+      "siderolabs/intel-ucode",
+      "siderolabs/mei",
+      "siderolabs/qemu-guest-agent",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
+    ]
+    control-3 = [
+      "siderolabs/i915",
+      "siderolabs/i915-ucode",
+      "siderolabs/intel-ucode",
+      "siderolabs/mei",
+      "siderolabs/qemu-guest-agent",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
+    ]
+    worker-1 = [
+      "siderolabs/i915",
+      "siderolabs/i915-ucode",
+      "siderolabs/intel-ucode",
+      "siderolabs/mei",
+      "siderolabs/iscsi-tools",
+      "siderolabs/util-linux-tools",
+    ]
+  }
+  talos_version = "v1.14.4"
+}
+resource "talos_image_factory_schematic" "node" {
+  for_each = data.talos_image_factory_extensions_versions.node
+  schematic = yamlencode({
+    customization = {
+      systemExtensions = {
+        officialExtensions = each.value.extensions_info[*].name
+      }
+    }
+  })
+}
+data "talos_image_factory_urls" "node" {
+  for_each      = talos_image_factory_schematic.node
+  platform      = "nocloud"
+  schematic_id  = each.value.id
   talos_version = "v1.14.4"
 }
 resource "proxmox_storage_iso" "this" {
@@ -59,7 +120,10 @@ resource "proxmox_vm_qemu" "this" {
       ip     = "10.0.0.30"
       memory = 24576
       node   = 1
-      type   = "controlplane"
+      pci_devices = [
+        "intel-igpu-01",
+      ]
+      type = "controlplane"
     }
     control-2 = {
       cpus = 7
@@ -89,11 +153,16 @@ resource "proxmox_vm_qemu" "this" {
       ip     = "10.0.0.32"
       memory = 24576
       node   = 3
-      type   = "controlplane"
+      pci_devices = [
+        "intel-igpu-03",
+      ]
+      type = "controlplane"
     }
   }
   ipconfig0 = format("ip=%s/%d,gw=%s", each.value.ip, 24, "10.0.0.1")
-  memory    = each.value.memory
+  machine = length(lookup(each.value, "pci_devices", [
+  ])) > 0 ? "q35" : null
+  memory = each.value.memory
   name = format("talos-mango-%s-%d", each.value.type, index([
     "control-1",
     "control-2",
@@ -156,6 +225,15 @@ resource "proxmox_vm_qemu" "this" {
       type    = "disk"
     }
   }
+  dynamic "pci" {
+    for_each = { for idx, id in lookup(each.value, "pci_devices", [
+    ]) : idx => id }
+    content {
+      id         = pci.key
+      mapping_id = pci.value
+      pcie       = true
+    }
+  }
   network {
     bridge  = lookup(each.value, "network_bridge", "vmbr0")
     id      = "0"
@@ -190,18 +268,6 @@ ephemeral "talos_cluster_kubeconfig" "upgrade" {
 }
 locals {
   patches = concat([
-    yamlencode({
-      apiVersion = "v1alpha1"
-      kind       = "UnattendedInstallConfig"
-      installer = {
-        image = data.talos_image_factory_urls.this.urls.installer
-      }
-      provisioning = {
-        diskSelector = {
-          match = "disk.dev_path == \"/dev/sda\""
-        }
-      }
-    }),
     yamlencode({
       apiVersion = "v1alpha1"
       kind       = "KubeNetworkConfig"
@@ -266,6 +332,18 @@ data "talos_machine_configuration" "node_control-1" {
   cluster_endpoint = "https://10.0.0.8:6443"
   cluster_name     = "mango"
   config_patches = concat(local.patches, [
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "UnattendedInstallConfig"
+      installer = {
+        image = data.talos_image_factory_urls.node["control-1"].urls.installer
+      }
+      provisioning = {
+        diskSelector = {
+          match = "disk.dev_path == \"/dev/sda\""
+        }
+      }
+    }),
     yamlencode({
       apiVersion = "v1alpha1"
       kind       = "KubeNodeConfig"
@@ -448,6 +526,18 @@ data "talos_machine_configuration" "node_control-2" {
   config_patches = concat(local.patches, [
     yamlencode({
       apiVersion = "v1alpha1"
+      kind       = "UnattendedInstallConfig"
+      installer = {
+        image = data.talos_image_factory_urls.node["control-2"].urls.installer
+      }
+      provisioning = {
+        diskSelector = {
+          match = "disk.dev_path == \"/dev/sda\""
+        }
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
       kind       = "KubeNodeConfig"
       labels = {
         "topology.kubernetes.io/zone" = 2
@@ -626,6 +716,18 @@ data "talos_machine_configuration" "node_control-3" {
   cluster_endpoint = "https://10.0.0.8:6443"
   cluster_name     = "mango"
   config_patches = concat(local.patches, [
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "UnattendedInstallConfig"
+      installer = {
+        image = data.talos_image_factory_urls.node["control-3"].urls.installer
+      }
+      provisioning = {
+        diskSelector = {
+          match = "disk.dev_path == \"/dev/sda\""
+        }
+      }
+    }),
     yamlencode({
       apiVersion = "v1alpha1"
       kind       = "KubeNodeConfig"
@@ -808,6 +910,18 @@ data "talos_machine_configuration" "node_worker-1" {
   config_patches = concat(local.patches, [
     yamlencode({
       apiVersion = "v1alpha1"
+      kind       = "UnattendedInstallConfig"
+      installer = {
+        image = data.talos_image_factory_urls.node["worker-1"].urls.installer
+      }
+      provisioning = {
+        diskSelector = {
+          match = "disk.dev_path == \"/dev/sda\""
+        }
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
       kind       = "KubeNodeConfig"
       labels = {
         "topology.kubernetes.io/zone" = "4"
@@ -988,7 +1102,7 @@ resource "talos_machine" "node_control-1" {
     proxmox_vm_qemu.this,
   ]
   ignore_kubernetes_upgrade_drift = true
-  image                           = data.talos_image_factory_urls.this.urls.installer
+  image                           = data.talos_image_factory_urls.node["control-1"].urls.installer
   kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
   machine_configuration           = data.talos_machine_configuration.node_control-1.machine_configuration
   node                            = "10.0.0.30"
@@ -1000,7 +1114,7 @@ resource "talos_machine" "node_control-2" {
     talos_machine.node_control-1,
   ]
   ignore_kubernetes_upgrade_drift = true
-  image                           = data.talos_image_factory_urls.this.urls.installer
+  image                           = data.talos_image_factory_urls.node["control-2"].urls.installer
   kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
   machine_configuration           = data.talos_machine_configuration.node_control-2.machine_configuration
   node                            = "10.0.0.31"
@@ -1012,7 +1126,7 @@ resource "talos_machine" "node_control-3" {
     talos_machine.node_control-2,
   ]
   ignore_kubernetes_upgrade_drift = true
-  image                           = data.talos_image_factory_urls.this.urls.installer
+  image                           = data.talos_image_factory_urls.node["control-3"].urls.installer
   kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
   machine_configuration           = data.talos_machine_configuration.node_control-3.machine_configuration
   node                            = "10.0.0.32"
@@ -1024,7 +1138,7 @@ resource "talos_machine" "node_worker-1" {
     talos_machine.node_control-3,
   ]
   ignore_kubernetes_upgrade_drift = true
-  image                           = data.talos_image_factory_urls.this.urls.installer
+  image                           = data.talos_image_factory_urls.node["worker-1"].urls.installer
   kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
   machine_configuration           = data.talos_machine_configuration.node_worker-1.machine_configuration
   node                            = "10.0.0.33"
