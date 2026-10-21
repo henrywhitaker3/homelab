@@ -155,6 +155,8 @@ generic:
           - matchName: api.hardcover.app
           - matchName: itunes.apple.com
           - matchName: www.amazon.com
+          - matchName: assets.hardcover.app
+          - matchName: m.media-amazon.com
         toPorts:
           - ports:
               - port: "443"
