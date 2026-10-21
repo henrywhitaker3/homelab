@@ -148,3 +148,13 @@ generic:
         toPorts:
           - ports:
               - port: "5432"
+      - toFQDNs:
+          - matchName: api.github.com
+          - matchName: openlibrary.org
+          - matchName: www.goodreads.com
+          - matchName: api.hardcover.app
+          - matchName: itunes.apple.com
+          - matchName: www.amazon.com
+        toPorts:
+          - ports:
+              - port: "443"
