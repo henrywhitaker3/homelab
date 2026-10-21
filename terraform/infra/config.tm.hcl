@@ -70,5 +70,21 @@ globals "talos" {
         }
       }
     }
+    worker-1 = {
+      vm                = false
+      ip                = "10.0.0.33"
+      type              = "worker"
+      network_interface = "enp3s0"
+      disks = {
+        longhorn = {
+          size          = "160Gi"
+          disk_selector = "disk.transport == \"nvme\" && !system_disk"
+        }
+        openebs = {
+          size          = "80Gi"
+          disk_selector = "disk.transport == \"nvme\" && !system_disk"
+        }
+      }
+    }
   }
 }

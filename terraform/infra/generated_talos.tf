@@ -98,6 +98,7 @@ resource "proxmox_vm_qemu" "this" {
     "control-1",
     "control-2",
     "control-3",
+    "worker-1",
   ], each.key) + 1)
   nameserver = join(" ", [
     "1.1.1.1",
@@ -801,6 +802,186 @@ EOT
   machine_type       = "controlplane"
   talos_version      = "v1.14.4"
 }
+data "talos_machine_configuration" "node_worker-1" {
+  cluster_endpoint = "https://10.0.0.8:6443"
+  cluster_name     = "mango"
+  config_patches = concat(local.patches, [
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeNodeConfig"
+      labels = {
+        "topology.kubernetes.io/zone" = "4"
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "LinkConfig"
+      name       = "enp3s0"
+      mtu        = 1500
+      addresses = [
+        {
+          address = "10.0.0.33/24"
+        },
+      ]
+      routes = concat([
+        {
+          gateway = "10.0.0.1"
+        },
+        ], [
+      ])
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "HostnameConfig"
+      hostname   = "talos-mango-worker-4"
+      auto       = "off"
+    }),
+    yamlencode({
+      machine = {
+        files = [
+          {
+            op      = "create"
+            path    = "/etc/cri/conf.d/20-customization.part"
+            content = <<-EOT
+[plugins."io.containerd.grpc.v1.cri"]
+  enable_unprivileged_ports = true
+  enable_unprivileged_icmp = true
+[plugins."io.containerd.grpc.v1.cri".containerd]
+  discard_unpacked_layers = false
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  discard_unpacked_layers = false
+EOT
+
+            permissions = 0
+          },
+        ]
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeletConfig"
+      extraArgs = {
+        "rotate-server-certificates" = "true"
+      }
+    }),
+    yamlencode({
+      machine = {
+        sysctls = {
+          "fs.inotify.max_queued_events"  = "65536"
+          "fs.inotify.max_user_watches"   = "524288"
+          "fs.inotify.max_user_instances" = "8192"
+          "net.core.rmem_max"             = "2500000"
+          "net.core.wmem_max"             = "2500000"
+        }
+      }
+    }),
+    ], "worker" != "controlplane" ? [
+    ] : [
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "Layer2VIPConfig"
+      name       = "10.0.0.8"
+      link       = "enp3s0"
+    }),
+    ], [for disk_name, disk in {
+      longhorn = {
+        filesystem = "ext4"
+        mountpoint = "/var/mnt/longhorn"
+        selector   = "disk.transport == \"nvme\" && !system_disk"
+        size       = "160Gi"
+      }
+      openebs = {
+        filesystem = "ext4"
+        mountpoint = "/var/mnt/openebs"
+        selector   = "disk.transport == \"nvme\" && !system_disk"
+        size       = "80Gi"
+      }
+      } : yamlencode({
+        apiVersion = "v1alpha1"
+        kind       = "UserVolumeConfig"
+        name       = disk_name
+        provisioning = {
+          diskSelector = {
+            match = disk.selector
+          }
+          grow    = true
+          maxSize = disk.size
+        }
+        filesystem = {
+          type = disk.filesystem
+        }
+    })], [
+    ], [
+    ], "worker" != "controlplane" ? [
+    ] : [
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeNodeConfig"
+      labels = {
+        "node.kubernetes.io/exclude-from-external-load-balancers" = {
+          "$patch" = "delete"
+        }
+      }
+      taints = {
+        "node-role.kubernetes.io/control-plane" = {
+          "$patch" = "delete"
+        }
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeControllerManagerConfig"
+      extraArgs = {
+        "bind-address" = "0.0.0.0"
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeCoreDNSConfig"
+      enabled    = false
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeProxyConfig"
+      enabled    = "none" != "none"
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "KubeSchedulerConfig"
+      extraArgs = {
+        "bind-address" = "0.0.0.0"
+      }
+    }),
+    yamlencode({
+      cluster = {
+        etcd = {
+          extraArgs = {
+            "listen-metrics-urls" = "http://0.0.0.0:2381"
+          }
+        }
+      }
+    }),
+    yamlencode({
+      machine = {
+        features = {
+          kubernetesTalosAPIAccess = {
+            enabled = true
+            allowedRoles = [
+              "os:admin",
+            ]
+            allowedKubernetesNamespaces = [
+              "system-upgrades",
+            ]
+          }
+        }
+      }
+    }),
+  ])
+  kubernetes_version = "v1.37.1"
+  machine_secrets    = talos_machine_secrets.this.machine_secrets
+  machine_type       = "worker"
+  talos_version      = "v1.14.4"
+}
 resource "talos_machine" "node_control-1" {
   client_configuration = talos_machine_secrets.this.client_configuration
   depends_on = [
@@ -836,6 +1017,18 @@ resource "talos_machine" "node_control-3" {
   machine_configuration           = data.talos_machine_configuration.node_control-3.machine_configuration
   node                            = "10.0.0.32"
 }
+resource "talos_machine" "node_worker-1" {
+  client_configuration = talos_machine_secrets.this.client_configuration
+  depends_on = [
+    proxmox_vm_qemu.this,
+    talos_machine.node_control-3,
+  ]
+  ignore_kubernetes_upgrade_drift = true
+  image                           = data.talos_image_factory_urls.this.urls.installer
+  kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
+  machine_configuration           = data.talos_machine_configuration.node_worker-1.machine_configuration
+  node                            = "10.0.0.33"
+}
 resource "talos_cluster" "this" {
   client_configuration = talos_machine_secrets.this.client_configuration
   control_plane_nodes = [
@@ -847,6 +1040,7 @@ resource "talos_cluster" "this" {
     talos_machine.node_control-1,
     talos_machine.node_control-2,
     talos_machine.node_control-3,
+    talos_machine.node_worker-1,
   ]
   kubernetes_version = "v1.37.1"
   node               = "10.0.0.30"

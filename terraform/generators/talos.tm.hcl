@@ -295,7 +295,7 @@ generate_hcl "generated_talos.tf" {
               apiVersion = "v1alpha1"
               kind       = "KubeNodeConfig"
               labels = {
-                "topology.kubernetes.io/zone" = let.nodes[node.value].node
+                "topology.kubernetes.io/zone" = tm_try(let.nodes[node.value].node, "4")
               }
             }),
             yamlencode({
