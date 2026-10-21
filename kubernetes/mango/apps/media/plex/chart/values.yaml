@@ -139,6 +139,7 @@ generic:
         volumeAttributes:
           source: "//10.0.0.9/plex"
           secretName: k3s-smb
+          mountOptions: "noserverino,cache=strict"
     - name: transcode
       emptyDir: {}
 
