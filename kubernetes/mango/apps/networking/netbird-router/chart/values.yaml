@@ -6,3 +6,6 @@ services:
   - name: alloy
     namespace: alloy
     groups: [telemetry]
+  - name: tempo
+    namespace: monitoring
+    groups: [telemetry]

@@ -1,11 +1,6 @@
 tempo:
   replicas: 1
 
-  service:
-    annotations:
-      netbird.io/expose: "true"
-      netbird.io/groups: telemetry
-
   tempo:
     retention: 6h
 

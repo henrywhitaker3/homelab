@@ -122,11 +122,6 @@ loki:
             name: loki-minio
             key: garage-secret-key
 
-    service:
-      annotations:
-        netbird.io/expose: "true"
-        netbird.io/groups: telemetry
-
   test:
     enabled: false
 

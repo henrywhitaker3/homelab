@@ -8,10 +8,6 @@ spec:
   serviceSpec:
     spec: {}
     useAsDefault: true
-    metadata:
-      annotations:
-        netbird.io/expose: "true"
-        netbird.io/groups: telemetry
   image:
     repository: victoriametrics/victoria-metrics
     # renovate: datasource=github-releases depName=victoriametrics/VictoriaMetrics
