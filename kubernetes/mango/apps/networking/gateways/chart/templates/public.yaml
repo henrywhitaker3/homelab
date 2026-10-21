@@ -10,8 +10,6 @@ spec:
   infrastructure:
     annotations:
       metallb.io/loadBalancerIPs: 10.0.0.27
-      netbird.io/expose: "true"
-      netbird.io/groups: "homelab,k3s"
   listeners:
     - allowedRoutes:
         namespaces:

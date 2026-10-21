@@ -5,12 +5,13 @@ netbird-operator:
       tag: v0.8.0
 
   ingress:
-    enabled: true
+    enabled: false
     router:
-      enabled: true
+      enabled: false
 
   cluster:
-    name: k3s-cluster
+    name: talos
+    dns: k8s.talos.internal
 
   managementURL: https://netbird.plexmox.com
 
