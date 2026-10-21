@@ -196,6 +196,7 @@ generic:
     ciliumEgress:
       - toFQDNs:
           - matchPattern: "*.plex.bz"
+          - matchPattern: "*.plex.tv"
         toPorts:
           - ports:
               - port: "443"
