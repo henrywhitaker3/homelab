@@ -27,12 +27,9 @@ diffs:
     matrix:
       - PLAYBOOK:
           - jump
-          - k3s
-          - haproxy
           - adguard
           - proxmox
           - netbird
-          - dev
   rules:
     - if: $SKIP_ANSIBLE == "true"
       when: never
