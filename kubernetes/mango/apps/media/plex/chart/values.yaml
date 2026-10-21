@@ -207,3 +207,9 @@ generic:
         toPorts:
           - ports:
               - port: "443"
+      - toCIDR:
+          - 239.255.255.250/32
+        toPorts:
+          - ports:
+              - port: "1900"
+                protocol: UDP
