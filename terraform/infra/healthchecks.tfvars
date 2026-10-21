@@ -40,38 +40,6 @@ healthchecks_checks = {
     channels = ["discord", "webhook"]
     tags     = ["warning", "lb"]
   }
-  k3s_control_1 = {
-    name     = "k3s-control-1"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["critical", "k3s"]
-  }
-  k3s_control_2 = {
-    name     = "k3s-control-2"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["critical", "k3s"]
-  }
-  k3s_control_3 = {
-    name     = "k3s-control-3"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["critical", "k3s"]
-  }
-  k3s_dedi_1 = {
-    name     = "k3s-dedi-1"
-    grace    = 120
-    schedule = "* * * * *"
-    timezone = "UTC"
-    channels = ["discord", "webhook"]
-    tags     = ["critical", "k3s"]
-  }
   alertmanager = {
     name     = "Alertmanager"
     grace    = 120
