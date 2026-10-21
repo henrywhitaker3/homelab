@@ -16,9 +16,6 @@ spec:
 
   image: mariadb:12.3.3
 
-  pointInTimeRecoveryRef:
-    name: pitr-garage
-
   myCnf: |
     [mariadb]
     max_binlog_size=128M
