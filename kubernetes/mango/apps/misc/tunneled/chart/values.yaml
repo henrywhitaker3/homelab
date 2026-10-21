@@ -26,8 +26,7 @@ generic:
         readOnly: true
         volumeAttributes:
           source: "//10.0.0.9/plex/Media/temp"
-        nodePublishSecretRef:
-          name: k3s-smb
+          secretName: k3s-smb
 
   volumeMounts:
     - mountPath: /data-temp
