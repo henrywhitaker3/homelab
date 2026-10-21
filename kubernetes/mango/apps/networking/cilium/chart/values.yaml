@@ -23,6 +23,9 @@ endpointRoutes:
   enabled: true
 envoy:
   enabled: false
+socketLB:
+  enabled: true
+  hostNamespaceOnly: true
 hubble:
   enabled: true
   metrics:
