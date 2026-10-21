@@ -1,0 +1,160 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/plex
+    pullPolicy: IfNotPresent
+    tag: "1.43.5@sha256:8f655bad7dcbc5398a78f70a5af12600b4ed3424f901566ed1eaa6710e9e2334"
+
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 512Mi
+
+  service:
+    port: 32400
+
+    additionalPorts:
+      - name: dlna
+        port: 1900
+        protocol: UDP
+        targetPort: dlna
+      - name: bonjour
+        port: 5353
+        protocol: UDP
+        targetPort: bonjour
+      - name: roku
+        port: 8324
+        protocol: TCP
+        targetPort: roku
+      - name: gdm1
+        port: 32410
+        protocol: UDP
+        targetPort: gdm1
+      - name: gdm2
+        port: 32412
+        protocol: UDP
+        targetPort: gdm2
+      - name: gdm3
+        port: 32413
+        protocol: UDP
+        targetPort: gdm3
+      - name: gdm4
+        port: 32414
+        protocol: UDP
+        targetPort: gdm4
+      - name: dlnat
+        port: 32469
+        protocol: TCP
+        targetPort: dlnat
+
+  httpRoute:
+    enabled: false
+    hostnames: [plex.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
+    rules:
+      - port: 32400
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+      # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
+      - port: 32400
+        matches:
+          - path:
+              type: PathPrefix
+              value: /library/streams
+        filters:
+          - type: RequestHeaderModifier
+            requestHeaderModifier:
+              remove:
+                - Range
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 100Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+    initialDelaySeconds: 20
+    failureThreshold: 10
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ: Europe/London
+    VERSION: latest
+    ADVERTISE_IP: https://plex.plexmox.com:443
+
+  securityContext:
+    privileged: true
+
+  additionalPorts:
+    - name: dlna
+      containerPort: 1900
+      protocol: UDP
+    - name: bonjour
+      containerPort: 5353
+      protocol: UDP
+    - name: roku
+      containerPort: 8324
+      protocol: TCP
+    - name: gdm1
+      containerPort: 32410
+      protocol: UDP
+    - name: gdm2
+      containerPort: 32412
+      protocol: UDP
+    - name: gdm3
+      containerPort: 32413
+      protocol: UDP
+    - name: gdm4
+      containerPort: 32414
+      protocol: UDP
+    - name: dlnat
+      containerPort: 32469
+      protocol: TCP
+
+  volumes:
+    - name: media
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex"
+          secretName: k3s-smb
+    - name: transcode
+      emptyDir: {}
+
+  volumeMounts:
+    - mountPath: /plex
+      name: media
+    - mountPath: /transcode
+      name: transcode
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: quicksync
+                operator: In
+                values:
+                  - available
