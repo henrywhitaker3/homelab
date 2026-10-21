@@ -103,8 +103,8 @@ generic:
     VERSION: latest
     ADVERTISE_IP: https://plex.plexmox.com:443
 
-  securityContext:
-    privileged: true
+  # securityContext:
+  #   privileged: true
 
   additionalPorts:
     - name: dlna
