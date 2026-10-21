@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: networking
   source:
-    path: kubernetes/k3s/apps/networking/harbor/chart
+    path: kubernetes/mango/apps/networking/harbor/chart
     repoURL: https://gitlab.com/henrywhitaker3/homelab.git
     targetRevision: HEAD
   syncPolicy:

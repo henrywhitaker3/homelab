@@ -133,3 +133,21 @@ spec:
       server: "*"
   sourceRepos:
     - "*"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/argoproj.io/appproject_v1alpha1.json
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: thesuses
+  namespace: argo
+  annotations:
+    argo-zombies/ignore: "true"
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  sourceRepos:
+    - "*"
