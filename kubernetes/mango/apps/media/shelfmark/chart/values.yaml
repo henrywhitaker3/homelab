@@ -76,6 +76,7 @@ generic:
         volumeAttributes:
           source: "//10.0.0.9/plex/Media/Booklore/bookdrop"
           secretName: k3s-smb
+          mountOptions: "noserverino,cache=strict"
 
   volumeMounts:
     - mountPath: /bookdrop

@@ -62,12 +62,14 @@ generic:
         volumeAttributes:
           source: "//10.0.0.9/plex/temp"
           secretName: k3s-smb
+          mountOptions: "noserverino,cache=strict"
     - name: watch
       csi:
         driver: smb.csi.k8s.io
         volumeAttributes:
           source: "//10.0.0.9/plex/watch"
           secretName: k3s-smb
+          mountOptions: "noserverino,cache=strict"
 
   volumeMounts:
     - mountPath: /downloads
