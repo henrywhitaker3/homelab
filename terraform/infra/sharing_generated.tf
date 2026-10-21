@@ -3,7 +3,6 @@
 output "vms" {
   value = {
     adguard = module.adguard.this
-    lb      = module.lb.this
     dev     = module.dev.this
   }
 }

@@ -1,7 +1,6 @@
 locals {
   vm_info = concat(
     var.adguard_info,
-    var.lb_info,
     var.dev_info,
     [{ name = "netbird.netbird", ip = "10.100.0.4" }],
     [{ name = "unraid", ip = "10.0.0.9" }],

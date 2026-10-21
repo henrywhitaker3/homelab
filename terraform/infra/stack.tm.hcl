@@ -9,7 +9,6 @@ output "vms" {
   backend = "default"
   value = {
     adguard = module.adguard.this
-    lb      = module.lb.this
     dev     = module.dev.this
   }
 }

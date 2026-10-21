@@ -202,7 +202,7 @@ spec:
     config:
       exporters:
         otlp:
-          endpoint: alloy.monitoring.svc.cluster.local:4317
+          endpoint: alloy.alloy.svc.cluster.local:4317
           tls:
             insecure: true
 

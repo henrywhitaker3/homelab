@@ -17,8 +17,6 @@ netbird_groups = {
     peers = [
       "adguard-1",
       "adguard-2",
-      "lb-1",
-      "lb-2",
     ]
   }
   "k3s" = {

@@ -37,14 +37,12 @@ locals {
   netbird_vms = {
     for vm in flatten(concat(
       var.adguard_info,
-      var.lb_info,
     )) : vm.name => vm
   }
 
   netbird_peer_vms = {
     for vm in flatten(concat(
       var.adguard_info,
-      var.lb_info,
     )) : vm.name => vm
   }
 
