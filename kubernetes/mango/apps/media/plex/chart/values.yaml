@@ -193,3 +193,9 @@ generic:
         toPorts:
           - ports:
               - port: "32400"
+    ciliumEgress:
+      - toFQDNs:
+          - matchPattern: "*.plex.bz"
+        toPorts:
+          - ports:
+              - port: "443"
