@@ -1,1 +1,5 @@
 csi-driver-smb: {}
+
+namespaces:
+  - tunneled
+  - media

@@ -1,3 +1,4 @@
+{{- range .Values.namespaces }}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/externalsecret_v1.json
 apiVersion: external-secrets.io/v1
@@ -13,3 +14,4 @@ spec:
   dataFrom:
     - extract:
         key: *name
+{{- end }}

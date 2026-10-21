@@ -1,0 +1,160 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/bookorbit/bookorbit
+    pullPolicy: IfNotPresent
+    tag: 3.4.0
+
+  service:
+    port: 3000
+
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [books.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 3000
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+      - filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: gateway.envoyproxy.io
+              kind: HTTPRouteFilter
+              name: bookorbit-404
+        matches:
+          - path:
+              type: Exact
+              value: /registerSW.js
+          - path:
+              type: Exact
+              value: /sw.js
+
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: PORT
+      value: "3000"
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: BOOK_DOCK_PATH
+      value: /bookdrop
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-bookorbit
+          key: uri
+    - name: APP_URL
+      value: https://books.plexmox.com
+    - name: CLIENT_URL
+      value: https://books.plexmox.com
+    - name: JWT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: jwt-secret
+    - name: SETUP_BOOTSTRAP_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: setup-token
+    - name: BOOK_REQUEST_ENCRYPTION_KEY
+      valueFrom:
+        secretKeyRef:
+          name: bookorbit-secrets
+          key: requests-encryption-key
+
+  pvc:
+    enabled: true
+    mountPath: /data
+    storageClassName: longhorn
+    size: 5Gi
+
+  volumes:
+    - name: books
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex/Media/Booklore/books"
+          secretName: k3s-smb
+    - name: bookdrop
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex/Media/Booklore/bookdrop"
+          secretName: k3s-smb
+
+  volumeMounts:
+    - mountPath: /books
+      name: books
+    - mountPath: /bookdrop
+      name: bookdrop
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    enabled: true
+    initialDelaySeconds: 30
+    type: tcpSocket
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 3000
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 3000
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: crunchy
+            podSelector:
+              matchLabels:
+                postgres-operator.crunchydata.com/cluster: crunchy
+                postgres-operator.crunchydata.com/role: master
+        ports:
+          - port: 5432
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443
