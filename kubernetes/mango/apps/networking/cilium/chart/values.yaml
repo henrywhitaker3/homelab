@@ -5,6 +5,8 @@ autoDirectNodeRoutes: true
 bandwidthManager:
   bbr: true
   enabled: true
+bpf:
+  lbModeAnnotation: true
 cgroup:
   autoMount:
     enabled: false
