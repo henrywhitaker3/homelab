@@ -12,6 +12,7 @@ helmCharts:
 
 resources:
   - stores
+  - secrets
 
 patches:
   - path: patches/clustersecretstores.yaml
