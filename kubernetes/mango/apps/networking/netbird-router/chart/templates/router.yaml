@@ -6,4 +6,4 @@ metadata:
   name: talos
 spec:
   dnsZoneRef:
-    name: talos
+    name: k8s.talos.internal
