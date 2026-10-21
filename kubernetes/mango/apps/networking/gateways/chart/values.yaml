@@ -32,6 +32,9 @@ middlewares:
       - name: longhorn-system
         http:
           - longhorn
+      - name: kube-system
+        http:
+          - hubble
 
   organizr:
     namespaces:
