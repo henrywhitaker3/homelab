@@ -1,5 +1,5 @@
 global:
-  domain: mangocd.plexmox.com
+  domain: argocd.plexmox.com
 
 argo-cd:
   dex:
@@ -18,7 +18,7 @@ argo-cd:
 
   server:
     config:
-      url: https://mangocd.plexmox.com
+      url: https://argocd.plexmox.com
       repositories: |
         - type: helm
           name: stable

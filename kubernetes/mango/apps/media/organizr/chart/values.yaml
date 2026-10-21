@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: organizr/organizr
+    pullPolicy: Always
+    tag: latest
+
+  extraContainers:
+    - name: authz
+      image: ghcr.io/henrywhitaker3/organizr-envoy-auth-proxy:v1.0.9
+      ports:
+        - name: authz
+          containerPort: 12345
+          protocol: TCP
+      resources:
+        requests:
+          cpu: 10m
+          memory: 40Mi
+      env:
+        - name: ORGANIZR_HOST
+          value: localhost
+        - name: ORGANIZR_SCHEME
+          value: http
+        - name: ORGANIZR_GROUP
+          value: "1"
+        - name: REDIRECT_TO
+          value: https://plexmox.com
+
+  service:
+    port: 80
+    additionalPorts:
+      - name: authz
+        port: 12345
+        targetPort: authz
+        protocol: TCP
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  httpRoute:
+    enabled: true
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 80
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 2Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 15
+    timeoutSeconds: 3
+
+  config:
+    fpm: "true"
+    branch: "dev"
+    PUID: "1000"
+    PGID: "1000"
+    TZ: Europe/London
