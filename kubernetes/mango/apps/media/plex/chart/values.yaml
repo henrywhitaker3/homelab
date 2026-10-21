@@ -214,6 +214,16 @@ generic:
           - ports:
               - port: "1900"
                 protocol: UDP
+              - port: "32410"
+                protocol: UDP
+              - port: "32411"
+                protocol: UDP
+              - port: "32412"
+                protocol: UDP
+              - port: "32413"
+                protocol: UDP
+              - port: "32414"
+                protocol: UDP
       - toCIDR:
           - 224.0.0.22/32
       - toCIDR:
@@ -221,4 +231,10 @@ generic:
         toPorts:
           - ports:
               - port: "5353"
+                protocol: UDP
+      - toCIDR:
+          - 255.255.255.255/32
+        toPorts:
+          - ports:
+              - port: "65001"
                 protocol: UDP
