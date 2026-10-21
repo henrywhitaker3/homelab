@@ -7,7 +7,6 @@ resources:
   - smartctl-exporter.yaml
   - pve.yaml
   - k8s-annotations.yaml
-  - keepalived.yaml
   - adguard.yaml
   - garage.yaml
   - kuma.yaml
