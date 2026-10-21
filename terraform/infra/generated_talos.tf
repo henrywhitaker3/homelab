@@ -888,13 +888,13 @@ EOT
         filesystem = "ext4"
         mountpoint = "/var/mnt/longhorn"
         selector   = "disk.transport == \"nvme\" && !system_disk"
-        size       = "160Gi"
+        size       = "150Gi"
       }
       openebs = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/openebs"
         selector   = "disk.transport == \"nvme\" && !system_disk"
-        size       = "80Gi"
+        size       = "60Gi"
       }
       } : yamlencode({
         apiVersion = "v1alpha1"

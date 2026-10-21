@@ -77,11 +77,11 @@ globals "talos" {
       network_interface = "enp3s0"
       disks = {
         longhorn = {
-          size          = "160Gi"
+          size          = "150Gi"
           disk_selector = "disk.transport == \"nvme\" && !system_disk"
         }
         openebs = {
-          size          = "80Gi"
+          size          = "60Gi"
           disk_selector = "disk.transport == \"nvme\" && !system_disk"
         }
       }
