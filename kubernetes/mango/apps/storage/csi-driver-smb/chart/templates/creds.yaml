@@ -5,6 +5,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: &name k3s-smb
+  namespace: "{{ . }}"
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
