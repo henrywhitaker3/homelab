@@ -2,14 +2,9 @@
 
 output "vms" {
   value = {
-    adguard     = module.adguard.this
-    lb          = module.lb.this
-    k3s_control = module.k3s-control.this
-    dev         = module.dev.this
-    k3s_dedi = [{
-      name = "k3s-dedi-1"
-      ip   = "10.0.0.24"
-    }]
+    adguard = module.adguard.this
+    lb      = module.lb.this
+    dev     = module.dev.this
   }
 }
 output "digitalocean_vms" {

@@ -27,8 +27,8 @@ globals "talos" {
   nodes = {
     control-1 = {
       node   = 1
-      cpus   = 4
-      memory = 6114
+      cpus   = 7
+      memory = 24576
       type   = "controlplane"
       ip     = "10.0.0.30"
       disks = {
@@ -42,8 +42,8 @@ globals "talos" {
     },
     control-2 = {
       node   = 2
-      cpus   = 2
-      memory = 4096
+      cpus   = 7
+      memory = 24576
       type   = "controlplane"
       ip     = "10.0.0.31"
       disks = {
@@ -57,8 +57,8 @@ globals "talos" {
     },
     control-3 = {
       node   = 3
-      cpus   = 2
-      memory = 4096
+      cpus   = 7
+      memory = 24576
       type   = "controlplane"
       ip     = "10.0.0.32"
       disks = {

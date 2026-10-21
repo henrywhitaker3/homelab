@@ -178,7 +178,7 @@ generate_hcl "generated_talos.tf" {
         type    = "disk"
         slot    = "scsi0"
         storage = lookup(each.value, "storage", "local-lvm")
-        size    = 30
+        size    = 60
         format  = "raw"
       }
 
@@ -395,6 +395,11 @@ generate_hcl "generated_talos.tf" {
             yamlencode({
               apiVersion = "v1alpha1"
               kind       = "KubeNodeConfig"
+              labels = {
+                "node.kubernetes.io/exclude-from-external-load-balancers" = {
+                  "$patch" = "delete"
+                }
+              }
               taints = {
                 "node-role.kubernetes.io/control-plane" = {
                   "$patch" = "delete"
