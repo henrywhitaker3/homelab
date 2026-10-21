@@ -18,3 +18,18 @@ generic:
 
   entrypoint:
     command: [tail, -f, /dev/null]
+
+  volumes:
+    - name: cifs
+      csi:
+        driver: smb.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          source: "//10.0.0.9/plex/Media/temp"
+        nodePublishSecretRef:
+          name: k3s-smb
+
+  volumeMounts:
+    - mountPath: /data-temp
+      name: cifs
+      readOnly: true
