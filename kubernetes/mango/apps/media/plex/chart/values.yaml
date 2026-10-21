@@ -176,6 +176,9 @@ generic:
               k8s:io.kubernetes.pod.namespace: gateways
               k8s:gateway.networking.k8s.io/gateway-name: public
           - matchLabels:
+              k8s:io.kubernetes.pod.namespace: gateways
+              k8s:gateway.networking.k8s.io/gateway-name: internal
+          - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
               k8s:app.kubernetes.io/name: sonarr
           - matchLabels:
@@ -197,6 +200,7 @@ generic:
       - toFQDNs:
           - matchPattern: "*.plex.bz"
           - matchPattern: "*.plex.tv"
+          - matchName: plex.itrescuefix.co.uk
         toPorts:
           - ports:
               - port: "443"
