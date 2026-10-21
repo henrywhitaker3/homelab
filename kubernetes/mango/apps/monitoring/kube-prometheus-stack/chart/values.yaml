@@ -21,7 +21,7 @@ alertmanager:
           namespace: gateways
 
 nodeExporter:
-  enabled: false
+  enabled: true
 
 kubelet:
   enabled: true
