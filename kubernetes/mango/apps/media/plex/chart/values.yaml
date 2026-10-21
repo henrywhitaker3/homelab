@@ -187,6 +187,9 @@ generic:
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
               k8s:gateway.networking.k8s.io/gateway-name: seerr
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: media
+              k8s:gateway.networking.k8s.io/gateway-name: plex-exporter
         toPorts:
           - ports:
               - port: "32400"
