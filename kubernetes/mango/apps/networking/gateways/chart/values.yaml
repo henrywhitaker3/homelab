@@ -44,4 +44,5 @@ middlewares:
           - sonarr
           - radarr
           - tautulli
+      - name: tunneled
           - transmission

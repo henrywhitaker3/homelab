@@ -107,7 +107,7 @@ http_monitors = {
   }
   transmission = {
     name = "Transmission (internal)"
-    url  = "http://transmission.media.svc.cluster.local:9091"
+    url  = "http://transmission.tunneled.svc.cluster.local:9091"
     tags = ["media"]
   }
   unraid_auth = {
