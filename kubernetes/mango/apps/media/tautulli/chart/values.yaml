@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/tautulli
+    pullPolicy: IfNotPresent
+    tag: "2.18.2"
+
+  service:
+    port: 8181
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 350Mi
+
+  httpRoute:
+    enabled: true
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 8181
+        matches:
+          - path:
+              type: PathPrefix
+              value: /tautulli
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 10Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+    initialDelaySeconds: 15
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ: Europe/London

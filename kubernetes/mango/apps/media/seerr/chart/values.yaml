@@ -1,0 +1,137 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/seerr-team/seerr
+    pullPolicy: IfNotPresent
+    tag: v3.5.0
+
+  service:
+    port: 5055
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [overseerr.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 5055
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  # entrypoint:
+  #   command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+
+  pvc:
+    enabled: true
+    mountPath: /app/config
+    storageClassName: longhorn
+    size: 1Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+
+    initialDelaySeconds: 20
+
+  config:
+    TZ: Europe/London
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 5055
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 5055
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: organizr
+        ports:
+          - port: 5055
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: plex
+        ports:
+          - port: 32400
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: sonarr
+        ports:
+          - port: 8989
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: radarr
+        ports:
+          - port: 7878
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: tautulli
+        ports:
+          - port: 8181
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443

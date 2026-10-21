@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: linuxserver/transmission
+    pullPolicy: IfNotPresent
+    tag: "4.1.3"
+
+  service:
+    port: 9091
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  httpRoute:
+    enabled: true
+    hostnames: [plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 9091
+        matches:
+          - path:
+              type: PathPrefix
+              value: /transmission
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 128Mi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    type: tcpSocket
+    options:
+      port: http
+
+    initialDelaySeconds: 15
+    timeoutSeconds: 10
+    periodSeconds: 30
+    failureThreshold: 3
+
+  config:
+    PUID: "1000"
+    PGID: "1000"
+    TZ: Europe/London
+
+  volumes:
+    - name: downloads
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex/temp"
+          secretName: k3s-smb
+    - name: watch
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex/watch"
+          secretName: k3s-smb
+
+  volumeMounts:
+    - mountPath: /downloads
+      name: downloads
+    - mountPath: /watch
+      name: watch

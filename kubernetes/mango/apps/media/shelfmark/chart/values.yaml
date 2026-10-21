@@ -1,0 +1,139 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/calibrain/shelfmark
+    pullPolicy: IfNotPresent
+    tag: v1.4.0
+
+  service:
+    port: 8084
+
+  resources:
+    requests:
+      cpu: 20m
+      memory: 256Mi
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  httpRoute:
+    enabled: true
+    hostnames: [shelf.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 8084
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: INGEST_DIR
+      value: /bookdrop
+    - name: AUTH_METHOD
+      value: oidc
+    - name: OIDC_DISCOVERY_URL
+      value: https://pocket.plexmox.com/.well-known/openid-configuration
+    - name: OIDC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: shelfmark-secrets
+          key: oidc-client-id
+    - name: OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: shelfmark-secrets
+          key: oidc-client-secret
+    - name: OIDC_SCOPES
+      value: openid,email,profile,groups
+    - name: OIDC_ADMIN_GROUP
+      value: admin
+    - name: OIDC_BUTTON_LABEL
+      value: Pocket
+    - name: DISABLE_LOCAL_AUTH
+      value: "true"
+    - name: OIDC_AUTO_REDIRECT
+      value: "true"
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 128Mi
+
+  volumes:
+    - name: bookdrop
+      csi:
+        driver: smb.csi.k8s.io
+        volumeAttributes:
+          source: "//10.0.0.9/plex/Media/Booklore/bookdrop"
+          secretName: k3s-smb
+
+  volumeMounts:
+    - mountPath: /bookdrop
+      name: bookdrop
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    enabled: true
+    initialDelaySeconds: 10
+    type: tcpSocket
+
+  netpol:
+    enabled: true
+    allowCoredns: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: gateways
+            podSelector:
+              matchLabels:
+                gateway.networking.k8s.io/gateway-name: public
+        ports:
+          - port: 8084
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: monitoring
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: uptime-kuma
+        ports:
+          - port: 8084
+    egress:
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: media
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prowlarr
+        ports:
+          - port: 9696
+      - to:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: tunneled
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: transmission
+        ports:
+          - port: 9091
+      - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+                - 10.0.0.0/8
+        ports:
+          - port: 443
