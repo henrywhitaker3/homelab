@@ -15,7 +15,11 @@
     },
     "packageRules": [
         {
-            "matchDatasources": ["terraform-module", "terraform-provider"],
+            "matchDatasources": [
+                "terraform-module",
+                "terraform-provider",
+                "terraform"
+            ],
             "automerge": false
         },
         {
