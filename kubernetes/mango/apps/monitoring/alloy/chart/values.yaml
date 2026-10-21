@@ -21,8 +21,3 @@ alloy:
 
   mounts:
     varlog: true
-
-service:
-  type: LoadBalancer
-  annotations:
-    metallb.io/loadBalancerIPs: 10.0.0.37
