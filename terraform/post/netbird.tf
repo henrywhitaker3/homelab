@@ -38,8 +38,6 @@ locals {
     for vm in flatten(concat(
       var.adguard_info,
       var.lb_info,
-      var.k3s_control_info,
-      var.k3s_dedi_info,
     )) : vm.name => vm
   }
 
@@ -47,8 +45,6 @@ locals {
     for vm in flatten(concat(
       var.adguard_info,
       var.lb_info,
-      var.k3s_control_info,
-      var.k3s_dedi_info,
     )) : vm.name => vm
   }
 

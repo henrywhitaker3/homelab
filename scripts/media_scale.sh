@@ -20,7 +20,7 @@ media=(
 )
 
 scale() {
-    local values_file="kubernetes/k3s/apps/media/$1/chart/values.yaml"
+    local values_file="kubernetes/mango/apps/media/$1/chart/values.yaml"
     local expression="s/replicaCount: [0-9]+/replicaCount: $2/g"
 
     if [[ "$OSTYPE" == darwin* ]]; then

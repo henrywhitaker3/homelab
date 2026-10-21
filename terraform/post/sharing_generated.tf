@@ -6,12 +6,6 @@ variable "adguard_info" {
 variable "lb_info" {
   type = any
 }
-variable "k3s_control_info" {
-  type = any
-}
-variable "k3s_dedi_info" {
-  type = any
-}
 variable "dev_info" {
   type = any
 }

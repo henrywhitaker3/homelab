@@ -17,21 +17,12 @@ netbird_groups = {
     peers = [
       "adguard-1",
       "adguard-2",
-      "k3s-control-1",
-      "k3s-control-2",
-      "k3s-control-3",
-      "k3s-dedi-1",
       "lb-1",
       "lb-2",
     ]
   }
   "k3s" = {
-    peers = [
-      "k3s-control-1",
-      "k3s-control-2",
-      "k3s-control-3",
-      "k3s-dedi-1",
-    ]
+    peers = []
   }
   "devices" = {
     peers = ["phone", "mbp"]

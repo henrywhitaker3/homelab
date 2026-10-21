@@ -2,8 +2,6 @@ locals {
   vm_info = concat(
     var.adguard_info,
     var.lb_info,
-    var.k3s_control_info,
-    var.k3s_dedi_info,
     var.dev_info,
     [{ name = "netbird.netbird", ip = "10.100.0.4" }],
     [{ name = "unraid", ip = "10.0.0.9" }],
@@ -30,21 +28,6 @@ locals {
       mac      = "dc:a6:32:16:b4:d4"
       ip       = "10.0.0.139"
       hostname = "living-room"
-    },
-    {
-      mac      = "18:2f:a3:3e:dc:7a"
-      ip       = "10.0.0.30"
-      hostname = "mango-control-1"
-    },
-    {
-      mac      = "18:88:df:e6:c2:99"
-      ip       = "10.0.0.31"
-      hostname = "mango-control-2"
-    },
-    {
-      mac      = "18:e7:3e:fa:e1:f9"
-      ip       = "10.0.0.32"
-      hostname = "mango-control-3"
     },
     {
       mac      = "12:d3:a8:a1:99:54"
