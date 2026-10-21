@@ -85,7 +85,7 @@ generic:
         volumeAttributes:
           source: "//10.0.0.9/plex"
           secretName: k3s-smb
-          mountOptions: "noserverino,cache=strict"
+          mountOptions: "noserverino,cache=strict,uid=1000,gid=1000"
 
   volumeMounts:
     - mountPath: /data
