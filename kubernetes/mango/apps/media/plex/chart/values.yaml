@@ -177,34 +177,19 @@ generic:
               k8s:gateway.networking.k8s.io/gateway-name: public
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
-              k8s:gateway.networking.k8s.io/gateway-name: sonarr
+              k8s:app.kubernetes.io/name: sonarr
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
-              k8s:gateway.networking.k8s.io/gateway-name: radarr
+              k8s:app.kubernetes.io/name: radarr
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
-              k8s:gateway.networking.k8s.io/gateway-name: tautulli
+              k8s:app.kubernetes.io/name: tautulli
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
-              k8s:gateway.networking.k8s.io/gateway-name: seerr
+              k8s:app.kubernetes.io/name: seerr
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: media
-              k8s:gateway.networking.k8s.io/gateway-name: plex-exporter
+              k8s:app.kubernetes.io/name: plex-exporter
         toPorts:
           - ports:
               - port: "32400"
-    ciliumEgress:
-      - toFQDNs:
-          - matchName: api.github.com
-          - matchName: github.com
-          - matchPattern: github-production-user-asset-*.s3.amazonaws.com
-          - matchName: openlibrary.org
-          - matchName: www.goodreads.com
-          - matchName: api.hardcover.app
-          - matchName: itunes.apple.com
-          - matchName: www.amazon.com
-          - matchName: assets.hardcover.app
-          - matchName: m.media-amazon.com
-        toPorts:
-          - ports:
-              - port: "443"
