@@ -1,0 +1,9 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/netbird.io/networkrouter_v1alpha1.json
+apiVersion: netbird.io/v1alpha1
+kind: NetworkRouter
+metadata:
+  name: talos
+spec:
+  dnsZoneRef:
+    name: k8s.talos.internal

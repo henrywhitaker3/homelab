@@ -1,0 +1,8 @@
+---
+services:
+  - name: loki
+    namespace: monitoring
+    groups: [telemetry]
+  - name: alloy
+    namespace: alloy
+    groups: [telemetry]

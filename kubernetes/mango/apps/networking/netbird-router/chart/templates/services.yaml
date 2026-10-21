@@ -1,0 +1,19 @@
+{{- range .Values.services }}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/netbird.io/networkresource_v1alpha1.json
+apiVersion: netbird.io/v1alpha1
+kind: NetworkResource
+metadata:
+  name: "{{ .name }}"
+  namespace: "{{ .namespace }}"
+spec:
+  networkRouterRef:
+    name: talos
+    namespace: kube-system
+  serviceRef:
+    name: "{{ .name }}"
+  {{- with .groups }}
+  groups:
+    {{- . | toYaml | nindent 4 }}
+  {{- end }}
+{{- end }}
