@@ -45,4 +45,5 @@ middlewares:
           - radarr
           - tautulli
       - name: tunneled
+        http:
           - transmission
