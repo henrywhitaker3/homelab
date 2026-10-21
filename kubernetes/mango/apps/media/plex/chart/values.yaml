@@ -198,7 +198,10 @@ generic:
               - port: "32400"
     ciliumEgress:
       - toFQDNs:
+          - matchName: plex.bz
+          - matchName: plex.tv
           - matchPattern: "*.plex.bz"
+          - matchPattern: "*.pop.*.*.plex.bz"
           - matchPattern: "*.plex.tv"
           - matchName: plex.itrescuefix.co.uk
         toPorts:
