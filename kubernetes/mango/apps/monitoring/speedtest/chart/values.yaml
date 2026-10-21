@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: henrywhitaker3/speedtest-tracker
+    pullPolicy: Always
+    tag: dev
+
+  service:
+    port: 80
+
+  httpRoute:
+    enabled: true
+    hostnames: [speedtest.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: internal
+        namespace: gateways
+    rules:
+      - port: 80
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  pvc:
+    enabled: true
+    mountPath: /config
+    storageClassName: longhorn
+    size: 2Gi
+
+  deploymentStrategy:
+    type: Recreate
+
+  probes:
+    initialDelaySeconds: 60
+
+  config:
+    TZ: Europe/London
+    PUID: "1000"
+    PGID: "1000"
+    OOKLA_EULA_GDPR: "true"

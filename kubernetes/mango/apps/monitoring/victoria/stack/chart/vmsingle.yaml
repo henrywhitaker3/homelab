@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/operator.victoriametrics.com/vmsingle_v1beta1.json
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: metrics
+spec:
+  serviceSpec:
+    spec: {}
+    useAsDefault: true
+    metadata:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/groups: telemetry
+  image:
+    repository: victoriametrics/victoria-metrics
+    # renovate: datasource=github-releases depName=victoriametrics/VictoriaMetrics
+    tag: v1.154.1
+  extraArgs:
+    dedup.minScrapeInterval: 15s
+    # maxLabelsPerTimeseries: "40"
+    search.minStalenessInterval: 5m
+    vmalert.proxyURL: http://vmalert-metrics.monitoring.svc:8080
+  replicaCount: 1
+  # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
+  retentionPeriod: "6w"
+  resources:
+    limits:
+      memory: 3Gi
+    requests:
+      cpu: 150m
+      memory: 1Gi
+  storage:
+    accessModes: [ReadWriteOnce]
+    resources:
+      requests:
+        storage: 50Gi
+    storageClassName: longhorn-no-backups

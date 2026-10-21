@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/operator.victoriametrics.com/vmagent_v1beta1.json
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: metrics
+spec:
+  serviceSpec:
+    spec: {}
+    useAsDefault: true
+    metadata:
+      annotations:
+        netbird.io/expose: "true"
+        netbird.io/groups: telemetry
+  externalLabels:
+    cluster: k3s
+  extraArgs:
+    promscrape.streamParse: "true"
+    promscrape.maxScrapeSize: "20777216"
+  remoteWrite:
+    - url: http://vmsingle-metrics.monitoring.svc:8429/api/v1/write
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 150m
+      memory: 128Mi
+    limits:
+      memory: 1Gi
+  scrapeInterval: 60s
+  selectAllByDefault: true
+  statefulMode: true
+  statefulStorage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn-no-backups
+        resources:
+          requests:
+            storage: 2Gi
+  useStrictSecurity: true
+  vmAgentExternalLabelName: prometheus
