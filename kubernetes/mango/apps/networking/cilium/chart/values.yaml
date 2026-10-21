@@ -6,6 +6,7 @@ bandwidthManager:
   bbr: true
   enabled: true
 bpf:
+  lbExternalClusterIP: true
   lbModeAnnotation: true
 cgroup:
   autoMount:
