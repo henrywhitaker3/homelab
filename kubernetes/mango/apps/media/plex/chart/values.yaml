@@ -12,6 +12,9 @@ generic:
     requests:
       cpu: 1000m
       memory: 512Mi
+      devic.es/igpu: "1"
+    limits:
+      devic.es/igpu: "1"
 
   service:
     port: 32400
@@ -155,7 +158,7 @@ generic:
         - weight: 1
           preference:
             matchExpressions:
-              - key: quicksync
+              - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - available
+                  - talos-mango-worker-4
