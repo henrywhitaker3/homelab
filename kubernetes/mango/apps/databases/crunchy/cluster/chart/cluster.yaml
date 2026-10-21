@@ -30,21 +30,21 @@ spec:
   postgresVersion: 18
   shutdown: false
 
-  dataSource:
-    pgbackrest:
-      stanza: db
-      configuration:
-        - secret:
-            name: crunchy-postgres-secrets
-      global:
-        repo1-path: "/crunchy"
-        repo1-s3-uri-style: path
-      repo:
-        name: repo1
-        s3:
-          bucket: "crunchy"
-          endpoint: "https://seaweed.plexmox.com"
-          region: "us-east-1"
+  # dataSource:
+  #   pgbackrest:
+  #     stanza: db
+  #     configuration:
+  #       - secret:
+  #           name: crunchy-postgres-secrets
+  #     global:
+  #       repo1-path: "/crunchy"
+  #       repo1-s3-uri-style: path
+  #     repo:
+  #       name: repo1
+  #       s3:
+  #         bucket: "crunchy"
+  #         endpoint: "https://seaweed.plexmox.com"
+  #         region: "us-east-1"
 
   service:
     type: LoadBalancer
@@ -86,7 +86,7 @@ spec:
           max_connections: 150
           shared_preload_libraries: timescaledb
         pg_hba:
-          - hostnossl all all 10.42.0.0/16 md5
+          - hostnossl all all 10.69.0.0/16 md5
           - hostssl all all all md5
 
   instances:
