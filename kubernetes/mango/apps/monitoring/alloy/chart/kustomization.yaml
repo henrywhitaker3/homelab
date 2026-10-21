@@ -9,3 +9,4 @@ helmCharts:
     valuesFile: values.yaml
 resources:
   - config
+  - resources
