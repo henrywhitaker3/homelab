@@ -1,7 +1,0 @@
-cloudflare:
-  controller:
-    resources:
-      limits: null
-      requests: null
-
-cloudflareApiToken: cloudflare-api-token
