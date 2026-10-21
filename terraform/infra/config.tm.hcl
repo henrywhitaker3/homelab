@@ -9,6 +9,15 @@ globals "talos" {
   network_prefix   = 24
   network_gateway  = "10.0.0.1"
 
+  patches = [
+    {
+      apiVersion = "v1alpha1"
+      kind       = "StaticHostConfig"
+      name       = "10.0.0.25"
+      hostnames  = ["harbor.plexmox.com"]
+    },
+  ]
+
   registry_mirrors = {
     "docker.io" = {
       endpoints = [{

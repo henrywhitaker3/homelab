@@ -449,8 +449,14 @@ EOT
           type = disk.filesystem
         }
     })], [
-    ], [
-    ], "controlplane" != "controlplane" ? [
+    ], [for patch in [{
+      apiVersion = "v1alpha1"
+      hostnames = [
+        "harbor.plexmox.com",
+      ]
+      kind = "StaticHostConfig"
+      name = "10.0.0.25"
+    }] : yamlencode(patch)], "controlplane" != "controlplane" ? [
     ] : [
     yamlencode({
       apiVersion = "v1alpha1"
@@ -641,8 +647,14 @@ EOT
           type = disk.filesystem
         }
     })], [
-    ], [
-    ], "controlplane" != "controlplane" ? [
+    ], [for patch in [{
+      apiVersion = "v1alpha1"
+      hostnames = [
+        "harbor.plexmox.com",
+      ]
+      kind = "StaticHostConfig"
+      name = "10.0.0.25"
+    }] : yamlencode(patch)], "controlplane" != "controlplane" ? [
     ] : [
     yamlencode({
       apiVersion = "v1alpha1"
@@ -833,8 +845,14 @@ EOT
           type = disk.filesystem
         }
     })], [
-    ], [
-    ], "controlplane" != "controlplane" ? [
+    ], [for patch in [{
+      apiVersion = "v1alpha1"
+      hostnames = [
+        "harbor.plexmox.com",
+      ]
+      kind = "StaticHostConfig"
+      name = "10.0.0.25"
+    }] : yamlencode(patch)], "controlplane" != "controlplane" ? [
     ] : [
     yamlencode({
       apiVersion = "v1alpha1"
@@ -1025,8 +1043,14 @@ EOT
           type = disk.filesystem
         }
     })], [
-    ], [
-    ], "worker" != "controlplane" ? [
+    ], [for patch in [{
+      apiVersion = "v1alpha1"
+      hostnames = [
+        "harbor.plexmox.com",
+      ]
+      kind = "StaticHostConfig"
+      name = "10.0.0.25"
+    }] : yamlencode(patch)], "worker" != "controlplane" ? [
     ] : [
     yamlencode({
       apiVersion = "v1alpha1"

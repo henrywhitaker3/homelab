@@ -150,6 +150,7 @@ generic:
               - port: "5432"
       - toFQDNs:
           - matchName: api.github.com
+          - matchName: github.com
           - matchName: openlibrary.org
           - matchName: www.goodreads.com
           - matchName: api.hardcover.app
