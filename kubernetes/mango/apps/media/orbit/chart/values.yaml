@@ -151,6 +151,7 @@ generic:
       - toFQDNs:
           - matchName: api.github.com
           - matchName: github.com
+          - matchPattern: github-production-user-asset-*.s3.amazonaws.com
           - matchName: openlibrary.org
           - matchName: www.goodreads.com
           - matchName: api.hardcover.app
