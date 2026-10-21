@@ -30,7 +30,7 @@ generic:
     enabled: true
     mountPath: /var/lib/outline/data
     storageClassName: longhorn
-    size: 256M
+    size: 246M
 
   deploymentStrategy:
     type: Recreate
