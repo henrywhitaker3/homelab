@@ -14,6 +14,8 @@ crog_actions:
       start: "{{ healthcheck }}/start"
       success: "{{ healthcheck }}"
 
+haproxy_resolvers: []
+
 haproxy_listeners:
   - name: k3s-api
     bind: 10.0.0.7:6443

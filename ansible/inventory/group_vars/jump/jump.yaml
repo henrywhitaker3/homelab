@@ -31,6 +31,15 @@ haproxy_stats_extras:
 
 haproxy_listeners: []
 
+haproxy_resolvers:
+  - name: netbird
+    nameserver: "local-netbird {{ haproxy_config.ip }}:53"
+    retries: 3
+    timeout_resolve: 1s
+    timeout_retry: 1s
+    hold_valid: 10s
+    hold_obsolete: 30s
+
 haproxy_frontends:
   - name: http
     bind: "*:80"
@@ -57,11 +66,11 @@ haproxy_backends:
   - name: k3s-envoy
     mode: tcp
     host: "public-gateway.gateways.k8s.talos.internal.:443"
-    options: "check port 443"
+    options: "check resolvers netbird resolve-prefer ipv4 init-addr last,libc,none"
   - name: k3s-envoy-proxy-protocol
     mode: tcp
     host: "public-gateway.gateways.k8s.talos.internal.:443"
-    options: "check port 443 {{ 'send-proxy-v2' if haproxy_config.proxy }}"
+    options: "check {{ 'send-proxy-v2' if haproxy_config.proxy }} resolvers netbird resolve-prefer ipv4 init-addr last,libc,none"
 
 haproxy_port_checks:
   - name: public envoy gateway
