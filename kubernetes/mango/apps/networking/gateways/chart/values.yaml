@@ -10,6 +10,10 @@ middlewares:
           - orbit
           - orbit-login
           - shelfmark
+          - prowlarr
+          - sonarr
+          - radarr
+          - tautulli
       - name: docs
         http:
           - outline
@@ -35,15 +39,8 @@ middlewares:
       - name: kube-system
         http:
           - hubble
-
-  organizr:
-    namespaces:
       - name: media
         http:
-          - prowlarr
-          - sonarr
-          - radarr
-          - tautulli
       - name: tunneled
         http:
           - transmission

@@ -19,27 +19,6 @@ spec:
     - group: ""
       kind: Service
       name: tinyauth
----
-# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1beta1.json
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: organizr
-  namespace: media
-spec:
-  from:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      namespace: gateways
-    {{- range .Values.middlewares.organizr.namespaces }}
-    - group: gateway.envoyproxy.io
-      kind: SecurityPolicy
-      namespace: "{{ .name }}"
-    {{- end }}
-  to:
-    - group: ""
-      kind: Service
-      name: organizr
 
 {{- range .Values.middlewares.pocket.namespaces }}
 ---
@@ -83,36 +62,4 @@ spec:
         - Remote-Groups
         - Remote-Name
         - Remote-Email
-{{- end }}
-
-{{- range .Values.middlewares.organizr.namespaces }}
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: SecurityPolicy
-metadata:
-  name: organizr
-  namespace: "{{ .name }}"
-spec:
-  targetRefs:
-    {{- range .http }}
-    - group: gateway.networking.k8s.io
-      kind: HTTPRoute
-      name: "{{ . }}"
-    {{- end }}
-  extAuth:
-    headersToExtAuth:
-      - accept
-      - cookie
-      - location
-      - authorization
-      - proxy-authorization
-      - x-forwarded-proto
-    failOpen: false
-    http:
-      path: "/auth/ext-authz"
-      backendRefs:
-        - name: organizr
-          namespace: media
-          port: 12345
 {{- end }}
