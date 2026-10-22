@@ -32,7 +32,7 @@ generic:
 
   additionalPorts:
     - name: metrics
-      containerPort: 8081
+      containerPort: 8082
       protocol: TCP
     - name: francis
       containerPort: 7157
