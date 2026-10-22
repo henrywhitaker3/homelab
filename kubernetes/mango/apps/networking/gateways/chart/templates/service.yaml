@@ -5,9 +5,6 @@ metadata:
     app.kubernetes.io/component: proxy
     app.kubernetes.io/managed-by: envoy-gateway
     app.kubernetes.io/name: envoy
-    gateway.envoyproxy.io/owning-gateway-name: public
-    gateway.envoyproxy.io/owning-gateway-namespace: gateways
-    gateway.networking.k8s.io/gateway-name: public
   name: public-gateway
   namespace: gateways
 spec:
