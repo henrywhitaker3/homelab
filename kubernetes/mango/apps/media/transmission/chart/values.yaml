@@ -29,7 +29,7 @@ generic:
         matches:
           - path:
               type: PathPrefix
-              value: /transmission
+              value: /
 
   pvc:
     enabled: true
