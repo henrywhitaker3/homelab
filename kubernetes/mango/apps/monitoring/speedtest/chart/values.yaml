@@ -1,15 +1,41 @@
 ---
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  replicaCount: 0
+  replicaCount: 2
+  kind: statefulset
 
   image:
-    repository: henrywhitaker3/speedtest-tracker
-    pullPolicy: Always
-    tag: dev
+    repository: ghcr.io/henrywhitaker3/speedtest-tracker
+    pullPolicy: IfNotPresent
+    tag: v2.0.0
 
   service:
-    port: 80
+    port: 8080
+
+  env:
+    - name: ACCEPT_EULA
+      value: "true"
+    - name: DB_DRIVER
+      value: postgres
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: http://alloy.monitoring.svc:4318
+    - name: RUNTIME_PSK
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: psk
+    - name: DB_URL
+      valueFrom:
+        secretKeyRef:
+          name: crunchy-pguser-speedtest
+          key: pgbouncer-uri
+
+  additionalPorts:
+    - name: metrics
+      containerPort: 8081
+      protocol: TCP
+    - name: francis
+      containerPort: 7157
 
   httpRoute:
     enabled: true
@@ -20,26 +46,19 @@ generic:
         name: internal
         namespace: gateways
     rules:
-      - port: 80
+      - port: 8080
         matches:
           - path:
               type: PathPrefix
               value: /
 
-  pvc:
-    enabled: true
-    mountPath: /config
-    storageClassName: longhorn
-    size: 2Gi
-
-  deploymentStrategy:
-    type: Recreate
-
   probes:
+    type: httpGet
+    options:
+      path: /readyz
     initialDelaySeconds: 60
 
-  config:
-    TZ: Europe/London
-    PUID: "1000"
-    PGID: "1000"
-    OOKLA_EULA_GDPR: "true"
+  metrics:
+    enabled: true
+    port: metrics
+    path: /metrics
