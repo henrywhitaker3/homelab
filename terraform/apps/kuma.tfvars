@@ -30,11 +30,6 @@ http_monitors = {
     headers       = { "User-Agent" : "Gecko" }
     tags          = ["auth", "infra"]
   }
-  organizr = {
-    name = "Organizr (external)"
-    url  = "https://plexmox.com"
-    tags = ["media"]
-  }
   seerr = {
     name = "Seerr"
     url  = "https://overseerr.plexmox.com"
@@ -52,8 +47,9 @@ http_monitors = {
   }
   prowlarr_auth = {
     name          = "Prowlarr (auth)"
-    url           = "https://plexmox.com/prowlarr"
+    url           = "https://prowlarr.plexmox.com"
     max_redirects = 0
+    headers       = { "User-Agent" : "Gecko" }
     status_codes  = ["302"]
     tags          = ["media", "auth"]
   }
@@ -64,8 +60,9 @@ http_monitors = {
   }
   radarr_auth = {
     name          = "Radarr (auth)"
-    url           = "https://plexmox.com/radarr"
+    url           = "https://radarr.plexmox.com"
     max_redirects = 0
+    headers       = { "User-Agent" : "Gecko" }
     status_codes  = ["302"]
     tags          = ["media", "auth"]
   }
@@ -76,8 +73,9 @@ http_monitors = {
   }
   sonarr_auth = {
     name          = "Sonarr (auth)"
-    url           = "https://plexmox.com/sonarr"
+    url           = "https://sonarr.plexmox.com"
     max_redirects = 0
+    headers       = { "User-Agent" : "Gecko" }
     status_codes  = ["302"]
     tags          = ["media", "auth"]
   }
@@ -88,8 +86,9 @@ http_monitors = {
   }
   tautulli_auth = {
     name          = "Tautulli (auth)"
-    url           = "https://plexmox.com/tautulli"
+    url           = "https://tautulli.plexmox.com"
     max_redirects = 0
+    headers       = { "User-Agent" : "Gecko" }
     status_codes  = ["302"]
     tags          = ["media", "auth"]
   }
@@ -100,8 +99,9 @@ http_monitors = {
   }
   transmission_auth = {
     name          = "Transmission (auth)"
-    url           = "https://plexmox.com/transmission"
+    url           = "https://transmission.plexmox.com"
     max_redirects = 0
+    headers       = { "User-Agent" : "Gecko" }
     status_codes  = ["302"]
     tags          = ["media", "auth"]
   }
