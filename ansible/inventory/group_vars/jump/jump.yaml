@@ -38,7 +38,7 @@ haproxy_resolvers:
     timeout_resolve: 1s
     timeout_retry: 1s
     hold_valid: 10s
-    hold_obsolete: 30s
+    hold_obsolete: 0s
 
 haproxy_frontends:
   - name: http
