@@ -39,8 +39,6 @@ middlewares:
       - name: kube-system
         http:
           - hubble
-      - name: media
-        http:
       - name: tunneled
         http:
           - transmission
