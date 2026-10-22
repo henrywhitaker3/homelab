@@ -69,7 +69,7 @@ generic:
           name: ticktick-secrets
           key: pavlok-token
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: http://alloy.monitoring.svc:4318
+      value: http://alloy.alloy.svc:4318
     - name: QUIET_TIMES_MONDAY
       value: &weekday "23:00:00-08:00:00"
     - name: QUIET_TIMES_TUESDAY

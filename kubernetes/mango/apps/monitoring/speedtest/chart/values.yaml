@@ -18,7 +18,7 @@ generic:
     - name: DB_DRIVER
       value: postgres
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: http://alloy.monitoring.svc:4318
+      value: http://alloy.alloy.svc:4318
     - name: RUNTIME_PSK
       valueFrom:
         secretKeyRef:
@@ -56,6 +56,7 @@ generic:
     type: httpGet
     options:
       path: /readyz
+      port: metrics
     initialDelaySeconds: 60
 
   metrics:
