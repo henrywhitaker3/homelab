@@ -57,7 +57,7 @@ generic:
     options:
       path: /readyz
       port: metrics
-    initialDelaySeconds: 60
+    initialDelaySeconds: 5
 
   metrics:
     enabled: true
