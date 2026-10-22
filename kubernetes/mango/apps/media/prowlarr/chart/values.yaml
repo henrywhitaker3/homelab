@@ -54,6 +54,8 @@ generic:
 
   config:
     PROWLARR__AUTH__METHOD: External
+    PROWLARR__URLBASE: "/"
+    PROWLARR__SERVER__URLBASE: ""
     PROWLARR__POSTGRES__MAINDB: prowlarr-main
     PROWLARR__POSTGRES__LOGDB: prowlarr-log
 

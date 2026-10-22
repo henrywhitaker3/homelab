@@ -51,7 +51,8 @@ generic:
     fsGroupChangePolicy: OnRootMismatch
 
   config:
-    RADARR__URL_BASE: radarr
+    RADARR__URL_BASE: ""
+    RADARR__SERVER__URLBASE: ""
     RADARR__POSTGRES_MAIN_DB: radarr-main
     RADARR__POSTGRES_LOG_DB: radarr-log
     RADARR__AUTHENTICATION_METHOD: External
