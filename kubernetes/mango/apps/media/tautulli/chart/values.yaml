@@ -29,7 +29,7 @@ generic:
         matches:
           - path:
               type: PathPrefix
-              value: /tautulli
+              value: /
 
   pvc:
     enabled: true

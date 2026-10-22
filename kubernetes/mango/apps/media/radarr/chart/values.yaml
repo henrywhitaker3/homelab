@@ -29,7 +29,7 @@ generic:
         matches:
           - path:
               type: PathPrefix
-              value: /radarr
+              value: /
 
   pvc:
     enabled: true

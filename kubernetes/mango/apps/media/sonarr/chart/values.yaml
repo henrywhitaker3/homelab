@@ -29,7 +29,7 @@ generic:
         matches:
           - path:
               type: PathPrefix
-              value: /sonarr
+              value: /
 
   pvc:
     enabled: true
