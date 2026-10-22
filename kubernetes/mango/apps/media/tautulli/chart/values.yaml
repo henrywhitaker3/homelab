@@ -18,7 +18,7 @@ generic:
 
   httpRoute:
     enabled: true
-    hostnames: [plexmox.com]
+    hostnames: [tautulli.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway

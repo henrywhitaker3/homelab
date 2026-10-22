@@ -25,7 +25,7 @@ generic:
 
   httpRoute:
     enabled: true
-    hostnames: [plexmox.com]
+    hostnames: [prowlarr.plexmox.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
