@@ -18,7 +18,7 @@ generic:
         fieldRef:
           fieldPath: metadata.name
     - name: RUNTIME_HOSTNAME
-      value: "$(POD_NAME).misc"
+      value: "$(POD_NAME).speedtest-peers"
     - name: ACCEPT_EULA
       value: "true"
     - name: DB_DRIVER
