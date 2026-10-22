@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
 generic:
-  replicaCount: 1
+  replicaCount: 0
 
   image:
     repository: henrywhitaker3/speedtest-tracker
