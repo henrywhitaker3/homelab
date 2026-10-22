@@ -95,7 +95,7 @@ loki.source.file "kubernetes_pods" {
 
 loki.write "default" {
   endpoint {
-    url = "http://loki-gateway/loki/api/v1/push"
+    url = "http://loki-gateway.monitoring.svc/loki/api/v1/push"
   }
   external_labels = {}
 }
