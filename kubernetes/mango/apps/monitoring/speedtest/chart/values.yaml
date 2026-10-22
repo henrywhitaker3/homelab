@@ -13,6 +13,12 @@ generic:
     port: 8080
 
   env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: HOSTNAME
+      value: "$(POD_NAME).misc"
     - name: ACCEPT_EULA
       value: "true"
     - name: DB_DRIVER
