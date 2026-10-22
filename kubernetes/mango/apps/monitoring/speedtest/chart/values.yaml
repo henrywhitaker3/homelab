@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/speedtest-tracker
     pullPolicy: IfNotPresent
-    tag: v2.0.1
+    tag: v2.0.2
 
   service:
     port: 8080
@@ -17,7 +17,7 @@ generic:
       valueFrom:
         fieldRef:
           fieldPath: metadata.name
-    - name: HOSTNAME
+    - name: RUNTIME_HOSTNAME
       value: "$(POD_NAME).misc"
     - name: ACCEPT_EULA
       value: "true"
