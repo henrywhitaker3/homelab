@@ -25,6 +25,22 @@ generic:
       value: "$(POD_NAME).speedtest-peers"
     - name: ACCEPT_EULA
       value: "true"
+    - name: APP_URL
+      value: "https://speedtest.henrywhitaker.com"
+    - name: AUTH_ENABLED
+      value: "true"
+    - name: AUTH_ISSUER_URL
+      value: https://pocket.plexmox.com
+    - name: AUTH_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: client-id
+    - name: AUTH_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: client-secret
     - name: DB_DRIVER
       value: postgres
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
@@ -49,11 +65,11 @@ generic:
 
   httpRoute:
     enabled: true
-    hostnames: [speedtest.plexmox.com]
+    hostnames: [speedtest.henrywhitaker.com]
     parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
-        name: internal
+        name: public
         namespace: gateways
     rules:
       - port: 8080

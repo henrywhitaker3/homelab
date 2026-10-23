@@ -25,7 +25,6 @@ middlewares:
       - name: misc
         http:
           - garage-webui
-          - speedtest
           - echo
           - open-webui
       - name: monitoring
