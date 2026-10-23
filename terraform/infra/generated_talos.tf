@@ -1184,8 +1184,8 @@ resource "talos_cluster" "this" {
   node               = "10.0.0.30"
 }
 locals {
-  bootstrap_hash = "c5101415409483654e290f6e808aec9243fecf83712a9de8920a291c35b477ea"
-  helmfile_hash  = "6a6b4e603fed3829fd71920b21ad32fea9d604c84365bd59ce2b7e80704680b1"
+  bootstrap_hash = "83b0f162c1767ddb2649ac4c0300d7d9fa4434e615c212c77b8db5d01a3e5073"
+  helmfile_hash  = "2da505e72813bc2dc02b50b586c16184342e77dcd3d94758f9dc5a6d9e200b32"
 }
 resource "terraform_data" "sleep" {
   depends_on = [
@@ -1201,9 +1201,6 @@ resource "terraform_data" "sleep" {
 resource "terraform_data" "bootstrap_cni" {
   depends_on = [
     terraform_data.sleep,
-  ]
-  triggers_replace = [
-    local.helmfile_hash,
   ]
   provisioner "local-exec" {
     command = <<-EOT

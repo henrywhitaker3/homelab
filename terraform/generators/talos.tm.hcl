@@ -138,7 +138,7 @@ generate_hcl "generated_talos.tf" {
     }
 
     data "talos_image_factory_extensions_versions" "node" {
-      for_each = let.node_image_filters
+      for_each      = let.node_image_filters
       talos_version = let.talos_version
       filters = {
         names = each.value
@@ -159,7 +159,7 @@ generate_hcl "generated_talos.tf" {
     }
 
     data "talos_image_factory_urls" "node" {
-      for_each     = talos_image_factory_schematic.node
+      for_each      = talos_image_factory_schematic.node
       platform      = "nocloud"
       schematic_id  = each.value.id
       talos_version = let.talos_version
@@ -578,8 +578,6 @@ generate_hcl "generated_talos.tf" {
     }
 
     resource "terraform_data" "bootstrap_cni" {
-      triggers_replace = [local.helmfile_hash]
-
       provisioner "local-exec" {
         command = <<-EOT
           set -eu

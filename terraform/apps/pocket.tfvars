@@ -79,4 +79,12 @@ oidc_clients = {
       "https://shelf.plexmox.com/api/auth/oidc/callback",
     ]
   }
+  "speedtest" = {
+    name = "Speedtest Tracker"
+    url  = "https://speedtest.henrywhitaker.com"
+    callback_urls = [
+      "http://localhost:8080/v1/auth/callback",
+      "https://speedtest.henrywhitaker.com/v1/auth/callback",
+    ]
+  }
 }
