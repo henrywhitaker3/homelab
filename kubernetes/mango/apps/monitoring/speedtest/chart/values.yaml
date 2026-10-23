@@ -11,6 +11,10 @@ generic:
 
   service:
     port: 8080
+    additionalPorts:
+      - name: metrics
+        port: 8082
+        protocol: TCP
 
   env:
     - name: POD_NAME
