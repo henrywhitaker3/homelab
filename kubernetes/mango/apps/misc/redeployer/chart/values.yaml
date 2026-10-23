@@ -25,9 +25,6 @@ role:
   name: restart-deployment
 
 jobs:
-  - name: organizr
-    command: kubectl -n media rollout restart deployment organizr
-    schedule: "0 4 * * *"
   - name: transmission
     command: kubectl -n tunneled rollout restart deployment transmission
     schedule: "0 4 * * *"
