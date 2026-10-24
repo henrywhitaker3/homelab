@@ -20,15 +20,11 @@ generic:
     command: [tail, -f, /dev/null]
 
   volumes:
-    - name: cifs
-      csi:
-        driver: smb.csi.k8s.io
-        readOnly: true
-        volumeAttributes:
-          source: "//10.0.0.9/plex/temp"
-          secretName: k3s-smb
+    - name: speedtest
+      persistentVolumeClaim:
+        claimName: speedtest
 
   volumeMounts:
     - mountPath: /data-temp
-      name: cifs
+      name: speedtest
       readOnly: true
