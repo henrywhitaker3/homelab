@@ -11,7 +11,7 @@ argo-zombies:
 
     exclusions:
       bundles:
-        - k3s
+        - cilium
         - longhorn
         - ingress-nginx
         - cert-manager
