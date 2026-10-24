@@ -18,5 +18,5 @@ helmCharts:
     includeCRDs: true
     releaseName: mariadb-operator-crds
     namespace: databases
-    version: "26.10.1"
+    version: "26.10.2"
     repo: oci://ghcr.io/mariadb-operator/charts
