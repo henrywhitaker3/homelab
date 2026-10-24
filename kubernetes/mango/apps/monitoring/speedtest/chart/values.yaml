@@ -55,6 +55,11 @@ generic:
         secretKeyRef:
           name: crunchy-pguser-speedtest
           key: pgbouncer-uri
+    - name: NOTIFICATIONS_HEALTHCHECKS
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: healthchecks-url
 
   additionalPorts:
     - name: metrics
