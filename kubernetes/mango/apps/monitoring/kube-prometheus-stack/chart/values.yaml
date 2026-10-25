@@ -95,17 +95,9 @@ coreDns:
     authorization: *vmagentAuthorization
 
 kubeEtcd:
-  enabled: true
-  endpoints:
-    - 10.0.0.30
-    - 10.0.0.31
-    - 10.0.0.32
-  serviceMonitor:
-    authorization: *vmagentAuthorization
-    metricRelabelings:
-      - action: drop
-        sourceLabels: ["__name__"]
-        regex: (etcd_request_duration_seconds_bucket)
+  # The chart models external etcd nodes with v1/Endpoints, which Argo excludes.
+  # Scrape the Talos etcd metrics through scrapeconfigs/etcd.yaml instead.
+  enabled: false
 
 kubeControllerManager:
   enabled: true

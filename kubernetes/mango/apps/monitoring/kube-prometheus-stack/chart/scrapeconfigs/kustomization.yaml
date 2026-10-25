@@ -7,6 +7,7 @@ resources:
   - pve.yaml
   - k8s-annotations.yaml
   - adguard.yaml
+  - etcd.yaml
   - garage.yaml
   - kuma.yaml
   - seaweed.yaml

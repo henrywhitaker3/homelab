@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: kube-etcd
+spec:
+  staticConfigs:
+    - targets:
+        - 10.0.0.30:2381
+        - 10.0.0.31:2381
+        - 10.0.0.32:2381
+  metricsPath: /metrics
+  authorization:
+    type: Bearer
+    credentials:
+      name: vmagent-metrics-token
+      key: token
+  metricRelabelings:
+    - action: drop
+      sourceLabels: ["__name__"]
+      regex: (etcd_request_duration_seconds_bucket)
+  relabelings:
+    - targetLabel: job
+      replacement: kube-etcd
