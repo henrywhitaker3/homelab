@@ -1,3 +1,6 @@
+---
+# yaml-language-server: $schema=local-values.schema.json
+
 pod-gateway:
   controllers:
     main:
@@ -71,5 +74,6 @@ pod-gateway:
                 protocol: UDP
           # Allow any traffic within k8s
           - to:
-              - ipBlock:
-                  cidr: 10.0.0.0/8
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: tunneled
