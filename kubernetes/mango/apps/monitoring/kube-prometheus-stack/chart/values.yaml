@@ -74,6 +74,7 @@ kubeApiServer:
   enabled: true
   serviceMonitor:
     authorization: *vmagentAuthorization
+
     metricRelabelings:
       # Drop high cardinality labels
       - action: drop
@@ -95,10 +96,9 @@ coreDns:
 
 kubeEtcd:
   enabled: true
-  endpoints:
-    - 10.0.0.30
-    - 10.0.0.31
-    - 10.0.0.32
+  service:
+    selector:
+      component: kube-apiserver
   serviceMonitor:
     authorization: *vmagentAuthorization
     metricRelabelings:
@@ -107,31 +107,10 @@ kubeEtcd:
         regex: (etcd_request_duration_seconds_bucket)
 
 kubeControllerManager:
-  enabled: true
-  serviceMonitor:
-    authorization: *vmagentAuthorization
-  endpoints:
-    - 10.0.0.30
-    - 10.0.0.31
-    - 10.0.0.32
+  enabled: false
 
 kubeProxy:
   enabled: false
-  serviceMonitor:
-    authorization: *vmagentAuthorization
-  endpoints:
-    - 10.0.0.30
-    - 10.0.0.31
-    - 10.0.0.32
-
-kubeScheduler:
-  enabled: true
-  serviceMonitor:
-    authorization: *vmagentAuthorization
-  endpoints:
-    - 10.0.0.30
-    - 10.0.0.31
-    - 10.0.0.32
 
 defaultRules:
   rules:
