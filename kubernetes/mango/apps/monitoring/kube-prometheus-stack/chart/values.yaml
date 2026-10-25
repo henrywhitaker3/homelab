@@ -109,10 +109,20 @@ kubeEtcd:
 
 kubeControllerManager:
   enabled: true
+  service:
+    ipDualStack:
+      enabled: true
+      ipFamilies: ["IPv4"]
+      ipFamilyPolicy: SingleStack
   serviceMonitor:
     authorization: *vmagentAuthorization
 
 kubeScheduler:
+  service:
+    ipDualStack:
+      enabled: true
+      ipFamilies: ["IPv4"]
+      ipFamilyPolicy: SingleStack
   serviceMonitor:
     authorization: *vmagentAuthorization
 
