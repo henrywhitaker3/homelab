@@ -95,9 +95,13 @@ coreDns:
     authorization: *vmagentAuthorization
 
 kubeEtcd:
-  # The chart models external etcd nodes with v1/Endpoints, which Argo excludes.
-  # Scrape the Talos etcd metrics through scrapeconfigs/etcd.yaml instead.
-  enabled: false
+  # Scraping uses scrapeconfigs/etcd.yaml because Argo excludes v1/Endpoints.
+  # Keep this enabled so kube-prometheus-stack continues to provide its dashboard.
+  enabled: true
+  service:
+    enabled: false
+  serviceMonitor:
+    enabled: false
 
 kubeControllerManager:
   enabled: true
