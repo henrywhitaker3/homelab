@@ -56,7 +56,7 @@ pod-gateway:
 
   networkpolicies:
     main:
-      enabled: false
+      enabled: true
       controller: main
       policyTypes:
         - Egress
