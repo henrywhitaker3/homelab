@@ -14,6 +14,8 @@ cluster:
   name: main
 cni:
   exclusive: false
+dashboards:
+  enabled: true
 devices: eth+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
@@ -26,6 +28,8 @@ socketLB:
 hubble:
   enabled: true
   metrics:
+    dashboards:
+      enabled: true
     enabled:
       - dns:query;ignoreAAAA
       - drop
@@ -34,11 +38,13 @@ hubble:
       - port-distribution
       - icmp
       - http
+    serviceMonitor:
+      enabled: true
   relay:
     enabled: true
     rollOutPods: true
   serviceMonitor:
-    enabled: false
+    enabled: true
   ui:
     enabled: true
     ingress:

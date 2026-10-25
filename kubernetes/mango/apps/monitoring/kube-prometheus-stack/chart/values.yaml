@@ -96,9 +96,9 @@ coreDns:
 kubeEtcd:
   enabled: true
   endpoints:
-    - 10.0.0.20
-    - 10.0.0.21
-    - 10.0.0.24
+    - 10.0.0.30
+    - 10.0.0.31
+    - 10.0.0.32
   serviceMonitor:
     authorization: *vmagentAuthorization
     metricRelabelings:
@@ -111,27 +111,27 @@ kubeControllerManager:
   serviceMonitor:
     authorization: *vmagentAuthorization
   endpoints:
-    - 10.0.0.20
-    - 10.0.0.21
-    - 10.0.0.24
+    - 10.0.0.30
+    - 10.0.0.31
+    - 10.0.0.32
 
 kubeProxy:
-  enabled: true
+  enabled: false
   serviceMonitor:
     authorization: *vmagentAuthorization
   endpoints:
-    - 10.0.0.20
-    - 10.0.0.21
-    - 10.0.0.24
+    - 10.0.0.30
+    - 10.0.0.31
+    - 10.0.0.32
 
 kubeScheduler:
   enabled: true
   serviceMonitor:
     authorization: *vmagentAuthorization
   endpoints:
-    - 10.0.0.20
-    - 10.0.0.21
-    - 10.0.0.24
+    - 10.0.0.30
+    - 10.0.0.31
+    - 10.0.0.32
 
 defaultRules:
   rules:
