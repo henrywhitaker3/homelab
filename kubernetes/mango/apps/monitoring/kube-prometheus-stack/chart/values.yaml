@@ -96,9 +96,10 @@ coreDns:
 
 kubeEtcd:
   enabled: true
-  service:
-    selector:
-      component: kube-apiserver
+  endpoints:
+    - 10.0.0.30
+    - 10.0.0.31
+    - 10.0.0.32
   serviceMonitor:
     authorization: *vmagentAuthorization
     metricRelabelings:
@@ -107,7 +108,13 @@ kubeEtcd:
         regex: (etcd_request_duration_seconds_bucket)
 
 kubeControllerManager:
-  enabled: false
+  enabled: true
+  serviceMonitor:
+    authorization: *vmagentAuthorization
+
+kubeScheduler:
+  serviceMonitor:
+    authorization: *vmagentAuthorization
 
 kubeProxy:
   enabled: false
