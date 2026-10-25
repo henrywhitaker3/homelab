@@ -6,7 +6,7 @@ generic:
   image:
     repository: ghcr.io/mendhak/http-https-echo
     pullPolicy: IfNotPresent
-    tag: "42"
+    tag: "43"
 
   service:
     port: 8080
