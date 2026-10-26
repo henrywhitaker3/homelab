@@ -3,11 +3,11 @@
 apiVersion: netbird.io/v1alpha1
 kind: SetupKey
 metadata:
-  name: vmagent-routing
+  name: alloy
 spec:
   allowExtraDnsLabels: false
   ephemeral: true
-  name: vmagent-routing
+  name: alloy
   autoGroups:
     - name: talos
 ---
@@ -15,11 +15,11 @@ spec:
 apiVersion: netbird.io/v1alpha1
 kind: SidecarProfile
 metadata:
-  name: vmagent-routing
+  name: alloy
 spec:
   injectionMode: Sidecar
   setupKeyRef:
-    name: vmagent-routing
+    name: alloy
   podSelector:
     matchLabels:
       app.kubernetes.io/name: routing

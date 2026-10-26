@@ -249,8 +249,9 @@ netbird_policies = {
       ports = [
         9100, # node exporter
         9256, # process exporter
+        8404, # haproxy exporter
       ]
-      sources              = ["k3s"]
+      sources              = ["k3s", "talos"]
       destination_resource = "do-lon"
     }
   }
