@@ -29,6 +29,16 @@
   loop:
     - netbird
 
+- name: Enable IPv4 forwarding for NetBird routing peer
+  tags: netbird
+  become: "{{ netbird_become }}"
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: true
+  when: netbird_routing_peer
+
 - name: Enabled netbird service
   tags: netbird
   become: "{{ netbird_become }}"
@@ -40,7 +50,9 @@
   tags: netbird
   become: "{{ netbird_become }}"
   ansible.builtin.command:
-    cmd: "netbird up --management-url {{ netbird_url }} --setup-key {{ netbird_setup_key }}"
+    cmd: >-
+      netbird up --management-url {{ netbird_url }} --setup-key {{ netbird_setup_key }}
+      {% if netbird_routing_peer %}--disable-server-routes=false{% endif %}
   register: up
   until: "up is not failed"
   retries: 10

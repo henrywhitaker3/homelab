@@ -1,0 +1,3 @@
+---
+# Both AdGuard hosts are the NetBird routing peers for the home network.
+netbird_routing_peer: true

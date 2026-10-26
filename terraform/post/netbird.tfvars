@@ -227,6 +227,32 @@ netbird_policies = {
       destination_resource = "external-agw-ip"
     }
   }
+  "allow-k3s-to-adguard-1-telemetry" = {
+    description = "Allow home network to access jump telemetry"
+    rule = {
+      action   = "accept"
+      protocol = "tcp"
+      ports = [
+        9100, # node exporter
+        9618, # adguard exporter
+      ]
+      sources              = ["k3s", "talos"]
+      destination_resource = "adguard-1"
+    }
+  }
+  "allow-k3s-to-adguard-2-telemetry" = {
+    description = "Allow home network to access jump telemetry"
+    rule = {
+      action   = "accept"
+      protocol = "tcp"
+      ports = [
+        9100, # node exporter
+        9618, # adguard exporter
+      ]
+      sources              = ["k3s", "talos"]
+      destination_resource = "adguard-2"
+    }
+  }
   "allow-k3s-to-jump-telemetry" = {
     description = "Allow home network to access jump telemetry"
     rule = {

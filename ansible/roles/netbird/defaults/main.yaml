@@ -4,3 +4,7 @@ netbird_become: true
 netbird_url: https://netbird.plexmox.com
 
 netbird_setup_key: ""
+
+# Routing peers need to forward traffic received on the NetBird interface.
+# NetBird installs the masquerade rules from the Network Router configuration.
+netbird_routing_peer: false
