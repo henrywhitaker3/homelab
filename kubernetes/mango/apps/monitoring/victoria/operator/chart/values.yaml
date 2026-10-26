@@ -6,10 +6,18 @@ admissionWebhooks:
     enabled: true
 
 operator:
-  disable_prometheus_converter: true
+  # Keep converting PrometheusRule resources so vmalert evaluates the
+  # kube-prometheus-stack recording rules used by its Grafana dashboards.
+  disable_prometheus_converter: false
   prometheus_converter_add_argocd_ignore_annotations: true
   useCustomConfigReloader: true
   enable_converter_ownership: true
+
+# Alloy reconciles the Prometheus scrape CRDs directly.  Do not create the
+# equivalent VictoriaMetrics scrape objects, while retaining PrometheusRule →
+# VMRule conversion for vmalert.
+extraArgs:
+  controller.disableReconcileFor: ServiceMonitor,PodMonitor,Probe,ScrapeConfig,AlertmanagerConfig
 
 resources:
   requests:
