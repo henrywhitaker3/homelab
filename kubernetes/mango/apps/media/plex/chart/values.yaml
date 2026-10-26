@@ -208,6 +208,7 @@ generic:
           - matchPattern: "*.pop.*.plex.bz"
           - matchPattern: "*.plex.tv"
           - matchName: plex.itrescuefix.co.uk
+          - matchName: www.opensubtitles.org
         toPorts:
           - ports:
               - port: "443"
