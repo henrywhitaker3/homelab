@@ -29,7 +29,7 @@ kubelet:
     authorization: &vmagentAuthorization
       type: Bearer
       credentials:
-        name: vmagent-metrics-token
+        name: alloy-metrics-token
         key: token
     metricRelabelings:
       # Drop high cardinality labels

@@ -1,8 +1,9 @@
+---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vmagent-metrics-token
+  name: alloy-metrics-token
   namespace: alloy
   annotations:
-    kubernetes.io/service-account.name: vmagent-metrics
+    kubernetes.io/service-account.name: alloy
 type: kubernetes.io/service-account-token
