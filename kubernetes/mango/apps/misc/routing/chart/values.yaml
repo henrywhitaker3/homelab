@@ -11,5 +11,14 @@ generic:
   entrypoint:
     command: [tail, -f, /dev/null]
 
+  volumes:
+    - name: dns-shared
+      emptyDir: {}
+
+  volumeMounts:
+    - mountPath: /etc/resolv.conf
+      name: dns-shared
+      subPath: resolv.conf
+
   probes:
     enabled: false

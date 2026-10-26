@@ -23,4 +23,9 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: routing
+  containerOverride:
+    volumeMounts:
+      - name: dns-shared
+        mountPath: /etc/resolv.conf
+        subPath: resolv.conf
 
