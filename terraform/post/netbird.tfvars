@@ -237,7 +237,7 @@ netbird_policies = {
         9100, # node exporter
         9256, # process exporter
       ]
-      sources      = ["k3s"]
+      sources      = ["k3s", "talos"]
       destinations = ["jump"]
     }
   }

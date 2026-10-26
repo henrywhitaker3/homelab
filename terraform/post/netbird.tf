@@ -122,6 +122,9 @@ resource "netbird_group" "this" {
   peers = sort([
     for peer in each.value.peers : data.netbird_peer.this[peer].id
   ])
+  lifecycle {
+    ignore_changes = [peers]
+  }
 }
 
 data "netbird_group" "this" {
@@ -129,7 +132,6 @@ data "netbird_group" "this" {
     for key, value in var.netbird_groups : key => value if value.data
   }
   name = each.key
-
 }
 
 variable "netbird_routers" {
