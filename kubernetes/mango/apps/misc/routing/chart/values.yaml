@@ -12,12 +12,12 @@ generic:
     command: [tail, -f, /dev/null]
 
   volumes:
-    - name: resolv-conf
+    - name: dns-shared
       emptyDir: {}
 
   volumeMounts:
     - mountPath: /etc/resolv.conf
-      name: resolv-conf
+      name: dns-shared
       subPath: resolv.conf
 
   probes:
