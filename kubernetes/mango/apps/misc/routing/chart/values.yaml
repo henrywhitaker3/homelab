@@ -15,6 +15,14 @@ generic:
     - name: dns-shared
       emptyDir: {}
 
+  initContainers:
+    - name: init-dns-file
+      image: alpine:latest
+      command: ["/bin/sh", "-c", "touch /mnt/shared-dns/resolv.conf"]
+      volumeMounts:
+        - name: dns-shared
+          mountPath: /mnt/shared-dns
+
   volumeMounts:
     - mountPath: /etc/resolv.conf
       name: dns-shared
