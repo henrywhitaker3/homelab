@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - http://10.0.0.9:9327
+        - 10.0.0.9:9327
   metricsPath: /metrics
   relabelings:
     - targetLabel: job
