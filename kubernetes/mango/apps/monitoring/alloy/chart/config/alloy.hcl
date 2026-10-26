@@ -131,6 +131,189 @@ loki.process "cluster_events" {
   }
 }
 
+// Preserve the labels attached by VMAgent so metrics from this cluster remain
+// query-compatible while scraping moves to Alloy.
+prometheus.relabel "kubernetes" {
+  forward_to = [prometheus.remote_write.default.receiver]
+
+  rule {
+    target_label = "cluster"
+    replacement  = "mango"
+  }
+
+  rule {
+    target_label = "prometheus"
+    replacement  = "metrics"
+  }
+}
+
+// VMAgent's selectAllByDefault watches all Prometheus Operator monitor types.
+// Keep that behaviour in Alloy so existing and new monitors are collected.
+prometheus.operator.servicemonitors "default" {
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  scrape {
+    default_scrape_interval = "60s"
+  }
+
+  clustering {
+    enabled = true
+  }
+}
+
+prometheus.operator.podmonitors "default" {
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  scrape {
+    default_scrape_interval = "60s"
+  }
+
+  clustering {
+    enabled = true
+  }
+}
+
+prometheus.operator.probes "default" {
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  scrape {
+    default_scrape_interval = "60s"
+  }
+
+  clustering {
+    enabled = true
+  }
+}
+
+prometheus.operator.scrapeconfigs "default" {
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  scrape {
+    default_scrape_interval = "60s"
+  }
+
+  clustering {
+    enabled = true
+  }
+}
+
+// Keep the two annotation-based VMScrapeConfigs while VMAgent is retired.
+discovery.kubernetes "metrics_services" {
+  role = "service"
+}
+
+discovery.relabel "metrics_services" {
+  targets = discovery.kubernetes.metrics_services.targets
+
+  rule {
+    action        = "keep"
+    source_labels = ["__meta_kubernetes_service_annotation_prometheus_io_scrape"]
+    regex         = "true"
+  }
+
+  rule {
+    action        = "drop"
+    source_labels = ["__meta_kubernetes_namespace"]
+    regex         = "(kube-system|prom)"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_service_annotation_prometheus_io_scheme"]
+    regex         = "(https?)"
+    target_label  = "__scheme__"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_service_annotation_prometheus_io_path"]
+    regex         = "(.+)"
+    target_label  = "__metrics_path__"
+  }
+
+  rule {
+    source_labels = ["__address__", "__meta_kubernetes_service_annotation_prometheus_io_port"]
+    regex         = "([^:]+)(?::\\d+)?;(\\d+)"
+    replacement   = "$1:$2"
+    target_label  = "__address__"
+  }
+
+  rule {
+    action = "labelmap"
+    regex  = "__meta_kubernetes_service_label_(.+)"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_namespace"]
+    target_label  = "kubernetes_namespace"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_service_name"]
+    target_label  = "kubernetes_name"
+  }
+}
+
+prometheus.scrape "metrics_services" {
+  targets    = discovery.relabel.metrics_services.output
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  clustering {
+    enabled = true
+  }
+}
+
+discovery.kubernetes "metrics_pods" {
+  role = "pod"
+}
+
+discovery.relabel "metrics_pods" {
+  targets = discovery.kubernetes.metrics_pods.targets
+
+  rule {
+    action        = "keep"
+    source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_scrape"]
+    regex         = "true"
+  }
+
+  rule {
+    action        = "drop"
+    source_labels = ["__meta_kubernetes_namespace"]
+    regex         = "(kube-system|prom)"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_scheme"]
+    regex         = "(https?)"
+    target_label  = "__scheme__"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_path"]
+    regex         = "(.+)"
+    target_label  = "__metrics_path__"
+  }
+
+  rule {
+    source_labels = ["__address__", "__meta_kubernetes_pod_annotation_prometheus_io_port"]
+    regex         = "([^:]+)(?::\\d+)?;(\\d+)"
+    replacement   = "$1:$2"
+    target_label  = "__address__"
+  }
+
+  rule {
+    source_labels = ["__meta_kubernetes_namespace"]
+    target_label  = "kubernetes_namespace"
+  }
+}
+
+prometheus.scrape "metrics_pods" {
+  targets    = discovery.relabel.metrics_pods.output
+  forward_to = [prometheus.relabel.kubernetes.receiver]
+
+  clustering {
+    enabled = true
+  }
+}
+
 otelcol.receiver.otlp "default" {
   grpc {
     endpoint = "0.0.0.0:4317"

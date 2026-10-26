@@ -4,6 +4,11 @@ controller:
       operator: Exists
 
 alloy:
+  stabilityLevel: experimental
+
+  clustering:
+    enabled: true
+
   configMap:
     create: false
     name: alloy-config
