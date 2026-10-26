@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: alpine
+    pullPolicy: Always
+    tag: "latest"
+
+  entrypoint:
+    command: [tail, -f, /dev/null]
+
+  probes:
+    enabled: false
