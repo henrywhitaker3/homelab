@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/netbird.io/setupkey_v1alpha1.json
+apiVersion: netbird.io/v1alpha1
+kind: SetupKey
+metadata:
+  name: alloy
+spec:
+  allowExtraDnsLabels: false
+  ephemeral: true
+  name: alloy
+  autoGroups:
+    - name: talos
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/henrywhitaker3/crds/refs/heads/main/schemas/netbird.io/sidecarprofile_v1alpha1.json
+apiVersion: netbird.io/v1alpha1
+kind: SidecarProfile
+metadata:
+  name: alloy
+spec:
+  injectionMode: Sidecar
+  setupKeyRef:
+    name: alloy
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: alloy
