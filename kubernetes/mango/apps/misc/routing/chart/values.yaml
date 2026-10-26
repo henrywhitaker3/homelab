@@ -17,7 +17,7 @@ generic:
 
   volumeMounts:
     - mountPath: /etc/resolv.conf
-      name: resolve-conf
+      name: resolv-conf
       subPath: resolv.conf
 
   probes:
