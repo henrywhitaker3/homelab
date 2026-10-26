@@ -20,13 +20,6 @@ spec:
   injectionMode: Sidecar
   setupKeyRef:
     name: alloy
-  # Alloy reaches cluster and LAN addresses through Cilium.  Do not let
-  # NetBird resource routes (including 10.0.0.2/32 and 10.0.0.3/32) take
-  # precedence over those paths; direct NetBird peer connectivity remains on.
-  containerOverride:
-    env:
-      - name: NB_DISABLE_CLIENT_ROUTES
-        value: "true"
   podSelector:
     matchLabels:
       app.kubernetes.io/name: alloy
