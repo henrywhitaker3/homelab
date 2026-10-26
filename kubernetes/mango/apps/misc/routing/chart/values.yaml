@@ -12,7 +12,7 @@ generic:
     command: [tail, -f, /dev/null]
 
   volumes:
-    - name: dns-shared
+    - name: resolv-conf
       emptyDir: {}
 
   volumeMounts:
