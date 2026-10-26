@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - alloy-metrics-token.yaml
   - secrets
   - scrapeconfigs
   - rules
