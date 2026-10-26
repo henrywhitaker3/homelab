@@ -94,3 +94,17 @@ generic:
     enabled: true
     port: metrics
     path: /metrics
+
+  securityContext:
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
+  volumes:
+    - name: tmp
+      emptyDir: {}
+  volumeMounts:
+    - mountPath: /tmp
+      name: tmp
+
+  podSecurityContext:
+    runAsNonRoot: true
