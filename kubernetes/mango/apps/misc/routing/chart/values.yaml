@@ -17,7 +17,7 @@ generic:
 
   volumeMounts:
     - mountPath: /etc/resolv.conf
-      name: dns-shared
+      name: resolve-conf
       subPath: resolv.conf
 
   probes:
