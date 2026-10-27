@@ -12,3 +12,6 @@ services:
   - name: public-gateway
     namespace: gateways
     groups: [gateway]
+  - name: public
+    namespace: gateways
+    groups: [gateway]
