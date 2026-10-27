@@ -9,6 +9,6 @@ services:
   - name: tempo
     namespace: monitoring
     groups: [telemetry]
-  - name: public-gateway
+  - name: public
     namespace: gateways
     groups: [gateway]
