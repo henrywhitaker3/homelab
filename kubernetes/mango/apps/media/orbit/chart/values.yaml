@@ -159,6 +159,7 @@ generic:
           - matchName: www.amazon.com
           - matchName: assets.hardcover.app
           - matchName: m.media-amazon.com
+          - matchName: pocket.plexmox.com
         toPorts:
           - ports:
               - port: "443"
