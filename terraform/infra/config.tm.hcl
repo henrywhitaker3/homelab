@@ -3,7 +3,7 @@ globals "talos" {
   # renovate: datasource=github-releases depName=siderolabs/talos
   version = "v1.14.5"
   # renovate: datasource=github-releases depName=kubernetes/kubernetes
-  kubernetes_version = "v1.37.1"
+  kubernetes_version = "v1.37.2"
 
   control_plane_ip = "10.0.0.8"
   network_prefix   = 24
