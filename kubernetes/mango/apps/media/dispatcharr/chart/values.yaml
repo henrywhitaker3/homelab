@@ -69,7 +69,7 @@ generic:
     initialDelaySeconds: 60
 
   netpol:
-    enabled: true
+    enabled: false
     allowCoredns: true
     kind: cilium
     ciliumIngress:
