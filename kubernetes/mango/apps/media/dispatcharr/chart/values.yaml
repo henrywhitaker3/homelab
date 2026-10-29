@@ -28,7 +28,7 @@ generic:
         name: internal
         namespace: gateways
     rules:
-      - port: 9091
+      - port: 9191
         matches:
           - path:
               type: PathPrefix
