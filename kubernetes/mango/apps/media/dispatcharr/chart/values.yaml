@@ -81,9 +81,7 @@ generic:
           - ports:
               - port: "9191"
     ciliumEgress:
-      - toFQDNs:
-          - matchName: api.github.com
-          - matchName: dispatcharr.github.io
-        toPorts:
-          - ports:
-              - port: "443"
+      - toEndpoints:
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: vpn-gateway
+              app.kubernetes.io/name: pod-gateway
