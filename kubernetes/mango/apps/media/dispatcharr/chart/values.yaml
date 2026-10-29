@@ -80,3 +80,10 @@ generic:
         toPorts:
           - ports:
               - port: "9191"
+    ciliumEgress:
+      - toFQDNs:
+          - matchName: api.github.com
+          - matchName: dispatcharr.github.io
+        toPorts:
+          - ports:
+              - port: "443"
