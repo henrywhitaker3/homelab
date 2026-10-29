@@ -15,6 +15,9 @@ generic:
     requests:
       cpu: 50m
       memory: 256Mi
+      devic.es/igpu: "1"
+    limits:
+      devic.es/igpu: "1"
 
   podSecurityContext:
     fsGroupChangePolicy: OnRootMismatch

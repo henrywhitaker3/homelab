@@ -200,6 +200,13 @@ generic:
           - ports:
               - port: "32400"
     ciliumEgress:
+      - toEndpoints:
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: tunneled
+              k8s:app.kubernetes.io/name: dispatcharr
+        toPorts:
+          - ports:
+              - port: "9191"
       - toFQDNs:
           - matchName: plex.bz
           - matchName: plex.tv
