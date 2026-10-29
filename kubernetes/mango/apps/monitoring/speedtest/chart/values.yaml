@@ -7,7 +7,7 @@ generic:
   image:
     repository: ghcr.io/henrywhitaker3/speedtest-tracker
     pullPolicy: IfNotPresent
-    tag: v2.7.1
+    tag: v2.7.2
 
   service:
     port: 8080
@@ -60,6 +60,11 @@ generic:
         secretKeyRef:
           name: speedtest-secrets
           key: healthchecks-url
+    - name: TEST_SERVER
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: test-server
 
   additionalPorts:
     - name: metrics
