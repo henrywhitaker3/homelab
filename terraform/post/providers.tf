@@ -27,7 +27,7 @@ terraform {
     }
     netbird = {
       source  = "netbirdio/netbird"
-      version = "0.0.10"
+      version = "0.0.11"
     }
     aws = {
       source  = "hashicorp/aws"
