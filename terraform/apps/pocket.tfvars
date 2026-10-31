@@ -91,7 +91,8 @@ oidc_clients = {
     name = "Gotify"
     url  = "https://gotify.plexmox.com"
     callback_urls = [
-      "https://gotify.plexmox.com/auth/oidc/callback"
+      "https://gotify.plexmox.com/auth/oidc/callback",
+      "gotify://oidc/callback"
     ]
   }
 }
