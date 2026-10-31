@@ -69,6 +69,16 @@ generic:
         secretKeyRef:
           name: gotify-secrets
           key: db-url
+    - name: GOTIFY_OIDC_CLIENTID
+      valueFrom:
+        secretKeyRef:
+          name: gotify-secrets
+          key: client-id
+    - name: GOTIFY_OIDC_CLIENTSECRET
+      valueFrom:
+        secretKeyRef:
+          name: gotify-secrets
+          key: client-secret
 
   resources:
     requests:
