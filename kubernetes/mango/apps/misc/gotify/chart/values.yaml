@@ -26,6 +26,9 @@ generic:
               type: PathPrefix
               value: /
 
+  probes:
+    enabled: false
+
   env:
     - name: TZ
       value: Europe/London
