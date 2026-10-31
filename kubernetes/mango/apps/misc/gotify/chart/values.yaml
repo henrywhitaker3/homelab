@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://henrywhitaker3.github.io/generic-helm-chart/subchart.schema.json
+generic:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/gotify/server
+    pullPolicy: IfNotPresent
+    tag: "3.1.1"
+
+  service:
+    port: 80
+
+  httpRoute:
+    enabled: true
+    hostnames: [gotify.plexmox.com]
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public
+        namespace: gateways
+    rules:
+      - port: 80
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+  env:
+    - name: TZ
+      value: Europe/London
+    - name: GOTIFY_DATABASE_DIALECT
+      value: "postgres"
+    - name: GOTIFY_OIDC_ENABLED
+      value: "true"
+    - name: GOTIFY_OIDC_ISSUER
+      value: "https://pocket.plexmox.com"
+    - name: GOTIFY_OIDC_REDIRECTURL
+      value: "https://gotify.plexmox.com/auth/oidc/callback"
+    - name: GOTIFY_OIDC_AUTOREGISTER
+      value: "true"
+    - name: GOTIFY_OIDC_LINK_BY_USERNAME
+      value: "true"
+    - name: GOTIFY_LOCALAUTH_ENABLED
+      value: "true"
+    - name: GOTIFY_OIDC_IDP_NAME
+      value: "Pocket ID"
+    - name: GOTIFY_OIDC_GROUPS_ADMIN
+      value: "ID-Admin"
+    - name: GOTIFY_OIDC_SCOPES
+      value: "openid,profile,email,groups"
+    - name: GOTIFY_DEFAULTUSER_NAME
+      valueFrom:
+        secretKeyRef:
+          name: gotify-secrets
+          key: default-username
+    - name: GOTIFY_DEFAULTUSER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: gotify-secrets
+          key: default-password
+    - name: GOTIFY_DATABASE_CONNECTION
+      valueFrom:
+        secretKeyRef:
+          name: gotify-secrets
+          key: db-url
+
+  resources:
+    requests:
+      cpu: 5m
+      memory: 50Mi
+    limits:
+      memory: 150Mi

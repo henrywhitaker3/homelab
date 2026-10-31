@@ -200,6 +200,10 @@ spec:
       databases:
         - speedtest
 
+    - name: gotify
+      databases:
+        - gotify
+
   instrumentation:
     logs:
       exporters: ["otlp"]

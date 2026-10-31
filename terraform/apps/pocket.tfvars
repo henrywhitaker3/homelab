@@ -87,4 +87,11 @@ oidc_clients = {
       "https://speedtest.henrywhitaker.com/v1/auth/callback",
     ]
   }
+  "gotify" = {
+    name = "Gotify"
+    url  = "https://gotify.plexmox.com"
+    callback_urls = [
+      "https://gotify.plexmox.com/auth/oidc/callback"
+    ]
+  }
 }

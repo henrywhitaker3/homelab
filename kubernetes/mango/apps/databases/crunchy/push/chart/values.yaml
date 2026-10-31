@@ -17,6 +17,7 @@ users:
   - name: crunchy-pguser-tinyauth
   - name: crunchy-pguser-ticktick
   - name: crunchy-pguser-speedtest
+  - name: crunchy-pguser-gotify
   - name: crunchy-pguser-kuma
     fields:
       - host
