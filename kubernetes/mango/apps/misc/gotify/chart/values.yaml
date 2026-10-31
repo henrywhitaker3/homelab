@@ -9,7 +9,7 @@ generic:
     tag: "3.1.1"
 
   service:
-    port: 80
+    port: 8080
 
   httpRoute:
     enabled: true
@@ -20,7 +20,7 @@ generic:
         name: public
         namespace: gateways
     rules:
-      - port: 80
+      - port: 8080
         matches:
           - path:
               type: PathPrefix
@@ -32,6 +32,8 @@ generic:
   env:
     - name: TZ
       value: Europe/London
+    - name: GOTIFY_SERVER_PORT
+      value: "8080"
     - name: GOTIFY_DATABASE_DIALECT
       value: "postgres"
     - name: GOTIFY_OIDC_ENABLED
