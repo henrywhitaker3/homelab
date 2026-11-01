@@ -160,6 +160,8 @@ generic:
           - matchName: assets.hardcover.app
           - matchName: m.media-amazon.com
           - matchName: pocket.plexmox.com
+          - matchName: gr-assets.com
+          - matchPattern: "*.gr-assets.com"
         toPorts:
           - ports:
               - port: "443"
