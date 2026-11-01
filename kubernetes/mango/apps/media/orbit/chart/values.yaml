@@ -165,6 +165,7 @@ generic:
           - matchName: covers.openlibrary.org
           - matchName: is1-ssl.mzstatic.com
           - matchName: duckduckgo.com
+          - matchName: tse1.mm.bing.net
         toPorts:
           - ports:
               - port: "443"
