@@ -166,6 +166,7 @@ generic:
           - matchName: is1-ssl.mzstatic.com
           - matchName: duckduckgo.com
           - matchName: tse1.mm.bing.net
+          - matchName: images-na.ssl-images-amazon.com
         toPorts:
           - ports:
               - port: "443"
