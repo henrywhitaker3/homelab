@@ -162,6 +162,9 @@ generic:
           - matchName: pocket.plexmox.com
           - matchName: gr-assets.com
           - matchPattern: "*.gr-assets.com"
+          - matchName: covers.openlibrary.org
+          - matchName: is1-ssl.mzstatic.com
+          - matchName: duckduckgo.com
         toPorts:
           - ports:
               - port: "443"
