@@ -5,7 +5,7 @@ kind: RenovateJob
 metadata:
   name: github
 spec:
-  schedule: "0 * * * *"
+  schedule: "0 */3 * * *"
   discoveryFilters: ["henrywhitaker3/*"]
   image: renovate/renovate:43.95.0
   skipForks: true
