@@ -11,16 +11,6 @@ prompage:
     refresh: 1m
 
     services:
-      - name: Homepage
-        group: Services
-        query:
-          query: monitor_status{monitor_name="Organizr (external)"}
-          expression: int(result) == 1
-          bool: true
-        extras:
-          - name: Latency
-            units: ms
-            query: sum(avg_over_time(monitor_response_time{monitor_name="Organizr (external)"}[5m]))
       - name: Plex
         group: Services
         query:
@@ -41,16 +31,6 @@ prompage:
           - name: Latency
             units: ms
             query: sum(avg_over_time(monitor_response_time{monitor_name="Seerr"}[5m]))
-      - name: Pocket
-        group: Services
-        query:
-          query: monitor_status{monitor_name="Pocket"}
-          expression: int(result) == 1
-          bool: true
-        extras:
-          - name: Latency
-            units: ms
-            query: sum(avg_over_time(monitor_response_time{monitor_name="Pocket"}[5m]))
       - name: Auth
         group: Services
         query:
