@@ -39,20 +39,6 @@ variable "cronitor_api_key" {
   sensitive = true
 }
 
-variable "garage_host" {
-  type = string
-}
-
-variable "garage_scheme" {
-  type    = string
-  default = "https"
-}
-
-variable "garage_token" {
-  type      = string
-  sensitive = true
-}
-
 variable "seaweed_access_key_id" {
   type      = string
   sensitive = true

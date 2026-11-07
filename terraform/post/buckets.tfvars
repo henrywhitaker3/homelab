@@ -19,42 +19,6 @@ buckets = {
     name = "thesuses-state"
     type = "r2"
   }
-  longhorn_local = {
-    name = "longhorn"
-    type = "garage"
-  }
-  mariadb_local = {
-    name = "mariadb"
-    type = "garage"
-  }
-  crunchy_local = {
-    name = "crunchy"
-    type = "garage"
-  }
-  dragonfly_local = {
-    name = "dragonfly"
-    type = "garage"
-  }
-  loki_local = {
-    name = "loki"
-    type = "garage"
-  }
-  tempo_local = {
-    name = "tempo"
-    type = "garage"
-  }
-  pyroscope_local = {
-    name = "pyroscope"
-    type = "garage"
-  }
-  pocketid = {
-    name = "pocketid"
-    type = "garage"
-  }
-  git = {
-    name = "git"
-    type = "garage"
-  }
   pocket_weed = {
     name = "pocket"
     type = "seaweed"
@@ -104,54 +68,6 @@ r2_tokens = {
   }
   thesuses_state = {
     buckets = ["thesuses_state"]
-    write   = true
-  }
-}
-
-garage_tokens = {
-  longhorn = {
-    name    = "longhorn"
-    buckets = ["longhorn_local"]
-    write   = true
-  }
-  mariadb = {
-    name    = "mariadb"
-    buckets = ["mariadb_local"]
-    write   = true
-  }
-  crunchy = {
-    name    = "crunchy"
-    buckets = ["crunchy_local"]
-    write   = true
-  }
-  dragonfly = {
-    name    = "dragonfly"
-    buckets = ["dragonfly_local"]
-    write   = true
-  }
-  loki = {
-    name    = "loki"
-    buckets = ["loki_local"]
-    write   = true
-  }
-  tempo = {
-    name    = "tempo"
-    buckets = ["tempo_local"]
-    write   = true
-  }
-  pyroscope = {
-    name    = "pyroscope"
-    buckets = ["pyroscope_local"]
-    write   = true
-  }
-  pocketid = {
-    name    = "pocketid"
-    buckets = ["pocketid"]
-    write   = true
-  }
-  git = {
-    name    = "git"
-    buckets = ["git"]
     write   = true
   }
 }

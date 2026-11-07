@@ -21,10 +21,6 @@ terraform {
       source  = "henrywhitaker3/cronitor"
       version = "1.2.2"
     }
-    garage = {
-      source  = "registry.terraform.io/henrywhitaker3/garage"
-      version = "1.0.3"
-    }
     netbird = {
       source  = "netbirdio/netbird"
       version = "0.0.10"
@@ -67,12 +63,6 @@ provider "grafana" {
 
 provider "cronitor" {
   api_key = var.cronitor_api_key
-}
-
-provider "garage" {
-  host   = var.garage_host
-  scheme = var.garage_scheme
-  token  = var.garage_token
 }
 
 provider "netbird" {
