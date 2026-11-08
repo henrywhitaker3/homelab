@@ -11,14 +11,15 @@ argo-zombies:
 
     exclusions:
       bundles:
+        - talos
         - cilium
         - longhorn
-        - ingress-nginx
         - cert-manager
         - netbird
-        - istio
         - kyverno
-        - kiali
+        - metallb
+        - github-actions
+        - envoy-gateway
 
       resources:
         - name: argocd-initial-admin-secret
@@ -37,17 +38,17 @@ argo-zombies:
           namespace: kube-system
           kind: Service
           version: v1
-        - name: ingress-nginx-internal-admission
-          namespace: ingress-nginx
-          kind: Secret
+        - name: pgo-upgrade-check
+          namespace: databases
+          kind: ConfigMap
+          version: v1
+        - name: openebs-localpv-provisioner-analytics-state
+          namespace: openebs
+          kind: ConfigMap
           version: v1
         - name: mariadb-metrics-password
           namespace: mariadb
           kind: Secret
-          version: v1
-        - name: pgo-upgrade-check
-          namespace: databases
-          kind: ConfigMap
           version: v1
 
       selectors:
