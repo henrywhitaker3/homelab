@@ -6,5 +6,5 @@ helmfile = { version = "1.8.3", workflow = "releaser.yaml" }
 kubectl = "1.37.2"
 opentofu = "1.13.9"
 sops = "3.13.3"
-talosctl = "1.14.5"
+talosctl = "1.14.6"
 terramate = "0.17.4"
