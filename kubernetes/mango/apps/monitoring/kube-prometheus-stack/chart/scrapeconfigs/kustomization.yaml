@@ -7,6 +7,5 @@ resources:
   - pve.yaml
   - adguard.yaml
   - etcd.yaml
-  - garage.yaml
   - kuma.yaml
   - seaweed.yaml
