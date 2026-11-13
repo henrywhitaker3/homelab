@@ -8,10 +8,10 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: alloy
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: vmagent
+              app.kubernetes.io/name: alloy
   podSelector:
     matchLabels:
       app: longhorn-manager
