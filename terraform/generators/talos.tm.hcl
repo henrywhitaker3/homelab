@@ -519,6 +519,11 @@ generate_hcl "generated_talos.tf" {
         machine_configuration           = tm_hcl_expression("data.talos_machine_configuration.node_${node.value}.machine_configuration")
         node                            = let.nodes[node.value].ip
 
+        timeouts = {
+          create = "20m"
+          update = "20m"
+        }
+
         depends_on = [
           proxmox_vm_qemu.this,
         ]
@@ -537,6 +542,11 @@ generate_hcl "generated_talos.tf" {
         kubeconfig_wo                   = ephemeral.talos_cluster_kubeconfig.upgrade.kubeconfig_raw
         machine_configuration           = tm_hcl_expression("data.talos_machine_configuration.node_${node.value}.machine_configuration")
         node                            = let.nodes[node.value].ip
+
+        timeouts = {
+          create = "20m"
+          update = "20m"
+        }
 
         depends_on = [
           proxmox_vm_qemu.this,
