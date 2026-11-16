@@ -1200,7 +1200,7 @@ resource "talos_cluster" "this" {
   node               = "10.0.0.30"
 }
 locals {
-  bootstrap_hash = "50ec37448d9df9be1dee0fa2aedf60adaa787115b327ed7210474d7059350112"
+  bootstrap_hash = "b8472be5d3c0f1d1fab5a498c9b7972a0651d175bebe45db8d549f51caa1dd39"
   helmfile_hash  = "76d23b0be6090964c3fdaee9fc71db5c69a05a6898bc852766bd73a4e6e1235b"
 }
 resource "terraform_data" "sleep" {

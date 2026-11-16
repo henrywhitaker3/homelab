@@ -141,7 +141,7 @@ netbird_policies = {
       action               = "accept"
       protocol             = "udp"
       ports                = [53]
-      sources              = ["All"]
+      sources              = ["jump", "devices"]
       destination_resource = "adguard-1"
     }
   }
@@ -152,7 +152,7 @@ netbird_policies = {
       action               = "accept"
       protocol             = "udp"
       ports                = [53]
-      sources              = ["All"]
+      sources              = ["jump", "devices"]
       destination_resource = "adguard-2"
     }
   }
