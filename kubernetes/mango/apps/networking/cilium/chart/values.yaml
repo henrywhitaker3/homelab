@@ -27,6 +27,12 @@ socketLB:
   hostNamespaceOnly: true
 hubble:
   enabled: true
+  export:
+    static:
+      enabled: true
+      filePath: stdout
+      allowList:
+        - '{"verdict":["DROPPED","ERROR"]}'
   metrics:
     dashboards:
       enabled: true
