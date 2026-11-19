@@ -85,6 +85,14 @@ locals {
     {
       name = "AdGuard Default Blocklist",
       url  = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt"
-    }
+    },
+    {
+      name = "OISD Big"
+      url  = "https://big.oisd.nl"
+    },
+    {
+      name = "hagezi pro"
+      url  = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt"
+    },
   ]
 }

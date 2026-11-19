@@ -17,6 +17,7 @@ resource "adguard_config" "config" {
 
   dns = {
     upstream_dns  = var.upstream_dns
+    upstream_mode = var.upstream_mode
     bootstrap_dns = var.bootstrap_dns
     rate_limit    = var.dns_rate_limit
   }

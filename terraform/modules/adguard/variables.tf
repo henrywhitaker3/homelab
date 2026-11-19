@@ -71,6 +71,16 @@ variable "upstream_dns" {
   default = []
 }
 
+variable "upstream_mode" {
+  type    = string
+  default = "parallel"
+
+  validation {
+    condition     = contains(["load_balance", "parallel", "fastest_addr"], var.upstream_mode)
+    error_message = "Must provide valid upstream mode"
+  }
+}
+
 variable "bootstrap_dns" {
   type    = list(string)
   default = []
