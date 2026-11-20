@@ -111,10 +111,10 @@ resource "proxmox_vm_qemu" "this" {
       cpus = 7
       disks = {
         longhorn = {
-          size = "500Gi"
+          size = "200Gi"
         }
         openebs = {
-          size = "100Gi"
+          size = "80Gi"
         }
       }
       ip     = "10.0.0.30"
@@ -425,14 +425,14 @@ EOT
       longhorn = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/longhorn"
-        selector   = "disk.size == 500u * GiB && !system_disk"
-        size       = "500Gi"
+        selector   = "disk.size == 200u * GiB && !system_disk"
+        size       = "200Gi"
       }
       openebs = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/openebs"
-        selector   = "disk.size == 100u * GiB && !system_disk"
-        size       = "100Gi"
+        selector   = "disk.size == 80u * GiB && !system_disk"
+        size       = "80Gi"
       }
       } : yamlencode({
         apiVersion = "v1alpha1"

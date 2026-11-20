@@ -3,7 +3,6 @@
 output "vms" {
   value = {
     adguard = module.adguard.this
-    dev     = module.dev.this
   }
 }
 output "digitalocean_vms" {

@@ -42,10 +42,10 @@ globals "talos" {
       ip     = "10.0.0.30"
       disks = {
         longhorn = {
-          size = "500Gi"
+          size = "200Gi"
         }
         openebs = {
-          size = "100Gi"
+          size = "80Gi"
         }
       }
       pci_devices = [

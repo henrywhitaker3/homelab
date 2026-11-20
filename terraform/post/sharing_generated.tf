@@ -3,9 +3,6 @@
 variable "adguard_info" {
   type = any
 }
-variable "dev_info" {
-  type = any
-}
 variable "digitalocean_vms" {
   type = any
 }
