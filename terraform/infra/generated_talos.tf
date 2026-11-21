@@ -111,10 +111,10 @@ resource "proxmox_vm_qemu" "this" {
       cpus = 7
       disks = {
         longhorn = {
-          size = "200Gi"
+          size = "500Gi"
         }
         openebs = {
-          size = "80Gi"
+          size = "100Gi"
         }
       }
       ip     = "10.0.0.30"
@@ -425,14 +425,14 @@ EOT
       longhorn = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/longhorn"
-        selector   = "disk.size == 200u * GiB && !system_disk"
-        size       = "200Gi"
+        selector   = "disk.size == 500u * GiB && !system_disk"
+        size       = "500Gi"
       }
       openebs = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/openebs"
-        selector   = "disk.size == 80u * GiB && !system_disk"
-        size       = "80Gi"
+        selector   = "disk.size == 100u * GiB && !system_disk"
+        size       = "100Gi"
       }
       } : yamlencode({
         apiVersion = "v1alpha1"
@@ -1020,13 +1020,13 @@ EOT
         filesystem = "ext4"
         mountpoint = "/var/mnt/longhorn"
         selector   = "disk.transport == \"nvme\" && !system_disk"
-        size       = "150Gi"
+        size       = "320Gi"
       }
       openebs = {
         filesystem = "ext4"
         mountpoint = "/var/mnt/openebs"
         selector   = "disk.transport == \"nvme\" && !system_disk"
-        size       = "60Gi"
+        size       = "100Gi"
       }
       } : yamlencode({
         apiVersion = "v1alpha1"
@@ -1200,7 +1200,7 @@ resource "talos_cluster" "this" {
   node               = "10.0.0.30"
 }
 locals {
-  bootstrap_hash = "8b7e4e1b2042fd20e080c8baf70c06a7ae6969784cc0938f99ef28c8fa2587ea"
+  bootstrap_hash = "ec3fdb878514d719397244c12216b29f54450040ff3852315eadfd6cfa7cf3b6"
   helmfile_hash  = "38364b25dc1ae01bd53aa2e9c91ecaad3908b88f418bcaa10c0bbffb92c40522"
 }
 resource "terraform_data" "sleep" {

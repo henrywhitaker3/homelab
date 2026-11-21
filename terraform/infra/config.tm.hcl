@@ -42,10 +42,10 @@ globals "talos" {
       ip     = "10.0.0.30"
       disks = {
         longhorn = {
-          size = "200Gi"
+          size = "500Gi"
         }
         openebs = {
-          size = "80Gi"
+          size = "100Gi"
         }
       }
       pci_devices = [
@@ -95,11 +95,11 @@ globals "talos" {
       ]
       disks = {
         longhorn = {
-          size          = "150Gi"
+          size          = "320Gi"
           disk_selector = "disk.transport == \"nvme\" && !system_disk"
         }
         openebs = {
-          size          = "60Gi"
+          size          = "100Gi"
           disk_selector = "disk.transport == \"nvme\" && !system_disk"
         }
       }
