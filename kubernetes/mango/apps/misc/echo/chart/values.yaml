@@ -11,6 +11,10 @@ generic:
   service:
     port: 8080
 
+  env:
+    - name: HTTP_PORT
+      value: "8080"
+
   httpRoute:
     enabled: true
     hostnames: [echo.plexmox.com]
