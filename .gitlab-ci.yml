@@ -4,7 +4,7 @@ stages:
   - deploy
   - renovate
 
-image: ghcr.io/henrywhitaker3/containers/pipelines:v1.3.0
+image: ghcr.io/henrywhitaker3/containers/pipelines:v1.3.1
 
 ##############
 # Kubernetes #
