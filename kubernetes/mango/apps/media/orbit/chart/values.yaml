@@ -116,6 +116,8 @@ generic:
   volumeMounts:
     - mountPath: /books
       name: books
+    - mountPath: /audiobooks
+      name: audibooks
     - mountPath: /bookdrop
       name: bookdrop
 
