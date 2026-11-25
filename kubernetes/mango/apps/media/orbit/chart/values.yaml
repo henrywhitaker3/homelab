@@ -117,7 +117,7 @@ generic:
     - mountPath: /books
       name: books
     - mountPath: /audiobooks
-      name: audibooks
+      name: audiobooks
     - mountPath: /bookdrop
       name: bookdrop
 
