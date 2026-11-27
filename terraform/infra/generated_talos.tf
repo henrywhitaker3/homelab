@@ -12,7 +12,7 @@ data "talos_image_factory_extensions_versions" "this" {
       "siderolabs/util-linux-tools",
     ]
   }
-  talos_version = "v1.14.6"
+  talos_version = "v1.14.7"
 }
 resource "talos_image_factory_schematic" "this" {
   schematic = yamlencode({
@@ -26,7 +26,7 @@ resource "talos_image_factory_schematic" "this" {
 data "talos_image_factory_urls" "this" {
   platform      = "nocloud"
   schematic_id  = talos_image_factory_schematic.this.id
-  talos_version = "v1.14.6"
+  talos_version = "v1.14.7"
 }
 data "talos_image_factory_extensions_versions" "node" {
   filters = {
@@ -69,7 +69,7 @@ data "talos_image_factory_extensions_versions" "node" {
       "siderolabs/util-linux-tools",
     ]
   }
-  talos_version = "v1.14.6"
+  talos_version = "v1.14.7"
 }
 resource "talos_image_factory_schematic" "node" {
   for_each = data.talos_image_factory_extensions_versions.node
@@ -85,10 +85,10 @@ data "talos_image_factory_urls" "node" {
   for_each      = talos_image_factory_schematic.node
   platform      = "nocloud"
   schematic_id  = each.value.id
-  talos_version = "v1.14.6"
+  talos_version = "v1.14.7"
 }
 resource "proxmox_storage_iso" "this" {
-  filename = "talos-mango-${talos_image_factory_schematic.this.id}-v1.14.6.iso"
+  filename = "talos-mango-${talos_image_factory_schematic.this.id}-v1.14.7.iso"
   for_each = toset([
     "proxmox-01",
     "proxmox-02",
@@ -247,7 +247,7 @@ resource "proxmox_vm_qemu" "this" {
   }
 }
 resource "talos_machine_secrets" "this" {
-  talos_version = "v1.14.6"
+  talos_version = "v1.14.7"
 }
 data "talos_client_configuration" "this" {
   client_configuration = talos_machine_secrets.this.client_configuration
@@ -521,10 +521,10 @@ EOT
       }
     }),
   ])
-  kubernetes_version = "v1.37.2"
+  kubernetes_version = "v1.37.3"
   machine_secrets    = talos_machine_secrets.this.machine_secrets
   machine_type       = "controlplane"
-  talos_version      = "v1.14.6"
+  talos_version      = "v1.14.7"
 }
 data "talos_machine_configuration" "node_control-2" {
   cluster_endpoint = "https://10.0.0.8:6443"
@@ -719,10 +719,10 @@ EOT
       }
     }),
   ])
-  kubernetes_version = "v1.37.2"
+  kubernetes_version = "v1.37.3"
   machine_secrets    = talos_machine_secrets.this.machine_secrets
   machine_type       = "controlplane"
-  talos_version      = "v1.14.6"
+  talos_version      = "v1.14.7"
 }
 data "talos_machine_configuration" "node_control-3" {
   cluster_endpoint = "https://10.0.0.8:6443"
@@ -917,10 +917,10 @@ EOT
       }
     }),
   ])
-  kubernetes_version = "v1.37.2"
+  kubernetes_version = "v1.37.3"
   machine_secrets    = talos_machine_secrets.this.machine_secrets
   machine_type       = "controlplane"
-  talos_version      = "v1.14.6"
+  talos_version      = "v1.14.7"
 }
 data "talos_machine_configuration" "node_worker-1" {
   cluster_endpoint = "https://10.0.0.8:6443"
@@ -1115,10 +1115,10 @@ EOT
       }
     }),
   ])
-  kubernetes_version = "v1.37.2"
+  kubernetes_version = "v1.37.3"
   machine_secrets    = talos_machine_secrets.this.machine_secrets
   machine_type       = "worker"
-  talos_version      = "v1.14.6"
+  talos_version      = "v1.14.7"
 }
 resource "talos_machine" "node_control-1" {
   client_configuration = talos_machine_secrets.this.client_configuration
@@ -1196,11 +1196,11 @@ resource "talos_cluster" "this" {
     talos_machine.node_control-3,
     talos_machine.node_worker-1,
   ]
-  kubernetes_version = "v1.37.2"
+  kubernetes_version = "v1.37.3"
   node               = "10.0.0.30"
 }
 locals {
-  bootstrap_hash = "9d17f2b613be5b410d8b5444e2a03ae3f8790586c38a3c4aed4249deeebe6ce5"
+  bootstrap_hash = "7f27a4b131674868772e308b14dd52f032edab690b265b283b14c5de89b4712b"
   helmfile_hash  = "6937a3de8f822dfc18c6ec79c92c961ae805e784b937ee70938c2565bf29dac1"
 }
 resource "terraform_data" "sleep" {

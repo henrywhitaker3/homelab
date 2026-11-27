@@ -66,8 +66,9 @@ oidc_clients = {
     ]
   }
   "bookorbit" = {
-    name = "Bookorbit"
-    url  = "https://books.plexmox.com"
+    name           = "Bookorbit"
+    url            = "https://books.plexmox.com"
+    allowed_groups = ["bookorbit", "admin"]
     callback_urls = [
       "https://books.plexmox.com/oauth2-callback"
     ]
