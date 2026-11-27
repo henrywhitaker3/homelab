@@ -65,6 +65,34 @@ generic:
         secretKeyRef:
           name: speedtest-secrets
           key: test-server
+    - name: WEATHER_ENABLED
+      value: "true"
+    - name: WEATHER_PROVIDER
+      value: openweathermap
+    - name: WEATHER_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: openweathermap-token
+    - name: WEATHER_LON
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: weather-longitude
+    - name: WEATHER_LAT
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: weather-latitude
+    - name: WEATHER_HISTORICAL_ENABLED
+      value: "true"
+    - name: WEATHER_HISTORICAL_PROVIDER
+      value: apifreaks
+    - name: WEATHER_HISTORICAL_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: speedtest-secrets
+          key: apifreaks-token
 
   additionalPorts:
     - name: metrics
